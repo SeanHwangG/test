@@ -1,0 +1,191 @@
+> hackerrank
+
+* [Level Easy : Day 0: Mean, Median, and Mode](https://www.hackerrank.com/challenges/s10-basic-statistics/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/statistic/HR_s10-basic-statistics.md/)
+
+{% tabs %}
+{% tab title='HR_s10-basic-statistics.md' %}
+
+> Question
+
+* Print mean median mode of followings
+
+```txt
+Input:
+10
+64630 11735 14216 99233 14470 4978 73429 38120 51135 67060
+
+Output:
+43900.6
+44627.5
+4978
+```
+
+{% endtab %}
+{% tab title='HR_s10-basic-statistics.py' %}
+
+```py
+import numpy as np
+from scipy import stats
+
+size = int(input())
+numbers = list(map(int, input().split()))
+print(np.mean(numbers))
+print(np.median(numbers))
+print(int(stats.mode(numbers)[0]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Day 1: Interquartile Range](https://www.hackerrank.com/challenges/s10-interquartile-range/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/statistic/HR_s10-interquartile-range.md/)
+
+{% tabs %}
+{% tab title='HR_s10-interquartile-range.md' %}
+
+> Question
+
+* Given values and frequencies print quratile Q1-Q3 range
+
+```txt
+Input:
+6
+6 12 8 10 20 16
+5 4 3 2 1 5
+
+Output: 9.0
+```
+
+{% endtab %}
+{% tab title='HR_s10-interquartile-range.py' %}
+
+```py
+import statistics as st
+n = int(input())
+X = list(map(int, input().split()))
+F = list(map(int, input().split()))
+
+S = list(sorted(X[i] for i in range(n) for _ in range(F[i])))
+
+n = len(S)
+n2 = int(n/2)
+print(round(float(st.median(S[-n2:])-st.median(S[:n2])),1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Day 1: Quartiles](https://www.hackerrank.com/challenges/s10-quartiles/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/statistic/HR_s10-quartiles.md/)
+
+{% tabs %}
+{% tab title='HR_s10-quartiles.md' %}
+
+> Question
+
+* Print quartile Q1, Q2, Q3
+
+```txt
+Input:
+9
+3 7 8 5 12 14 21 13 18
+
+Output:
+6
+12
+16
+```
+
+{% endtab %}
+{% tab title='HR_s10-quartiles.py' %}
+
+```py
+from statistics import median
+input()
+arr= list(sorted(map(int, input().split())))
+t = int(len(arr) / 2)
+if len(arr) % 2==0:
+  L = arr[:t]
+  U = arr[t:]
+else:
+  L = arr[:t]
+  U = arr[t+1:]
+
+print(int(median(L)))
+print(int(median(arr)))
+print(int(median(U)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Day 1: Standard Deviation](https://www.hackerrank.com/challenges/s10-standard-deviation/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/statistic/HR_s10-standard-deviation.md/)
+
+{% tabs %}
+{% tab title='HR_s10-standard-deviation.md' %}
+
+> Question
+
+* Print standard deviation of given array up to 1st decimal
+
+```txt
+Input:
+5
+10 40 30 50 20
+
+Output: 14.1
+```
+
+{% endtab %}
+{% tab title='HR_s10-standard-deviation.py' %}
+
+```py
+import statistics as stats
+
+N = int(input())
+X = list(map(int, input().split()))
+
+print(f"{stats.pstdev(X):.1f}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Day 0: Weighted Mean](https://www.hackerrank.com/challenges/s10-weighted-mean/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/statistic/HR_s10-weighted-mean.md/)
+
+{% tabs %}
+{% tab title='HR_s10-weighted-mean.md' %}
+
+> Question
+
+* Given values and weights, printed weighted mean
+
+```txt
+Input:
+5
+10 40 30 50 20
+1 2 3 4 5
+
+Output: 32.0
+```
+
+{% endtab %}
+{% tab title='HR_s10-weighted-mean.py' %}
+
+```py
+size = int(input())
+numbers = list(map(int, input().split()))
+weighted = list(map(int, input().split()))
+
+sum_items = 0
+for i in range(size):
+  sum_items = sum_items + (numbers[i] * weighted[i])
+
+print(round(sum_items / sum(weighted), 1))
+```
+
+{% endtab %}
+{% endtabs %}

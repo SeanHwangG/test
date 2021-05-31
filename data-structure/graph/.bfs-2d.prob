@@ -1,0 +1,642 @@
+> baekjoon
+
+* [Level 10 : 안전 영역](https://www.acmicpc.net/problem/2468)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_2468.md/)
+
+{% tabs %}
+{% tab title='BJ_2468.md' %}
+
+> Question
+
+* Find maximum number of island after all node smaller than some N are deleted
+
+```txt
+Input:
+5
+6 8 2 6 2
+3 2 3 4 6
+6 7 3 3 2
+7 2 5 3 6
+8 9 5 2 7
+
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_2468.py' %}
+
+```py
+n = int(input())
+G = [[*map(int,input().split())] for i in[0]*n]
+l = []
+def bfs(i,j):
+  q = [(i,j)]
+  while q:
+    i, j = q.pop()
+    g[i][j] = 0
+    for i, j in [(i + 1, j),(i - 1, j),(i, j + 1),(i, j - 1)]:
+      if i > -1 and i < n and j > -1 and j < n and g[i][j]:
+        q += [[i, j]]
+m = 1
+for t in range(1 + max(map(max,G))):
+  g = [[i > t for i in v]for v in G]
+  c=0
+  for i in range(n):
+    while any(g[i]):
+      bfs(i, g[i].index(True))
+      c += 1
+  m = max(m, c)
+print(m)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 영역 구하기](https://www.acmicpc.net/problem/2583)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_2583.md/)
+
+{% tabs %}
+{% tab title='BJ_2583.md' %}
+
+> Question
+
+* Find area of each blank region
+  ![BJ_2583](bfs-2d/images/20210316_002417.png)
+
+```txt
+Input:
+5 7 3
+0 2 4 4
+1 1 2 5
+4 0 6 2
+
+Output:
+3
+1 7 13
+```
+
+{% endtab %}
+{% tab title='BJ_2583.py' %}
+
+```py
+m, n, k = map(int, input().split())
+G = [[0] * n for i in range(m)]
+cnt = []
+for i in range(k):
+  x1, y1, x2, y2 = map(int, input().split())
+  for j in range(y1, y2):
+    for k in range(x1, x2):
+      G[j][k] = 1
+for i in range(m):
+  for j in range(n):
+    if G[i][j] == 0:
+      count = G[i][j] = 1
+      queue = [[i, j]]
+      while queue:
+        x, y = queue.pop(0)
+        for x1, y1 in [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]:
+          if 0 <= x1 < m and 0 <= y1 < n and G[x1][y1] == 0:
+            G[x1][y1] = 1
+            count += 1
+            queue.append([x1, y1])
+      cnt.append(count)
+print(len(cnt))
+for i in sorted(cnt):
+  print(i, end=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 토마토](https://www.acmicpc.net/problem/7576)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_7576.md/)
+
+{% tabs %}
+{% tab title='BJ_7576.md' %}
+
+> Question
+
+* -1 is wall 0 is regular tomato, 1 is rotten tomato
+* The minimum date until the tomatoes are fully cooked shall be printed
+* If all tomatoes are cooked from time they are stored, a zero should be printed, or -1 if tomatoes are not cooked
+
+```txt
+Input:
+6 4
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 1
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_7576.py' %}
+
+```py
+from itertools import chain
+from collections import deque
+def bfs(G, rottens):
+  dq = deque(rottens)
+  while dq:
+    for _ in range(len(dq)):
+      r, c = dq.popleft()
+      for nr, nc in [(r + 1, c),(r, c + 1),(r - 1, c),(r, c - 1)]:
+        if 0 <= nr < len(G) and 0 <= nc < len(G[0]) and G[nr][nc] == 0:
+          G[nr][nc] = G[r][c] + 1
+          dq.append([nr, nc])
+  return -1 if 0 in chain(*G) else max(chain(*G)) - 1
+M, N = map(int, input().split())
+G = [list(map(int, input().split())) for _ in range(N)]
+rottens = []
+for i in range(N):
+  for j in range(M):
+    if G[i][j] == 1:
+      rottens.append((i, j))
+
+print(bfs(G, rottens))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 연구소](https://www.acmicpc.net/problem/14502)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_14502.md/)
+
+{% tabs %}
+{% tab title='BJ_14502.md' %}
+
+> Question
+
+* 0 is blank, 1 is wall, 2 is virus
+* Print maximum safe area after creating 3 new walls
+
+```txt
+Input:
+7 7
+2 0 0 0 1 1 0
+0 0 1 0 1 2 0
+0 1 1 0 1 0 0
+0 1 0 0 0 0 0
+0 0 0 0 0 1 1
+0 1 0 0 0 0 0
+0 1 0 0 0 0 0
+
+Output: 27
+```
+
+{% endtab %}
+{% tab title='BJ_14502.py' %}
+
+```py
+import copy
+from collections import deque
+from itertools import combinations, chain
+def bfs(G, r, c):
+  dq = deque()
+  for r in range(len(G)):
+    for c in range(len(G[0])):
+      if G[r][c] == 2:
+        dq.append((r, c))
+  while dq:
+    r, c = dq.popleft()
+    for nr, nc in [(r + 1, c), (r, c + 1), (r - 1, c), (r, c - 1)]:
+      if 0 <= nr < n and 0 <= nc < m:
+        if G[nr][nc] == 0:
+          G[nr][nc] = 2
+          dq.append((nr, nc))
+  return list(chain(*G)).count(0)
+n, m = map(int, input().split())
+G = [list(map(int, input().split())) for _ in range(n)]
+blanks = []
+for r in range(n):
+  for c in range(m):
+    if G[r][c] == 0:
+      blanks.append((r, c))
+
+ret = 0
+for walls in combinations(blanks, 3):
+  new_G = copy.deepcopy(G)
+  for r, c in walls:
+    new_G[r][c] = 1
+  ret = max(ret, bfs(new_G, r, c))
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 연구소 2](https://www.acmicpc.net/problem/17141)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_17141.md/)
+
+{% tabs %}
+{% tab title='BJ_17141.md' %}
+
+> Question
+
+* 0 is blank, 1 is wall, 2 is virus
+* Find minimum time when virus spread to all area
+
+```txt
+Input:
+7 3
+2 0 0 0 1 1 0
+0 0 1 0 1 2 0
+0 1 1 0 1 0 0
+0 1 0 0 0 0 0
+0 0 0 2 0 1 1
+0 1 0 0 0 0 0
+2 1 0 0 0 0 2
+
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_17141.py' %}
+
+```py
+from copy import deepcopy
+from collections import deque
+from itertools import combinations
+def bfs(G, virs):
+  visited, dq = set(virs), deque([(*vir, 0) for vir in virs])
+  last_change = 0
+  while dq:
+    r, c, cnt = dq.popleft()
+    G[r][c] = 1
+    for nr, nc in [(r + 1, c), (r, c + 1), (r - 1, c), (r, c - 1)]:
+      if 0 <= nr < len(G) and 0 <= nc < len(G) and (nr, nc) not in visited and G[nr][nc] != 1:
+        visited.add((nr, nc))
+        last_change = cnt + 1
+        dq.append((nr, nc, cnt + 1))
+  return last_change if sum([li.count(1) for li in G]) == len(G) ** 2 else float('inf')
+n, m = map(int, input().split())
+G = [list(map(int, input().split())) for _ in range(n)]
+virs = [(r, c) for r in range(n) for c in range(n) if G[r][c] == 2]
+result = float('inf')
+for selects in combinations(virs, m):
+  result = min(result, bfs(deepcopy(G), selects))
+print(-1 if result == float('inf') else result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 치즈](https://www.acmicpc.net/problem/2636)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_2636.md/)
+
+{% tabs %}
+{% tab title='BJ_2636.md' %}
+
+> Question
+
+![BJ_2636](bfs-2d/images/20210306_001142.png)
+
+* Print time it takes to melt all cheese, right before last melt
+
+```txt
+Input:
+13 12
+0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 1 1 0 0 0
+0 1 1 1 0 0 0 1 1 0 0 0
+0 1 1 1 1 1 1 0 0 0 0 0
+0 1 1 1 1 1 0 1 1 0 0 0
+0 1 1 1 1 0 0 1 1 0 0 0
+0 0 1 1 0 0 0 1 1 0 0 0
+0 0 1 1 1 1 1 1 1 0 0 0
+0 0 1 1 1 1 1 1 1 0 0 0
+0 0 1 1 1 1 1 1 1 0 0 0
+0 0 1 1 1 1 1 1 1 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0
+
+Output:
+3
+5
+```
+
+{% endtab %}
+{% tab title='BJ_2636.py' %}
+
+```py
+from copy import deepcopy
+import collections
+def bfs(G):
+  dq, air = collections.deque([(0, 0)]), set([(0, 0)])
+  while dq:
+    r, c = dq.popleft()
+    for nr, nc in [(r,c-1),(r,c+1),(r-1,c),(r+1,c)]:
+      if 0 <= nr < len(G) and 0 <= nc < len(G[0]) and G[nr][nc] == 0 and (nr, nc) not in air:
+        dq.append((nr, nc))
+        air.add((nr, nc))
+  return air
+N, M = map(int, input().split())
+G = [[0] * (M + 2)] + [[0] + list(map(int, input().split())) + [0] for _ in range(N)] + [[0] * (M + 2)]
+cheeses = set([(r, c) for r in range(N + 2) for c in range(M + 2) if G[r][c] == 1])
+count = 0
+while len(cheeses):
+  count += 1
+  n_cheese = len(cheeses)
+  air = bfs(G)
+
+  for r, c in deepcopy(cheeses):
+    if {(r + 1, c), (r - 1, c), (r, c - 1), (r, c + 1)} & air:
+      G[r][c] = 0
+      cheeses.remove((r, c))
+
+print(count)
+print(n_cheese)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 연구소 3](https://www.acmicpc.net/problem/17142)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_17142.md/)
+
+{% tabs %}
+{% tab title='BJ_17142.md' %}
+
+> Question
+
+* Walls are -, inactive viruses are *, active viruses are 0,
+* Given the state of the lab, find the minimum time to spread the virus in all blanks
+
+```txt
+Input:
+7 3
+2 0 0 0 1 1 0
+0 0 1 0 1 2 0
+0 1 1 0 1 0 0
+0 1 0 0 0 0 0
+0 0 0 2 0 1 1
+0 1 0 0 0 0 0
+2 1 0 0 0 0 2
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_17142.py' %}
+
+```py
+from copy import deepcopy
+from collections import deque
+from itertools import combinations
+def bfs(G, virs):
+  visited, dq = set(), deque([(*vir, 0) for vir in virs])
+  last_change = 0
+  while dq:
+    r, c, cnt = dq.popleft()
+    for nr, nc in [(r + 1, c), (r, c + 1), (r - 1, c), (r, c - 1)]:
+      if 0 <= nr < len(G) and 0 <= nc < len(G) and (nr, nc) not in visited and G[nr][nc] != 1:
+        visited.add((nr, nc))
+        if G[nr][nc] == 0:
+          G[nr][nc] = 2
+          last_change = cnt + 1
+        dq.append((nr, nc, cnt + 1))
+  return last_change if sum([li.count(0) for li in G]) == 0 else -1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 치즈](https://www.acmicpc.net/problem/2638)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_2638.md/)
+
+{% tabs %}
+{% tab title='BJ_2638.md' %}
+
+> Question
+
+* Given outmost chess melt every second, find total number of seconds before cheese disappears
+
+```txt
+Input:
+8 9
+0 0 0 0 0 0 0 0 0
+0 0 0 1 1 0 0 0 0
+0 0 0 1 1 0 1 1 0
+0 0 1 1 1 1 1 1 0
+0 0 1 1 1 1 1 0 0
+0 0 1 1 0 1 1 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_2638.py' %}
+
+```py
+M, N = map(int,input().split())
+B = [list(map(int,input().split())) for _ in range(M)]
+S, h = sum(sum(B[i]) for i in range(M)), 0
+
+def bfs():
+  vst = [[0] * N for _ in range(M)]
+  vst[0][0] = 1
+  q = [(0,0)]
+  stack = []
+  for x, y in q:
+    for xx, yy in [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]:
+      if 0 <= xx < N and 0 <= yy < M:
+        if B[yy][xx] == 1:
+          vst[yy][xx] += 1
+          if vst[yy][xx] == 2:
+            stack.append((xx,yy))
+        elif not vst[yy][xx]:
+          vst[yy][xx] = 1
+          q.append((xx,yy))
+  ret = len(stack)
+  for x, y in stack: B[y][x] = 0
+  return ret
+
+while S:
+  h += 1
+  S -= bfs()
+
+print(h)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 다리 만들기](https://www.acmicpc.net/problem/2146)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/BJ_2146.md/)
+
+{% tabs %}
+{% tab title='BJ_2146.md' %}
+
+> Question
+
+![BJ_2146](bfs-2d/images/20210305_184846.png)
+
+* Print length of shortest bridge
+
+```txt
+Input:
+10
+1 1 1 0 0 0 0 1 1 1
+1 1 1 1 0 0 0 0 1 1
+1 0 1 1 0 0 0 0 1 1
+0 0 1 1 1 0 0 0 0 1
+0 0 0 1 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 1 1 0 0 0 0
+0 0 0 0 1 1 1 0 0 0
+0 0 0 0 0 0 0 0 0 0
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2146.py' %}
+
+```py
+import sys
+from collections import deque
+input = sys.stdin.readline
+def floodfill(G, i, j, gid):
+  q = deque([(i, j)])
+  G[i][j] = gid
+  while q:
+    r, c = q.popleft()
+    for nr, nc in [(r + 1, c), (r, c + 1), (r - 1, c), (r, c - 1)]:
+      if 0 <= nr < len(G) and 0 <= nc < len(G) and G[nr][nc] == 1:
+        G[nr][nc] = gid
+        q.append((nr, nc))
+def get_distance(G):
+  loop = 0
+  dq = deque([(r, c) for r in range(len(G)) for c in range(len(G)) if G[r][c] != 0])
+  while dq:
+    loop += 1
+    for _ in range(len(dq)):
+      r, c = dq.popleft()
+      for nr, nc in [(r + 1, c), (r, c + 1), (r - 1, c), (r, c - 1)]:
+        if 0 <= nr < len(G) and 0 <= nc < len(G):
+          if G[nr][nc] == 0:
+            G[nr][nc] = G[r][c]
+            dq.append((nr, nc))
+          elif G[nr][nc] < G[r][c]:
+            return loop * 2 - 2
+          elif G[nr][nc] > G[r][c]:
+            return loop * 2 - 1
+n = int(input())
+G = [list(map(int, input().split())) for _ in range(n)]
+gid = -1
+for i in range(len(G)):
+  for j in range(len(G)):
+    if G[i][j] > 0:
+      floodfill(G, i, j, gid)
+      gid -= 1
+print(get_distance(G))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/LC_417.md/)
+
+{% tabs %}
+{% tab title='LC_417.md' %}
+
+> Question
+
+* Given G with m x n, Pacific touches continent's left / top edges, and Atlantic touches continent's right / bottom edges
+* Water can only flow in four directions: up, down, left,  right, from a cell to an adjacent one with an equal or lower height
+* Return a list of grid coordinates where water can flow to both the Pacific and Atlantic oceans
+
+```txt
+Input:
+heights =
+[[1,2,2,3,5],
+ [3,2,3,4,4],
+ [2,4,5,3,1],
+ [6,7,1,4,5],
+ [5,1,1,2,4]]
+
+Output: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
+```
+
+{% endtab %}
+{% tab title='LC_417.py' %}
+
+```py
+def pacificAtlantic(self, G):
+  if not G: return []
+  m, n = len(G), len(G[0])
+  def bfs(ocean):
+    q = collections.deque(ocean)
+    while q:
+      r, c = q.popleft()
+      for (nr, nc) in [(nr, nc + 1), (nr, nc - 1), (nr + 1, nc), (nr - 1, nc)]:
+        if 0 <= nr < m and 0 <= nc < n and (nr, nc) not in ocean and G[nr][nc] >= G[c][r]:
+          q.append( (di+i,dj+j) )
+          ocean.add( (di+i, dj+j) )
+    return ocean
+  pacific = set([(i, 0) for i in range(m)] + [(0, j) for j in range(1, n)])
+  atlantic = set([(i, n-1) for i in range(m)] + [(m - 1, j) for j in range(n - 1)])
+  return list( bfs(pacific) & bfs(atlantic) )
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 01 Matrix](https://leetcode.com/problems/01-matrix)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d/LC_542.md/)
+
+{% tabs %}
+{% tab title='LC_542.md' %}
+
+> Question
+
+* Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell
+* The distance between two adjacent cells is 1
+
+```txt
+Input:
+mat =
+[[0,0,0],
+ [0,1,0],
+ [0,0,0]]
+
+Output:
+[[0,0,0],
+ [0,1,0],
+ [0,0,0]]
+```
+
+{% endtab %}
+{% tab title='LC_542.py' %}
+
+```py
+from collections import deque
+class Solution:
+  def updateMatrix(self, G):
+    visited = set()
+    q = deque()
+    for i in range(len(G)):
+      for j in range(len(G[0])):
+        if G[i][j] == 0:
+          visited.add((i,j))
+          q.append((i,j))
+    while q:
+      r, c = q.popleft()
+      for nr, nc in [(r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1)]:
+        if 0 <= nr < len(G) and 0 <= nc < len(G[0]) and (nr, nc) not in visited:
+          G[nr][nc] = G[r][c] + 1
+          visited.add((nr, nc))
+          q.append((nr, nc))
+    return G
+```
+
+{% endtab %}
+{% endtabs %}

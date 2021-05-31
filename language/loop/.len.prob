@@ -1,0 +1,327 @@
+> baekjoon
+
+* [Level 2 : 베시와 데이지](https://www.acmicpc.net/problem/16431)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/len/BJ_16431.md/)
+
+{% tabs %}
+{% tab title='BJ_16431.md' %}
+
+> Question
+
+![BJ_16431](len/images/20210301_211735.png)
+
+* Print who can go to destination first
+
+```txt
+Input:
+3 5
+1 1
+2 3
+
+Output: bessie
+```
+
+{% endtab %}
+{% tab title='BJ_16431.py' %}
+
+```py
+a, b = map(int, input().split())
+c, d = map(int, input().split())
+e, f = map(int, input().split())
+x = max(abs(e - a), abs(f - b))
+y = abs(e - c) + abs(f - d)
+if x == y:
+  print('tie')
+elif x < y:
+  print('bessie')
+else:
+  print('daisy')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 사탕 선생 고창영](https://www.acmicpc.net/problem/2547)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/len/BJ_2547.md/)
+
+{% tabs %}
+{% tab title='BJ_2547.md' %}
+
+> Question
+
+* For each test case, print YES if the same candy can be distributed to everyone, and NO if not
+
+```txt
+Input:
+2
+
+5
+5
+2
+7
+3
+8
+
+6
+7
+11
+2
+7
+3
+4
+
+Output:
+YES
+NO
+```
+
+{% endtab %}
+{% tab title='BJ_2547.py' %}
+
+```py
+N = int(input())
+
+for _ in range(N):
+  input()
+  line = int(input())
+  li = [int(input()) for _ in range(line)]
+  print("YES" if sum(li) % len(li) == 0 else "NO")
+```
+
+{% endtab %}
+{% tab title='BJ_2547.v' %}
+
+```v
+module main;
+  logic clk, reset;
+  logic[76:0] students, candies;
+  logic result;
+
+  candy candy(.clk, .reset, .students, .candies, .result);
+
+  initial begin
+    integer code, t;
+    logic[76:0] i;
+
+    clk = 0;
+
+    for (code = $fscanf(32'h8000_0000, "%d", t); t>0; t--) begin
+      #1 reset = 1;
+      #1 reset = 0;
+      code = $fscanf(32'h8000_0000, "%d", students);
+      for (i=0; i<students; i++) begin
+        code = $fscanf(32'h8000_0000, "%d", candies);
+        #1 clk = 1;
+        #1 clk = 0;
+      end
+      $display("%0s", result ? "NO" : "YES");
+    end
+    $finish;
+  end
+endmodule
+
+module candy(
+  input logic clk, reset,
+
+  input logic[76:0] students, candies,
+  output logic result
+);
+  logic[76:0] total_candies;
+
+  assign result = |(total_candies % students);
+
+  always_ff @(posedge clk, posedge reset) begin
+    if (reset) total_candies = '0;
+    else total_candies += candies;
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 단어의 개수](https://www.acmicpc.net/problem/1152)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/len/BJ_1152.md/)
+
+{% tabs %}
+{% tab title='BJ_1152.md' %}
+
+> Question
+
+* Print length of list
+
+```txt
+Input: The Curious Case of Benjamin Button
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_1152.java' %}
+
+```java
+import java.io.*;
+import java.util.StringTokenizer;
+
+class Main{
+  public static void main(String[] args) throws IOException {
+    StringTokenizer stb = new StringTokenizer(new BufferedReader(new InputStreamReader(System.in)).readLine(), " ");
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    bw.write(Integer.toString(stb.countTokens()));
+    bw.flush();
+    bw.close();
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1152.py' %}
+
+```py
+li = list(input().split())
+print(len(li))
+```
+
+{% endtab %}
+{% tab title='BJ_1152.sh' %}
+
+```sh
+read s
+s=($s)
+echo ${#s[@]}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 단어 길이 재기](https://www.acmicpc.net/problem/2743)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/len/BJ_2743.md/)
+
+{% tabs %}
+{% tab title='BJ_2743.md' %}
+
+> Question
+
+* Print length of string
+
+```txt
+Input: pulljima
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_2743.py' %}
+
+```py
+print(len(input()))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 평균](https://www.acmicpc.net/problem/1546)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/len/BJ_1546.md/)
+
+{% tabs %}
+{% tab title='BJ_1546.md' %}
+
+> Question
+
+* 자기 점수 중에 최댓값을 골랐다. 이 값을 M이라고 한다. 그리고 나서 모든 점수를 점수/M*100으로 고쳤다
+* 성적을 위의 방법대로 새로 계산했을 때, 새로운 평균을 구하는 프로그램을 작성하시오
+
+```txt
+Input:
+3
+40 80 60
+
+Output: 75.0
+```
+
+{% endtab %}
+{% tab title='BJ_1546.py' %}
+
+```py
+n = int(input())
+li = list(map(int, input().split()))
+print(sum(li) / max(li) * 100 / len(li))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Help a PhD candidate out!](https://open.kattis.com/problems/helpaphd)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/len/KT_helpaphd.md/)
+
+{% tabs %}
+{% tab title='KT_helpaphd.md' %}
+
+> Question
+
+* n개 줄의 a + b가 주어진다. 이 때 결과 값을 출력하라. 단 P=NP 가 주어질 때는 skipped를 출력하라
+
+```txt
+Input:
+4
+2+2
+1+2
+P=NP
+0+0
+
+Output:
+4
+3
+skipped
+0
+```
+
+{% endtab %}
+{% tab title='KT_helpaphd.py' %}
+
+```py
+n_test = int(input())
+for _ in range(n_test):
+  line = input()
+  if line == 'P=NP':
+    print('skipped')
+  else:
+    print(eval(line))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Quick Estimates](https://open.kattis.com/problems/quickestimate)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/len/KT_quickestimate.md/)
+
+{% tabs %}
+{% tab title='KT_quickestimate.md' %}
+
+> Question
+
+* 첫번째 줄에는 N이 그 다음 N 줄에는 x가 주어진다. 이때 각 줄마다 x의 자리수를 출력하라
+
+```txt
+Input:
+2
+sd
+a
+
+Output:
+2
+1
+```
+
+{% endtab %}
+{% tab title='KT_quickestimate.py' %}
+
+```py
+n_line = int(input())
+for _ in range(n_line):
+  x = input()
+  print(len(x))
+```
+
+{% endtab %}
+{% endtabs %}

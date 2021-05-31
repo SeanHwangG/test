@@ -1,0 +1,553 @@
+> baekjoon
+
+* [Level 9 : 트리의 부모 찾기](https://www.acmicpc.net/problem/11725)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/BJ_11725.md/)
+
+{% tabs %}
+{% tab title='BJ_11725.md' %}
+
+> Question
+
+* A rootless tree is given
+* At this time, when you set the root of the tree as 1, print the parents of each node
+
+```txt
+Input:
+7
+1 6
+6 3
+3 5
+4 1
+2 4
+4 7
+
+Output:
+4
+6
+1
+3
+1
+4
+```
+
+{% endtab %}
+{% tab title='BJ_11725.py' %}
+
+```py
+import sys
+sys.setrecursionlimit(10**9)
+def dfs(G, start, node2head):
+  for adj in sorted(G[start]):
+    if adj not in node2head:
+      node2head[adj] = start
+      dfs(G, adj, node2head)
+N = int(input())
+G = [[] for i in range(N+1)]
+for _ in range(N - 1):
+  a, b = map(int, input().split())
+  G[a].append(b)
+  G[b].append(a)
+node2head = {1 : 0}
+dfs(G, 1, node2head)
+for i in range(2, N + 1):
+  print(node2head[i])
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 트리](https://www.acmicpc.net/problem/1068)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/BJ_1068.md/)
+
+{% tabs %}
+{% tab title='BJ_1068.md' %}
+
+> Question
+
+* When a given node is erased from the tree, outputs the number of leaf nodes remaining
+
+```txt
+Input:
+5
+-1 0 0 1 1
+2
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1068.py' %}
+
+```py
+def dfs(v):
+  if len(G[v]) == 0:
+    return 1
+  else:
+    return sum(dfs(child) for child in G[v])
+
+n = int(input())
+G = [[] for _ in range(52)]
+li = list(map(int,input().split()))
+t = int(input())
+for v, parent in enumerate(li):
+  if parent == -1:
+    start = v
+  elif v != t:
+    G[parent].append(v)
+
+if start != t:
+  print(dfs(start))
+else :
+  print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 트리의 지름](https://www.acmicpc.net/problem/1967)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/BJ_1967.md/)
+
+{% tabs %}
+{% tab title='BJ_1967.md' %}
+
+> Question
+
+* Outputs the diameter of the weighted tree
+
+```txt
+Input:
+12
+1 2 3
+1 3 2
+2 4 5
+3 5 11
+3 6 9
+4 7 1
+4 8 7
+5 9 15
+5 10 4
+6 11 6
+6 12 10
+
+Output: 45
+```
+
+{% endtab %}
+{% tab title='BJ_1967.py' %}
+
+```py
+import sys
+from collections import deque
+input = sys.stdin.readline
+def bfs(G, x):
+  dq = deque([x])
+  dist = [-1 for _ in range(n)]
+  dist[x] = 0
+  while dq:
+    x = dq.popleft()
+    for w, nx in G[x]:
+      if dist[nx] == -1:
+        dist[nx] = dist[x] + w
+        dq.append(nx)
+  return max(dist), dist.index(max(dist))
+n = int(input())
+G = [[] for _ in range(n)]
+for i in range(n-1):
+  x, y, w = map(int, input().split())
+  G[x-1].append([w, y-1])
+  G[y-1].append([w, x-1])
+print(bfs(G, bfs(G, 0)[1])[0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 트리의 지름](https://www.acmicpc.net/problem/1167)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/BJ_1167.md/)
+
+{% tabs %}
+{% tab title='BJ_1167.md' %}
+
+> Question
+
+* Find diemteter of tree
+
+```txt
+Input:
+5
+1 3 2 -1
+2 4 4 -1
+3 1 2 4 3 -1
+4 2 4 3 3 5 6 -1
+5 4 6 -1
+
+Output: 11
+```
+
+> Solution
+
+* From random node x, find farthest point y
+* From poitn y, find farthest point z, then y-z is diameter
+
+* Proof by contradiction: u-v is greater than x-y
+
+* Case 1: x-y and u-v, share a point
+
+![Case 1](tree-nary/images/20210602_012050.png)
+
+* Case 2: x-y and u-v, doesn't share a point
+
+![Case 2](tree-nary/images/20210602_012336.png)
+
+{% endtab %}
+{% tab title='BJ_1167.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+def dfs(G, v, result):
+  for e, d in G[v]:
+    if result[e] == 0:
+      result[e] = result[v] + d
+      dfs(G, e, result)
+N = int(input())
+G = [[] for _ in range(N + 1)]
+for _ in range(N):
+  path = list(map(int, input().split()))
+  for i in range(1, len(path) - 2, 2):
+    G[path[0]].append([path[i], path[i + 1]])
+root2dist = [0 for _ in range(N + 1)]
+dfs(G, 1, root2dist)
+root2dist[1]=0
+index = root2dist.index(max(root2dist))
+leaf2dist = [0 for _ in range(N + 1)]
+dfs(G, index, leaf2dist)
+leaf2dist[index] = 0
+print(max(leaf2dist))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 뉴스 전하기](https://www.acmicpc.net/problem/1135)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/BJ_1135.md/)
+
+{% tabs %}
+{% tab title='BJ_1135.md' %}
+
+> Question
+
+* Each member listen news from their supervisor
+* Print minum number of time to spread news
+
+```txt
+Input:
+3
+-1 0 0
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1135.py' %}
+
+```py
+n = int(input())
+parent = list(map(int,input().split()))
+adj = [[] for i in range(n)]
+for i in range(1,n):
+  adj[parent[i]].append(i)
+
+def time(node):
+  if not adj[node]: return 0
+  subtime = sorted([time(i) for i in adj[node]], reverse = True)
+  return max(i+1+subtime[i] for i in range(len(adj[node])))
+
+print(time(0))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 두 번째 트리의 지름](https://www.acmicpc.net/problem/19581)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/BJ_19581.md/)
+
+{% tabs %}
+{% tab title='BJ_19581.md' %}
+
+> Question
+
+* Print second longest diameter of tree (might be same is first)
+
+```txt
+Input:
+3
+1 2 3
+2 3 4
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_19581.py' %}
+
+```py
+from collections import deque
+def bfs(adj, v):
+  dq = deque([v])
+  dist = [-1] * len(adj)
+  dist[v] = 0
+  while dq:
+    p = dq.popleft()
+    for q, c in adj[p]:
+      if dist[q] != -1: continue
+      dist[q] = dist[p] + c
+      dq.append(q)
+  return dist
+
+input = __import__('sys').stdin.readline
+n = int(input())
+adj = [[] for i in range(n+1)]
+for i in range(n-1):
+  a,b,c = map(int,input().split())
+  adj[a].append((b,c))
+  adj[b].append((a,c))
+
+D1 = bfs(adj, 1)
+v = D1.index(max(D1))
+D2 = bfs(adj, v)
+u = D2.index(max(D2))
+D3 = bfs(adj, u)
+print(sorted(D2 + D3)[-3])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 장애물 경기](https://www.acmicpc.net/problem/13303)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/BJ_13303.md/)
+
+{% tabs %}
+{% tab title='BJ_13303.md' %}
+
+> Question
+
+* Add block one by one and record y position
+  * if two have same y, pick smallest one
+* We can use BST to speed up insert and deletion
+
+```txt
+Input:
+4
+43 70
+30 10 38
+20 30 50
+45 35 55
+55 50 70
+
+Output:
+87
+1 50
+```
+
+{% endtab %}
+{% tab title='BJ_13303.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+#define long long long
+const long INF = 1e18;
+
+int n;
+int start_y, end_x;
+
+int main() {
+  scanf("%d %d %d", &n, &start_y, &end_x);
+  vector<tuple<int, int, int>> lines;
+  for (int i = 0; i < n; i++) {
+    int x, yl, yh;
+    scanf("%d %d %d", &x, &yl, &yh);
+    lines.push_back(make_tuple(x, yl, yh));
+  }
+  sort(lines.begin(), lines.end());
+  set<pair<long, long>> s;
+  s.insert(make_pair(start_y, 0));
+  for (int i = 0; i < n; i++) {
+    int x, yl, yh;
+    tie(x, yl, yh) = lines[i];
+    auto lb = s.lower_bound(make_pair(yl, -INF));
+    auto ub = s.upper_bound(make_pair(yh, +INF));
+    long cand_top = INF, cand_bottom = INF;
+    for (auto it = lb; it != ub; ++it) {
+      cand_top = min(cand_top, it->second + (yh - it->first));
+      cand_bottom = min(cand_bottom, it->second + (it->first - yl));
+    }
+    s.erase(lb, ub);
+    s.insert(make_pair(yh, cand_top));
+    s.insert(make_pair(yl, cand_bottom));
+  }
+  long min_h = INF;
+  int cnt_min = 0;
+  for (auto it = s.begin(); it != s.end(); ++it) {
+    if (min_h == it->second)
+      cnt_min++;
+    else if (min_h > it->second) {
+      min_h = it->second;
+      cnt_min = 1;
+    }
+  }
+  printf("%lld\n%d ", end_x + min_h, cnt_min);
+  for (auto it = s.begin(); it != s.end(); ++it)
+    if (it->second == min_h)
+      printf("%lld ", it->first);
+  return 0;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Same Tree](https://leetcode.com/problems/same-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/LC_100.md/)
+
+{% tabs %}
+{% tab title='LC_100.md' %}
+
+> Question
+
+* Check if tree are same
+
+```txt
+Input: p = [1,2], q = [1,null,2]
+Output: false
+```
+
+{% endtab %}
+{% tab title='LC_100.py' %}
+
+```py
+def isSameTree(self, p, q):
+  if p and q:
+    return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+  return p is q
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/LC_226.md/)
+
+{% tabs %}
+{% tab title='LC_226.md' %}
+
+> Question
+
+![LC_226](tree-nary/images/20210420_152901.png)
+
+* Invert binary tree
+
+```txt
+Input: root = [4,2,7,1,3,6,9]
+Output: [4,7,2,9,6,3,1]
+```
+
+{% endtab %}
+{% tab title='LC_226.py' %}
+
+```py
+# Recursive
+def invertTree(self, root):
+  if root:
+    root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+    return root
+
+# Iterative
+def invertTree(self, root):
+  stack = [root]
+  while stack:
+    node = stack.pop()
+    if node:
+      node.left, node.right = node.right, node.left
+      stack += node.left, node.right
+  return root
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Maximum Depth of N-ary Tree](https://leetcode.com/problems/maximum-depth-of-n-ary-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/LC_559.md/)
+
+{% tabs %}
+{% tab title='LC_559.md' %}
+
+> Question
+
+* Print depth of tree
+
+```txt
+Input: root = [1,null,3,2,4,null,5,6]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_559.cpp' %}
+
+```cpp
+int maxDepth(Node* root) {
+  if (root == nullptr) return 0;
+  int depth = 0;
+  for (auto child : root->children) depth = max(depth, maxDepth(child));
+  return 1 + depth;
+}
+```
+
+{% endtab %}
+{% tab title='LC_559.py' %}
+
+```py
+def maxDepth(self, root):
+  if not root: return 0
+  return 1 + max(map(self.maxDepth, root.children or [None]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/tree-nary/LC_968.md/)
+
+{% tabs %}
+{% tab title='LC_968.md' %}
+
+> Question
+
+* Each camera at a node can monitor its parent, itself, and its immediate children
+* Print minimum number of cameras
+
+```txt
+Input: [0,0,null,0,0]
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_968.py' %}
+
+```py
+def minCameraCover(self, root):
+  self.res = 0
+  def dfs(root):
+    if not root: return 2
+    l, r = dfs(root.left), dfs(root.right)
+    if l == 0 or r == 0:
+      self.res += 1
+      return 1
+    return 2 if l == 1 or r == 1 else 0
+  return (dfs(root) == 0) + self.res
+```
+
+{% endtab %}
+{% endtabs %}

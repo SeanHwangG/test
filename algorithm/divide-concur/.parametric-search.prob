@@ -1,0 +1,457 @@
+> baekjoon
+
+* [Level 8 : 게임](https://www.acmicpc.net/problem/1072)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/BJ_1072.md/)
+
+{% tabs %}
+{% tab title='BJ_1072.md' %}
+
+> Question
+
+* Number of games: X/ Winning game: Y (Z%)
+* Z is Hyungtaek's winning rate and throws away the decimal point. For example, X=53 and Y=47, Z=88
+* When given X and Y, write a program to find out how many more games Hyung-taek has to play to change Z
+
+```txt
+Input: 99000 0
+Output: 1000    # will make winning rate to 1
+```
+
+{% endtab %}
+{% tab title='BJ_1072.py' %}
+
+```py
+total, win = map(int, input().split())
+z = int(100 * win / total)
+if z >= 99:
+  print(-1)
+else:
+  lo, hi = 0, 1000000000
+  while lo < hi:
+    mi = (lo + hi) // 2
+    if z < 100 * (win + mi) // (total + mi):
+      hi = mi
+    else:
+      lo = mi + 1
+  print(lo)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 랜선 자르기](https://www.acmicpc.net/problem/1654)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/BJ_1654.md/)
+
+{% tabs %}
+{% tab title='BJ_1654.md' %}
+
+> Question
+
+* The maximum length of a LAN line that can be made N on the first line is output as an integer in centimeters
+
+```txt
+Input:
+4 11
+802
+743
+457
+539
+
+Output: 200
+```
+
+{% endtab %}
+{% tab title='BJ_1654.py' %}
+
+```py
+n, pieces = map(int, input().split())
+li = []
+for _ in range(n):
+  li.append(int(input()))
+def count(li, length):
+  ret = 0
+  for n in li:
+    ret += n // length
+  return ret
+def binary_search(li, x):
+  lo, hi = 0, max(li)
+  while lo < hi:
+    mi = (hi + lo + 1) // 2
+    if count(li, mi) < x:
+      hi = mi - 1
+    else:
+      lo = mi
+  return lo
+print(binary_search(li, pieces))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 예산](https://www.acmicpc.net/problem/2512)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/BJ_2512.md/)
+
+{% tabs %}
+{% tab title='BJ_2512.md' %}
+
+> Question
+
+* Given maximum sum threshold, find low limit
+
+```txt
+Input:
+4
+120 110 140 150
+485
+
+Output: 127  # 127 + 127 + 140 + 150 < 485
+```
+
+{% endtab %}
+{% tab title='BJ_2512.py' %}
+
+```py
+input()
+L, M = list(map(int, input().split())), int(input())
+l,r = 1, max(L)
+while l <= r:
+  m = (l + r) // 2
+  if sum(min(i, m) for i in L) <= M:
+    l = m + 1
+  else:
+    r = m-1
+print(r)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 나무 자르기](https://www.acmicpc.net/problem/2805)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/BJ_2805.md/)
+
+{% tabs %}
+{% tab title='BJ_2805.md' %}
+
+> Question
+
+* To take at least M meters of wood home, print the maximum height that can be set on the cutter
+
+```txt
+Input:
+4 7
+20 15 10 17
+
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_2805.py' %}
+
+```py
+_, length = map(int, input().split())
+li = list(map(int, input().split()))
+def total(li, cut):
+  ret = 0
+  for n in li:
+    ret += max(0, n - cut)
+  return ret
+def binary_search(li, x):
+  lo, hi = 0, max(li)
+  while lo < hi:
+    mi = (hi + lo + 1) // 2
+    if total(li, mi) < x:
+      hi = mi - 1
+    else:
+      lo = mi
+  return lo
+print(binary_search(li, length))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 사다리](https://www.acmicpc.net/problem/2022)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/BJ_2022.md/)
+
+{% tabs %}
+{% tab title='BJ_2022.md' %}
+
+> Question
+
+![BJ_2022](parametric-search/images/20210516_133618.png)
+
+* Given x, y, c print ?
+
+```txt
+Input: 30 40 10
+Output: 26.033
+```
+
+{% endtab %}
+{% tab title='BJ_2022.py' %}
+
+```py
+a, b, c = map(float, input().split())
+c, l, r = 1 / c, 0, min(a, b)
+for _ in range(999):
+  m = (l + r) / 2
+  if 1 / (a * a - m * m) ** 0.5 + 1 / (b * b - m * m) ** 0.5 < c:
+    l = m
+  else:
+    r = m
+print(round(m,3))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 공유기 설치](https://www.acmicpc.net/problem/2110)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/BJ_2110.md/)
+
+{% tabs %}
+{% tab title='BJ_2110.md' %}
+
+> Question
+
+* Install C sharers moderately in N homes, maximizing the distance between the two nearest sharers and print
+
+```txt
+Input:
+5 3
+1
+2
+8
+4
+9
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2110.py' %}
+
+```py
+def req_router(house, d):
+  count = 1
+  prev = house[0]
+  for i in range(1, N):
+    if prev + d <= house[i]:
+      count += 1
+      prev = house[i]
+  return count
+N, C = map(int, (input().split()))
+house = sorted([int(input()) for _ in range(N)])
+lo, hi = 1, house[-1] - house[0]
+while lo < hi:
+  mi = (lo + hi + 1) // 2
+  if C <= req_router(house, mi):
+    lo = mi
+  else:
+    hi = mi - 1
+
+print(lo)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Maximum Value at a Given Index in a Bounded Array](https://leetcode.com/problems/maximum-value-at-a-given-index-in-a-bounded-array)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/LC_1802.md/)
+
+{% tabs %}
+{% tab title='LC_1802.md' %}
+
+> Question
+
+* Given three positive integers n, index and maxSum. construct an array nums (0-indexed) that satisfies the following conditions:
+  * nums.length == n
+  * nums[i] is a positive integer where 0 <= i < n
+  * abs(nums[i] - nums[i+1]) <= 1 where 0 <= i < n-1
+  * The sum of all the elements of nums does not exceed maxSum
+  * nums[index] is maximized
+* Return nums[index] of the constructed array
+
+{% endtab %}
+{% tab title='LC_1802.py' %}
+
+```py
+def maxValue(self, n, index, maxSum):
+  def test(mid):
+    left = max(mid - index, 0)
+    right = max(mid - ((n - 1) - index), 0)
+    return (mid + left) * (mid - left + 1) // 2 + (mid + right - 1) * (mid - right) // 2
+
+  maxSum -= n
+  left, right = 0, maxSum
+  while left < right:
+    mid = (left + right + 1) // 2
+    if test(mid) <= maxSum:
+      left = mid
+    else:
+      right = mid - 1
+  return left + 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Maximum Number of Removable Characters](https://leetcode.com/problems/maximum-number-of-removable-characters)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/LC_1898.md/)
+
+{% tabs %}
+{% tab title='LC_1898.md' %}
+
+> Question
+
+* Given strings s and p where p is a subsequence of s
+* Given a distinct integer array removable containing a subset of indices of s
+* Return the maximum k you can choose such that p is still a subsequence of s after the removals
+
+```txt
+Input_1: s = "abcbddddd", p = "abcd", removable = [3,2,1,4,5,6]
+Output_1: 1
+
+Input_2: s = "abcab", p = "abc", removable = [0,1,2,3,4]
+Output_2: 0
+```
+
+{% endtab %}
+{% tab title='LC_1898.py' %}
+
+```cpp
+int maximumRemovals(string s, string p, vector<int>& rem) {
+  int l = 0, r = rem.size();
+  while (l < r) {
+    int m = (l + r + 1) / 2, j = 0;
+    unordered_set<int> st(begin(rem), begin(rem) + m);
+    for (int i = 0; i < s.size() && j < p.size(); ++i)
+      if (st.count(i) == 0 && s[i] == p[j])
+        ++j;
+    if (j == p.size())
+      l = m;
+    else
+      r = m - 1;
+  }
+  return l;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/LC_4.md/)
+
+{% tabs %}
+{% tab title='LC_4.md' %}
+
+> Question
+
+* Return median of two sorted array
+
+```txt
+Input: nums1 = [1,2], nums2 = [3,4]
+Output: 2.50000
+Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+```
+
+{% endtab %}
+{% tab title='LC_4.py' %}
+
+```py
+def findMedianSortedArrays(self, nums1, nums2):
+  a, b = sorted((nums1, nums2), key=len)
+  after = (len(a) + len(b) - 1) // 2
+  lo, hi = 0, len(a)
+  while lo < hi:
+    mi = (lo + hi) // 2
+    if after-mi-1 < 0 or a[mi] >= b[after-mi-1]:
+      hi = mi
+    else:
+      lo = mi + 1
+  nextfew = sorted(a[lo:lo+2] + b[after-lo:after-lo+2])
+  return (nextfew[0] + nextfew[1 - (len(a) + len(b)) % 2]) / 2.0
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/LC_410.md/)
+
+{% tabs %}
+{% tab title='LC_410.md' %}
+
+> Question
+
+* Given an array nums which consists of non-negative integers and an integer m, split array into m non-empty continuous subarrays
+* minimize the largest sum among these m subarrays
+
+```txt
+Input: nums = [7,2,5,10,8], m = 2
+Output: 18
+```
+
+{% endtab %}
+{% tab title='LC_410.py' %}
+
+```py
+def is_valid(self, nums, m, mi):
+  cuts, curr_sum = 0, 0
+  for x in nums:
+    curr_sum += x
+    if curr_sum > mi:
+      cuts, curr_sum = cuts + 1, x
+  subs = cuts + 1
+  return subs <= m
+
+def splitArray(self, nums, m):
+  lo, hi, ans = max(nums), sum(nums), -1
+  while lo <= hi:
+    mi = (lo + hi) // 2
+    if self.is_valid(nums, m, mi):
+      ans, hi = mi, mi - 1
+    else:
+      lo = mi + 1
+  return ans
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Nth Magical Number](https://leetcode.com/problems/nth-magical-number)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/parametric-search/LC_878.md/)
+
+{% tabs %}
+{% tab title='LC_878.md' %}
+
+> Question
+
+* A positive integer is magical if it is divisible by either a or b
+* Given the three integers n, a, and b, return the nth magical number modulo 10 ** 9 + 7
+
+```txt
+Input: n = 1, a = 2, b = 3
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_878.py' %}
+
+```py
+import math
+def nthMagicalNumber(self, N, A, B):
+  l, r, lcm = 2, 10 ** 14, math.lcm(A, B)
+  while l < r:
+    m = (l + r) // 2
+    if m // A + m // B - m // lcm < N: # inclusion exclusion formula
+      l = m + 1
+    else:
+      r = m
+  return l % (10**9 + 7)
+```
+
+{% endtab %}
+{% endtabs %}

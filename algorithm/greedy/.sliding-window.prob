@@ -1,0 +1,196 @@
+> baekjoon
+
+* [Level 10 : 비밀번호](https://www.acmicpc.net/problem/12891)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sliding-window/BJ_12891.md/)
+
+{% tabs %}
+{% tab title='BJ_12891.md' %}
+
+> Question
+
+* Given minimum ACGT needed, find how many substrings are valid with length p
+
+```txt
+Input:
+4 2
+GATA
+1 0 0 1
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_12891.py' %}
+
+```py
+from collections import Counter
+
+s, p = map(int,input().split())
+dna = input()
+a, c, g, t = map(int,input().split())
+C = Counter(dna[:p])
+ans = int(C["A"] >= a and C["C"] >= c and C["G"] >= g and C["T"] >= t)
+for i in range(p, s):
+  C[dna[i]] += 1
+  C[dna[i-p]] -= 1
+  ans += int(C["A"] >= a and C["C"] >= c and C["G"] >= g and C["T"] >= t)
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sliding-window/LC_209.md/)
+
+{% tabs %}
+{% tab title='LC_209.md' %}
+
+> Question
+
+* Print minimum length of contiguous subarray sum is greater than target
+
+```txt
+Input: target = 7, nums = [2,3,1,2,4,3]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_209.py' %}
+
+```py
+def minSubArrayLen(self, s, A):
+  i, res = 0, len(A) + 1
+  for j in xrange(len(A)):
+    s -= A[j]
+    while s <= 0:
+      res = min(res, j - i + 1)
+      s += A[i]
+      i += 1
+  return res % (len(A) + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sliding-window/LC_3.md/)
+
+{% tabs %}
+{% tab title='LC_3.md' %}
+
+> Question
+
+* Given a string s, find the length of the longest substring without repeating characters
+
+```txt
+Input: s = "abcabcbb"
+Output: 3  # abc
+```
+
+{% endtab %}
+{% tab title='LC_3.py' %}
+
+```py
+def lengthOfLongestSubstring(self, s: str) -> int:
+  used = {}
+  max_length = l = 0
+  for r, c in enumerate(s):
+    if c in used and l <= used[c]:
+      l = used[c] + 1
+    else:
+      max_length = max(max_length, r - l + 1)
+    used[c] = r
+  return max_length
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Maximum Sum of 3 Non-Overlapping Subarrays](https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sliding-window/LC_689.md/)
+
+{% tabs %}
+{% tab title='LC_689.md' %}
+
+> Question
+
+* Given an integer array nums and an integer k, return three non-overlapping subarrays of length k with maximum sum
+
+```txt
+Input: nums = [1,2,1,2,6,7,5,1], k = 2
+Output: [0,3,5]
+```
+
+{% endtab %}
+{% tab title='LC_689.py' %}
+
+```py
+def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
+  sub_sum = sum(nums[:k]) #set first k-sized window
+
+  # 3 arrays to store max values at certain indexes (DP)
+  take_1 = [[0, []] for _ in range(len(nums))]
+  take_2 = [[0, []] for _ in range(len(nums))]
+  take_3 = [[0, []] for _ in range(len(nums))]
+
+  for i in range(k - 1, len(nums)):
+    sub_sum = sub_sum - nums[i-k] + nums[i]
+    take_1[i] = [sub_sum, [i-k+1]] if sub_sum > take_1[i-1][0] else take_1[i-1]
+    #max so far if we can only choose one k-sized window
+
+    one_sum, one_idx = take_1[i - k]
+    take_2[i] = [sub_sum + one_sum, one_idx+[i-k+1]] if sub_sum + one_sum > take_2[i-1][0] else take_2[i-1]
+    #max so far if we can choose 2 windows
+
+    two_sum, two_idx = take_2[i - k]
+    take_3[i] = [sub_sum + two_sum, two_idx+[i-k+1]] if sub_sum + two_sum > take_3[i-1][0] else take_3[i-1]
+    #answer: max sum if we can choose 3 k-sized windows
+  return take_3[-1][1] #indices are stored at the end of take_3
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sliding-window/LC_76.md/)
+
+{% tabs %}
+{% tab title='LC_76.md' %}
+
+> Question
+
+* Given strings s and t, return min window substring of s, st every char in t (including duplicates) is included in window
+* If there is no such substring, return the empty string ""
+
+```txt
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+
+Input: s = "a", t = "aa"
+Output: ""
+```
+
+{% endtab %}
+{% tab title='LC_76.py' %}
+
+```py
+def minWindow(self, s, t):
+  need, missing = collections.Counter(t), len(t)
+  i = l = r = 0
+  for j, c in enumerate(s, 1):
+    missing -= need[c] > 0
+    need[c] -= 1
+    if not missing:
+      while i < j and need[s[i]] < 0:
+        need[s[i]] += 1
+        i += 1
+      if not r or j - i <= r - l:
+        l, r = i, j
+  return s[l:r]
+```
+
+{% endtab %}
+{% endtabs %}

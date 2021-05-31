@@ -1,0 +1,219 @@
+> baekjoon
+
+* [Level 4 : HA-1](https://www.acmicpc.net/problem/10928)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/encoding/BJ_10928.md/)
+
+{% tabs %}
+{% tab title='BJ_10928.md' %}
+
+> Question
+
+* Print SHA1 hash of string
+
+```txt
+Input: Baekjoon
+Output: a25cdb0b8ead2861a3ef2c48cdc15517994ab278
+```
+
+{% endtab %}
+{% tab title='BJ_10928.py' %}
+
+```py
+from hashlib import *
+print(sha1(input().encode()).hexdigest())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : HA-224](https://www.acmicpc.net/problem/10929)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/encoding/BJ_10929.md/)
+
+{% tabs %}
+{% tab title='BJ_10929.md' %}
+
+> Question
+
+* Print sha224 hash of string
+
+```txt
+Input: Baekjoon
+Output: 880ceaa24e932e5c19350adc50535922ead12ba689a7a6a9a895d2ce
+```
+
+{% endtab %}
+{% tab title='BJ_10929.py' %}
+
+```py
+from hashlib import *
+print(sha224(input().encode()).hexdigest())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : HA-384](https://www.acmicpc.net/problem/10931)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/encoding/BJ_10931.md/)
+
+{% tabs %}
+{% tab title='BJ_10931.md' %}
+
+> Question
+
+* Print sha384 of given string
+
+```txt
+Input: Baekjoon
+Output: 8f077fa785396c86c7f9b8ba03fc41e9ac250a0a3884a2ef5c70638e1a153407b52a58b897a89a0361f2c60c2dc123be
+```
+
+{% endtab %}
+{% tab title='BJ_10931.py' %}
+
+```py
+from hashlib import *
+print(sha384(input().encode()).hexdigest())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : HA-512](https://www.acmicpc.net/problem/10932)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/encoding/BJ_10932.md/)
+
+{% tabs %}
+{% tab title='BJ_10932.md' %}
+
+> Question
+
+* Find sha512 of string
+
+```txt
+Input: Baekjoon
+
+Output:
+40529e337a46dadc9473d7ed1b16c74868c996d79573c75784e6da37a51394abecfe26414e5097873c31de0dae0b1ef5dab7718d46aa629da3a72c80a0eeeef2
+```
+
+{% endtab %}
+{% tab title='BJ_10932.py' %}
+
+```py
+from hashlib import *
+print(sha512(input().encode()).hexdigest())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : H](https://www.acmicpc.net/problem/10934)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/encoding/BJ_10934.md/)
+
+{% tabs %}
+{% tab title='BJ_10934.md' %}
+
+> Question
+
+* Find SHA hash of given string
+
+```txt
+Input: Baekjoon
+Output: 961195ebcebfd957207288d6700b00fa6fe9db3c
+```
+
+{% endtab %}
+{% tab title='BJ_10934.py' %}
+
+```py
+from hashlib import*
+print(new('sha',input().encode()).hexdigest())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : BASE64 인코딩](https://www.acmicpc.net/problem/10935)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/encoding/BJ_10935.md/)
+
+{% tabs %}
+{% tab title='BJ_10935.md' %}
+
+> Question
+
+* BASE64-encodes (A-Za-z0-9+/) given string
+
+```txt
+Input: Baekjoon
+Output: QmFla2pvb24=
+```
+
+{% endtab %}
+{% tab title='BJ_10935.py' %}
+
+```py
+import base64
+print(base64.b64encode(input().encode()).decode())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : if 3](https://www.acmicpc.net/problem/15551)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/encoding/BJ_15551.md/)
+
+{% tabs %}
+{% tab title='BJ_15551.md' %}
+
+> Question
+
+* Print a, b that prints true to the following code
+
+```txt
+Input: 2
+import java.util.*;
+
+public class Main {
+  public static void main(String args[]) {
+    Scanner sc = new Scanner(System.in);
+    String a = sc.next();
+    String b = sc.next();
+    if (!a.equals(b) && a.hashCode() == b.hashCode()) {
+      System.out.println("true");
+    } else {
+      System.out.println("false");
+    }
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_15551.java' %}
+
+```java
+import java.util.*;
+
+public class Main {
+  public static void main(String args[]) {
+    Scanner sc = new Scanner(System.in);
+    String a = sc.next();
+    String b = sc.next();
+    if (!a.equals(b) && a.hashCode() == b.hashCode()) {
+      System.out.println("true");
+    } else {
+      System.out.println("false");
+    }
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_15551.py' %}
+
+```py
+N = int(input())
+print("A" * (N-2) + "BA")
+print("A" * (N-1) + "`")
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,380 @@
+> baekjoon
+
+* [Level 18 : 두 수 XO](https://www.acmicpc.net/problem/13505)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/trie/BJ_13505.md/)
+
+{% tabs %}
+{% tab title='BJ_13505.md' %}
+
+> Question
+
+* Print max XOR pair
+
+```txt
+Input:
+5
+1 2 3 4 5
+
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_13505.py' %}
+
+```py
+n = int(input())
+N = list(map(int, input().split()))
+
+trie = [None] * 2
+maxv = 0
+
+def find(trie, num):
+  cur = trie
+  ret = 0
+  for i in range(30):
+    v = (num >> (29 - i)) & 1
+    if not cur[v]:
+      v = 1-v
+
+    cur = cur[v]
+    ret = (ret << 1) | v
+
+  return ret
+
+def insert(trie, num):
+  cur = trie
+  for i in range(30):
+    v = (num >> (29 - i)) & 1
+    if not cur[v]:
+      cur[v] = [None] * 2
+    cur = cur[v]
+  return
+
+insert(trie, N[0])
+
+for i in N[1:]:
+  maxv = max(find(trie, ~i) ^ i, maxv)
+  insert(trie, i)
+
+print(maxv)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/trie/LC_211.md/)
+
+{% tabs %}
+{% tab title='LC_211.md' %}
+
+> Question
+
+* Design a data structure that supports adding new words and finding if a string matches any previously added string
+* Implement the WordDictionary class:
+  * WordDictionary() Initializes the object
+  * void addWord(word) Adds word to the data structure, it can be matched later
+  * bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise
+    * word may contain dots '.' where dots can be matched with any letter
+
+```txt
+Input
+["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
+[[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+
+Output
+[null,null,null,null,false,true,true,true]
+```
+
+{% endtab %}
+{% tab title='LC_211.py' %}
+
+```py
+class WordDictionary:
+  def __init__(self):
+    self.trie = {}
+
+  def addWord(self, word: str) -> None:
+    node = self.trie
+    for c in word + "$":
+      node = node.setdefault(c, {})
+
+  def search(self, word: str) -> bool:
+    return self.searchNode(self.trie, word)
+
+  def searchNode(self, node, word: str) -> bool:
+    for i, c in enumerate(word):
+      if c == '.':
+        return any(self.searchNode(node[w], word[i+1:]) for w in node if w != '$')
+      if c not in node:
+        return False
+      node = node[c]
+    return '$' in node
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Replace Words](https://leetcode.com/problems/replace-words)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/trie/LC_648.md/)
+
+{% tabs %}
+{% tab title='LC_648.md' %}
+
+> Question
+
+* Given a dictionary consisting of many roots and a sentence consisting of words separated by spaces
+* replace all successors in sentence with root forming it
+* If a successor can be replaced by more than one root, replace it with the root that has the shortest length
+
+```txt
+Input: dictionary = ["cat","bat","rat"], sentence = "the cattle was rattled by the battery"
+Output: "the cat was rat by the bat"
+```
+
+{% endtab %}
+{% tab title='LC_648.py' %}
+
+```py
+# Time : O(N), Space : O(N*K)
+def replaceWords(self, roots, sentence):
+  _trie = lambda: collections.defaultdict(_trie)
+  trie = _trie()
+  for root in roots:
+    cur = trie
+    for letter in root:
+      cur = cur[letter]
+    cur["END"] = root
+
+  def replace(word):
+    cur = trie
+    for letter in word:
+      if letter not in cur: break
+      cur = cur[letter]
+      if "END" in cur:
+        return cur["END"]
+    return word
+
+  return " ".join(map(replace, sentence.split()))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Word Search II](https://leetcode.com/problems/word-search-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/trie/LC_212.md/)
+
+{% tabs %}
+{% tab title='LC_212.md' %}
+
+> Question
+
+![LC_212](trie/images/20210228_150711.png)
+
+* Find all words with in B
+
+```txt
+Input: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]
+Output: ["eat","oath"]
+```
+
+{% endtab %}
+{% tab title='LC_212.py' %}
+
+```py
+class TrieNode():
+  def __init__(self):
+    self.children = collections.defaultdict(TrieNode)
+    self.isWord = False
+
+class Trie():
+  def __init__(self):
+    self.root = TrieNode()
+
+  def insert(self, word):
+    node = self.root
+    for w in word:
+      node = node.children[w]
+    node.isWord = True
+
+class Solution(object):
+  def findWords(self, B, words):
+    res = []
+    trie = Trie()
+    node = trie.root
+    for w in words:
+      trie.insert(w)
+    for i in range(len(B)):
+      for j in range(len(B[0])):
+        self.dfs(B, node, i, j, "", res)
+    return res
+
+  def dfs(self, B, node, i, j, path, res):
+    if node.isWord:
+      res.append(path)
+      node.isWord = False
+    if i < 0 or i >= len(B) or j < 0 or j >= len(B[0]) or B[i][j] not in node.children:
+      return
+    tmp = B[i][j]
+    B[i][j] = "#"
+    for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+      self.dfs(B, node.children[tmp], i + di, j + dj, path + tmp, res)
+    B[i][j] = tmp
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Design In-Memory File System](https://leetcode.com/problems/design-in-memory-file-system)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/trie/LC_588.md/)
+
+{% tabs %}
+{% tab title='LC_588.md' %}
+
+> Question
+
+* FileSystem() Initializes the object of the system.
+* List\<String\> ls(String path)
+  * If path is a file path, returns a list that only contains this file's name.
+  * If path is a directory path, returns the list of file and directory names in this directory.
+  * The answer should in lexicographic order.
+* void mkdir(String path) Makes a new directory according to the given path. The given directory path does not exist
+  * If the middle directories in the path do not exist, you should create them as well.
+* void addContentToFile(String filePath, String content)
+  * If filePath does not exist, creates that file containing given content.
+  * If filePath already exists, appends the given content to original content.
+  * String readContentFromFile(String filePath) Returns the content in the file at filePath.
+
+```txt
+Input:
+["FileSystem", "ls", "mkdir", "addContentToFile", "ls", "readContentFromFile"]
+[[], ["/"], ["/a/b/c"], ["/a/b/c/d", "hello"], ["/"], ["/a/b/c/d"]]
+
+Output:
+[null, [], null, null, ["a"], "hello"]
+```
+
+{% endtab %}
+{% tab title='LC_588.py' %}
+
+```py
+Trie = lambda: collections.defaultdict(Trie)
+
+class FileSystem(object):
+  def __init__(self):
+    self.fs = Trie()
+    self.fileinfo = collections.defaultdict(str)
+
+  def ls(self, path):
+    if path in self.fileinfo:
+      return path.split('/')[-1:]
+
+    cur = self.fs
+    for token in path.split('/'):
+      if token in cur:
+        cur = cur[token]
+      elif token:
+        return []
+
+    return sorted(cur.keys())
+
+  def mkdir(self, path):
+    cur = self.fs
+    for token in path.split('/'):
+      if token: cur = cur[token]
+
+  def addContentToFile(self, filePath, content):
+    self.mkdir(filePath)
+    self.fileinfo[filePath] += content
+
+  def readContentFromFile(self, filePath):
+    return self.fileinfo[filePath]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/trie/LC_642.md/)
+
+{% tabs %}
+{% tab title='LC_642.md' %}
+
+> Question
+
+* Users may input a sentence (at least one word and end with a special character '#').
+* Given a string array sentences and an integer array times both of length n
+* Sentences[i] is a previously typed sentence and times[i] is the corresponding number of times sentence was typed
+* For each input character except '#', return top 3 hot sentences that have same prefix as part of sentence already typed
+
+```txt
+Input:
+["AutocompleteSystem", "input", "input", "input", "input"]
+[[["i love you", "island", "iroman", "i love leetcode"], [5, 3, 2, 2]], ["i"], [" "], ["a"], ["#"]]
+
+Output:
+[null, ["i love you", "island", "i love leetcode"], ["i love you", "i love leetcode"], [], []]
+```
+
+{% endtab %}
+{% tab title='LC_642.py' %}
+
+```py
+_trie = lambda: collections.defaultdict(_trie)
+
+class ShortList(list):
+  def append(self, val):
+    for i, (nt, s) in enumerate(self):
+      if s == val[1]:
+        self[i] = val
+        break
+    else:
+      list.append(self, val)
+    self.sort()
+    if len(self) > 3:
+      self.pop()
+
+class AutocompleteSystem:
+  def __init__(self, sentences, counts):
+    self.curnode = self.trie = _trie()
+    self.sentence_to_count, self.search = collections.Counter(), ''
+
+    for sentence, count in zip(sentences, counts):
+      self.add(sentence, count)
+
+  def add(self, sentence, count):
+    self.sentence_to_count[sentence] = count
+    cur = self.trie
+    self._add_info(cur, sentence, count)
+    for letter in sentence:
+      cur = cur[letter]
+      self._add_info(cur, sentence, count)
+    cur["END"] = sentence
+
+  def _add_info(self, node, sentence, count):
+    if "INFO" not in node:
+      node["INFO"] = ShortList()
+    node["INFO"].append((-count, sentence))
+
+  def input(self, c):
+    if c != '#':
+      self.search += c
+      if self.curnode is None:
+        return []
+      if c not in self.curnode:
+        self.curnode = None
+        return []
+
+      self.curnode = self.curnode[c]
+      return [s for nt, s in self.curnode["INFO"]]
+    else:
+      self.sentence_to_count[self.search] += 1
+      self.add(self.search, self.sentence_to_count[self.search])
+      self.search, self.curnode = '', self.trie
+      return []
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,301 @@
+> baekjoon
+
+* [Level 2 : 운동장 한 바퀴](https://www.acmicpc.net/problem/16486)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/BJ_16486.md/)
+
+{% tabs %}
+{% tab title='BJ_16486.md' %}
+
+> Question
+
+![BJ_16486](circle/images/20210306_002115.png)
+
+* Given width and height of rectangle, print perimeter
+
+```txt
+Input:
+13
+8
+
+Output: 76.265472
+```
+
+{% endtab %}
+{% tab title='BJ_16486.py' %}
+
+```py
+import math
+a, b = int(input()), int(input())
+print(a * 2 + 2 * b * math.pi)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Pizza Deal](https://www.acmicpc.net/problem/16693)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/BJ_16693.md/)
+
+{% tabs %}
+{% tab title='BJ_16693.md' %}
+
+> Question
+
+* 첫 줄에 피자의 넓이와 가격
+* 두번 째 줄에 피자의 반지름과 가격이 주어질 때
+* 두번째 줄이 싸면 Whole pizza, 아니면 Slice of pizza를 출력하라
+
+{% endtab %}
+{% tab title='BJ_16693.py' %}
+
+```py
+import math
+a, p1 = map(int, input().split())
+r, p2 = map(int, input().split())
+if a * p2 < r * r * math.pi * p1:
+  print('Whole pizza')
+else:
+  print('Slice of pizza')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Circus](https://www.acmicpc.net/problem/20352)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/BJ_20352.md/)
+
+[//]: # (BJ_21335)
+
+* [Level 2 : nother Eruption](https://www.acmicpc.net/problem/21335)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/BJ_21335.md/)
+
+{% tabs %}
+{% tab title='BJ_21335.md' %}
+
+> Question
+
+* Given area of circle find perimeter
+
+{% endtab %}
+{% tab title='BJ_21335.py' %}
+
+```py
+from math import pi
+print(sqrt(int(input()) / pi) * 2 * pi)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 택시 기하학](https://www.acmicpc.net/problem/3053)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/BJ_3053.md/)
+
+{% tabs %}
+{% tab title='BJ_3053.md' %}
+
+> Question
+
+* Given a radius R, find the width of the circle in Euclidean geometry and the width of the circle in taxi geometry
+
+{% endtab %}
+{% tab title='BJ_3053.py' %}
+
+```py
+import math
+n = int(input())
+print(n * n * math.pi)
+print(n * n * 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 어린 왕자](https://www.acmicpc.net/problem/1004)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/BJ_1004.md/)
+
+{% tabs %}
+{% tab title='BJ_1004.md' %}
+
+> Question
+
+* print mimum number of line crossing in order to go from point A to B
+* circle is given with two coordinates and radius
+
+```txt
+Input:
+2
+-5 1 12 1
+7
+1 1 8
+-3 -1 1
+2 2 2
+5 5 1
+-4 5 1
+12 1 1
+12 1 2
+-5 1 5 1
+1
+0 0 2
+
+Output: 3 0
+```
+
+{% endtab %}
+{% tab title='BJ_1004.py' %}
+
+```py
+for _ in range(int(input())):
+  b, c, d, e = map(int,input().split())
+  i = 0
+  for _ in range(int(input())):
+    g, h, r = map(int, input().split())
+    if ((g - b) ** 2 + (h - c) ** 2 < r ** 2) == ((g - d) ** 2+(h - e) ** 2 > r ** 2):
+      i+= 1
+  print(i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 21 : mallest Enclosing Sphere](https://www.acmicpc.net/problem/11930)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/BJ_11930.md/)
+
+{% tabs %}
+{% tab title='BJ_11930.md' %}
+
+> Question
+
+* Given points in 3D, print minimum length of diameter that encloses all the points
+
+```txt
+Input:
+5
+5 0 0
+-5 0 0
+0 3 4
+4 -3 0
+2 2 -2
+
+Output: 5.00
+```
+
+{% endtab %}
+{% tab title='BJ_11930.py' %}
+
+```py
+import sys
+from math import pow, sqrt
+
+def getDistance(p1, p2):
+  return (pow(p1[0] - p2[0], 2) + pow(p1[1] - p2[1], 2) + pow(p1[2] - p2[2], 2))
+
+N = int(sys.stdin.readline())
+standard = [0, 0, 0]
+point = []
+
+for _ in range(N):
+  x, y, z = map(float, sys.stdin.readline().split())
+  standard[0] += x
+  standard[1] += y
+  standard[2] += z
+  point.append([x, y, z])
+
+standard[0] /= N
+standard[1] /= N
+standard[2] /= N
+
+step = 0.1
+ret = 0
+
+for i in range(30000):
+  ret = 0
+  number = 0
+  for j in range(N):
+    distance = getDistance(standard, point[j])
+    if distance > ret:
+      number = j
+      ret = distance
+
+  standard[0] += (point[number][0] - standard[0]) * step
+  standard[1] += (point[number][1] - standard[1]) * step
+  standard[2] += (point[number][2] - standard[2]) * step
+  step *= 0.999
+
+print(f"{sqrt(ret)}.2f")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Beavergnaw](https://open.kattis.com/problems/beavergnaw)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/KT_beavergnaw.md/)
+
+{% tabs %}
+{% tab title='KT_beavergnaw.md' %}
+
+> Question
+
+![KT_beavergnaw](circle/images/20210227_193426.png)
+
+* What should be the diameter 𝑑 of the inner cylinder such that the beaver chomped out V cubic units of wood?
+
+```txt
+Input:
+10 250
+20 2500
+25 7000
+50 50000
+0 0
+
+Output:
+8.054498576
+14.774938880
+13.115314879
+30.901188723
+```
+
+{% endtab %}
+{% tab title='KT_beavergnaw.py' %}
+
+```py
+import math
+while True:
+  a, b = map(int, input().split())
+  if a == b == 0:
+    break
+  print((a * a * a - 6 * b / math.pi) ** (1/3))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : Herman](https://open.kattis.com/problems/herman)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/circle/KT_herman.md/)
+
+{% tabs %}
+{% tab title='KT_herman.md' %}
+
+> Question
+
+* print area of circle with radius n. then print n ** 2 * 2
+
+```txt
+Input: 1
+Output:
+3.141593
+2.000000
+```
+
+{% endtab %}
+{% tab title='KT_herman.py' %}
+
+```py
+import math
+n = int(input())
+print(n * n * math.pi)
+print(n * n * 2)
+```
+
+{% endtab %}
+{% endtabs %}

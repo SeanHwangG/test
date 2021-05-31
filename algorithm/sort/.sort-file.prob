@@ -1,0 +1,265 @@
+> hackerrank
+
+* [Level Easy : Sort Command #1](https://www.hackerrank.com/challenges/text-processing-sort-1/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-file/HR_text-processing-sort-1.md/)
+
+{% tabs %}
+{% tab title='HR_text_processing-sort-1.md' %}
+
+> Question
+
+* order the lines in lexicographical order
+
+```sh
+Input:
+Top
+james
+Sam
+
+Output:
+Sam
+Top
+james
+```
+
+{% endtab %}
+{% tab title='HR_text_processing-sort-1.sh' %}
+
+```sh
+sort
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Sort Command #2](https://www.hackerrank.com/challenges/text-processing-sort-2/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-file/HR_text-processing-sort-2.md/)
+
+{% tabs %}
+{% tab title='HR_text_processing-sort-2.md' %}
+
+> Question
+
+* Sort descending order numerically
+
+```txt
+Input:
+1
+3
+2
+
+Output:
+3
+2
+1
+```
+
+{% endtab %}
+{% tab title='HR_text_processing-sort-2.sh' %}
+
+```sh
+# -n option sorts the file on the basis of the numeric field available
+sort -nr
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Sort Command #3](https://www.hackerrank.com/challenges/text-processing-sort-3/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-file/HR_text-processing-sort-3.md/)
+
+{% tabs %}
+{% tab title='HR_text_processing-sort-3.md' %}
+
+> Question
+
+* order the lines in reverse lexicographical order
+
+```txt
+Input:
+9.1
+43.7
+2.2
+62.1
+2.1
+9.3
+43.5
+4.6
+44.6
+4.7
+42.7
+47.4
+46.6
+4.5
+55.6
+4
+9.2
+66.6
+2
+2.3
+
+Output:
+2
+2.1
+2.2
+2.3
+4
+4.5
+4.6
+4.7
+9.1
+9.2
+9.3
+42.7
+43.5
+43.7
+44.6
+46.6
+47.4
+55.6
+62.1
+66.6
+```
+
+{% endtab %}
+{% tab title='HR_text_processing-sort-3.sh' %}
+
+```sh
+sort -r
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Sort Command #4](https://www.hackerrank.com/challenges/text-processing-sort-4/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-file/HR_text-processing-sort-4.md/)
+
+{% tabs %}
+{% tab title='HR_text_processing-sort-4.md' %}
+
+> Question
+
+* Sort descending order numerically
+
+```txt
+Input:
+9.1
+43.7
+2.2
+62.1
+2.1
+9.3
+
+Output:
+62.1
+43.7
+9.3
+9.1
+2.2
+2.1
+```
+
+{% endtab %}
+{% tab title='HR_text_processing-sort-4.sh' %}
+
+```sh
+sort -nr
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Sort Command #5](https://www.hackerrank.com/challenges/text-processing-sort-5/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-file/HR_text-processing-sort-5.md/)
+
+{% tabs %}
+{% tab title='HR_text_processing-sort-5.md' %}
+
+> Question
+
+* Rearrange the rows of the table in descending order of the values for the average temperature in January
+
+```txt
+Input:
+Bismarck, N.D.    10.2    43.3    70.4    45.2    16.84    96    44.3    64
+Austin, Texas    50.2    68.3    84.2    70.6    33.65    85    0.9    62 / 58
+Baton Rouge, La.    50.1    66.6    81.7    68.1    63.08    110    0.2    52 / 46
+
+Output:
+Austin, Texas    50.2    68.3    84.2    70.6    33.65    85    0.9    62 / 58
+Baton Rouge, La.    50.1    66.6    81.7    68.1    63.08    110    0.2    52 / 46
+Bismarck, N.D.    10.2    43.3    70.4    45.2    16.84    96    44.3    64
+```
+
+{% endtab %}
+{% tab title='HR_text_processing-sort-5.sh' %}
+
+```sh
+sort -nr -k2 -t $'\t'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : 'Sort' command #6](https://www.hackerrank.com/challenges/text-processing-sort-6/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-file/HR_text-processing-sort-6.md/)
+
+{% tabs %}
+{% tab title='HR_text_processing-sort-6.md' %}
+
+> Question
+
+* Sort the data in ascending order of the average monthly temperature in January
+
+```txt
+Input:
+Austin, Texas   50.2    68.3    84.2    70.6    33.65   85  0.9 62 / 58
+Baltimore, Md.  32.3    53.2    76.5    55.4    41.94   115 21.5    53
+Bismarck, N.D.  10.2    43.3    70.4    45.2    16.84   96  44.3    64
+
+Output:
+Bismarck, N.D.  10.2    43.3    70.4    45.2    16.84   96  44.3    64
+Baltimore, Md.  32.3    53.2    76.5    55.4    41.94   115 21.5    53
+Austin, Texas   50.2    68.3    84.2    70.6    33.65   85  0.9 62 / 58
+```
+
+{% endtab %}
+{% tab title='HR_text_processing-sort-6.sh' %}
+
+```sh
+sort -n -k2 -t$'\t'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : 'Sort' command #7](https://www.hackerrank.com/challenges/text-processing-sort-7/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-file/HR_text-processing-sort-7.md/)
+
+{% tabs %}
+{% tab title='HR_text_processing-sort-7.sh' %}
+
+> Question
+
+* Sort the data in descending order of the average monthly temperature in January
+
+```txt
+Bismarck, N.D.|10.2|43.3|70.4|45.2|16.84|96|44.3|64
+Austin, Texas|50.2|68.3|84.2|70.6|33.65|85|0.9|62 / 58
+Baltimore, Md.|32.3|53.2|76.5|55.4|41.94|115|21.5|53
+
+Output:
+Austin, Texas|50.2|68.3|84.2|70.6|33.65|85|0.9|62 / 58
+Baltimore, Md.|32.3|53.2|76.5|55.4|41.94|115|21.5|53
+Bismarck, N.D.|10.2|43.3|70.4|45.2|16.84|96|44.3|64
+```
+
+{% endtab %}
+{% tab title='HR_text_processing-sort-7.sh' %}
+
+```sh
+sort -nr -k2 -t'|'
+```
+
+{% endtab %}
+{% endtabs %}

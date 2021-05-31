@@ -1,0 +1,513 @@
+> baekjoon
+
+* [Level 0 : Fast Food](https://www.acmicpc.net/problem/6309)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_6309.md/)
+
+{% tabs %}
+{% tab title='BJ_6309.md' %}
+
+> Question
+
+* Given number of depots and stores, find minimum total costs to all depots
+
+$$ \sum_{i=1}^{n} \mid d_{i}-(\text { position of depot serving restaurant i }) $$
+
+```txt
+Input:
+6 3
+5
+6
+12
+19
+20
+27
+0 0
+
+Output:
+Chain 1
+Depot 1 at restaurant 2 serves restaurants 1 to 3
+Depot 2 at restaurant 5 serves restaurants 4 to 5
+Depot 3 at restaurant 6 serves restaurant 6
+Total distance sum = 8
+```
+
+{% endtab %}
+{% tab title='BJ_6309.cpp' %}
+
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int n, m, num[205], sum[205], way[205][205];
+int dis[205][205];
+int dp[205][205];
+
+void print(int i, int j) {
+  int t = way[i][j];
+  if (i > 1)
+    print(i - 1, t);
+  if (t + 1 != j)
+    printf("Depot %d at restaurant %d serves restaurants %d to %d\n", i, (t + 1 + j)/2, t + 1, j);
+  else
+    printf("Depot %d at restaurant %d serves restaurant %d\n", i, (t + 1 + j)/2, t + 1);
+}
+int main() {
+  int t = 1;
+  while (~scanf("%d%d", &n, &m) && n || m) {
+    memset(sum, 0, sizeof(sum));
+    memset(way, 0, sizeof(way));
+    for (int i = 1; i <= m; i ++)
+      for (int j = 1; j <= n; j ++)
+        dp[i][j] =  999999999;
+    for (int i = 1; i <= n; i ++) {
+      scanf("%d", &num[i]);
+      sum[i] = sum[i - 1] + num[i];
+    }
+    for (int i = 1; i <= n; i ++) {
+      for (int j = 1; j <= n; j ++) {
+        int mid = (i + j)/2;
+        dis[i][j] = (mid - i) * num[mid] - (sum[mid - 1] - sum[i - 1]);
+        dis[i][j] += (sum[j] - sum[mid]) - (j - mid) * num[mid];
+      }
+    }
+    for (int i = 1; i <= n; i ++)
+      dp[1][i] = dis[1][i];
+    for (int i = 2; i <= m; i ++) {
+      for (int j = 1; j <= n; j ++) {
+        for (int k = i - 1; k < j; k ++) {
+          if (dp[i][j] > dp[i - 1][k] + dis[k + 1][j]) {
+            dp[i][j] = dp[i - 1][k] + dis[k + 1][j];
+            way[i][j] = k;
+          }
+        }
+      }
+    }
+    printf("Chain %d\n", t ++);
+    print(m, n);
+    printf("Total distance sum = %d\n", dp[m][n]);
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_6309.py' %}
+
+```py
+for n_test in range(100000):
+  n_store, n_depot = map(int, input().split())
+  if n_store == n_depot == 0:
+    break
+  stores = [int(input()) for _ in range(n_store)]
+  costs = [[0] * n_store for _ in range(n_store)] # to embrace i to j
+  dp = [[10000] * n_store for _ in range(n_depot)]
+  for i in range(n_store):
+    for j in range(i, n_store):
+      for k in range(i, j + 1):
+        costs[i][j] += abs(stores[k] - stores[(i + j) // 2])
+  dp[0] = costs[0]
+  for i in range(1, n_depot):
+    for j in range(i, n_store):
+      for k in range(i - 1, j):
+        dp[i][j] = min(dp[i][j], dp[i - 1][k] + costs[k + 1][j]);
+  print(*dp, sep="\n")
+  print(f"Chain {n_test}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 퇴사](https://www.acmicpc.net/problem/14501)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_14501.md/)
+
+{% tabs %}
+{% tab title='BJ_14501.md' %}
+
+> Question
+
+* Given finish time Ti and profit Pi, maximize profit
+
+```txt
+Input:
+7
+3 10
+5 20
+1 10
+1 20
+2 15
+4 40
+2 200
+
+Output: 45
+```
+
+{% endtab %}
+{% tab title='BJ_14501.py' %}
+
+```py
+n = int(input())
+t = []
+p = []
+dp = []
+for i in range(n):
+  a, b = map(int, input().split())
+  t.append(a)
+  p.append(b)
+  dp.append(b)
+dp.append(0)
+for i in range(n - 1, -1, -1):
+  if t[i] + i > n:
+    dp[i] = dp[i + 1]
+  else:
+    dp[i] = max(dp[i + 1], p[i] + dp[i + t[i]])
+print(dp[0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 점프 점프](https://www.acmicpc.net/problem/11060)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_11060.md/)
+
+{% tabs %}
+{% tab title='BJ_11060.md' %}
+
+> Question
+
+* Ai or less may jump at once to the right-hand side
+* It's at the far left of the maze, and I'm going to the far right
+* Find out how many jumps you have to make to get there. If you can't get to the far right, print -1
+
+```txt
+Input:
+10
+1 2 0 1 3 2 1 5 4 2
+
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_11060.py' %}
+
+```py
+input()
+li = list(map(int, input().split()))
+dp = [0] + [1000] * (len(li) - 1)
+for i in range(len(li)):
+  for step in range(1, li[i] + 1):
+    if i + step < len(dp):
+      dp[i + step] = min(dp[i + step], dp[i] + 1)
+
+print(dp[-1] if dp[-1] < 1000 else -1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 행렬 곱셈 순서](https://www.acmicpc.net/problem/11049)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_11049.md/)
+
+{% tabs %}
+{% tab title='BJ_9659.md' %}
+
+> Question
+
+* Maximize matrix multiplication reorder
+
+```txt
+Input:
+3
+5 3
+3 2
+2 6
+
+Output: 90
+```
+
+{% endtab %}
+{% tab title='BJ_9659.py' %}
+
+```py
+n = int(input())
+s = [list(map(int, input().split())) for i in range(n)]
+dp = [[0] * n for i in range(n)]
+for i in range(1, n):
+  for j in range(n - i):
+    x = j + i
+    dp[j][x] = 2 ** 32
+    for k in range(j, x):
+      dp[j][x] = min(dp[j][x], dp[j][k] + dp[k + 1][x] + s[j][0] * s[k][1] * s[x][1])
+print(dp[0][-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 같은 탑](https://www.acmicpc.net/problem/1126)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_1126.md/)
+
+{% tabs %}
+{% tab title='BJ_1126.md' %}
+
+> Question
+
+* A tower can be built by placing another block on top of the block
+* At this time, two pagodas were made, and the two towers were to be the same height and as high as possible
+* Each tower contains at least one block, and you don't have to write all the blocks
+* When given the height of each block, print out the maximum height of the tower you can make
+
+```txt
+Input:
+3
+2 3 5
+
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_1126.py' %}
+
+```py
+n = int(input())
+li = list(map(int, input().split()))
+dp = [[-1] * (500001) for _ in range(n + 1)]
+dp[0][0] = 0
+for i, h in enumerate(li):
+  for d in range(500001):
+    dp[i + 1][d] = dp[i][d]
+    if d >= h and dp[i][d - h] != -1:
+      dp[i + 1][d] = max(dp[i + 1][d], dp[i][d - h] + h)
+    if h >= d and dp[i][h - d] != -1:
+      dp[i + 1][d] = max(dp[i + 1][d], dp[i][h - d] + d)
+    if d + h <= 500000 and dp[i][d + h] != -1:
+      dp[i + 1][d] = max(dp[i + 1][d], dp[i][d + h])
+
+print(-1 if dp[n][0] == 0 else dp[n][0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 22 : Kangaroo](https://www.acmicpc.net/problem/13188)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_13188.md/)
+
+{% tabs %}
+{% tab title='BJ_13188.md' %}
+
+> Question
+
+* in N grid, you can go left and right alternatively
+* Count number of ways to go from start to end
+
+```txt
+Input: 4 2 3
+Output: 2  # 2 -> 1 -> 4 -> 3 / 2 -> 4 -> 1 -> 3
+```
+
+{% endtab %}
+{% tab title='BJ_13188.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+long long dp[2010][2010],mod=1000000007;
+int main() {
+  int i, j,T=0;
+  int n, s, e; cin >> n >> s >> e;
+  dp[0][0]=1;
+  for(i=1;i<=n;i++) {
+    for(j=1;j<=n;j++) {
+      if(i==s||i==e) dp[i][j]=(dp[i-1][j]+dp[i-1][j-1])%mod;
+      else           dp[i][j]=(dp[i-1][j+1]*j+dp[i-1][j-1]*(j-T))%mod;
+    }
+    if(i==s||i==e) T++;
+  }
+  printf("%lld", dp[n][1]);
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codeforces
+
+* [Level 1800 : Armchairs](https://codeforces.com/contest/1525/problem/D)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/CF_1525D.md/)
+
+{% tabs %}
+{% tab title='CF_1525D.md' %}
+
+> Question
+
+* pring minimum sum of distance so that every 1 is moved to 0
+
+```txt
+Input:
+6
+1 1 1 0 0 0
+
+Output: 9
+```
+
+> Solution
+
+* starting position of people $$ x_1, ..., x_k $$ must match with $$ y_1, ..., y_k $$ in sorted order
+* dp[i][j] is min time if we considered i first positions and picked j of them as ending ones
+
+{% endtab %}
+{% tab title='CF_1525D.py' %}
+
+```py
+input()
+a = list(map(int,input().split()))
+b0 = [i for i, n in enumerate(li) if n == 0]
+b1 = [i for i, n in enumerate(li) if n == 1]
+dp=[[10 **10] * (len(b1) + 1) for i in range(len(b0) + 1)]
+dp[0][0] = 0
+for i in range(len(b0)):
+  for j in range(len(b1)):
+    dp[i + 1][j] = min(dp[i + 1][j], dp[i][j])
+    dp[i + 1][j + 1] = min(dp[i + 1][j + 1], dp[i][j] + abs(b0[i] - b1[j]))
+print(min([dp[i][len(b1)] for i in range(len(b0) + 1)]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : House Robber II](https://leetcode.com/problems/house-robber-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/LC_213.md/)
+
+{% tabs %}
+{% tab title='LC_213.md' %}
+
+> Question
+
+* Each house, in circle, has a certain amount of money stashed
+* Adjacent houses have security systems connected and it will automatically contact police
+  * if two adjacent houses were broken into on same night
+* Maximize amount of money you can rob
+
+```txt
+Input: nums = [1,2,3,1]
+Output: 4  # Rob house 1 (money = 1) and then rob house 3 (money = 3).
+```
+
+{% endtab %}
+{% tab title='LC_213.cpp' %}
+
+```cpp
+int rob(vector<int>& nums) {
+  int n = nums.size();
+  if (n < 2) return n ? nums[0] : 0;
+  return max(robber(nums, 0, n - 2), robber(nums, 1, n - 1));
+}
+int robber(vector<int>& nums, int l, int r) {
+  int pre = 0, cur = 0;
+  for (int i = l; i <= r; i++) {
+    int temp = max(pre + nums[i], cur);
+    pre = cur;
+    cur = temp;
+  }
+  return cur;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/LC_123.md/)
+
+{% tabs %}
+{% tab title='LC_123.md' %}
+
+> Question
+
+* Find the maximum profit you can achieve. You may complete at most two transactions
+* cannot engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again)
+
+```txt
+Input: prices = [3,3,5,0,0,3,1,4]
+Output: 6
+```
+
+{% endtab %}
+{% tab title='LC_123.cpp' %}
+
+```cpp
+int maxProfit(vector<int>& v, int N = 2) {
+  int M = v.size();
+  if (M == 0) return 0;
+  vector<vector<int>> dp(N + 1, vector<int>(M));
+  for (int i = 1; i <= N; i++) {
+    int mx = -v[0];
+    for (int j = 1; j < M; j++) {
+      dp[i][j] = max(dp[i][j - 1], mx + v[j]);
+      mx = max(mx, dp[i - 1][j - 1] - v[j]);
+    }
+  }
+  return dp[N][M - 1];
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Best Time to Buy and Sell Stock IV](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/LC_188.md/)
+
+{% tabs %}
+{% tab title='LC_188.md' %}
+
+> Question
+
+* Given an integer array prices where prices[i] is the price of a given stock on the ith day, and an integer k
+* Find the maximum profit you can achieve. You may complete at most k transactions
+* You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again)
+
+```txt
+Input: k = 2, prices = [3,2,6,5,0,3]
+Output: 7  #  Buy on day 2 and sell on day 3, profit = 4. Then buy on day 5 and sell on day 6, profit 3
+```
+
+{% endtab %}
+{% tab title='LC_188.cpp' %}
+
+```cpp
+int maxProfit(int N, vector<int>& v) {
+  int M = v.size();
+  N = min(N, M / 2);
+  if (M == 0) return 0;
+  vector<vector<int>> dp(N + 1, vector<int>(M));
+  for (int i = 1; i <= N; i++) {
+    int mx = -v[0];
+    for (int j = 1; j < M; j++) {
+      dp[i][j] = max(dp[i][j - 1], mx + v[j]);
+      mx = max(mx, dp[i - 1][j - 1] - v[j]);
+    }
+  }
+  return dp[N][M - 1];
+}
+```
+
+{% endtab %}
+{% tab title='LC_188.py' %}
+
+```py
+# O(kn)
+def maxProfit(self, k, prices):
+  if not prices:
+    return 0
+  profits = [0]*len(prices)
+  for j in range(k):
+    preprofit = 0
+    for i in range(1,len(prices)):
+      profit = prices[i] - prices[i-1]
+      preprofit = max(preprofit+profit, profits[i])
+      profits[i] = max(profits[i-1], preprofit)
+  return profits[-1]
+```
+
+{% endtab %}
+{% endtabs %}

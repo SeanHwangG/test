@@ -1,0 +1,341 @@
+> baekjoon
+
+* [Level 1 : NFC West vs North](https://www.acmicpc.net/problem/10170)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/multiline/BJ_10170.md/)
+
+{% tabs %}
+{% tab title='BJ_10170.md' %}
+
+> Question
+
+```txt
+Output:
+NFC West       W   L  T
+-----------------------
+Seattle        13  3  0
+San Francisco  12  4  0
+Arizona        10  6  0
+St. Louis      7   9  0
+NFC North      W   L  T
+-----------------------
+Green Bay      8   7  1
+Chicago        8   8  0
+Detroit        7   9  0
+Minnesota      5  10  1
+```
+
+{% endtab %}
+{% tab title='BJ_10170.go' %}
+
+```go
+package main
+
+import "fmt"
+func main() {
+  fmt.Println(`.  .   .
+|  | _ | _. _ ._ _  _
+|/\|(/.|(_.(_)[ | )(/.
+  `)
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10170.js' %}
+
+```js
+console.log(`.  .   .
+|  | _ | _. _ ._ _  _
+|/\\|(/.|(_.(_)[ | )(/.`);
+```
+
+{% endtab %}
+{% tab title='BJ_10170.py' %}
+
+```py
+print("""NFC West       W   L  T
+-----------------------
+Seattle        13  3  0
+San Francisco  12  4  0
+Arizona        10  6  0
+St. Louis      7   9  0
+NFC North      W   L  T
+-----------------------
+Green Bay      8   7  1
+Chicago        8   8  0
+Detroit        7   9  0
+Minnesota      5  10  1
+""")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 고양이](https://www.acmicpc.net/problem/10171)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/multiline/BJ_10171.md/)
+
+{% tabs %}
+{% tab title='BJ_10171.md' %}
+
+> Question
+
+```txt
+Output:
+\    /\
+ )  ( ')
+(  /  )
+ \(__)|
+```
+
+{% endtab %}
+{% tab title='BJ_10171.sh' %}
+
+```sh
+echo -e "\\    /\\ \n )  ( ')\n(  /  )\n \\(__)|"
+```
+
+{% endtab %}
+{% tab title='BJ_10171.py' %}
+
+```py
+print("""\    /\\
+ )  ( ')
+(  /  )
+ \\(__)|""")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 개](https://www.acmicpc.net/problem/10172)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/multiline/BJ_10172.md/)
+
+{% tabs %}
+{% tab title='BJ_10172.md' %}
+
+> Question
+
+```txt
+Output:
+|\_/|
+|q p|   /}
+( 0 )"""\
+|"^"`    |
+||_/=\\__|
+```
+
+{% endtab %}
+{% tab title='BJ_10172.py' %}
+
+```py
+print('''|\\_/|
+|q p|   /}
+( 0 )"""\\
+|"^"`    |
+||_/=\\\\__|''')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 웰컴](https://www.acmicpc.net/problem/5337)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/multiline/BJ_5337.md/)
+
+{% tabs %}
+{% tab title='BJ_5337.md' %}
+
+> Question
+
+```txt
+Output:
+.  .   .
+|  | _ | _. _ ._ _  _
+|/\|(/.|(_.(_)[ | )(/.
+```
+
+{% endtab %}
+{% tab title='BJ_5337.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  cout << R"(.  .   .
+|  | _ | _. _ ._ _  _
+|/\|(/.|(_.(_)[ | )(/.)";
+}
+```
+
+{% endtab %}
+{% tab title='BJ_5337.js' %}
+
+```js
+console.log(`.  .   .
+|  | _ | _. _ ._ _  _
+|/\\|(/.|(_.(_)[ | )(/.`);
+```
+
+{% endtab %}
+{% tab title='BJ_5337.sh' %}
+
+```sh
+echo -e ".  .   .\n|  | _ | _. _ ._ _  _\n|/\\|(/.|(_.(_)[ | )(/."
+```
+
+{% endtab %}
+{% tab title='BJ_5337.py' %}
+
+```py
+print(""".  .   .
+|  | _ | _. _ ._ _  _
+|/\\|(/.|(_.(_)[ | )(/.""")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 마이크로소프트 로고](https://www.acmicpc.net/problem/5338)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/multiline/BJ_5338.md/)
+
+{% tabs %}
+{% tab title='BJ_5338.md' %}
+
+> Question
+
+```txt
+Output:
+       _.-;;-._
+'-..-'|   ||   |
+'-..-'|_.-;;-._|
+'-..-'|   ||   |
+'-..-'|_.-''-._|
+```
+
+{% endtab %}
+{% tab title='BJ_5338.py' %}
+
+```py
+print("""       _.-;;-._
+'-..-'|   ||   |
+'-..-'|_.-;;-._|
+'-..-'|   ||   |
+'-..-'|_.-''-._|""")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 콜센터](https://www.acmicpc.net/problem/5339)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/multiline/BJ_5339.md/)
+
+{% tabs %}
+{% tab title='BJ_5339.md' %}
+
+> Question
+
+```txt
+Output:
+     /~\
+    ( oo|
+    _\=/_
+   /  _  \
+  //|/.\|\\
+ ||  \ /  ||
+============
+|          |
+|          |
+|          |
+```
+
+{% endtab %}
+{% tab title='BJ_5339.py' %}
+
+```py
+print("""     /~\\
+    ( oo|
+    _\\=/_
+   /  _  \\
+  //|/.\\|\\\\
+ ||  \\ /  ||
+============
+|          |
+|          |
+|          |""")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 스타워즈 로고](https://www.acmicpc.net/problem/9653)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/multiline/BJ_9653.md/)
+
+{% tabs %}
+{% tab title='BJ_9653.md' %}
+
+> Question
+
+```txt
+Output:
+    8888888888  888    88888
+   88     88   88 88   88  88
+    8888  88  88   88  88888
+       88 88 888888888 88   88
+88888888  88 88     88 88    888888
+88  88  88   888    88888    888888
+88  88  88  88 88   88  88  88
+88 8888 88 88   88  88888    8888
+ 888  888 888888888 88  88      88
+  88  88  88     88 88   88888888
+```
+
+{% endtab %}
+{% tab title='BJ_9653.py' %}
+
+```py
+print("""    8888888888  888    88888
+   88     88   88 88   88  88
+    8888  88  88   88  88888
+       88 88 888888888 88   88
+88888888  88 88     88 88    888888
+88  88  88   888    88888    888888
+88  88  88  88 88   88  88  88
+88 8888 88 88   88  88888    8888
+ 888  888 888888888 88  88      88
+  88  88  88     88 88   88888888""")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 나부 함대 데이터](https://www.acmicpc.net/problem/9654)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/multiline/BJ_9654.md/)
+
+{% tabs %}
+{% tab title='BJ_9654.md' %}
+
+> Question
+
+```txt
+Output:
+SHIP NAME      CLASS          DEPLOYMENT IN SERVICE
+N2 Bomber      Heavy Fighter  Limited    21
+J-Type 327     Light Combat   Unlimited  1
+NX Cruiser     Medium Fighter Limited    18
+N1 Starfighter Medium Fighter Unlimited  25
+Royal Cruiser  Light Combat   Limited    4
+```
+
+{% endtab %}
+{% tab title='BJ_9654.py' %}
+
+```py
+print("""SHIP NAME      CLASS          DEPLOYMENT IN SERVICE
+N2 Bomber      Heavy Fighter  Limited    21
+J-Type 327     Light Combat   Unlimited  1
+NX Cruiser     Medium Fighter Limited    18
+N1 Starfighter Medium Fighter Unlimited  25
+Royal Cruiser  Light Combat   Limited    4         """)
+```
+
+{% endtab %}
+{% endtabs %}

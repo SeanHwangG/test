@@ -1,0 +1,288 @@
+> baekjoon
+
+* [Level 2 : o Not Touch Anything](https://www.acmicpc.net/problem/13136)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/round/BJ_13136.md/)
+
+{% tabs %}
+{% tab title='BJ_13136.md' %}
+
+> Question
+
+* How many squares with side c needed to cover rectangle with side a, b
+
+```txt
+Input: 7 9 3
+Output: 9
+```
+
+{% endtab %}
+{% tab title='BJ_13136.py' %}
+
+```py
+import math
+a, b, c = map(int, input().split())
+print(math.ceil(a / c) * math.ceil(b / c))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Volta](https://www.acmicpc.net/problem/13610)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/round/BJ_13610.md/)
+
+{% tabs %}
+{% tab title='BJ_13610.md' %}
+
+> Question
+
+* print ceil(b / (b - a))
+
+```txt
+Input: 1 10
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_13610.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+  int a, b;
+  cin >> a >> b;
+  cout << (b + b - a - 1) / (b - a);
+}
+```
+
+{% endtab %}
+{% tab title='BJ_13610.py' %}
+
+```py
+from math import ceil
+a, b = map(int, input().split())
+print(ceil(b / (b - a)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 방학 숙제](https://www.acmicpc.net/problem/5532)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/round/BJ_5532.md/)
+
+{% tabs %}
+{% tab title='BJ_5532.md' %}
+
+> Question
+
+* vacation is a total of L days, have to solve a total of B pages for math and A pages for Korean
+* can solve up to C pages of Korean and D pages of math per day
+* find the maximum number of days that without doing homework during winter vacation
+
+```txt
+Input:
+20
+25
+30
+6
+8
+
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_5532.py' %}
+
+```py
+import math
+n = int(input())
+A = int(input())
+B = int(input())
+C = int(input())
+D = int(input())
+print(n - max(math.ceil(A / C), math.ceil(B / D)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 내 학점을 구해줘](https://www.acmicpc.net/problem/10984)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/round/BJ_10984.md/)
+
+{% tabs %}
+{% tab title='BJ_10984.md' %}
+
+> Question
+
+* Given courses and score print GPA
+
+```txt
+Input:
+2
+4
+3 4.3
+2 2.0
+4 0.0
+2 4.0
+3
+4 0.0
+4 0.0
+3 0.0
+
+Output:
+11 2.3
+11 0.0
+```
+
+{% endtab %}
+{% tab title='BJ_10984.py' %}
+
+```py
+for _ in range(int(input())):
+  a = int(input())
+  h, p = 0, 0
+  for i in range(a):
+    c, g = map(str, input().split())
+    h += int(c)
+    p += float(c) * float(g)
+  p = round(p / h, 1)
+  print(h, p)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 삼각 김밥](https://www.acmicpc.net/problem/2783)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/round/BJ_2783.md/)
+
+{% tabs %}
+{% tab title='BJ_2783.md' %}
+
+> Question
+
+* Given list of y gram per won information
+* Print minimum per 1000 gram
+
+```txt
+Input:
+5 100
+3
+4 100
+3 100
+7 100
+
+Output: 30.00
+```
+
+{% endtab %}
+{% tab title='BJ_2783.py' %}
+
+```py
+x, y = map(int, input().split())
+gs_min = x * 1000 / y
+n = int(input())
+for i in range(n):
+  a, b = map(int, input().split())
+  gs_min = min(gs_min, a * 1000 / b)
+print(round(gs_min, 2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 대회 or 인턴](https://www.acmicpc.net/problem/2875)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/round/BJ_2875.md/)
+
+{% tabs %}
+{% tab title='BJ_2875.md' %}
+
+> Question
+
+* N girls and M boys are looking for team members
+* Among the students who want to participate in the competition, K must participate in the internship program
+* Students who participate in the internship cannot participate in the competition
+* You can find the maximum number of teams you can make when given N for girls, M for boys, and K for the internship
+
+```txt
+Input: 6 3 2
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_2875.py' %}
+
+```py
+import math
+a, b, c = map(int, input().split())
+team = min(a // 2, b)
+c = max(0, c - (a - team * 2) - (b - team))
+print(team - math.ceil(c / 3))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 길면 기차, 기차는 빨라, 빠른 것은 비행기](https://www.acmicpc.net/problem/9493)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/round/BJ_9493.md/)
+
+{% tabs %}
+{% tab title='BJ_9493.md' %}
+
+> Question
+
+* print time difference M(Km) when two are running at A(Km/h), B(Km/h) each
+
+```txt
+Input:
+21 70 80
+26 65 80
+0 0 0
+
+Output:
+0:02:15
+0:04:30
+```
+
+{% endtab %}
+{% tab title='BJ_9493.py' %}
+
+```py
+while True:
+  m,a,b=map(int,input().strip().split())
+  if m==0 and a==0 and b==0:
+    break
+  time = round(m * 60 * 60 / a - m * 60 * 60 / b)
+  print(f"{time//3600}:{time % 3600 // 60:02d}:{time % 60:02d}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 달팽이는 올라가고 싶다](https://www.acmicpc.net/problem/2869)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/round/BJ_2869.md/)
+
+{% tabs %}
+{% tab title='BJ_2869.md' %}
+
+> Question
+
+* Snails can go up an A-meter during the day, slips B meters while sleeping at night
+* find out how many days it takes for a snail to climb all the wooden bars
+
+```txt
+Input: 5 1 6
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_2869.py' %}
+
+```py
+import math
+a, b, c = map(int, input().split())
+print(math.ceil((c - a) / (a - b)) + 1)
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,118 @@
+> baekjoon
+
+* [Level 6 : UCPC는 무엇의 약자일까?](https://www.acmicpc.net/problem/15904)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/quantifier/BJ_15904.md/)
+
+{% tabs %}
+{% tab title='BJ_15904.md' %}
+
+> Question
+
+* Print if sentence cna be abbreviated as UCPC
+
+```txt
+Input: Union of Computer Programming Contest club contest
+Output: I love UCPC
+```
+
+{% endtab %}
+{% tab title='BJ_15904.py' %}
+
+```py
+import re
+a = re.search('U.*C.*P.*C',input())
+print('I love UCPC' if a else 'I hate UCPC')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> hackerrank
+
+* [Level Medium : Detect the Email Addresses](https://www.hackerrank.com/challenges/detect-the-email-addresses/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/quantifier/HR_detect-the-email-addresses.md/)
+
+{% tabs %}
+{% tab title='HR_detect-the-email-addresses.md' %}
+
+> Question
+
+* Print all the unique e-mail addresses detected by you, in one line, in lexicographical order, a semi-colon as the delimiter
+
+```txt
+Input:
+5
+HackerRank is more than just a company, hackers@hackerrank.com
+    We are a tight group of hackers, bootstrappers, entrepreneurial thinkers and innovators.
+    We are building an engaged community of problem solvers.
+    Imagine the intelligence and value that a room would hold if it contained hackers/problem solvers from around the world?
+    We're building this online.
+Hypothesis: Every hacker loves a particular type of challenge presented in a certain set of difficulty.
+If we build a large collection of real world challenges in different domains with an engaging interface,
+it is going to be incredible! Join us to create history.
+Available Positions interviewstreet@hackerrank.com
+Product Hacker product@hackerrank.com
+
+Output: hackers@hackerrank.com;interviewstreet@hackerrank.com;product@hackerrank.com
+```
+
+{% endtab %}
+{% tab title='HR_detect-the-email-addresses.py' %}
+
+```py
+import re
+N = int(input())
+myStr = " ".join([input() for i in range(N)])
+print(";".join(sorted(set([i for i in re.findall(r"([\w.]+@[\w.]+\w+)", myStr)]))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Design Compressed String Iterator](https://leetcode.com/problems/design-compressed-string-iterator)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/quantifier/LC_604.md/)
+
+{% tabs %}
+{% tab title='LC_604.md' %}
+
+> Question
+
+* next() Returns the next character if the original string still has uncompressed characters, otherwise returns a white space
+* hasNext() Returns if there is any letter needs to be uncompressed in the original string
+
+```txt
+Input:
+["StringIterator", "next", "next", "next", "next", "next", "next", "hasNext", "next", "hasNext"]
+[["L1e2t1C1o1d1e1"], [], [], [], [], [], [], [], [], []]
+
+Output:
+[null, "L", "e", "e", "t", "C", "o", true, "d", true]
+```
+
+{% endtab %}
+{% tab title='LC_604.py' %}
+
+```py
+import re
+class StringIterator(object):
+  def __init__(self, compressedString):
+    self.tokens = []
+    for token in re.findall('\D\d+', compressedString):
+      self.tokens.append((token[0], int(token[1:])))
+    self.tokens = self.tokens[::-1]
+
+  def next(self):
+    if not self.tokens: return ' '
+    t, n = self.tokens.pop()
+    if n > 1:
+      self.tokens.append((t, n - 1))
+    return t
+
+  def hasNext(self):
+    return bool(self.tokens)
+```
+
+{% endtab %}
+{% endtabs %}

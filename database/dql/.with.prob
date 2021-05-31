@@ -1,0 +1,87 @@
+> leetcode
+
+* [Level 2 : Activity Participants](https://leetcode.com/problems/activity-participants)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/with/LC_1355.md/)
+
+{% tabs %}
+{% tab title='LC_1355.md' %}
+
+> Question
+
+| id  | name        | activity     |
+| --- | ----------- | ------------ |
+| 1   | Jonathan D. | Eating       |
+| 2   | Jade W.     | Singing      |
+| 3   | Victor J.   | Singing      |
+| 4   | Elvis Q.    | Eating       |
+| 5   | Daniel A.   | Eating       |
+| 6   | Bob B.      | Horse Riding |
+
+| id  | name         |
+| --- | ------------ |
+| 1   | Eating       |
+| 2   | Singing      |
+| 3   | Horse Riding |
+
+* find the names of all the activities with neither max, nor min number of participants in any order
+* Each activity in table Activities is performed by any person in the table Friends
+
+| results |
+| ------- |
+| Singing |
+
+{% endtab %}
+{% tab title='LC_1355.sql' %}
+
+```sql
+WITH activity_count AS (
+    SELECT f.activity, COUNT(1) AS 'act_counts' FROM Friends f
+    GROUP BY f.activity)
+
+SELECT a.activity FROM activity_count a
+  WHERE a.act_counts != (SELECT MAX(act_counts) FROM activity_count)
+  AND a.act_counts != (SELECT MIN(act_counts) FROM activity_count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Get the Second Most Recent Activity](https://leetcode.com/problems/get-the-second-most-recent-activity)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/with/LC_1369.md/)
+
+{% tabs %}
+{% tab title='LC_1369.md' %}
+
+> Question
+
+* UserActivity
+
+| username | activity | startDate  | endDate    |
+| -------- | -------- | ---------- | ---------- |
+| Alice    | Travel   | 2020-02-12 | 2020-02-20 |
+| Alice    | Dancing  | 2020-02-21 | 2020-02-23 |
+| Alice    | Travel   | 2020-02-24 | 2020-02-28 |
+| Bob      | Travel   | 2020-02-11 | 2020-02-18 |
+
+* Show the second most recent activity of each user
+* If the user only has one activity, return that one
+
+| username | activity | startDate  | endDate    |
+| -------- | -------- | ---------- | ---------- |
+| Alice    | Dancing  | 2020-02-21 | 2020-02-23 |
+| Bob      | Travel   | 2020-02-11 | 2020-02-18 |
+
+{% endtab %}
+{% tab title='LC_1369.sql' %}
+
+```sql
+WITH order_table AS (
+  SELECT *,
+    ROW_NUMBER() OVER(PARTITION BY u.username ORDER BY u.startDate DESC) AS 'order',
+    COUNT(1) OVER(PARTITION BY u.username) AS 'act_count' FROM UserActivity u)
+SELECT o.username, o.activity, o.startDate, o.endDate FROM order_table o
+  WHERE o.order = 2 OR o.act_count = 1
+```
+
+{% endtab %}
+{% endtabs %}

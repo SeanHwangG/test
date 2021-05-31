@@ -1,0 +1,32 @@
+{
+  "folders": [
+    {
+      "path": "private/work"
+    },
+    {
+      "path": "private/english"
+    },
+    {
+      "path": "..//test"
+    },
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "searchEverywhere.include": "**/*.md",
+    "search.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/*.code-search": true
+    },
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": [
+      "--style={based_on_style: pep8, indent_width: 2}"
+    ]
+  },
+}

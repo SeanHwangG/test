@@ -1,0 +1,885 @@
+> baekjoon
+
+* [Level 3 : 주사위 게임](https://www.acmicpc.net/problem/10103)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_10103.md/)
+
+{% tabs %}
+{% tab title='BJ_10103.md' %}
+
+> Question
+
+* The game uses a six-sided die and is played in a round
+* Every round, each person throws a dice
+* A person with a low number loses the score as much as the number on the opponent's dice
+* No one loses their score if the two dice have the same number
+
+```txt
+Input:
+4
+5 6
+6 6
+4 3
+5 2
+
+Output:
+94
+91
+```
+
+{% endtab %}
+{% tab title='BJ_10103.py' %}
+
+```py
+c = s = 100
+for _ in range(int(input())):
+  first, second = map(int, input().split())
+  if first < second:
+    c -= second
+  elif first > second:
+    s -= first
+print(c, s, sep='\n')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 사과](https://www.acmicpc.net/problem/10833)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_10833.md/)
+
+{% tabs %}
+{% tab title='BJ_10833.md' %}
+
+> Question
+
+* Given the number of students and apples in each school, hand them out to students and get the total number of apples left
+
+```txt
+Input:
+5
+24 52
+13 22
+5 53
+23 10
+7 70
+Output: 26
+```
+
+{% endtab %}
+{% tab title='BJ_10833.py' %}
+
+```py
+N = int(input())
+answer = 0
+for _ in range(N):
+  A, B = map(int, input().split())
+  answer += B % A
+
+print(answer)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 우유 축제](https://www.acmicpc.net/problem/14720)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_14720.md/)
+
+{% tabs %}
+{% tab title='BJ_14720.md' %}
+
+> Question
+
+* Count ther number of milks of type 0, 1, 2
+* you only drink one milk after another (0, 1, 2)
+
+```txt
+Input:
+7
+0 1 2 0 1 2 0
+
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_14720.py' %}
+
+```py
+n = int(input())
+ret = 0
+for n in map(int, input().split()):
+  if n == ret % 3:
+    ret += 1
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 지능형 기차](https://www.acmicpc.net/problem/2455)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_2455.md/)
+
+{% tabs %}
+{% tab title='BJ_2455.md' %}
+
+> Question
+
+* From departure station to the end station, calculate # people on train when there are the most people on the train
+
+```txt
+Input:
+0 32
+3 13
+28 25
+39 0
+
+Output: 42
+```
+
+{% endtab %}
+{% tab title='BJ_2455.py' %}
+
+```py
+cur = 0
+m = 0
+for i in range(4):
+  a, b = map(int, input().split())
+  total += b - a
+  if m < cur:
+    m = cur
+print(m)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 지능형 기차 2](https://www.acmicpc.net/problem/2460)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_2460.md/)
+
+{% tabs %}
+{% tab title='BJ_2460.md' %}
+
+> Question
+
+* Calculate the number of people when there are the most people on the train
+* It is assumed that people who use this train have a strong sense of order
+  * so when they get on the train at the station, they get on the train after everyone gets off
+
+```txt
+Input:
+0 32
+3 13
+28 25
+17 5
+21 20
+11 0
+12 12
+4 2
+0 8
+21 0
+
+Output: 42
+```
+
+{% endtab %}
+{% tab title='BJ_2460.py' %}
+
+```py
+mx, cur = 0, 0
+for _ in range(10):
+  leave, enter = map(int, input().split())
+  cur = cur - leave + enter
+  mx = max(mx, cur)
+print(mx)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 점수계산](https://www.acmicpc.net/problem/2506)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_2506.md/)
+
+{% tabs %}
+{% tab title='BJ_2506.md' %}
+
+> Question
+
+* Print total scores
+* If student get the questions consecutively, the score increases
+
+```txt
+Input:
+10
+1 0 1 1 1 0 0 1 1 0
+
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_2506.py' %}
+
+```py
+input()
+S = s = 0
+for i in map(int, input().split()):
+  s = (s + 1) * i
+  S += s
+print(S)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 홀수](https://www.acmicpc.net/problem/2576)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_2576.md/)
+
+{% tabs %}
+{% tab title='BJ_2576.md' %}
+
+> Question
+
+* Find odd's sum and minimum
+
+```txt
+Input:
+12
+77
+38
+41
+53
+92
+85
+
+Output:
+256
+41
+```
+
+{% endtab %}
+{% tab title='BJ_2576.py' %}
+
+```py
+sm = 0
+mn = 100
+for _ in range(7):
+  a = int(input())
+  if a % 2 == 1:
+    mn = min(mn, a)
+    sm += a
+if mn == 100:
+  print(-1)
+else:
+  print(sm)
+  print(mn)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Even Sum More Than Odd Sum](https://www.acmicpc.net/problem/5235)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_5235.md/)
+
+{% tabs %}
+{% tab title='BJ_5235.md' %}
+
+> Question
+
+* compare sum of even and odd numbers
+
+```txt
+Input:
+4
+8 5 7 2 1 10 13 6 12
+4 5 2 3 4
+8 1 2 1 2 1 1 1 1
+6 1 1 2 3 5 8
+
+Output:
+EVEN
+ODD
+ODD
+TIE
+```
+
+{% endtab %}
+{% tab title='BJ_5235.py' %}
+
+```py
+t = int(input())
+for i in range(t):
+  o = e = 0
+  for j in list(map(int, input().split()))[1:]:
+    if j%2: o += j
+    else: e += j
+  if o > e: print('ODD')
+  elif o < e: print('EVEN')
+  else: print('TIE')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 진짜 공간](https://www.acmicpc.net/problem/1350)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_1350.md/)
+
+{% tabs %}
+{% tab title='BJ_1350.md' %}
+
+> Question
+
+* 클러스터의 크기가 512바이트이고, 600바이트 파일을 저장하려고 한다면, 두 개의 클러스터에 저장하게 된다
+* 두 클러스터는 다른 파일과 공유할 수 없기 때문에, 디스크 사용 공간은 1024바이트가 된다
+* 파일의 사이즈와 클러스터의 크기가 주어질 때, 사용한 디스크 공간을 출력하는 프로그램을 작성하시오
+
+```txt
+Input:
+1
+600
+512
+
+Output: 1024
+```
+
+{% endtab %}
+{% tab title='BJ_1350.py' %}
+
+```py
+n = int(input())
+s = list(map(int, input().split()))
+a = int(input())
+total = 0
+for i in s:
+  if i % a == 0:
+    total += i // a
+  else:
+    total += i // a + 1
+print(total * a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 수열의 변화](https://www.acmicpc.net/problem/1551)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_1551.md/)
+
+{% tabs %}
+{% tab title='BJ_1551.md' %}
+
+> Question
+
+* create the size is N-1 by using the difference of adjacent two elements
+* find result from repeat n time
+
+```txt
+Input:
+5 1
+5,6,3,9,-1
+
+Output: 1,-3,6,-10
+```
+
+{% endtab %}
+{% tab title='BJ_1551.py' %}
+
+```py
+n, k = map(int, input().split())
+a = list(map(int, input().split(",")))
+for _ in range(k):
+  a = [a[i+1] - a[i] for i in range(len(a)-1)]
+print(*a, sep=",")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 연속구간](https://www.acmicpc.net/problem/2495)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_2495.md/)
+
+{% tabs %}
+{% tab title='BJ_2495.md' %}
+
+> Question
+
+* Print longest consecutive integer
+
+```txt
+Input:
+12345123
+17772345
+22233331
+
+Output:
+1
+3
+4
+```
+
+{% endtab %}
+{% tab title='BJ_2495.py' %}
+
+```py
+for _ in range(3):
+  p, c, m = 0, 0, 0
+  for i in input():
+    c = c + 1 if p==i else 0
+    m, p = c if c>m else m, i
+  print(m + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 오르막길](https://www.acmicpc.net/problem/2846)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_2846.md/)
+
+{% tabs %}
+{% tab title='BJ_2846.md' %}
+
+> Question
+
+* Print length of longest increasing subarray
+
+```txt
+Input:
+8
+12 20 1 3 4 4 11 1
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_2846.py' %}
+
+```py
+input()
+m, n, l = 0, 999999999999, 999999999999
+for i in map(int, input().split()):
+  if l < i:
+    m = max(m, i-n)
+  else:
+    n = i
+  l = i
+print(m)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 게임을 만든 동준이](https://www.acmicpc.net/problem/2847)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_2847.md/)
+
+{% tabs %}
+{% tab title='BJ_2847.md' %}
+
+> Question
+
+* Print total sum of subtraction to make the list decreasing
+
+```txt
+Input:
+4
+5
+3
+7
+5
+
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_2847.py' %}
+
+```py
+score = [int(input()) for i in range(int(input()))][::-1]
+cur = 20000
+ans = 0
+for s in score:
+  ans += max(0, s - cur + 1)
+  cur = min(cur - 1, s)
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Grass Seed Inc.](https://open.kattis.com/problems/grassseed)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/KT_grassseed.md/)
+
+{% tabs %}
+{% tab title='KT_grassseed.md' %}
+
+> Question
+
+* C 1m2 에 소모되는 씨앗의 가격
+* L 라인 의 수
+* w1 l1 밭의 넓이 높이
+* wL lL
+* 이 때 총 씨앗의 가격을 구하라
+
+```txt
+Input:
+0.75
+2
+2 3.333
+3.41 4.567
+
+Output: 16.6796025
+```
+
+{% endtab %}
+{% tab title='KT_grassseed.py' %}
+
+```py
+c = float(input())
+l = int(input())
+ret = 0
+for _ in range(l):
+  w, l = map(float, input().split())
+  ret += w * l * c
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.2 : Quality-Adjusted Life-Year](https://open.kattis.com/problems/qaly)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/KT_qaly.md/)
+
+{% tabs %}
+{% tab title='KT_qaly.md' %}
+
+> Question
+
+* 첫 줄에는 n이, 그 다음 n 번째 줄에는 a, b가 주어진다. n개의 a * b 의 합을 구하라
+
+```txt
+Input:
+2
+1 2
+3 -2
+
+Output:
+2
+-6
+```
+
+{% endtab %}
+{% tab title='KT_qaly.py' %}
+
+```py
+n_line = int(input())
+ret = 0
+for _ in range(n_line):
+  a, b = map(float, input().split())
+  ret += a * b
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.3 : Tarifa](https://open.kattis.com/problems/tarifa)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/KT_tarifa.md/)
+
+{% tabs %}
+{% tab title='KT_tarifa.md' %}
+
+> Question
+
+* 첫 줄에는 데이터 한도(한 달에 사용 가능 한 데이터), 두번째 줄에는 N이 주어진다
+* 각 N줄에는 각 달에 사용한 데이터 량이 주어지는데, 이 때 한도보다 적게 쓸 시 다음달로 이월된다
+* 이때 N + 1번째 달에 사용할 수 있는 데이터 양을 출력하라
+
+```txt
+Input:
+10
+3
+4
+6
+2
+
+Output: 28
+```
+
+{% endtab %}
+{% tab title='KT_tarifa.py' %}
+
+```py
+add = int(input())
+n_line = int(input())
+cur = 0
+for n in range(n_line):
+  cur += add
+  cur = max(0, cur - int(input()))
+print(cur + add)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : Basketball One-on-One](https://open.kattis.com/problems/basketballoneonone)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/KT_basketballoneonone.md/)
+
+{% tabs %}
+{% tab title='KT_basketballoneonone.md' %}
+
+> Question
+
+* A + point 혹은 B + point와 같은 형식으로 점수를 출력 할 때 더 많은 점수를 얻는 사람을 출력하라
+
+```txt
+Input: A2B1A2B2A1A2A2A2
+Output: A
+```
+
+{% endtab %}
+{% tab title='KT_basketballoneonone.py' %}
+
+```py
+s = input()
+A = B = 0
+for i in range(1, len(s), 2):
+  if s[i - 1] == 'A':
+    A += int(s[i])
+  else:
+    B += int(s[i])
+if A > B:
+  print('A')
+else:
+  print('B')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Shattered Cake](https://open.kattis.com/problems/shatteredcake)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/KT_shatteredcake.md/)
+
+{% tabs %}
+{% tab title='KT_shatteredcake.md' %}
+
+> Question
+
+* 첫 줄에는 원 케익의 가로 길이가 주어진다
+* 케익이 정확히 N등분 되어 N개의 줄에 각 조각의 가로 세로 길이가 주어지는데 이 때 원 케익의 세로 길이를 출력
+
+```txt
+Input:
+4
+7
+2 3
+1 4
+1 2
+1 2
+2 2
+2 2
+2 1
+Output: 6
+```
+
+{% endtab %}
+{% tab title='KT_shatteredcake.py' %}
+
+```py
+w = int(input())
+total = 0
+for _ in range(int(input())):
+  a, b = map(int, input().split())
+  total += a * b
+print(total // w)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Tai's formula](https://open.kattis.com/problems/taisformula)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/KT_taisformula.md/)
+
+{% tabs %}
+{% tab title='KT_taisformula.md' %}
+
+> Question
+
+* Each line contains two numbers ti, vi, where ti is the time of the sample, and vi is the glucose value at time ti
+
+```txt
+Input:
+3
+1000 2.0
+2000 12.0
+3000 22.0
+
+Output: 24
+```
+
+{% endtab %}
+{% tab title='KT_taisformula.py' %}
+
+```py
+pa, pb = None, None
+ret = 0
+for _ in range(int(input())):
+  a, b = map(float, input().split())
+  if pa != None:
+    ret += (a - pa) * (b + pb) / 2 / 1000
+  pa, pb = a, b
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.9 : Exam](https://open.kattis.com/problems/exam)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/KT_exam.md/)
+
+{% tabs %}
+{% tab title='KT_exam.md' %}
+
+> Question
+
+* 첫줄에는 친구가 맞은 문제 수가, 둘째 줄 세째 줄에는 나와 친구의 답안이 주어진다
+* 내가 맞을 수 있는 최대 문제 수를 출력하라
+
+```txt
+Input:
+3
+FTFFF
+TFTTT
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='KT_exam.py' %}
+
+```py
+correct = int(input())
+my = input()
+fr = input()
+total = len(my)
+same = 0
+for m, f in zip(my, fr):
+  if m == f:
+    same += 1
+
+if same > correct:
+  print(correct + (total - same))
+else:
+  print(same + (total - correct))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.7 : Hanging Out on the Terrace](https://open.kattis.com/problems/hangingout)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/KT_hangingout.md/)
+
+{% tabs %}
+{% tab title='KT_hangingout.md' %}
+
+> Question
+
+* 첫줄에 테라스의 최대 인원 L과 x개의 이벤트가 주어진다
+* 각 x줄의 이벤트에는 ‘enter’/‘leave’ 사람수 가 주어지는데 최대 인원 이상으로는 들어올 수 없다
+* 이때 사람이 많아 거절 당한 이벤트의 개수를 출력하라. (거절 당할 시 enter 해도 추가가 되지 않음)
+
+```txt
+Input:
+4 5
+enter 3
+enter 2
+leave 1
+enter 1
+enter 2
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='KT_hangingout.py' %}
+
+```py
+max_n, n_line = map(int, input().split())
+cur, ret = 0, 0
+for _ in range(n_line):
+  st, n = input().split()
+  n = int(n)
+  if st == 'enter':
+    if n + cur <= max_n:
+      cur += n
+    else:
+      ret += 1
+  else:
+    cur -= n
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Minimum Operations to Make the Array Increasing](https://leetcode.com/problems/minimum-operations-to-make-the-array-increasing)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/LC_1827.md/)
+
+{% tabs %}
+{% tab title='LC_1827.md' %}
+
+> Question
+
+* Given an integer array nums (0-indexed). In one operation, you can choose an element of the array and increment it by 1
+* Return the minimum number of operations needed to make nums strictly increasing
+
+```txt
+Input: nums = [1,1,1]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_1827.py' %}
+
+```cpp
+int minOperations(vector<int>& nums) {
+  int res = 0, last = 0;
+  for (auto n : nums) {
+    res += max(0, last - n + 1);
+    last = max(n, last + 1);
+  }
+  return res;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Can Place Flowers](https://leetcode.com/problems/can-place-flowers)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/LC_605.md/)
+
+{% tabs %}
+{% tab title='LC_605.md' %}
+
+> Question
+
+* Flowers cannot be planted in adjacent plots
+* Given an integer array flowerbed containing 0's and 1's, where 0 means empty and 1 means not empty, and an integer n
+* return if n new flowers can be planted
+
+```txt
+Input: flowerbed = [1,0,0,0,1], n = 1
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_605.py' %}
+
+```py
+def canPlaceFlowers(self, A, N):
+  for i, x in enumerate(A):
+    if not x and (i == 0 or A[i-1] == 0) and (i == len(A) - 1 or A[i+1] == 0):
+      N -= 1
+      A[i] = 1
+  return N <= 0
+```
+
+{% endtab %}
+{% endtabs %}

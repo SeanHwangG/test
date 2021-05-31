@@ -1,0 +1,690 @@
+> baekjoon
+
+* [Level 2 : FYI](https://www.acmicpc.net/problem/17863)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_17863.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* If first three digits are 555 print YES else NO
+
+```txt
+Input: 555234
+Output: YES
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a = input()
+if a[:3] == "555":
+  print("YES")
+else:
+  print("NO")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 상근날드](https://www.acmicpc.net/problem/5543)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_5543.md/)
+
+{% tabs %}
+{% tab title='BJ_5543.md' %}
+
+> Question
+
+* If you choose a hamburger and a drink you want, and buy it as a set, the price of the set menu will be minus 50 won
+* There are three kinds of hamburgers: Sangdeok, Jungdeok, and Hadeok, and two kinds of drinks are coke and cider
+
+```txt
+Input:
+800
+700
+900
+198
+330
+
+Output: 848
+```
+
+{% endtab %}
+{% tab title='BJ_5543.py' %}
+
+```py
+p = list(map(int, input.split()))
+print(min(p[:3]) + min(p[3:]) - 50)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 하얀 칸](https://www.acmicpc.net/problem/1100)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_1100.md/)
+
+{% tabs %}
+{% tab title='BJ_1100.md' %}
+
+> Question
+
+* Given the status of the chessboard, print out how many horses are on the white compartment
+
+```txt
+Input:
+.F.F...F
+F...F.F.
+...F.F.F
+F.F...F.
+.F...F..
+F...F.F.
+.F.F.F.F
+..FF..F.
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_1100.java' %}
+
+```java
+import java.util.*;
+public class Main {
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+    int count = 0;
+    for (int i = 0; i < 8; i++) {
+      String line = scan.nextLine();
+      for(int j = 0; j < 8; j++)
+        if(line.charAt(j) == 'F' && (j + i) % 2 == 0) count++;
+    }
+    System.out.print(count);
+    scan.close();
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1100.py' %}
+
+```py
+r = ''
+for _ in range(8):
+  r += input() + '0'
+print(r[::2].count('F'))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 열 개씩 끊어 출력하기](https://www.acmicpc.net/problem/11721)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_11721.md/)
+
+{% tabs %}
+{% tab title='BJ_11721.md' %}
+
+> Question
+
+* For each line print max of 10 characters
+
+```txt
+Input: OneTwoThreeFourFiveSixSevenEightNineTen
+
+Output:
+OneTwoThre
+eFourFiveS
+ixSevenEig
+htNineTen
+```
+
+{% endtab %}
+{% tab title='BJ_11721.py' %}
+
+```py
+st = input()
+for i in range(len(st) // 10 + 1):
+  print(st[i * 10: (i + 1) * 10])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : ](https://www.acmicpc.net/problem/11944)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_11944.md/)
+
+{% tabs %}
+{% tab title='BJ_11944.md' %}
+
+> Question
+
+* Print a for a times, up to b letter
+
+```txt
+Input: 20 16
+Output: 2020202020202020
+```
+
+{% endtab %}
+{% tab title='BJ_11944.py' %}
+
+```py
+a, b = input().split()
+print((a * int(a))[:int(b)])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 이상한 나라의 암호](https://www.acmicpc.net/problem/18245)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_18245.md/)
+
+{% tabs %}
+{% tab title='BJ_18245.md' %}
+
+> Question
+
+* Last line is Was it a cat I saw?
+* sentence in line i must be read by skipping i characters, starting with the first letter of the sentence
+
+```txt
+Input:
+RAEBDCVDEELFVGEHT
+SIJEKLUMNLOPGQRI
+ISTURVWXEYZANBCDE
+WEFGHEIJKLNMNOPDQRSTY
+YUVWXYEZABCDREFGHII
+JJKLMNOOPQRSTUY
+Was it a cat I saw?
+
+Output:
+REDVELVET
+SEULGI
+IRENE
+WENDY
+YERI
+JOY
+```
+
+{% endtab %}
+{% tab title='BJ_18245.sql' %}
+
+```py
+for i in range(2, 105):
+  S = input()
+  if S == 'Was it a cat I saw?': break
+  print(S[::i])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 럭키 스트레이트](https://www.acmicpc.net/problem/18406)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_18406.md/)
+
+{% tabs %}
+{% tab title='BJ_18406.md' %}
+
+> Question
+
+* if sum of left and right are same print LUCKY else print READY
+
+```txt
+Input: 123402
+Output: LUCKY
+```
+
+{% endtab %}
+{% tab title='BJ_18406.py' %}
+
+```py
+tmp=input()
+if sum(map(int, str(tmp[:len(tmp)//2]))) == sum(map(int, str(tmp[len(tmp)//2:]))):
+  print("LUCKY")
+else:
+  print("READY")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 오타맨 고창영](https://www.acmicpc.net/problem/2711)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_2711.md/)
+
+{% tabs %}
+{% tab title='BJ_2711.md' %}
+
+> Question
+
+* Remove nth character from string
+
+```txt
+Input:
+4
+4 MISSPELL
+1 PROGRAMMING
+7 CONTEST
+3 BALLOON
+
+Output:
+MISPELL
+ROGRAMMING
+CONTES
+BALOON
+```
+
+{% endtab %}
+{% tab title='BJ_2711.py' %}
+
+```py
+for _ in range(int(input())):
+  a, b = input().split()
+  print(b[:int(a) - 1]+b[int(a):])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 2009년](https://www.acmicpc.net/problem/2948)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_2948.md/)
+
+{% tabs %}
+{% tab title='BJ_2948.md' %}
+
+> Question
+
+* print date of 2009/m/d
+
+```txt
+Input: 17 1
+Output: Saturday
+```
+
+{% endtab %}
+{% tab title='BJ_2948.py' %}
+
+```py
+n_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+weeks = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+day, month = map(int, input().split())
+nth = sum(n_days[:month - 1]) + day - 1
+print(weeks[(nth + 3) % 7])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 콘테스트](https://www.acmicpc.net/problem/5576)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_5576.md/)
+
+{% tabs %}
+{% tab title='BJ_5576.md' %}
+
+> Question
+
+* Print sum of top three score from each 10 scores
+
+```txt
+Input:
+23
+23
+20
+15
+15
+14
+13
+9
+7
+6
+25
+19
+17
+17
+16
+13
+12
+11
+9
+5
+
+Output: 66 61
+```
+
+{% endtab %}
+{% tab title='BJ_5576.cpp' %}
+
+```cpp
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+  int w[10], k[10];
+  for (int i = 0; i < 10; i++)
+    cin >> w[i];
+  for (int i = 0; i < 10; i++)
+    cin >> k[i];
+
+  sort(w, w + 10);
+  sort(k, k + 10);
+  cout << w[7] + w[8] + w[9] << " " << k[7] + k[8] + k[9];
+}
+```
+
+{% endtab %}
+{% tab title='BJ_5576.py' %}
+
+```py
+w=sorted([int(input()) for i in range(10)])
+k=sorted([int(input()) for i in range(10)])
+print(sum(w[7:]),sum(k[7:]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 연도 진행바](https://www.acmicpc.net/problem/1340)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_1340.md/)
+
+{% tabs %}
+{% tab title='BJ_1340.md' %}
+
+> Question
+
+* Today's date is given. Prints out what percentage of the year has passed
+
+```txt
+Input: May 10, 1981 00:31
+Output: 35.348363774733635
+```
+
+{% endtab %}
+{% tab title='BJ_1340.py' %}
+
+```py
+month, d, y, hm = input().split()
+month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].index(month)
+d = int(d[:-1])
+y = int(y)
+h, m = map(int, hm.split(':'))
+db = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+if y % 400 == 0 or (y % 4 == 0 and y % 100 != 0):
+  db[1] = 29
+total = sum(db) * 24 * 60
+cur = (sum(db[:month]) + (d - 1)) * 24 * 60 + h * 60 + m
+print(cur / total * 100)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 2007년](https://www.acmicpc.net/problem/1924)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_1924.md/)
+
+{% tabs %}
+{% tab title='BJ_1924.md' %}
+
+> Question
+
+* find day of 2007
+
+```txt
+Input: 3 14
+Output: MON
+```
+
+{% endtab %}
+{% tab title='BJ_1924.py' %}
+
+```py
+m = [31,28,31,30,31,30,31,31,30,31,30,31]
+t = ['SUN','MON','TUE','WED','THU','FRI','SAT']
+a, b = map(int, input().split())
+print(t[(b + sum(m[:a - 1])) % 7])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 민균이의 비밀번호](https://www.acmicpc.net/problem/9933)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_9933.md/)
+
+{% tabs %}
+{% tab title='BJ_9933.md' %}
+
+> Question
+
+* The password is included in the list, and the password is also included in the reversed string
+* When all the words in file are given, write a program that outputs the length and middle letter of the password
+
+```txt
+Input:
+4
+las
+god
+psala
+sal
+
+Output: 3 a
+```
+
+{% endtab %}
+{% tab title='BJ_9933.py' %}
+
+```py
+N = int(input())
+li = []
+for _ in range(N):
+  li.append(input())
+for i in range(N):
+  for j in range(i, N):
+    if len(li[i]) == len(li[j]) and li[i][::-1] == li[j]:
+      print(len(li[i]), li[i][len(li[i])//2])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 쉽게 푸는 문제](https://www.acmicpc.net/problem/1292)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_1292.md/)
+
+{% tabs %}
+{% tab title='BJ_1292.md' %}
+
+> Question
+
+* Given sequence 122333.. and A, B, find the sum of the digits A to B in the sequence
+
+```txt
+Input: 3 7
+Output: 15  # 1 2 (2 3 3 3 4)
+```
+
+{% endtab %}
+{% tab title='BJ_1292.sh' %}
+
+```sh
+arr=(0)
+for i in {1..45}; do
+  for (( j=0; j<i; ++j )); do
+    arr+=($i)
+  done
+done
+
+read a b
+sum=0
+for (( i=a; i<=b; ++i )); do
+  sum=$((sum+arr[i]))
+done
+
+echo $sum
+```
+
+{% endtab %}
+{% tab title='BJ_1292.py' %}
+
+```py
+number_list = []
+for i in range(1, 46):
+  number_list += [i] * i
+
+A, B = map(int, input().split())
+print(sum(number_list[A-1:B]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Datum](https://open.kattis.com/problems/datum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/KT_datum.md/)
+
+[//]: # (BJ_2948)
+
+* [Level 1.4 : Simon Says](https://open.kattis.com/problems/simonsays)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/KT_simonsays.md/)
+
+{% tabs %}
+{% tab title='KT_simonsays.md' %}
+
+> Question
+
+* 첫줄에 N이 주어진다
+* 다음 N줄에 문자가 주어지는데, Simon says로 시작 할 시에, 이후에 나오는 행동을 출력하라
+
+```txt
+Input:
+3
+Simon says raise your right hand.
+Lower your right hand.
+Simon says raise your left hand.
+
+Output:
+ raise your right hand.
+ raise your left hand.
+```
+
+{% endtab %}
+{% tab title='KT_simonsays.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  s = input()
+  if s[:10] == "Simon says":
+    print(s[10:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Triple Texting](https://open.kattis.com/problems/tripletexting)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/KT_tripletexting.md/)
+
+{% tabs %}
+{% tab title='KT_tripletexting.md' %}
+
+> Question
+
+* Same string are repeated three times and but one of them are wrong
+* Print right string
+
+```txt
+Input: hellohrllohello
+Output: hello
+```
+
+{% endtab %}
+{% tab title='KT_tripletexting.py' %}
+
+```py
+s = input()
+chunk = len(s) // 3
+a = s[:chunk]
+b = s[chunk:chunk * 2]
+c = s[chunk * 2:]
+if b == c:
+  print(b)
+else:
+  print(a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2.4 : I Repeat Myself I Repeat Myself I Repeat](https://open.kattis.com/problems/irepeatmyself)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/KT_irepeatmyself.md/)
+
+{% tabs %}
+{% tab title='KT_irepeatmyself.md' %}
+
+> Question
+
+* Find number of repeated pattern
+
+```txt
+Input:
+3
+I Repeat Myself I Repeat Myself I Repeat
+aaaaaaaaaaaaaaaaaaaaa
+abbcabbcabbabbcabb
+
+Output:
+16
+1
+11
+```
+
+{% endtab %}
+{% tab title='KT_irepeatmyself.py' %}
+
+```py
+def shortest_pattern(sentence):
+  n = len(sentence)
+  for i in range(1, n + 1):
+    if (sentence[:i] * (n // i + 1))[:n] == sentence:
+      return i
+  return n
+
+N = int(input())
+for i in range(N):
+  sent = input()
+  print(shortest_pattern(sent))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Check if One String Swap Can Make Strings Equal](https://leetcode.com/problems/check-if-one-string-swap-can-make-strings-equal)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/LC_1790.md/)
+
+{% tabs %}
+{% tab title='LC_1790.md' %}
+
+> Question
+
+* Given two strings s1 and s2 of equal length
+* A string swap is an operation where you choose two indices in a string and swap the characters at these indices
+* is it possible to make both strings equal by performing at most one string swap on exactly one of the strings
+
+```txt
+Input: s1 = "bank", s2 = "kanb"
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_1790.py' %}
+
+```py
+def areAlmostEqual(self, s1: str, s2: str) -> bool:
+  diff = [[x, y] for x, y in zip(s1, s2) if x != y]
+  return not diff or len(diff) == 2 and diff[0][::-1] == diff[1]
+```
+
+{% endtab %}
+{% endtabs %}

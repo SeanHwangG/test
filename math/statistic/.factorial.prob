@@ -1,0 +1,155 @@
+> baekjoon
+
+* [Level 3 : 팩토리얼](https://www.acmicpc.net/problem/10872)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/BJ_10872.md/)
+
+{% tabs %}
+{% tab title='BJ_10872.md' %}
+
+> Question
+
+* Find n!
+
+```txt
+Input: 3
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_10872.py' %}
+
+```py
+k= int(input())
+
+ret=1
+for i in range(1, k + 1):
+  ret = ret * i
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : ilnia](https://www.acmicpc.net/problem/8558)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/BJ_8558.md/)
+
+{% tabs %}
+{% tab title='BJ_8558.md' %}
+
+> Question
+
+* print n factrial modula 10
+
+```txt
+Input: 5
+Output: 0
+```
+
+{% endtab %}
+{% tab title='BJ_8558.py' %}
+
+```py
+import math
+print(math.factorial(int(input()))%10)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 팩토리얼](https://www.acmicpc.net/problem/7489)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/BJ_7489.md/)
+
+[//]: # (BJ_2553)
+
+* [Level 7 : 팩토리얼 0의 개수](https://www.acmicpc.net/problem/1676)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/BJ_1676.md/)
+
+{% tabs %}
+{% tab title='BJ_1676.md' %}
+
+> Question
+
+* Find first non-zero number in N! from the back
+
+```txt
+Input: 10
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1676.py' %}
+
+```py
+N = int(input())
+print(N//5 + N//25 + N//125)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 마지막 팩토리얼 수](https://www.acmicpc.net/problem/2553)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/BJ_2553.md/)
+
+{% tabs %}
+{% tab title='BJ_2553.md' %}
+
+> Question
+
+* Print lowest non 0 digit
+
+```txt
+Input: 5
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_2553.py' %}
+
+```py
+import math
+print(str(math.factorial(int(input()))).rstrip("0")[-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Last Factorial Digit](https://open.kattis.com/problems/lastfactorialdigit)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/KT_lastfactorialdigit.md/)
+
+{% tabs %}
+{% tab title='KT_lastfactorialdigit.md' %}
+
+> Question
+
+* print last digit of factorial
+
+```txt
+Input:
+3
+1
+2
+3
+
+Output:
+1
+2
+6
+```
+
+{% endtab %}
+{% tab title='KT_lastfactorialdigit.py' %}
+
+```py
+n_test = int(input())
+for _ in range(n_test):
+  n = int(input())
+  ret = 1
+  for i in range(1, n + 1):
+    ret *= i
+  print(ret % 10)
+```
+
+{% endtab %}
+{% endtabs %}

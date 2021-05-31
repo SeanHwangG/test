@@ -1,0 +1,1082 @@
+> baekjoon
+
+* [Level 6 : 요세푸스 문제](https://www.acmicpc.net/problem/1158)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_1158.md/)
+
+[//]: # (BJ_1179)
+
+* [Level 6 : 재귀함수가 뭔가요?](https://www.acmicpc.net/problem/17478)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_17478.md/)
+
+{% tabs %}
+{% tab title='BJ_17478.md' %}
+
+> Question
+
+```txt
+어느 한 컴퓨터공학과 학생이 유명한 교수님을 찾아가 물었다.
+"재귀함수가 뭔가요?"
+"잘 들어보게. 옛날옛날 한 산 꼭대기에 이세상 모든 지식을 통달한 선인이 있었어.
+마을 사람들은 모두 그 선인에게 수많은 질문을 했고, 모두 지혜롭게 대답해 주었지.
+그의 답은 대부분 옳았다고 하네. 그런데 어느 날, 그 선인에게 한 선비가 찾아와서 물었어."
+____"재귀함수가 뭔가요?"
+____"잘 들어보게. 옛날옛날 한 산 꼭대기에 이세상 모든 지식을 통달한 선인이 있었어.
+____마을 사람들은 모두 그 선인에게 수많은 질문을 했고, 모두 지혜롭게 대답해 주었지.
+____그의 답은 대부분 옳았다고 하네. 그런데 어느 날, 그 선인에게 한 선비가 찾아와서 물었어."
+________"재귀함수가 뭔가요?"
+________"재귀함수는 자기 자신을 호출하는 함수라네"
+________라고 답변하였지.
+____라고 답변하였지.
+라고 답변하였지.
+```
+
+{% endtab %}
+{% tab title='BJ_17478.py' %}
+
+```py
+def recur(mx, cur):
+  if cur == mx:
+    print("____" * cur + '"재귀함수가 뭔가요?"')
+    print("____" * cur + '"재귀함수는 자기 자신을 호출하는 함수라네"')
+    print("____" * cur + '라고 답변하였지.')
+    return
+  print("____" * cur + '"재귀함수가 뭔가요?"')
+  print("____" * cur + '"잘 들어보게. 옛날옛날 한 산 꼭대기에 이세상 모든 지식을 통달한 선인이 있었어.')
+  print("____" * cur + '마을 사람들은 모두 그 선인에게 수많은 질문을 했고, 모두 지혜롭게 대답해 주었지.')
+  print("____" * cur + '그의 답은 대부분 옳았다고 하네. 그런데 어느 날, 그 선인에게 한 선비가 찾아와서 물었어."')
+  recur(mx, cur + 1)
+  print("____" * cur + '라고 답변하였지.')
+
+print("어느 한 컴퓨터공학과 학생이 유명한 교수님을 찾아가 물었다.")
+n = int(input())
+recur(n, 0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 과 M (4)](https://www.acmicpc.net/problem/15652)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_15652.md/)
+
+{% tabs %}
+{% tab title='BJ_15652.md' %}
+
+> Question
+
+* The sequence of choosing M from 1 to NYou can choose the same number several times
+* The even sequence shall be in rain descending order
+
+```txt
+Input: 4 2
+Output:
+1 1
+1 2
+1 3
+1 4
+2 2
+2 3
+2 4
+3 3
+3 4
+4 4
+```
+
+{% endtab %}
+{% tab title='BJ_15652.py' %}
+
+```py
+N, M = map(int, input().split())
+def backtrack(cur, N, M):
+  if len(cur) == M:
+    print(*cur)
+    return
+  for i in range(cur[-1] if cur else 1, N + 1):
+    cur.append(i)
+    backtrack(cur, N, M)
+    cur.pop()
+backtrack([], N, M)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 과 M (7)](https://www.acmicpc.net/problem/15656)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_15656.md/)
+
+{% tabs %}
+{% tab title='BJ_15656.md' %}
+
+> Question
+
+* The sequence of choosing M from N natural numbers
+* can choose the same number several times
+
+```txt
+Input:
+4 2
+9 8 7 1
+
+Output:
+1 1
+1 7
+1 8
+1 9
+7 1
+7 7
+7 8
+7 9
+8 1
+8 7
+8 8
+8 9
+9 1
+9 7
+9 8
+9 9
+```
+
+{% endtab %}
+{% tab title='BJ_15656.py' %}
+
+```py
+N, M = map(int, input().split())
+li = list(sorted(map(int, input().split())))
+def backtrack(cur, N, M):
+  if len(cur) == M:
+    print(*cur)
+    return
+  for i in range(N):
+    cur.append(li[i])
+    backtrack(cur, N, M)
+    cur.pop()
+backtrack([], N, M)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 과 M (8)](https://www.acmicpc.net/problem/15657)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_15657.md/)
+
+{% tabs %}
+{% tab title='BJ_15657.md' %}
+
+> Question
+
+* The sequence of choosing M from N natural numbers
+* You can choose the same number several times
+* The even sequence shall be in rain descending order
+
+```txt
+Input:
+4 2
+9 8 7 1
+
+Output:
+1 1
+1 7
+1 8
+1 9
+7 7
+7 8
+7 9
+8 8
+8 9
+9 9
+```
+
+{% endtab %}
+{% tab title='BJ_15657.py' %}
+
+```py
+N, M = map(int, input().split())
+li=list(sorted(map(int, input().split())))
+def backtrack(cur, N, M):
+  if len(cur) == M:
+    print(*cur)
+    return
+  for i in range(N):
+    if not cur or li[i] >= cur[-1]:
+      cur.append(li[i])
+      backtrack(cur, N, M)
+      cur.pop()
+backtrack([], N, M)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 색종이 만들기](https://www.acmicpc.net/problem/2630)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_2630.md/)
+
+{% tabs %}
+{% tab title='BJ_2630.md' %}
+
+> Question
+
+![BJ_2630](recursion/images/20210302_014539.png)
+
+* The first line prints the number of white colored paper cut, and the second line prints the number of blue colored paper
+
+```txt
+Input:
+8
+1 1 0 0 0 0 1 1
+1 1 0 0 0 0 1 1
+0 0 0 0 1 1 0 0
+0 0 0 0 1 1 0 0
+1 0 0 0 1 1 1 1
+0 1 0 0 1 1 1 1
+0 0 1 1 1 1 1 1
+0 0 1 1 1 1 1 1
+
+Output:
+9
+7
+```
+
+{% endtab %}
+{% tab title='BJ_2630.py' %}
+
+```py
+def recur(r, c, n):
+  global G, blue, white
+  total = sum(sum(li[c : c + n]) for li in G[r : r + n])
+  if total == 0:
+    white +=1
+  elif total == n ** 2:
+    blue += 1
+  else:
+    recur(r, c, n // 2)
+    recur(r + n // 2, c, n // 2)
+    recur(r, c + n // 2, n // 2)
+    recur(r + n // 2, c + n // 2, n // 2)
+
+G = []
+n = int(input())
+for _ in range(n):
+  G.append(list(map(int, input().split())))
+
+blue = 0
+white = 0
+recur(0, 0, len(G))
+print(white)
+print(blue)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 칸토어 집합](https://www.acmicpc.net/problem/4779)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_4779.md/)
+
+{% tabs %}
+{% tab title='BJ_4779.md' %}
+
+> Question
+
+```txt
+Input : 3
+Output : - -   - -         - -   - -
+```
+
+{% endtab %}
+{% tab title='BJ_4779.cpp' %}
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+void cantor(int len) {
+  if (len == 1)
+    cout << '-';
+  else {
+    cantor(len / 3);
+    cout << string(len / 3, ' ');
+    cantor(len / 3);
+  }
+}
+int main()
+{
+  cin.tie(NULL), cout.tie(NULL);
+  ios::sync_with_stdio(false);
+
+  int N;
+  while (cin >> N) {
+    cantor(pow(3, N));
+    cout << '\n';
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_4779.py' %}
+
+```py
+import sys
+
+def cantor(size):
+  if size == 1:
+    print('-', end='')
+  else:
+    cantor(size // 3)
+    print(' ' * (size // 3), end='')
+    cantor(size // 3)
+
+for l in sys.stdin:
+  cantor(3 ** int(l))
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 하노이 탑 이동 순서](https://www.acmicpc.net/problem/11729)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_11729.md/)
+
+{% tabs %}
+{% tab title='BJ_11729.md' %}
+
+> Question
+
+* Solve hanoi problem
+
+```txt
+Input: 3
+Output:
+7
+1 3
+1 2
+3 2
+1 3
+2 1
+2 3
+1 3
+```
+
+{% endtab %}
+{% tab title='BJ_11729.py' %}
+
+```py
+def hanoi(disk, start, mid, end):
+  if disk == 1:
+    moves.append([start, end])
+  else:
+    hanoi(disk - 1, start, end, mid)
+    moves.append([start, end])
+    hanoi(disk - 1, mid, start, end)
+total_disk = int(input())
+moves = []
+hanoi(total_disk, 1, 2, 3)
+print(len(moves))
+for move in moves:
+  print(move[0], move[1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 종이의 개수](https://www.acmicpc.net/problem/1780)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_1780.md/)
+
+{% tabs %}
+{% tab title='BJ_1780.md' %}
+
+> Question
+
+* If all the paper is in the same number, use this paper as it is
+* If not, cut the paper into nine of the same size, and repeat the process of (1) for each cut paper
+
+```txt
+Input:
+9
+0 0 0 1 1 1 -1 -1 -1
+0 0 0 1 1 1 -1 -1 -1
+0 0 0 1 1 1 -1 -1 -1
+1 1 1 0 0 0 0 0 0
+1 1 1 0 0 0 0 0 0
+1 1 1 0 0 0 0 0 0
+0 1 -1 0 1 -1 0 1 -1
+0 -1 1 0 1 -1 0 1 -1
+0 1 -1 1 0 -1 0 1 -1
+
+Output:
+10
+12
+11
+```
+
+{% endtab %}
+{% tab title='BJ_1780.py' %}
+
+```py
+import sys
+sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
+def same(x, y, n):
+  for i in range(x, x+n):
+    for j in range(y, y+n):
+      if G[x][y] != G[i][j]:
+        return False
+  return True
+def solve(x, y, n):
+  if same(x, y, n):
+    cnt[G[x][y]+1] += 1
+    return
+  for i in range(0, 3):
+    for j in range(0, 3):
+      solve(x + i * n // 3, y + j * n // 3, n // 3)
+cnt = [0] * 3
+n = int(input())
+G = [list(map(int, input().split())) for _ in range(n)]
+solve(0, 0, n)
+for i in cnt:
+  print(i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 부등호](https://www.acmicpc.net/problem/2529)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_2529.md/)
+
+{% tabs %}
+{% tab title='BJ_2529.md' %}
+
+> Question
+
+* Different single-digit numbers are put before and after the inequality symbol to satisfy all inequality relationships
+* An integer from 0 to 9, and all the numbers selected must be different
+
+```txt
+Input:
+2
+< >
+
+Output:
+897
+021
+```
+
+{% endtab %}
+{% tab title='BJ_2529.py' %}
+
+```py
+def solve(ops, cur, results):
+  idx = len(cur)
+  if idx == len(ops) + 1:
+    if len(results) <= 1:
+      results.append(cur)
+    results[-1] = cur
+    return
+  for i in range(10):
+    if not c[i]:
+      if idx == 0 or ops[idx - 1] == '<' and cur[-1] < str(i) or ops[idx - 1] == '>' and cur[-1] > str(i):
+        c[i] = True
+        solve(ops, cur + str(i), results)
+        c[i] = False
+
+n = int(input())
+ops = input().split()
+c = [False] * 10
+results = []
+solve(ops, "", results)
+print(results[1], results[0], sep='\n')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : Z](https://www.acmicpc.net/problem/1074)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_1074.md/)
+
+{% tabs %}
+{% tab title='BJ_1074.md' %}
+
+> Question
+
+![BJ_1074](recursion/images/20210305_190312.png)
+
+* print when row r, and column c will be visited
+
+```txt
+Input: 2 3 1
+Output: 11
+```
+
+{% endtab %}
+{% tab title='BJ_1074.py' %}
+
+```py
+def recur(N, r, c):
+  if r == c == 0:
+    return 0
+  side = 2 ** (N - 1)
+  return recur(N - 1, r % side, c % side) + side ** 2 * (r // side * 2 + c // side)
+N, r, c = map(int, input().split())
+print(recur(N, r, c))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 쿼드트리](https://www.acmicpc.net/problem/1992)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_1992.md/)
+
+{% tabs %}
+{% tab title='BJ_1922.md' %}
+
+> Question
+
+![BJ_1992](recursion/images/20210302_015030.png)
+
+* If all the images given are zero, the compression result is zero, and if all are one, the compression result is one
+* If 0 and 1 are mixed, whole is not represented at once, and compressed into four images
+  * left top, right bottom, left bottom, right bottom, and so on
+* (0(0011)(0(0111)01)1)
+
+```txt
+Input:
+8
+11110000
+11110000
+00011100
+00011100
+11110000
+11110000
+11110011
+11110011
+
+Output: ((110(0101))(0010)1(0001))
+```
+
+{% endtab %}
+{% tab title='BJ_1922.py' %}
+
+```py
+N = int(input())
+image = [list(map(int, input())) for _ in range(N)]
+def quadtree(x, y, n):
+  if(n == 1):
+    return str(image[x][y])
+  result = []
+  for i in range(x, x + n):
+    for j in range(y, y + n):
+      if(image[i][j] != image[x][y]):
+        result.append('(')
+        result.extend(quadtree(x, y, n//2))
+        result.extend(quadtree(x, y + n//2, n//2))
+        result.extend(quadtree(x + n//2, y, n//2))
+        result.extend(quadtree(x + n//2, y + n//2, n//2))
+        result.append(')')
+        return result
+  return str(image[x][y])
+
+print(''.join(quadtree(0, 0, N)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 별 찍기 - 10](https://www.acmicpc.net/problem/2447)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_2447.md/)
+
+{% tabs %}
+{% tab title='BJ_2447.md' %}
+
+> Question
+
+* Print star in following format
+
+```txt
+input: 27
+
+Output:
+***************************
+* ** ** ** ** ** ** ** ** *
+***************************
+***   ******   ******   ***
+* *   * ** *   * ** *   * *
+***   ******   ******   ***
+***************************
+* ** ** ** ** ** ** ** ** *
+***************************
+*********         *********
+* ** ** *         * ** ** *
+*********         *********
+***   ***         ***   ***
+* *   * *         * *   * *
+***   ***         ***   ***
+*********         *********
+* ** ** *         * ** ** *
+*********         *********
+***************************
+* ** ** ** ** ** ** ** ** *
+***************************
+***   ******   ******   ***
+* *   * ** *   * ** *   * *
+***   ******   ******   ***
+***************************
+* ** ** ** ** ** ** ** ** *
+***************************
+```
+
+{% endtab %}
+{% tab title='BJ_2447.py' %}
+
+```py
+import math
+
+def recur(old_G):
+  new_G=[]
+  for i in range(3 * len(old_G)):
+    if i // len(old_G) == 1:
+      new_G.append(old_G[i % len(old_G)] + " " * len(old_G) + old_G[i % len(old_G)])
+    else:
+      new_G.append(old_G[i % len(old_G)] * 3)
+  return new_G
+
+G = ["*"]
+i = 1
+N = int(input())
+
+while i != N:
+  G = recur(G)
+  i *= 3
+for i in G:
+  print(i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 2048 (Easy)](https://www.acmicpc.net/problem/12100)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_12100.md/)
+
+{% tabs %}
+{% tab title='BJ_12100.md' %}
+
+> Question
+
+* In 2048 games, print the largest block that can be obtained by moving it up to five times
+
+```txt
+Input:
+3
+2 2 2
+4 4 4
+8 8 8
+
+Output: 16
+```
+
+{% endtab %}
+{% tab title='BJ_12100.py' %}
+
+```py
+from copy import deepcopy
+def move(G, typ):
+  result = []
+  if typ == 0 or typ == 1:
+    G = list(zip(*G))
+  for idx in range(len(G)):
+    row = G[idx]
+    block = [i for i in row if i != 0]
+    if typ == 0 or typ == 3:
+      for i in range(1, len(block)):
+        if block[i-1] ==  block[i]:
+          block[i-1] += block[i]
+          block[i] = 0
+      block = [i for i in block if i != 0]
+      block += [0] * (len(row) - len(block))
+    else:
+      for i in range(len(block) - 1, 0, -1):
+        if block[i-1] == block[i]:
+          block[i] += block[i-1]
+          block[i-1] = 0
+      block = [i for i in block if i != 0]
+      block = [0] * (len(row) - len(block)) + block
+    result.append(block)
+  if typ == 0 or typ == 1:
+    result = list(zip(*result))
+  return result
+
+def recur(G, count):
+  if count == 0:
+    return max([max(li) for li in G])
+  return max([recur(move(deepcopy(G), typ), count - 1) for typ in range(4)])
+n = int(input())
+G = [list(map(int, input().split())) for _ in range(n)]
+print(recur(G, 5))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 마지막 요세푸스 문제](https://www.acmicpc.net/problem/1179)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_1179.md/)
+
+{% tabs %}
+{% tab title='BJ_1179.md' %}
+
+> Question
+
+* N people from No. 1 to No. N sit in a circle, and a positive integer K is given
+* Now remove the K-th person in order
+* When one person is removed, the process continues along the circle of the remaining people
+* This process continues until all N people are removed
+
+```txt
+Input: 7 3
+Output: <3, 6, 2, 7, 5, 1, 4>
+```
+
+{% endtab %}
+{% tab title='BJ_1179.py' %}
+
+```py
+import sys
+def solve(N,M):
+  if M == 1: return N - 1
+  if N == 1: return 0
+  if 1 < N <= M:
+    return (solve(N - 1, M) + M) % N
+  NN = N - N // M
+  tmp = (solve(NN, M) - N%M) % NN
+  return M * tmp // (M-1)
+sys.setrecursionlimit(0x100000)
+N,M = map(int, input().split())
+print(solve(N, M) + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level nr : 가장 가까운 두 점의 거리](https://www.acmicpc.net/problem/5620)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/BJ_5620.md/)
+
+{% tabs %}
+{% tab title='BJ_5620.md' %}
+
+> Question
+
+* Given n points on 2 dimension, find distance between closest two points
+
+```txt
+Input:
+3
+5 5
+0 0
+-3 -4
+
+Output: 25
+```
+
+{% endtab %}
+{% tab title='BJ_5620.py' %}
+
+```py
+# Time : O(n * log_n) using master's theorem
+# Space : O(n)
+import sys
+
+def closest_pair(points):
+  if len(points) < 3:
+    return points
+  m = len(points) // 2
+  sub1 = closest_pair(points[:m])
+  sub2 = closest_pair(points[m:])
+
+  sub = sub1 + sub2
+  min_dist, min_points = sys.maxsize, (sub[0], sub[1])
+  for i in range(len(sub) - 1):
+    for k in range(i + 1, len(sub)):
+      p1, p2 = sub[i], sub[k]
+      dist = (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2
+      if min_dist > dist:
+        min_dist, min_points = dist, [p1, p2]
+
+  return min_points
+
+input = lambda : sys.stdin.readline().rstrip()
+
+N = int(input())
+points = [tuple(map(int, input().split())) for _ in range(N)]
+points.sort()
+
+p1, p2 = closest_pair(points)
+print((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Longest Nice Substring](https://leetcode.com/problems/longest-nice-substring)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/LC_1763.md/)
+
+{% tabs %}
+{% tab title='LC_1763.md' %}
+
+> Question
+
+* A string s is nice if, for every letter of the alphabet that s contains, it appears both in uppercase and lowercase
+* Given a string s, return the longest substring of s that is nice
+* If there are multiple, return the substring of the earliest occurrence. If there are none, return an empty string
+
+```txt
+Input: s = "YazaAay"
+Output: "aAa"
+```
+
+{% endtab %}
+{% tab title='LC_1763.py' %}
+
+```py
+def longestNiceSubstring(self, s: str) -> str:
+  if not s: return ""
+  ss = set(s)
+  for i, c in enumerate(s):
+    if c.swapcase() not in ss:
+      s0 = self.longestNiceSubstring(s[:i])
+      s1 = self.longestNiceSubstring(s[i+1:])
+      return max(s0, s1, key=len)
+  return s
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Jump Game III](https://leetcode.com/problems/jump-game-iii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/LC_1306.md/)
+
+{% tabs %}
+{% tab title='LC_1306.md' %}
+
+> Question
+
+* initially positioned at start index of the array. When at index i, can jump to i + arr[i] or i - arr[i]
+* check if reach to any index with value 0
+
+```txt
+Input:
+Output:
+```
+
+{% endtab %}
+{% tab title='LC_1306.cpp' %}
+
+```cpp
+bool canReach(vector<int>& A, int i) {
+  return 0 <= i && i < A.size() && A[i] >= 0 && (!(A[i] = -A[i]) || canReach(A, i + A[i]) || canReach(A, i - A[i]));
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/LC_236.md/)
+
+{% tabs %}
+{% tab title='LC_236.md' %}
+
+> Question
+
+* Find loest common ancestor of p and q
+
+```txt
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_236.py' %}
+
+```py
+# Time / space : O(n) / O(n)
+def lowestCommonAncestor(self, root, p, q):
+  if root in (None, p, q): return root
+  left, right = (self.lowestCommonAncestor(kid, p, q) for kid in (root.left, root.right))
+  return root if left and right else left or right
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Brace Expansion II](https://leetcode.com/problems/brace-expansion-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/LC_1096.md/)
+
+{% tabs %}
+{% tab title='LC_1096.md' %}
+
+> Question
+
+```txt
+Input: "{a,b}{c,{d,e}}"
+Output: ["ac","ad","ae","bc","bd","be"]
+
+Input: "{{a,z},a{b,c},{ab,z}}"
+Output: ["a","ab","ac","z"]
+```
+
+{% endtab %}
+{% tab title='LC_1096.py' %}
+
+```py
+def braceExpansionII(self, expression: str) -> List[str]:
+  groups = [[]]
+  level = 0
+  for i, c in enumerate(expression):
+    if c == '{':
+      if level == 0:
+        start = i+1
+      level += 1
+    elif c == '}':
+      level -= 1
+      if level == 0:
+        groups[-1].append(self.braceExpansionII(expression[start:i]))
+    elif c == ',' and level == 0:
+      groups.append([])
+    elif level == 0:
+      groups[-1].append([c])
+  word_set = set()
+  for group in groups:
+    word_set |= set(map(''.join, itertools.product(*group)))
+  return sorted(word_set)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Closest Subsequence Sum](https://leetcode.com/problems/closest-subsequence-sum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/LC_1755.md/)
+
+{% tabs %}
+{% tab title='LC_1755.md' %}
+
+> Question
+
+* Given an integer array nums and an integer goal
+* choose a subsequence of nums such that the sum of its elements is the closest possible to goal
+* That is, if the sum of the subsequence's elements is sum, then you want to minimize the absolute difference abs(sum - goal)
+* Return the minimum possible value of abs(sum - goal)
+
+```txt
+Input: nums = [5,-7,3,5], goal = 6
+Output: 0
+```
+
+{% endtab %}
+{% tab title='LC_1755.py' %}
+
+```py
+def minAbsDifference(self, nums: List[int], goal: int) -> int:
+  def generate_sum(nums):
+    ans = {0}
+    for x in nums:
+      ans |= {x + y for y in ans}
+    return ans
+
+  evens = [-inf, *sorted(generate_sum(nums[::2])), inf]
+
+  return min(abs(y + x - goal)
+              for x in generate_sum(nums[1::2])
+              for k in [bisect_left(evens, goal - x)]
+              for y in evens[k - 1 : k + 1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Number of Ways to Rearrange Sticks With K Sticks Visible](https://leetcode.com/problems/number-of-ways-to-rearrange-sticks-with-k-sticks-visible)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/LC_1866.md/)
+
+{% tabs %}
+{% tab title='LC_1866.md' %}
+
+> Question
+
+* There are n uniquely-sized sticks whose lengths are integers from 1 to n
+* arrange the sticks such that exactly k sticks are visible from the left
+* Given n and k, return the number of such arrangements modulo 10e9 + 7
+
+```txt
+Input: n = 3, k = 2
+Output: 3  # [1,3,2], [2,3,1], and [2,1,3] exactly 2 sticks are visible
+```
+
+{% endtab %}
+{% tab title='LC_1866.py' %}
+
+```py
+@lru_cache(None)
+def rearrangeSticks(self, n: int, k: int) -> int:
+  if k < 0 or n == 0: return k == 0
+  return (self.rearrangeSticks(n - 1, k) * (n - 1) + self.rearrangeSticks(n - 1, k - 1)) % int(1e9 + 7)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Minimum Cost to Change the Final Value of Expression](https://leetcode.com/problems/minimum-cost-to-change-the-final-value-of-expression)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/recursion/LC_1896.md/)
+
+{% tabs %}
+{% tab title='LC_1896.md' %}
+
+> Question
+
+* given a boolean expression as a string with '1','0','&', '|', '(', and ')'
+* Return the minimum cost to change the final value of the expression to be 0
+  * Turn a '1' into a '0'.
+  * Turn a '0' into a '1'.
+  * Turn a '&' into a '|'.
+  * Turn a '|' into a '&'.
+
+```txt
+Input: expression = "1&(0|1)"
+Output: 1
+
+Input: expression = "(0&0)&(0&0&0)"
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_1896.py' %}
+
+```py
+def minOperationsToFlip(self, E):
+  def dp(beg, end):
+    if beg == end: return (int(E[beg]) , 1)
+    if E[end] in "01":
+      p1, c1 = dp(beg, end - 2)
+      p2, c2 = dp(end, end)
+      op = E[end - 1]
+    else:
+      if d[end] == beg: return dp(beg + 1, end - 1)
+      p1, c1 = dp(beg, d[end] - 2)
+      p2, c2 = dp(d[end], end)
+      op = E[d[end] - 1]
+
+    if op == "|":
+      c3 = 1 if p1 + p2 == 1 else min(c1, c2) + p1
+      return (p1 | p2, c3)
+    else:
+      c3 = 1 if p1 + p2 == 1 else min(c1, c2) + 1 - p1
+      return (p1 & p2, c3)
+
+  stack, d = [], {}
+  for i, elem in enumerate(E):
+    if elem == "(":
+      stack.append(i)
+    elif elem == ")":
+      last = stack.pop()
+      d[i] = last
+  return dp(0, len(E) - 1)[1]
+```
+
+{% endtab %}
+{% endtabs %}

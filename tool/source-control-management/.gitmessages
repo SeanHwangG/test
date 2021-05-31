@@ -1,0 +1,5 @@
+# .gitmessage
+# default commit message
+
+Fix Issue #{number}: {description}
+R+: {reviewer}

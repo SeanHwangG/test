@@ -1,0 +1,497 @@
+> baekjoon
+
+* [Level 2 : Congruent Numbers](https://www.acmicpc.net/problem/15128)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_15128.md/)
+
+{% tabs %}
+{% tab title='BJ_15128.md' %}
+
+> Question
+
+* print if a \* c are divisible by b \* d * 2
+
+```txt
+Input:
+15 1 28 3
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_15128.py' %}
+
+```py
+a, b, c, d = map(int, input().split())
+area = a * c / b / d / 2
+if int(area) == area:
+  print(1)
+else:
+  print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Fence Painting](https://www.acmicpc.net/problem/11970)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_11970.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* Print total length of two line
+
+```txt
+Input:
+7 10
+4 8
+
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a, b = map(int, input().split())
+c, d = map(int, input().split())
+if a > c:
+  a, b, c, d = c, d, a, b
+print(b - a + d - c - max(0, min(d, b) - c))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 컵라면 측정하기](https://www.acmicpc.net/problem/16479)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_16479.md/)
+
+{% tabs %}
+{% tab title='BJ_16479.md' %}
+
+> Question
+
+* upper side of bridge is D1 in diameter and lower side in diameter of upper side is D2. length of the rainwater is K
+* At this point, find the square value of the height
+
+```txt
+Input:
+15
+13 6
+
+Output: 212.75
+```
+
+{% endtab %}
+{% tab title='BJ_16479.py' %}
+
+```py
+K = int(input())
+D1, D2 = map(int, input().split())
+print(K*K-((D1-D2)/2)**2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 접시 안의 원](https://www.acmicpc.net/problem/16483)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_16483.md/)
+
+{% tabs %}
+{% tab title='BJ_16483.md' %}
+
+> Question
+
+* distance between two points where the tangent of a small circle meets a large circle is called T
+* the radius of a small circle is called b, and the radius of a large circle is called a
+* Given a value of T, output $$ a^2-b^2 $$
+
+```txt
+Input: 17
+Output: 72
+```
+
+{% endtab %}
+{% tab title='BJ_16483.py' %}
+
+```py
+T=int(input())
+print(round((T / 2) ** 2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 선분과 점](https://www.acmicpc.net/problem/11664)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_11664.md/)
+
+{% tabs %}
+{% tab title='BJ_11664.md' %}
+
+> Question
+
+* Print minimum distance between line (ax, ay, az / bx, by, bz) and point (cx, cy, cz) in 3D
+
+```txt
+Input: 0 0 0 1 1 1 2 2 2
+Output: 1.7320508076
+```
+
+{% endtab %}
+{% tab title='BJ_11664.py' %}
+
+```py
+ax, ay, az, bx, by, bz, cx, cy, cz = map(int, input().split())
+
+def dist(x1, y1, z1, x2, y2, z2):
+  return ((x1-x2)**2+(y1-y2)**2+(z1-z2)**2)**0.5
+
+print(f"{min([dist(cx, cy, cz, bx+(ax-bx)*(t / 100000), by+(ay-by)*(t / 100000), bz+(az-bz) * (t / 100000))
+        for t in range(0, 100001, 1)]):.10f}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 점 모으기](https://www.acmicpc.net/problem/7571)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_7571.md/)
+
+{% tabs %}
+{% tab title='BJ_7571.md' %}
+
+> Question
+
+* Find the minimum sum of hamming distance from all points
+
+```txt
+Input:
+4 4
+1 2
+1 4
+3 1
+4 2
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_7571.py' %}
+
+```py
+n, m = map(int, input().split())
+
+x = [0] * m
+y = [0] * m
+for i in range(m):
+  x[i], y[i] = map(int, input().split())
+x.sort()
+y.sort()
+
+px, py = x[m//2], y[m//2]
+
+d = 0
+for i in range(m):
+  d += abs(px - x[i])
+  d += abs(py - y[i])
+print(d)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : CCW](https://www.acmicpc.net/problem/11758)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_11758.md/)
+
+{% tabs %}
+{% tab title='BJ_11758.md' %}
+
+> Question
+
+* Check if AB and BC is counter clockwise
+* -1 if clock, 0 if line, 1 if counter clock
+
+```txt
+Input:
+1 1
+5 5
+7 3
+
+Output: -1
+```
+
+{% endtab %}
+{% tab title='BJ_11758.py' %}
+
+```py
+def ccw(x1, y1, x2, y2, x3, y3):
+  total = (x2-x1) * (y3-y1) - (y2-y1) * (x3-x1)
+  return (total > 0) - (total < 0)
+x1, y1 = map(int, input().split())
+x2, y2 = map(int, input().split())
+x3, y3 = map(int, input().split())
+print(ccw(x1, y1, x2, y2, x3, y3))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 고층 건물](https://www.acmicpc.net/problem/1027)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_1027.md/)
+
+{% tabs %}
+{% tab title='BJ_11758.md' %}
+
+> Question
+
+* Given list of building heights, find the maximum number of visible building from one building
+
+```txt
+Input:
+15
+1 5 3 2 6 3 2 6 4 2 5 7 3 1 5
+
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_11758.py' %}
+
+```py
+N = int(input())
+A = list(map(int, input().split(' ')))
+B = [0] * N
+for i in range(N):
+  e = -99999999999
+  for j in range(i + 1, N):
+    d = (A[j] - A[i]) / (j - i)
+    if d > e:
+      e = d
+      B[i] += 1
+      B[j] += 1
+res = 0
+for i in B:
+  res = max(res, i)
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 가장 가까운 두 점](https://www.acmicpc.net/problem/2261)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/BJ_2261.md/)
+
+{% tabs %}
+{% tab title='BJ_2261.md' %}
+
+> Question
+
+* Print squared distance between two cloestest points
+
+```txt
+Input:
+4
+0 0
+10 10
+0 10
+10 0
+
+Output:
+100
+```
+
+{% endtab %}
+{% tab title='BJ_2261.py' %}
+
+```py
+from bisect import bisect_left
+P =[[] for i in range(200001)]
+
+n = int(input())
+for i in range(n):
+  x, y = map(int, input().split())
+  P[x + 100000].append(y)
+for i in range(200001):
+  P[i].sort()
+
+ans = 200000**2
+for i in range(200001):
+  for j in range(len(P[i])):
+    if j+1 < len(P[i]):
+      ans = min(ans, (P[i][j+1] - P[i][j]) ** 2)
+    k = i+1
+    while (k - i) ** 2 <= ans and k < 200001:
+      l = bisect_left(P[k], P[i][j])
+      if 0 <= l < len(P[k]):
+        ans = min(ans, (P[i][j] - P[k][l]) ** 2+ (k - i) ** 2)
+      if 0 <= l - 1 < len(P[k]):
+        ans = min(ans, (P[i][j] - P[k][l-1]) ** 2 + (k - i) ** 2)
+      if 0 <= l + 1 < len(P[k]):
+        ans = min(ans, (P[i][j] - P[k][l+1]) ** 2 + (k - i) ** 2)
+      k+=1
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Stand on Zanzibar](https://open.kattis.com/problems/zanzibar)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/KT_zanzibar.md/)
+
+{% tabs %}
+{% tab title='KT_zanzibar.md' %}
+
+> Question
+
+* only double is possible
+* print the lower bound for the number of turtles not born on Zanzibar
+
+```txt
+3
+1 100 0
+1 1 1 2 2 4 8 8 9 0
+1 28 72 0
+```
+
+{% endtab %}
+{% tab title='KT_zanzibar.py' %}
+
+```py
+n_test = int(input())
+for i in range(n_test):
+  li = list(map(int, input().split()))
+  ret = 0
+  for i in range(1, len(li) - 1):
+    ret += max(0, li[i] - li[i - 1] * 2)
+  print(ret)
+
+a, b, c, d = map(int, input().split())
+s = sum([a, b, c, d]) / 2
+print(((s - a) * (s - b) * (s - c) * (s - d)) ** 0.5)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Queries on Number of Points Inside a Circle](https://leetcode.com/problems/queries-on-number-of-points-inside-a-circle)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/LC_1828.md/)
+
+{% tabs %}
+{% tab title='LC_1828.md' %}
+
+> Question
+
+* points where points[i] = [xi, yi] is coordinates of ith point on a 2D plane. Multiple points can have same coordinates
+* queries where queries[j] = [xj, yj, rj] describes a circle centered at (xj, yj) with a radius of rj
+* For each query queries[j], compute number of points inside jth circle. Points on border of circle are considered inside
+* Return an array answer, where answer[j] is the answer to the jth query
+
+```txt
+Input: points = [[1,3],[3,3],[5,3],[2,2]], queries = [[2,3,1],[4,3,1],[1,1,2]]
+Output: [3,2,2]
+```
+
+{% endtab %}
+{% tab title='LC_1828.py' %}
+
+```py
+def countPoints(self, points: List[List[int]], queries: List[List[int]]) -> List[int]:
+  points.sort()
+  result = [0] * len(queries)
+  for ii, (qx, qy, qr) in enumerate(queries):
+    lo = bisect_left([p[0] for p in points], qx - qr)
+    for jj in range(lo, len(points)):
+      px, py = points[jj]
+      if px > qx + qr:
+        break
+      if (qx - px) ** 2 + (qy - py) ** 2 <= qr ** 2:
+        result[ii] += 1
+  return result
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/LC_973.md/)
+
+{% tabs %}
+{% tab title='LC_973.md' %}
+
+* Given an array of points where points[i] = [xi, yi] represents a point on X-Y plane and an integer k
+* return k closest points to the origin (0, 0) in any order (guaranteed to be unique)
+
+{% endtab %}
+{% tab title='LC_973.cpp' %}
+
+```cpp
+vector<vector<int>> kClosest(vector<vector<int>>& A, int K) {
+  nth_element(A.begin(), A.begin() + K, A.end(), [](vector<int>& a, vector<int>& b) {
+    return a[0] * a[0] + a[1] * a[1] < b[0] * b[0] + b[1] * b[1];
+  });
+  return vector<vector<int>>(A.begin(), A.begin() + K);
+}
+```
+
+{% endtab %}
+{% tab title='LC_973.java' %}
+
+```java
+public int[][] kClosest(int[][] points, int K) {
+  Arrays.sort(points, Comparator.comparing(p -> p[0] * p[0] + p[1] * p[1]));
+  return Arrays.copyOfRange(points, 0, K);
+}
+```
+
+{% endtab %}
+{% tab title='LC_973.py' %}
+
+```py
+def kClosest(self, points, K):
+  return heapq.nsmallest(K, points, lambda (x, y): x * x + y * y)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/LC_149.md/)
+
+{% tabs %}
+{% tab title='LC_149.md' %}
+
+> Question
+
+* Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane
+* return the maximum number of points that lie on the same straight line
+
+{% endtab %}
+{% tab title='LC_149.cpp' %}
+
+```cpp
+int maxPoints(vector<vector<int>>& points) {
+  int res = 1;
+  for (int i = 0; i < points.size(); i++) {
+    int numVertical = 1, local = 0, duplicate = 0;
+    unordered_map<double, int> map;
+    for (int j = i + 1; j < points.size() ; j++) {
+      if(points[i][0] == points[j][0]) {
+        if (points[i][1]==points[j][1]) duplicate++;
+        else numVertical++;  // vertical
+      } else {
+        double slope = (points[i][1]-points[j][1]) / (double)(points[i][0]-points[j][0]);
+        map[slope] == 0? map[slope] = 2 : map[slope]++; //If it was zero, add two points!
+        local = max(local,map[slope]);
+      }
+      res = max({res, local + duplicate, numVertical + duplicate});
+    }
+  }
+  return res;
+}
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,132 @@
+> baekjoon
+
+* [Level 2 : 정육각형과 삼각형](https://www.acmicpc.net/problem/14264)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/trigonometry/BJ_14264.md/)
+
+{% tabs %}
+{% tab title='BJ_14264.md' %}
+
+> Question
+
+* 한 변의 길이가 L인 정육각형에 세 개의 겹치지 않는 대각선을 그리려고 한다
+* 대각선은 정육각형을 4개의 삼각형으로 나눈다. 4개의 삼각형 중에 면적이 제일 작은 삼각형의 면적을 S라고 한다
+* 가능한 S중에서 최댓값을 구하는 프로그램을 작성하시오
+
+{% endtab %}
+{% tab title='BJ_14264.py' %}
+
+```py
+import math
+s = int(input())
+print(math.sin(60 * math.pi / 180) * s ** 2 / 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : unnelling the Earth](https://www.acmicpc.net/problem/4167)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/trigonometry/BJ_4167.md/)
+
+{% tabs %}
+{% tab title='BJ_4167.md' %}
+
+> Question
+
+* Tunnel distance
+
+$$
+\Delta X=\cos (\phi_{2}) \cos (\lambda_{2})-\cos (\phi_{1}) \cos (\lambda_{1}) \\
+\Delta Y=\cos (\phi_{2}) \sin (\lambda_{2})-\cos (\phi_{1}) \sin (\lambda_{1}) \\
+\Delta Z=\sin (\phi_{2})-\sin (\phi_{1}) \\
+C_{h}=\sqrt{(\Delta X)^{2}+(\Delta Y)^{2}+(\Delta Z)^{2}}
+$$
+
+{% endtab %}
+{% tab title='BJ_4167.py' %}
+
+```py
+from math import asin, cos, radians, sin, sqrt
+r = 6371009
+
+for _ in range(int(input())):
+  a, b, c, d = map(lambda x: radians(float(x)), input().split())
+  P = (cos(a) * cos(b), cos(a) * sin(b), sin(a))
+  Q = (cos(c) * cos(d), cos(c) * sin(d), sin(c))
+
+d1 = sqrt((P[0] - Q[0]) ** 2 + (P[1] - Q[1]) ** 2 + (P[2] - Q[2]) ** 2)
+  d2 = asin(min(1, d1/2)) * 2
+  print(round((d2 - d1) * r))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : The Amazing Human Cannonball](https://open.kattis.com/problems/humancannonball2)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/trigonometry/KT_humancannonball2.md/)
+
+{% tabs %}
+{% tab title='KT_humancannonball2.md' %}
+
+> Question
+
+![KT_humancannonball2](trigonometry/images/20210227_192824.png)
+
+* check whether cannon safely pass with safe margin 1m
+
+```txt
+Input:
+25.0 100.0
+190.0 57.5
+4
+125.0 67.5
+75.0 125.0
+45.0 72.5
+185.0 102.5
+
+Output: 19.984901
+```
+
+{% endtab %}
+{% tab title='KT_humancannonball2.py' %}
+
+```py
+import math
+n_shot = int(input())
+for _ in range(n_shot):
+    v, theta, x, h1, h2 = map(float, input().split())
+
+    hit_t = x / (v * math.cos(theta / 180 * math.pi))
+    hit_y = v * hit_t * math.sin(theta / 180 * math.pi) - 9.8/2 * hit_t ** 2
+
+    if h1 + 1 <= hit_y <= h2 - 1:
+        print('Safe')
+    else:
+        print('Not Safe')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Ladder](https://open.kattis.com/problems/ladder)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/trigonometry/KT_ladder.md/)
+
+{% tabs %}
+{% tab title='KT_ladder.md' %}
+
+> Question
+
+* 높이 h와 각도 theta가 주어질 때 사다리의 최소 길이를 구하여라. (ceil)
+
+{% endtab %}
+{% tab title='KT_ladder.py' %}
+
+```py
+import math
+a, theta = map(int, input().split())
+print(math.ceil(a / math.sin(theta / 180 * math.pi)))
+```
+
+{% endtab %}
+{% endtabs %}

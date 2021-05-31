@@ -1,0 +1,1011 @@
+> baekjoon
+
+* [Level 3 : 분수좋아해?](https://www.acmicpc.net/problem/10474)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_10474.md/)
+
+{% tabs %}
+{% tab title='BJ_10474.md' %}
+
+> Question
+
+* Print division result in an improper fraction
+
+```txt
+Input:
+27 12
+2460000 98400
+3 4000
+0 0
+
+Output:
+2 3 / 12
+25 0 / 98400
+0 3 / 4000
+```
+
+{% endtab %}
+{% tab title='BJ_10474.py' %}
+
+```py
+while True:
+  a, b = map(int, input().split())
+  if a == 0 and b == 0:
+    break
+  print(a // b, a % b, '/', b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : +B - 5](https://www.acmicpc.net/problem/10952)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_10952.md/)
+
+{% tabs %}
+{% tab title='BJ_10952.md' %}
+
+> Question
+
+* Print a + b until both are 0
+
+```txt
+Input:
+1 1
+2 3
+3 4
+9 8
+5 2
+0 0
+
+Output:
+2
+5
+7
+17
+7
+```
+
+{% endtab %}
+{% tab title='BJ_10952.sh' %}
+
+```sh
+while read a b; do
+  echo $((a+b))
+done
+```
+
+{% endtab %}
+{% tab title='BJ_10952.py' %}
+
+```py
+while True:
+  a, b = map(int, input().split())
+  if a == b == 0:
+    break
+  else:
+    print(a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 캥거루 세마리2](https://www.acmicpc.net/problem/11034)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_11034.md/)
+
+{% tabs %}
+{% tab title='BJ_11034.md' %}
+
+> Question
+
+* Print maximum possible jump from middle person
+
+```txt
+Input:
+2 3 5
+3 5 9
+
+Output:
+1
+3
+```
+
+{% endtab %}
+{% tab title='BJ_11034.py' %}
+
+```py
+while True:
+  try:
+    a, b, c = map(int, input().split())
+    print(max(b - a, c - b) - 1)
+  except:
+    break
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 부재중 전화](https://www.acmicpc.net/problem/1333)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_1333.md/)
+
+{% tabs %}
+{% tab title='BJ_1333.md' %}
+
+> Question
+
+* 앨범에는 총 노래가 N곡이 들어있고, 모든 노래의 길이는 L초이다
+* 노래와 노래 사이에는 5초 동안 아무 노래도 들리지 않는 조용한 구간이 있다
+* 앨범의 첫 곡을 듣는 순간이 0초이다. 그리고 그 0초부터 강토의 전화벨이 울리기 시작한다. 전화벨은 D초에 1번씩 울리며, 한 번 울릴 때 1초동안 울린다
+* 노래가 나오는 중에는 전화벨 소리를 듣지 못한다. 만약, 전화벨이 노래가 시작되는 순간 울리거나, 전화벨이 노래가 끝나는 순간 같이 끝난다면, 전화를 받을 수 없다
+* 앨범을 1번만 듣는다. 즉, 모든 앨범 수록곡을 다 듣고 난 후에는 전화벨을 들을 수 있다
+* 전화벨을 들을 수 있는 가장 빠른 시간을 구하는 프로그램을 작성하시오
+
+```txt
+Input: 2 5 7
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_1333.cpp' %}
+
+```cpp
+#include <vector>
+#include <iostream>
+using namespace std;
+
+int main() {
+  vector<int> music;
+  int N, L, D;
+  int bell = 0;
+
+  cin >> N >> L >> D;
+
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < L; j++)
+      music.push_back(1);
+    for (int j = 0; j < 5; j++)
+      music.push_back(0);
+  }
+
+  while (1) {
+    if (bell > music.size() || music[bell] == 0) // bell after song || bell between song
+      break;
+    else
+      bell = bell + D;
+  }
+  cout << bell;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1333.py' %}
+
+```py
+n, l, d = map(int, input().split())
+s = ([False] * l + [True] * 5) * n
+t = 0
+while True:
+  if t >= len(s) or s[t]:
+      break
+  else:
+    t += d
+print(t)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 냉동식품](https://www.acmicpc.net/problem/14625)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_14625.md/)
+
+{% tabs %}
+{% tab title='BJ_14625.md' %}
+
+> Question
+
+* count how many minutes of time the number N is visible during the time displayed in the form of HH:MM
+
+```txt
+Input:
+15 20
+16 0
+2
+
+Output: 13
+```
+
+{% endtab %}
+{% tab title='BJ_14625.py' %}
+
+```py
+H, M = map(int, input().split())
+EH, EM = map(int, input().split())
+n = int(input())
+c = 0
+while True:
+  if H%10 == n or H//10 == n or M%10 == n or M//10 == n:
+    c += 1
+  if H == EH and M == EM:
+    break
+  M += 1
+  if M == 60:
+    M = 0
+    H += 1
+print(c)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 이산수학 과제](https://www.acmicpc.net/problem/14723)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_14723.md/)
+
+{% tabs %}
+{% tab title='BJ_14723.md' %}
+
+> Question
+
+![BJ_14723](while-break/images/20210304_192301.png)
+
+* Print denominator and numberator of Nth number
+
+```txt
+Input: 5
+Output: 2 2
+```
+
+{% endtab %}
+{% tab title='BJ_14723.py' %}
+
+```py
+n=int(input())
+i=1
+while n>i:
+  n -= i
+  i += 1
+print(i+1-n,n)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 크냐?](https://www.acmicpc.net/problem/4101)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_4101.md/)
+
+{% tabs %}
+{% tab title='BJ_4101.md' %}
+
+> Question
+
+* If the first number is greater than the second number, output Yes, or No one by one in a row
+
+```txt
+Input:
+3 2
+1 5
+0 0
+
+Output:
+Yes
+No
+```
+
+{% endtab %}
+{% tab title='BJ_4101.py' %}
+
+```py
+while True:
+  a, b = map(int, input().split())
+  if a == b == 0:
+    break
+  if a > b:
+    print("Yes")
+  else:
+    print("No")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 배수와 약수](https://www.acmicpc.net/problem/5086)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_5086.md/)
+
+{% tabs %}
+{% tab title='BJ_5086.md' %}
+
+> Question
+
+* If the first number is the second number, then the factor, multiple if the multiple, if not both, then neither
+
+```txt
+Input:
+8 16
+32 4
+17 5
+0 0
+
+Output:
+factor
+multiple
+neither
+```
+
+{% endtab %}
+{% tab title='BJ_5086.py' %}
+
+```py
+while True:
+  a, b = map(int, input().split())
+  if a == 0 and b == 0:
+    break
+  if b % a == 0:
+    print('factor')
+  elif a % b == 0:
+    print('multiple')
+  else:
+    print('neither')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 상근이의 친구들](https://www.acmicpc.net/problem/5717)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_5717.md/)
+
+{% tabs %}
+{% tab title='BJ_5717.md' %}
+
+> Question
+
+* Print a + b until a and b are both 0
+
+```txt
+Input:
+2 2
+2 3
+5 5
+1 1
+0 0
+
+Output:
+4
+5
+10
+2
+```
+
+{% endtab %}
+{% tab title='BJ_5717.py' %}
+
+```py
+while True:
+  a, b = map(int, input().split())
+  if a == b == 0:
+    break
+  else:
+    print(a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 운동](https://www.acmicpc.net/problem/1173)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_1173.md/)
+
+{% tabs %}
+{% tab title='BJ_1173.md' %}
+
+> Question
+
+* Every minute, choose between exercise and rest
+  * If exercise, pulse rate increases by T. (can exercise only when X+T is less than or equal to M)
+  * Ifrest, pulse will decrease by R (pulse will never go lower than m)
+* The initial pulse of the zero diet is m, and excercise for N minutes, find minimum value of time required to do N minutes
+
+```txt
+Input: 5 70 120 25 15
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_1173.py' %}
+
+```py
+N, m, M, T, R = map(int, input().split())
+n = m
+i = c = 0
+if n + T > M:
+  print(-1)
+  exit()
+while i < N:
+  if n + T <= M:
+    n += T
+    i, c = i + 1, c + 1
+  else:
+    n=max(n-R,m)
+    c+=1
+print(c)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 새](https://www.acmicpc.net/problem/1568)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_1568.md/)
+
+{% tabs %}
+{% tab title='BJ_1568.md' %}
+
+> Question
+
+* There are N birds that sing song sequentially (1, 2 ...)
+* Given bird flys aways with the number of song, how many seconds does it take?
+
+```txt
+Input: 14
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_1568.py' %}
+
+```py
+n = int(input())
+result, k = 0, 1
+
+while n > 0:
+  if n < k:
+    k = 1
+  n -= k
+  k += 1
+  result+=1
+
+print(result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 디지털시계](https://www.acmicpc.net/problem/1942)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_1942.md/)
+
+{% tabs %}
+{% tab title='BJ_1942.md' %}
+
+> Question
+
+* From first line, # clock integers included in the interval entered over three lines is printed, which is multiple of 3
+
+```txt
+Input:
+00:59:58 01:01:24
+22:47:03 01:03:24
+00:00:09 00:03:37
+
+Output:
+29
+2727
+70
+```
+
+{% endtab %}
+{% tab title='BJ_1942.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+int main() {
+  int s, a, b, c, d, e, f;
+  for(; ~scanf("%d:%d:%d %d:%d:%d", &a, &b, &c, &d, &e, &f); ){
+    s = 0
+    while (true) {
+      if((a + b + c) % 3 == 0) s++;
+      if(a == d && b == e && c == f) break;
+      c++;
+      if(c == 60) c = 0, b ++;
+      if(b == 60) b = 0, a ++;
+      if(a == 24) a = 0;
+    }
+    printf("%d\n", s);
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1942.py' %}
+
+```py
+for t in range(3) :
+  l, r = input().split()
+  h1, m1, s1 = int(l[0:2]), int(l[3:5]), int(l[6:8])
+  h2, m2, s2 = int(r[0:2]), int(r[3:5]), int(r[6:8])
+  ans = 0
+  while True:
+    ans += int(h1 + m1 + s1) % 3 == 0)
+    if h1 == h2 and m1 == m2 and s1 == s2 :
+      break
+    s1 += 1
+    if s1 == 60 :
+      m1 += 1
+      s1 = 0
+    if m1 == 60 :
+      h1 += 1
+      m1 = 0
+    if h1 == 24 :
+      h1 = 0
+  print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : ucky Debugging](https://www.acmicpc.net/problem/20216)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_20216.md/)
+
+{% tabs %}
+{% tab title='BJ_20216.md' %}
+
+> Question
+
+* I quacked the code! 일 때까지 줄을 읽는다
+* 만약 끝 글자가 !라면 "Quack!" 아니면 "*Nod*" 를 출력하라
+
+```txt
+Input:
+In the loop, I read a line of input.
+
+The method std::getline(std::cin, line); reads until a newline, right?
+
+Then I branch according to the last character of the line of input.
+
+When the last character is an exclamation mark, I simply terminate the program.
+
+When the last character is a question mark, I need to print "Quack!" right?
+
+In any other case, I simply print "*Nod*".
+
+Wait, to flush the output stream I need to use std::endl instead of '\n' right?
+
+I quacked the code!
+
+Output:
+
+*Nod*
+
+Quack!
+
+*Nod*
+
+*Nod*
+
+Quack!
+
+*Nod*
+
+Quack!
+
+```
+
+{% endtab %}
+{% tab title='BJ_20216.py/' %}
+
+```py
+while True:
+  a = input()
+  if a == "I quacked the code!":
+    break
+  print("*Nod*" if a[-1] == "." else "Quack!")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 도비의 영어 공부](https://www.acmicpc.net/problem/2386)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_2386.md/)
+
+{% tabs %}
+{% tab title='BJ_2386.md' %}
+
+> Question
+
+* Given an English sentence and an alphabet, counts how many times the alphabet appears in the sentence
+
+```txt
+Input:
+g Programming Contest
+n New Zealand
+x This is quite a simple problem.
+#
+
+Output:
+g 2
+n 2
+x 0
+```
+
+{% endtab %}
+{% tab title='BJ_2386.py' %}
+
+```py
+while 1:
+  x = input().lower()
+  if x=='#':
+    break
+  print(x[0], x.count(x[0])-1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 더하기 사이클](https://www.acmicpc.net/problem/1110)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_1110.md/)
+
+{% tabs %}
+{% tab title='BJ_1110.md' %}
+
+> Question
+
+* Starts from 26. 2+6 = 8. 6+8 = 14. 8+4 = 12. 4+2 = 6
+* print length of cycle
+
+```txt
+Input: 26
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_1110.py' %}
+
+```py
+n = int(input())
+m = n
+i = 0
+while True:
+  m = m % 10 * 10 + (m % 10 + m // 10) % 10
+  i += 1
+  if m == n:
+    print(i)
+    break
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 완전제곱수](https://www.acmicpc.net/problem/1977)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_1977.md/)
+
+{% tabs %}
+{% tab title='BJ_1977.md' %}
+
+> Question
+
+* Given M and N, find the sum and minimum of the number of squares greater than M and less than N
+
+```txt
+Input:
+60
+100
+
+Output:
+245
+64
+```
+
+{% endtab %}
+{% tab title='BJ_1977.sh' %}
+
+```sh
+read a
+read b
+c=0
+d=100
+s=0
+while [ $((c*c)) -lt $a ]; do
+  c=$((c+1))
+done
+while [ $((d*d)) -gt $b ]; do
+  d=$((d-1))
+done
+e=$c
+until [ $c -gt $d ]; do
+  s=$((c*c+s))
+  c=$((c+1))
+done
+if [ $s -eq 0 ]; then
+  echo -1
+else
+  echo -e "$s\n$((e*e))"
+fi
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : oubles](https://www.acmicpc.net/problem/4641)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_4641.md/)
+
+{% tabs %}
+{% tab title='BJ_4641.md' %}
+
+> Question
+
+* Find a number in the list that is exactly twice as many as you are
+
+```txt
+Input:
+1 4 3 2 9 7 18 22 0
+2 4 8 10 0
+7 5 11 13 1 3 0
+-1
+
+Output:
+3
+2
+0
+```
+
+{% endtab %}
+{% tab title='BJ_4641.py' %}
+
+```py
+while True:
+  a = list(map(int, input().split()))
+  if a[0] == -1:
+    break
+  a_len = len(a)
+  cnt = 0
+  for i in range(a_len - 1):
+    if a[i] * 2 in a:
+      cnt += 1
+  print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 영화감독 숌](https://www.acmicpc.net/problem/1436)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_1436.md/)
+
+{% tabs %}
+{% tab title='BJ_1436.md' %}
+
+> Question
+
+* find nth smallest number with 666 in
+
+```txt
+Input: 2
+Output: 1666
+```
+
+{% endtab %}
+{% tab title='BJ_1436.py' %}
+
+```py
+name = 666
+cnt=0
+while True:
+  if "666" in str(name):
+    cnt+=1
+    if cnt == n :
+      print(name)
+      break
+  name+=1
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.6 : Different Distances](https://open.kattis.com/problems/differentdistances)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/KT_differentdistances.md/)
+
+{% tabs %}
+{% tab title='KT_differentdistances.md' %}
+
+> Question
+
+* x1, x2, y1, y2이 주어진다
+* 이때 를 출력하라
+* 마지막 줄에 0이 나온다
+
+```txt
+Input:
+1.0 1.0 2.0 2.0 2.0
+1.0 1.0 2.0 2.0 1.0
+1.0 1.0 20.0 20.0 10.0
+0
+
+Output:
+1.4142135624
+2.0000000000
+20.3636957882
+```
+
+{% endtab %}
+{% tab title='KT_differentdistances.py' %}
+
+```py
+while True:
+  raw = input()
+  if raw == '0':
+    break
+  a, b, c, d, e = map(float, raw.split())
+  print((abs(a - c) ** e + abs(b - d) ** e) ** (1/e))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Harshad Numbers](https://open.kattis.com/problems/harshadnumbers)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/KT_harshadnumbers.md/)
+
+{% tabs %}
+{% tab title='KT_harshadnumbers.md' %}
+
+> Question
+
+* harshad 수는 각 자리 수를 다 더한 수로 나누어 떨어지는 수이다
+* n이 주어질 때 n보다 크거나 같은 가장 작은 harshad 수를 출력하라
+
+```txt
+Input: 25
+Output: 27
+```
+
+{% endtab %}
+{% tab title='KT_harshadnumbers.py' %}
+
+```py
+def is_harshad(num):
+  digit_sum = 0
+  cur = num
+  while cur != 0:
+    digit_sum += cur % 10
+    cur //= 10
+  return num % digit_sum == 0
+n = int(input())
+while True:
+  if is_harshad(n):
+    print(n)
+    break
+  n = n + 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : Mixed Fractions](https://open.kattis.com/problems/mixedfractions)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/KT_mixedfractions.md/)
+
+{% tabs %}
+{% tab title='KT_mixedfractions.md' %}
+
+> Question
+
+* 각 줄에 a, b 가 주어진다
+* 이 때 a / b 인 분수를 대분수로 형식으로 출력하라. a, b가 둘다 0 일 경우 종료한다
+
+```txt
+Input:
+27 12
+2460000 98400
+3 4000
+0 0
+
+Output:
+2 3 / 12
+25 0 / 98400
+0 3 / 4000
+```
+
+{% endtab %}
+{% tab title='KT_mixedfractions.py' %}
+
+```py
+while True:
+  dem, num = map(int, input().split())
+  if dem == num == 0:
+    break
+  print(dem // num, dem % num, '/', num)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Zamka](https://open.kattis.com/problems/zamka)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/KT_zamka.md/)
+
+{% tabs %}
+{% tab title='KT_zamka.md' %}
+
+> Question
+
+* determine the minimal integer 𝑁 such that 𝐿≤𝑁≤𝐷 and the sum of its digits is 𝑋
+* determine the maximal integer 𝑀 such that 𝐿≤𝑀≤𝐷 and the sum of its digits is 𝑋
+
+```txt
+Input:
+1
+100
+4
+
+Output:
+4
+40
+```
+
+{% endtab %}
+{% tab title='KT_zamka.py' %}
+
+```py
+mn = int(input())
+mx = int(input())
+sm = int(input())
+def match(n, sm):
+  while n != 0:
+    sm -= n % 10
+    n //= 10
+  return sm == 0
+for i in range(mn, mx + 1):
+  if match(i, sm):
+    print(i)
+    break
+for i in range(mx, mn - 1, -1):
+  if match(i, sm):
+    print(i)
+    break
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.7 : Reverse Rot](https://open.kattis.com/problems/reverserot)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/KT_reverserot.md/)
+
+{% tabs %}
+{% tab title='KT_reverserot.md' %}
+
+> Question
+
+* 숫자 a, 문자 b가 매 줄마다 주어진다
+* 이 때 문자를 뒤집어서 a만큼 회전한 문자를 출력한다. (단 Z → _ → . → A 으로 순환된다)
+* last line is 0
+
+```txt
+Input:
+1 ABCD
+3 YO_THERE.
+1 .DOT
+14 ROAD
+9 SHIFTING_AND_ROTATING_IS_NOT_ENCRYPTING
+2 STRING_TO_BE_CONVERTED
+1 SNQZDRQDUDQ
+0
+
+Output:
+EDCB
+CHUHKWBR.
+UPEA
+ROAD
+PWRAYF_LWNHAXWH.RHPWRAJAX_HMWJHPWRAORQ.
+FGVTGXPQEAGDAQVAIPKTVU
+REVERSE_ROT
+```
+
+{% endtab %}
+{% tab title='KT_reverserot.py' %}
+
+```py
+alp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ_.'
+while True:
+  raw = input()
+  if raw == '0':
+    break
+  shift, st = raw.split()
+  shift = int(shift)
+  for ch in reversed(st):
+    print(alp[(alp.find(ch) + shift) % len(alp)], end='')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}

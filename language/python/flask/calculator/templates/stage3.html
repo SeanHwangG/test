@@ -1,0 +1,69 @@
+<head>
+  <script>
+    function append(val) {
+      document.getElementById("result").value += val
+    }
+
+    // TODO function erase
+
+  </script>
+  <style>
+    .title {
+      margin-bottom: 20px;
+      text-align: center;
+      width: 600px;
+      border: solid 2px;
+    }
+
+    table {
+      width: 600px;
+      height: 500px;
+    }
+
+    #result {
+      font-size: 30px;
+    }
+
+    input {
+      width: 100%;
+      height: 100%;
+      border: solid 2px;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class=title>GeeksforGeeks Calculator</div>
+  <table>
+    <tr>
+      <td colspan="3"><input type="text" id="result" /></td>
+      <td><input type="button" value="c" onclick="erase()" /> </td>
+    </tr>
+    <tr>
+      <td><input type="button" value="1" onclick="append(1)" /> </td>
+      <!-- TODO -->
+      <td><input type="button" value="2" /> </td>
+      <td><input type="button" value="3" /> </td>
+      <td><input type="button" value="/" /> </td>
+    </tr>
+    <tr>
+      <td><input type="button" value="4" /> </td>
+      <td><input type="button" value="5" /> </td>
+      <td><input type="button" value="6" /> </td>
+      <td><input type="button" value="-" /> </td>
+    </tr>
+    <tr>
+      <td><input type="button" value="7" /> </td>
+      <td><input type="button" value="8" /> </td>
+      <td><input type="button" value="9" /> </td>
+      <td><input type="button" value="+" /> </td>
+    </tr>
+    <tr>
+      <td><input type="button" value="." /> </td>
+      <td><input type="button" value="0" /> </td>
+      <td><input type="button" value="=" /> </td>
+      <td><input type="button" value="*" /> </td>
+    </tr>
+  </table>
+</body>

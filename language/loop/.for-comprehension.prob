@@ -1,0 +1,460 @@
+> baekjoon
+
+* [Level 2 : 평균 점수](https://www.acmicpc.net/problem/10039)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/BJ_10039.md/)
+
+{% tabs %}
+{% tab title='BJ_10039.md' %}
+
+> Question
+
+* Print average of 5 scores, if score cannot be lower than 40
+
+```txt
+Input:
+10
+65
+100
+30
+95
+
+Output: 68
+```
+
+{% endtab %}
+{% tab title='BJ_10039.js' %}
+
+```js
+const src = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
+console.log(src.reduce((acc, cur) => acc + (+cur > 40 ? +cur : 40), 0) / src.length);
+```
+
+{% endtab %}
+{% tab title='BJ_10039.py' %}
+
+```py
+print(sum(max(40, int(input()) for _ in range(5)) // 5))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 0 = not cute / 1 = cute](https://www.acmicpc.net/problem/10886)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/BJ_10886.md/)
+
+{% tabs %}
+{% tab title='BJ_10886.md' %}
+
+> Question
+
+* Print if "Junhee is cute!" if there are more 1s else "Junhee is not cute!"
+
+```txt
+Input:
+3
+1
+0
+0
+
+Output: Junhee is not cute!
+```
+
+{% endtab %}
+{% tab title='BJ_10886.js' %}
+
+```js
+var input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n').map((e) => parseInt(e));
+var n = input.shift();
+console.log('Junhee is ' + (input.reduce((prev, curr) => prev + curr) > (n / 2) ? '' : 'not ') + 'cute!');
+```
+
+{% endtab %}
+{% tab title='BJ_10886.py' %}
+
+```py
+a = int(input())
+b = sum(int(input()) for i in range(a))
+print("Junhee is cute!" if b > a // 2 else "Junhee is not cute!")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 조교는 새디스트야!!](https://www.acmicpc.net/problem/14656)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/BJ_14656.md/)
+
+{% tabs %}
+{% tab title='BJ_14656.md' %}
+
+> Question
+
+* find number of person who does not stand in the order
+
+```txt
+Input:
+5
+3 2 5 4 1
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_14656.py' %}
+
+```py
+n = int(input())
+a = list(map(int, input().split()))
+print(sum(i+1 != a[i] for i in range(n)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 양수 개수 세기](https://www.acmicpc.net/problem/14909)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/BJ_14909.md/)
+
+{% tabs %}
+{% tab title='BJ_14909.md' %}
+
+> Question
+
+* Print number of positive integer
+
+```txt
+Input: 3 9 11 32 8 2 6
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_14909.js' %}
+
+```js
+console.log(
+  require("fs")
+    .readFileSync("dev/stdin")
+    .toString()
+    .trim()
+    .split(/\s+/)
+    .map((x) => +x)
+    .filter((x) => x > 0).length
+);
+
+```
+
+{% endtab %}
+{% tab title='BJ_14909.py' %}
+
+```py
+print(sum(int(x)>0 for x in input().split()))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 플러그](https://www.acmicpc.net/problem/2010)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/BJ_2010.md/)
+
+{% tabs %}
+{% tab title='BJ_2010.md' %}
+
+> Question
+
+* Find number of pluggable computers given n multitabs
+
+```txt
+Input:
+3
+1
+1
+1
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_2010.py' %}
+
+```py
+n = int(input())
+print(sum(int(input() for _ in range(n))) - n + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 영수증](https://www.acmicpc.net/problem/5565)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/BJ_5565.md/)
+
+{% tabs %}
+{% tab title='BJ_5565.md' %}
+
+> Question
+
+* print first number - sum(9 numbers)
+
+```txt
+Input:
+9850
+1050
+800
+420
+380
+600
+820
+2400
+1800
+980
+
+Output: 600
+```
+
+{% endtab %}
+{% tab title='BJ_5565.js' %}
+
+```js
+console.log(require('fs').readFileSync('/dev/stdin').toString().trim().split('\n')
+.map((e) => parseInt(e))
+.reduce((prev, curr) => prev - curr));
+```
+
+{% endtab %}
+{% tab title='BJ_5565.py' %}
+
+```py
+print(int(input()) - sum(int(input()) for _ in range(9)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 스시](https://www.acmicpc.net/problem/20494)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/BJ_20494.md/)
+
+{% tabs %}
+{% tab title='BJ_20494.md' %}
+
+> Question
+
+* print sum of length for each string
+
+```txt
+Input:
+2
+ABCDE
+FGH
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_20494.py' %}
+
+```py
+print(sum(len(input()) for i in range(int(input()))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Cold-puter Science](https://open.kattis.com/problems/cold)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/KT_cold.md/)
+
+{% tabs %}
+{% tab title='KT_cold.md' %}
+
+> Question
+
+* print number of negative numbers
+
+```txt
+Input:
+3
+5 -10 15
+
+Output:
+1
+```
+
+{% endtab %}
+{% tab title='KT_cold.py' %}
+
+```py
+input()
+print(len(n for n in map(int, input().split()) if n < 0))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Job Expenses](https://open.kattis.com/problems/jobexpenses)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/KT_jobexpenses.md/)
+
+{% tabs %}
+{% tab title='KT_jobexpenses.md' %}
+
+> Question
+
+* 첫줄에 N이 주어진다
+* 다음 줄에 N개의 숫자가 주어지는데, 이 때 0보다 작은 수의 절대값의 합을 구하여라
+
+```txt
+Input:
+3
+1 -2 3
+
+Output: 2
+```
+
+{% endtab %}
+{% tab titlepyT_jobexpenses.md'' %}
+
+```py
+print(sum(n for n in map(int, input().split()) if n < 0))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : How Many Numbers Are Smaller Than the Current Number](https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/LC_1365.md/)
+
+{% tabs %}
+{% tab title='LC_1365.md' %}
+
+> Question
+
+* Find sum of all number smaller than current
+
+```txt
+Input: nums = [8,1,2,2,3]
+Output: [4,0,1,1,3]
+```
+
+{% endtab %}
+{% tab title='LC_1365.py' %}
+
+```py
+def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+  return [sum(m < n for m in nums) for n in nums]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Minimum Distance to the Target Element](https://leetcode.com/problems/minimum-distance-to-the-target-element)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/LC_1848.md/)
+
+{% tabs %}
+{% tab title='LC_1848.md' %}
+
+> Question
+
+* Given an int array and two integers target and start
+* find an index i such that nums[i] == target and abs(i - start) is minimized
+* Return abs(i - start)
+
+```txt
+Input: nums = [1,2,3,4,5], target = 5, start = 3
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_1848.py' %}
+
+```py
+# Time : O(n), Space : O(1)
+def getMinDistance(self, nums: List[int], target: int, start: int) -> int:
+  return min(abs(start - i) for i, n in enumerate(nums) if n == target)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Toeplitz Matrix](https://leetcode.com/problems/toeplitz-matrix)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/LC_766.md/)
+
+{% tabs %}
+{% tab title='LC_766.md' %}
+
+> Question
+
+* Given an m x n matrix, return true if the matrix is Toeplitz. Otherwise, return false
+* A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same elements
+
+```txt
+Input:
+matrix =
+[[1,2,3,4],
+ [5,1,2,3],
+ [9,5,1,2]]
+
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_766.py' %}
+
+```py
+def isToeplitzMatrix(self, m):
+  return all(r1[:-1] == r2[1:] for r1, r2 in zip(m, m[1:]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Subsets](https://leetcode.com/problems/subsets)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/LC_78.md/)
+
+{% tabs %}
+{% tab title='LC_78.md' %}
+
+> Question
+
+* Given an integer array nums of unique elements, return all possible subsets (the power set)
+
+```txt
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+```
+
+{% endtab %}
+{% tab title='LC_78.py' %}
+
+```py
+def subsets(self, nums):
+  return [l for n in range(len(nums) + 1) for l in itertools.combinations(nums, n)]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Subsets II](https://leetcode.com/problems/subsets-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/LC_90.md/)
+
+{% tabs %}
+{% tab title='LC_90.md' %}
+
+> Question
+
+* Given an integer array nums that may contain duplicates, return all possible subsets (the power set)
+
+```txt
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+```
+
+{% endtab %}
+{% tab title='LC_90.py' %}
+
+```py
+from itertools import compress, product
+def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+  return set(tuple(compress(sorted(nums), bits)) for bits in product(range(2), repeat=len(nums)))
+```
+
+{% endtab %}
+{% endtabs %}

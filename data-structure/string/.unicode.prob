@@ -1,0 +1,418 @@
+> baekjoon
+
+* [Level 1 : 한글 2](https://www.acmicpc.net/problem/11283)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_11283.md/)
+
+{% tabs %}
+{% tab title='BJ_11283.md' %}
+
+> Question
+
+* 몇번째 한글인지 출력
+
+```txt
+Input: 힣
+Output: 11172
+```
+
+{% endtab %}
+{% tab title='BJ_11283.py' %}
+
+```py
+print(ord(input()) + 1 - ord("가"))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 아스키 코드](https://www.acmicpc.net/problem/11654)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_11654.md/)
+
+{% tabs %}
+{% tab title='BJ_11654.md' %}
+
+> Question
+
+* Print ascii of character
+
+```txt
+Input: C
+Output: 67
+```
+
+{% endtab %}
+{% tab title='BJ_11654.sh' %}
+
+```sh
+read n
+printf "%d" \'$n
+```
+
+{% endtab %}
+{% tab title='BJ_11654.cpp' %}
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+  char a;
+  cin >> a;
+  cout << (int)a;
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11654.py' %}
+
+```py
+print(ord(input()))
+```
+
+{% endtab %}
+{% tab title='BJ_11654.v' %}
+
+```v
+module main;
+  initial begin
+    integer code;
+    logic[7:0] c;
+    code = $fscanf(32'h8000_0000, "%c", c);
+    $display("%0d", c);
+    $finish;
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 한글](https://www.acmicpc.net/problem/11282)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_11282.md/)
+
+{% tabs %}
+{% tab title='BJ_11282.md' %}
+
+> Question
+
+* When N is given as an input, write a program to obtain the Nth korean letter
+
+```txt
+Input: 11172
+Output: 힣
+```
+
+{% endtab %}
+{% tab title='BJ_11282.py' %}
+
+```py
+print(chr(ord('가') + int(input()) - 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 알파벳 찾기](https://www.acmicpc.net/problem/10809)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_10809.md/)
+
+{% tabs %}
+{% tab title='BJ_10809.md' %}
+
+> Question
+
+* Print position of each alphabet
+
+```txt
+Input: baekjoon
+Output: 1 0 -1 -1 2 -1 -1 -1 -1 4 3 -1 -1 7 5 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+```
+
+{% endtab %}
+{% tab title='BJ_10809.py' %}
+
+```py
+s = input()
+for i in range(ord('a'), ord('z') + 1):
+  print(s.find(chr(i)), end=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 등장하지 않는 문자의 합](https://www.acmicpc.net/problem/3059)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_3059.md/)
+
+{% tabs %}
+{% tab title='BJ_3059.md' %}
+
+> Question
+
+* Print sum of all ascii values that doesn't appear
+
+```txt
+Input:
+2
+ABCDEFGHIJKLMNOPQRSTUVW
+A
+
+Output:
+267
+1950
+```
+
+{% endtab %}
+{% tab title='BJ_3059.py' %}
+
+```py
+for _ in range(int(input())):
+  print(2015 - sum(map(ord, set(input()))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 애너그램 거리](https://www.acmicpc.net/problem/3778)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_3778.md/)
+
+{% tabs %}
+{% tab title='BJ_3778.md' %}
+
+> Question
+
+* Print minimum number of characters to remove to make two string to anagram
+
+```txt
+4
+crocus
+succor
+dares
+seared
+empty
+
+Input:
+smell
+lemon
+
+Output:
+Case #1: 0
+Case #2: 1
+Case #3: 5
+Case #4: 4
+```
+
+{% endtab %}
+{% tab title='BJ_3778.py' %}
+
+```py
+import sys
+
+n = int(input())
+
+for i in range(n):
+  a = sys.stdin.readline().rstrip()
+  b = sys.stdin.readline().rstrip()
+  ans = 0
+  for j in range(0, 26):
+    c = chr(97 + j)
+    ans += abs(a.count(c) - b.count(c))
+  print("Case #%d: %d" % (i+1, ans))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 알파벳 거리](https://www.acmicpc.net/problem/5218)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_5218.md/)
+
+{% tabs %}
+{% tab title='BJ_5218.md' %}
+
+> Question
+
+* print distance between two words
+
+```txt
+Input:
+5
+AAAA ABCD
+ABCD AAAA
+DARK LOKI
+STRONG THANOS
+DEADLY ULTIMO
+
+Output:
+Distances: 0 1 2 3
+Distances: 0 25 24 23
+Distances: 8 14 19 24
+Distances: 1 14 9 25 1 12
+Distances: 17 7 19 5 1 16
+```
+
+{% endtab %}
+{% tab title='BJ_5218.py' %}
+
+```py
+for _ in range(int(input())):
+  a, b = input().split()
+  li = []
+  for i in range(len(a)):
+    li.append((ord(b[i])-ord(a[i]))%26)
+  print("Distances:", *li)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 카이사르 암호](https://www.acmicpc.net/problem/5598)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_5598.md/)
+
+{% tabs %}
+{% tab title='BJ_5598.md' %}
+
+> Question
+
+* Print senetence, shifting three character
+
+```txt
+Input: MRL
+Output: JOI
+```
+
+{% endtab %}
+{% tab title='BJ_5598.py' %}
+
+```py
+st = input()
+for ch in st:
+  if ch <= 'C':
+    print(chr(ord(ch) + 23), end='')
+  else:
+    print(chr(ord(ch) - 3), end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 다이얼](https://www.acmicpc.net/problem/5622)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_5622.md/)
+
+{% tabs %}
+{% tab title='BJ_5622.md' %}
+
+> Question
+
+![BJ_5622](unicode/images/20210228_170000.png)
+
+* Minimum time to call dial
+
+```txt
+Input: UNUCIC
+Output: 36
+```
+
+{% endtab %}
+{% tab title='BJ_5622.py' %}
+
+```py
+tel = input()
+delay = 0
+data = [3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,8,9,9,9,10,10,10,10]
+for c in tel:
+  delay += data[ord(c)-65]
+print(delay)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : IBM 빼기 1](https://www.acmicpc.net/problem/6321)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_6321.md/)
+
+{% tabs %}
+{% tab title='BJ_6321.md' %}
+
+> Question
+
+* Print next unicode for each character
+
+```txt
+Input:
+2
+HAL
+SWERC
+
+Output:
+String #1
+IBM
+String #2
+TXFSD
+```
+
+{% endtab %}
+{% tab title='BJ_6321.py' %}
+
+```py
+for c in range(1,int(input())+1):
+  r = ''
+  for i in input(): r += chr(65+(ord(i)-64)%26)
+  print(f"String #{c}\n{r}\n")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : OT13](https://www.acmicpc.net/problem/11655)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_11655.md/)
+
+{% tabs %}
+{% tab title='BJ_11655.md' %}
+
+> Question
+
+* Print rot13 of given number (move each character to 13)
+
+```txt
+Input: Baekjoon Online Judge
+Output: Onrxwbba Bayvar Whqtr
+```
+
+{% endtab %}
+{% tab title='BJ_11655.py' %}
+
+```py
+import codecs
+print(codecs.encode(input(),"rot13"))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 열 순서](https://www.acmicpc.net/problem/16495)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/unicode/BJ_16495.md/)
+
+{% tabs %}
+{% tab title='BJ_16495.md' %}
+
+> Question
+
+* convert excel row to number
+
+```txt
+Input: AZ
+Output: 52
+```
+
+{% endtab %}
+{% tab title='BJ_16495.py' %}
+
+```py
+s = input()[::-1]
+t = 0
+for i in range(len(s)):
+  t += (26**i)*(ord(s[i])-64)
+print(t)
+```
+
+{% endtab %}
+{% endtabs %}

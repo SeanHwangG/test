@@ -1,0 +1,693 @@
+> baekjoon
+
+* [Level 5 : 2차원 배열의 합](https://www.acmicpc.net/problem/2167)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_2167.md/)
+
+{% tabs %}
+{% tab title='BJ_2167.md' %}
+
+> Question
+
+* Given grid, sum all elements from (i, j) to (x, y)
+
+```txt
+Input:
+2 3
+1 2 4
+8 16 32
+3
+1 1 2 3
+1 2 1 2
+1 3 2 3
+
+Output:
+63
+2
+36
+```
+
+{% endtab %}
+{% tab title='BJ_2167.py' %}
+
+```py
+n, m = map(int, input().split())
+G = [list(map(int, input().split())) for _ in range(n)]
+
+dp = [[0] * (m + 1) for _ in range(n + 1)]
+for i in range(n):
+  for j in range(m):
+    dp[i + 1][j + 1] = dp[i + 1][j] + dp[i][j + 1] - dp[i][j] + G[i][j]
+q = int(input())
+for _ in range(q):
+  i, j, x, y = map(int, input().split())
+  print(dp[x][y] - dp[x][j - 1] - dp[i - 1][y] + dp[i - 1][j - 1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : o the Max](https://www.acmicpc.net/problem/6374)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_6374.md/)
+
+{% tabs %}
+{% tab title='BJ_6374.md' %}
+
+> Question
+
+* Given square 2D array, find maximum 2d rectangle sum
+
+```txt
+Input:
+4
+0 -2 -7 0 9 2 -6 2
+-4 1 -4 1 -1
+
+8 0 -2
+
+Output: 15  # 9 2 / -4 1 / -1 8
+```
+
+{% endtab %}
+{% tab title='BJ_6374.cpp' %}
+
+```cpp
+#include <stdio.h>
+int map[200][200], b[200], cnt, max = -200;
+int main() {
+  int n, i, j, k;
+  scanf("%d", &n);
+  for (i = 1; i <= n; i++)
+    for (j = 1; j <= n; j++) scanf("%d", &map[i][j]);
+
+  for (i = 1; i <= n; i++) {
+    for (j = 1; j <= n; j++) b[j] = 0;
+    for (j = i; j <= n; j++) {
+      cnt = 0;
+      for (k = 1; k <= n; k++) {
+        b[k] += map[k][j];
+        cnt += b[k];
+        if (max < cnt) max = cnt;
+        if (cnt < 0) cnt = 0;
+      }
+    }
+  }
+  printf("%d", max);
+  return 0;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 구간 합 구하기 5](https://www.acmicpc.net/problem/11660)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_11660.md/)
+
+{% tabs %}
+{% tab title='BJ_11660.md' %}
+
+> Question
+
+* Print range sum of rectangle (x1, y1) to (x2, y2)
+
+```txt
+Input:
+4 3
+1 2 3 4
+2 3 4 5
+3 4 5 6
+4 5 6 7
+2 2 3 4
+3 4 3 4
+1 1 4 4
+
+Output:
+27
+6
+64
+```
+
+{% endtab %}
+{% tab title='BJ_11660.py' %}
+
+```py
+import sys
+m, n = map(int, input().split())
+l = [[0]*(m + 1)] + [[0] + list(map(int, input().split())) for i in range(m)]
+for i in range(1, m + 1):
+  for j in range(1, m + 1):
+    l[i][j] = (l[i - 1][j] + l[i][j - 1] + l[i][j] - l[i - 1][j - 1])
+for j in range(n):
+  a, b, x, y = map(int, sys.stdin.readline().split())
+  print(l[x][y] - l[x][b - 1] - l[a - 1][y] + l[a - 1][b - 1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 가장 큰 정사각형](https://www.acmicpc.net/problem/1915)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_1915.md/)
+
+{% tabs %}
+{% tab title='BJ_1915.md' %}
+
+> Question
+
+* Print maximum square consists of only 1
+
+```txt
+Input:
+4 4
+0100
+0111
+1110
+0010
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_1915.py' %}
+
+```py
+n, m = map(int, input().split())
+G = [[int(x) for x in input()] for _ in range(n)]
+
+for i in range(1, n):
+  for j in range(1, m):
+    if G[i][j]:
+      G[i][j] += min((G[i-1][j-1], G[i][j-1], G[i-1][j]))
+
+print(max(max(row) for row in G) ** 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 최대 정사각형](https://www.acmicpc.net/problem/4095)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_4095.md/)
+
+{% tabs %}
+{% tab title='BJ_4095.md' %}
+
+> Question
+
+* Print maximum area of square consists of 1
+
+```txt
+Input:
+4 5
+0 1 0 1 1
+1 1 1 1 1
+0 1 1 1 0
+1 1 1 1 1
+3 4
+1 1 1 1
+1 1 1 1
+1 1 1 1
+6 6
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0
+
+Output:
+3
+3
+0
+```
+
+{% endtab %}
+{% tab title='BJ_4095.py' %}
+
+```py
+while True:
+  n, m = map(int, input().split())
+  if n + m == 0:
+    break
+  G = [[0] * (m+1)] + [[0] + [*map(int, input().split())] for i in range(n)]
+
+  result = 0
+  for i in range(1, n + 1):
+    for j in range(1, m + 1):
+      if G[i][j] == 1:
+        G[i][j] = min(G[i-1][j-1],G[i][j-1],G[i-1][j])+1
+      if result < G[i][j]:
+        result = G[i][j]
+
+  print(result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : Hilbert Sort](https://www.acmicpc.net/problem/11600)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_11600.md/)
+
+{% tabs %}
+{% tab title='BJ_11600.md' %}
+
+> Question
+
+* Print sum between (x1, y1) to (x2, y2)
+
+```txt
+Input:
+4 3
+1 2 3 4
+2 3 4 5
+3 4 5 6
+4 5 6 7
+2 2 3 4
+3 4 3 4
+1 1 4 4
+
+Output:
+27
+6
+64
+```
+
+{% endtab %}
+{% tab title='BJ_11600.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+m, n = map(int, input().split())
+G = [[0] *(m + 1)]+ [[0] + list(map(int, input().split())) for i in range(m)]
+for i in range(1, m+ 1):
+  for j in range(1, m+ 1):
+      G[i][j]= (G[i-1][j] + G[i][j - 1] + G[i][j] - G[i - 1][j - 1])
+for j in range(n):
+  a, b, x, y= map(int, input().split())
+  print(G[x][y] - G[x][b - 1] - G[a - 1][y] + G[a - 1][b - 1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 다이아몬드 광산](https://www.acmicpc.net/problem/1028)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_1028.md/)
+
+{% tabs %}
+{% tab title='BJ_1028.md' %}
+
+> Question
+
+* Find biggest diamond
+
+```txt
+Input:
+5 5
+01100
+01011
+11111
+01111
+11111
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1028.py' %}
+
+```py
+r, c = map(int, input().split())
+G = [[int(c) for c in input()] for _ in range(r)]
+rd = [G[i].copy() for i in range(r)]
+ld = [G[i].copy() for i in range(r)]
+ans = max(G[0])
+
+for i in range(1, r):
+  for j in range(c):
+    if G[i][j]:
+      rd[i][j] = rd[i - 1][j - 1] + 1 if j > 0 else rd[i][j]
+      ld[i][j] = ld[i - 1][j + 1] + 1 if j < c - 1 else ld[i][j]
+      t = min(rd[i][j], ld[i][j])
+      ans = max(ans, *[a + 1 for a in range(t) if rd[i - a][j + a] > a and ld[i - a][j - a] > a])
+
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 구간 합 구하기 3](https://www.acmicpc.net/problem/11658)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_11658.md/)
+
+{% tabs %}
+{% tab title='BJ_11658.md' %}
+
+> Question
+
+* w, x, y, c
+  * update G[x][y] = c
+* w, x1, y1, x2, y2
+  * print sum from (x1, y1) to (x2, y2)
+
+```txt
+Input:
+4 5
+1 2 3 4
+2 3 4 5
+3 4 5 6
+4 5 6 7
+1 2 2 3 4
+0 2 3 7
+1 2 2 3 4
+0 3 4 5
+1 3 4 3 4
+
+Output:
+27
+30
+5
+```
+
+{% endtab %}
+{% tab title='BJ_11658.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+N, M = map(int, input().split())
+
+G = [list(map(int, input().split())) for i in range(N)]
+
+dp = [[0 for i in range(N + 1)] for j in range(N + 1)]
+for i in range(N):
+  for j in range(N):
+    dp[i + 1][j + 1] = G[i][j] + dp[i + 1][j]
+for i in range(M):
+  line = input()
+  if line[0] == '1':
+    _, a, b, c, d = map(int, line.split())
+    total = 0
+    for i in range(a, c + 1):
+      total += (dp[i][d] - dp[i][b-1])
+    print(total)
+  else:
+    _, a, b, c = map(int, line.split())
+    G[a - 1][b - 1] = c
+    for j in range(b - 1, N):
+      dp[a][j + 1] = G[a - 1][j] + dp[a][j]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 최대 직사각형](https://www.acmicpc.net/problem/11873)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_11873.md/)
+
+{% tabs %}
+{% tab title='BJ_11873.md' %}
+
+> Question
+
+* Print maximum rectangle covered by 1
+
+```txt
+Input:
+4 5
+0 1 0 1 1
+1 1 1 1 1
+0 1 1 1 0
+1 1 1 1 1
+3 4
+1 1 1 1
+1 1 1 1
+1 1 1 1
+6 6
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0
+
+Output:
+9
+12
+0
+```
+
+{% endtab %}
+{% tab title='BJ_11873.py' %}
+
+```py
+input = __import__('sys').stdin.readline
+while True:
+  n,m = map(int,input().split())
+  if n==0: break
+  l = [[0]+list(map(int,input().split()))+[0] for i in range(n)]
+  pre = 0
+  for i in range(1, n):
+    for j in range(1, m + 1):
+      if l[i][j]: l[i][j] = l[i-1][j]+1
+  ans = 0
+  for i in range(n):
+    ll = l[i]
+    S = [0]
+    for i in range(1,m+2):
+      while S and ll[S[-1]]>ll[i]:
+        h = ll[S[-1]]
+        S.pop()
+        ans = max(ans, (i-S[-1]-1)*h)
+      S.append(i)
+  print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 22 : HAPPINE](https://www.acmicpc.net/problem/11783)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/BJ_11783.md/)
+
+{% tabs %}
+{% tab title='BJ_11783.md' %}
+
+> Question
+
+* Print largest rectangle consists of only 1
+
+```txt
+Input:
+4 5
+0 1 0 1 1
+1 1 1 1 1
+0 1 1 1 0
+1 1 1 1 1
+3 4
+1 1 1 1
+1 1 1 1
+1 1 1 1
+6 6
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0
+
+Output:
+9
+12
+0
+```
+
+{% endtab %}
+{% tab title='BJ_11783.py' %}
+
+```py
+input = __import__('sys').stdin.readline
+while True:
+  n, m = map(int,input().split())
+  if n==0: break
+  G = [[0]+list(map(int,input().split()))+[0] for i in range(n)]
+  pre = 0
+  for i in range(1,n):
+    for j in range(1,m+1):
+      if G[i][j]: G[i][j] = G[i-1][j]+1
+  ans = 0
+  for i in range(n):
+    li = G[i]
+    stk = [0]
+    for i in range(1,m+2):
+      while stk and li[stk[-1]]>li[i]:
+        h = li[stk[-1]]
+        stk.pop()
+        ans = max(ans, (i - stk[-1] - 1) *h)
+      stk.append(i)
+  print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Get Biggest Three Rhombus Sums in a Grid](https://leetcode.com/problems/get-biggest-three-rhombus-sums-in-a-grid)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/LC_1878.md/)
+
+{% tabs %}
+{% tab title='LC_1878.md' %}
+
+> Question
+
+* Given an m x n integer matrix grid​​​
+* A rhombus sum is the sum of the elements that form the border of a regular rhombus shape in grid​​​
+* The rhombus must have the shape of a square rotated 45 degrees with each of the corners centered in a grid cell
+
+```txt
+Input:
+grid = [
+  [3,4,5,1,3],
+  [3,3,4,2,3],
+  [20,30,200,40,10],
+  [1,5,5,4,1],
+  [4,3,2,2,5]]
+
+Output: [228,216,211]
+```
+
+{% endtab %}
+{% tab title='LC_1878.py' %}
+
+```py
+def getBiggestThree(self, grid):
+  m, n, heap = len(grid), len(grid[0]), []
+
+  def update(heap, num):
+    if num not in heap:
+      heappush(heap, num)
+      if len(heap) > 3: heappop(heap)
+    return heap
+
+  for num in chain(*grid): update(heap, num)
+
+  @lru_cache(None)
+  def dp(i, j, dr):
+    if not 0 <= i < n or not 0 <= j < m: return 0
+    return dp(i-1, j+dr, dr) + grid[j][i]
+
+  for q in range(1, (1 + min(m, n))//2):
+    for i in range(q, n - q):
+      for j in range(q, m - q):
+        p1 = dp(i + q, j, -1) - dp(i, j - q, -1)
+        p2 = dp(i - 1, j + q - 1, -1) - dp(i - q - 1, j - 1, -1)
+        p3 = dp(i, j - q, 1) - dp(i - q, j, 1)
+        p4 = dp(i + q - 1, j + 1, 1) - dp(i - 1, j + q + 1, 1)
+        update(heap, p1 + p2 + p3 + p4)
+
+  return sorted(heap)[::-1]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Maximal Square](https://leetcode.com/problems/maximal-square)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/LC_221.md/)
+
+{% tabs %}
+{% tab title='LC_221.md' %}
+
+> Question
+
+* Find largest square containing only 1's
+
+```txt
+Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_221.py' %}
+
+```py
+def maximalSquare(self, G):
+  if len(G) == 0:
+    return 0
+  n, m, ret, flag = len(G), len(G[0]), 0, 0
+  dp = [[0] * (m + 1) for _ in range(n + 1)]
+  for i in range(n):
+    for j in range(m):
+      if G[i][j] == '1':
+        dp[i + 1][j + 1] = min(dp[i + 1][j], dp[i][j], dp[i][j + 1]) + 1
+        ret = max(ret, dp[i + 1][j + 1])
+
+  return ret ** 2
+  # with flag
+  # for i in range(n):
+  #     for j in range(m):
+  #         if G[i][j] == '1':
+  #             dp[flag][j + 1] = min(dp[flag][j], dp[flag ^ 1][j], dp[flag ^ 1][j + 1]) + 1
+  #             ret = max(ret, dp[flag][j + 1])
+  #         else:
+  #             dp[flag][j + 1] = 0
+  #     flag ^= 1
+  ```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Range Sum Query 2D - Mutable](https://leetcode.com/problems/range-sum-query-2d-mutable)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2-area/LC_308.md/)
+
+{% tabs %}
+{% tab title='LC_308.md' %}
+
+> Question
+
+* Update value of a cell in matrix.
+* Calculate sum of elements of matrix inside rectangle defined by its upper left (row1, col1) and lower right (row2, col2)
+
+```txt
+Input:
+["NumMatrix", "sumRegion", "update", "sumRegion"]
+[[[[3, 0, 1, 4, 2],
+   [5, 6, 3, 2, 1],
+   [1, 2, 0, 1, 5],
+   [4, 1, 0, 1, 7],
+   [1, 0, 3, 0, 5]]],
+[2, 1, 4, 3],
+[3, 2, 2],
+[2, 1, 4, 3]]
+
+Output: [null, 8, null, 10]
+```
+
+{% endtab %}
+{% tab title='LC_308.py' %}
+
+```py
+class NumMatrix(object):
+  def __init__(self, G):
+    for row in G:
+      for col in range(1, len(row)):
+        row[col] += row[col - 1]
+    self.G = G
+
+  def update(self, row, col, val):
+    original = self.G[row][col]
+    if col != 0:
+      original -= self.G[row][col - 1]
+
+    for y in range(col, len(self.G[0])):
+      self.G[row][y] += val - original
+
+  def sumRegion(self, row1, col1, row2, col2):
+    ret = 0
+    for x in range(row1, row2 + 1):
+      ret += self.G[x][col2]
+      if col1 != 0:
+        ret -= self.G[x][col1-1]
+    return ret
+```
+
+{% endtab %}
+{% endtabs %}

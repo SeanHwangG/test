@@ -1,0 +1,253 @@
+> baekjoon
+
+* [Level 2 : 수학은 체육과목 입니다 2](https://www.acmicpc.net/problem/17362)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/switch/BJ_17362.md/)
+
+{% tabs %}
+{% tab title='BJ_17362.md' %}
+
+> Question
+
+![BJ_17362](switch/images/20210301_212213.png)
+
+* Given number print finger index
+
+```txt
+Input: 3
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_17362.cpp' %}
+
+```cpp
+#include <cstdio>
+
+int main(){
+  int n;
+  scanf("%d", &n);
+  switch(n % 8){
+    case 1:
+      printf("1");
+      break;
+    case 2: case 0:
+      printf("2");
+      break;
+    case 3: case 7:
+      printf("3");
+      break;
+    case 4: case 6:
+      printf("4");
+      break;
+    default:
+      printf("5");
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_17362.py' %}
+
+```py
+turn = int(input()) % 8
+if turn == 1:
+  print(1)
+elif turn == 2 or turn == 0:
+  print(2)
+elif turn == 3 or turn == 7:
+  print(3)
+elif turn == 4 or turn == 6:
+  print(4)
+elif turn == 5:
+  print(5)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 시험 성적](https://www.acmicpc.net/problem/9498)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/switch/BJ_9498.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* Given score, find grade with following cutoff: A=90, B=80, C=70, C=60, >F)
+
+```txt
+Input: 75
+Output: C
+```
+
+{% endtab %}
+{% tab title='BJ_9498.sh' %}
+
+```sh
+read a
+if [ $a -ge 90 ]; then
+  echo "A"
+elif [ $a -ge 80 ]; then
+  echo "B"
+elif [ $a -ge 70 ]; then
+  echo "C"
+elif [ $a -ge 60 ]; then
+  echo "D"
+else
+  echo "F"
+fi
+```
+
+{% endtab %}
+{% tab title='BJ_9498.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+  int score;
+  cin >> score;
+  switch (score) {
+    case 90 ... 100:
+      cout << "A";
+      break;
+    case 80 ... 89:
+      cout << "B";
+      break;
+    case 70 ... 79:
+      cout << "C";
+      break;
+    case 60 ... 69:
+      cout << "D";
+      break;
+    default:
+      cout << "F";
+      break;
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+score = int(input())
+if score >= 90:
+  print('A')
+elif score >= 80:
+  print('B')
+elif score >= 70:
+  print('C')
+elif score >= 60:
+  print('D')
+else:
+  print('F')
+```
+
+{% endtab %}
+{% tab title='BJ_9498.v' %}
+
+```v
+module main;
+integer a, b;
+
+initial begin
+    b = $fscanf(32'h8000_0000, "%d", a);
+    if (a >= 90)
+      $display("A");
+    if (a >= 80)
+      $display("B");
+    if (a >= 70)
+      $display("C");
+    if (a >= 60)
+      $display("D");
+    else
+      $display("F");
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level nr : Beautiful Yekaterinburg](https://www.acmicpc.net/problem/9524)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/switch/BJ_9524.md/)
+
+{% tabs %}
+{% tab title='BJ_9524.md' %}
+
+> Question
+
+* Print according to given input: 0=0, 1=1, 2=7, 3=2, 4=3
+
+```txt
+Input: 2
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_9524.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main(void){
+  int d;
+  cin >> d;
+  switch (d){
+    case 1:
+      cout<<"1";
+      break;
+    case 2:
+      cout<<"7";
+      break;
+    case 3:
+      cout<<"2";
+      break;
+    default:
+      cout<<"3";
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_9524.java' %}
+
+```java
+import java.util.*;
+
+public class Main {
+  public static void main(String[] args) {
+    int score = new Scanner(System.in).nextInt();
+    switch (score / 10) {
+      case 10: case 9:
+        System.out.println("A");
+        break;
+      case 8:
+        System.out.println("B");
+        break;
+      case 7:
+        System.out.println("C");
+        break;
+      case 6:
+        System.out.println("D");
+        break;
+      default:
+        System.out.println("F");
+    }
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_9524.py' %}
+
+```py
+n = int(input())
+print("01723"[n])
+```
+
+{% endtab %}
+{% endtabs %}

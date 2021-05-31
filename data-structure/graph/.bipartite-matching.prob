@@ -1,0 +1,349 @@
+> baekjoon
+
+* [Level 12 : 이분 그래프](https://www.acmicpc.net/problem/1707)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bipartite-matching/BJ_1707.md/)
+
+{% tabs %}
+{% tab title='BJ_1707.md' %}
+
+> Question
+
+* Check if a graph is bipartite
+
+```txt
+Input:
+2
+3 2
+1 3
+2 3
+4 4
+1 2
+2 3
+3 4
+4 2
+
+Output:
+YES
+NO
+```
+
+{% endtab %}
+{% tab title='BJ_1707.py' %}
+
+```py
+import sys; sys.setrecursionlimit(1000000)
+
+def dfs(x,c):
+  check[x] = c
+  for y in a[x]:
+    if check[y] == 0:
+      if dfs(y,3-c) == 0:
+        return 0
+    elif check[y] == check[x]:
+      return 0
+  return 1
+
+k = int(sys.stdin.readline())
+for i in range(k):
+  n,m = map(int, sys.stdin.readline().split())
+  a = [[] for i in range(n+1)]
+  check = [0 for i in range(n+1)]
+  c = 1
+  ok = 1
+
+  for i in range(m):
+    d1,d2 = map(int, sys.stdin.readline().split())
+    a[d1].append(d2)
+    a[d2].append(d1)
+
+  for i in range(n):
+    if check[i] == 0:
+      if not dfs(i,1):
+        ok = False
+        break
+  print("YES" if ok else "NO")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 열혈강호 2](https://www.acmicpc.net/problem/11376)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bipartite-matching/BJ_11376.md/)
+
+{% tabs %}
+{% tab title='BJ_11376.md' %}
+
+> Question
+
+* There are N employees and M jobs where each person can do at most 2 jobs
+* Print number of jobs that can be done
+
+```txt
+Input:
+5 5
+2 1 2
+2 1 2
+2 1 2
+2 4 5
+0
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_11376.py' %}
+
+```py
+def dfs(u):
+  visited[u] = 1
+  for nx in G[u//2]:
+    if W[nx]==-1 or (not visited[W[nx]] and dfs(W[nx])):
+      P[u] = nx
+      W[nx] = u
+      return 1
+  return 0
+n,m = map(int,input().split())
+G = [[] for _ in range(n)]
+for i in range(n):
+  a,*b = map(int, input().split())
+  for j in b:
+    G[i].append(j - 1)
+P, W = [-1]*(2*n), [-1]*m
+res = 0
+for i in range(2*n):
+  if P[i]==-1:
+    visited=[0]*2*n
+    if dfs(i): res+=1
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 축사 배정](https://www.acmicpc.net/problem/2188)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bipartite-matching/BJ_2188.md/)
+
+{% tabs %}
+{% tab title='BJ_2188.md' %}
+
+> Question
+
+* N lines are given information about the cattle they want to enter
+* Make sure that as many cattle as you can get into the barn
+
+```txt
+Input:
+5 5
+2 2 5
+3 2 3 4
+2 1 5
+3 1 2 5
+1 2
+
+Output: 4
+```
+
+> Solution
+
+* Find available barn from first cattle
+* If existing cattle can find another barn, remove them
+
+{% endtab %}
+{% tab title='BJ_2188.py' %}
+
+```py
+def dfs(G, start, visited):
+  if start not in visited:
+    visited.add(start)
+    for adj in G[start]:
+      if adj not in cow2home or dfs(G, cow2home[adj], visited):
+        cow2home[adj] = start
+        return 1
+  return 0
+n_home, n_cow = map(int, input().split())
+G = [[] for _ in range(n_home)]
+cow2home = {}
+for home in range(n_home):
+  for cow in list(map(int, input().split()))[1:]:
+    G[home].append(cow - 1)
+for i in range(n_home):
+  dfs(G, i, set())
+print(len(cow2home))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 룩 배치하기](https://www.acmicpc.net/problem/9525)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bipartite-matching/BJ_9525.md/)
+
+{% tabs %}
+{% tab title='BJ_9525.md' %}
+
+> Question
+
+* How many rook can you place with pawn on the board
+
+```txt
+Input:
+5
+X....
+X....
+..X..
+.X...
+....X
+
+Output:
+7
+```
+
+{% endtab %}
+{% tab title='BJ_9525.py' %}
+
+```py
+def dfs(x):
+  visited[x]=1
+  for nx in path[x]:
+    if col[nx]==-1 or (not visited[col[nx]] and dfs(col[nx])):
+      row[x]=nx
+      col[nx]=x
+      return 1
+  return 0
+n=int(input())
+D = [input() for _ in range(n)]
+R, C =[[-1]*n for _ in range(n)], [[-1]*n for _ in range(n)]
+r, c = 0,0
+now1,now2=0,0
+for i in range(n):
+  if now1!=0:r+=1;now1=0
+  for j in range(n):
+    if D[i][j]=='.':
+      R[i][j]=r
+      now1+=1
+    if D[i][j]=='X' and now1!=0:
+      r+=1
+      now1=0
+for j in range(n):
+  if now2!=0:
+    c += 1
+    now2 = 0
+  for i in range(n):
+    if D[i][j]=='.':
+      C[i][j] = c
+      now2 += 1
+    if D[i][j]=='X' and now2!=0:
+      c+=1
+      now2=0
+
+r, c = r + 1, c + 1
+path=[[] for _ in range(r)]
+for i in range(n):
+  for j in range(n):
+    if R[i][j]>=0 and C[i][j]>=0:
+      path[R[i][j]].append(C[i][j])
+row, col =[-1] * r, [-1]*c
+res=0
+for i in range(r):
+  if row[i]==-1:
+    visited=[0]*r
+    if dfs(i):res+=1
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 19 : 최소 버텍스 커버](https://www.acmicpc.net/problem/2051)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bipartite-matching/BJ_2051.md/)
+
+{% tabs %}
+{% tab title='BJ_2051.md' %}
+
+> Question
+
+* Find Minimum Vertex Cover of a graph
+* If we remove them with conncted edges, all edges are removed
+
+```txt
+Input:
+5 5
+2 1 2
+1 1
+2 2 3
+3 3 4 5
+1 1
+
+Output:
+4
+2 3 4
+2 1 2
+```
+
+{% endtab %}
+{% tab title='BJ_2051.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1005;
+vector<int> adj[N];
+int pre[N], visit[N];
+bool check[N];
+bool left[N], right[N];
+int leftcnt, rightcnt;
+
+bool find(int x) {
+  visit[x] = 1;
+  for (int it : adj[x]) {
+    if (pre[it] == 0 || !visit[pre[it]] && find(pre[it])) {
+      pre[it] = x;
+      return true;
+    }
+  }
+  return false;
+}
+
+void dfs(int x) {
+  leftcnt--;
+  left[x] = true;
+  for (int it : adj[x]) {
+    if (!left[pre[it]]) {
+      right[it] = true;
+      rightcnt++;
+      dfs(pre[it]);
+    }
+  }
+}
+
+int main() {
+  int n, m, cnt, x;
+  scanf("%d %d", &n, &m);
+  for (int i = 1; i <= n; i++) {
+    scanf("%d", &cnt);
+    while (cnt--) {
+      scanf("%d", &x);
+      adj[i].push_back(x);
+    }
+  }
+  int ans = 0;
+  for (int i = 1; i <= n; i++) {
+    if (find(i)) {
+      ans++;
+      for (int j = 1; j <= m; j++) visit[j] = 0;
+    }
+  }
+  printf("%d", ans);
+  for (int i = 1; i <= m; i++) check[pre[i]] = true;
+  leftcnt = n;
+  for (int i = 1; i <= n; i++) if (!check[i] && !left[i]) dfs(i);
+  printf("\n%d", leftcnt);
+  for (int i = 1; i <= n; i++) if (!left[i]) printf(" %d", i);
+  printf("\n%d", rightcnt);
+  for (int i = 1; i <= m; i++) if (right[i]) printf(" %d", i);
+  return 0;
+}
+```
+
+{% endtab %}
+{% endtabs %}

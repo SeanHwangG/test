@@ -1,0 +1,671 @@
+> baekjoon
+
+* [Level 9 : 최대 힙](https://www.acmicpc.net/problem/11279)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/BJ_11279.md/)
+
+{% tabs %}
+{% tab title='BJ_11279.md' %}
+
+> Question
+
+* The natural number x is put into arrangement
+* Print biggest value, and remove from list
+
+```txt
+Input:
+13
+0
+1
+2
+0
+0
+3
+2
+1
+0
+0
+0
+0
+0
+
+Output:
+0
+2
+1
+3
+2
+1
+0
+0
+```
+
+{% endtab %}
+{% tab title='BJ_11279.py' %}
+
+```py
+import heapq
+import sys
+input = sys.stdin.readline
+heap = []
+for _ in range(int(input())):
+  num = int(input())
+  if num != 0:
+    heapq.heappush(heap, (-num))
+  else:
+    if len(heap):
+      print(-1 * heapq.heappop(heap))
+    else:
+      print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 절댓값 힙](https://www.acmicpc.net/problem/11286)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/BJ_11286.md/)
+
+{% tabs %}
+{% tab title='BJ_11286.md' %}
+
+> Question
+
+* If num != 0 add to list
+* If num == 0 print value with min absolute value
+
+```txt
+Input:
+18
+1
+-1
+0
+0
+0
+1
+1
+-1
+-1
+2
+-2
+0
+0
+0
+0
+0
+0
+0
+
+Output:
+-1
+1
+0
+-1
+-1
+1
+1
+-2
+2
+0
+```
+
+{% endtab %}
+{% tab title='BJ_11286.py' %}
+
+```py
+from heapq import*
+n, *m = map(int,[*open(0)])
+l = []
+for i in m:
+  heappush(l,(abs(i),i)) if i else print(len(l) and heappop(l)[1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 최소 힙](https://www.acmicpc.net/problem/1927)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/BJ_1927.md/)
+
+{% tabs %}
+{% tab title='BJ_1927.md' %}
+
+> Question
+
+* Using the minimum heap, write a program that supports the following operations
+* Put the natural number x in the array
+* Outputs the smallest value in the array and removes it from the array
+
+```txt
+Input:
+9
+0
+12345678
+1
+2
+0
+0
+0
+0
+32
+
+Output:
+0
+1
+2
+12345678
+0
+```
+
+{% endtab %}
+{% tab title='BJ_1927.py' %}
+
+```py
+import heapq
+import sys
+
+input = sys.stdin.readline
+heap = []
+
+for _ in range(int(input())):
+  num = int(input())
+  if num != 0:
+    heapq.heappush(heap, num)
+  else:
+    if len(heap):
+      print(heapq.heappop(heap))
+    else:
+      print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 이중 우선순위 큐](https://www.acmicpc.net/problem/7662)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/BJ_7662.md/)
+
+{% tabs %}
+{% tab title='BJ_7662.md' %}
+
+> Question
+
+* Design dual priority queue, where you can pop min / max priority
+
+```txt
+2
+7
+I 16
+I -5643
+D -1
+D 1
+D 1
+I 123
+D -1
+9
+I -45
+I 653
+D 1
+I -642
+I 45
+I 97
+D 1
+D -1
+I 333
+```
+
+{% endtab %}
+{% tab title='BJ_7662.cpp' %}
+
+```cpp
+#include <cstdio>
+#include <set>
+
+using namespace std;
+int t,k,x;
+char c;
+
+int main() {
+  for(scanf("%d", &t); t--;) {
+    multiset<int> ms;
+    for(scanf("%d", &k); k--;) {
+      scanf(" %c%d", &c, &x);
+      if (c == 'I') ms.insert(x);
+      else if (!ms.empty()) x < 0 ? ms.erase(ms.begin()) : ms.erase(--ms.end());
+    }
+    ms.empty() ? puts("EMPTY") : printf("%d %d\n", *ms.rbegin(), *ms.begin());
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_7662.py' %}
+
+```py
+import sys
+import heapq
+input=sys.stdin.readline
+for _ in range(int(input())):
+  numbers = set()
+  minH, maxH = [],[]
+  for i in range(int(input())):
+    s=input().split()
+    if s[0]=='I':
+      heapq.heappush(minH,(int(s[1]),i))
+      heapq.heappush(maxH,(-int(s[1]),i))
+      numbers.add(i)
+    elif s[1]=='1':
+      while maxH and not maxH[0][1] in numbers:
+        heapq.heappop(maxH)
+      if maxH:
+        numbers.remove(maxH[0][1])
+        heapq.heappop(maxH)
+    else:
+      while minH and not minH[0][1] in numbers:
+        heapq.heappop(minH)
+      if minH:
+        numbers.remove(minH[0][1])
+        heapq.heappop(minH)
+  while minH and minH[0][1] not in numbers:
+    heapq.heappop(minH)
+  while maxH and maxH[0][1] not in numbers:
+    heapq.heappop(maxH)
+  print(f'{-maxH[0][0]} {minH[0][0]}' if maxH and minH else 'EMPTY')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 카드 정렬하기](https://www.acmicpc.net/problem/1715)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/BJ_1715.md/)
+
+{% tabs %}
+{% tab title='BJ_1715.md' %}
+
+> Question
+
+* print sum when two smallest elements keep added and pushed it back
+
+```txt
+Input:
+3
+10
+20
+40
+
+Output: 100  # (10 + 20) + (30 + 40)
+```
+
+{% endtab %}
+{% tab title='BJ_1715.py' %}
+
+```py
+from heapq import *
+l = [int(input())for i in range(int(input()))]
+heapify(l)
+s = 0
+while len(l) > 1:
+  t = heappop(l) + heappop(l)
+  s += t
+  heappush(l, t)
+print(s)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 보석 도둑](https://www.acmicpc.net/problem/1202)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/BJ_1202.md/)
+
+{% tabs %}
+{% tab title='BJ_1202.md' %}
+
+> Question
+
+* Print maximum price with weight M and value V jewel
+* Each bag can have one jewel with threshold
+
+```txt
+Input:
+3 2
+1 65
+5 23
+2 99
+10
+2
+
+Output: 164
+```
+
+{% endtab %}
+{% tab title='BJ_1202.py' %}
+
+```py
+import sys
+from heapq import *
+input = sys.stdin.readline
+
+n, k = map(int, input().split())
+info = sorted(list(map(int, input().split())) for _ in range(n))
+bag = sorted(int(input()) for _ in range(k))
+j = ans = 0
+q = []
+for b in bag:
+  while j < n and info[j][0] <= b:
+    heappush(q, -info[j][1])
+    j += 1
+  if q:
+    ans -= heappop(q)
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 가운데를 말해요](https://www.acmicpc.net/problem/1655)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/BJ_1655.md/)
+
+{% tabs %}
+{% tab title='BJ_1655.md' %}
+
+> Question
+
+* Print median of given stream
+
+```txt
+Input:
+7
+1
+5
+2
+10
+-99
+7
+5
+
+Output:
+1
+1
+2
+2
+2
+2
+5
+```
+
+{% endtab %}
+{% tab title='BJ_1655.py' %}
+
+```py
+import sys
+from heapq import *
+input()
+l, r = [], []
+for i, t in enumerate(sys.stdin):
+  heappush(*([r, int(t)] if i % 2 else [l, -int(t)]))
+  if l and r and -l[0] > r[0]:
+    heapreplace(r, -heapreplace(l, -r[0]))
+  print(-l[0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Last Stone Weight](https://leetcode.com/problems/last-stone-weight)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/LC_1046.md/)
+
+{% tabs %}
+{% tab title='LC_1046.md' %}
+
+> Question
+
+* Each turn, we choose the two heaviest stones with x, y (x <= y) and smash them together, then
+  * If x == y, both stones are totally destroyed;
+  * If x != y, stone of weight x is totally destroyed, and the stone of weight y has new weight y-x
+* At the end, there is at most 1 stone left.  Return the weight of this stone
+
+```txt
+Input: [2,7,4,1,8,1]
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_1046.js' %}
+
+```js
+const lastStoneWeight = s =>
+  1 === s.length ? s[0] : lastStoneWeight(s.sort((a, b) => a - b).concat(s.pop() - s.pop()));
+```
+
+{% endtab %}
+{% tab title='LC_1046.py' %}
+
+```py
+def lastStoneWeight(self, l: List[int]) -> int:
+  l = [-e for e in l]
+  heapq.heapify(l)
+  while len(l) > 1:
+    mx1 = heapq.heappop(l)
+    mx2 = heapq.heappop(l)
+    if mx1 != mx2:
+      heapq.heappush(l, mx1 - mx2)
+  return 0 if len(l) == 0 else -l[0]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Maximum Number of Events That Can Be Attended](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/LC_1353.md/)
+
+{% tabs %}
+{% tab title='LC_1353.md' %}
+
+> Question
+
+* Given an array of events where events[i] = [startDayi, endDayi]
+* Every event i starts at startDayi and ends at endDayi
+* can attend an event i at any day d where startTimei <= d <= endTimei (you can only attend one event at any time d)
+* Return the maximum number of events you can attend
+
+```txt
+Input: events = [[1,2],[2,3],[3,4]]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_1353.py' %}
+
+```py
+def maxEvents(self, A):
+  A.sort(reverse=1)
+  h = []
+  res = d = 0
+  while A or h:
+    if not h: d = A[-1][0]
+    while A and A[-1][0] <= d:  # add new events to pq starting on day d
+      heapq.heappush(h, A.pop()[1])
+    heapq.heappop(h) # greedily attend the event that ends soonest
+    res += 1
+    d += 1
+    while h and h[0] < d:
+      heapq.heappop(h)
+  return res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Maximum Average Pass Ratio](https://leetcode.com/problems/maximum-average-pass-ratio)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/LC_1792.md/)
+
+{% tabs %}
+{% tab title='LC_1792.md' %}
+
+> Question
+
+* classes[i] = [passi, totali]. You know beforehand that in ith class
+  * there are totali total students, but only passi number of students will pass exam
+* There are another extraStudents brilliant students that are guaranteed to pass exam of any class they are assigned to
+* assign each of the extraStudents students to a class in a way that maximizes the average pass ratio across all the classes
+
+```txt
+Input: classes = [[1,2],[3,5],[2,2]], extraStudents = 2
+Output: 0.78333
+```
+
+{% endtab %}
+{% tab title='LC_1792.py' %}
+
+```py
+def maxAverageRatio(self, A, k):
+  h = [(a / b - (a + 1) / (b + 1), a, b) for a, b in A]
+  heapify(h)
+  for _ in range(k):
+    v, a, b = heapq.heappop(h)
+    a, b = a + 1, b + 1
+    heapq.heappush(h, (-(a + 1) / (b + 1) + a / b, a, b))
+  return sum(a / b for v, a, b in h) / len(h)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Minimum Interval to Include Each Query](https://leetcode.com/problems/minimum-interval-to-include-each-query)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/LC_1851.md/)
+
+{% tabs %}
+{% tab title='LC_1851.md' %}
+
+> Question
+
+* Given a 2D integer array intervals, where intervals[i] = [lefti, righti] (inclusive)
+* You are also given an integer array queries
+* Answer to jth query is size of the smallest interval i st lefti <= queries[j] <= righti, -1 if no such interval exists
+* Return an array containing the answers to the queries
+
+```txt
+Input: intervals = [[1,4],[2,4],[3,6],[4,4]], queries = [2,3,4,5]
+Output: [3,3,1,4]
+```
+
+{% endtab %}
+{% tab title='LC_1851.py' %}
+
+```py
+# Time : O(N log N)
+def minInterval(self, li: List[List[int]], queries: List[int]) -> List[int]:
+  li = sorted(li)[::-1]
+  pq, res = [], {}
+  for q in sorted(queries):
+    while li and li[-1][0] <= q:
+      i, j = li.pop()
+      if j >= q:
+        heapq.heappush(pq, [j - i + 1, j])
+    while pq and pq[0][1] < q:
+      heapq.heappop(pq)
+    res[q] = pq[0][0] if pq else -1
+  return [res[q] for q in queries]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Data Stream as Disjoint Intervals](https://leetcode.com/problems/data-stream-as-disjoint-intervals)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/LC_352.md/)
+
+{% tabs %}
+{% tab title='LC_352.md' %}
+
+> Question
+
+* Given a data stream input of non-negative integers a1, ..., an, summarize the numbers seen as a list of intervals
+  * SummaryRanges(): Initializes the object with an empty stream
+  * void addNum(int val): Adds the integer val to the stream
+  * int[][] getIntervals(): Returns a summary of integers in stream currently as a list of disjoint intervals [starti, endi]
+
+```txt
+Input:
+["SummaryRanges", "addNum", "getIntervals", "addNum", "getIntervals", "addNum", "getIntervals", "addNum", "getIntervals",\
+"addNum", "getIntervals"]
+[[], [1], [], [3], [], [7], [], [2], [], [6], []]
+
+Output:
+[null, null, [[1, 1]], null, [[1, 1], [3, 3]], null, [[1, 1], [3, 3], [7, 7]], null, [[1, 3], [7, 7]], null, [[1, 3],\
+[6, 7]]]
+```
+
+{% endtab %}
+{% tab title='LC_352.py' %}
+
+```py
+class SummaryRanges:
+  def __init__(self):
+    self.intervals = [[float('-inf'), float('-inf')], [float('inf'), float('inf')]]
+
+  def addNum(self, val: int) -> None:
+    i = bisect.bisect(self.intervals, [val])
+    (ps, pe), (ns, ne) = self.intervals[i-1], self.intervals[i]
+
+    if pe == val - 1 and ns == val + 1: # merge with left, right
+      self.intervals = self.intervals[:i-1] + [[ps, ne]] + self.intervals[i+1:]
+    elif pe == val - 1:                 # merge with left
+      self.intervals[i-1][1] = val
+    elif ns == val + 1:                 # merge with right
+      self.intervals[i][0] = val
+    elif pe < val - 1 and ns > val + 1:
+      self.intervals = self.intervals[:i] + [[val, val]] + self.intervals[i:]
+
+  def getIntervals(self) -> List[List[int]]:
+    return self.intervals[1:-1]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Range Module](https://leetcode.com/problems/range-module)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/priority-queue/LC_715.md/)
+
+{% tabs %}
+{% tab title='LC_715.md' %}
+
+> Question
+
+* A Range Module is a module that tracks ranges of numbers, implement the following interfaces
+  * addRange(int left, int right)
+  * queryRange(int left, int right)
+  * removeRange(int left, int right)
+
+```txt
+addRange(10, 20): null
+removeRange(14, 16): null
+queryRange(10, 14): true (Every number in [10, 14) is being tracked)
+queryRange(13, 15): false (Numbers like 14, 14.03, 14.17 in [13, 15) are not being tracked)
+queryRange(16, 17): true (The number 16 in [16, 17) is still being tracked, despite the remove operation)
+```
+
+{% endtab %}
+{% tab title='LC_715.py' %}
+
+```py
+from bisect import bisect_left, bisect_right
+
+class RangeModule:
+
+  def __init__(self):
+    self._X = []
+
+  def addRange(self, left, right):
+    i, j = bisect_left(self._X, left), bisect_right(self._X, right)
+    self._X[i:j] = [left] * (i % 2 == 0) + [right] * (j % 2 == 0)
+
+  def queryRange(self, left, right):
+    i, j = bisect_right(self._X, left), bisect_left(self._X, right)
+    return i == j and i%2 == 1
+
+  def removeRange(self, left, right):
+    i, j = bisect_left(self._X, left), bisect_right(self._X, right)
+    self._X[i:j] = [left]*(i % 2 == 1) + [right] * (j % 2 == 1)
+```
+
+{% endtab %}
+{% endtabs %}

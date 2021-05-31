@@ -1,0 +1,26 @@
+Reading file: simple_dict.txt
+Enter a prefix/pattern to search for:
+Enter a number of completions:
+zza
+zzb
+zzc
+zxa
+zxb
+zxc
+zya
+zyb
+zyc
+Continue? (y/n)
+Enter a prefix/pattern to search for:
+Enter a number of completions:
+zza
+zzb
+Continue? (y/n)
+Enter a prefix/pattern to search for:
+Enter a number of completions:
+Continue? (y/n)
+Enter a prefix/pattern to search for:
+Enter a number of completions:
+zza
+zzb
+Continue? (y/n)

@@ -1,0 +1,91 @@
+> baekjoon
+
+* [Level 9 : 연결 요소의 개수](https://www.acmicpc.net/problem/11724)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/scc/BJ_11724.md/)
+
+{% tabs %}
+{% tab title='BJ_11724.md' %}
+
+> Question
+
+* Print number of Connected Component
+
+```txt
+Input:
+6 5
+1 2
+2 5
+5 1
+3 4
+4 6
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_11724.py' %}
+
+```py
+import sys
+sys.setrecursionlimit(10000)
+def dfs(G, start, visited=None):
+  visited.add(start)
+  for adj in G[start]:
+    if adj not in visited:
+      dfs(G, adj, visited)
+
+N, M = map(int, input().split())
+G = [[] for _ in range(N + 1)]
+count = 0
+for _ in range(M):
+  u, v = map(int, input().split())
+  G[u].append(v)
+  G[v].append(u)
+visited = set()
+for j in range(1, N + 1):
+  if j not in visited:
+    dfs(G, j, visited)
+    count += 1
+print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Number of Provinces](https://leetcode.com/problems/number-of-provinces)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/scc/LC_547.md/)
+
+{% tabs %}
+{% tab title='LC_547.md' %}
+
+> Question
+
+* Given adjacency matrix, find total number of SCC
+
+```txt
+Input: isConnected = [[1,1,0],[1,1,0],[0,0,1]]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_547.py' %}
+
+```py
+def findCircleNum(self, M: List[List[int]]):
+  res, seen = 0, set()
+  for i in range(len(M)):
+    if i in seen: continue
+    toSee = [i]
+    while len(toSee):
+      cur = toSee.pop()
+      if cur not in seen:
+        seen.add(cur)
+        toSee += [j for j, v in enumerate(M[cur]) if v and j not in seen]
+    res += 1
+  return res
+```
+
+{% endtab %}
+{% endtabs %}

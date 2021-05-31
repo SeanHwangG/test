@@ -1,0 +1,384 @@
+> baekjoon
+
+* [Level 2 : 사분면 고르기](https://www.acmicpc.net/problem/14681)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_14681.md/)
+
+{% tabs %}
+{% tab title='BJ_14681.md' %}
+
+> Question
+
+* Given x, y print corresponding quadrant
+
+```txt
+Input:
+12
+5
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_14681.sh' %}
+
+```sh
+read x
+read y
+
+if [ $x -gt 0 ] && [ $y -gt 0 ]; then
+  echo 1
+elif [ $x -lt 0 ] && [ $y -gt 0 ]; then
+  echo 2
+elif [ $x -lt 0 ] && [ $y -lt 0 ]; then
+  echo 3
+else
+  echo 4
+fi
+```
+
+{% endtab %}
+{% tab title='BJ_14681.py' %}
+
+```py
+a = int(input())
+b = int(input())
+if a > 0 and b > 0:
+  print(1)
+elif a < 0 and b > 0:
+  print(2)
+elif a < 0 and b < 0:
+  print(3)
+else:
+  print(4)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : elemarketer or not?](https://www.acmicpc.net/problem/16017)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_16017.md/)
+
+{% tabs %}
+{% tab title="README.md" %}
+
+> Question
+
+* print if a and d are greater than 7 and b == c ignore else answer
+
+```txt
+Input:
+9
+6
+6
+8
+
+Output: ignore
+```
+
+{% endtab %}
+{% tab title="BJ_16017.py" %}
+
+```py
+a, b, c, d = int(input()), int(input()), int(input()), int(input())
+print('ignore' if a > 7 < d and b == c else 'answer')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : arius님 한타 안 함?](https://www.acmicpc.net/problem/20499)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_20499.md/)
+
+{% tabs %}
+{% tab title='BJ_20499.md' %}
+
+> Question
+
+* If death == 0 or death is more than sum of kill and assist, print hasu, else print gosu
+
+```txt
+Input: 0/5/3
+Output: hasu
+```
+
+{% endtab %}
+{% tab title='BJ_20499.py' %}
+
+```py
+k,d,a=map(int, input().split('/'))
+print('hasu' if k+a<d or d==0 else 'gosu')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Covid-19](https://www.acmicpc.net/problem/20673)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_20673.md/)
+
+{% tabs %}
+{% tab title='BJ_20673.md' %}
+
+> Question
+
+* print White if (a is smaller or equal to 50) and (b is smaller or equal to 10)
+* print Red if q is greater than 30
+* print Yellow otherwise
+
+```txt
+Input:
+50
+10
+
+Output: White
+```
+
+{% endtab %}
+{% tab title='BJ_20673.py' %}
+
+```py
+p = int(input())
+q = int(input())
+if p <= 50 and q <= 10:
+  print("White")
+elif q > 30:
+  print("Red")
+else:
+  print("Yellow")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Laptop Sticker](https://www.acmicpc.net/problem/21591)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_21591.md/)
+
+{% tabs %}
+{% tab title='BJ_21591.md' %}
+
+> Question
+
+* Given two rectangles, check if a rect fit to other with margin of 1
+
+```txt
+Input: 30 30 27 27
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_21591.py' %}
+
+```py
+w1, h1, w2, h2 = map(int, input().split())
+print(int(w2 + 2 <= w1 and h2 + 2 <= h1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : MS from MCH](https://www.acmicpc.net/problem/21638)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_21638.md/)
+
+{% tabs %}
+{% tab title='BJ_21638.md' %}
+
+> Question
+
+* a, b and c, d is given print following
+* if c < 0 and d >= 10: A storm warning for tomorrow! Be careful and stay home if possible!
+* elif a > c: MCHS warns! Low temperature is expected tomorrow.
+* elif b > d: MCHS warns! Strong wind is expected tomorrow.
+* else: No message
+
+```txt
+Input:
+15 2
+5 3
+
+Output:
+MCHS warns! Low temperature
+is expected tomorrow.
+```
+
+{% endtab %}
+{% tab title='BJ_21638.py' %}
+
+```py
+a, b = map(int, input().split())
+c, d = map(int, input().split())
+if c < 0 and d >= 10:
+  print('A storm warning for tomorrow! Be careful and stay home if possible!')
+elif a > c:
+  print('MCHS warns! Low temperature is expected tomorrow.')
+elif b < d:
+  print('MCHS warns! Strong wind is expected tomorrow.')
+else:
+  print('No message')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : FC 윔블던](https://www.acmicpc.net/problem/4299)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_4299.md/)
+
+{% tabs %}
+{% tab title='BJ_4299.md' %}
+
+> Question
+
+* Given sum and difference, find original number
+
+```txt
+Input: 3 1
+Output: 2 1
+```
+
+{% endtab %}
+{% tab title='BJ_4299.py' %}
+
+```py
+sm, df = map(int, input().split())
+a = sm - (sm + df) // 2
+b = (sm + df) // 2
+if (sm + df) % 2 != 0 or a < 0 or b < 0:
+  print(-1)
+elif a > b:
+  print(a, b)
+else:
+  print(b, a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Which Alien?](https://www.acmicpc.net/problem/6778)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_6778.md/)
+
+{% tabs %}
+{% tab title='BJ_6778.md' %}
+
+> Question
+
+* TroyMartian 는 적어도 3 안테나와 최대 4눈을 가지고 있다
+* VladSaturnian 는 최대 6 안테나와 적어도 2개의 눈을 가지고 있다;
+* GraemeMercurian는 최대 2개의 안테나와 적어도 3개의 눈을 가지고 있다
+* 안테나와 눈의 개수가 주어질 때 가능한 괴물의 이름을 모두 출력하라. (없을 시 x)
+
+```txt
+Input:
+2
+3
+
+Output:
+VladSaturnian
+GraemeMercurian
+```
+
+{% endtab %}
+{% tab title='BJ_6778.py' %}
+
+```py
+a, e = int(input()), int(input())
+if a >= 3 and e <= 4:
+  print('TroyMartian')
+if a <= 6 and e >= 2:
+  print('VladSaturnian')
+if a <= 2 and e <= 3:
+  print('GraemeMercurian')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : What is n, Daddy?](https://www.acmicpc.net/problem/6794)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_6794.md/)
+
+{% tabs %}
+{% tab title='BJ_6794.md' %}
+
+> Question
+
+* 숫자를 두 손가락으로 나타내는 방법의 가짓수를 구하라
+* 단 왼쪽 손은 오른쪽 손보다 같거나 많아야 한다
+
+```txt
+Input: 4
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_6794.py' %}
+
+```py
+a = int(input())
+if a == 1 or a == 9 or a == 10:
+  print(1)
+elif a == 2 or a == 3 or a == 7 or a == 8:
+  print(2)
+else:
+  print(3)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : IsItHalloween.com](https://open.kattis.com/problems/isithalloween)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/KT_isithalloween.md/)
+
+{% tabs %}
+{% tab title='KT_isithalloween.md' %}
+
+> Question
+
+* if input is OCT 31 or DEC 25 print 'yup' else print 'nope'
+
+```txt
+Input: OCT 31
+Output: yup
+```
+
+{% endtab %}
+{% tab title='KT_isithalloween.py' %}
+
+```py
+s = input()
+print("yup" if s == 'OCT 31' or s == 'DEC 25' else "nope")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.3 : Quadrant Selection](https://open.kattis.com/problems/quadrant)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/KT_quadrant.md/)
+
+[//]: # (BJ_14681)
+
+* [Level 1.8 : Moscow Dream](https://open.kattis.com/problems/moscowdream)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/KT_moscowdream.md/)
+
+{% tabs %}
+{% tab title='KT_moscowdream.md' %}
+
+> Question
+
+* 첫줄에 a, b, c, d가 주어진다
+* 이는 각각 easy, medium, hard, total문제 개수 이다
+* easy, medium, hard를 모두 포함하고, 총 문제 수가 total인 문제집을 만들 수 있으면 YES 아니면 NO를 출력하라
+
+```txt
+Input: 0 3 3 5
+Output: NO
+```
+
+{% endtab %}
+{% tab title='KT_moscowdream.py' %}
+
+```py
+a, b, c, d = map(int, input().split())
+print("NO" if if a == 0 or b == 0 or c == 0 or a + b + c < d or d < 3 else "YES)
+```
+
+{% endtab %}
+{% endtabs %}

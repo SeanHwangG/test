@@ -1,0 +1,537 @@
+> baekjoon
+
+* [Level 2 : 과자](https://www.acmicpc.net/problem/10156)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_10156.md/)
+
+{% tabs %}
+{% tab title='BJ_10156.md' %}
+
+> Question
+
+* Print a * b - c, print 0 if negative
+
+```txt
+Input: 300 4 1000
+Output: 200
+```
+
+{% endtab %}
+{% tab title='BJ_10156.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print(max(0, a * b - c))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 수도요금](https://www.acmicpc.net/problem/10707)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_10707.md/)
+
+{% tabs %}
+{% tab title='BJ_10707.md' %}
+
+> Question
+
+* JOI군의 집에서 한 달간 쓰는 수도의 양은 P리터이다
+* 수도요금이 최대한 싸게 되도록 수도회사를 고를 때, JOI군의 집의 1달간 수도요금을 구하여라
+* X사의 1리터당 요금 A, Y사의 기본요금 B, Y사의 요금이 기본요금 상한 C, Y사의 1리터 당 추가요금 D, JOI군의 집에서 사용하는 한 달간 수도의 양 P가 입력된다
+  * 입력되는 정수 A,B,C,D,P는 전부 1 이상 10000 이하이다
+
+* X사: 1리터당 A엔
+* Y사: 기본요금은 B엔이고, 사용량이 C리터 이하라면 요금은 기본요금만 청구된다
+  * 사용량이 C리터가 넘었을 경우 기본요금 B엔에 더해서 추가요금이 붙는다. 추가요금은 사용량이 C리터를 넘었을 경우 1리터를 넘었을 때마다 D엔이다
+
+```txt
+Input:
+9
+100
+20
+3
+10
+
+Output: 90
+```
+
+{% endtab %}
+{% tab title='BJ_10707.py' %}
+
+```py
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+e = int(input())
+X = a * e
+Y = b + max(e - c, 0) * d
+print(min(X, Y))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 파일 옮기기](https://www.acmicpc.net/problem/11943)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_11943.md/)
+
+{% tabs %}
+{% tab title='BJ_11943.md' %}
+
+> Question
+
+* Print minimum of a + d, b + c
+
+```txt
+Input:
+1 2
+3 4
+Output: 46
+```
+
+{% endtab %}
+{% tab title='BJ_11943.py' %}
+
+```py
+a, b = map(int, input().split())
+c, d = map(int, input().split())
+print(min(a + d, b + c))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 과목선택](https://www.acmicpc.net/problem/11948)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_11948.md/)
+
+{% tabs %}
+{% tab title='BJ_11948.md' %}
+
+> Question
+
+* Given abcdef, print sum of top three among abcd + top among ef
+
+```txt
+Input:
+100
+34
+76
+42
+10
+0
+
+Output: 228
+```
+
+{% endtab %}
+{% tab title='BJ_11948.java' %}
+
+```java
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int a = sc.nextInt();
+    int b = sc.nextInt();
+    int c = sc.nextInt();
+    int d = sc.nextInt();
+    int e = sc.nextInt();
+    int f = sc.nextInt();
+    int s = a + b + c + d + e + f;
+    s -= Math.min(Math.min(a, b), Math.min(c, d)) + Math.min(e, f);
+    System.out.println(s);
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11948.py' %}
+
+```py
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+e = int(input())
+f = int(input())
+print(a + b + c + d + e + f - min(a, b, c, d) - min(e, f))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : ri-du](https://www.acmicpc.net/problem/13597)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_13597.md/)
+
+{% tabs %}
+{% tab title='BJ_13597.md' %}
+
+> Question
+
+* Print max among two
+
+```txt
+Input: 3 2
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_13597.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+  int a, b;
+  cin >> a >> b;
+  cout << max(a, b);
+}
+```
+
+{% endtab %}
+{% tab title='BJ_13597.sh' %}
+
+```sh
+read a b
+echo $((a > b ? a : b))
+```
+
+{% endtab %}
+{% tab title='BJ_13597.py' %}
+
+```py
+a, b = map(int, input().split())
+print(max(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Máquina de café](https://www.acmicpc.net/problem/15051)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_15051.md/)
+
+{% tabs %}
+{% tab title='BJ_15051.md' %}
+
+> Question
+
+* Print mimum of a \* 4 + b \* 2, a \* 2 + c \* 2, b \* 2 + c \* 4
+
+```txt
+Input:
+10
+20
+30
+
+Output: 80
+```
+
+{% endtab %}
+{% tab title='BJ_15051.py' %}
+
+```py
+print(min(a * 4 + b * 2, a * 2 + c * 2, b * 2 + c * 4))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 이칙연산](https://www.acmicpc.net/problem/15726)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_15726.md/)
+
+{% tabs %}
+{% tab title='BJ_15726.md' %}
+
+> Question
+
+* print maximum number using only one multiplication and division
+
+```txt
+Input: 32 16 8
+Output: 64
+```
+
+{% endtab %}
+{% tab title='BJ_15726.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print(max(a * b // c, a * c // b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 카드 뽑기](https://www.acmicpc.net/problem/16204)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_16204.md/)
+
+{% tabs %}
+{% tab title='BJ_16204.md' %}
+
+> Question
+
+* write O or X one by one on the back of the card, when I try to write down K and X N-K
+* find the maximum number of cards with the same shape on the front and back sides
+
+```txt
+Input: 4 3 2
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_16204.py' %}
+
+```py
+N, M, K = map(int, input().split())
+print(min(M, K) + N - max(M, K))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Piece of Cake!](https://www.acmicpc.net/problem/17874)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_17874.md/)
+
+{% tabs %}
+{% tab title='BJ_17874.md' %}
+
+> Question
+
+* width and height is a, height is 4
+* When cutting cake at width b, height c, print largest pieces
+
+```txt
+Input: 10 4 7
+Output: 168
+```
+
+{% endtab %}
+{% tab title='BJ_17874.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print(max(a - b, b) * max(a - c, c) * 4)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Petrol](https://www.acmicpc.net/problem/18330)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_18330.md/)
+
+{% tabs %}
+{% tab title='BJ_18330.md' %}
+
+> Question
+
+* 첫번째 줄에 요금 사용량과 현재 이번 달 남은 quota가 주어질때 다음 달 기름 가격을 구하라
+* quota 이내는 1500원이고 추가 비용은 3000원이고 매달 60 L의 quota가 추가된다
+
+```txt
+Input:
+41
+0
+
+Output: 61500
+```
+
+{% endtab %}
+{% tab title='BJ_18330.py' %}
+
+```py
+cur, nex = int(input()), int(input())
+print(min(cur, nex + 60) * 1500 + (cur - min(cur, nex + 60)) * 3000)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 헛간 청약](https://www.acmicpc.net/problem/19698)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_19698.md/)
+
+{% tabs %}
+{% tab title='BJ_19698.md' %}
+
+> Question
+
+* Given n, w, h, l, each number of cow, with, height, cow_length
+* Find maximum number of col fits in to the rectangle
+
+```txt
+Input: 7 17 11 5
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_19698.py' %}
+
+```py
+n, w, h, l = map(int, input().split())
+cow = (w // l) * (h // l)
+print(min(cow, n))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Bicycle](https://www.acmicpc.net/problem/20233)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_20233.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* 21일 동안 자전거를 탄다
+* 두 개의 자전거 옵션이 있는데
+* 첫번째는 기본 a원이고 30분이 무료고 그 다음부터 x 원 이다
+* 두번째는 기본 b원이고 45분이 무료고 그 다음부터 y 원 이다
+* a x b y T 가 주어질 때 총 가격을 구하라
+
+```txt
+Input:
+10
+1
+20
+5
+50
+
+Output: 430 545
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a, x, b, y, t = int(input()), int(input()), int(input()), int(input()), int(input())
+print(a + 21 * x * max(0, t - 30), b + 21 * y * max(0, t - 45))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Checkers](https://www.acmicpc.net/problem/21631)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_21631.md/)
+
+{% tabs %}
+{% tab title='BJ_21631.md' %}
+
+> Question
+
+* Print smaller number between between a + 1, b
+
+```txt
+Input: 1 2
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_21631.py' %}
+
+```py
+a, b = map(int,input().split())
+print(min(a + 1, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Bank Transfer](https://www.acmicpc.net/problem/21633)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_21633.md/)
+
+{% tabs %}
+{% tab title='BJ_21633.md' %}
+
+> Question
+
+* min(2000, max(100, N / 100 + 25))
+
+```txt
+Input: 300000
+Output: 2000.00
+```
+
+{% endtab %}
+{% tab title='BJ_21633.py' %}
+
+```py
+print(min(2000, max(100, N / 100 + 25)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 직사각형에서 탈출](https://www.acmicpc.net/problem/1085)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_1085.md/)
+
+{% tabs %}
+{% tab title='BJ_1085.md' %}
+
+> Question
+
+* Located at (x, y), find minimum length to escape from rectangle
+
+```txt
+Input: 6 2 10 3
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_1085.sh' %}
+
+```sh
+read x y w h
+a=$((x<w-x?x:w-x))
+b=$((y<h-y?y:h-y))
+echo $((a<b?a:b))
+```
+
+{% endtab %}
+{% tab title='BJ_1085.py' %}
+
+```py
+x, y, w, h = map(int,input().split())
+print(min(x, y, w - x, h -  y))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 캥거루 세마리](https://www.acmicpc.net/problem/2965)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/BJ_2965.md/)
+
+{% tabs %}
+{% tab title='BJ_2965.md' %}
+
+> Question
+
+* a, b, c are standing on line
+* Print longer distance that b can jump
+
+```txt
+Input: 2 3 5
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_2965.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print(max(c - b - 1, b - a - 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Piece of Cake!](https://open.kattis.com/problems/pieceofcake2)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/KT_pieceofcake2.md/)
+
+[//]: # (BJ_17874)
+
+* [Level 1.6 : Skocimis](https://open.kattis.com/problems/skocimis)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/min-max/KT_skocimis.md/)
+
+[//]: # (BJ_2965)

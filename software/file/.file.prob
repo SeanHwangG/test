@@ -1,0 +1,123 @@
+> hackerrank
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_bash-tutorials-display-the-third-element-of-an-array.md/)
+
+{% tabs %}
+{% tab title='HR_bash-tutorials-display-the-third-element-of-an-array.md' %}
+
+> Question
+
+* Display 4th line
+
+{% endtab %}
+{% tab title='HR_bash-tutorials-display-the-third-element-of-an-array.sh' %}
+
+```sh
+head -n3 | tail -n1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-head-1.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-head-1.md' %}
+
+> Question
+
+* Output first 20 lines
+
+{% endtab %}
+{% tab title='HR_text-processing-head-1.sh' %}
+
+```sh
+# cat | cut -d$'\n' -f -20
+head -n 20
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-head-2.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-head-2.md' %}
+
+> Question
+
+* Output first 20 characters
+
+{% endtab %}
+{% tab title='HR_text-processing-head-2.sh' %}
+
+```sh
+head -c 20
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-in-linux---the-middle-of-a-text-file.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-in-linux---the-middle-of-a-text-file.md' %}
+
+> Question
+
+* Display the lines (from line number 12 to 22, both inclusive) for the input file
+
+{% endtab %}
+{% tab title='HR_text-processing-in-linux---the-middle-of-a-text-file.sh' %}
+
+```sh
+# cut -d$'\n' -f12-22
+head -n 22 | tail -n +12
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-tail-1.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-tail-1.md' %}
+
+> Question
+
+* Output last 20 lines
+
+{% endtab %}
+{% tab title='HR_text-processing-tail-1.sh' %}
+
+```sh
+tail -n 20
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-tail-2.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-tail-2.md' %}
+
+> Question
+
+* Output last 20 characters
+
+{% endtab %}
+{% tab title='HR_text-processing-tail-2.sh' %}
+
+```sh
+tail -c 20
+```
+
+{% endtab %}
+{% endtabs %}

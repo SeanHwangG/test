@@ -1,0 +1,14 @@
+* [Modulo](https://docs.google.com/forms/d/1Cv52ppIVXFL0n8khB5gK3Lvrbf60EowPkpgcbF07l00/edit)
+
+```py
+print(119 // 17)
+print((-98) // 7)
+print(20 // 4 - 15)
+print(1938 % 7)
+print(119 % 17)
+print((-98) % 7)
+print(1004 % 11)
+print(1938 // 7)
+print((18 - 4) % 3)
+print((6 + 109) // 5)
+```

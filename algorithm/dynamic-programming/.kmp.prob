@@ -1,0 +1,259 @@
+> baekjoon
+
+* [Level 14 : Cubeditor](https://www.acmicpc.net/problem/1701)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/kmp/BJ_1701.md/)
+
+{% tabs %}
+{% tab title='BJ_1701.md' %}
+
+> Question
+
+* Outputs the longest length of string that appears at least twice in the input
+
+```txt
+Input: abcdabcabb
+Output: 3  # abc abc
+```
+
+{% endtab %}
+{% tab title='BJ_1701.py' %}
+
+```py
+P = input()
+def getPi(st):
+  j = 0
+  pi = [0] * len(st)
+  for i in range(1, len(pi)):
+    while j > 0 and st[i] != st[j]:
+      j = pi[j-1]
+    if st[i] == st[j]:
+      j += 1
+      pi[i] = j
+  return max(pi)
+res = 0
+for i in range(len(P)):
+  res = max(getPi(P[i:]), res)
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 찾기](https://www.acmicpc.net/problem/1786)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/kmp/BJ_1786.md/)
+
+{% tabs %}
+{% tab title='BJ_1786.md' %}
+
+> Question
+
+* Given string S, T, find all indices that T appears on S
+
+```txt
+Input: ABC ABCDAB ABCDABCDABDE
+Output: ABCDABD
+```
+
+{% endtab %}
+{% tab title='BJ_1786.py' %}
+
+```py
+s, p = input(),input()
+a, j = [], 0
+pi = [0] * len(p) # [0, 0, 0, 0, 1, 2, 0]
+for i in range(1, len(p)):
+  while j > 0 and p[i] != p[j]:
+    j = pi[j - 1]
+  if p[i] == p[j]:
+    j += 1
+    pi[i] =j
+j = 0
+for i in range(len(s)):
+  while j > 0 and s[i] != p[j]:
+    j = pi[j - 1]
+  if s[i] == p[j]:
+    if j == len(p) - 1: # match pattern
+      a += [i - len(p) + 2]
+      j = pi[j]
+    else:
+      j += 1
+print(len(a), *a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 광고](https://www.acmicpc.net/problem/1305)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/kmp/BJ_1305.md/)
+
+{% tabs %}
+{% tab title='BJ_1305.md' %}
+
+> Question
+
+* String is rotating with repetition
+* Print shortest possible strings
+
+```txt
+Input:
+5
+aaaaa
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_1305.py' %}
+
+```py
+N = int(input())
+S = input()
+
+pi = [0] * N
+j = 0
+for i in range(1, N):
+  while j > 0 and S[i] != S[j]:
+    j = pi[j - 1]
+  if S[i] == S[j]:
+    j += 1
+    pi[i] = j
+
+print(N - pi[-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Check If a Word Occurs As a Prefix of Any Word in a Sentence](https://leetcode.com/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/kmp/LC_1455.md/)
+
+{% tabs %}
+{% tab title='LC_1455.md' %}
+
+> Question
+
+* Given a sentence that consists of some words separated by a single space, and a searchWord
+* You have to check if searchWord is a prefix of any word in sentence
+
+```txt
+Input: sentence = "i love eating burger", searchWord = "burg"
+Output: 4    # "burg" is prefix of "burger" which is the 4th word in the sentence.
+```
+
+{% endtab %}
+{% tab title='LC_1455.cpp' %}
+
+```cpp
+int isPrefixOfWord(string sentence, string searchWord) {
+  // auto sent = " " + sentence, word = " " + searchWord;
+  // auto pos = sent.find(word);
+  // if (pos != string::npos)
+  //  return count(begin(sent), begin(sent) + pos + 1, ' ');
+  auto sent = " " + sentence, word = " " + searchWord;
+  int word_cnt = 0, j = 0;
+  for (auto i = 0; i < sent.size() && j < word.size(); ++i) {
+    word_cnt += sent[i] == ' ';
+    if (sent[i] == word[j])
+      ++j;
+    else
+      j = sent[i] == word[0] ? 1 : 0;
+  }
+  return j == word.size() ? word_cnt : -1;
+}
+```
+
+{% endtab %}
+{% tab title='LC_1455.py' %}
+
+```py
+def isPrefixOfWord(self, sentence: str, searchWord: str) -> int:
+  for i, w in enumerate(sentence.split(' '), 1):
+    if w.startswith(searchWord):
+      return i
+  return -1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Implement strStr()](https://leetcode.com/problems/implement-strstr)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/kmp/LC_28.md/)
+
+{% tabs %}
+{% tab title='LC_28.md' %}
+
+> Question
+
+* Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack
+
+```txt
+Input: haystack = "hello", needle = "ll"
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_28.cpp' %}
+
+```cpp
+class Solution {
+public:
+  int strStr(string haystack, string needle) {
+    int m = haystack.size(), n = needle.size();
+    if (!n)
+      return 0;
+    vector<int> lps = kmpProcess(needle);
+    for (int i = 0, j = 0; i < m;) {
+      if (haystack[i] == needle[j])
+        i++, j++;
+      if (j == n)
+        return i - j;
+      if (i < m && haystack[i] != needle[j])
+        j ? j = lps[j - 1] : i++;
+    }
+    return -1;
+  }
+private:
+  vector<int> kmpProcess(string needle) {
+    int n = needle.size();
+    vector<int> lps(n, 0);
+    for (int i = 1, len = 0; i < n;) {
+      if (needle[i] == needle[len]) lps[i++] = ++len;
+      else if (len)                 len = lps[len - 1];
+      else                          lps[i++] = 0;
+    }
+    return lps;
+  }
+};
+```
+
+{% endtab %}
+{% tab title='LC_28.py' %}
+
+```py
+def strStr(self, haystack: str, needle: str) -> int:
+  concat = needle + '#' + haystack
+  b, suffix = 0, [0]
+  for i in range(1, len(concat)):
+    while b > 0 and concat[i] != concat[b]:
+      b = suffix[b - 1]
+    if concat[b] == concat[i]:
+      b += 1
+    else:
+      b = 0
+    suffix.append(b)
+
+  # 01000120 : suffix
+  # ll#hello : concat
+  n = len(needle)
+  if n == 0:
+    return n
+  for i in range(n + 1, len(suffix)):
+    if suffix[i] == n:
+      return i - 2 * n
+  return -1
+```
+
+{% endtab %}
+{% endtabs %}

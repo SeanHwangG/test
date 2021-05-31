@@ -1,0 +1,883 @@
+> baekjoon
+
+* [Level 3 : X보다 작은 수](https://www.acmicpc.net/problem/10871)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_10871.md/)
+
+{% tabs %}
+{% tab title='BJ_10871.md' %}
+
+> Question
+
+* Prints all numbers smaller than X in A
+
+```txt
+Input:
+10 5
+1 10 4 9 2 3 8 5 7 6
+
+Output: 1 4 2 3
+```
+
+{% endtab %}
+{% tab title='BJ_10871.cpp' %}
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main() {
+  int n, x;
+  cin >> n >> x;
+  while (n--) {
+    int a;
+    cin >> a;
+    if (a < x)
+      cout << a << " ";
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10871.py' %}
+
+```py
+_, x = map(int, input().split())
+for n in map(int, input().split()):
+  if n < x:
+    print(n, end=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 질투진서](https://www.acmicpc.net/problem/15784)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_15784.md/)
+
+{% tabs %}
+{% tab title='BJ_15784.md' %}
+
+> Question
+
+* A person can see people with same row and column
+* Given row a and row b of chairs, if he see someone more handsome, print ANGRY, otherwise HAPPY
+
+```txt
+Input:
+5 3 2
+10 2 3 24 4
+21 4 5 12 1
+24 52 4 2 2
+2 4 3 2 32
+1 4 32 2 4
+
+Output: HAPPY
+```
+
+{% endtab %}
+{% tab title='BJ_15784.py' %}
+
+```py
+N, i, j = map(int, input().split())
+i, j = i - 1, j - 1
+line = []
+row = []
+for a in range(N):
+  temp = list(map(int, input().split()))
+  line.append(temp[j])
+  if a == i:
+    row = temp
+if max(line) == max(row) == row[j]:
+  print('HAPPY')
+else:
+  print('ANGRY')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 두 개의 손](https://www.acmicpc.net/problem/16675)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_16675.md/)
+
+{% tabs %}
+{% tab title='BJ_16675.md' %}
+
+> Question
+
+* Given result of rock scissors paper with two hands (TK, MS), print winner
+* If both can win print ?
+
+```txt
+Input: R R S S
+Output: MS
+```
+
+{% endtab %}
+{% tab title='BJ_16675.py' %}
+
+```py
+ml, mr, tl, tr = ('SRP'.index(i) for i in input().split())
+
+if ml == mr and (ml + 1) % 3 in [tl, tr]:
+  print('TK')
+elif tl == tr and (tl + 1) % 3 in [ml, mr]:
+  print('MS')
+else:
+  print('?')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : tatistics](https://www.acmicpc.net/problem/20674)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_20674.md/)
+
+{% tabs %}
+{% tab title='BJ_20674.md' %}
+
+> Question
+
+* Print sum of numbers to substract so that the numbers are decreasing?
+
+```txt
+Input:
+3
+100
+150
+200
+
+Output: 150
+```
+
+{% endtab %}
+{% tab title='BJ_20674.py' %}
+
+```py
+li = list(int(input()) for _ in range(int(input())))
+mn, total = li[0], 0
+for n in li:
+  if n > mn:
+    total += n -mn
+  mn = min(n, mn)
+print(total)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 카드놀이](https://www.acmicpc.net/problem/2511)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_2511.md/)
+
+{% tabs %}
+{% tab title='BJ_2511.md' %}
+
+> Question
+
+![BJ_2511](list/images/20210305_165058.png)
+
+* In the first row, print out the total points A and B received after the game, with the blanks between them in order
+* Print out the winner in the second row
+
+```txt
+Input:
+4 5 6 7 0 1 2 3 9 8
+1 2 3 4 5 6 7 8 9 0
+
+Output:
+16 13
+A
+```
+
+{% endtab %}
+{% tab title='BJ_2511.py' %}
+
+```py
+a_scores = list(map(int,input().split()))
+b_scores = list(map(int,input().split()))
+a_point = b_point = 0
+last = 'D'
+for a_score, b_score in zip(a_scores, b_scores):
+  if a_score > b_score:
+    last = 'A'
+    a_point += 3
+  elif a_score < b_score:
+    last = 'B'
+    b_point += 3
+  else:
+    a_point += 1
+    b_point += 1
+print(a_point, b_point)
+if a_point > b_point:
+  print("A")
+elif b_point < a_point:
+  print("B")
+else:
+  print(last)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 쌍의 합](https://www.acmicpc.net/problem/5217)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_5217.md/)
+
+{% tabs %}
+{% tab title='BJ_5217.md' %}
+
+> Question
+
+* When given a natural number n greater than or equal to 1 and less than or equal to 12
+* find pairs of two natural numbers that sum up to n
+
+```txt
+Input:
+4
+2
+3
+4
+5
+
+Output:
+Pairs for 2:
+Pairs for 3: 1 2
+Pairs for 4: 1 3
+Pairs for 5: 1 4, 2 3
+```
+
+{% endtab %}
+{% tab title='BJ_5217.py' %}
+
+```py
+for _ in range(int(input())):
+  n = int(input())
+  li = []
+  for i in range(1, (n + 1) // 2):
+    li.append(f"{i} {n - i}")
+
+  print(f"Pairs for {n}: {', '.join(li)}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 유레카 이론](https://www.acmicpc.net/problem/10448)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_10448.md/)
+
+{% tabs %}
+{% tab title='BJ_10448.md' %}
+
+> Question
+
+* Print if a number can be represented by the sum of following sequence
+* 1, 3, 6, 10, 15, 21 ..
+
+```txt
+Input:
+3
+10
+20
+1000
+
+Output:
+1
+0
+1
+```
+
+{% endtab %}
+{% tab title='BJ_10448.py' %}
+
+```py
+triangle = [n*(n+1)//2 for n in range(1, 46)]
+eureka = [0] * 1001
+
+for i in triangle:
+  for j in triangle:
+    for k in triangle:
+      if i+j+k <= 1000:
+        eureka[i + j + k] = 1
+
+T = int(input())
+for _ in range(T):
+  print(eureka[int(input())])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 닉네임에 갓 붙이기](https://www.acmicpc.net/problem/13163)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_13163.md/)
+
+{% tabs %}
+{% tab title='BJ_13163.md' %}
+
+> Question
+
+* Delete until first blank and print concatnated string with God
+
+```txt
+Input:
+5
+baek joon
+koo sa ga
+ac ka
+yu ka ri ko
+ke sa ki yo
+
+Output:
+godjoon
+godsaga
+godka
+godkariko
+godsakiyo
+```
+
+{% endtab %}
+{% tab title='BJ_13163.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int n;
+string s;
+int main() {
+  cin >> n;
+  while(n--) {
+    getline(cin, s);
+    s.replace(s.begin(), s.begin() + s.find_first_of(' '), "god");
+    for(char c : s) if (c != ' ') cout << c;
+    cout << '\n';
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_13163.py' %}
+
+```py
+for _ in range(int(input())):
+  l = input().split()
+  l[0] = 'god'
+  print(''.join(l))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 막대기](https://www.acmicpc.net/problem/17608)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_17608.md/)
+
+{% tabs %}
+{% tab title='BJ_17608.md' %}
+
+> Question
+
+![BJ_17608](list/images/20210228_153352.png)
+
+* find number of visible bars
+
+{% endtab %}
+{% tab title='BJ_17608.py' %}
+
+```py
+a = int(input())
+li = []
+for _ in range(a):
+  li.append(int(input()))
+
+mx, ret = 0, 0
+for n in reversed(li):
+  if mx < n:
+    mx = n
+    ret += 1
+
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 카드1](https://www.acmicpc.net/problem/2161)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_2161.md/)
+
+{% tabs %}
+{% tab title='BJ_2161.md' %}
+
+> Question
+
+* Throw the top card on the floor
+* Next, move the top card below the bottom card
+* Print which card will be left after performing above actions
+
+```txt
+Input: 7
+Output: 1 3 5 7 4 2 6
+```
+
+{% endtab %}
+{% tab title='BJ_2161.js' %}
+
+```js
+const N = +require('fs').readFileSync('dev/stdin').toString();
+const arr = Array.apply(null, {length: N+1}).map(Number.call, Number);
+arr.shift();
+
+let output = "";
+while (arr[0]) {
+  output += arr.shift() + ' ';
+  arr.push(arr.shift());
+}
+console.log(output);
+```
+
+{% endtab %}
+{% tab title='BJ_2161.py' %}
+
+```py
+n = int(input())
+a = [i for i in range(1, n+1)]
+while len(a) > 1:
+  print(a.pop(0), end=' ')
+  k = a.pop(0)
+  a.append(k)
+print(a[0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 점수 집계](https://www.acmicpc.net/problem/9076)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_9076.md/)
+
+{% tabs %}
+{% tab title='BJ_9076.md' %}
+
+> Question
+
+* Print sum of second, third, fourth numbers
+* If difference between second and fourth number's are greater than 3 print KIN
+
+```txt
+Input:
+4
+10 8 5 7 9
+10 9 10 9 5
+10 3 5 9 10
+1 2 3 6 9
+
+Output:
+24
+28
+KIN
+KIN
+```
+
+{% endtab %}
+{% tab title='BJ_9076.py' %}
+
+```py
+for _ in range(int(input())):
+  l = sorted(map(int, input().split()))
+  print('KIN' if l[3]-l[1]>=4 else sum(l[1:4]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 피타고라스 기댓값](https://www.acmicpc.net/problem/11070)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_11070.md/)
+
+{% tabs %}
+{% tab title='BJ_11070.md' %}
+
+> Question
+
+* Pythagorean Expectation is calculated as below
+
+$$ W=\frac{S^{2}}{S^{2}+A^{2}} $$
+
+* Find max expectation and min expectation
+
+{% endtab %}
+{% tab title='BJ_11070.py' %}
+
+```py
+for _ in range(int(input())):
+  n, k = map(int, input().split())
+  w, l = [0] * n, [0] * n
+  for _ in range(k):
+    a, b, c, d = map(int,input().split())
+    w[a - 1] += c
+    l[a - 1] += d
+    w[b - 1] += d
+    l[b - 1] += c
+  c = [0] * n
+  for i in range(n):
+    t= w[i] * w[i]
+    if w[i] + l[i] != 0:
+      c[i] = t/(t+l[i]*l[i])*1000
+  print(int(max(c)))
+  print(int(min(c)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 소가 길을 건너간 이유 2](https://www.acmicpc.net/problem/14468)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_14468.md/)
+
+{% tabs %}
+{% tab title='BJ_14468.md' %}
+
+> Question
+
+* Given a circle, you observe cow acrossing at one point
+* Find minimum number of cow pairs that cross one another
+
+```txt
+Input: ABCCABDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ
+Output: 1  # A and B will meet
+```
+
+{% endtab %}
+{% tab title='BJ_14468.py' %}
+
+```py
+ans = 0
+L = []
+for j in input():
+  if j in L:
+    ans += len(L) - 1 - L.index(j)
+    L.remove(j)
+  else:
+    L.append(j)
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 키로거](https://www.acmicpc.net/problem/5397)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_5397.md/)
+
+{% tabs %}
+{% tab title='BJ_5397.md' %}
+
+> Question
+
+* The input of the backspace '-' arrow is given as '<' and '>'
+* For each test case, Kang San's password is printed. Password length is always greater than zero
+
+```txt
+Input:
+2
+<<BP<A>>Cd-
+ThIsIsS3Cr3t
+
+Output:
+BAPC
+ThIsIsS3Cr3t
+```
+
+{% endtab %}
+{% tab title='BJ_5397.py' %}
+
+```py
+for _ in range(int(input())):
+  typing = input()
+  left, right = [], []
+  for ch in typing:
+    if ch == '<':
+      if left:
+        right.append(left.pop())
+    elif ch == '>':
+      if right:
+        left.append(right.pop())
+    elif ch == '-':
+      if left:
+        left.pop()
+    else:
+      left.append(ch)
+  left.extend(reversed(right))
+  print(''.join(left))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : C](https://www.acmicpc.net/problem/5430)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_5430.md/)
+
+{% tabs %}
+{% tab title='BJ_5430.md' %}
+
+> Question
+
+* Function R is a function that reverses order of numbers in an array, and D is a function that throws away the first number
+* If the array is empty and D is used, an error occurs
+* When given the initial value of the array and the function to be performed, obtain the final result
+
+```txt
+Input:
+4
+RDD
+4
+[1,2,3,4]
+DD
+1
+[42]
+RRD
+6
+[1,1,2,3,5,8]
+D
+0
+[]
+
+Output:
+[2,1]
+error
+[1,2,3,5,8]
+error
+```
+
+{% endtab %}
+{% tab title='BJ_5430.py' %}
+
+```py
+def operate(com, li):
+  left = True
+  if len(li) < com.count('D'):
+    return 'error'
+  for c in com:
+    if c == 'R':
+      left = not left
+    elif c == 'D':
+      li.pop(0 if left else -1)
+  if left:
+    return f"[{','.join(li)}]"
+  else:
+    return f"[{','.join(reversed(li))}]"
+
+T = int(input())
+for _ in range(T):
+  com = input()
+  n = input()
+  li = input()[1:-1].split(',')
+  if n=='0': li = []
+  print(operate(com, li))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Batter Up](https://open.kattis.com/problems/batterup)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/KT_batterup.md/)
+
+{% tabs %}
+{% tab title='KT_batterup.md' %}
+
+> Question
+
+* 첫번째 줄 n개의 타석이 주어지고, 다음줄에는 n개 타석에서의 각 정수가 주어진다
+* N개의 정수가 주어질 때, 볼넷,스트라이크,1루타, 2루타, 3루타, 홈런은 각 -1,0,1,2,3,4 점수를나타냄
+* 볼넷 -1의 경우 타석으로 고려하지 않음
+* 선수의 장타율을 출력하라(장타율은 모든 타석에서의 점수를 더한 값에 n타석으로 나눈 값)
+
+```txt
+Input:
+3
+3 0 2
+
+Output:
+1.6666666666667
+```
+
+{% endtab %}
+{% tab title='KT_batterup.py' %}
+
+```py
+n_hit = int(input())
+li = list(map(int, input().split()))
+miss = li.count(-1)
+print((sum(li) + miss) / (n_hit - miss))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.2 : Electrical Outlets](https://open.kattis.com/problems/electricaloutlets)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/KT_electricaloutlets.md/)
+
+{% tabs %}
+{% tab title='KT_electricaloutlets.md' %}
+
+> Question
+
+* Find maximum number of plugs with n plugs with port
+
+```txt
+Input:
+3
+3 2 3 4
+10 4 4 4 4 4 4 4 4 4 4
+4 10 10 10 10
+
+Output:
+7
+31
+37
+```
+
+{% endtab %}
+{% tab title='KT_electricaloutlets.py' %}
+
+```py
+for _ in range(int(input())):
+  li = list(map(int, input().split()))
+  count = sum(li) - 2 * li[0] + 1
+  print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Transit Woes](https://open.kattis.com/problems/transitwoes)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/KT_transitwoes.md/)
+
+{% tabs %}
+{% tab title='KT_transitwoes.md' %}
+
+> Question
+
+* 첫줄에 출발시간 s, 수업시작시간 t, n이 주어진다
+* 두번째 줄에는 n+1 개의 수가 주어지며 한 정거장에서 다음정거장으로 가는데 걸리는 시간을 의미
+* 세번째 줄에는 n 개의 수가 주어지며 버스타고가면서 걸리는시간을 의미
+* 네번째 줄에도 n 개의 수가 주어진다.버스가 정거장에 도착하는데 걸리는시간
+* 제시간에 수업에 도착할 수 있으면 ‘yes’ 없으면 ‘no’를 출력하라
+
+```txt
+Input:
+0 20 2
+2 2 2
+5 5
+3 5
+
+Output: yes
+```
+
+{% endtab %}
+{% tab title='KT_transitwoes.py' %}
+
+```py
+cur, t, n = map(int, input().split())
+D = list(map(int, input().split()))
+B = list(map(int, input().split()))
+C = list(map(int, input().split()))
+for d, b, c in zip(D, B, C):
+  cur += d
+  cur += (cur % c)
+  cur += b
+if cur + D[-1] < t:
+  print("yes")
+else:
+  print("no")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Check if Array Is Sorted and Rotated](https://leetcode.com/problems/check-if-array-is-sorted-and-rotated)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/LC_1752.md/)
+
+{% tabs %}
+{% tab title='LC_1752.md' %}
+
+> Question
+
+* Given an array nums, return if the array was originally sorted in non-decreasing order, then rotated some number of positions
+* There may be duplicates in the original array
+
+```txt
+Input: nums = [3,4,5,1,2]
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_1752.py' %}
+
+```py
+def check(self, nums: List[int]) -> bool:
+  return sum(nums[i] < nums[i-1] for i in range(len(nums))) <= 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Pairs of Songs With Total Durations Divisible by 60](https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/LC_1010.md/)
+
+{% tabs %}
+{% tab title='LC_1010.md' %}
+
+> Question
+
+* number of indices i, j such that i < j with (time[i] + time[j]) % 60 == 0
+
+```txt
+Input: time = [30,20,150,100,40]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_1010.py' %}
+
+```py
+def numPairsDivisibleBy60(self, time):
+  c = [0] * 60
+  res = 0
+  for t in time:
+    res += c[-t % 60]
+    c[t % 60] += 1
+  return res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Sum of Beauty of All Substrings](https://leetcode.com/problems/sum-of-beauty-of-all-substrings)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/LC_1781.md/)
+
+{% tabs %}
+{% tab title='LC_1781.md' %}
+
+> Question
+
+* The beauty of a string is the difference in frequencies between the most frequent and least frequent characters
+* Given a string s, return the sum of beauty of all of its substrings
+
+```txt
+Input: s = "aabcb"
+Output: 5
+```
+
+{% endtab %}
+{% tab title='LC_1781.py' %}
+
+```py
+def beautySum(self, s: str) -> int:
+  ans = 0
+  for i in range(len(s)):
+    freq = [0]*26
+    for j in range(i, len(s)):
+      freq[ord(s[j])-97] += 1
+      ans += max(freq) - min(x for x in freq if x)
+  return ans
+```
+
+{% endtab %}
+{% endtabs %}

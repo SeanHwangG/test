@@ -1,0 +1,2 @@
+# 1. Ignore everyhing in .gitignore
+#!include:.gitignore

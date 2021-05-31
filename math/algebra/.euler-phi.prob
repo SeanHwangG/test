@@ -1,0 +1,112 @@
+> baekjoon
+
+* [Level 15 : GCD(n, k) = 1](https://www.acmicpc.net/problem/11689)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euler-phi/BJ_11689.md/)
+
+[//]: # (BJ_13926)
+
+* [Level 15 : 서로소](https://www.acmicpc.net/problem/4355)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euler-phi/BJ_4355.md/)
+
+{% tabs %}
+{% tab title='BJ_4355.md' %}
+
+> Question
+
+* Print number of coprime number n
+
+```txt
+Input:
+7
+12
+0
+
+Output:
+6
+4
+```
+
+{% endtab %}
+{% tab title='BJ_4355.py' %}
+
+```py
+while 1:
+  n = int(input())
+  if n == 0:
+    break
+  tmp = n
+  i = 2
+  while i*i <= n:
+    if n % i == 0:
+      tmp = tmp/i * (i-1)
+    while n % i == 0:
+      n = n/i
+    i += 1
+  if n != 1:
+    tmp = tmp / n * (n-1)
+  print(int(tmp))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 21 : gcd(n, k) = 1](https://www.acmicpc.net/problem/13926)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euler-phi/BJ_13926.md/)
+
+{% tabs %}
+{% tab title='BJ_13926.md' %}
+
+> Question
+
+* print number of integers that stisfies gcd(n, k) = 1 (1 ≤ k ≤ n)
+
+```txt
+Input: 10
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_13926.py' %}
+
+```py
+from math import gcd
+a = int(input())
+
+def f(x, mod):
+  return (x * x + 1) % mod
+
+def getfac(su):
+  for i in range(2, 10**5):
+    if su % i == 0:
+      return i
+    if i * i > su:
+      return su
+
+  p, q = 2, 2
+  for i in range(1, 11**5):
+    p = (p ** 2 + 1) % su
+    q = (((q ** 2 + 1) % su) ** 2 + 1) % su
+    d = gcd(p - q, su)
+    if 1 < d < su:
+      return d
+  return su
+
+r = 1
+while a > 1:
+  p = getfac(a)
+  if p < a:
+    if p > 10**9:
+      p = a // p
+    p = getfac(p)
+
+  x = 1
+  while a % p == 0:
+    r *= p - x
+    a //= p
+    x = 0
+
+print(r)
+```
+
+{% endtab %}
+{% endtabs %}

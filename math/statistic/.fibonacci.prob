@@ -1,0 +1,368 @@
+> baekjoon
+
+* [Level 3 : 피보나치 수](https://www.acmicpc.net/problem/2747)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_2747.md/)
+
+[//]: # (BJ_10826)
+
+* [Level 4 : 피보나치 수 5](https://www.acmicpc.net/problem/10870)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_10870.md/)
+
+[//]: # (BJ_10826)
+
+* [Level 5 : 타일 장식물](https://www.acmicpc.net/problem/13301)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_13301.md/)
+
+{% tabs %}
+{% tab title='BJ_13301.md' %}
+
+> Question
+
+![BJ_13301.md](fibonacci/images/20210227_134957.png)
+
+* Find perimeter of rectangle with n square
+
+> Sample
+
+```txt
+Input: 5
+Output: 26
+```
+
+{% endtab %}
+{% tab title='BJ_13301.py' %}
+
+```py
+a, b = 4, 6
+n = int(input())
+if n == 1:
+  b = a
+else:
+  for i in range(n - 2) :
+    a, b = b, a + b
+print(b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 피보나치 수 2](https://www.acmicpc.net/problem/2748)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_2748.md/)
+
+[//]: # (BJ_10826)
+
+* [Level 5 : BABB](https://www.acmicpc.net/problem/9625)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_9625.md/)
+
+{% tabs %}
+{% tab title='BJ_9625.md' %}
+
+> Question
+
+* Find n- 1 th and nth Fibonacci number
+
+```txt
+Input: 1
+Output: 0 1
+```
+
+{% endtab %}
+{% tab title='BJ_9625.py' %}
+
+```py
+a, b = 1, 0
+for i in range(int(input())):
+  a, b = b, a + b
+print(a, b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 피보나치 수 4](https://www.acmicpc.net/problem/10826)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_10826.md/)
+
+{% tabs %}
+{% tab title='BJ_10826.md' %}
+
+> Question
+
+* Print Nth fibonacci number
+
+```txt
+Input: 10
+Output: 55
+```
+
+{% endtab %}
+{% tab title='BJ_10826.py' %}
+
+```py
+n = int(input())
+a, b = 1, 0
+for i in range(n):
+  a, b = b, a + b
+print(b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 피보나치 함수](https://www.acmicpc.net/problem/1003)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_1003.md/)
+
+{% tabs %}
+{% tab title='BJ_1003.md' %}
+
+> Question
+
+* Find n, n-1 th fibonacci numbers for each testcase
+
+```txt
+Input:
+3
+0
+1
+3
+
+Output:
+1 0
+0 1
+1 2
+```
+
+{% endtab %}
+{% tab title='BJ_1003.py' %}
+
+```py
+for i in range(int(input())):
+  a, b = 1, 0
+  for j in range(int(input())):
+    a, b = b, a + b
+  print(a, b)
+```
+
+{% endtab %}
+{% tab title='BJ_1003.v' %}
+
+```v
+module main;
+  initial begin
+    integer code, n, t, i, p[41], q[41];
+    p[0] = 1;
+    p[1] = 0;
+    q[0] = 0;
+    q[1] = 1;
+    for (i = 2; i < 41; i++) begin
+      p[i] = p[i - 1] + p[i - 2];
+      q[i] = q[i - 1] + q[i - 2];
+    end
+    code = $fscanf(32'h8000_0000, "%d", t);
+    for (i=0; i<t; i++) begin
+      code = $fscanf(32'h8000_0000, "%d", n);
+      $display("%0d %0d", p[n], q[n]);
+    end
+    $finish;
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 2×n 타일링](https://www.acmicpc.net/problem/11726)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_11726.md/)
+
+{% tabs %}
+{% tab title='BJ_11726.md' %}
+
+> Question
+
+* Find number of ways to fill a rectangle using 1x2 and 2x1 tiles MOD 10007
+
+```txt
+Input: 9
+Output: 55
+```
+
+{% endtab %}
+{% tab title='BJ_11726.py' %}
+
+```py
+a = b = 1
+for i in range(int(input())):
+  a, b = b, a + b
+print(a%10007)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 피보나치 수 7](https://www.acmicpc.net/problem/15624)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_15624.md/)
+
+{% tabs %}
+{% tab title='BJ_15624.md' %}
+
+> Question
+
+* Find nth fibonacci number (N < 1,000,000)
+
+```txt
+Input: 0
+Output: 0
+```
+
+{% endtab %}
+{% tab title='BJ_15624.py' %}
+
+```py
+def mul(a,b):
+  return [[sum(i * j for i, j in zip(x, y)) % 1000000007 for y in b] for x in a]
+def power(a,n):
+  if n > 1:
+    x = power(a, n//2)
+    x = mul(x,x)
+    if n % 2 != 0:
+      return mul(x,a)
+    else:
+      return(x)
+  else:
+    return(a)
+
+print(power([[1,1],[1,0]],int(input()))[1][0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 01타일](https://www.acmicpc.net/problem/1904)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_1904.md/)
+
+{% tabs %}
+{% tab title='BJ_1904.md' %}
+
+> Question
+
+* Given tile 0 and 11, count the number of tiles with length N
+
+```txt
+Input: 4
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_1904.py' %}
+
+```py
+a = b = 1
+for i in range(int(input())):
+  a, b = b % 15746, a + b
+print(a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 이친수](https://www.acmicpc.net/problem/2193)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_2193.md/)
+
+[//]: # (BJ_10826)
+
+* [Level 13 : 피보나치 수 6](https://www.acmicpc.net/problem/11444)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_11444.md/)
+
+{% tabs %}
+{% tab title='BJ_11444.md' %}
+
+> Question
+
+* Print Nth fibonacci number (N < 1,000,000,000,000,000,000)
+
+```txt
+Input: 1000
+Output: 517691607
+```
+
+{% endtab %}
+{% tab title='BJ_11444.py' %}
+
+```py
+def mul(a,b):
+  return [[sum(i * j for i, j in zip(x, y)) % 1000000007 for y in b] for x in a]
+def power(a,n):
+  if n > 1:
+    x = power(a, n//2)
+    x = mul(x,x)
+    if n % 2 != 0:
+      return mul(x,a)
+    else:
+      return(x)
+  else:
+    return(a)
+
+print(power([[1,1],[1,0]],int(input()))[1][0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 피보나치 수 3](https://www.acmicpc.net/problem/2749)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/BJ_2749.md/)
+
+{% tabs %}
+{% tab title='BJ_2749.md' %}
+
+> Question
+
+* Find nth fibonacci number
+
+```txt
+Input: 1000
+Output: 228875
+```
+
+{% endtab %}
+{% tab title='BJ_2749.py' %}
+
+```py
+n = int(input())
+def fibo3(n):
+  a, b = 0, 1
+  for _ in range(n):
+    a, b = b%1000000, (a+b)%1000000
+  return a
+print(fibo3(n % (15 * (10 ** 5))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Climbing Stairs](https://leetcode.com/problems/climbing-stairs)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/fibonacci/LC_70.md/)
+
+{% tabs %}
+{% tab title='LC_70.md' %}
+
+> Question
+
+* You are climbing a staircase. It takes n steps to reach the top
+* Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+```txt
+Input: n = 2
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_70.py' %}
+
+```py
+def climbStairs(self, n):
+  return int((5**.5 / 5) * (((1 + 5**.5)/2)**(n + 1) - ((1 - 5**.5)/2)**(n + 1)))
+```
+
+{% endtab %}
+{% endtabs %}

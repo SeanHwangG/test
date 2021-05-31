@@ -1,0 +1,772 @@
+> baekjoon
+
+* [Level 2 : Boiling Water](https://www.acmicpc.net/problem/21612)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_21612.md/)
+
+{% tabs %}
+{% tab title='BJ_21612.md' %}
+
+> Question
+
+* Given N, P is 5 * N - 400
+* print P and 1 if P < 100, 0 if P == 100, -1 if P > 100
+
+```txt
+Input: 102
+
+Output:
+95
+1
+```
+
+{% endtab %}
+{% tab title='BJ_21612.py' %}
+
+```py
+P = 5 * int(input()) - 400
+print(P)
+print([-1,0,1][(P<=100)+(P<100)])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 뉴턴과 사과](https://www.acmicpc.net/problem/13118)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_13118.md/)
+
+{% tabs %}
+{% tab title='BJ_13118.md' %}
+
+> Question
+
+* Print out the number of the person who hits with falling apple
+* If no one conflicts with an apple, print 0 instead
+
+```txt
+Input:
+-5 -2 1 5
+1 4 2
+
+Output : 3
+```
+
+{% endtab %}
+{% tab title='BJ_13118.py' %}
+
+```py
+L = list(map(int, input().split()))
+x, _, _ = map(int, input().split())
+if x in L:
+  print(L.index(x) + 1)
+else:
+  print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 상금 헌터](https://www.acmicpc.net/problem/15953)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_15953.md/)
+
+{% tabs %}
+{% tab title='BJ_15953.md' %}
+
+> Question
+
+* Given price table print number of money I will earn
+
+| price (* 10000) | ranking |
+| --------------- | ------- |
+| 500             | 1       |
+| 300             | 2       |
+| 200             | 3       |
+| 50              | 4       |
+| 30              | 5       |
+| 10              | 6       |
+
+| price (* 10000) | ranking |
+| --------------- | ------- |
+| 512             | 1       |
+| 256             | 2       |
+| 128             | 4       |
+| 64              | 8       |
+| 32              | 16      |
+
+```txt
+Input:
+6
+8 4
+13 19
+8 10
+18 18
+8 25
+13 16
+
+Output:
+1780000
+620000
+1140000
+420000
+820000
+620000
+```
+
+{% endtab %}
+{% tab title='BJ_15953.py' %}
+
+```py
+T = int(input())
+
+A = [0] + [500]*1 + [300]*2 + [200]*3 + [50]*4 + [30]*5 + [10]*6 + [0]*100
+B = [0] + [512]*1 + [256]*2 + [128]*4 + [64]*8 + [32]*16 + [0]*100
+
+for i in range(T):
+  a, b = map(int,input().split())
+  print(10000*(A[a]+B[b]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Missing Numbers](https://www.acmicpc.net/problem/17588)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_17588.md/)
+
+{% tabs %}
+{% tab title='BJ_17588.md' %}
+
+> Question
+
+* 첫 줄에 n 이 주어지고 그 n 개의 줄에 숫자들이 주어질 떄, 비어있는 숫자를 모두 출력하라
+* 비어있는 숫자가 없을 시 good job 을 출력하라
+
+```txt
+Input:
+9
+2
+4
+5
+7
+8
+9
+10
+11
+13
+
+Output:
+1
+3
+6
+12
+```
+
+{% endtab %}
+{% tab title='BJ_17588.py' %}
+
+```py
+N = int(input())
+li = list(int(input()) for _ in range(N))
+
+if len(li) == li[-1]:
+  print("good job")
+for n in range(1, li[-1] + 1):
+  if n not in li:
+    print(n)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 이게 분수?](https://www.acmicpc.net/problem/2863)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_2863.md/)
+
+{% tabs %}
+{% tab title='BJ_2863.md' %}
+
+> Question
+
+* Print how many times the table must be rotated on the first line to maximize the value of the table
+* If there are multiple such values, print the smallest value
+
+```txt
+Input:
+1 2
+3 4
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_2863.py' %}
+
+```py
+a, b = map(int, input().split())
+c, d = map(int, input().split())
+f = [a / c + b / d, c / d + a / b, d / b + c / a, b / a + d / c]
+print(f.index(max(f)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 신용카드 판별](https://www.acmicpc.net/problem/14726)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_14726.md/)
+
+{% tabs %}
+{% tab title='BJ_14726.md' %}
+
+> Question
+
+* For odd digit, multiply by 2 (if it exceeds 10, sum digits)
+* Check the sum is divisible by 10
+
+```txt
+Input:
+3
+2720992711828767
+3444063910462763
+6011733895106094
+
+Output:
+T
+F
+T
+```
+
+{% endtab %}
+{% tab title='BJ_14726.py' %}
+
+```py
+for i in range(int(input())):
+  s = 0
+  n = input()
+  for i in range(1, 17):
+    m = int(n[i-1])*(i % 2 + 1)
+    s += m // 10 + m % 10
+  print('FT'[s % 10 == 0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 나의 학점은?](https://www.acmicpc.net/problem/17826)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_17826.md/)
+
+{% tabs %}
+{% tab title='BJ_16674.md' %}
+
+> Question
+
+* A+: 1~5 Rank
+* A0: 6~15
+* B+: 16~30
+* B0: 31~35
+* C+: 36~45
+* C0: 46~48
+* F: 49~50
+
+```txt
+Input:
+285 271 270 268 264 251 237 236 228 227 226 225 224 217 216 205 198 193 192 190 182 168 165 161 157 146 141 135 127 \
+126 122 114 105 81 80 76 70 67 63 59 55 44 34 24 19 14 9 5 2 1
+251
+
+Output: A0
+```
+
+{% endtab %}
+{% tab title='BJ_16674.java' %}
+
+```java
+import java.util.*;
+public class Main {
+  public static void main(String[] args) {
+    int[] ary = new int[50];
+    Scanner s = new Scanner(System.in);
+    for(int i = 0; i < 50; i++)
+      ary[i] = s.nextInt();
+    int n = s.nextInt();
+    int z = 0;
+    while (true) {
+      if (n == ary[z]) break;
+      z++;
+    }
+    if (z < 5) System.out.println("A+");
+    else if (z < 15) System.out.println("A0");
+    else if (z < 30) System.out.println("B+");
+    else if (z < 35) System.out.println("B0");
+    else if (z < 45) System.out.println("C+");
+    else if (z < 48) System.out.println("C0");
+    else System.out.println("F");
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_16674.py' %}
+
+```py
+GPA = [] + ['A+'] * 5 + ['A0'] * 10 + ['B+'] * 15 + ['B0'] * 5 + ['C+'] * 10 + ['C0'] * 3 + ['F'] * 2
+score_list = list(map(int, input().split()))
+hong = int(input())
+print(GPA[score_list.index(hong)])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 최댓값](https://www.acmicpc.net/problem/2562)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_2562.md/)
+
+{% tabs %}
+{% tab title='BJ_2562.md' %}
+
+> Question
+
+* Print max and it's position
+
+```txt
+Input:
+3
+29
+38
+12
+57
+74
+40
+85
+61
+
+Output:
+85
+8
+```
+
+{% endtab %}
+{% tab title='BJ_2562.py' %}
+
+```py
+print(*max((int(input()),i+1)for i in range(9)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 한다 안한다](https://www.acmicpc.net/problem/5789)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_5789.md/)
+
+{% tabs %}
+{% tab title='BJ_5789.md' %}
+
+> Question
+
+* Print 'Do-it' if middle two are same else 'Do-it-Not'
+
+```txt
+Input:
+3
+00100010
+01010101
+100001
+
+Output:
+Do-it
+Do-it-Not
+Do-it
+```
+
+{% endtab %}
+{% tab title='BJ_5789.py' %}
+
+```py
+for _ in[0]*int(input()):
+  s = input()
+  a = len(s) // 2
+  print('Do-it'+'-Not'*(s[a]!=s[a-1]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 문자열](https://www.acmicpc.net/problem/9086)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_9086.md/)
+
+{% tabs %}
+{% tab title='BJ_9086.md' %}
+
+> Question
+
+* Print out the first and last letter
+
+```txt
+Input:
+3
+ACDKJFOWIEGHE
+O
+AB
+
+Output:
+AE
+OO
+AB
+```
+
+{% endtab %}
+{% tab title='BJ_9086.java' %}
+
+```java
+import java.util.Scanner;
+
+public class Main {
+  public static void main(String[] args){
+    Scanner sc = new Scanner(System.in);
+    int T = sc.nextInt();
+    for(int i = 0 ; i < T; i++) {
+      String[] str = sc.next().split("");
+      System.out.println(str[0]+ "" + str[str.length-1]);
+    }
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_9086.py' %}
+
+```py
+for _ in range(int(input())):
+  s = input().rstrip()
+  print(s[0], s[-1], sep='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 팰린드롬인지 확인하기](https://www.acmicpc.net/problem/10988)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_10988.md/)
+
+{% tabs %}
+{% tab title='BJ_10988.md' %}
+
+> Question
+
+* Check whether string is palindrome
+
+```txt
+Input: level
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_10988.py' %}
+
+```py
+a = input()
+print(int(a == a[::-1]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 귀여운 수~ε٩(๑&gt; ₃ &lt;)۶з](https://www.acmicpc.net/problem/17294)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_17294.md/)
+
+{% tabs %}
+{% tab title='BJ_17294.md' %}
+
+> Question
+
+* Determine if the number is in arithmetic sequence
+
+```txt
+Input: 631
+Output: 흥칫뿡!! <(￣ ﹌ ￣)>
+```
+
+{% endtab %}
+{% tab title='BJ_17294.py' %}
+
+```py
+n = input()
+
+if all([int(n[k]) - int(n[k - 1]) == int(n[1]) - int(n[0]) for k in range(1, len(n))]):
+  print("◝(⑅•ᴗ•⑅)◜..°♡ 뀌요미!!")
+else:
+  print("흥칫뿡!! <(￣ ﹌ ￣)>")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 단어 뒤집기](https://www.acmicpc.net/problem/9093)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_9093.md/)
+
+{% tabs %}
+{% tab title='BJ_9093.md' %}
+
+> Question
+
+* print each line in reverse
+
+```txt
+Input:
+2
+I am happy today
+We want to win the first prize
+
+Output:
+I ma yppah yadot
+eW tnaw ot niw eht tsrif ezirp
+```
+
+{% endtab %}
+{% tab title='BJ_9093.py' %}
+
+```py
+for _ in range(int(input())):
+  for st in input().split():
+    print(st[::-1], end=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 번째 큰 수](https://www.acmicpc.net/problem/2693)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_2693.md/)
+
+{% tabs %}
+{% tab title='BJ_2693.md' %}
+
+> Question
+
+* When array A is given, write a program that outputs the 3rd large value
+
+```txt
+Input:
+4
+1 2 3 4 5 6 7 8 9 1000
+338 304 619 95 343 496 489 116 98 127
+931 240 986 894 826 640 965 833 136 138
+940 955 364 188 133 254 501 122 768 408
+
+Output:
+8
+489
+931
+768
+```
+
+{% endtab %}
+{% tab title='BJ_2693.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int T; cin >> T;
+
+  array<int, 10> v;
+  for (int t = 0; t < T; ++t) {
+    for (int i = 0; i < 10; ++i)
+      cin >> v[i];
+
+    sort(v.rbegin(), v.rend());
+    cout << v[2] << '\n';
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2693.py' %}
+
+```py
+for _ in range(int(input())):
+  print(sorted(map(int, input().split()))[-3])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 문서 검색](https://www.acmicpc.net/problem/1543)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/BJ_1543.md/)
+
+{% tabs %}
+{% tab title='BJ_1543.md' %}
+
+> Question
+
+* Count how many times second sentence appear in first sentence
+
+```txt
+Input:
+ababababa
+aba
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1543.py' %}
+
+```py
+doc = input()
+word = input()
+count = 0
+i = 0
+while i <= len(doc) - len(word):
+  if doc[i:i + len(word)] == word:
+    count += 1
+    i += len(word)
+  else:
+    i += 1
+print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Honour Thy (Apaxian) Parent](https://open.kattis.com/problems/apaxianparent)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/KT_apaxianparent.md/)
+
+{% tabs %}
+{% tab title='KT_apaxianparent.md' %}
+
+> Question
+
+* 문자 Y, P가 주어진다. print
+  * Y가 ex로 끝날 시 Y + P
+  * Y가 e로 끝날 시 Y + 'e' + P
+  * Y가 aiou 로 끝날 시 그 모음을 제거하고 Y + 'ex' + P
+  * 위에 어느 것도 아닐 시 Y + 'ex' + P
+
+```txt
+Input: menolaxios mox
+Output: menolaxiosexmox
+```
+
+{% endtab %}
+{% tab title='KT_apaxianparent.py' %}
+
+```py
+a, b = input().split()
+if a[-1] == 'e':
+  print(a, 'x', b, sep='')
+elif a[-2:] == 'ex':
+  print(a, b, sep='')
+elif a[-1] in 'aiou':
+  print(a[:-1], 'ex', b, sep='')
+else:
+  print(a, 'ex', b, sep='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : License to Launch](https://open.kattis.com/problems/licensetolaunch)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/KT_licensetolaunch.md/)
+
+{% tabs %}
+{% tab title='KT_licensetolaunch.md' %}
+
+> Question
+
+* N개의 숫자가 주어질 때 최소인 index를 출력하라
+
+```txt
+Input:
+5
+3 4 1 7 2
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='KT_licensetolaunch.py' %}
+
+```py
+input()
+s = input()
+print(s.index(min(s)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : First Unique Character in a String](https://leetcode.com/problems/first-unique-character-in-a-string)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/LC_387.md/)
+
+{% tabs %}
+{% tab title='LC_387.md' %}
+
+> Question
+
+* Given a string, find the first non-repeating character in it and return its index. If it doesn't exist, return -1
+
+```txt
+Input: s = "loveleetcode"
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_387.cpp' %}
+
+```cpp
+int firstUniqChar(string s) {
+  int arr[26] = {0};
+  for(int i=0; s[i]; i++)
+    arr[s[i]-'a']++;
+
+  for(int i=0; s[i]; i++)
+    if(arr[s[i]-'a'] == 1)
+      return i;
+
+  return -1;
+}
+```
+
+{% endtab %}
+{% tab title='LC_387.py' %}
+
+```py
+def firstUniqChar(self, s):
+  index=[s.index(l) for l in 'abcdefghijklmnopqrstuvwxyz' if s.count(l) == 1]
+  return min(index) if len(index) > 0 else -1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Pancake Sorting](https://leetcode.com/problems/pancake-sorting)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/index/LC_969.md/)
+
+{% tabs %}
+{% tab title='LC_969.md' %}
+
+> Question
+
+* Choose an integer k where 1 <= k <= arr.length
+* Reverse the sub-array arr[0...k-1] (0-indexed)
+
+```txt
+Input: arr = [3,2,4,1]
+Output: [4,2,4,3] # k = 4, 2, 4, 3
+```
+
+{% endtab %}
+{% tab title='LC_969.py' %}
+
+```py
+def pancakeSort(self, A: List[int]) -> List[int]:
+  res = []
+  for x in range(len(A), 1, -1):
+    i = A.index(x)
+    res.extend([i + 1, x])
+    A = A[:i:-1] + A[:i]
+  return res
+```
+
+{% endtab %}
+{% endtabs %}

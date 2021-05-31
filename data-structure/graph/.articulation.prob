@@ -1,0 +1,152 @@
+> baekjoon
+
+* [Level 16 : 단절점](https://www.acmicpc.net/problem/11266)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/articulation/BJ_11266.md/)
+
+{% tabs %}
+{% tab title='BJ_11266.md' %}
+
+> Question
+
+* Print all articulation point
+
+```txt
+Input:
+7 7
+1 4
+4 5
+5 1
+1 6
+6 7
+2 7
+7 3
+
+Output:
+3
+1 6 7
+```
+
+> Solution
+
+* Run DFS and memorize order
+
+![Run DFS](articulation/images/20210527_230442.png)
+
+* For vertex a, there is no path between vertices before a and after a
+* For root it's articulation point if it contains more than 2 child
+
+{% endtab %}
+{% tab title='BJ_11266.py' %}
+
+```py
+# Time: O(N + M)
+import sys;input=sys.stdin.readline
+sys.setrecursionlimit(99999)
+V, E = map(int,input().split())
+G = [set() for _ in range(10002)]
+for _ in range(E):
+  a,b = map(int,input().split())
+  G[a].add(b)
+  G[b].add(a)
+
+discovered = [0]*10002
+is_cut=set()
+idx=0
+def dfs(node, is_root):
+  global idx
+  idx += 1
+  discovered[node] = ret = idx
+  cnt = 0
+  for i in G[node]:
+    if discovered[i]:
+      ret=min(ret,discovered[i])
+      continue
+    cnt+=1
+    prev=dfs(i,False)
+    ret = min(ret,prev)
+    if discovered[node] <= prev and not is_root:
+      is_cut.add(node)
+  if is_root and cnt > 1:
+    is_cut.add(node)
+  return ret
+
+for i in range(1, 1 + V):
+  discovered[i] or dfs(i, True)
+
+print(len(is_cut))
+print(*sorted(is_cut))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 단절선](https://www.acmicpc.net/problem/11400)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/articulation/BJ_11400.md/)
+
+{% tabs %}
+{% tab title='BJ_11400.md' %}
+
+> Question
+
+* Find all articulation edge
+
+```txt
+Input:
+7 8
+1 4
+4 5
+5 1
+1 6
+6 7
+2 7
+7 3
+2 3
+
+Output:
+2
+1 6
+6 7
+```
+
+{% endtab %}
+{% tab title='BJ_11400.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
+
+V, E = map(int, input().split())
+graph = [[] for _ in range(V+1)]
+visited = [0]*(V+1)
+cnt = 0
+cutEdge = []
+def dfs(node, parent):
+  global cnt
+  cnt += 1
+  visited[node] = result = cnt
+  for i in graph[node]:
+    if parent == i:
+      continue
+    if not visited[i]:
+      prev = dfs(i, node)
+      if prev > visited[node]:
+        cutEdge.append((min(node,i), max(node,i)))
+      result = min(result, prev)
+    else:
+      result = min(result, visited[i])
+  return result
+
+for i in range(E):
+  a, b = map(int, input().split())
+  graph[a].append(b)
+  graph[b].append(a)
+dfs(1, 0)
+
+print(len(cutEdge))
+for a, b in cutEdge:
+  print(a, b)
+```
+
+{% endtab %}
+{% endtabs %}

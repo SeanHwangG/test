@@ -1,0 +1,137 @@
+> baekjoon
+
+* [Level 8 : Maximum Subarray](https://www.acmicpc.net/problem/10211)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/kadane/BJ_10211.md/)
+
+{% tabs %}
+{% tab title='BJ_10211.md' %}
+
+> Question
+
+* Given X print maximum subarray
+
+```txt
+Input:
+2
+5
+1 2 3 4 5
+5
+2 1 -2 3 -5
+
+Output:
+15
+4
+```
+
+{% endtab %}
+{% tab title='BJ_10211.py' %}
+
+```py
+t = int(input())
+for _ in range(t):
+  input()
+  num = list(map(int, input().split()))
+  tmp = res = num[0]
+  for n in num[1:]:
+    tmp = max(tmp+n, n)
+    res = max(res, tmp)
+  print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 연속합](https://www.acmicpc.net/problem/1912)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/kadane/BJ_1912.md/)
+
+{% tabs %}
+{% tab title='BJ_1912.md' %}
+
+> Question
+
+* Find maximum sum subarray
+
+```txt
+Input:
+10
+10 -4 3 1 5 6 -35 12 21 -1
+
+Output: 33
+```
+
+{% endtab %}
+{% tab title='BJ_1912.py' %}
+
+```py
+input()
+li = list(map(int,input().split()))
+dp = []
+for n in li:
+  dp.append(dp[-1] + n if len(dp) and dp[-1] > 0 else n)
+print(max(dp))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Maximum Subarray](https://leetcode.com/problems/maximum-subarray)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/kadane/LC_53.md/)
+
+{% tabs %}
+{% tab title='LC_53.md' %}
+
+> Question
+
+* Given an integer array nums, find the contiguous subarray which has the largest sum and return its sum
+
+```txt
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+```
+
+{% endtab %}
+{% tab title='LC_53.py' %}
+
+```py
+# Run : O(N)
+def maxSubArray(self, nums: List[int]) -> int:
+  for i in range(1, len(nums)):
+    if nums[i - 1] > 0:
+      nums[i] += nums[i - 1]
+    return max(nums)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/kadane/LC_152.md/)
+
+{% tabs %}
+{% tab title='LC_152.md' %}
+
+> Question
+
+* Print maximum product subarray
+
+```txt
+Input: nums = [2,3,-2,4]
+Output: 6
+```
+
+{% endtab %}
+{% tab title='LC_152.py' %}
+
+```py
+def maxProduct(self, A):
+  B = A[::-1]
+  for i in range(1, len(A)):
+    A[i] *= A[i - 1] or 1
+    B[i] *= B[i - 1] or 1
+  return max(A + B)
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,478 @@
+> baekjoon
+
+* [Level 3 : 공약수](https://www.acmicpc.net/problem/5618)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_5618.md/)
+
+{% tabs %}
+{% tab title='BJ_5618.md' %}
+
+> Question
+
+* N natural numbers are given. find all the pledges of this natural number
+
+```txt
+Input:
+2
+75 125
+
+Output:
+1
+5
+25
+```
+
+{% endtab %}
+{% tab title='BJ_5618.py' %}
+
+```py
+def GCD(x, y):
+  while(y):
+    x, y = y, x % y
+  return x
+
+input()
+s = list(map(int, input().split()))
+g = GCD(s[0], GCD(s[1], s[-1]))
+for i in range(1, (g // 2) + 1):
+  if g % i == 0:
+    print(i)
+print(g)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 초6 수학](https://www.acmicpc.net/problem/2702)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_2702.md/)
+
+{% tabs %}
+{% tab title='BJ_2702.md' %}
+
+> Question
+
+* Find LCM, GCD of two integers
+
+```txt
+Input:
+3
+5 10
+7 23
+42 56
+
+Output:
+10 5
+161 1
+168 14
+```
+
+{% endtab %}
+{% tab title='BJ_2702.py' %}
+
+```py
+def GCD(x, y):
+   while y :
+     x, y = y, x % y
+   return x
+def LCM(a, b):
+  return a * b // GCD(a, b)
+for _ in range(int(input())):
+  a, b = map(int, input().split())
+  print(LCM(a, b), GCD(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 최소공배수](https://www.acmicpc.net/problem/1934)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_1934.md/)
+
+{% tabs %}
+{% tab title='BJ_1934.md' %}
+
+> Question
+
+* Find LCM of each pairs
+
+```txt
+Input:
+3
+1 45000
+6 10
+13 17
+
+Output:
+45000
+30
+221
+```
+
+{% endtab %}
+{% tab title='BJ_1934.py' %}
+
+```py
+def GCD(a, b):
+  while(b):
+    a, b = b, a % b
+  return a
+def LCM(a, b):
+  return a * b // GCD(a, b)
+for _ in range(int(input())):
+  a, b = map(int, input().split())
+  print(LCM(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 최대공약수와 최소공배수](https://www.acmicpc.net/problem/2609)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_2609.md/)
+
+{% tabs %}
+{% tab title='BJ_2609.md' %}
+
+> Question
+
+* Find GCD and LCM of each pair
+
+```txt
+Input: 24 18
+Output:
+6
+72
+```
+
+{% endtab %}
+{% tab title='BJ_2609.py' %}
+
+```py
+def GCD(a, b):
+   while(b):
+     a, b = b, a % b
+   return a
+def LCM(a, b):
+  return a * b // GCD(a, b)
+a, b = map(int, input().split())
+print(GCD(a, b), LCM(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 백대열](https://www.acmicpc.net/problem/14490)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_14490.md/)
+
+{% tabs %}
+{% tab title='BJ_14490.md' %}
+
+> Question
+
+* Print in irreducible fraction
+
+```txt
+Input: 100:10
+Output: 10:1
+```
+
+{% endtab %}
+{% tab title='BJ_14490.py' %}
+
+```py
+import math
+a, b = map(int,input().split(':'))
+c = math.gcd(a,b)
+print(a // c, b // c, sep = ':')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : LCM](https://www.acmicpc.net/problem/5347)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_5347.md/)
+
+{% tabs %}
+{% tab title='BJ_5347.md' %}
+
+> Question
+
+* Find Largest common mulitple of two number
+
+```txt
+Input:
+3
+15 21
+33 22
+9 10
+
+Output:
+105
+66
+90
+```
+
+{% endtab %}
+{% tab title='BJ_5347.py' %}
+
+```py
+def GCD(a, b):
+  while(b):
+    a, b = b, a % b
+  return a
+def LCM(a, b):
+  return a * b // GCD(a, b)
+for _ in range(int(input())):
+  a, b = map(int, input().split())
+  print(LCM(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 최소공배수](https://www.acmicpc.net/problem/13241)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_13241.md/)
+
+{% tabs %}
+{% tab title='BJ_13241.md' %}
+
+> Question
+
+* Find LCM of each pairs
+
+```txt
+Input: 3 5
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_13241.py' %}
+
+```py
+def GCD(a, b):
+  while(b):
+    a, b = b, a % b
+  return a
+def LCM(a, b):
+  return a * b // GCD(a, b)
+a, b = map(int, input().split())
+print(LCM(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 분수 합](https://www.acmicpc.net/problem/1735)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_1735.md/)
+
+{% tabs %}
+{% tab title='BJ_1735.md' %}
+
+> Question
+
+* Print sum of two fraction as irreducible fraction
+
+```txt
+Input:
+2 7
+3 5
+
+Output: 31 35
+```
+
+{% endtab %}
+{% tab title='BJ_1735.py' %}
+
+```py
+import math
+a, b = map(int,input().split())
+c, d = map(int,input().split())
+m = a*d+b*c
+n = b*d
+g = math.gcd(m,n)
+print(m//g,n//g)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 링](https://www.acmicpc.net/problem/3036)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_3036.md/)
+
+{% tabs %}
+{% tab title='BJ_3036.md' %}
+
+> Question
+
+* Given n and a, b1, b2..., bn
+* Print b1 / a, b2 / a in irreducible fraction
+
+```txt
+Input:
+4
+12 3 8 4
+
+Output:
+4/1
+3/2
+3/1
+```
+
+{% endtab %}
+{% tab title='BJ_3036.py' %}
+
+```py
+import math
+input()
+f,*g=map(int,input().split())
+for i in g:
+  c = math.gcd(i,f)
+  print(f'{f//c}/{i//c}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : GCD 합](https://www.acmicpc.net/problem/9613)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_9613.md/)
+
+{% tabs %}
+{% tab title='BJ_9613.md' %}
+
+> Question
+
+* Given n positive integers, find the sum of all possible pairs of GCDs
+
+```txt
+Input:
+3
+4 10 20 30 40
+3 7 5 12
+3 125 15 25
+
+Output:
+70
+3
+35
+```
+
+{% endtab %}
+{% tab title='BJ_9613.py' %}
+
+```py
+from itertools import combinations
+def GCD(a, b):
+  while(b):
+    a, b = b, a % b
+  return a
+n = int(input())
+for _ in range(n):
+  li = list(map(int, input().split()))
+  print(sum(GCD(a, b) for a, b in combinations(li[1:], 2)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 최대공약수](https://www.acmicpc.net/problem/1850)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_1850.md/)
+
+{% tabs %}
+{% tab title='BJ_1850.md' %}
+
+> Question
+
+* Given two numbers consists of only 1
+* Print gcd between them
+
+```txt
+Input: 3 6
+Output: 111
+```
+
+{% endtab %}
+{% tab title='BJ_1850.py' %}
+
+```py
+import math
+print('1' * math.gcd(*map(int,input().split())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 공약수](https://www.acmicpc.net/problem/2436)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/BJ_2436.md/)
+
+{% tabs %}
+{% tab title='BJ_2436.md' %}
+
+> Question
+
+* print two integers with lowest sum that satisfies given GCD, LCM
+
+```txt
+Input: 6 180
+Output: 30 36
+```
+
+{% endtab %}
+{% tab title='BJ_2436.py' %}
+
+```py
+import math
+g, l = map(int,input().split())
+l //= g
+for d in range(int(l ** .5), 0, -1):
+  if l % d == 0 and math.gcd(d, l // d) == 1:
+    print(g * d, g * (l // d))
+    break
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codeforces
+
+* [Level 1600 : Product 1 Modulo N](https://codeforces.com/contest/1514/problem/C)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/euclidean/CF_1514C.md/)
+
+{% tabs %}
+{% tab title='CF_1514C.md' %}
+
+> Question
+
+* Given an integer 𝑛, find longest subsequence of [1,2,…,𝑛−1] whose product is 1 modulo 𝑛.
+* product of an empty subsequence is equal to 1
+
+```txt
+Input: 5
+Output:
+3
+1 2 3
+```
+
+{% endtab %}
+{% tab title='CF_1514C.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+bool ok[100005];
+int main() {
+  int n;
+  cin >> n;
+  long long prod=1;
+  for (int i = 1; i < n; i++) {
+    if (__gcd(n, i) == 1) {
+      ok[i] = 1;
+      prod = (prod  * i) % n;
+    }
+  }
+  if (prod != 1) ok[prod] = 0;
+  cout << count(ok + 1, ok + n, 1) << endl;
+  for (int i = 1; i < n; i++) {
+    if (ok[i]) cout << i;
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}

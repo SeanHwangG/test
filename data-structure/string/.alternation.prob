@@ -1,0 +1,245 @@
+> hackerrank
+
+* [Level Easy : Alternative Matching](https://www.hackerrank.com/challenges/alternative-matching/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/alternation/HR_alternative-matching.md/)
+
+{% tabs %}
+{% tab title='HR_alternative-matching.md' %}
+
+> Question
+
+* must start with Mr., Mrs., Ms., Dr. or Er.
+* The rest of the string must contain only one or more English alphabetic letters (upper and lowercase)
+
+```txt
+Input: Mr.DOSHI
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_alternative-matching.py' %}
+
+```py
+import re
+pattern = r'^(Mr|Mrs|Ms|Dr|Er)\.[A-Za-z]+$'  # Do not delete 'r'.
+
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : IP Address Validation](https://www.hackerrank.com/challenges/ip-address-validation/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/alternation/HR_ip-address-validation.md/)
+
+{% tabs %}
+{% tab title='HR_ip-address-validation.md' %}
+
+> Question
+
+* IPv4 address is A.B.C.D where A, B, C and D are Integers lying between 0 and 255
+* IPv6 8 groups of 16 bits each
+  * Each group is written as 4 hexadecimal digits and the groups are separated by colons (:)
+  * Leading 0 may be omitted
+
+```txt
+Input:
+3
+This line has junk text.
+121.18.19.20
+2001:0db8:0000:0000:0000:ff00:0042:8329
+
+Output:
+Neither
+IPv4
+IPv6
+```
+
+{% endtab %}
+{% tab title='HR_ip-address-validation.py' %}
+
+```py
+import re
+
+number = int(input())
+RE_IPV4 = r'^(([0-9]|[0-9]{2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[0-9]{2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])$'
+RE_IPV6 = r'^([a-f0-9]{0,4}:[a-f0-9]{0,4}:[a-f0-9]{0,4}:[a-f0-9]{0,4}:[a-f0-9]{0,4}:[a-f0-9]{0,4}:[a-f0-9]{0,4}:[a-f0-9]{0,4})$'
+for n in range(number):
+  string = input()
+  if re.search(RE_IPV4, string):
+    print('IPv4')
+  elif re.search(RE_IPV6, string):
+    print('IPv6')
+  else:
+    print('Neither')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Matching One Or More Repetitions](https://www.hackerrank.com/challenges/matching-one-or-more-repititions/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/alternation/HR_matching-one-or-more-repititions.md/)
+
+{% tabs %}
+{% tab title='HR_matching-one-or-more-repititions.md' %}
+
+> Question
+
+* begin with  or more digits
+* After that, should have 1 or more uppercase letters
+* should end with 1 or more lowercase letters
+
+```txt
+Input: 1Qa
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_matching-one-or-more-repititions.py' %}
+
+```py
+import re
+pattern = r'^\d+[A-Z]+[a-z]+$'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Matching Character Ranges](https://www.hackerrank.com/challenges/matching-range-of-characters/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/alternation/HR_matching-range-of-characters.md/)
+
+{% tabs %}
+{% tab title='HR_matching-range-of-characters.md' %}
+
+> Question
+
+* first character must be a lowercase English alphabetic character
+* second character must be a positive digit. Note that we consider zero to be neither positive nor negative
+* third character must not be a lowercase English alphabetic character
+* fourth character must not be an uppercase English alphabetic character
+* fifth character must be an uppercase English alphabetic character
+
+```txt
+Input: h4CkR
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_matching-range-of-characters.py' %}
+
+```py
+import re
+pattern = r'^[a-z][1-9][^a-z][^A-Z][A-Z]'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Matching Specific Characters](https://www.hackerrank.com/challenges/matching-specific-characters/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/alternation/HR_matching-specific-characters.md/)
+
+{% tabs %}
+{% tab title='HR_matching-specific-characters.md' %}
+
+> Question
+
+* must be of length: 6
+* First character: 1, 2 or 3
+* Second character: 1, 2 or 0
+* Third character: x, s or 0
+* Fourth character: 3, 0 , A or a
+* Fifth character: x, s or u
+* Sixth character: . or ,
+
+```txt
+Input: 1203x.
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_matching-specific-characters.py' %}
+
+```py
+import re
+pattern = r'^[123][120][xs0][30Aa][xsu][.,]$'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : The British and American Style of Spelling](https://www.hackerrank.com/challenges/uk-and-us/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/alternation/HR_uk-and-us.md/)
+
+{% tabs %}
+{% tab title='HR_uk-and-us.md' %}
+
+> Question
+
+* For some spelling, US uses -se, while UK uses -ze
+* Given text, find the number of occurence from sentence either of them
+
+```txt
+Input:
+2
+hackerrank has such a good ui that it takes no time to familiarise its environment
+to familiarize oneself with ui of hackerrank is easy
+1
+familiarize
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='HR_uk-and-us.py' %}
+
+```py
+import re
+
+text = '\n'.join(input() for _ in range(int(input())))
+for n in range(int(input())):
+  e = input()
+  print(len(re.findall(f"{e[:len(e)-2]}[sz]e", text)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : UK and US: Part 2](https://www.hackerrank.com/challenges/uk-and-us-2/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/alternation/HR_uk-and-us-2.md/)
+
+{% tabs %}
+{% tab title='HR_uk-and-us-2.md' %}
+
+> Question
+
+* For some spelling, US uses or, while UK uses our
+* Given UK spelling, find the number of occurence from sentence either of them
+
+```txt
+Input:
+2
+the odour coming out of the leftover food was intolerable
+ammonia has a very pungent odor
+1
+odour
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='HR_uk-and-us-2.py' %}
+
+```py
+import re
+text = '\n'.join(input() for _ in range(int(input())))
+for i in range(int(input())):
+  s1 = input()
+  s2 = s1.replace('our','or')
+  print(len(re.findall(rf"\b({s1}|{s2})\b", text)))
+```
+
+{% endtab %}
+{% endtabs %}

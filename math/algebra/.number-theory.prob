@@ -1,0 +1,792 @@
+> baekjoon
+
+* [Level 1 : 세금](https://www.acmicpc.net/problem/20492)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_20492.md/)
+
+{% tabs %}
+{% tab title='BJ_20492.md' %}
+
+* 22% of total prize money is paid as a tax deduction
+* 80% of prize money is recognized as necessary expenses, and only 22% of remaining amount is paid as a tax deduction
+
+{% endtab %}
+{% tab title='BJ_20492.cpp' %}
+
+```cpp
+#include<stdio.h>
+int main() {
+  int N;
+  scanf("%d", &N);
+  printf("%d %d", N*78/100,N*956ll/1000);
+}
+```
+
+{% endtab %}
+{% tab title='BJ_20492.py' %}
+
+```py
+a = int(input())
+print(int(a * 0.78), int(a * 0.8 + a * 0.2 * 0.78))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 검증수](https://www.acmicpc.net/problem/2475)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_2475.md/)
+
+{% tabs %}
+{% tab title='BJ_2475.md' %}
+
+* Check if sum of squares of each number if divisible by 10
+
+{% endtab %}
+{% tab title='BJ_2475.py' %}
+
+```py
+a, b, c, d, e = map(int, input().split())
+print((a ** 2 + b ** 2 + c ** 2 + d ** 2 + e ** 2) % 10)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 삼각 무늬 - 2](https://www.acmicpc.net/problem/11312)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_11312.md/)
+
+{% tabs %}
+{% tab title='BJ_11312.md' %}
+
+> Question
+
+* wants to completely cover up triangle with A length of one side and B length of one side
+* When two integers A and B are given, B < A, and A can be divided into B
+* find number of equilateral triangles with one side length B to completely cover equilateral triangle with A side length
+
+```txt
+Input:
+2
+2 1
+3 3
+
+Output:
+4
+1
+```
+
+{% endtab %}
+{% tab title='BJ_11312.cpp' %}
+
+```cpp
+#include<iostream>
+using namespace std;
+int main() {
+  long long t, a, b;
+  cin >> t;
+  for (int i = 0; i < t; i++) {
+    cin >> a >> b;
+    cout << a / b * a / b << endl;
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11312.py' %}
+
+```py
+for i in range(int(input())):
+  a, b=map(int, input().split())
+  print((a // b) ** 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 2017 연세대학교 프로그래밍 경시대회](https://www.acmicpc.net/problem/14568)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_14568.md/)
+
+{% tabs %}
+{% tab title='BJ_14568.md' %}
+
+> Question
+
+* There should be no extra candy
+* Namgyu should have at least two more candies than Younghoon
+* No one among the three should receive 0 candies
+* The number of candies Taekhee receives should not be odd
+
+```txt
+Input: 6
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_14568.py' %}
+
+```py
+N = max(0, int(input())//2-2)
+print(N * (N+1)//2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 3의 배수](https://www.acmicpc.net/problem/16561)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_16561.md/)
+
+{% tabs %}
+{% tab title='BJ_16561.md' %}
+
+> Question
+
+* Given an arbitrary 3 multiple natural number of n
+* output the number of ways to separate that number into 3 multiple natural numbers of 3
+
+```txt
+Input: 12
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_16561.py' %}
+
+```py
+n = int(input())
+res = n // 3 - 1
+print(res * (res - 1) // 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 약수 구하기](https://www.acmicpc.net/problem/2501)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_2501.md/)
+
+{% tabs %}
+{% tab title='BJ_2501.md' %}
+
+> Question
+
+* Given two natural numbers N and K, output the smallest number of N's mineral water
+
+```txt
+Input: 6 3
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2501..md' %}
+
+```py
+p, q = map(int, input().split())
+for i in range(1, p + 1):
+  if p % i == 0:
+    q -= 1
+  if q == 0:
+    print(i)
+    break
+else:
+  print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 좋은 자동차 번호판](https://www.acmicpc.net/problem/1871)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_1871.md/)
+
+{% tabs %}
+{% tab title='BJ_1871.md' %}
+
+> Question
+
+* Pood license plate is with no difference of more than 100 between value of first part and value of second part
+* The value of the first part of letter is calculated as a base 26 number
+
+```txt
+Input:
+2
+ABC-0123
+AAA-9999
+
+Ouput:
+nice
+not nice
+```
+
+{% endtab %}
+{% tab title='BJ_1871.py' %}
+
+```py
+for _ in range(int(input())):
+  total = 0
+  alphabet, number = input().split('-')
+  for i in range(3):
+    total += (ord(alphabet[i]) - ord('A')) * (26 ** (2 - i))
+  total = abs(total - int(number))
+  if total <= 100:
+    print('nice')
+  else:
+    print('not nice')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 캔디 구매](https://www.acmicpc.net/problem/2909)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_2909.md/)
+
+{% tabs %}
+{% tab title='BJ_2909.md' %}
+
+> Question
+
+* If face value of bill is 100, price of candy I chose is 150, boss rounds up the price to 200 so that I can pay
+* if the price is 149, the boss rounds up the price to 100 so that I can pay
+* When given price of candy and face value of the bills you have, president will print how much to change price
+
+```txt
+Input: 184 1
+Output: 180
+```
+
+{% endtab %}
+{% tab title='BJ_2909.py' %}
+
+```py
+c,k = map(int,input().split())
+a = 10 ** k
+print((c + a // 2) // a * a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 나머지와 몫이 같은 수](https://www.acmicpc.net/problem/1834)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_1834.md/)
+
+{% tabs %}
+{% tab title='BJ_1834.md' %}
+
+> Question
+
+* find the sum of all numbers that have the same quotient and remainder when divided by N
+
+```txt
+Input: 3
+Output: 12  # 4 and 8
+```
+
+{% endtab %}
+{% tab title='BJ_1834.py' %}
+
+```py
+N=int(input())
+print((N**3-N)//2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 약수들의 합](https://www.acmicpc.net/problem/9506)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_9506.md/)
+
+{% tabs %}
+{% tab title='BJ_9506.md' %}
+
+> Question
+
+* If a  number "n" equals the sum of all but itself, the number is called a perfect number
+* Determines whether n is a perfect number or not
+
+{% endtab %}
+{% tab title='BJ_9506.py' %}
+
+```py
+def divisors(num):
+  li = [1]
+  for i in range(2, int(num ** 0.5 + 1)):
+    if num % i == 0:
+      li.append(i)
+      if i != num // i:
+        li.append(num // i)
+  return sorted(li)
+while True:
+  n = int(input())
+  if n == -1:
+    break
+  divs_n = divisors(n)
+  if sum(divs_n) == n:
+    print(n, '=', ' + '.join(map(str, divs_n)))
+  else:
+    print(f"{n} is NOT perfect.")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 큰 수 A+B (2)](https://www.acmicpc.net/problem/15353)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_15353.md/)
+
+{% tabs %}
+{% tab title='BJ_15353.md' %}
+
+> Question
+
+* Print large A + B
+
+```txt
+Input: 9223372036854775807 9223372036854775808
+Output: 18446744073709551615
+```
+
+{% endtab %}
+{% tab title='BJ_15353.cpp' %}
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int c;
+void add(string& a, string& b) {
+  int i = a.size(), j = b.size();
+  while (--j >= 0) {
+    a[--i] += b[j] + c - '0';
+    a[i] > '9' ? a[i] -= 10, c = 1 : c = 0;
+  }
+  while (--i >= 0 && c) {
+    a[i] += c;
+    a[i] > '9' ? a[i] -= 10, c = 1 : c = 0;
+  }
+  if (c)
+    a.insert(a.begin(), '1');
+  cout << a;
+}
+int main(){
+  int i, j;
+  string a, b;
+  cin >> a >> b;
+  a.size()>b.size() ? add(a, b) : add(b, a);
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 1, 2, 3 더하기 3](https://www.acmicpc.net/problem/15988)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_15988.md/)
+
+{% tabs %}
+{% tab title='BJ_15988.md' %}
+
+> Question
+
+* When given an integer n, find the number of methods to represent n as the sum of 1, 2, and 3
+
+```txt
+Input:
+3
+4
+7
+10
+
+Output:
+7
+44
+274
+```
+
+{% endtab %}
+{% tab title='BJ_15988.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+dp = [1, 1, 2]
+for i in range(3, 1000001):
+  dp.append((dp[i - 1] + dp[i - 2] + dp[i - 3]) % 1000000009)
+for i in range(int(input())):
+  n = int(input())
+  print(dp[n])
+dp = [1, 1, 2]
+for n in range(3, 1000001):
+  dp.append(dp[n-1] + dp[n-2] + dp[n-3])
+for i in range(int(input())):
+  print(dp[int(input())] % 1000000009)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 1, 2, 3 더하기 2](https://www.acmicpc.net/problem/12101)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_12101.md/)
+
+{% tabs %}
+{% tab title='BJ_12101.md' %}
+
+> Question
+
+* Given integers n and k, find the expression that comes k-th among the methods that represent n as the sum of 1, 2, 3
+
+```txt
+Input: 4 5
+Output: 2+1+1
+```
+
+{% endtab %}
+{% tab title='BJ_12101.py' %}
+
+```py
+n, k = map(int, input().split())
+cnt = 0
+def dfs(cur, total, string):
+  global cnt
+  if cur > total:
+    return
+  if cur == total:
+    cnt += 1
+    if cnt == k:
+      print(string[1:])
+      exit(0)
+  dfs(cur + 1, total, string + '+1')
+  dfs(cur + 2, total, string + '+2')
+  dfs(cur + 3, total, string + '+3')
+
+dfs(0, n, '')
+print(-1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 1, 2, 3 더하기 4](https://www.acmicpc.net/problem/15989)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_15989.md/)
+
+{% tabs %}
+{% tab title='BJ_15989.md' %}
+
+> Question
+
+* Given an integer n, write a program to find the number of ways to represent n as the sum of 1, 2, and 3
+
+```txt
+Input:
+3
+4
+7
+10
+
+Output:
+4
+8
+14
+```
+
+{% endtab %}
+{% tab title='BJ_15989.py' %}
+
+```py
+dp = [1 for i in range(10001)]
+for i in range(2, 10001):
+  dp[i] += dp[i - 2]
+
+for i in range(3, 10001):
+  dp[i] += dp[i - 3]
+
+for _ in range(int(input())):
+  print(dp[int(input())])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 골드바흐의 추측](https://www.acmicpc.net/problem/6588)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/BJ_6588.md/)
+
+{% tabs %}
+{% tab title='BJ_6588.md' %}
+
+> Question
+
+* Any even number greater than 4 can be represented as the sum of two odd numbers
+* Verify this sentence
+
+```txt
+Input:
+8
+20
+42
+0
+
+Output:
+8 = 3 + 5
+20 = 3 + 17
+42 = 5 + 37
+```
+
+{% endtab %}
+{% tab title='BJ_6588.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+check = [False, False] + [True] * 1000000
+
+for i in range(2, 1001):
+  if check[i] == True:
+    for j in range(i + i, 1000001, i):
+        check[j] = False
+
+while True:
+  n = int(input())
+  if n == 0:
+    break
+  A = 0
+  B = n
+  for _ in range(1000000):
+    if check[A] and check[B]:
+      print(f"{n} = {A} + {B}")
+      break
+    A += 1
+    B -= 1
+  else:
+    print("Goldbach's conjecture is wrong.")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codeforces
+
+* [Level 1500 : Restore Modulo](https://codeforces.com/contest/1482/problem/B)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/CF_1482B.md/)
+
+{% tabs %}
+{% tab title='CF_1814B.md' %}
+
+* This generator takes four non-negative numbers 𝑛, m(>0), c (0 ≤ c < m), s(>=0). 𝑛
+* a of length 𝑛 is created according to the following rules:
+  * a𝑖 = (a𝑖 − 1 + 𝑐) mod m for all i such that 1 < i ≤ n
+  * For example, if 𝑛=5, 𝑚=7, 𝑐=4, and 𝑠=10, then 𝑎=[3,0,4,1,5]
+* Price of such an array is the value of 𝑚 in this generator
+* every array, if four numbers 𝑛, 𝑚, 𝑐, 𝑠 that generate this array exists then maximize 𝑚
+* print -1 if there are no such numbers
+* print 0 if m can be large
+
+{% endtab %}
+{% tab title='CF_1814B.py' %}
+
+```py
+def solve(n, arr):
+  d = [arr[i] - arr[i-1] for i in range(1, n)]
+  s = set(d)
+  if len(s) <= 1:
+    return 0
+  if len(s) >= 3:
+    return -1
+  x, y = max(s), min(s)
+  if x <= 0 or y >= 0 or x - y <= max(arr):
+    return -1
+  return f"{x - y} {x}"
+
+import sys
+input = lambda: sys.stdin.readline().rstrip()
+t = int(input())
+for i in range(t):
+  n = int(input())
+  arr = list(map(int, input().split()))
+  print(solve(n, arr))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Chanukah Challenge](https://open.kattis.com/problems/chanukah)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/KT_chanukah.md/)
+
+{% tabs %}
+{% tab title='KT_chanukah.md' %}
+
+> Question
+
+* for each day n light is needed
+* determines how many candles would be necessary for a Chanukah holiday lasting for a given number of days
+
+```txt
+Input:
+3
+1 8
+2 1
+3 10
+
+Output:
+1 44
+2 2
+3 65
+```
+
+{% endtab %}
+{% tab title='KT_chanukah.py' %}
+
+```py
+n_test = int(input())
+for i in range(n_test):
+  t, n = map(int, input().split())
+  print(t, n + (n * (n + 1)) // 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Smallest Integer Divisible by K](https://leetcode.com/problems/smallest-integer-divisible-by-k)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/LC_1015.md/)
+
+{% tabs %}
+{% tab title='LC_1015.md' %}
+
+> Question
+
+* Given a positive integer K, you need to find the length of the smallest positive integer N
+* that N is divisible by K, and N only contains the digit 1
+
+```txt
+Input: k = 3
+Output: 3  # The smallest answer is n = 111, which has length 3.
+
+```
+
+{% endtab %}
+{% tab title='LC_1015.py' %}
+
+```py
+def smallestRepunitDivByK(self, K: int) -> int:
+  if K % 10 not in {1, 3, 7, 9}: return -1
+  mod, mod_set = 0, set()
+  for length in range(1, K + 1):
+    mod = (10 * mod + 1) % K
+    if mod == 0: return length
+    if mod in mod_set: return -1
+    mod_set.add(mod)
+  return -1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : The kth Factor of n](https://leetcode.com/problems/the-kth-factor-of-n)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/LC_1492.md/)
+
+{% tabs %}
+{% tab title='LC_1492.md' %}
+
+> Question
+
+* Consider a list of all factors of n sorted in ascending order
+* return kth factor in this list or return -1 if n has less than k factors
+
+```txt
+Input: n = 12, k = 3
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_1492.py' %}
+
+```py
+import math
+def kthFactor(self, n: int, k: int) -> int:
+  factors = []
+  for i in range(1, math.isqrt(n) + 1):
+    if n % i == 0:
+      factors.append(i)
+      k -= 1
+    if k == 0: return i
+  if factors[-1] ** 2 == n: factors.pop()
+  if k > len(factors): return -1
+  return n // factors[-k]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Check if Number is a Sum of Powers of Three](https://leetcode.com/problems/check-if-number-is-a-sum-of-powers-of-three)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/LC_1780.md/)
+
+{% tabs %}
+{% tab title='LC_1780.md' %}
+
+> Question
+
+* Given an integer n, check if it is possible to represent n as the sum of distinct powers of three
+
+```txt
+Input:
+9
+0 0 0 1 1 1 -1 -1 -1
+0 0 0 1 1 1 -1 -1 -1
+0 0 0 1 1 1 -1 -1 -1
+1 1 1 0 0 0 0 0 0
+1 1 1 0 0 0 0 0 0
+1 1 1 0 0 0 0 0 0
+0 1 -1 0 1 -1 0 1 -1
+0 -1 1 0 1 -1 0 1 -1
+0 1 -1 1 0 -1 0 1 -1
+
+Output:
+10
+12
+11
+```
+
+{% endtab %}
+{% tab title='LC_1780.py' %}
+
+```py
+def checkPowersOfThree(self, n: int) -> bool:
+  while n > 1:
+    n, r = divmod(n, 3)
+    if r == 2: return False
+  return True
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Split Array With Same Average](https://leetcode.com/problems/split-array-with-same-average)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/number-theory/LC_805.md/)
+
+{% tabs %}
+{% tab title='LC_805.md' %}
+
+> Question
+
+* In a given integer array A, we must move every element of A to either list B or list C
+* Return if is it possible that average of B is equal to average of C, and B and C are both non-empty
+
+```txt
+Input: nums = [1,2,3,4,5,6,7,8]
+Output: true  # [1,4,5,8] and [2,3,6,7]
+```
+
+{% endtab %}
+{% tab title='LC_805.py' %}
+
+```py
+from statistics import mean
+def splitArraySameAverage(self, A):
+  @functools.lru_cache()
+  def find(target, k, i):
+    if k == 0: return target == 0
+    if target < 0 or k + i > n: return False
+    return find(target - A[i], k - 1, i + 1) or find(target, k, i + 1)
+  n, s = len(A), sum(A)
+  return any(find(s * k // n, k, 0) for k in range(1, n // 2 + 1) if s * k % n == 0)
+```
+
+{% endtab %}
+{% endtabs %}

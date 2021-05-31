@@ -1,0 +1,285 @@
+> baekjoon
+
+* [Level 20 : 미술 시간](https://www.acmicpc.net/problem/8873)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/heuristic/BJ_8873.md/)
+
+{% tabs %}
+{% tab title='BJ_8873.md' %}
+
+> Question
+
+![BJ_8873](heuristic/images/20210531_030758.png)
+
+```txt
+Input: RGB value
+123 235 235
+123 235 235
+Output: Type
+```
+
+{% endtab %}
+{% tab title='BJ_8873.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+  int n, m; cin >> n >> m;
+  vector<vector<int>> r(n, vector<int>(m));
+  vector<vector<int>> g(n, vector<int>(m));
+  vector<vector<int>> b(n, vector<int>(m));
+  for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) cin >> r[i][j];
+  for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) cin >> g[i][j];
+  for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) cin >> b[i][j];
+  int sum = 0;
+  for (int i = 0; i < n - 1; i++) for (int j = 0; j < m - 1; j++) {
+    sum += abs(r[i + 1][j] - r[i][j]);
+    sum += abs(r[i][j + 1] - r[i][j]);
+    sum += abs(g[i + 1][j] - g[i][j]);
+    sum += abs(g[i][j + 1] - g[i][j]);
+    sum += abs(b[i + 1][j] - b[i][j]);
+    sum += abs(b[i][j + 1] - b[i][j]);
+  }
+  sum /= n * m * 2;
+  if (sum < 9) cout << 4 << '\n';
+  else if (sum < 23) cout << 1 << '\n';
+  else if (sum < 54) cout << 2 << '\n';
+  else cout << 3 << '\n';
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 21 : mallest Enclosing Sphere](https://www.acmicpc.net/problem/11930)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/heuristic/BJ_11930.md/)
+
+{% tabs %}
+{% tab title='BJ_11930.md' %}
+
+> Question
+
+* N points are in 3D spaces
+* find minimum diameter of sphere that encloses all the points
+
+```txt
+Input:
+5
+5 0 0
+-5 0 0
+0 3 4
+4 -3 0
+2 2 -2
+
+Output: 5.00
+```
+
+{% endtab %}
+{% tab title='BJ_11930.py' %}
+
+```py
+import sys
+import math
+
+def getDistance(p1, p2):
+  return (math.pow(p1[0] - p2[0], 2) + math.pow(p1[1] - p2[1], 2) + math.pow(p1[2] - p2[2], 2))
+
+N = int(sys.stdin.readline())
+standard = [0, 0, 0]
+point = []
+
+for _ in range(N):
+  x, y, z = map(float, sys.stdin.readline().split())
+  standard[0] += x
+  standard[1] += y
+  standard[2] += z
+  point.append([x, y, z])
+
+standard = [s / N for s in standard]
+step = 0.1
+ret = 0
+
+for i in range(30000):
+  ret = number = 0
+  for j in range(N):
+    distance = getDistance(standard, point[j])
+    if distance > ret:
+      number = j
+      ret = distance
+
+  standard[0] += (point[number][0] - standard[0]) * step
+  standard[1] += (point[number][1] - standard[1]) * step
+  standard[2] += (point[number][2] - standard[2]) * step
+  step *= 0.999
+
+print(f"math.sqrt(ret):.2f")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 21 : 모든 점을 포함하는 원](https://www.acmicpc.net/problem/13708)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/heuristic/BJ_13708.md/)
+
+{% tabs %}
+{% tab title='BJ_13708.md' %}
+
+> Question
+
+* Print diameter of minimum enclosing circle up to 2'th digit
+
+```txt
+Input:
+4
+1 1
+1 0
+0 1
+0 0
+
+Output: 1.41
+```
+
+{% endtab %}
+{% tab title='BJ_13708.py' %}
+
+```py
+n = int(input())
+cx, cy = 0, 0
+points=[]
+
+for i in range(n):
+  x, y = map(float, input().split())
+  points.append((x,y))
+  cx += x
+  cy += y
+
+cx, cy = cx / n, cy / n
+ratio = 0.1
+
+for i in range(60100):
+  dist, idx = 0, -1
+  for j in range(len(points)):
+    x, y = points[j]
+    d = (cx - x) ** 2 + (cy - y) ** 2
+    if dist < d:
+      dist, idx = d, j
+
+  cx += (points[idx][0] - cx) * ratio
+  cy += (points[idx][1] - cy) * ratio
+  ratio *= 0.999
+
+print(f"{2 * (dist**0.5):.2f}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 21 : 세상의 중심에서...](https://www.acmicpc.net/problem/2389)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/heuristic/BJ_2389.md/)
+
+{% tabs %}
+{% tab title='BJ_2389.md' %}
+
+> Question
+
+* Print center and radius of minimum enclosing circle
+
+```txt
+Input:
+3
+1 1
+2 2
+3 3
+
+Output:
+2 2 1.4142135624
+```
+
+{% endtab %}
+{% tab title='BJ_2389.py' %}
+
+```py
+n = int(input())
+cx, cy = 0, 0
+points=[]
+
+for i in range(n):
+  x, y = map(float, input().split())
+  points.append((x,y))
+  cx += x
+  cy += y
+
+cx, cy = cx / n, cy / n
+ratio = 0.1
+
+for i in range(60100):
+  dist, idx = 0, -1
+  for j in range(len(points)):
+    x,y = points[j]
+    d=(cx-x)**2+(cy-y)**2
+    if dist < d:
+      dist, idx = d, j
+
+  cx += (points[idx][0]-cx) * ratio
+  cy += (points[idx][1]-cy) * ratio
+  ratio *= 0.999
+
+print(cx, cy, dist**0.5)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 21 : 헬기착륙장](https://www.acmicpc.net/problem/2626)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/heuristic/BJ_2626.md/)
+
+{% tabs %}
+{% tab title='BJ_2626.md' %}
+
+> Question
+
+* print minimum position of enclosing circle and distance to farthest point
+
+```txt
+Input:
+5
+5 -2
+-3 -2
+-2 5
+1 6
+0 2
+
+Output:
+1.000 1.000
+5.000
+```
+
+{% endtab %}
+{% tab title='BJ_2626.cpp' %}
+
+```cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+  int n, j; double c[2000], d[2000], x=0, y=0, k, t=1, it=5e5;
+  cin >>n;
+  for (int i=0; i<n; i++) cin >>c[i] >>d[i];
+  while(it--) {
+    k = 0;
+    for (int i=0; i<n; i++) {
+      double dist = (c[i]-x)*(c[i]-x) + (d[i]-y)*(d[i]-y);
+      if (dist > k) k=dist, j=i;
+    }
+    x=(x+t*c[j])/(1+t);
+    y=(y+t*d[j])/(1+t);
+    t*=0.9993;
+  }
+  cout.precision(3); cout <<fixed <<x <<" " <<y <<endl <<sqrt(k);
+}
+```
+
+{% endtab %}
+{% endtabs %}

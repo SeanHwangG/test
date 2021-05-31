@@ -1,0 +1,200 @@
+> hackerrank
+
+* [Level Easy : 'Uniq' Command #1](https://www.hackerrank.com/challenges/text-processing-in-linux-the-uniq-command-1/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/uniq/HR_text-processing-in-linux-the-uniq-command-1.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-in-linux-the-uniq-command-1.md' %}
+
+> Question
+
+* Remove consecutive duplicate
+
+```txt
+Input:
+00
+00
+01
+01
+00
+00
+02
+02
+
+Output:
+00
+01
+00
+02
+```
+
+{% endtab %}
+{% tab title='HR_text-processing-in-linux-the-uniq-command-1.sh' %}
+
+```sh
+uniq
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : 'Uniq' Command #2](https://www.hackerrank.com/challenges/text-processing-in-linux-the-uniq-command-2/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/uniq/HR_text-processing-in-linux-the-uniq-command-2.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-in-linux-the-uniq-command-2.md' %}
+
+> Question
+
+* Count each character
+
+```txt
+Input:
+00
+00
+01
+01
+00
+00
+02
+02
+03
+aa
+aa
+aa
+
+Output:
+2 00
+2 01
+2 00
+2 02
+1 03
+3 aa
+```
+
+{% endtab %}
+{% tab title='HR_text-processing-in-linux-the-uniq-command-2.sh' %}
+
+```sh
+uniq -c | sed "s/^[[:space:]]*//g"
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : 'Uniq' command #3](https://www.hackerrank.com/challenges/text-processing-in-linux-the-uniq-command-3/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/uniq/HR_text-processing-in-linux-the-uniq-command-3.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-in-linux-the-uniq-command-3.md' %}
+
+> Question
+
+* Count each character ignoring case
+
+```txt
+Input:
+00
+00
+01
+01
+00
+00
+02
+02
+03
+aa
+AA
+Aa
+
+Output:
+2 00
+2 01
+2 00
+2 02
+1 03
+3 aa
+```
+
+{% endtab %}
+{% tab title='HR_text-processing-in-linux-the-uniq-command-3.sh' %}
+
+```sh
+uniq -ci | sed "s/^[[:space:]]*//g"
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : 'Uniq' command #4](https://www.hackerrank.com/challenges/text-processing-in-linux-the-uniq-command-4/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/uniq/HR_text-processing-in-linux-the-uniq-command-4.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-in-linux-the-uniq-command-4.md' %}
+
+> Question
+
+* Remove duplicate line
+
+```txt
+Input:
+A00
+a00
+01
+01
+00
+00
+02
+02
+A00
+03
+aa
+aa
+aa
+
+Output:
+A00
+a00
+A00
+03
+```
+
+{% endtab %}
+{% tab title='HR_text-processing-in-linux-the-uniq-command-4.sh' %}
+
+```sh
+uniq -u
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Hard : Lonely Integer - Bash!](https://www.hackerrank.com/challenges/lonely-integer-2/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/uniq/HR_lonely-integer-2.md/)
+
+{% tabs %}
+{% tab title='HR_lonely-integer-2.md' %}
+
+> Question
+
+* first line of input contains number of integers, next contains space-separated integers that form array
+* Output, the number that occurs only once
+
+```sh
+Input:
+5
+0 0 1 2 1
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='HR_lonely-integer-2.sh' %}
+
+```sh
+read
+tr ' ' '\n' | sort | uniq -u
+```
+
+{% endtab %}
+{% endtabs %}

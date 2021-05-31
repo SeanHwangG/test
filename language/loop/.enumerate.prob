@@ -1,0 +1,171 @@
+> baekjoon
+
+* [Level 4 : Cryptographer’s Conundrum](https://www.acmicpc.net/problem/11269)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/enumerate/BJ_11269.md/)
+
+{% tabs %}
+{% tab title='BJ_11269.md' %}
+
+> Question
+
+* How many character must be change to make the string as PERPERPER...
+
+```txt
+Input: SECRET
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_11269.py' %}
+
+```py
+st = input()
+ret = 0
+for i, ch in enumerate(st):
+  if i % 3 == 0 and ch != 'P':
+    ret+=1
+  if i % 3 == 1 and ch != 'E':
+    ret+=1
+  if i % 3 == 2 and ch != 'R':
+    ret+=1
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 거리의 합](https://www.acmicpc.net/problem/2399)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/enumerate/BJ_2399.md/)
+
+{% tabs %}
+{% tab title='BJ_2399.md' %}
+
+> Question
+
+* There are n dots on the vertical line
+* Given the x-coordinates of each point, write a program that measures the distance plus the distance for every pair of n2
+
+```txt
+Input:
+5
+1 5 3 2 4
+
+Output: 40
+```
+
+{% endtab %}
+{% tab title='BJ_2399.py' %}
+
+```py
+# O(N logN) → Correct
+N = int(input())
+li = list(sorted(map(int, input().split())))
+ret = 0
+for i, e in enumerate(li):
+  ret += (e * (2 * i - len(li) + 1) * 2)
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Apaxiaaaaaaaaaaaans!](https://open.kattis.com/problems/apaxiaaans)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/enumerate/KT_apaxiaaans.md/)
+
+{% tabs %}
+{% tab title='KT_apaxiaaans.md' %}
+
+> Question
+
+* Print consecutive character at most once
+
+```txt
+Input: rooobert
+Output: robert
+```
+
+{% endtab %}
+{% tab title='KT_apaxiaaans.py' %}
+
+```py
+st = input()
+for i, c in enumerate(st):
+  if i == 0 or st[i - 1] != c:
+    print(c, end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.3 : Cryptographer's Conundrum](https://open.kattis.com/problems/conundrum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/enumerate/KT_conundrum.md/)
+
+[//]: # (BJ_11269)
+
+* [Level 1.6 : Autori](https://open.kattis.com/problems/autori)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/enumerate/KT_autori.md/)
+
+{% tabs %}
+{% tab title='KT_autori.md' %}
+
+> Question
+
+* Knuth-Morris-Pratt (KMP)
+* Mirko-Slavko (MS)
+* 위와 같이 첫 글자와 - 다음에 나오는 단어를 축약시킬 수 있다. 왼쪽과 같은 인풋이 주어졌을 때 오른쪽과 같이 출력하라
+
+```txt
+Input: Knuth-Morris-Pratt
+Output: KMP
+```
+
+{% endtab %}
+{% tab title='KT_autori.py' %}
+
+```py
+st = input()
+for i, ch in enumerate(st):
+  if i == 0 or st[i - 1] == '-':
+    print(st[i], end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : Lost Lineup](https://open.kattis.com/problems/lostlineup)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/enumerate/KT_lostlineup.md/)
+
+{% tabs %}
+{% tab title='KT_lostlineup.md' %}
+
+> Question
+
+* 첫 줄에 사람 수 N이 주어진다
+* 1은 항상 줄 앞에 선다
+* 둘째 줄에 2 .. N과 1과의 거리가 주어진다
+* 이때 원래 줄을 순서를 출력하라
+
+```txt
+Input:
+4
+1 2 0
+
+Output: 1 4 2 3
+```
+
+{% endtab %}
+{% tab title='KT_lostlineup.py' %}
+
+```py
+n = int(input())
+ret = [1] * n
+li = list(map(int, input().split()))
+for i, n in enumerate(li):
+  ret[n + 1] = i + 2
+print(*ret)
+```
+
+{% endtab %}
+{% endtabs %}

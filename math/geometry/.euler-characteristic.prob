@@ -1,0 +1,118 @@
+> baekjoon
+
+* [Level 17 : 평면도](https://www.acmicpc.net/problem/3136)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/euler-characteristic/BJ_3136.md/)
+
+{% tabs %}
+{% tab title='BJ_3136.md' %}
+
+> Question
+
+![BJ_3136](euler-characteristic/images/20210530_193428.png)
+
+```txt
+Input:
+19
+6664442220001655360
+Output: 3
+```
+
+* Print number of rooms after moving as following
+
+{% endtab %}
+{% tab title='BJ_3136.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+#define x first
+#define y second
+using namespace std;
+
+typedef pair<int, int> p;
+typedef pair<p, p> pp;
+const int di[] = {-1, -1, 0, 1, 1, 1, 0, -1};
+const int dj[] = {0, 1, 1, 1, 0, -1, -1, -1};
+
+set<p> nd;
+set<pp> edg;
+
+int solution(vector<int> arr) {
+  int n = arr.size();
+  p t = {0, 0}; nd.insert(t);
+  for(auto i : arr) for(int j=0; j<2; j++){
+    int x = t.x + di[i];
+    int y = t.y + dj[i];
+    p prv = t; t = {x, y};
+    nd.insert(t);
+    edg.insert({min(prv, t), max(prv, t)});
+  }
+  return edg.size() - nd.size() + 1;
+}
+
+int main(){
+  ios_base::sync_with_stdio(0); cin.tie(0);
+  int n; cin >> n; vector<int> v(n);
+  for(int i=0; i<n; i++){
+    char c; cin >> c;
+    v[i] = c - '0';
+  }
+  cout << solution(v);
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 원 영역](https://www.acmicpc.net/problem/10000)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/euler-characteristic/BJ_10000.md/)
+
+{% tabs %}
+{% tab title='BJ_10000.md' %}
+
+> Question
+
+* Print number of sections with N (x-center, radius)
+
+```txt
+Input:
+4
+7 5
+-9 11
+11 9
+0 20
+
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_10000.py' %}
+
+```py
+from collections import defaultdict
+input = __import__('sys').stdin.readline
+
+n = int(input())
+dic = defaultdict(list)
+for i in range(n):
+  x, r = map(int, input().split())
+  dic[x + r].append(x - r)
+  dic[x - r].append(x + r)
+ans, visit = 1, set()
+for i in dic.keys():
+  if i in visit: continue
+  v, e, stk = 1, 0, [i]
+  visit.add(i)
+  while stk:
+    a = stk.pop()
+    for b in dic[a]:
+      e += 1
+      if b not in visit:
+        v += 1
+        stk.append(b)
+        visit.add(b)
+  ans += e - v + 1
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}

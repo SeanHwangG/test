@@ -1,0 +1,664 @@
+> baekjoon
+
+* [Level 12 : 가장 가까운 공통 조상](https://www.acmicpc.net/problem/3584)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_3584.md/)
+
+{% tabs %}
+{% tab title='BJ_3584.md' %}
+
+> Question
+
+* Print LCA of two nodes
+
+```txt
+Input:
+2
+16
+1 14
+8 5
+10 16
+5 9
+4 6
+8 4
+4 10
+1 13
+6 15
+10 11
+6 7
+10 2
+16 3
+8 1
+16 12
+16 7
+5
+2 3
+3 4
+3 1
+1 5
+3 5
+
+Output:
+3
+4
+```
+
+> Solution
+
+* Mark all parent 0
+
+{% endtab %}
+{% tab title='BJ_3584.py' %}
+
+```py
+for _ in range(int(input())):
+  N = int(input())
+  p = [0] * (N + 1)
+  for _ in range(N - 1):
+    a, b = map(int, input().split())
+    p[b] = a
+  a, b = map(int, input().split())
+  while p[a]:
+    t = a
+    a, p[t] = p[a], 0
+  p[a] = 0
+  while p[b]: b = p[b]
+  print(b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : LC](https://www.acmicpc.net/problem/11437)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_11437.md/)
+
+[//]: # (BJ_11438)
+
+* [Level 16 : LCA 2](https://www.acmicpc.net/problem/11438)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_11438.md/)
+
+{% tabs %}
+{% tab title='BJ_11438.md' %}
+
+> Question
+
+* Print lowest common ancestor for given queries
+
+```txt
+Input:
+15
+1 2
+1 3
+2 4
+3 7
+6 2
+3 8
+4 9
+2 5
+5 11
+7 13
+10 4
+11 15
+12 5
+14 7
+6
+6 11
+10 9
+2 6
+7 6
+8 13
+8 15
+
+Output:
+2
+4
+2
+1
+3
+1
+```
+
+{% endtab %}
+{% tab title='BJ_11438.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int st[100010][18], dep[100010], a, b, lg=17;
+vector<int> G[100010];
+
+void dfs(int v, int d){
+  if(dep[v] != 0)  return;
+  dep[v] = d;
+  for (int i = 1; 1<<i <= d; i++)
+    st[v][i] = st[st[v][i-1]][i-1];
+  for (auto x : G[v])
+    if(st[x][0]==0)
+      st[x][0] = v, dfs(x, d+1);
+}
+int lca(int a, int b){
+  if (dep[a] < dep[b])  swap(a,b);
+  for(int i = lg; i>=0; i--)
+    if (dep[a] - (1<<i) >= dep[b])
+      a=st[a][i];
+  for(int i = lg; i>=0; i--)
+    if(st[a][i]!=st[b][i])
+      a=st[a][i], b=st[b][i];
+  return (a==b)? a: st[a][0];
+}
+int main(){
+  int n;
+  for(scanf("%d", &n); i < n - 1; i++){
+    cin >> a >> b);
+    G[a].push_back(b);
+    G[b].push_back(a);
+  }
+  st[1][0] = 1, dfs(1, 0);
+  for(scanf("%d", &n); n--; ) {
+    cin >> a >> b;
+    cout << lca(a,b) << endl;
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11437.py' %}
+
+```py
+N = int(input())
+G = [[]for i in range(N+1)]
+for i in range(N-1):
+  a, b = map(int,input().split())
+  G[a].append(b)
+  G[b].append(a)
+D, P = [1] + [0 for i in range(N)], [0 for i in range(N+1)]
+st = [1]
+while st:
+  i=st.pop()
+  for j in G[i]:
+    if not D[j]:
+      D[j] = D[i] + 1
+      P[j] = i
+      st.append(j)
+for _ in range(int(input())):
+  a, b = map(int,input().split())
+  while D[a] != D[b]:
+    if D[a] > D[b]:
+      a = P[a]
+    else:
+      b = P[b]
+  while a != b:
+    a, b = P[a], P[b]
+  print(a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 정점들의 거리](https://www.acmicpc.net/problem/1761)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_1761.md/)
+
+{% tabs %}
+{% tab title='BJ_1761.md' %}
+
+> Question
+
+* Print distance between two nodes in weighted graph
+
+```txt
+Input:
+7
+1 6 13
+6 3 9
+3 5 7
+4 1 3
+2 4 20
+4 7 2
+3
+1 6
+1 4
+2 6
+
+Output:
+13
+3
+36
+```
+
+{% endtab %}
+{% tab title='BJ_1761.py' %}
+
+```py
+import sys
+input=sys.stdin.readline
+N = int(input())
+G = [[]for i in range(N+1)]
+for i in range(N-1):
+  a, b, w = map(int,input().split())
+  G[a].append([b, w])
+  G[b].append([a, w])
+D, P = [0 for i in range(N + 1)], [[0, 0] for i in range(N+1)]
+D[1] = 1
+st = [1]
+while st:
+  i=st.pop()
+  for j, w in G[i]:
+    if not D[j]:
+      D[j] = D[i] + 1
+      P[j] = [i, w]
+      st.append(j)
+M = int(input())
+for _ in range(M):
+  a, b = map(int, input().split())
+  d = 0
+  while D[a] != D[b]:
+    if D[a] > D[b]:
+      d += P[a][1]
+      a = P[a][0]
+    else:
+      d += P[b][1]
+      b = P[b][0]
+  while a != b:
+    d += P[a][1] + P[b][1]
+    a, b = P[a][0], P[b][0]
+  print(d)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 도로 네트워크](https://www.acmicpc.net/problem/3176)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_3176.md/)
+
+{% tabs %}
+{% tab title='BJ_3176.md' %}
+
+> Question
+
+* Print shortest and longest edge between D and E
+
+```txt
+Input:
+5
+2 3 100
+4 3 200
+1 5 150
+1 3 50
+3
+2 4
+3 5
+1 2
+
+Output:
+100 200
+50 150
+50 100
+```
+
+{% endtab %}
+{% tab title='BJ_3176.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+typedef pair<int, int> pii;
+int n, m, p[(int)1e5 + 10][30], hi[(int)1e5 + 10][30], lo[(int)1e5 + 10][30];
+int lv[(int)1e5 + 10];
+vector<pii> g[(int)1e5 + 10];
+void dfs(int x) {
+  for (pii e : g[x]) {
+    int nx = e.first, cost = e.second;
+    if (!lv[nx]) {
+      lv[nx] = lv[x] + 1;
+      p[nx][0] = x;
+      lo[nx][0] = hi[nx][0] = cost;
+      dfs(nx);
+    }
+  }
+}
+int main(void) {
+  scanf("%d", &n);
+  for (int i = 0; i < n - 1; i++) {
+    int a, b, c; scanf("%d %d %d", &a, &b, &c);
+    g[a].push_back({ b, c });
+    g[b].push_back({ a, c });
+  }
+
+  lv[1] = 1; dfs(1);
+  for (int i = 1; i <= 20; i++) {
+    for (int x = 1; x <= n; x++) {
+      p[x][i] = p[p[x][i - 1]][i - 1];
+      hi[x][i] = max(hi[x][i - 1], hi[p[x][i - 1]][i - 1]);
+      lo[x][i] = min(lo[x][i - 1], lo[p[x][i - 1]][i - 1]);
+    }
+  }
+
+  scanf("%d", &m);
+  while (m--) {
+    int maxv = -1, minv = 1e9;
+    int a, b; scanf("%d %d", &a, &b);
+    if (lv[a] < lv[b]) swap(a, b);
+    for (int i = 20; -1 < i; i--)
+      if (lv[b] <= lv[p[a][i]]) {
+        maxv = max(maxv, hi[a][i]);
+        minv = min(minv, lo[a][i]);
+        a = p[a][i];
+      }
+
+    for (int i = 20; -1 < i; i--)
+      if (p[a][i] != p[b][i]) {
+        maxv = max(maxv, max(hi[a][i], hi[b][i]));
+        minv = min(minv, min(lo[a][i], lo[b][i]));
+        a = p[a][i]; b = p[b][i];
+      }
+    if (a != b) {
+      maxv = max(maxv, max(hi[a][0], hi[b][0]));
+      minv = min(minv, min(lo[a][0], lo[b][0]));
+    }
+    printf("%d %d\n", minv, maxv);
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 한동이는 영업사원!](https://www.acmicpc.net/problem/8012)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_8012.md/)
+
+{% tabs %}
+{% tab title='BJ_8012.md' %}
+
+> Question
+
+* Given a tree print distance between every nodes
+
+```txt
+Input:
+5
+1 2
+1 5
+3 5
+4 5
+4
+1
+3
+2
+5
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_8012.py' %}
+
+```py
+from collections import deque
+
+n, max_p = int(input()), 15
+G = [[] for _ in range(n)]
+D, parent = [0] + [-1] * (n - 1), [[-1] * max_p for _ in range(n)]
+
+for i in range(n-1):
+  a, b = map(int,input().split()); a-=1; b-=1
+  G[a].append(b)
+  G[b].append(a)
+
+# 1. DFS & Preprocess for LCA
+q = deque([0])
+while q:
+  x = q.popleft()
+  for nx in G[x]:
+    if D[nx] == -1:
+      D[nx] = D[x] + 1
+      parent[nx][0] = x
+      q.append(nx)
+
+for j in range(max_p - 1):
+  for i in range(1, n):
+    if parent[i][j] != -1:
+      parent[i][j+1] = parent[parent[i][j]][j]
+
+# 2. LCA
+ans, x = 0, 0
+for _ in range(int(input())):
+  y = int(input()); y = 1
+  temp = y
+  ans += D[x] + D[y]
+  if D[x] < D[y]: x, y = y, x
+  diff, j = D[x] - D[y], 0
+  while diff:
+    if diff % 2: x = parent[x][j]
+    diff //= 2
+    j += 1
+  if x != y:
+    for j in range(max_p - 1, -1, -1):
+      if parent[x][j] != - 1 and parent[x][j] != parent[y][j]:
+        x, y = parent[x][j], parent[y][j]
+    x = parent[x][j]
+  ans -= 2 * D[x]
+  x = temp
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 트리와 쿼리 2](https://www.acmicpc.net/problem/13511)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_13511.md/)
+
+{% tabs %}
+{% tab title='BJ_13511.md' %}
+
+> Question
+
+* Given tree with N nodes and N - 1 edge
+* Print kth element from u to v
+
+```txt
+Input:
+6
+1 2 1
+2 4 1
+2 5 2
+1 3 1
+3 6 2
+2
+1 4 6
+2 4 6 4
+
+Output:
+5
+3
+```
+
+{% endtab %}
+{% tab title='BJ_13511.cpp' %}
+
+```cpp
+#include<bits/stdc++.h>
+#define pb push_back
+typedef long long ll;
+using namespace std;
+
+ll N, Q;
+ll D[101010], P[20][101010], dist[101010];
+vector<pair<ll, ll> > adj[101010];
+
+void dfs(ll u, ll p) {
+  P[0][u]=p;
+  for(pair<ll, ll> v : adj[u]) {
+    if(v.first==p) continue;
+    dist[v.first]=dist[u]+v.second;
+    D[v.first]=D[u]+1;
+    dfs(v.first, u);
+  }
+}
+
+ll LCA(ll u, ll v) {
+  if(D[u]>D[v]) swap(u, v);
+  for(ll i=18;i>=0;i--)
+    if(D[v]-D[u]>=(1<<i))
+      v=P[i][v];
+  if(u==v) return u;
+  for(ll i=18;i>=0;i--)
+    if(P[i][u]!=P[i][v])
+      u=P[i][u], v=P[i][v];
+  return P[0][u];
+}
+
+ll parent(ll u, ll p) {
+  for(ll i = 18;i >= 0; i--)
+    if(p & (1<<i))
+      u=P[i][u];
+  return u;
+}
+
+int main() {
+  ll u, v, w;
+  cin >> N;
+  for(ll i = 1;i < N;i++) {
+    cin >> u >> v >> w;
+    adj[u].push_back(make_pair(v, w)), adj[v].push_back(make_pair(u, w));
+  }
+  dfs(1, 0);
+  for(ll i=1;i<=18;i++)
+    for(ll j=1;j<=N;j++)
+      P[i][j]=P[i-1][P[i-1][j]];
+  cin >> Q;
+  ll q, k;
+  while(Q--) {
+    cin >> q;
+    if(q==1) {
+      cin >> u >> v;
+      cout << dist[u]+dist[v]-2*dist[LCA(u, v)] << endl;
+    }
+    if (q==2) {
+      cin >> u >> v >> k;
+      ll d = D[u] - D[LCA(u, v)];
+      if(k-1<=d) cout << parent(u, k-1) << endl;
+      else {
+        d=D[u]+D[v]-2*D[LCA(u, v)];
+        cout << parent(v, d-k+1) << endl;
+      }
+    }
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 19 : LCA와 쿼리](https://www.acmicpc.net/problem/15480)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_15480.md/)
+
+{% tabs %}
+{% tab title='BJ_15480.md' %}
+
+> Question
+
+* Tree and list of queries (r, u, v) are given
+* Print distance between u, v in tree when root is r
+
+```txt
+Input:
+7
+1 2
+2 3
+2 4
+1 5
+5 6
+4 7
+5
+1 2 7
+3 1 5
+2 1 7
+5 6 2
+6 2 3
+
+Output:
+2
+1
+2
+5
+2
+```
+
+> Solution
+
+![Cases](lca/images/20210527_224200.png)
+
+* Second highest among LCA(u, v), LCA(u, r), LCA(v, r)
+  1. query=LCA(u,v), LCA(u,r)=r, LCA(v,r)=r
+  1. query=LCA(u,v), LCA(u,r)=1, LCA(v,r)=1
+  1. query=LCA(r,v), LCA(u,r)=1, LCA(u,v)=1
+  1. query=LCA(r,u), LCA(r,v)=1, LCA(u,v)=1
+  1. query=LCA(r,v), LCA(r,u)=u, LCA(u,v)=u
+  1. query=LCA(r,u), LCA(r,v)=v, LCA(u,v)=v
+
+{% endtab %}
+{% tab title='BJ_15480.py' %}
+
+```py
+#include<bits/stdc++.h>
+using namespace std;
+const int MXH = 18;
+const int SZ = 100005;
+typedef pair<int,int> pii;
+vector<int> G[SZ];
+int lv[SZ], dp[MXH][SZ];
+void dfs(int crt, int prt, int level){
+  lv[crt] = level;
+  dp[0][crt]=prt;
+  for(int next : G[crt])
+    if(next != prt)
+      dfs(next,crt,level+1);
+}
+int level_up(int n, int t){
+  for(int i = 0;i < MXH; i++){
+    if((1<<i)&t) n=dp[i][n];
+  }
+  return n;
+}
+int LCA(int a, int b){
+  a = level_up(a,max(0, lv[a] - lv[b]));
+  b = level_up(b,max(0, lv[b] - lv[a]));
+  if(a==b) return a;
+  for(int i=MXH-1;i>=0;i--)
+    if(dp[i][a]!=dp[i][b]){
+      a = dp[i][a];
+      b = dp[i][b];
+    }
+  return dp[0][a];
+}
+int query(pii p1,pii p2,pii p3){
+  pii parr[3] = {p1,p2,p3};
+  sort(parr, parr+3);
+  return parr[2].second;
+}
+int main(void){
+  ios::sync_with_stdio(false); cin.tie(NULL);
+  int n; cin>>n;
+  for(int i=1;i < n; i++){
+    int x,y; cin >> x >> y;
+    G[x].push_back(y), G[y].push_back(x);
+  }
+  dfs(1,0,0);
+  for(int i=1;i<MXH;i++){
+    for(int j=1;j<=n;j++){
+      dp[i][j]=dp[i-1][dp[i-1][j]];
+    }
+  }
+  int m; cin>>m;
+  for(int i=0;i<m;i++){
+    int r,u,v; cin >> r >> u >> v;
+    int uv = LCA(u,v), ru = LCA(r,u), rv = LCA(r,v);
+    cout << query({lv[uv],uv}, {lv[ru],ru}, {lv[rv],rv}) << '\n';
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,766 @@
+> baekjoon
+
+* [Level 4 : 아름다운 수](https://www.acmicpc.net/problem/2774)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_2774.md/)
+
+{% tabs %}
+{% tab title='BJ_2774.md' %}
+
+> Question
+
+* Find number of unique numbers
+
+```txt
+Input:
+3
+1
+1
+2
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_2774.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int T; cin >> T;
+  while (T--) {
+    unordered_set<char> result;
+    string x; cin >> x;
+    for (int i = 0; i < x.size(); i++)
+      result.insert(x[i]);
+    cout << result.size() << '\n';
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2774.py' %}
+
+```py
+for _ in range(int(input())):
+  print(len(set(input())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 나머지](https://www.acmicpc.net/problem/3052)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_3052.md/)
+
+{% tabs %}
+{% tab title='BJ_3052.md' %}
+
+> Question
+
+* After receiving 10 inputs, divide them by 42 to find the remainder
+* Then write a program that prints out how many different values there are
+
+```txt
+Input:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_3052.py' %}
+
+```py
+st = set()
+for i in range(10):
+  st.add(int(input()) % 42)
+print(len(st))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 피시방 알바](https://www.acmicpc.net/problem/1453)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_1453.md/)
+
+{% tabs %}
+{% tab title='BJ_1453.md' %}
+
+> Question
+
+* Find number of duplicated ints
+
+```txt
+Input:
+4
+1 2 3 3
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_1453.py' %}
+
+```py
+input()
+li = list(map(int, input().split()))
+print(len(li) - len(set(li)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 숫자 카드](https://www.acmicpc.net/problem/10815)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_10815.md/)
+
+{% tabs %}
+{% tab title='BJ_10815.md' %}
+
+> Question
+
+* Check if second list have common number with first list
+
+```txt
+Input:
+5
+6 3 2 10 -10
+8
+10 9 -5 2 3 4 5 -10
+
+Output: 1 0 0 1 1 0 0 1
+```
+
+{% endtab %}
+{% tab title='BJ_10815.py' %}
+
+```py
+input()
+se = set(map(int, input().split()))
+input()
+for n in map(int, input().split()):
+  print(1 if n in se else 0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 수 찾기](https://www.acmicpc.net/problem/1920)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_1920.md/)
+
+{% tabs %}
+{% tab title='BJ_1920.md' %}
+
+> Question
+
+* N integers A[1], A[2], …When given an A[N], write a program to find out if an integer named X exists in it
+
+```txt
+Input:
+5
+4 1 5 2 3
+5
+1 3 7 9 5
+
+Output:
+1
+1
+0
+0
+1
+```
+
+{% endtab %}
+{% tab title='BJ_1920.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int n;
+set<int> se;
+
+int main(){
+  scanf("%d", &n);
+  for(int x; n--; ){
+    scanf("%d", &x);
+    se.insert(x);
+  }
+  scanf("%d", &n);
+  for(int x; n--; ){
+    scanf("%d", &x);
+    printf("%d\n", se.find(x) != se.end());
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1920.py' %}
+
+```py
+input()
+a = set(input().split())
+input()
+for i in input().split():
+  print(int(i in a))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 암기왕](https://www.acmicpc.net/problem/2776)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_2776.md/)
+
+{% tabs %}
+{% tab title='BJ_2776.md' %}
+
+> Question
+
+* Check if number in the second list is in the first list
+
+```txt
+Input:
+1
+5
+4 1 5 2 3
+5
+1 3 7 9 5
+
+Output:
+1
+1
+0
+0
+1
+```
+
+{% endtab %}
+{% tab title='BJ_2776.py' %}
+
+```py
+for _ in range(int(input())):
+  input()
+  s = set(input().split())
+  input()
+  for c in input().split():
+    print(1 if c in s else 0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 대칭 차집합](https://www.acmicpc.net/problem/1269)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_1269.md/)
+
+{% tabs %}
+{% tab title='BJ_1269.md' %}
+
+> Question
+
+* Print number of unique element that doesn't exist in other list
+
+```txt
+Input:
+3 5
+1 2 4
+2 3 4 5 6
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_1269.py' %}
+
+```py
+input()
+a = set(map(int, input().split()))
+b = set(map(int, input().split()))
+print(len(a - b) + len(b - a))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 문자열 집합](https://www.acmicpc.net/problem/14425)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_14425.md/)
+
+{% tabs %}
+{% tab title='BJ_14425.md' %}
+
+> Question
+
+* 입력으로 주어지는 M개의 문자열 중에서 집합 S에 포함되어 있는 것이 총 몇 개인지 구하는 프로그램을 작성하시오
+
+```txt
+Input:
+5 11
+baekjoononlinejudge
+startlink
+codeplus
+sundaycoding
+codingsh
+baekjoon
+codeplus
+codeminus
+startlink
+starlink
+sundaycoding
+codingsh
+codinghs
+sondaycoding
+startrink
+icerink
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_14425.py' %}
+
+```py
+n,m = map(int,input().split())
+cnt = 0
+strings = set(input() for i in range(n))
+for j in range(m):
+  if input() in strings:
+    cnt += 1
+print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : I've Been Everywhere, Man](https://open.kattis.com/problems/everywhere)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_everywhere.md/)
+
+{% tabs %}
+{% tab title='KT_everywhere.md' %}
+
+> Question
+
+* 첫 줄에 테스트 케이스 수
+* 각 테스트 케이스는 N 과 N개의 줄에 도시이름이 주어진다. 이 때 다른 도시 개수를 출력하라
+
+```txt
+Input:
+2
+7
+saskatoon
+toronto
+winnipeg
+toronto
+vancouver
+saskatoon
+toronto
+3
+edmonton
+edmonton
+edmonton
+
+Output:
+4
+1
+```
+
+{% endtab %}
+{% tab title='KT_everywhere.py' %}
+
+```py
+n_test = int(input())
+for _ in range(n_test):
+  N = int(input())
+  se = set()
+  for _ in range(N):
+    se.add(input())
+  print(len(se))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.3 : No Duplicates](https://open.kattis.com/problems/nodup)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_nodup.md/)
+
+{% tabs %}
+{% tab title='KT_nodup.md' %}
+
+> Question
+
+* 문장이 주어지는데, 문장에서 같은 단어가 두번 이상 등장하면 no 모든 단어가 한번 등장하면 yes를 출력하라
+
+```txt
+Input: THE RAIN IN SPAIN
+Output: yes
+```
+
+{% endtab %}
+{% tab title='KT_nodup.py' %}
+
+```py
+li = input().split()
+print("yes" if len(set(li)) == len(li) else "no")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : ICPC Awards](https://open.kattis.com/problems/icpcawards)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_icpcawards.md/)
+
+{% tabs %}
+{% tab title='KT_icpcawards.md' %}
+
+> Question
+
+* 첫 줄에는 N, 다음 N 줄엔 대학이름 팀이름이 순위대로 주어진다
+* 상을 받는 상위 12팀 이름을 출력하라, 단 한 대학에서는 한 팀만 상을 받을 수 있다
+
+```txt
+Input:
+30
+Seoul ACGTeam
+VNU LINUX
+SJTU Mjolnir
+VNU WINDOWS
+NTU PECaveros
+HUST BKJuniors
+HCMUS HCMUSSerendipity
+VNU UBUNTU
+SJTU Metis
+HUST BKDeepMind
+HUST BKTornado
+HCMUS HCMUSLattis
+NUS Tourism
+VNU DOS
+HCMUS HCMUSTheCows
+VNU ANDROID
+HCMUS HCMUSPacman
+HCMUS HCMUSGeomecry
+UIndonesia DioramaBintang
+VNU SOLARIS
+UIndonesia UIChan
+FPT ACceptable
+HUST BKIT
+PTIT Miners
+PSA PSA
+DaNangUT BDTTNeverGiveUp
+VNU UNIXBSD
+CanTho CTUA2LTT
+Soongsil Team10deung
+Soongsil BezzerBeater
+
+Output:
+Seoul ACGTeam
+VNU LINUX
+SJTU Mjolnir
+NTU PECaveros
+HUST BKJuniors
+HCMUS HCMUSSerendipity
+NUS Tourism
+UIndonesia DioramaBintang
+FPT ACceptable
+PTIT Miners
+PSA PSA
+DaNangUT BDTTNeverGiveUp
+```
+
+{% endtab %}
+{% tab title='KT_icpcawards.py' %}
+
+```py
+N = int(input())
+seen = set()
+for _ in range(N):
+  uni, team = input().split()
+  if uni not in seen and len(seen) < 12:
+    print(uni, team)
+  seen.add(uni)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Modulo](https://open.kattis.com/problems/modulo)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_modulo.md/)
+
+[//]: # (BJ_3052)
+
+* [Level 1.9 : Booking a Room](https://open.kattis.com/problems/bookingaroom)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_bookingaroom.md/)
+
+{% tabs %}
+{% tab title='KT_bookingaroom.md' %}
+
+> Question
+
+* 첫 줄에 a, b가 주어진다. 이 때 a는 총 방의 개수이다. (1...n)
+* 다음 b 줄에 예약된 방 번호가 주어진다
+* 이때 아무 빈 방을 출력하라
+* 빈 방이 없을 시 too late을 출력하라
+
+```txt
+Input:
+100 5
+42
+3
+2
+99
+1
+
+Output: 23
+```
+
+{% endtab %}
+{% tab title='KT_bookingaroom.py' %}
+
+```py
+a, b = map(int, input().split())
+se = set()
+for _ in range(b):
+  se.add(int(input()))
+for i in range(1, a + 1):
+  if i not in se:
+    print(i)
+    break
+else:
+  print("too late")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.8 : Secure Doors](https://open.kattis.com/problems/securedoors)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_securedoors.md/)
+
+{% tabs %}
+{% tab title='KT_securedoors.md' %}
+
+> Question
+
+* 첫줄에 N이 주어지고 그 다음 N줄에 방명록이 주어진다
+* 방명록은 입장 이름 / 퇴장 이름과 같은 형식으로 주어지는데,
+* 이 때 퇴장 전 입장을 여러번 했거나 입장 하지 않았는데 퇴장 한 경우는 (ANOMALY)를 출력한다
+
+```txt
+Input:
+8
+entry Abbey
+entry Abbey
+exit Abbey
+entry Tyrone
+exit Mason
+entry Demetra
+exit Latonya
+entry Idella
+
+Output:
+Abbey entered
+Abbey entered (ANOMALY)
+Abbey exited
+Tyrone entered
+Mason exited (ANOMALY)
+Demetra entered
+Latonya exited (ANOMALY)
+Idella entered
+```
+
+{% endtab %}
+{% tab title='KT_securedoors.py' %}
+
+```py
+N = int(input())
+se = set()
+for _ in range(N):
+  typ, name = input().split()
+  if typ == 'entry':
+    if name in se:
+      print(name, 'entered', '(ANOMALY)')
+    else:
+      print(name, 'entered')
+      se.add(name)
+  else:
+    if name in se:
+      print(name, 'exited')
+      se.remove(name)
+    else:
+      print(name, 'exited', ('(ANOMALY)' if name not in se else ''))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2.1 : What does the fox say?](https://open.kattis.com/problems/whatdoesthefoxsay)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_whatdoesthefoxsay.md/)
+
+{% tabs %}
+{% tab title='KT_whatdoesthefoxsay.md' %}
+
+> Question
+
+* 한 테스트 마다, 띄어쓰기로 나누어진 울음 소리 / animal says ~ / what does the fox say? 가 나온다
+* 이때 다른 동물이 내지 않은 울음소리를 모두 출력하라
+
+```txt
+Input:
+1
+toot woof wa ow ow ow pa blub blub pa toot pa blub pa pa ow pow toot
+dog goes woof
+fish goes blub
+elephant goes toot
+seal goes ow
+what does the fox say?
+
+Output: wa pa pa pa pa pa pow
+```
+
+{% endtab %}
+{% tab title='KT_whatdoesthefoxsay.py' %}
+
+```py
+n_test = int(input())
+for _ in range(n_test):
+  li = input().split()
+  s = input()
+  ignore = set()
+  while s != 'what does the fox say?':
+    ignore.add(s.split()[-1])
+    s = input()
+  for e in li:
+    if e not in ignore:
+      print(e, end=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Contains Duplicate](https://leetcode.com/problems/contains-duplicate)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/LC_217.md/)
+
+{% tabs %}
+{% tab title='LC_217.md' %}
+
+> Question
+
+* Check whether list has duplicates in it
+
+```txt
+Input: nums = [1,2,3,4]
+Output: false
+```
+
+{% endtab %}
+{% tab title='LC_217.js' %}
+
+```js
+var containsDuplicate = function(nums) {
+  return new Set(nums).size < nums.length;
+};
+```
+
+{% endtab %}
+{% tab title='LC_217.py' %}
+
+```py
+def containsDuplicate(self, nums):
+  return len(nums) != len(set(nums))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Design HashSet](https://leetcode.com/problems/design-hashset)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/LC_705.md/)
+
+{% tabs %}
+{% tab title='LC_705.md' %}
+
+> Question
+
+* Design hashset
+
+```txt
+Input:
+["MyHashSet", "add", "add", "contains", "contains", "add", "contains", "remove", "contains"]
+[[], [1], [2], [1], [3], [2], [2], [2], [2]]
+
+Output: [null, null, null, true, false, null, true, null, false]
+```
+
+{% endtab %}
+{% tab title='LC_705.py' %}
+
+```py
+class MyHashSet:
+  def __init__(self):
+    self.set = [False] * 197431
+
+  def add(self, key: int) -> None:
+    self.set[key % 197431] = True
+
+  def remove(self, key: int) -> None:
+    self.set[key % 197431] = False
+
+  def contains(self, key: int) -> bool:
+    return self.set[key % 197431]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Design Phone Directory](https://leetcode.com/problems/design-phone-directory)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/LC_379.md/)
+
+{% tabs %}
+{% tab title='LC_379.md' %}
+
+> Question
+
+* Implement the PhoneDirectory class:
+* PhoneDirectory(int maxNumbers) Initializes the phone directory with the number of available slots maxNumbers
+* int get() Provides a number that is not assigned to anyone. Returns -1 if no number is available
+* bool check(int number) Returns true if the slot number is available and false otherwise
+* void release(int number) Recycles or releases the slot number
+
+```txt
+Input:
+["PhoneDirectory", "get", "get", "check", "get", "check", "release", "check"]
+[[3], [], [], [2], [], [2], [2], [2]]
+
+Output:
+[null, 0, 1, true, 2, false, null, true]
+```
+
+{% endtab %}
+{% tab title='LC_379.py' %}
+
+```py
+class PhoneDirectory:
+  def __init__(self, maxNumbers):
+    self.available = set(range(maxNumbers))
+
+  def get(self):
+    return self.available.pop() if self.available else -1
+
+  def check(self, number):
+    return number in self.available
+
+  def release(self, number):
+    self.available.add(number)
+```
+
+{% endtab %}
+{% endtabs %}

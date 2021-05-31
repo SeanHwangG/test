@@ -1,0 +1,141 @@
+> baekjoon
+
+* [Level 17 : 수열과 쿼리 1](https://www.acmicpc.net/problem/13537)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/merge-sort-tree/BJ_13537.md/)
+
+{% tabs %}
+{% tab title='BJ_13537.md' %}
+
+> Question
+
+* Print kth element when a[i...j] is sorted
+
+```txt
+Input:
+7 3
+1 5 2 6 3 7 4
+2 5 3
+4 4 1
+1 7 3
+
+Output:
+5
+6
+3
+```
+
+{% endtab %}
+{% tab title='BJ_13537.py' %}
+
+```py
+from bisect import bisect_left
+from operator import itemgetter
+import sys
+input = sys.stdin.readline
+
+class MergeSortTreeForKthElem:
+  def __init__(self, values):
+    l = [[i] for i, value in sorted(enumerate(values), key=itemgetter(1))]
+    self._values = values
+    self._size = 1 << (len(l) - 1).bit_length()
+    self._tree = ([[] for _ in range(self._size)] + l + [[]] * (self._size - len(l)))
+    for i in range(self._size - 1, 0, -1):
+      self._tree[i] = self._tree[i * 2] + self._tree[i * 2 + 1]
+      self._tree[i].sort()
+
+  def kth(self, beg, end, k):
+    i = 1
+    while i < self._size:
+      i += i
+      node = self._tree[i]
+      t = bisect_left(node, end) - bisect_left(node, beg)
+      if t < k:
+        k -= t
+        i += 1
+    return self._values[self._tree[i][0]]
+
+n, m = [int(x) for x in input().split()]
+nums = [int(x) for x in input().split()]
+mst = MergeSortTreeForKthElem(nums)
+for _ in range(m):
+  i, j, k = [int(x) for x in input().split()]
+  print(mst.kth(i - 1, j, k))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 수열과 쿼리 3](https://www.acmicpc.net/problem/13544)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/merge-sort-tree/BJ_13544.md/)
+
+{% tabs %}
+{% tab title='BJ_13544.md' %}
+
+> Question
+
+* Given list with N elements and M queries a b c
+* i j k: number of elements in Ai, Ai+1, ..., Aj greater than k
+  * i = a xor last_ans
+  * j = b xor last_ans
+  * k = c xor last_ans
+
+```txt
+Input:
+5
+5 1 2 3 4
+3
+2 4 1
+6 6 6
+1 5 2
+
+Output:
+2
+0
+3
+```
+
+{% endtab %}
+{% tab title='BJ_13544.py' %}
+
+```py
+import sys
+import math
+import bisect
+import heapq
+input = sys.stdin.readline
+
+def init(node, s, e):
+  if s == e:
+    tree[node] = [li[s]]
+    return tree[node]
+  m = (s + e) // 2
+  a, b = init(node * 2, s, m), init(node * 2 + 1, m + 1, e)
+  tree[node] = list(heapq.merge(a, b))
+  return tree[node]
+
+def get(node, s, e, l, r, v):
+  if l > e or r < s:
+    return 0
+  if l <= s and e <= r:
+    val = bisect.bisect_right(tree[node], v)
+    return len(tree[node])-val
+  m = (s + e) // 2
+  return get(node*2, s, m, l, r, v) + get(node*2+1, m+1, e, l, r, v)
+
+n = int(input())
+li = list(map(int, input().split()))
+tree = [[0] for _ in range(2 ** (math.ceil(math.log2(n)+1)))]
+init(1, 0, n-1)
+m = int(input())
+ans = 0
+for _ in range(m):
+  i, j, k = map(int, input().split())
+  a = i ^ ans
+  b = j ^ ans
+  c = k ^ ans
+  ans = get(1, 0, n-1, a-1, b-1, c)
+  print(ans)
+```
+
+{% endtab %}
+{% endtabs %}

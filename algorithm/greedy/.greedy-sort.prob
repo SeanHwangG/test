@@ -1,0 +1,397 @@
+> baekjoon
+
+* [Level 4 : 거스름돈](https://www.acmicpc.net/problem/5585)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/BJ_5585.md/)
+
+{% tabs %}
+{% tab title='BJ_5585.md' %}
+
+> Question
+
+* Find minimum number of coins (500, 100, 50, 10, 5, 1) to pay n
+
+```txt
+Input: 380
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_5585.py' %}
+
+```py
+ret = 0
+for coin in [500, 100, 50, 10, 5, 1]:
+  while (coin <= n):
+    n -= coin
+    ret+=1
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 로프](https://www.acmicpc.net/problem/2217)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/BJ_2217.md/)
+
+{% tabs %}
+{% tab title='BJ_2217.md' %}
+
+> Question
+
+* If multiple ropes are connected in parallel, the weight of each rope can be divided
+* When the object in which weight is w is lifted by using rope of k, weight as much as w / k hangs on each rope
+* With threhold of each ropes, print maximum weight of an object that can be lifted (do not have to use all the ropes)
+
+```txt
+Input:
+2
+10
+15
+
+Output: 20
+```
+
+{% endtab %}
+{% tab title='BJ_2217.py' %}
+
+```py
+N = int(input())
+li = list(sorted([int(input()) for _ in range(N)], reverse=True))
+ret = 0
+for i, n in enumerate(li):
+  ret = max(ret, (i + 1) * n)
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 동전 0](https://www.acmicpc.net/problem/11047)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/BJ_11047.md/)
+
+{% tabs %}
+{% tab title='BJ_11047.md' %}
+
+> Question
+
+* N types of coins are given in increasing order
+* Print the minimum of the number of coins you need to make the sum of their value K
+
+```txt
+Input:
+10 4200
+1
+5
+10
+50
+100
+500
+1000
+5000
+10000
+50000
+
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_11047.py' %}
+
+```py
+N, K = map(int, input().split())
+li = [int(input()) for _ in range(N)]
+ret = 0
+for n in reversed(li):
+  ret += K // n
+  K %= n
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 신입 사원](https://www.acmicpc.net/problem/1946)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/BJ_1946.md/)
+
+{% tabs %}
+{% tab title='BJ_1946.md' %}
+
+> Question
+
+* Compared to all other applicants, find number of people who excel in at least one scores
+
+```txt
+Input:
+2
+5
+3 2
+1 4
+4 1
+2 3
+5 5
+7
+3 6
+7 3
+4 2
+1 4
+5 7
+2 5
+6 1
+
+Output:
+4
+3
+```
+
+{% endtab %}
+{% tab title='BJ_1946.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+for _ in range(int(input())):
+  n = int(input())
+  score = sorted([tuple(map(int, input().split())) for _ in range(n)])
+  p, ans = n + 1, 0
+  for s, e in score:
+    if p > e:
+      ans += 1
+      p = e
+  print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 수 묶기](https://www.acmicpc.net/problem/1744)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/BJ_1744.md/)
+
+{% tabs %}
+{% tab title='BJ_1744.md' %}
+
+> Question
+
+* You can either add or multiply with another element then add
+* Print maximum sum
+
+```txt
+Input:
+4
+-1
+2
+1
+3
+
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_1744.py' %}
+
+```py
+n = int(input())
+a = []
+for i in range(n):
+  a.append(int(input()))
+a.sort(reverse = True)
+b = 0
+while len(a) >= 2:
+  if a[-1]<=0 and a[-2]<=0:
+    b += a.pop()*a.pop()
+  else:
+    break
+a.sort()
+while len(a) >= 2:
+  if a[-1]>=2 and a[-2]>=2:
+    b += a.pop()*a.pop()
+  else:
+    break
+print(sum(a)+b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 저울](https://www.acmicpc.net/problem/2437)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/BJ_2437.md/)
+
+{% tabs %}
+{% tab title='BJ_2437.md' %}
+
+> Question
+
+* Output first weight that can't be mesaure
+
+```txt
+Input:
+7
+3 1 6 2 7 30 1
+
+Output: 21
+```
+
+{% endtab %}
+{% tab title='BJ_2437.py' %}
+
+```py
+input()
+
+m = 0
+for n in sorted(list(map(int, input().split()))):
+  if m + 1 < n:
+    break
+  m += n
+
+print(m + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 책 나눠주기](https://www.acmicpc.net/problem/9576)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/BJ_9576.md/)
+
+{% tabs %}
+{% tab title='BJ_9576.md' %}
+
+> Question
+
+* Each person requests any book from l...h
+* Find maximum books you can distribute
+
+```txt
+Input:
+1
+2 3
+1 2
+1 2
+1 2
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_9576.py' %}
+
+```py
+T = int(input())
+for _ in range(T) :
+  N, M = map(int, input().split())
+  req = [list(map(int, input().split())) for _ in range(M)]
+  req = sorted(req, key=lambda x : x[1])
+
+  cnt = 0
+  visited = [False] * (N + 1)
+  for l, h in req:
+    for i in range(l, h + 1):
+      if not visited[i]:
+        visited[i] = True
+        cnt += 1
+        break
+  print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 큰 수 만들기](https://www.acmicpc.net/problem/16496)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/BJ_16496.md/)
+
+{% tabs %}
+{% tab title='BJ_16496.md' %}
+
+> Question
+
+* Print maximum number with concatnation in any order
+
+```txt
+Input:
+5
+3 30 34 5 9
+
+Output: 9534330
+```
+
+{% endtab %}
+{% tab title='BJ_16496.py' %}
+
+```py
+n = input()
+nums = sorted(input().split(), key=lambda x:x*9, reverse=True)
+print(0 if nums[0] == "0" else ''.join(nums))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Car Pooling](https://leetcode.com/problems/car-pooling)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/LC_1094.md/)
+
+{% tabs %}
+{% tab title='LC_1094.md' %}
+
+> Question
+
+* a vehicle that has capacity empty seats initially available for passengers, which only drives toward east
+* Given a list of trips, trip[i] = [num_passengers, start_location, end_location] contains information about the i-th trip:
+  * number of passengers that must be picked up, and locations to pick up and drop off
+* The locations are given as the number of kilometers due east from your vehicle's initial location
+* Return if it is possible to pick up and drop off all passengers for all the given trips
+
+```txt
+Input: trips = [[2,1,5],[3,3,7]], capacity = 4
+Output: false
+```
+
+{% endtab %}
+{% tab title='LC_1094.py' %}
+
+```py
+def carPooling(self, trips, capacity):
+  for i, v in sorted(x for n, i, j in trips for x in [[i, n], [j, - n]]):
+    capacity -= v
+    if capacity < 0:
+      return False
+  return True
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Course Schedule III](https://leetcode.com/problems/course-schedule-iii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/LC_630.md/)
+
+{% tabs %}
+{% tab title='LC_630.md' %}
+
+> Question
+
+* There are n different courses numbered from 1 to n
+* courses[i] = [durationi, lastDayi] indicate that ith course should be taken continuously
+  * for durationi days and must be finished before or on lastDayi
+* Return the maximum number of courses that you can take
+
+```txt
+Input: courses = [[100,200],[200,1300],[1000,1250],[2000,3200]]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_630.py' %}
+
+```py
+def scheduleCourse(self, courses: List[List[int]]) -> int:
+  pq = []
+  start = 0
+  for t, end in sorted(courses, key = lambda course: course[1]):
+    start += t
+    heapq.heappush(pq, -t)
+    while start > end:
+      start += heapq.heappop(pq)
+  return len(pq)
+```
+
+{% endtab %}
+{% endtabs %}

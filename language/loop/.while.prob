@@ -1,0 +1,500 @@
+> baekjoon
+
+* [Level 3 : rrival Time](https://www.acmicpc.net/problem/14041)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/BJ_14041.md/)
+
+{% tabs %}
+{% tab title='BJ_14041.md' %}
+
+> Question
+
+* 07:00 (7am) until 10:00 (10am) in the morning and 15:00 (3pm) until 19:00 (7pm)
+* During rush hour speed is half
+
+```txt
+Input: 05:00
+Output: 07:00
+
+Input: 07:00
+Output: 10:30
+```
+
+{% endtab %}
+{% tab title='BJ_14041.py' %}
+
+```py
+h, m = map(int,input().split(':'))
+t, s = 60 * h + m, 0
+while s < 240:
+  if 420 <= t < 600 or 900 <= t < 1140:
+    s += 1
+  else:
+    s += 2
+  t += 1
+t %= 1440
+print(f'{t // 60:02d}:{t % 60:02d}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 3n+1 수열](https://www.acmicpc.net/problem/14920)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/BJ_14920.md/)
+
+{% tabs %}
+{% tab title='BJ_14920.md' %}
+
+> Question
+
+* C(n+1) = C(n)/2 (when C(n) is even)
+* 3*C(n)+1 (C(n) is odd)
+* For the given input C (1), output n where C(n) first becomes 1
+
+```txt
+Input: 26
+Output: 11
+```
+
+{% endtab %}
+{% tab title='BJ_14920.py' %}
+
+```py
+cn = int(input())
+count = 1
+while cn != 1:
+  count += 1
+  if cn % 2 == 0:
+    cn = cn // 2
+  else:
+    cn = 3 *cn + 1
+print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 분수찾기](https://www.acmicpc.net/problem/1193)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/BJ_1193.md/)
+
+{% tabs %}
+{% tab title='BJ_1193.md' %}
+
+> Question
+
+* Print Nth fraction
+
+![BJ_1193](while/images/20210304_194256.png)
+
+```txt
+Input: 14
+Output: 2/4
+```
+
+{% endtab %}
+{% tab title='BJ_1193.py' %}
+
+```py
+n = int(input())
+c = 1
+while n > 0:
+  n -= c
+  c += 1
+a = [1 - n, c + n - 1][c % 2]
+print(f'{a}/{c - a}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 모음의 개수](https://www.acmicpc.net/problem/1264)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/BJ_1264.md/)
+
+{% tabs %}
+{% tab title='BJ_1264.md' %}
+
+> Question
+
+* count number of vowels
+
+```txt
+Input:
+How are you today?
+Quite well, thank you, how about yourself?
+I live at number twenty four.
+#
+
+Output:
+7
+14
+9
+```
+
+{% endtab %}
+{% tab title='BJ_1264.py' %}
+
+```py
+vowel = 'AaEeIiOoUu'
+while line := input() != '#':
+  answer = 0
+  for i in line:
+    if i in vowel:
+      answer += 1
+  print(answer)
+  line = input()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 벌집](https://www.acmicpc.net/problem/2292)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/BJ_2292.md/)
+
+{% tabs %}
+{% tab title='BJ_2292.md' %}
+
+> Question
+
+![BJ_2292](while/images/20210304_192405.png)
+
+* How many rooms should be passed from 1?
+
+```txt
+Input: 13
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2292.py' %}
+
+```py
+ret, cur = 1, 1
+while cur < a:
+  cur += 6 * ret
+  ret += 1
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 헤일스톤 수열](https://www.acmicpc.net/problem/3943)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/BJ_3943.md/)
+
+{% tabs %}
+{% tab title='BJ_3943.md' %}
+
+> Question
+
+* If n is even, divide by 2.If n is an odd number, multiply by 3 and add 1
+* Find biggest number from above sequence
+
+```txt
+Input:
+4
+1
+3
+9999
+100000
+
+Output:
+1
+16
+101248
+100000
+```
+
+{% endtab %}
+{% tab title='BJ_3943.py' %}
+
+```py
+n_test = int(input())
+for _ in range(n_test):
+  n = int(input())
+
+  mx = 1
+  while n != 1:
+    mx = max(mx, n)
+    if n % 2 == 0:
+      n //= 2
+    else:
+      n = n * 3 + 1
+  print(mx)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 반올림](https://www.acmicpc.net/problem/2033)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/BJ_2033.md/)
+
+{% tabs %}
+{% tab title='BJ_2033.md' %}
+
+> Question
+
+* Keep round from one th digit, and print results of these operations
+
+```txt
+Input: 2045
+Output: 2100  # 2050 -> 2100
+```
+
+{% endtab %}
+{% tab title='BJ_2033.py' %}
+
+```py
+N = int(input())
+d = 10
+while N > d:
+  if N % d >= d // 2:
+    N += d
+  N -= (N % d)
+  d *= 10
+print(N)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 수 이어 쓰기 1](https://www.acmicpc.net/problem/1748)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/BJ_1748.md/)
+
+{% tabs %}
+{% tab title='BJ_1748.md' %}
+
+> Question
+
+* Given you write nubmer as 1234567891011121314151617181920212223
+* Print nubmer of digits
+
+```txt
+Input: 120
+Output: 252
+```
+
+{% endtab %}
+{% tab title='BJ_1748.py' %}
+
+```py
+n = int(input())
+i, s = 1, 0
+while i<= n:
+  s += n-i+1
+  i *= 10
+print(s)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Speed Limit](https://open.kattis.com/problems/speedlimit)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/KT_speedlimit.md/)
+
+{% tabs %}
+{% tab title='KT_speedlimit.md' %}
+
+> Question
+
+* Given speed and time, find avergage velocity
+
+```txt
+Input:
+3
+20 2
+30 6
+10 7
+2
+60 1
+30 5
+4
+15 1
+25 2
+30 3
+10 5
+-1
+
+Output:
+170 miles
+180 miles
+90 miles
+```
+
+{% endtab %}
+{% tab title='KT_speedlimit.py' %}
+
+```py
+def total_miles(speeds, times):
+  total_miles = 0
+  prev_time = 0
+  for speed, time in zip(speeds, times):
+    total_miles += (time - prev_time) * speed
+    prev_time = time
+  return total_miles
+
+while n_line := int(input()) != -1:
+  speeds, times = [], []
+  for _ in range(n_line):
+    speed, time = map(int, input().split())
+    speeds.append(speed)
+    times.append(time)
+  print(f'{total_miles(speeds, times)} miles')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Sum Squared Digits Function](https://open.kattis.com/problems/sumsquareddigits)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/KT_sumsquareddigits.md/)
+
+{% tabs %}
+{% tab title='KT_sumsquareddigits.md' %}
+
+> Question
+
+* N-test개의 줄에  k(data set 수),b,n 정수가 주어진다
+* k개의 줄에 각 test 번호 k와 SSB(b,n)을 출력하라
+
+```txt
+Input:
+3
+1 10 1234
+2 3 98765
+3 16 987654321
+
+Output:
+1 30
+2 19
+3 696
+```
+
+{% endtab %}
+{% tab title='KT_sumsquareddigits.py' %}
+
+```py
+n_test = int(input())
+def SSD(b, n):
+  ret = 0
+  while n != 0:
+    ret += (n % b) ** 2
+    n //= b
+  return ret
+for _ in range(1, n_test + 1):
+  K, b, n = map(int, input().split())
+  print(f'{K} {SSD(b, n)}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : Symmetric Order](https://open.kattis.com/problems/symmetricorder)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/KT_symmetricorder.md/)
+
+{% tabs %}
+{% tab title='KT_symmetricorder.md' %}
+
+> Question
+
+* Print name in symetric order respect to name length
+
+```txt
+Input:
+7
+Bo
+Pat
+Jean
+Kevin
+Claude
+William
+Marybeth
+6
+Jim
+Ben
+Zoe
+Joey
+Frederick
+Annabelle
+5
+John
+Bill
+Fran
+Stan
+Cece
+0
+
+Output:
+SET 1
+Bo
+Jean
+Claude
+Marybeth
+William
+Kevin
+Pat
+SET 2
+Jim
+Zoe
+Frederick
+Annabelle
+Joey
+Ben
+SET 3
+John
+Fran
+Cece
+Stan
+Bill
+```
+
+{% endtab %}
+{% tab title='KT_symmetricorder.py' %}
+
+```py
+si = 0
+while n := int(input()) != 0:
+  si += 1
+  print(f"SET {si}")
+  li = [input() for _ in range(n)]
+  for i in range(0, n, 2):
+    print(li[i])
+  for i in range(1, n, 2):
+    print(li[i])
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Reverse Integer](https://leetcode.com/problems/reverse-integer)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while/LC_7.md/)
+
+{% tabs %}
+{% tab title='LC_7.md' %}
+
+> Question
+
+* Reverse integer
+
+```txt
+Input: 421
+Output: 124
+```
+
+{% endtab %}
+{% tab title='LC_7.cpp' %}
+
+```cpp
+class Solution {
+public:
+  int reverse(int x) {
+    long r = 0;
+    while (x) r = r * 10 + x % 10, x /= 10;
+    return (int(r) == r) * r;
+  }
+};
+```
+
+{% endtab %}
+{% endtabs %}

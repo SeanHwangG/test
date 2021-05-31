@@ -1,0 +1,740 @@
+> baekjoon
+
+* [Level 8 : 과 M (1)](https://www.acmicpc.net/problem/15649)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/BJ_15649.md/)
+
+{% tabs %}
+{% tab title='BJ_15649.md' %}
+
+> Question
+
+* The sequence of natural numbers from 1 to N that is chosen without overlap
+
+```txt
+Input: 3 1
+Output:
+1
+2
+3
+```
+
+{% endtab %}
+{% tab title='BJ_15649.py' %}
+
+```py
+N, M = map(int, input().split())
+def backtrack(cur, N, M):
+  if len(cur) == M:
+    print(*cur)
+    return
+  for i in range(1, N + 1):
+    if i not in cur:
+      cur.append(i)
+      backtrack(cur, N, M)
+      cur.pop()
+backtrack([], N, M)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 과 M (3)](https://www.acmicpc.net/problem/15651)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/BJ_15651.md/)
+
+{% tabs %}
+{% tab title='BJ_15651.md' %}
+
+> Question
+
+* The sequence of choosing M from 1 to N
+* You can choose the same number several times
+
+```txt
+Input: 3 3
+Output:
+1 1 1
+1 1 2
+1 1 3
+1 2 1
+1 2 2
+1 2 3
+1 3 1
+1 3 2
+1 3 3
+2 1 1
+2 1 2
+2 1 3
+2 2 1
+2 2 2
+2 2 3
+2 3 1
+2 3 2
+2 3 3
+3 1 1
+3 1 2
+3 1 3
+3 2 1
+3 2 2
+3 2 3
+3 3 1
+3 3 2
+3 3 3
+```
+
+{% endtab %}
+{% tab title='BJ_15651.py' %}
+
+```py
+N, M = map(int, input().split())
+def backtrack(cur, N, M):
+  if len(cur) == M:
+    print(*cur)
+    return
+  for i in range(1, N + 1):
+    cur.append(i)
+    backtrack(cur, N, M)
+    cur.pop()
+backtrack([], N, M)
+# from itertools import*
+# for i in product(range(1, N + 1), repeat=M):print(*i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : -Queen](https://www.acmicpc.net/problem/9663)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/BJ_9663.md/)
+
+{% tabs %}
+{% tab title='BJ_9663.md' %}
+
+> Question
+
+* When given N, find the number of ways to place N queens
+
+```txt
+Input: 8
+Output: 92
+```
+
+{% endtab %}
+{% tab title='BJ_9663.py' %}
+
+```py
+N = int(input())
+def backtrack(mx, c = 0, row=None, left=None, right=None):
+  count = 0
+  if c == 0:
+    row, left, right = [0] * mx, [0] * 2 * mx, [0] * 2 * mx
+  if c == mx:
+    return 1
+  for r in range(mx):
+    if row[r] + left[c+r] + right[mx - 1 + c - r]==0:
+      row[r] = left[c+r] = right[mx - 1 + c - r] = 1
+      count += backtrack(mx, c + 1, row, left, right)
+      row[r] = left[c + r] = right[mx - 1 + c - r] = 0
+  return count
+print(backtrack(N))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 스도쿠](https://www.acmicpc.net/problem/2239)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/BJ_2239.md/)
+
+{% tabs %}
+{% tab title='BJ_2239.md' %}
+
+> Question
+
+* Solve sudoku, if there are multiple answer, print lexicographically smallest one
+
+```txt
+Input:
+103000509
+002109400
+000704000
+300502006
+060000050
+700803004
+000401000
+009205800
+804000107
+
+Output:
+143628579
+572139468
+986754231
+391542786
+468917352
+725863914
+237481695
+619275843
+854396127
+```
+
+{% endtab %}
+{% tab title='BJ_2239.py' %}
+
+```py
+def backtrack(G):
+  for r in range(9):
+    for c, v in enumerate(G[r]):
+      if v != 0:    continue
+      box = [G[r//3*3+i][c//3*3+j] for i in range(3) for j in range(3)]
+      row_col = G[r] + [G[i][c] for i in range(9)]
+      for n in sorted(set(range(1, 10)) - set(box + row_col)):
+        G[r][c] = n
+        if backtrack(G):
+          break
+        else:
+          G[r][c] = 0
+      else:
+        return False
+  return True
+
+G = [list(map(int, input())) for _ in range(9)]
+backtrack(G)
+for l in G:
+  for n in l:
+    print(n, end = '')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 스도쿠](https://www.acmicpc.net/problem/2580)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/BJ_2580.md/)
+
+{% tabs %}
+{% tab title='BJ_2580.md' %}
+
+> Question
+
+* Solve Sudoku
+
+```txt
+Input:
+0 3 5 4 6 9 2 7 8
+7 8 2 1 0 5 6 0 9
+0 6 0 2 7 8 1 3 5
+3 2 1 0 4 6 8 9 7
+8 0 4 9 1 3 5 0 6
+5 9 6 8 2 0 4 1 3
+9 1 7 6 5 2 0 8 0
+6 0 3 7 0 1 9 5 2
+2 5 8 3 9 4 7 6 0
+
+Output:
+1 3 5 4 6 9 2 7 8
+7 8 2 1 3 5 6 4 9
+4 6 9 2 7 8 1 3 5
+3 2 1 5 4 6 8 9 7
+8 7 4 9 1 3 5 2 6
+5 9 6 8 2 7 4 1 3
+9 1 7 6 5 2 3 8 4
+6 4 3 7 8 1 9 5 2
+2 5 8 3 9 4 7 6 1
+```
+
+> Solution
+
+* Instance: a partially filled in puzzle
+* Solution format: a grid with all squares filled with the numbers 1 through 9
+* Constraint: There can be no repeats of numbers in each sub-square, row or column
+* Objective
+  * Find a solution with the constraint
+  * Fill the first available cell with the least possible number and recurse until any cell can't be filled in
+  * Go back to the last decision point and try the next biggest possible number
+
+{% endtab %}
+{% tab title='BJ_2580.py' %}
+
+```py
+def backtrack(G):
+  for r in range(9):
+    for c, v in enumerate(G[r]):
+      if v != 0:    continue
+      box = [G[r//3*3+i][c//3*3+j] for i in range(3) for j in range(3)]
+      row_col = G[r] + [G[i][c] for i in range(9)]
+      for n in set(range(1, 10)) - set(box + row_col):
+        G[r][c] = n
+        if backtrack(G):
+          break
+        else:
+          G[r][c] = 0
+      else:
+        return False
+  return True
+
+G = [list(map(int, input().split())) for _ in range(9)]
+backtrack(G)
+for l in G:
+  for n in l:
+    print(n, end = ' ')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 색종이 붙이기](https://www.acmicpc.net/problem/17136)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/BJ_17136.md/)
+
+{% tabs %}
+{% tab title='BJ_17136.md' %}
+
+> Question
+
+* Print minimum number of square to cover all 1s
+
+```txt
+Input:
+0 0 0 0 0 0 0 0 0 0
+0 1 1 0 0 0 0 0 0 0
+0 0 1 0 0 0 0 0 0 0
+0 0 0 0 1 1 0 0 0 0
+0 0 0 0 1 1 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 1 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_17136.py' %}
+
+```py
+G = [list(map(int,input().split())) for _ in range(10)]
+S = sum(sum(G[y]) for y in range(10))
+paper = [5]*5
+ans = 99
+
+def cover(x, y, L, t):
+  for dx in range(L):
+    for dy in range(L):
+      G[y + dy][x + dx] = t
+
+def dfs(N, A):
+  global ans
+
+  if A == 0: ans = min(ans, N)
+
+  tmp = False
+  for x in range(10):
+    for y in range(10):
+      if G[y][x]: tmp = True; break
+    if tmp: break
+
+  if tmp:
+    for L in range(1,6):
+      if paper[L-1] and x+L <= 10 and y+L <= 10:
+        S = sum(sum(G[y+dy][x:x+L]) for dy in range(L))
+        if S == L*L:
+          cover(x, y, L, 0); paper[L-1]-=1
+          dfs(N+1, A - L*L)
+          cover(x, y, L, 1); paper[L-1]+=1
+dfs(0, S)
+print(ans if ans != 99 else -1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 의 배수 (1)](https://www.acmicpc.net/problem/18790)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/BJ_18790.md/)
+
+{% tabs %}
+{% tab title='BJ_18790.md' %}
+
+> Question
+
+* Given 2N - 1 numbers, print N numbers that are divisible by N
+
+```txt
+Input:
+4
+1 2 3 0 1 2 3
+
+Output: 1 1 3 3
+```
+
+{% endtab %}
+{% tab title='BJ_18790.py' %}
+
+```py
+import sys
+sys.setrecursionlimit(10**6)
+n = int(input())
+li = sorted(list(map(int, input().split())), reverse=True)
+nums = []
+
+def backtrack(i):
+  total = sum(nums)
+  if len(nums) == n:
+    if total % n == 0:
+      print(' '.join(map(str, nums)))
+      sys.exit()
+    else:
+      if total < n and li[i] == 0:
+        print(-1)
+        sys.exit()
+  for idx in range(i, len(li)):
+    nums.append(li[idx])
+    backtrack(idx+1)
+    nums.pop()
+
+backtrack(0)
+
+print(-1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Splitting a String Into Descending Consecutive Values](https://leetcode.com/problems/splitting-a-string-into-descending-consecutive-values)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/LC_1849.md/)
+
+{% tabs %}
+{% tab title='LC_1849.md' %}
+
+> Question
+
+* Check if we can split s into two or more non-empty substrings
+* s.t. numerical values of substrings are in descending and diff between numerical values of adjacent substrings are 1
+
+```txt
+Input: s = "050043"
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_1849.cpp' %}
+
+```cpp
+bool splitString(string &s, int i = 0, long prev = 0) {
+  long num = 0;
+  for (int j = i; num < 1e+10 && j < s.size() - (i == 0 ? 1 : 0); ++j) {
+    num = num * 10 + (s[j] - '0');
+    if ((i == 0 || prev - 1 == num) && splitString(s, j + 1, num))
+      return true;
+  }
+  return i == s.size();
+}
+```
+
+{% endtab %}
+{% tab title='LC_1849.py' %}
+
+```py
+def splitString(self, s: str, num=None) -> bool:
+  if num is None:
+    return any(self.splitString(s[i:], int(s[:i]) - 1) for i in range(1, len(s)))
+  else:
+    return len(s) == 0 or any(self.splitString(s[i:], num - 1) for i in range(1, len(s) + 1) if int(s[:i]) == num)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Combination Sum](https://leetcode.com/problems/combination-sum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/LC_39.md/)
+
+{% tabs %}
+{% tab title='LC_39.md' %}
+
+> Question
+
+* Given an array of distinct integers candidates and a target integer target
+* return a list of all unique combinations of candidates where the chosen numbers sum to target
+* You may return the combinations in any order
+
+```txt
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+```
+
+{% endtab %}
+{% tab title='LC_39.py' %}
+
+```py
+def combinationSum(self, candidates, target):
+  res = []
+  candidates.sort()
+
+  def dfs(target, index, path):
+    if target < 0:
+      return  # backtracking
+    if target == 0:
+      res.append(path)
+      return
+    for i in range(index, len(candidates)):
+      dfs(target-candidates[i], i, path+[candidates[i]])
+
+  dfs(target, 0, [])
+  return res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Partition to K Equal Sum Subsets](https://leetcode.com/problems/partition-to-k-equal-sum-subsets)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/LC_698.md/)
+
+{% tabs %}
+{% tab title='LC_698.md' %}
+
+> Question
+
+* Given an integer array nums and an integer k, return if can divide array into k non-empty subsets whose sums are all equal
+
+```txt
+Input: nums = [4,3,2,3,5,2,1], k = 4
+Output: true  # 5, 1 4, 2 3, 2 3
+```
+
+{% endtab %}
+{% tab title='LC_698.cpp' %}
+
+```cpp
+// Time: O(k * 2^n)
+bool recur(vector<int>& subset, vector<int>& nums, int index, int sum){
+  if (index == nums.size()) return true;
+  for (int i = 0; i < subset.size(); i++){
+  while (i != subset.size() - 1 && subset[i] == subset[i + 1]) i++;
+  subset[i] += nums[index];
+  if (subset[i] <= sum && recur(subset, nums, index + 1, sum))  return true;
+  subset[i] -= nums[index];
+  }
+  return false;
+}
+bool canPartitionKSubsets(vector<int>& nums, int k) {
+  vector<int> subset(k, 0);
+  int sum = accumulate(nums.begin(), nums.end(), 0);
+  if (sum % k != 0)   return false;
+  sort(nums.rbegin(), nums.rend());
+  return recur(subset, nums, 0, sum / k);
+}
+```
+
+{% endtab %}
+{% tab title='LC_698.py' %}
+
+```py
+def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
+  sums = [0] * k
+  subsum = sum(nums) // k
+  nums.sort(reverse=True)
+
+  def backtrack(i):
+    if i == len(nums):
+      return len(set(sums)) == 1
+    for j in range(k):
+      sums[j] += nums[i]
+      if sums[j] <= subsum and backtrack(i+1):
+        return True
+      sums[j] -= nums[i]
+      if sums[j] == 0:
+        break
+    return False
+
+  return backtrack(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Word Search](https://leetcode.com/problems/word-search)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/LC_79.md/)
+
+{% tabs %}
+{% tab title='LC_79.md' %}
+
+> Question
+
+![LC_79](backtrack/images/20210420_151424.png)
+
+* Given an m x n grid of characters board and a string word, return true if word exists in the grid
+
+```txt
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_79.py' %}
+
+```py
+def exist(self, board: List[List[str]], word: str) -> bool:
+  for r in range(len(board)):
+    for c in range(len(board[0])):
+      if self.search(board, r, c, word, 0):
+        return True
+  return False
+
+def search(self, board, row, col, word, i):
+  if i == len(word):
+    return True
+  if row < 0 or col < 0 or row >= len(board) or col >= len(board[0]) or board[row][col] != word[i]:
+    return False
+  char = board[row][col]
+  board[row][col] = " "
+  res = any(self.search(board, row + di, col + dj, word, i + 1) for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)])
+  board[row][col] = char
+  return res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Split Array into Fibonacci Sequence](https://leetcode.com/problems/split-array-into-fibonacci-sequence)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/LC_842.md/)
+
+{% tabs %}
+{% tab title='LC_842.md' %}
+
+> Question
+
+* Return any Fibonacci-like sequence split from num, or return [] if it cannot be done
+
+```txt
+Input: num = "123456579"
+Output: [123,456,579]
+```
+
+{% endtab %}
+{% tab title='LC_842.py' %}
+
+```py
+def splitIntoFibonacci(self, num: str) -> List[int]:
+  def backtrack(s, i, seq, l):
+    if i == len(s):
+      if len(seq) > 2 and seq[-1] < 1<<31: return seq
+      return []
+    if len(seq) > 1:
+      cur = str(seq[-1] + seq[-2])
+      if s[i:i + len(cur)] != cur: return []
+      return backtrack(s, i + len(cur), seq + [int(cur)], l)
+    if s[i] == '0':
+      return backtrack(s, i + 1, seq + [0], l)
+    for j in range(i, min(i + 10, l)):
+      tmp = backtrack(s, j + 1, seq+[int(s[i: j + 1])], l)
+      if tmp: return tmp
+    return []
+  return backtrack(S, 0, [], len(S))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Sudoku Solver](https://leetcode.com/problems/sudoku-solver)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/LC_37.md/)
+
+{% tabs %}
+{% tab title='LC_37.md' %}
+
+> Question
+
+* solve a Sudoku puzzle by filling the empty cells
+
+```txt
+Input:
+board = [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
+
+Output:
+[["5","3","4","6","7","8","9","1","2"],["6","7","2","1","9","5","3","4","8"],["1","9","8","3","4","2","5","6","7"],["8","5","9","7","6","1","4","2","3"],["4","2","6","8","5","3","7","9","1"],["7","1","3","9","2","4","8","5","6"],["9","6","1","5","3","7","2","8","4"],["2","8","7","4","1","9","6","3","5"],["3","4","5","2","8","6","1","7","9"]]
+```
+
+{% endtab %}
+{% tab title='LC_37.py' %}
+
+```py
+def solveSudoku(self, board: List[List[str]]) -> None:
+  box = lambda r, c: [(r - r % 3 + di, c - c % 3 + dj) for di in range(3) for dj in range(3)]
+  neighs = lambda r, c: set([tup for k in range(9) for tup in [(k, c), (r, k)]] + box(r, c)) - {(r, c)}
+  getCands = lambda r, c: set(map(str, range(1, 10))) - set(board[r][c] for r, c in neighs(r, c))
+
+  for r, c in product(range(9), range(9)):
+    if board[r][c] == '.':
+      for x in getCands(r,c):
+        board[r][c] = x
+        if self.solveSudoku(board):
+          return board
+      board[r][c] = '.'
+      return False
+  return board
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : N-Queens](https://leetcode.com/problems/n-queens)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/LC_51.md/)
+
+{% tabs %}
+{% tab title='LC_51.md' %}
+
+> Question
+
+* Return all answer for NQueen
+
+```txt
+Input: n = 4
+Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+```
+
+{% endtab %}
+{% tab title='LC_51.py' %}
+
+```py
+def solveNQueens(self, n):
+  def DFS(queens, xy_dif, xy_sum):
+    p = len(queens)
+    if p==n:
+      result.append(queens)
+      return
+    for q in range(n):
+      if q not in queens and p - q not in xy_dif and p + q not in xy_sum:
+        DFS(queens+[q], xy_dif+[p - q], xy_sum+[p+q])
+  result = []
+  DFS([], [], [])
+  return [["." * i + "Q" + "." * (n-i-1) for i in sol] for sol in result]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : N-Queens II](https://leetcode.com/problems/n-queens-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/LC_52.md/)
+
+{% tabs %}
+{% tab title='LC_52.md' %}
+
+> Question
+
+* Given an integer n, return the number of distinct solutions to the n-queens puzzle
+
+```txt
+Input: n = 4
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_52.py' %}
+
+```py
+def totalNQueens(self, n: int, queens=[], d1=[], d2=[]) -> int:
+  i = len(queens)
+  return (i == n) + sum(self.totalNQueens(n, queens+[j], d1+[j-i], d2+[j+i]) for j in range(n) \
+              if j not in queens and j - i not in d1 and j + i not in d2)
+```
+
+{% endtab %}
+{% endtabs %}

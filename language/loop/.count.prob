@@ -1,0 +1,669 @@
+> baekjoon
+
+* [Level 2 : 10부제](https://www.acmicpc.net/problem/10797)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_10797.md/)
+
+{% tabs %}
+{% tab title='BJ_10797.md' %}
+
+> Question
+
+* Count number in list
+
+```txt
+Input:
+1
+12 1 4
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_10797.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+  int n, a, s = 0;
+  cin >> n;
+  for (int i = 0; i < 5; i++) {
+    cin >> a;
+    if(n == a) s++;
+  }
+  cout << s;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11549.java' %}
+
+```java
+import java.util.Scanner;
+
+public class Main {
+  public static void main(String[] args) {
+    var sc = new Scanner(System.in);
+    var t = sc.nextInt();
+    var k = 0;
+    for (int i = 0; i < 5; i++) {
+      var n = sc.nextInt();
+      if (n == t) {
+        k++;
+      }
+    }
+    System.out.println(k);
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11549.js' %}
+
+```js
+const fs = require('fs');
+var input = fs.readFileSync('/dev/stdin').toString().split("\n");
+
+var n = parseInt(input[0]);
+var arr = input[1].split(" ").map(x => parseInt(x));
+console.log(arr.filter(x => x == n).length);
+```
+
+{% endtab %}
+{% tab title='BJ_10797.py' %}
+
+```py
+a = input()
+li = input().split()
+print(li.count(a))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Identifying tea](https://www.acmicpc.net/problem/11549)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_11549.md/)
+
+[//]: # (BJ_10797)
+
+* [Level 2 : 공백 없는 A+B](https://www.acmicpc.net/problem/15873)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_15873.md/)
+
+{% tabs %}
+{% tab title='BJ_15873.md' %}
+
+> Question
+
+* find A+B if given natural numbers A and B without sepeator
+
+```txt
+Input: 37
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_15873.py' %}
+
+```py
+s = input()
+if len(s) == 4:
+  print(20)
+elif len(s) == 3:
+  if s[1] == '0'
+    print(10 + int(s[2]))
+  else:
+    print(10 + int(s[0]))
+else:
+  print(int(s[0]) + int(s[1]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Quick Estimates](https://www.acmicpc.net/problem/13297)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_13297.md/)
+
+{% tabs %}
+{% tab title='BJ_13297.md' %}
+
+> Question
+
+* 첫줄에 n, 다음 n 줄의 문자가 주어질 때 문자의 길이를 각각 출력하라
+
+```txt
+Input:
+2
+ab
+a
+
+Output:
+2
+1
+```
+
+{% endtab %}
+{% tab title='BJ_13297.cpp' %}
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+int main() {
+  int T;
+  string in;
+  for (scanf("%d", &T); T--;) {
+    cin >> in;
+    cout << in.size() << endl;
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_13297.py' %}
+
+```py
+for _ in range(int(input())):
+  print(len(input()))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Head or Tail](https://www.acmicpc.net/problem/5751)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_5751.md/)
+
+{% tabs %}
+{% tab title='BJ_5751.md' %}
+
+> Question
+
+* Print number of wins from Mary and John
+
+```txt
+Input:
+5
+0 0 1 0 1
+6
+0 0 0 0 0 1
+0
+
+Output:
+Mary won 3 times and John won 2 times
+Mary won 5 times and John won 1 times
+```
+
+{% endtab %}
+{% tab title='BJ_5751.py' %}
+
+```py
+while 1:
+  n = int(input())
+  if n == 0:
+    break
+  li = list(map(int, input().split()))
+  print(f"Mary won {li.count(0)} times and John won {fi.count(1)} times")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 개수 세기](https://www.acmicpc.net/problem/10807)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_10807.md/)
+
+{% tabs %}
+{% tab title='BJ_10807.md' %}
+
+> Question
+
+* Given a total of N integers, write a program to determine how many integers v have
+
+```txt
+Input:
+11
+1 4 1 2 4 2 4 2 3 4 4
+2
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_10807.cpp' %}
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+  int n, v;
+  cin >> n;
+  vector<int> x(n);
+  for (int i = 0; i < n; ++i)
+    cin >> x[i];
+  cin >> v;
+  cout << count(x.begin(), x.end(), v);
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10807.py' %}
+
+```py
+input()
+nums = input().split()
+print(nums.count(input()))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 정수의 개수](https://www.acmicpc.net/problem/10821)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_10821.md/)
+
+{% tabs %}
+{% tab title='BJ_10821.md' %}
+
+> Question
+
+* Print number of comma plus 1
+
+```txt
+Input: 10,20,30,50,100
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_10821.js' %}
+
+```js
+console.log(require('fs').readFileSync('dev/stdin').toString().split(',').length);
+```
+
+{% endtab %}
+{% tab title='BJ_10821.py' %}
+
+```py
+print(1 + input().count(","))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 모음의 개수](https://www.acmicpc.net/problem/10987)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_10987.md/)
+
+{% tabs %}
+{% tab title='BJ_10987.md' %}
+
+> Question
+
+* Count number of vowels
+
+```txt
+Input: baekjoon
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_10987.cpp' %}
+
+```cpp
+#include <cstdio>
+int cnt;
+char c;
+int main() {
+  while(scanf("%c", &c) != EOF){
+    if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') cnt++;
+  }
+  printf("%d", cnt);
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10987.js' %}
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString();
+console.log(input.split('').filter(x=> x === 'a' || x === 'e' || x === 'i' || x === 'o' || x === 'u').length);
+```
+
+{% endtab %}
+{% tab title='BJ_10987.py' %}
+
+```py
+print(sum(map(input().count,"aeiou")))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 2018년을 되돌아보며](https://www.acmicpc.net/problem/16674)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_16674.md/)
+
+{% tabs %}
+{% tab title='BJ_16674.md' %}
+
+> Question
+
+* 어떤 양의 정수를 10진수로 나타냈을 때 2, 0, 1, 8로만 이루어져 있다면, print 2
+* 2018과 관련 있는 수 중에서 2, 0, 1, 8을 모두 포함하는 수들은, print 0
+* 2018과 밀접한 수 중에서 2, 0, 1, 8의 개수가 모두 똑같은 수들은, print 8
+* else print 8
+
+```txt
+Input: 20181208
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_16674.py' %}
+
+```py
+s = input()
+a, b, c, d = (s.count(x) for x in '2018')
+if a + b + c + d != len(s):
+  print(0)
+elif a == b == c == d:
+  print(8)
+elif a and b and c and d:
+  print(2)
+else:
+  print(1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : erious Problem](https://www.acmicpc.net/problem/17094)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_17094.md/)
+
+{% tabs %}
+{% tab title='BJ_17094.md' %}
+
+> Question
+
+* Print 2 if 2 appears more than e else e
+* if 2 appears same as e print yee
+
+```txt
+Input:
+12
+222eee222eee
+
+Output: yee
+```
+
+{% endtab %}
+{% tab title='BJ_17094.py' %}
+
+```py
+input()
+s = input()
+if s.count('e') > s.count('2'):
+  print("e")
+elif s.count('e') < s.count('2'):
+  print("2")
+else:
+  print('yee')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 숫자의 개수](https://www.acmicpc.net/problem/2577)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_2577.md/)
+
+{% tabs %}
+{% tab title='BJ_2577.md' %}
+
+> Question
+
+* print # times each number from 0 to 9 was written in the result of calculating A × B × C
+
+```txt
+Input:
+150
+266
+427
+
+Output:
+3
+1
+0
+2
+0
+0
+0
+2
+0
+0
+```
+
+{% endtab %}
+{% tab title='BJ_2577.cpp' %}
+
+```cpp
+#include<cstdio>
+int arr[10];
+int main() {
+  int s=1, t;
+
+  for(int i=0;i<3;++i) {
+    scanf("%d",&t);
+    s*=t;
+  }
+  while(s) {
+    ++arr[s%10];
+    s/=10;
+  }
+
+  for(int i=0;i<10;++i)
+    printf("%d\n",arr[i]);
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2577.py' %}
+
+```py
+a = int(input())
+b = int(input())
+c = int(input())
+
+s = str(a * b * c)
+for i in range(10):
+  print(s.count(str(i)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 좋은놈 나쁜놈](https://www.acmicpc.net/problem/4447)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_4447.md/)
+
+{% tabs %}
+{% tab title='BJ_4447.md' %}
+
+> Question
+
+* append GOOD if string contains more G than B
+* BAD if string contains more B than G
+* NEUTRAL otherwise
+
+```txt
+Input:
+8
+Algorithm Crunching Man
+Green Lantern
+Boba Fett
+Superman
+Batman
+Green Goblin
+Barney
+Spider Pig
+
+Output:
+Algorithm Crunching Man is GOOD
+Green Lantern is GOOD
+Boba Fett is A BADDY
+Superman is NEUTRAL
+Batman is A BADDY
+Green Goblin is GOOD
+Barney is A BADDY
+Spider Pig is GOOD
+```
+
+{% endtab %}
+{% tab title='BJ_4447.py' %}
+
+```py
+for _ in range(int(input())):
+  s = input()
+  x = s.lower()
+  g = x.count('g')
+  b = x.count('b')
+  print(s + ' is ' + ('GOOD' if g>b else 'NEUTRAL' if g==b else 'A BADDY'))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 행복한지 슬픈지](https://www.acmicpc.net/problem/10769)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_10769.md/)
+
+{% tabs %}
+{% tab title='BJ_10769.md' %}
+
+> Question
+
+* There are:-) for happy faces and:-( for sad faces
+* When you get a text message, find which occurs more
+
+```txt
+Input: How are you :-) doing :-( today :-)?
+Output: happy
+```
+
+{% endtab %}
+{% tab title='BJ_10769.py' %}
+
+```py
+s = input()
+happy = s.count(":-)")
+sad = s.count(":-(")
+if happy < sad:
+  print("sad")
+elif happy > sad:
+  print("happy")
+elif happy == sad != 0:
+  print("unsure")
+else:
+  print("none")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 반지](https://www.acmicpc.net/problem/5555)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_5555.md/)
+
+{% tabs %}
+{% tab title='BJ_5555.md' %}
+
+> Question
+
+* Print out the number of rings containing the string you want to find
+* string is circular
+
+```txt
+Input:
+ABCD
+3
+ABCDXXXXXX
+CDYYAB
+DCBAZZZZZZ
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_5555.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+int main() {
+  string a;
+  int n;
+  cin >> a >> n;
+  string b;
+  int re = 0;
+  for (int i = 0; i < n; i++) {
+    cin >> b;
+    string s = b + b;
+    if (s.find(a) != string::npos) re++;
+  }
+  cout << re;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_5555.py' %}
+
+```py
+a = input()
+count = 0
+for _ in range(int(input())):
+  if (input() * 2).count(a):
+    count += 1
+print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Aaah!](https://open.kattis.com/problems/aaah)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/KT_aaah.md/)
+
+[//]: # (BJ_4999)
+
+> leetcode
+
+* [Level 1 : Longest Palindrome](https://leetcode.com/problems/longest-palindrome)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/LC_409.md/)
+
+{% tabs %}
+{% tab title='LC_409.md' %}
+
+> Question
+
+* Given a string s which consists of lowercase or uppercase letters
+* return the length of the longest palindrome that can be built with those letters
+
+```txt
+Input: s = "abccccdd"
+Output: 7
+```
+
+{% endtab %}
+{% tab title='LC_409.cpp' %}
+
+```cpp
+int longestPalindrome(string s) {
+  int odds = 0;
+  for (char c = 'A'; c <= 'z'; c++)
+    odds += count(s.begin(), s.end(), c) & 1;
+  return s.size() - odds + (odds > 0);
+}
+```
+
+{% endtab %}
+{% endtabs %}

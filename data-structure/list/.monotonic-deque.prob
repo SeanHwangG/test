@@ -1,0 +1,309 @@
+> leetcode
+
+* [Level 1 : Next Greater Element I](https://leetcode.com/problems/next-greater-element-i)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/monotonic-deque/LC_496.md/)
+
+{% tabs %}
+{% tab title='LC_496.md' %}
+
+> Question
+
+* Given two integer arrays nums1 and nums2 both of unique elements, where nums1 is a subset of nums2
+* Find all the next greater numbers for nums1's elements in the corresponding places of nums2
+
+```txt
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+Output: [-1,3,-1]
+```
+
+{% endtab %}
+{% tab title='LC_496.py' %}
+
+```py
+class Solution:
+  def nextGreaterElement(self, findNums, nums):
+    st, d = [], {}
+    for n in nums:
+      while st and st[-1] < n:
+        d[st.pop()] = n
+      st.append(n)
+    return [d.get(x, -1) for x in findNums]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Maximum Subarray Min-Product](https://leetcode.com/problems/maximum-subarray-min-product)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/monotonic-deque/LC_1856.md/)
+
+{% tabs %}
+{% tab title='LC_1856.md' %}
+
+> Question
+
+* The min-product of an array is equal to the minimum value in the array multiplied by the array's sum
+* Given an array of integers nums, return the maximum min-product of any non-empty subarray of nums, modulo 109 + 7
+
+```txt
+Input: nums = [1,2,3,2]
+Output: 14
+```
+
+{% endtab %}
+{% tab title='LC_1856.cpp' %}
+
+```cpp
+int maxSumMinProduct(vector<int>& n) {
+  long res = 0;
+  vector<long> dp(n.size() + 1), st;
+  for (int i = 0; i < n.size(); ++i)
+     dp[i + 1] = dp[i] + n[i];
+  for (int i = 0; i <= n.size(); ++i) {
+    while (!st.empty() && (i == n.size() || n[st.back()] > n[i])) {
+      int j = st.back();
+      st.pop_back();
+      res = max(res, n[j] * (dp[i] - dp[st.empty() ? 0: st.back() + 1]));
+    }
+    st.push_back(i);
+  }
+  return res % 1000000007;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 132 Pattern](https://leetcode.com/problems/132-pattern)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/monotonic-deque/LC_456.md/)
+
+{% tabs %}
+{% tab title='LC_456.md' %}
+
+> Question
+
+* Given an array of n integers nums, a 132 pattern is a subsequence of three integers nums[i], nums[j] and nums[k]
+* st i < j < k and nums[i] < nums[k] < nums[j]
+* Return whether there is 132 pattern in the list
+
+```txt
+Input: nums = [1,2,3,4]
+Output: false
+```
+
+{% endtab %}
+{% tab title='LC_456.cpp' %}
+
+```cpp
+bool find132pattern(vector<int>& nums) {
+  int s3 = INT_MIN;
+  stack<int> st;
+  for( int i = nums.size()-1; i >= 0; i -- ){
+    if( nums[i] < s3 ) return true;
+    else while( !st.empty() && nums[i] > st.top() ){
+      s3 = st.top(); st.pop();
+    }
+    st.push(nums[i]);
+  }
+  return false;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/monotonic-deque/LC_503.md/)
+
+{% tabs %}
+{% tab title='LC_503.md' %}
+
+> Question
+
+* return the next greater number for every element in nums
+
+```txt
+Input: nums = [1,2,1]
+Output: [2,-1,2]
+```
+
+{% endtab %}
+{% tab title='LC_503.py' %}
+
+```py
+class Solution:
+  def nextGreaterElements(self, nums: List[int]) -> List[int]:
+    stack, res = [], [-1] * len(A)
+    for i in range(len(A)) * 2:
+      while stack and (A[stack[-1]] < A[i]):
+        res[stack.pop()] = A[i]
+      stack.append(i)
+    return res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Daily Temperatures](https://leetcode.com/problems/daily-temperatures)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/monotonic-deque/LC_739.md/)
+
+{% tabs %}
+{% tab title='LC_739.md' %}
+
+> Question
+
+* Given a list of daily temperatures T, return a list such that, for each day, how many days to wait until a warmer temperature
+* If there is no future day for which this is possible, put 0 instead
+
+```txt
+Input : T = [73, 74, 75, 71, 69, 72, 76, 73]
+Output : [1, 1, 4, 2, 1, 1, 0, 0]
+```
+
+{% endtab %}
+{% tab title='LC_739.cpp' %}
+
+```cpp
+vector<int> dailyTemperatures(vector<int>& T) {
+  stack<pair<int,int>> s; // <number, position>
+  vector<int> result(T.size(),0);
+
+  for(int i = n - 1; i >= 0; i--) {
+    int curr = T[i];
+    while (!s.empty() && s.top().first <= curr)   // remove all colder
+      s.pop();
+    result[i] = s.empty() ? 0 : s.top().second - i; // calculate distance from last index
+    s.push({curr,i});
+  }
+
+  return result;
+}
+```
+
+{% endtab %}
+{% tab title='LC_739.py' %}
+
+```py
+def dailyTemperatures(self, T):
+  ans = [0] * len(T)
+  stack = []
+  for i, t in enumerate(T):             # while iterating forward
+    while stack and T[stack[-1]] < t:   # for every lower temperature
+      prev_idx = stack.pop()            # update highest
+      ans[prev_idx] = i - prev_idx
+    stack.append(i)
+
+  return ans
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Online Stock Span](https://leetcode.com/problems/online-stock-span)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/monotonic-deque/LC_901.md/)
+
+{% tabs %}
+{% tab title='LC_901.md' %}
+
+> Question
+
+* Write a class StockSpanner which collects daily price quotes for some stock
+* and returns the span of that stock's price for the current day
+
+```txt
+Input: ["StockSpanner","next","next","next","next","next","next","next"], [[],[100],[80],[60],[70],[60],[75],[85]]
+Output: [null,1,1,1,2,1,4,6]
+```
+
+{% endtab %}
+{% tab title='LC_901.py' %}
+
+```py
+class StockSpanner:
+  def __init__(self):
+    self.stack = []
+
+  def next(self, price):
+    res = 1
+    while self.stack and self.stack[-1][0] <= price:
+      res += self.stack.pop()[1]
+    self.stack.append([price, res])
+    return res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Sum of Subarray Minimums](https://leetcode.com/problems/sum-of-subarray-minimums)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/monotonic-deque/LC_907.md/)
+
+{% tabs %}
+{% tab title='LC_907.md' %}
+
+> Question
+
+* Given an array of integers arr, find the sum of min(b), where b ranges over every (contiguous) subarray of arr
+
+```txt
+Input: arr = [3,1,2,4]
+Output: 17
+```
+
+{% endtab %}
+{% tab title='LC_907.py' %}
+
+```py
+def sumSubarrayMins(self, A):
+  res, s = 0, []
+  A = [0] + A + [0]
+  for i, x in enumerate(A):
+    while s and A[s[-1]] > x:
+      j = s.pop()
+      k = s[-1]
+      res += A[j] * (i - j) * (j - k)
+    s.append(i)
+  return res % (10**9 + 7)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/monotonic-deque/LC_862.md/)
+
+{% tabs %}
+{% tab title='LC_862.md' %}
+
+> Question
+
+* Return the length of the shortest, non-empty, contiguous subarray of nums with sum at least k
+* If there is no non-empty subarray with sum at least k, return -1
+
+```txt
+Input: nums = [2,-1,2], k = 3
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_862.py' %}
+
+```py
+def shortestSubarray(self, A: List[int], k: int) -> int:
+  dq = collections.deque([])
+  B = [0]
+  for a in A:
+    B.append(B[-1] + a)
+
+  res = float('inf')
+  for i, b in enumerate(B):
+    if not dq: dq.append(i)
+    else:
+      while dq and B[dq[-1]] > b: dq.pop()
+      while dq and B[dq[0]] <= b - k:
+        res = min(res, i - dq[0])
+        dq.popleft()
+      dq.append(i)
+  return res if res < float('inf') else -1
+```
+
+{% endtab %}
+{% endtabs %}

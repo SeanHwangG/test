@@ -1,0 +1,872 @@
+> baekjoon
+
+* [Level 2 : ciComLove](https://www.acmicpc.net/problem/21598)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_21598.md/)
+
+{% tabs %}
+{% tab title='BJ_21598.md' %}
+
+> Question
+
+* Print SciComLove N Times
+
+```txt
+Input: 2
+Output:
+SciComLove
+SciComLove
+```
+
+{% endtab %}
+{% tab title='BJ_21598.py' %}
+
+```py
+for _ in range(int(input())):
+  print("SciComLove")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 15](https://www.acmicpc.net/problem/10990)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_10990.md/)
+
+{% tabs %}
+{% tab title='BJ_10990.md' %}
+
+> Question
+
+```txt
+Input: 3
+Output:
+  *
+ * *
+*   *
+```
+
+{% endtab %}
+{% tab title='BJ_10990.py' %}
+
+```py
+N = int(input()) - 1
+print (" " * N + "*")
+for i in range(N):
+  print(" " * (N - i - 1) + '*' + ' ' * (i * 2 + 1) + '*')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 16](https://www.acmicpc.net/problem/10991)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_10991.md/)
+
+{% tabs %}
+{% tab title='BJ_10991.md' %}
+
+> Question
+
+```txt
+Input: 3
+Ouput:
+  *
+ * *
+* * *
+```
+
+{% endtab %}
+{% tab title='BJ_10991.py' %}
+
+```py
+a = int(input())
+for i in range(1, a + 1):
+  print(' ' * (a - i) + '* ' * i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 17](https://www.acmicpc.net/problem/10992)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_10992.md/)
+
+{% tabs %}
+{% tab title='BJ_10992.md' %}
+
+> Question
+
+```txt
+Input: 4
+Ouput:
+   *
+  * *
+ *   *
+*******
+```
+
+{% endtab %}
+{% tab title='BJ_10992.py' %}
+
+```py
+x = int(input());
+
+for i in range(0, x):
+  if i == 0:
+    print(" " * (x - 1 - i) + "*")
+  elif i < x - 1:
+    print(" " * (x - 1 - i) + "*" + " " * ((i - 1) * 2 + 1) + '*')
+  else:
+    print("*" * (x * 2 - 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 히스토그램](https://www.acmicpc.net/problem/13752)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_13752.md/)
+
+{% tabs %}
+{% tab title='BJ_13752.md' %}
+
+> Question
+
+* Print = times number for N lines
+
+```txt
+Input:
+5
+1
+3
+4
+6
+2
+
+Output:
+=
+===
+====
+======
+==
+```
+
+{% endtab %}
+{% tab title='BJ_13752.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  print('=' * int(input()))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : FizzBuzz](https://www.acmicpc.net/problem/14761)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_14761.md/)
+
+{% tabs %}
+{% tab title='BJ_14761.md' %}
+
+> Question
+
+* for integers <=N, print Fizz for multiple of X, Buzz for multiple of Y, and FizzBuzz if multiple of both X, Y
+* If it's multiple of none print the number
+
+```txt
+Input: 2 3 7
+Output:
+1
+Fizz
+Buzz
+Fizz
+5
+FizzBuzz
+7
+```
+
+{% endtab %}
+{% tab title='BJ_14761.py' %}
+
+```py
+X, Y, N = map(int, input().split())
+for i in range(1, N + 1):
+  print('Fizz' * (i % X == 0) + 'Buzz' * (i % Y == 0) or i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : ectangles](https://www.acmicpc.net/problem/15232)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_15232.md/)
+
+{% tabs %}
+{% tab title='BJ_15232.md' %}
+
+> Question
+
+```txt
+Input:
+3
+5
+
+Output:
+*****
+*****
+*****
+```
+
+{% endtab %}
+{% tab title='BJ_15232.py' %}
+
+```py
+N, M = int(input()), int(input())
+for _ in range(N):
+  print("*" * M)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 1](https://www.acmicpc.net/problem/2438)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2438.md/)
+
+{% tabs %}
+{% tab title='BJ_2438.md' %}
+
+> Question
+
+```txt
+Input: 3
+
+Output:
+*
+**
+***
+```
+
+{% endtab %}
+{% tab title='BJ_2438.py' %}
+
+```sh
+read N
+for((i=1;i<=N;i++)); do
+  for((j=1;j<=$i;j++)); do
+    printf "*"
+  done
+  echo
+done
+```
+
+```py
+n = int(input())
+
+for i in range(1, n + 1):
+  print('*' * i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 2](https://www.acmicpc.net/problem/2439)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2439.md/)
+
+{% tabs %}
+{% tab title='BJ_2439.md' %}
+
+> Question
+
+```txt
+Input: 5
+Ouptut:
+    *
+   **
+  ***
+ ****
+*****
+```
+
+{% endtab %}
+{% tab title='BJ_2439.py' %}
+
+```py
+n = int(input())
+for i in range(1, n + 1):
+  print(' ' * (n - i) + '*' * i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 3](https://www.acmicpc.net/problem/2440)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2440.md/)
+
+{% tabs %}
+{% tab title='BJ_2440.md' %}
+
+> Question
+
+* Print Star in Following format
+
+```txt
+Input: 4
+
+Output:
+****
+***
+**
+*
+```
+
+{% endtab %}
+{% tab title='BJ_2440.py' %}
+
+```py
+a = int(input())
+for i in range(1, a + 1):
+  print("*" * (a - i + 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 4](https://www.acmicpc.net/problem/2441)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2441.md/)
+
+{% tabs %}
+{% tab title='BJ_2441.md' %}
+
+> Question
+
+* Print star in following format
+
+```txt
+Input: 5
+
+Output:
+*****
+ ****
+  ***
+   **
+    *
+```
+
+{% endtab %}
+{% tab title='BJ_2441.py' %}
+
+```py
+a = int(input())
+for i in range(1,a+1):
+  print(" "*(i-1) + "*" * (a-i+1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 5](https://www.acmicpc.net/problem/2442)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2442.md/)
+
+{% tabs %}
+{% tab title='BJ_2442.md' %}
+
+> Question
+
+* Print star in following format
+
+```txt
+Input: 3
+
+Ouptut:
+  *
+ ***
+*****
+```
+
+{% endtab %}
+{% tab title='BJ_2442.py' %}
+
+```py
+a = int(input())
+for i in range(1, a + 1):
+  b = ' ' * (a - i) + '*' * ((2 * i) - 1)
+  print(b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 6](https://www.acmicpc.net/problem/2443)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2443.md/)
+
+{% tabs %}
+{% tab title='BJ_2443.md' %}
+
+> Question
+
+* Print star in following format
+
+```txt
+Input: 3
+
+Output:
+*****
+ ***
+  *
+```
+
+{% endtab %}
+{% tab title='BJ_2443.py' %}
+
+```py
+a = int(input())
+for i in range(a-1,-1,-1):
+  print(' '*(a-i-1)+('*'*(2*i+1)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 7](https://www.acmicpc.net/problem/2444)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2444.md/)
+
+{% tabs %}
+{% tab title='BJ_2444.md' %}
+
+> Question
+
+* Print star in following format
+
+```txt
+Input: 2
+
+Output:
+ *
+***
+ *
+```
+
+{% endtab %}
+{% tab title='BJ_2444.py' %}
+
+```py
+a = int(input())
+for i in range(a-1):
+  print(' '*(a-i-1)+('*'*(2*i+1)))
+for i in range(a-1,-1,-1):
+  print(' '*(a-i-1)+('*'*(2*i+1)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 8](https://www.acmicpc.net/problem/2445)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2445.md/)
+
+{% tabs %}
+{% tab title='BJ_2445.md' %}
+
+> Question
+
+* Print star in following format
+
+```txt
+Input: 5
+Output:
+*        *
+**      **
+***    ***
+****  ****
+**********
+****  ****
+***    ***
+**      **
+*        *
+```
+
+{% endtab %}
+{% tab title='BJ_2445.py' %}
+
+```py
+a = int(input())
+b=a
+for i in range(1,a+1):
+  print('*' * i + ' ' * (2 * (b - i)) + '*' * (i))
+for k in range(1,b+1):
+  print('*' * (b-k) + ' ' * (2*k) + '*' * (b-k))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 9](https://www.acmicpc.net/problem/2446)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2446.md/)
+
+{% tabs %}
+{% tab title='BJ_2446.md' %}
+
+> Question
+
+* Print star
+
+```txt
+Input: 3
+Output:
+***
+ *
+***
+```
+
+{% endtab %}
+{% tab title='BJ_2446.py' %}
+
+```py
+a = int(input())
+for i in range(a-1,0,-1):
+  print(' '*(a-i-1)+('*'*(2*i+1)))
+for i in range(a):
+  print(' '*(a-i-1)+('*'*(2*i+1)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 12](https://www.acmicpc.net/problem/2522)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2522.md/)
+
+{% tabs %}
+{% tab title='BJ_2522.md' %}
+
+> Question
+
+* Print star in following format
+
+```txt
+Input: 3
+Output:
+  *
+ **
+***
+ **
+  *
+```
+
+{% endtab %}
+{% tab title='BJ_2522.py' %}
+
+```py
+a = int(input())
+b = a
+for i in range(1, a+1):
+  print(' '*(b-i)+'*'*(i))
+for k in range(1,b):
+  print(' '*(k)+'*'*(b-k))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 별 찍기 - 13](https://www.acmicpc.net/problem/2523)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2523.md/)
+
+{% tabs %}
+{% tab title='BJ_2523.md' %}
+
+> Question
+
+```txt
+Input: 3
+Output:
+*
+**
+***
+**
+*
+```
+
+{% endtab %}
+{% tab title='BJ_2523.py' %}
+
+```py
+n = int(input())
+for i in range(1 - n, n):
+  print('*'*(n-abs(i)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 찍기](https://www.acmicpc.net/problem/2741)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2741.md/)
+
+{% tabs %}
+{% tab title='BJ_2741.md' %}
+
+> Question
+
+* Print 1...n in each line
+
+```txt
+Input: 5
+Output:
+1
+2
+3
+4
+5
+```
+
+{% endtab %}
+{% tab title='BJ_2741.py' %}
+
+```py
+print(*range(1, int(input()) + 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 기찍](https://www.acmicpc.net/problem/2742)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_2742.md/)
+
+{% tabs %}
+{% tab title='BJ_2742.md' %}
+
+> Question
+
+```txt
+Input: 5
+Output:
+5
+4
+3
+2
+1
+```
+
+{% endtab %}
+{% tab title='BJ_2742.py' %}
+
+```py
+for i in range(int(input()), 0, -1):
+  print(i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 숫자](https://www.acmicpc.net/problem/10093)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_10093.md/)
+
+{% tabs %}
+{% tab title='BJ_10093.md' %}
+
+> Question
+
+* When given two positive integers, outputs both integers between them
+
+```txt
+Input: 8 14
+Output:
+5
+9 10 11 12 13
+```
+
+{% endtab %}
+{% tab title='BJ_10093.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+  long long a, b;
+  cin >> a >> b;
+  if (a == b)cout << "0\n";
+  else cout << abs(b - a)-1 << '\n';
+  for (long long i = min(a,b) + 1; i < max(a, b); i++) cout << i << ' ';
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10093.py' %}
+
+```py
+a, b = map(int, input().split())
+n1 = min(a, b)
+n2 = max(a, b)
+print(n2 - n1 - 1 if n2 > n1 else 0)
+for i in range(n1+1, n2):
+  print(i, end = ' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 별 찍기 - 20](https://www.acmicpc.net/problem/10995)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_10995.md/)
+
+{% tabs %}
+{% tab title='BJ_10995.md' %}
+
+* Print star
+
+```txt
+Input: 3
+* * *
+ * * *
+* * *
+```
+
+{% endtab %}
+{% tab title='BJ_10995.py' %}
+
+```py
+n = int(input())
+for i in range(n):
+  print("* " * n if i % 2 == 0 else " *" * n)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 별 찍기 - 21](https://www.acmicpc.net/problem/10996)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_10996.md/)
+
+{% tabs %}
+{% tab title='BJ_10996.md' %}
+
+> Question
+
+```txt
+Input: 3
+Output:
+* *
+ *
+* *
+ *
+* *
+ *
+```
+
+{% endtab %}
+{% tab title='BJ_10996.py' %}
+
+```py
+n = int(input())
+for _ in range(n):
+  print('* ' * (n - n//2))
+  print(' *' * (n//2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 전북대학교](https://www.acmicpc.net/problem/14624)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_14624.md/)
+
+{% tabs %}
+{% tab title='BJ_14624.md' %}
+
+> Question
+
+* Print I LOVE CBNU if even
+
+```txt
+Input:
+3
+
+Output:
+***
+ *
+* *
+```
+
+{% endtab %}
+{% tab title='BJ_14624.py' %}
+
+```py
+n=int(input())
+if n%2:
+  print("*"*n)
+  print(" "*(n//2)+"*")
+  for i in range(1,n//2+1):print(" "*(n//2-i)+"*"+" "*(i*2-1)+"*")
+else:print("I LOVE CBNU")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 아무래도이문제는A번난이도인것같다](https://www.acmicpc.net/problem/1402)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_1402.md/)
+
+{% tabs %}
+{% tab title='BJ_1402.md' %}
+
+> Question
+
+* Print yes for n times
+
+```txt
+Input: 3
+
+Output:
+yes
+yes
+yes
+```
+
+{% endtab %}
+{% tab title='BJ_1402.py' %}
+
+```py
+for _ in range(int(input())):
+  print('yes')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 별 찍기 - 19](https://www.acmicpc.net/problem/10994)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/BJ_10994.md/)
+
+{% tabs %}
+{% tab title='BJ_10994.md' %}
+
+> Question
+
+```txt
+Input: 3
+Output:
+*********
+*       *
+* ***** *
+* *   * *
+* * * * *
+* *   * *
+* ***** *
+*       *
+*********
+```
+
+{% endtab %}
+{% tab title='BJ_10994.py' %}
+
+```py
+n=int(input().strip())
+x=4*n-3
+
+for i in range(x):
+  l = ''
+  for j in range(x):
+    if max(abs(i - 2 * n + 2), abs(j - 2 * n + 2)) % 2 == 0:
+      l += '*'
+    else:
+      l += ' '
+  print(l)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : FizzBuzz](https://open.kattis.com/problems/fizzbuzz)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for/KT_fizzbuzz.md/)
+
+[//]: # (BJ_14761)

@@ -1,0 +1,188 @@
+> baekjoon
+
+* [Level 4 : JOI와 IOI](https://www.acmicpc.net/problem/5586)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/assertion/BJ_5586.md/)
+
+{% tabs %}
+{% tab title='BJ_5586.md' %}
+
+> Question
+
+* Print number of IOI and JOI in the string
+
+```txt
+Input: JOIIOIOI
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_5586.py' %}
+
+```py
+import re
+a=input()
+print(a.count("JOI"),len(re.findall("IO(?=I)",a)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : IOIOI](https://www.acmicpc.net/problem/5525)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/assertion/BJ_5525.md/)
+
+{% tabs %}
+{% tab title='BJ_5525.md' %}
+
+> Question
+
+* P1 = IOI, P2 = IOIOI
+* Given a string S and an integer N consisting of only I and O, write a program that asks how many PNs are included in S
+
+```txt
+Input:
+1
+13
+OOIOIOIOIIOII
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_5525.py' %}
+
+```py
+import re
+n=int(input())
+input()
+print(sum(max((i + 1) // 2 - n, 0) for i in map(len,re.findall('I(?:OI)+',input()))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> hackerrank
+
+* [Level Easy : Negative Lookahead](https://www.hackerrank.com/challenges/negative-lookahead/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/assertion/HR_negative-lookahead.md/)
+
+{% tabs %}
+{% tab title='HR_negative-lookahead.md' %}
+
+> Question
+
+* Write a regex which can match all characters which are not immediately followed by that same character
+
+```txt
+Input: gooooo
+Output: 2
+```
+
+{% endtab %}
+{% tab title='HR_negative-lookahead.py' %}
+
+```py
+import re
+
+Test_String = input()
+pattern = r"(.)(?!\1)"
+match = re.findall(pattern, Test_String)
+
+print("Number of matches :", len(match))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Negative Lookbehind](https://www.hackerrank.com/challenges/negative-lookbehind/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/assertion/HR_negative-lookbehind.md/)
+
+{% tabs %}
+{% tab title='HR_negative-lookbehind.md' %}
+
+> Question
+
+* Write a regex which can match all the occurences of characters which are not immediately preceded by vowels
+
+```txt
+Input: abru
+Output: Number of matches : 3   # abr
+```
+
+{% endtab %}
+{% tab title='HR_negative-lookbehind.py' %}
+
+```py
+import re
+
+pattern = r"(?<![aeiouAEIOU])."
+match = re.findall(pattern, input)
+
+print("Number of matches :", len(match))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Positive Lookahead](https://www.hackerrank.com/challenges/positive-lookahead/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/assertion/HR_positive-lookahead.md/)
+
+{% tabs %}
+{% tab title='HR_positive-lookahead.md' %}
+
+> Question
+
+* Write a regex that can match all occurrences of o followed immediately by oo in S
+
+```txt
+Input: gooooo!
+Output: Number of matches : 3
+```
+
+{% endtab %}
+{% tab title='HR_positive-lookahead.py' %}
+
+```py
+import re
+
+Test_String = input()
+
+pattern = r"o(?=oo)"
+match = re.findall(pattern, Test_String)
+
+print("Number of matches :", len(match))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Positive Lookbehind](https://www.hackerrank.com/challenges/positive-lookbehind/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/assertion/HR_positive-lookbehind.md/)
+
+{% tabs %}
+{% tab title='HR_positive-lookbehind.md' %}
+
+> Question
+
+* Write a regex which can match all the occurences of digit which are immediately preceded by odd digit
+
+> Question
+
+```txt
+Input: 123Go!
+Output: 1
+```
+
+{% endtab %}
+{% tab title='HR_positive-lookbehind.py' %}
+
+```py
+import re
+Test_String = input()
+pattern = r"(?<=[13579])\d"
+match = re.findall(pattern, Test_String)
+
+print("Number of matches :", len(match))
+```
+
+{% endtab %}
+{% endtabs %}

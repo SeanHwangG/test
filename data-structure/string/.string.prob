@@ -1,0 +1,743 @@
+> baekjoon
+
+* [Level 4 : 니모를 찾아서](https://www.acmicpc.net/problem/10173)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_10173.md/)
+
+{% tabs %}
+{% tab title='BJ_10173.md' %}
+
+> Question
+
+* Print if nemo is in string until last line with EOI
+
+```txt
+Input:
+Marlin names this last egg Nemo, a name that Coral liked.
+While attempting to save nemo, Marlin meets Dory,
+a good-hearted and optimistic regal blue tang with short-term memory loss.
+Upon leaving the East Australian Current,(888*%$^&%0928375)Marlin and Dory
+NEMO leaves for school and Marlin watches NeMo swim away.
+EOI
+
+Output:
+Found
+Found
+Missing
+Missing
+Found
+```
+
+{% endtab %}
+{% tab title='BJ_10173.py' %}
+
+```py
+while 1:
+  b = input()
+  if b == 'EOI': break
+  b = b.lower()
+  if 'nemo' in b:
+    print('Found')
+  else:
+    print('Missing')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 유학 금지](https://www.acmicpc.net/problem/2789)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2789.md/)
+
+{% tabs %}
+{% tab title='BJ_2789.md' %}
+
+> Question
+
+* erase all CAMBRIDGE from letter
+
+```txt
+Input: LOVA
+Output: LOV
+```
+
+{% endtab %}
+{% tab title='BJ_2789.py' %}
+
+```py
+a = "CAMBRIDGE"
+s = input()
+for i in a:
+  for j in range(len(s)):
+    if i == s[j]:
+      s[j] = ''
+print(*s, sep='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 컵홀더](https://www.acmicpc.net/problem/2810)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2810.md/)
+
+{% tabs %}
+{% tab title='BJ_2810.md' %}
+
+> Question
+
+* determines the maximum number of people that can fit a cup into the cupholder
+
+```txt
+Input:
+9
+SLLLLSSLL
+
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_2810.py' %}
+
+```py
+input()
+s = input()
+if 'L' not in s:
+  print(len(s))
+else:
+  print(len(s.replace("LL", "S")) + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 5와 6의 차이](https://www.acmicpc.net/problem/2864)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2864.md/)
+
+{% tabs %}
+{% tab title='BJ_2864.md' %}
+
+> Question
+
+* if 5, 6 can be written interchangably, find min, max
+
+```txt
+Input: 1430 4862
+Output: 6282 6292
+```
+
+{% endtab %}
+{% tab title='BJ_2864.py' %}
+
+```py
+a, b = input().split()
+mx = int(a.replace('5', '6')) + int(b.replace('5', '6'))
+mn = int(a.replace('6', '5')) + int(b.replace('6', '5'))
+print(mn, mx)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : KMP는 왜 KMP일까?](https://www.acmicpc.net/problem/2902)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2902.md/)
+
+{% tabs %}
+{% tab title='BJ_2902.md' %}
+
+> Question
+
+* Print only upper characters
+
+```txt
+Input: Knuth-Morris-Pratt
+Output: KMP
+```
+
+{% endtab %}
+{% tab title='BJ_2902.py' %}
+
+```py
+for i in input():
+  if i.isupper():
+    print(i, end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 첫 글자를 대문자로](https://www.acmicpc.net/problem/4458)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_4458.md/)
+
+{% tabs %}
+{% tab title='BJ_4458.md' %}
+
+> Question
+
+* Capitalize first letter
+
+```txt
+Input:
+5
+powdered Toast Man
+skeletor
+Electra Woman and Dyna Girl
+she-Ra Princess of Power
+darth Vader
+
+Output:
+Powdered Toast Man
+Skeletor
+Electra Woman and Dyna Girl
+She-Ra Princess of Power
+Darth Vader
+```
+
+{% endtab %}
+{% tab title='BJ_4458.cpp' %}
+
+```cpp
+#include<cstdio>
+#include<cctype>
+
+int n;
+char s[31];
+int main() {
+  scanf("%d", &n);
+  while (n--) {
+    scanf(" %[^\n]s", s);
+    printf("%c%s\n", toupper(s[0]), s + 1);
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_4458.py' %}
+
+```py
+for i in range(int(input())):
+  j = input()
+  print(j[0].upper() + j[1:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 알파벳 전부 쓰기](https://www.acmicpc.net/problem/11091)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_11091.md/)
+
+{% tabs %}
+{% tab title='BJ_11091.md' %}
+
+> Question
+
+* Print unused character from ascii
+
+```txt
+Input:
+3
+The quick brown fox jumps over the lazy dog.
+ZYXW, vu TSR Ponm lkj ihgfd CBA.
+.,?!'" 92384 abcde FGHIJ
+
+Output:
+pangram
+missing eq
+missing klmnopqrstuvwxyz
+```
+
+{% endtab %}
+{% tab title='BJ_11091.py' %}
+
+```py
+import string
+for _ in range(int(input())):
+  a = input().lower()
+  missing = []
+  for ch in string.ascii_lowercase:
+    if ch not in a:
+      missing.append(ch)
+  print("missing " + "".join(missing) if missing else "pangram")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 유진수](https://www.acmicpc.net/problem/1356)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_1356.md/)
+
+{% tabs %}
+{% tab title='BJ_1356.md' %}
+
+> Question
+
+* Determine if a number can be divided into two parts, and product of front digit and product of back digit are same
+
+```txt
+Input: 1236
+Output: YES
+```
+
+{% endtab %}
+{% tab title='BJ_1356.py' %}
+
+```py
+n = input()
+n_len = len(n)
+true = 0
+for i in range(n_len - 1):
+  left = 1
+  right = 1
+  for j in range(i + 1):
+    left *= int(n[j])
+  for k in range(i + 1, n_len):
+    right *= int(n[k])
+  if left == right:
+    print("YES")
+    break
+else:
+  print("NO")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 폴리오미노](https://www.acmicpc.net/problem/1343)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_1343.md/)
+
+{% tabs %}
+{% tab title='BJ_1343.md' %}
+
+> Question
+
+* Now given a board consisting of '.' and 'X', cover all 'X' with polyomino without overlap
+* '.' should not be covered with polyomino
+* Print -1 if it cannot be done
+
+```txt
+Input: XX.XX
+Output: BB.BB
+```
+
+{% endtab %}
+{% tab title='BJ_1343.py' %}
+
+```py
+a=input().replace('XXXX','AAAA').replace('XX','BB')
+print(-1 if 'X' in a else a)
+s = input()
+k = input()
+print(int(k in s))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 별 찍기 - 11](https://www.acmicpc.net/problem/2448)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2448.md/)
+
+{% tabs %}
+{% tab title='BJ_2448.md' %}
+
+> Question
+
+```txt
+Input: 24
+
+Output:
+                       *
+                      * *
+                     *****
+                    *     *
+                   * *   * *
+                  ***** *****
+                 *           *
+                * *         * *
+               *****       *****
+              *     *     *     *
+             * *   * *   * *   * *
+            ***** ***** ***** *****
+           *                       *
+          * *                     * *
+         *****                   *****
+        *     *                 *     *
+       * *   * *               * *   * *
+      ***** *****             ***** *****
+     *           *           *           *
+    * *         * *         * *         * *
+   *****       *****       *****       *****
+  *     *     *     *     *     *     *     *
+ * *   * *   * *   * *   * *   * *   * *   * *
+***** ***** ***** ***** ***** ***** ***** *****
+```
+
+{% endtab %}
+{% tab title='BJ_2448.cpp' %}
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int a;
+  cin >> a;
+  vector<string> star = {"  *  ", " * * ","*****"};
+  a /= 3;
+
+  while (a != 1){
+    int N = star.size();
+    for (int i = 0; i < N; i++)
+      star.push_back(star[i] + " " + star[i]);
+    for (int i = 0; i < N; i++)
+      star[i] = string(N, ' ') + star[i] + string(N, ' ');
+    a /= 2;
+  }
+
+  for (string str : star)
+    cout << str << "\n";
+
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2448.py' %}
+
+```py
+N = int(input())
+star = ["*","* *","*****"]
+k = 3
+
+while k < N:
+  star += [s.ljust(k*2) + s for s in star]
+  k *= 2
+
+for s in star:
+  print(s.center(2*N-1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.2 : Greetings!](https://open.kattis.com/problems/greetings2)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/KT_greetings2.md/)
+
+{% tabs %}
+{% tab title='KT_greetings2.md' %}
+
+> Question
+
+* heey 에서 e 가 들어온 만큼 추가해서 출력하라
+
+```txt
+Input: heeeeey
+Output: heeeeeeeeeey
+```
+
+{% endtab %}
+{% tab title='KT_greetings2.py' %}
+
+```py
+print(input().replace("e", "ee"))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Fifty Shades of Pink](https://open.kattis.com/problems/fiftyshades)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/KT_fiftyshades.md/)
+
+{% tabs %}
+{% tab title='KT_fiftyshades.md' %}
+
+> Question
+
+* 첫줄엔 N 이 그 다음 N 줄엔 문자가 주어진다
+* 이 때 rose나 pink를 포함한 문자의 수를 구하라. (단 대문자 / 소문자는 무시한다.)
+
+```txt
+Input:
+12
+pink
+tequilaSunrose
+mExicanPInK
+Coquelicot
+turqrose
+roSee
+JETblack
+pink
+babypink
+pInKpinkPinK
+PInkrose
+lazerlemon
+
+Output: 9
+```
+
+{% endtab %}
+{% tab title='KT_fiftyshades.py' %}
+
+```py
+N = int(input())
+count = 0
+for _ in range(N):
+  st = input().lower()
+  if st.find('pink') != -1 or st.find('rose') != -1:
+    count += 1
+
+print(count if count != 0 else "I must watch Star Wars with my daughter")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : Quick Brown Fox](https://open.kattis.com/problems/quickbrownfox)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/KT_quickbrownfox.md/)
+
+[//]: # (BJ_11091)
+
+* [Level 1.8 : Death Knight Hero](https://open.kattis.com/problems/deathknight)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/KT_deathknight.md/)
+
+{% tabs %}
+{% tab title='KT_deathknight.md' %}
+
+> Question
+
+* 첫줄에 N이 주어진다
+* 다음 각각 N줄에 문자가 주어지는데, 이 때 CD를 포함하지 않는 줄의 수를 구하여라
+
+```txt
+Input:
+3
+DCOOO
+DODOCD
+COD
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='KT_deathknight.py' %}
+
+```py
+n = int(input())
+ret = 0
+for _ in range(n):
+  if input().find('CD') == -1:
+    ret += 1
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.8 : Run-Length Encoding, Run!](https://open.kattis.com/problems/runlengthencodingrun)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/KT_runlengthencodingrun.md/)
+
+{% tabs %}
+{% tab title='KT_runlengthencodingrun.md' %}
+
+> Question
+
+* Convert using two rules
+
+```txt
+Input: E HHHeellloWooorrrrlld!!
+Output: H3e2l3o1W1o3r4l2d1!2
+```
+
+{% endtab %}
+{% tab title='KT_runlengthencodingrun.py' %}
+
+```py
+t, s = input().split()
+if t == 'E':
+  row = 1
+  for i, ch in enumerate(s):
+    if i == len(s) - 1 or s[i + 1] != s[i]:
+      print(ch + str(row), end='')
+      row = 1
+    else:
+      row+=1
+else:
+  for i in range(1, len(s), 2):
+    print(s[i - 1] * int(s[i]), end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Goal Parser Interpretation](https://leetcode.com/problems/goal-parser-interpretation)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/LC_1678.md/)
+
+{% tabs %}
+{% tab title='LC_1678.md' %}
+
+> Question
+
+![LC_1678](string/images/20210306_004157.png)
+
+```txt
+Input: command = "G()()()()(al)"
+Output: "Gooooal"
+```
+
+{% endtab %}
+{% tab title='LC_1678.cpp' %}
+
+```cpp
+string interpret(string s) {
+  string ans;
+  for (int i = 0; i < s.size(); ) {
+    if (s[i] == 'G') ans += 'G', ++i;
+    else if (s[i + 1] == ')') ans += 'o', i += 2;
+    else ans += "al", i += 4;
+  }
+  return ans;
+}
+```
+
+{% endtab %}
+{% tab title='LC_1678.py' %}
+
+```py
+def interpret(self, command: str) -> str:
+  return command.replace('()', 'o').replace('(al)', 'al')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Check if Binary String Has at Most One Segment of Ones](https://leetcode.com/problems/check-if-binary-string-has-at-most-one-segment-of-ones)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/LC_1784.md/)
+
+{% tabs %}
+{% tab title='LC_1784.md' %}
+
+> Question
+
+* Given a binary string s ​​​​​without leading zeros, return if s contains at most one contiguous segment of ones
+
+```txt
+Input: "010"
+Output: False
+```
+
+{% endtab %}
+{% tab title='LC_1784.py' %}
+
+```py
+def checkOnesSegment(self, s: str) -> bool:
+  return "01" not in s
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/LC_8.md/)
+
+{% tabs %}
+{% tab title='LC_8.md' %}
+
+> Question
+
+* implement atoi function (string to int)
+
+```txt
+Input: s = "   -42"
+Output: -42
+```
+
+{% endtab %}
+{% tab title='LC_8.py' %}
+
+```py
+class Solution(object):
+  def myAtoi(self, s):
+    ls = list(s.strip())
+    if len(ls) == 0: return 0
+    sign = -1 if ls[0] == '-' else 1
+    if ls[0] in ['-','+'] : del ls[0]
+    ret, i = 0, 0
+    while i < len(ls) and ls[i].isdigit() :
+      ret = ret * 10 + int(ls[i])
+      i += 1
+    return max(-2**31, min(sign * ret,2**31-1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : K-th Smallest in Lexicographical Order](https://leetcode.com/problems/k-th-smallest-in-lexicographical-order)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/LC_440.md/)
+
+{% tabs %}
+{% tab title='LC_440.md' %}
+
+> Question
+
+* Given integers n and k, find the lexicographically k-th smallest integer in the range from 1 to n
+
+```txt
+Input: n = 13, k = 2
+Output: 10
+```
+
+{% endtab %}
+{% tab title='LC_440.cpp' %}
+
+```cpp
+int findKthNumber(int n, int k) {
+  int result = 1;
+  for(--k; k > 0; ) {
+    int count = 0;  // calculate #|{result, result*, result**, result***, ...}|
+    for (long long first = static_cast<long long>(result), last = first + 1;
+      first <= n; first *= 10, last *= 10) {           // while interval is not empty, increase a digit
+      // valid interval = [first, last) union [first, n]
+      count += static_cast<int>((min(n + 1LL, last) - first)); // add the length of interval
+    }
+
+    if (k >= count) { // skip {result, result*, result**, result***, ...} increase the current prefix
+      ++result;
+      k -= count;
+    }
+    else {      // not able to skip all of {result, result*, result**, result***, ...} search more detailedly
+      result *= 10;
+      --k;
+    }
+  }
+  return result;
+};
+```
+
+{% endtab %}
+{% tab title='LC_440.py' %}
+
+```py
+def findKthNumber(self, n, k):
+  result = 1
+  k -= 1
+  while k > 0:
+    count = 0
+    lo, hi = result, result+1
+    # prefix count
+    # [result, result+1)
+    # [result*10, (result+1)*10 )
+    # [result*100, (result+1)*100 )
+    while lo <= n:
+      count += min(n+1, hi) - lo
+      lo, hi = 10 * lo, 10 * hi
+    if k >= count:
+      result += 1
+      k -= count
+    else:
+      result *= 10
+      k -= 1
+  return result
+```
+
+{% endtab %}
+{% endtabs %}

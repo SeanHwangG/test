@@ -1,0 +1,131 @@
+> hackerrank
+
+* [Level Easy : HackerRank Tweets](https://www.hackerrank.com/challenges/hackerrank-tweets/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/flag/HR_hackerrank-tweets.md/)
+
+{% tabs %}
+{% tab title='HR_hackerrank-tweets.md' %}
+
+> Question
+
+* Print the total number of tweets that has hackerrank (case insensitive) in it
+
+```txt
+Input:
+4
+I love #hackerrank
+I just scored 27 points in the Picking Cards challenge on #HackerRank
+I just signed up for summer cup @hackerrank
+interesting talk by hari, co-founder of hackerrank
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='HR_hackerrank-tweets.js' %}
+
+```js
+process.stdin.resume();
+process.stdin.setEncoding("ascii");
+_input = "";
+process.stdin.on("data", function (input) {
+    _input += input;
+});
+
+process.stdin.on("end", function () {
+  console.log(input.match(/hackerrank/ig).length);
+});
+```
+
+{% endtab %}
+{% tab title='HR_hackerrank-tweets.py' %}
+
+```py
+import re
+input_ = ' '.join([input() for _ in range(int(input()))])
+print(len(re.findall(r'hackerrank', input_, re.IGNORECASE)))
+# print(sum('HACKERRANK' in input().upper() for i in range(int(input()))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Saying Hi](https://www.hackerrank.com/challenges/saying-hi/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/flag/HR_saying-hi.md/)
+
+{% tabs %}
+{% tab title='HR_saying-hi.md' %}
+
+> Question
+
+* The first character must be the letter H or h
+* The second character must be the letter I or i
+* The third character must be a single space
+* The fourth character must not be the letter D or d
+
+```txt
+Input:
+5
+Hi Alex how are you doing
+hI dave how are you doing
+Good by Alex
+hidden agenda
+Alex greeted Martha by saying Hi Martha
+
+Output: Hi Alex how are you doing
+```
+
+{% endtab %}
+{% tab title='HR_saying-hi.py' %}
+
+```py
+import re, sys
+for s in filter(re.match(r"(?i:hi\s[^d])", sys.stdin)):
+  print(s.strip())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Medium : Detect the Domain Name](https://www.hackerrank.com/challenges/detect-the-domain-name/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/flag/HR_detect-the-domain-name.md/)
+
+{% tabs %}
+{% tab title='HR_detect-the-domain.name.md' %}
+
+> Question
+
+* One line, containing the list of detected domains, separated by semi-colons, in lexicographical order
+* Do not leave any leading or trailing spaces either at the ends of the line, or before and after the individual domain names
+
+```txt
+10
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b>^
+["Train (noun)"](http://www.askoxford.com/concise_oed/train?view=uk).
+<i>(definition – Compact OED)</i>. Oxford University Press<span class="reference-accessdate">.
+Retrieved 2008-03-18</span>.</span>
+<span title="ctx_ver=Z39.88-2004&rfr_id=info%3Asid%2Fen.wikipedia.org%3ATrain&rft.atitle=Train+%28noun%29&rft.genre=article
+&rft_id=http%3A%2F%2Fwww.askoxford.com%2Fconcise_oed%2Ftrain%3Fview%3Duk&rft.jtitle=%28definition+%E2%80%93+Compact+OED%29
+&rft.pub=Oxford+University+Press&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988">
+<span style="display:none;"> </span></span></span></li>
+...
+</div>
+
+Output: askoxford.com;bnsf.com;hydrogencarsnow.com;mrvc.indianrail.gov.in;web.archive.org
+```
+
+{% endtab %}
+{% tab title='HR_detect-the-domain.name.py' %}
+
+```py
+import re, sys
+
+page = sys.stdin.read()
+re_patt = r"https?:\/\/(?:ww[w\d]\.)?([\w\.-]+\.[a-zA-Z]*)"
+print(";".join(sorted(set(re.findall(re_patt, page, re.DOTALL)))))
+```
+
+{% endtab %}
+{% endtabs %}

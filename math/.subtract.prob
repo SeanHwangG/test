@@ -1,0 +1,101 @@
+> baekjoon
+
+* [Level 1 : -B](https://www.acmicpc.net/problem/1001)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/subtract/BJ_1001.md/)
+
+{% tabs %}
+{% tab title='BJ_1001.md' %}
+
+> Question
+
+* Print a - b
+
+```txt
+Input: 5 2
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1001.sh' %}
+
+```sh
+read a b;
+echo $((a-b))
+```
+
+{% endtab %}
+{% tab title='BJ_1001.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a - b)
+```
+
+{% endtab %}
+{% tab title='BJ_1001.v' %}
+
+```v
+module main;
+  integer a, b, c;
+  initial
+    begin
+      c = $fscanf(32'h8000_0000, "%d %d", a, b);
+      $display("%0d", a - b);
+      $finish;
+    end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 제리와 톰](https://www.acmicpc.net/problem/16430)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/subtract/BJ_16430.md/)
+
+{% tabs %}
+{% tab title='BJ_16430.md' %}
+
+> Question
+
+* print b - a, b
+
+```txt
+Input: 5 8
+Output: 3 8
+```
+
+{% endtab %}
+{% tab title='BJ_16430.py' %}
+
+```py
+a, b = map(int, input().split())
+print(b - a, b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 1998년생인 내가 태국에서는 2541년생?!](https://www.acmicpc.net/problem/18108)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/subtract/BJ_18108.md/)
+
+{% tabs %}
+{% tab title='BJ_18108.md' %}
+
+> Question
+
+* Print a - 543
+
+```txt
+Input: 2541
+Output: 1998
+```
+
+{% endtab %}
+{% tab title='BJ_18108.py' %}
+
+```py
+print(int(input()) - 543)
+```
+
+{% endtab %}
+{% endtabs %}

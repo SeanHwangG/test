@@ -1,0 +1,339 @@
+> baekjoon
+
+* [Level 0 : Bounding box](https://www.acmicpc.net/problem/4369)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/BJ_4369.md/)
+
+{% tabs %}
+{% tab title='BJ_4369.md' %}
+
+> Question
+
+* Three points from n vertex polygon is given
+* Print minimum area of rectange containing that polygon
+
+```txt
+4
+10.00000 0.00000
+0.00000 -10.00000
+-10.00000 0.00000
+6
+22.23086 0.42320
+-4.87328 11.92822
+1.76914 27.57680
+23
+156.71567 -13.63236
+139.03195 -22.04236
+137.96925 -11.70517
+0
+
+Output:
+Polygon 1: 400.000000000
+Polygon 2: 1056.171858315
+Polygon 3: 397.672899411
+```
+
+{% endtab %}
+{% tab title='BJ_4369.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct point { double x, y; };
+
+const double inf = 1e20;
+const double pi = acos(-1.0);
+point p[3];
+point intersect_point(point u1, point u2, point v1, point v2) {
+  point ans = u1;
+  double t = ((u1.x - v1.x) * (v1.y - v2.y) - (u1.y - v1.y) * (v1.x - v2.x)) /
+             ((u1.x - u2.x) * (v1.y - v2.y) - (u1.y - u2.y) * (v1.x - v2.x));
+  ans.x += (u2.x - u1.x) * t;
+  ans.y += (u2.y - u1.y) * t;
+  return ans;
+}
+
+point circumcenter(point a, point b, point c) {
+  point ua = {(a.x + b.x) / 2, (a.y + b.y) / 2};
+  point ub = {ua.x - a.y + b.y, ua.y + a.x - b.x};
+  point va = {(a.x + c.x) / 2, (a.y + c.y) / 2};
+  point vb = {va.x - a.y + c.y, va.y + a.x - c.x};
+  return intersect_point(ua, ub, va, vb);
+}
+
+point rotate(double cosl, double sinl, point a, point b) {
+  b.x -= a.x;
+  b.y -= a.y;
+  point c;
+  c.x = b.x * cosl - b.y * sinl + a.x;
+  c.y = b.x * sinl + b.y * cosl + a.y;
+  return c;
+}
+
+int main() {
+  int n, ind = 1;
+  double minx, miny, maxx, maxy;
+  while (~scanf("%d", &n) && n) {
+    minx = miny = inf;
+    maxx = maxy = -inf;
+    for (int i = 0; i < 3; i++)
+      scanf("%lf%lf", &p[i].x, &p[i].y);
+
+    point c = circumcenter(p[0], p[1], p[2]);
+    point s = p[0], k;
+    double a = 2 * pi / n;
+    for (int i = 0; i < n; i++) {
+      k = rotate(cos(i * a), sin(i * a), c, s);
+      minx = min(minx, k.x);
+      miny = min(miny, k.y);
+      maxx = max(maxx, k.x);
+      maxy = max(maxy, k.y);
+    }
+
+    double ans = (maxx - minx) * (maxy - miny);
+    printf("Polygon %d: %.6lf\n", ind++, ans);
+  }
+
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_4369.py' %}
+
+```py
+from math import isclose, sqrt, sin, cos, pi
+
+class Point:
+  def __init__(self, x, y):
+    self.x = x
+    self.y = y
+
+  def distance(self, point):
+    return sqrt(pow(self.x - point.x, 2) + pow(self.y - point.y, 2))
+
+  def rotate(self, radians):
+    COS = cos(radians)
+    SIN = sin(radians)
+    return Point(COS * self.x - SIN * self.y, SIN * self.x + COS * self.y)
+
+class Circle:
+  def __init__(self, **kwargs):
+    self.c, self.r = self.from_three_points(kwargs["p1"], kwargs["p2"], kwargs["p3"])
+
+  def from_three_points(self, p1, p2, p3):
+    if isclose(p1.x, p2.x):
+      p3, p1= p1, p3
+    if isclose(p2.x, p3.x):
+      p1, p2 = p2, p1
+    mr = (p2.y-p1.y) / (p2.x-p1.x)
+    mt = (p3.y-p2.y) / (p3.x-p2.x)
+    x = (mr*mt*(p3.y-p1.y) + mr*(p2.x+p3.x) - mt*(p1.x+p2.x)) / (2*(mr-mt))
+    y = (p1.y+p2.y) / 2 - (x - (p1.x+p2.x) / 2) / mr
+    radius = sqrt((pow((p2.x - x), 2) + pow((p2.y - y), 2)))
+    return (Point(x, y), radius)
+
+test_no = 1
+while True:
+  n = int(input())
+  if n == 0:
+    break
+
+  p1, p2, p3 = Point(*map(float, input().split())), Point(*map(float, input().split())), Point(*map(float, input().split()))
+
+  c = Circle(p1=p1, p2=p2, p3=p3)
+  x_min = x_max = p1.x
+  y_min = y_max = p1.y
+
+  v = Point(p1.x - c.c.x, p1.y - c.c.y)
+
+  rotation_degree = 2 * pi / n
+  for i in range(n-1):
+    v = v.rotate(rotation_degree)
+    x_min = min(v.x+c.c.x, x_min)
+    y_min = min(v.y+c.c.y, y_min)
+    x_max = max(v.x+c.c.x, x_max)
+    y_max = max(v.y+c.c.y, y_max)
+
+  print(f"Polygon {test_no}: {(x_max-x_min)*(y_max-y_min):.3f}")
+  test_no += 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Contemporary Art](https://www.acmicpc.net/problem/16600)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/BJ_16600.md/)
+
+[//]: # (BJ_15610)
+
+* [Level 3 : 욱제는 건축왕이야!!](https://www.acmicpc.net/problem/15923)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/BJ_15923.md/)
+
+{% tabs %}
+{% tab title='BJ_15923.md' %}
+
+> Question
+
+* Find perimeter of polygon, with manhattan distance
+
+```txt
+Input:
+4
+10 10
+10 40
+40 40
+40 10
+
+Output:
+120
+```
+
+{% endtab %}
+{% tab title='BJ_15923.py' %}
+
+```py
+n=int(input())
+L = []
+for i in range(n):
+  l = list(map(int,input().split()))
+  L.append(l)
+S = 0
+for i in range(n):
+  S += abs(L[i][0]-L[i-1][0])
+  S += abs(L[i][1]-L[i-1][1])
+print(S)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 정사각형](https://www.acmicpc.net/problem/1485)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/BJ_1485.md/)
+
+{% tabs %}
+{% tab title='BJ_1485.md' %}
+
+> Question
+
+* Find whether you can make square using four points
+
+```txt
+Input:
+2
+1 1
+1 2
+2 1
+2 2
+2 2
+3 3
+4 4
+5 5
+
+Output:
+1
+0
+```
+
+{% endtab %}
+{% tab title='BJ_1485.py' %}
+
+```py
+def dist(p1, p2):
+  ax, ay = p1
+  bx, by = p2
+  return (ax - bx) ** 2 + (ay - by) ** 2
+for _ in range(int(input())):
+  P = [tuple(map(int,input().split())) for i in range(4)]
+  P.sort()
+  ans = dist(P[0], P[3]) == dist(P[1], P[2]) and dist(P[0], P[1]) == dist(P[0], P[2])
+  print(int(ans))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 다각형의 면적](https://www.acmicpc.net/problem/2166)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/BJ_2166.md/)
+
+{% tabs %}
+{% tab title='BJ_2166.md' %}
+
+> Question
+
+* Given N points, print area of this polygon
+
+```txt
+Input:
+4
+0 0
+0 10
+10 10
+10 0
+
+Output: 100.0
+```
+
+{% endtab %}
+{% tab title='BJ_2166.py' %}
+
+```py
+l = list(map(int,input().split()))for _ in range(int(input()))
+print(abs(sum([(l[i-1][0]-l[i][0])*(l[i-1][1]+l[i][1]) for i in range(n)])/2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Kornislav](https://open.kattis.com/problems/kornislav)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/KT_kornislav.md/)
+
+[//]: # (BJ_2959)
+
+* [Level 1.5 : Sibice](https://open.kattis.com/problems/sibice)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/KT_sibice.md/)
+
+{% tabs %}
+{% tab title='KT_sibice.md' %}
+
+> Question
+
+* 첫 줄에 N, w, h이 주어진다
+* 다음 N줄에 성냥의 길이가 주어지는데, 가로 세로가 w, h 인 상자에 들어가면 DA, 들어가지 않으면 DE를 출력하라
+
+```txt
+Input:
+5 3 4
+3
+4
+5
+6
+7
+
+Output:
+DA
+DA
+DA
+NE
+NE
+```
+
+{% endtab %}
+{% tab title='KT_sibice.py' %}
+
+```py
+n_match, w, h = map(int, input().split())
+mx = (w ** 2 + h ** 2) ** 0.5
+for _ in range(n_match):
+  x = int(input())
+  if x <= mx:
+    print('DA')
+  else:
+    print('NE')
+```
+
+{% endtab %}
+{% endtabs %}

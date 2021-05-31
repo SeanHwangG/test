@@ -1,0 +1,9 @@
+7 zza
+7 zzb
+7 zzc
+4 zyc
+4 zyb
+4 zya
+6 zxa
+6 zxb
+6 zxc

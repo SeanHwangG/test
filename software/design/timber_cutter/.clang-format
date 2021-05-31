@@ -1,0 +1,4 @@
+BasedOnStyle: google
+UseTab: Never
+CompactNamespaces: true
+ColumnLimit: 100

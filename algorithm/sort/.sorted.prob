@@ -1,0 +1,219 @@
+> baekjoon
+
+* [Level 2 : 팀 나누기](https://www.acmicpc.net/problem/13866)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_13866.md/)
+
+{% tabs %}
+{% tab title='BJ_13866.md' %}
+
+> Question
+
+* Given four numbers, find minimum difference of two pair
+
+```txt
+Input: 4 7 10 20
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_13866.py' %}
+
+```py
+a, b, c, d = sorted(map(int, input().split()))
+print(abs(d + a - (b + c)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 試験 (Exam)](https://www.acmicpc.net/problem/18411)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_18411.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* Given three integers print sum of larger two
+
+```txt
+Input: 3 5 1
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a, b, c = sorted(map(int, input().split()))
+print(b + c)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : X に最も近い値 (The Nearest Value)](https://www.acmicpc.net/problem/18414)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_18414.md/)
+
+{% tabs %}
+{% tab title='BJ_18414.md' %}
+
+> Question
+
+* Print middle number from three integer
+
+```txt
+Input: 1 5 3
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_18414.py' %}
+
+```py
+a, b, c = sorted(map(int, input().split()))
+print(b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 2 番目に大きい整数 (The Second Largest Integer)](https://www.acmicpc.net/problem/20976)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_20976.md/)
+
+[//]: # (BJ_18414)
+
+* [Level 2 : 세수정렬](https://www.acmicpc.net/problem/2752)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_2752.md/)
+
+{% tabs %}
+{% tab title='BJ_2752.md' %}
+
+> Question
+
+* Print three number in sorted order
+
+```txt
+Input: 3 1 2
+Output: 1 2 3
+```
+
+{% endtab %}
+{% tab title='BJ_2752.py' %}
+
+```py
+a, b, c = sorted(map(int, input().split()))
+print(a, b c)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 네 번째 수](https://www.acmicpc.net/problem/2997)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_2997.md/)
+
+{% tabs %}
+{% tab title='BJ_2997.md' %}
+
+> Question
+
+* When the four are aligned, the difference between adjacent pairs is constant
+* When three of the four numbers are given, write a program to get the fourth number
+
+```txt
+Input: 4 6 8
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_2997.py' %}
+
+```py
+a, b, c = sorted(map(int,input().split()))
+if b - a == c - b:
+  print(2 * c - b)
+elif b - a < c - b:
+  print((b + c) // 2)
+else:
+  print((a + b) // 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 주사위 네개](https://www.acmicpc.net/problem/2484)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_2484.md/)
+
+{% tabs %}
+{% tab title='BJ_2484.md' %}
+
+> Question
+
+* if 4 (a) are same: 50000 + a * 5000
+* If 3 (a) are same: 10000 + a * 1000
+* If two pair of 2 are same (a a b b): 2000 + (a + b) * 500
+* If 2 (a) are same: 1000 + a * 100
+* else: max(a, b, c, d) * 100
+
+```txt
+Input:
+4
+3 3 3 3
+3 3 6 3
+2 2 6 6
+6 2 1 5
+
+Output: 65000
+```
+
+{% endtab %}
+{% tab title='BJ_2484.py' %}
+
+```py
+m=0
+for _ in range(int(input())):
+  a,b,c,d=sorted(map(int,input().split()))
+  if a==d: s=50000+a*5000
+  elif a==c or b==d: s=10000+b*1000
+  elif a==b and c==d: s=2000+a*500+c*500
+  elif a==b or b==c: s=1000+b*100
+  elif c==d: s=1000+c*100
+  else: s=d*100
+  if m<s: m=s
+print(m)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : M](https://www.acmicpc.net/problem/11399)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_11399.md/)
+
+{% tabs %}
+{% tab title='BJ_11399.md' %}
+
+> Question
+
+* Minimize total wait time
+
+```txt
+Input:
+5
+3 1 4 3 2
+
+Output: 32
+```
+
+{% endtab %}
+{% tab title='BJ_11399.py' %}
+
+```py
+b = t = 0
+for i in sorted(map(int,[*open(0)][1].split())):
+  b += i
+  t += b
+print(t)
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,69 @@
+> baekjoon
+
+* [Level 4 : 숫자 놀이](https://www.acmicpc.net/problem/2145)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/divisibility-rule/BJ_2145.md/)
+
+{% tabs %}
+{% tab title='BJ_2145.md' %}
+
+> Question
+
+* While number is single digits replace number to sum of digits
+
+```txt
+Input:
+673
+51
+1000
+99
+0
+
+Output:
+7
+6
+1
+9
+```
+
+{% endtab %}
+{% tab title='BJ_2145.py' %}
+
+```py
+while 1:
+  n = int(input())
+  if n == 0:
+    break
+  print(9 if n % 9 == 0 else n % 9)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 30](https://www.acmicpc.net/problem/10610)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/divisibility-rule/BJ_10610.md/)
+
+{% tabs %}
+{% tab title='BJ_10610.md' %}
+
+> Question
+
+* mix the numbers to make the largest number of times that are multiples of 30
+
+```txt
+Input: 102
+Output: 210
+```
+
+{% endtab %}
+{% tab title='BJ_10610.py' %}
+
+```py
+li = list(map(int, input()))
+if sum(li) % 3 != 0 or 0 not in li:
+  print(-1)
+else:
+  print(*sorted(li, reverse=True), sep='')
+```
+
+{% endtab %}
+{% endtabs %}

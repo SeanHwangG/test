@@ -1,0 +1,644 @@
+> baekjoon
+
+* [Level 2 : ournament Selection](https://www.acmicpc.net/problem/14038)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_14038.md/)
+
+{% tabs %}
+{% tab title='BJ_14038.md' %}
+
+> Question
+
+* 'W' is win 'L' is lose
+* print -1 if won less than 1
+* print 3 if won less than 3
+* print 2 if won less than 5
+* print 1 if won greater or equal than 5
+
+```txt
+Input:
+W
+L
+W
+W
+L
+W
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_14038.cpp' %}
+
+```cpp
+#include<iostream>
+using namespace std;
+int main() {
+  int a, b, c, d; cin >> a >> b >> c >> d;
+  if (a == b && b == c && c == d) cout << "Fish At Constant Depth";
+  else if (a < b && b < c && c < d) cout << "Fish Rising";
+  else if (a > b && b > c && c > d) cout << "Fish Diving";
+  else cout << "No Fish";
+}
+```
+
+{% endtab %}
+{% tab title='BJ_14038.py' %}
+
+```py
+w = 0
+for _ in range(6):
+  if input() == 'W':
+    w += 1
+if w == 0:
+  print(-1)
+elif w <= 2:
+  print(3)
+elif w <= 4:
+  print(2)
+else:
+  print(1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Hard choice](https://www.acmicpc.net/problem/15059)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_15059.md/)
+
+{% tabs %}
+{% tab title='BJ_15059.md' %}
+
+> Question
+
+* 위아래 3개의 수가 주어진다
+* 아래 수 - 위의 수의 합을 구하라, 단 아래수가 더 작은 경우 무시하라
+
+```txt
+Input:
+80 20 40
+45 23 48
+
+Output: 11
+```
+
+{% endtab %}
+{% tab title='BJ_15059.py' %}
+
+```py
+a, b, c = map(int,input().split())
+a1, b1, c1 = map(int,input().split())
+cnt=0
+if a1>a: cnt += a1-a
+if b1>b: cnt += b1-b
+if c1>c: cnt += c1-c
+print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 나이 계산하기](https://www.acmicpc.net/problem/16199)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_16199.md/)
+
+{% tabs %}
+{% tab title='BJ_16199.md' %}
+
+> Question
+
+* print age, Korean age, year age
+
+```txt
+Input:
+2003 3 5
+2003 4 5
+
+Output:
+0
+1
+0
+```
+
+{% endtab %}
+{% tab title='BJ_16199.py' %}
+
+```py
+y1, m1, d1 = map(int, input().split())
+y2, m2, d2 = map(int, input().split())
+
+k_age = y2 - y1 + 1
+if (m1, d1) > (m2, d2):
+  age = k_age - 2
+else:
+  age = k_age - 1
+print(age)
+print(k_age)
+print(k_age - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Winning Score](https://www.acmicpc.net/problem/17009)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_17009.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* 첫 세 줄에 A 팀의 3, 2, 1점 슛의 개수, 다음 세 줄에 B 팀의 3, 2, 1점 슛의 개수가 주어진다
+* 이 때 승리 팀을 출력하라, 만약 동점 일 시 T 를 출력하라
+
+```txt
+Input:
+10
+3
+7
+8
+9
+6
+
+Output: B
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+apple = banana = 0
+apple += int(input()) * 3
+apple += int(input()) * 2
+apple += int(input())
+banana += int(input()) * 3
+banana += int(input()) * 2
+banana += int(input())
+if apple < banana:
+  print('B')
+elif apple == banana:
+  print('T')
+else:
+  print('A')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 와글와글 숭고한](https://www.acmicpc.net/problem/17388)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_17388.md/)
+
+{% tabs %}
+{% tab title='BJ_17388.md' %}
+
+> Question
+
+* Print OK if sum of three universities' participation is more than 100
+* if it is less than 100, print out club of university with lowest participation
+
+```txt
+Input: 31 41 59
+Output: OK
+```
+
+{% endtab %}
+{% tab title='BJ_17388.py' %}
+
+```py
+a, b, c = map(int, input().split())
+if a + b + c >= 100:
+  print("OK")
+elif a < b and a < c:
+  print("Soongsil")
+elif b < a and b < c:
+  print("Korea")
+else:
+  print("Hanyang")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Even or Odd?](https://www.acmicpc.net/problem/18005)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_18005.md/)
+
+[//]: # (BJ_21185)
+
+* [Level 2 : 뉴비의 기준은 뭘까?](https://www.acmicpc.net/problem/19944)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_19944.md/)
+
+{% tabs %}
+{% tab title='BJ_19944.md' %}
+
+> Question
+
+* Define Newbie as a first-year or second-year student
+* Define Old B as a student who is under grade N and not a New B, and TLE as a student who is not a New B or an Old B
+* When N and M are given, print whether grade M is Newbie, Oldbie, or TLE
+
+```txt
+Input: 3 1
+Output: NEWBIE!!
+```
+
+{% endtab %}
+{% tab title='BJ_19944.py' %}
+
+```py
+a, b = map(int, input().split())
+if b < 3:
+  print('NEWBIE!')
+elif b <= a:
+  print('OLDBIE!')
+else:
+  print('TLE!')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : rchivist](https://www.acmicpc.net/problem/20232)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_20232.md/)
+
+{% tabs %}
+{% tab title='BJ_20232.md' %}
+
+> Question
+
+* Given year, print winner
+  * 1995: ITMO, 1996: SPbSU, 1997: SPbSU, 1998: ITMO, 1999: ITMO, 2000: SPbSU, 2001: ITMO, 2002: ITMO, 2003: ITMO
+  * 2004: ITMO, 2005: ITMO, 2006: PetrSU, ITMO, 2007: SPbSU, 2008: SPbSU, 2009: ITMO, 2010: ITMO, 2011: ITMO, 2012: ITMO
+  * 2013: SPbSU, 2014: ITMO, 2015: ITMO, 2016: ITMO, 2017: ITMO, 2018: SPbSU, 2019: ITMO
+
+```txt
+Input: 2006
+Output: PetrSU, ITMO
+```
+
+{% endtab %}
+{% tab title='BJ_20232.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  vector<string> v{ "ITMO", "SPbSU", "PetrSU, ITMO" };
+  string s = "0110010000021100001000010";
+  int n; cin >> n; n -= 1995;
+  cout << v[s[n] - '0'] << '\n';
+}
+```
+
+{% endtab %}
+{% tab title='BJ_20232.py' %}
+
+```py
+print(['ITMO','SPbSU','PetrSU, ITMO'][int('0110010000021100001000010'[int(input())-1995])])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Betygsättning](https://www.acmicpc.net/problem/20839)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_20839.md/)
+
+{% tabs %}
+{% tab title='BJ_20839.md' %}
+
+> Question
+
+* Given X, Y, Z and x, y, z in each line
+  * print E if y * 2 < Y
+  * print D elif y < Y
+  * print C elif x * 2 < X
+  * print B elif x < X
+  * print A otherwise
+
+```txt
+Input:
+10 10 10
+9 10 10
+
+Output: B
+
+Input:
+10 10 10
+0 4 10
+
+Output: E
+```
+
+{% endtab %}
+{% tab title='BJ_20839.py' %}
+
+```py
+X, Y, Z = map(int, input().split())
+x, y, z = map(int, input().split())
+
+if y * 2 < Y: print('E')
+elif y < Y: print('D')
+elif x * 2 < X: print('C')
+elif x < X: print('B')
+else: print('A')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : ome Sum](https://www.acmicpc.net/problem/21185)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_21185.md/)
+
+{% tabs %}
+{% tab title='BJ_21185.md' %}
+
+> Question
+
+* Pick n numbers between 1 to 100
+* print oddity of the sum of n numbers, print Either if both are possible
+
+```txt
+Input: 2
+Output: Odd
+```
+
+{% endtab %}
+{% tab title='BJ_21185.py' %}
+
+```py
+n = int(input())
+if n % 4 == 0:
+  print('Even')
+elif n % 2 == 0:
+  print('Odd')
+else:
+  print('Either')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Äpplen och päron](https://www.acmicpc.net/problem/21354)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_21354.md/)
+
+{% tabs %}
+{% tab title='BJ_21354.md' %}
+
+> Question
+
+* apple and orange price is 7 and 13 and you are buying a and b each
+* Print 'Axel' if apple is more expensive 'Petra' if orange is more expensive, otherwise 'lika'
+
+```txt
+Input: 13 7
+Output: lika
+```
+
+{% endtab %}
+{% tab title='BJ_21354.py' %}
+
+```py
+a,b=map(int,input().split())
+a, b = a * 7, b * 13
+if a>b:print('Axel')
+elif a<b:print('Petra')
+elif a==b:print('lika')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 주사위 세개](https://www.acmicpc.net/problem/2480)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_2480.md/)
+
+{% tabs %}
+{% tab title='BJ_2480.md' %}
+
+> Question
+
+* If all three numbers are same print (sum of all) * 10000 + 1000
+* else if only two of them are same print (sum of two) * 100 + 1000
+* else print max * 100
+
+```txt
+Input: 3 3 6
+Output: 1300
+```
+
+{% endtab %}
+{% tab title='BJ_2480.py' %}
+
+```py
+a, b, c = map(int, input().split())
+if a == b == c:
+  print(10000 + a * 1000)
+elif a == b or a == c:
+  print(1000 + a * 100)
+elif b == c:
+  print(1000 + c * 100)
+else:
+  print(max(a, b, c) * 100)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : peed fines are not fine!](https://www.acmicpc.net/problem/6763)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_6763.md/)
+
+{% tabs %}
+{% tab title='BJ_6763.md' %}
+
+> Question
+
+| km/h        | over the limit Fine |
+| ----------- | ------------------- |
+| 1 to 20     | $100                |
+| 21 to 30    | $270                |
+| 31 or above | $500                |
+
+* If the driver is not speeding, the output should be:
+  * Congratulations, you are within the speed limit!
+* If the driver is speeding, the output should be:
+  * You are speeding and your fine is $F
+
+```txt
+Input:
+100
+131
+
+Output: You are speeding and your fine is $500.
+```
+
+{% endtab %}
+{% tab title='BJ_6763.py' %}
+
+```py
+a = int(input())
+b = int(input())
+if b - a <= 0:
+  print("Congratulations, you are within the speed limit!")
+elif b - a <= 20:
+  print("You are speeding and your fine is $100.")
+elif b - a <= 30:
+  print("You are speeding and your fine is $270.")
+else:
+  print("You are speeding and your fine is $500.")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : ounds fishy!](https://www.acmicpc.net/problem/6764)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_6764.md/)
+
+{% tabs %}
+{% tab title='BJ_6764.md' %}
+
+> Question
+
+* Given four integers
+* if ascending, print Fish Rising
+* if descending, print Fish Diving
+* if constant, print Fish At Constant Depth
+* else, print No Fish
+
+```txt
+Input:
+1
+10
+12
+13
+
+Output: Fish Rising
+```
+
+{% endtab %}
+{% tab title='BJ_6764.py' %}
+
+```py
+a, b, c, d = int(input()), int(input()), int(input()), int(input())
+if a < b < c < d: print('Fish Rising')
+elif a > b > c > d: print('Fish Diving')
+elif a == b == c == d: print('Fish At Constant Depth')
+else: print('No Fish')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Bałwanek](https://www.acmicpc.net/problem/8718)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_8718.md/)
+
+{% tabs %}
+{% tab title='BJ_8718.md' %}
+
+> Question
+
+* a, b 가 주어진다
+* a 가 b 의 7배 보다 크거나 같다면 b * 7000
+* a 가 b 의 3.5배 보다 크거나 같다면 b * 3500
+* a 가 b 의 1.75배 보다 크거나 같다면 b * 1750
+* 아니면 0을 출력하라
+
+```txt
+Input: 10 2
+Output: 7000
+```
+
+{% endtab %}
+{% tab title='BJ_8718.py' %}
+
+```py
+a, b = map(int, input().split())
+if 7 * b <= a: print(b * 7000)
+elif 3.5 * b <= a: print(3500 * b)
+elif 1.75 * b <= a: print(1750 * b)
+else: print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 양념 반 후라이드 반](https://www.acmicpc.net/problem/16917)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_16917.md/)
+
+{% tabs %}
+{% tab title='BJ_16917.md' %}
+
+> Question
+
+* price of one seasoned chicken is A won, price of one fried chicken is B won, and the price of one half chicken is C won
+* Print minimum cost to buy X seasoned, Y fried chicken
+
+```txt
+Input: 1500 2000 1600 3 2
+Output: 7900
+```
+
+{% endtab %}
+{% tab title='BJ_16917.py' %}
+
+```py
+a, b, c, x, y = map(int, input().split())
+v = 0
+if x > y:
+  v = 2 * c * y + a * (x - y)
+else:
+  v = 2 * c * x + b * (y - x)
+print(min(a * x + b * y, 2 * c * max(x, y), v))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Provinces and Gold](https://open.kattis.com/problems/provincesandgold)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/KT_provincesandgold.md/)
+
+{% tabs %}
+{% tab title='KT_provincesandgold.md' %}
+
+> Question
+
+* 골드는 3, 실버는 2, 쿠퍼는 1의 값어치를 한다
+* 한 턴에 victory 카드와 treasure 카드 중 하나를 선택 할 수 있는데 비용은 아래와 같다
+* Province (costs 8)
+* Duchy (costs 5)
+* Estate (costs 2)
+* Gold (costs 6)
+* Silver (costs 3)
+* Copper (costs 0)
+* 골드 실버 쿠퍼의 개수가 주어질 때 고를 수 있는 최고의 victory or treasure 카드를 출력하라
+
+```txt
+Input: 2 1 0
+Output: Province or Gold
+```
+
+{% endtab %}
+{% tab title='KT_provincesandgold.py' %}
+
+```py
+g, s, c = map(int, input().split())
+tot = g * 3 + s * 2 + c
+if tot >= 8:
+  print("Province or Gold")
+elif tot >= 6:
+  print("Duchy or Gold")
+elif tot >= 5:
+  print("Duchy or Silver")
+elif tot >= 3:
+  print("Estate or Silver")
+elif tot >= 2:
+  print("Estate or Copper")
+else:
+  print("Copper")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.8 : Some Sum](https://open.kattis.com/problems/somesum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/KT_somesum.md/)
+
+[//]: # (BJ_21185)

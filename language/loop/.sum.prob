@@ -1,0 +1,728 @@
+> baekjoon
+
+* [Level 1 : Bottle Return](https://www.acmicpc.net/problem/21300)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_21300.md/)
+
+{% tabs %}
+{% tab title='BJ_21300.md' %}
+
+> Question
+
+* print sum of all number * 5
+
+```txt
+Input: 0 0 0 23 3 100
+Output: 630
+```
+
+{% endtab %}
+{% tab title='BJ_21300.py' %}
+
+```py
+print(sum(map(int, input().split())) * 5)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 주사위 게임](https://www.acmicpc.net/problem/10262)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_10262.md/)
+
+{% tabs %}
+{% tab title='BJ_10262.md' %}
+
+> Question
+
+* Print Gunnar if sum of first list is bigger tie if same else Emma
+
+```txt
+Input:
+1 4 1 4
+1 6 1 6
+
+Output:
+Emma
+```
+
+{% endtab %}
+{% tab title='BJ_10262.py' %}
+
+```py
+tmp1=list(map(int,input().split()))
+tmp2=list(map(int,input().split()))
+a = sum(tmp1)
+b = sum(tmp2)
+if a > b: print("Gunnar")
+elif a == b: print("Tie")
+else: print("Emma")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : +B - 4](https://www.acmicpc.net/problem/10951)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_10951.md/)
+
+{% tabs %}
+{% tab title='BJ_10951.md' %}
+
+> Question
+
+* Print sum of each line
+
+```txt
+Input:
+1 5 6
+2 3
+Output:
+11
+5
+```
+
+{% endtab %}
+{% tab title='BJ_10951.py' %}
+
+```py
+import sys
+for line in sys.stdin:
+  print(sum(map(int, line.split())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 더하기 3](https://www.acmicpc.net/problem/11023)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_11023.md/)
+
+{% tabs %}
+{% tab title='BJ_11023.md' %}
+
+> Question
+
+* Print sum of list
+
+```txt
+Input: 1 2 3 4 5
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_11023.java' %}
+
+```java
+import java.util.Scanner;
+public class Main {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int sum=0;
+    while(sc.hasNext())
+      sum+=sc.nextInt();
+    System.out.println(sum);
+  }
+
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11023.js' %}
+
+```js
+var input = require("fs").readFileSync("/dev/stdin").toString().split(" ");
+var sum = 0;
+for(var i = 0; i < input.length; i++)
+  sum += Number(input[i]);
+console.log(sum);
+```
+
+{% endtab %}
+{% tab title='BJ_11023.py' %}
+
+```py
+n = list(map(int, input().split()))
+print(sum(n))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 더하기 4](https://www.acmicpc.net/problem/11024)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_11024.md/)
+
+{% tabs %}
+{% tab title='BJ_11024.md' %}
+
+> Question
+
+* Print sum of lists for n test
+
+```txt
+Input:
+2
+1 5 3
+1 7
+
+Output:
+9
+8
+```
+
+{% endtab %}
+{% tab title='BJ_11024.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  n = list(map(int, input().split()))
+  print(sum(n))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 집 주소](https://www.acmicpc.net/problem/1284)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_1284.md/)
+
+{% tabs %}
+{% tab title='BJ_1284.md' %}
+
+> Question
+
+* 각 숫자 사이에는 1cm의 여백이 들어가야한다
+* 1은 2cm의 너비를 차지해야한다. 0은 4cm의 너비를 차지해야한다. 나머지 숫자는 모두 3cm의 너비를 차지한다
+* 호수판의 경계와 숫자 사이에는 1cm의 여백이 들어가야한다
+
+```txt
+Input:
+120
+5611
+100
+0
+
+Output:
+13
+15
+14
+```
+
+{% endtab %}
+{% tab title='BJ_1284.py' %}
+
+```py
+while True:
+  num =input()
+  if num=="0":
+    break
+  print((len(num) + 1) + sum([2 if d == "1" else 4 if d == "0" else 3 for d in num]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 치킨 두 마리 (...)](https://www.acmicpc.net/problem/14489)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_14489.md/)
+
+{% tabs %}
+{% tab title='BJ_14489.md' %}
+
+> Question
+
+* 첫째 줄에 두 통장의 잔고 A와 B가 주어진다. (0 <= A, B <= 1,000,000,000)
+* 둘째 줄에 치킨 한 마리의 가격 C가 주어진다. (0 <= C <= 1,000,000,001)
+* 욱제가 치킨 두 마리(...)를 살 수 있으면 치킨 두 마리(...)를 사고 남은 두 통장 잔고의 합을, 살 수 없으면 현재 두 통장의 잔고의 합을 출력한다
+
+```txt
+Input:
+87 31
+20000
+
+Output: 118
+```
+
+{% endtab %}
+{% tab title='BJ_14489.py' %}
+
+```py
+a, b = sum(map(int,input().split())), int(input()) * 2
+print(a - b if a >= b else a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : ivvying Up](https://www.acmicpc.net/problem/20332)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_20332.md/)
+
+{% tabs %}
+{% tab title='BJ_20332.md' %}
+
+> Question
+
+* Print if sum of numbers in second line are divisible by 3
+
+```txt
+Input:
+2
+10 3
+
+Output: no
+```
+
+{% endtab %}
+{% tab title='BJ_20332.py' %}
+
+```py
+input()
+print("yes" if sum(map(int, input().split())) % 3 == 0 else "no")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 윷놀이](https://www.acmicpc.net/problem/2490)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_2490.md/)
+
+{% tabs %}
+{% tab title='BJ_2490.md' %}
+
+> Question
+
+* Prints A for do, B for gae, C for gul, D for yut, and E for mo
+
+```txt
+Input:
+0 1 0 1
+1 1 1 0
+0 0 1 1
+
+Output:
+B
+A
+B
+```
+
+{% endtab %}
+{% tab title='BJ_2490.py' %}
+
+```py
+for i in range(3):
+  s = sum(int, input().split())
+  if s == 0:
+    print('D')
+  elif s == 1:
+    print('C')
+  elif s == 2:
+    print('B')
+  elif s == 3:
+    print('A')
+  else:
+    print('E')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 나는 요리사다](https://www.acmicpc.net/problem/2953)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_2953.md/)
+
+{% tabs %}
+{% tab title='BJ_2953.md' %}
+
+> Question
+
+* When each participant is given an evaluation score, find the winner and his score
+
+```txt
+Input:
+5 4 4 5
+5 4 4 4
+5 5 4 4
+5 5 5 4
+4 4 4 5
+
+Output: 4 19
+```
+
+{% endtab %}
+{% tab title='BJ_2953.py' %}
+
+```py
+num = mx = 0
+for i in range(5):
+  temp = sum(map(int, input().split()))
+  if mx < temp:
+    mx = temp
+    num = i + 1
+
+print(num, mx)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 더하기](https://www.acmicpc.net/problem/9085)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_9085.md/)
+
+{% tabs %}
+{% tab title='BJ_9085.md' %}
+
+> Question
+
+* print sum of list in each test case
+
+```txt
+Input:
+2
+1 4 2
+1 0
+
+Output:
+7
+1
+```
+
+{% endtab %}
+{% tab title='BJ_9085.py' %}
+
+```py
+for _ in range(int(input())):
+  m = int(input())
+  print(sum(map(int, input().split())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 주사위](https://www.acmicpc.net/problem/9295)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_9295.md/)
+
+{% tabs %}
+{% tab title='BJ_9295.md' %}
+
+> Question
+
+* Print sum of each line
+
+```txt
+Input:
+2
+1 2 3
+0
+
+Output:
+6
+0
+```
+
+{% endtab %}
+{% tab title='BJ_9295.py' %}
+
+```py
+for i in range(int(input())):
+  print(f'Case {i+1}: {sum(map(int, input().split()))}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 더하기](https://www.acmicpc.net/problem/10822)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_10822.md/)
+
+{% tabs %}
+{% tab title='BJ_10822.md' %}
+
+> Question
+
+* Print sum separated by comma
+
+```txt
+Input: 1,2,5
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_10822.py' %}
+
+```py
+print(sum(map(int, input().split(','))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 숫자의 합](https://www.acmicpc.net/problem/11720)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_11720.md/)
+
+{% tabs %}
+{% tab title='BJ_11720.md' %}
+
+> Question
+
+* Find sum of numbers
+
+```txt
+Input: 1 5 3
+Output: 9
+```
+
+{% endtab %}
+{% tab title='BJ_11720.py' %}
+
+```py
+input()
+print(sum(map(int, input())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 이상한 곱셈](https://www.acmicpc.net/problem/1225)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_1225.md/)
+
+{% tabs %}
+{% tab title='BJ_1225.md' %}
+
+> Question
+
+* Take one spot from A and take one spot from B and add up all the products you can make
+
+```txt
+Input: 123 45
+Output: 54
+```
+
+{% endtab %}
+{% tab title='BJ_1225.py' %}
+
+```py
+a, b = input().split()
+print(sum(map(int,a))*sum(map(int,b)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 시험 감독](https://www.acmicpc.net/problem/13458)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_13458.md/)
+
+{% tabs %}
+{% tab title='BJ_13458.md' %}
+
+> Question
+
+* The general supervisor has B applicants who can be monitored at one test site
+* the deputy supervisor has C applicants who can be monitored at one test site
+* There shall be only one general supervisor at each test site, and there may be several deputy supervisor
+* All applicants should be monitored at each test site. Find the minimum number of supervisors required
+
+```txt
+Input:
+5
+10 9 10 9 10
+7 20
+
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_13458.py' %}
+
+```py
+N = int(input())
+A = map(int, input().split())
+B, C = map(int, input().split())
+print(sum(((a - B - 1) // C) + 1 if a >= B else 0 for a in A) + N)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 3의 배수](https://www.acmicpc.net/problem/1769)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_1769.md/)
+
+{% tabs %}
+{% tab title='BJ_1769.md' %}
+
+> Question
+
+* 당신이 알고 있는 3의 배수는 한 자리 수밖에 없다고 가정하자
+* 즉, 문제 변환의 과정을 여러 번 거치다 보면 Y가 한 자리 수가 되는 순간이 있게 되는데, 그렇게 될 때까지 문제 변환을 반복한다는 뜻이다
+* 변환 후의 Y가 3, 6, 9 중 하나이면 원래의 수 X는 3의 배수이고, Y가 1, 2, 4, 5, 7, 8 중 하나이면 원래의 수 X는 3의 배수가 아니다
+* 큰 수 X가 주어졌을 때, 앞에서 설명한 문제 변환의 과정을 몇 번 거쳐야 Y가 한 자리 수가 되어, X가 3의 배수인지 아닌지를 알 수 있게 될지를 구하는 프로그램을 작성하시오
+
+```txt
+Input: 1234567
+
+Output:
+3
+NO
+```
+
+{% endtab %}
+{% tab title='BJ_1769.py' %}
+
+```py
+x = input()
+i = 0
+while len(x) > 1:
+  x = str(sum(map(int, x)))
+  i += 1
+print(i)
+if int(x) % 3 == 0:
+  print('YES')
+else:
+  print('NO')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Pet](https://open.kattis.com/problems/pet)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/KT_pet.md/)
+
+{% tabs %}
+{% tab title='KT_pet.md' %}
+
+> Question
+
+* When each participant is given an evaluation score, find the winner and his score
+
+```txt
+Input:
+5 4 4 5
+5 4 4 4
+5 5 4 4
+5 5 5 4
+4 4 4 5
+
+Output: 4 19
+```
+
+{% endtab %}
+{% tab title='KT_pet.py' %}
+
+```py
+num = mx = 0
+for i in range(5):
+  temp = sum(map(int, input().split()))
+  if mx < temp:
+    mx = temp
+    num = i + 1
+
+print(num, mx)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : Dice Game](https://open.kattis.com/problems/dicegame)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/KT_dicegame.md/)
+
+{% tabs %}
+{% tab title='KT_dicegame.md' %}
+
+> Question
+
+* 두줄에 거쳐 총 8개의 수가 주어진다
+* 이 때 위 줄의 합이 크면 Emma 아랫줄의 합이 크면 Gunnar, 같을 시에는 Tie를 출력하라
+
+```txt
+Input:
+1 2 3 4
+1 2 3 5
+
+Output: Gunnar
+```
+
+{% endtab %}
+{% tab title='KT_dicegame.py' %}
+
+```py
+a = sum(map(int, input().split()))
+b = sum(map(int, input().split()))
+if a < b:
+  print('Emma')
+elif b < a:
+  print('Gunnar')
+else:
+  print('Tie')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : The Easiest Problem Is This One](https://open.kattis.com/problems/easiest)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/KT_easiest.md/)
+
+{% tabs %}
+{% tab title='KT_easiest.md' %}
+
+> Question
+
+* single integer number p which is the minimal number st N * p has the same sum of digits as N and p is bigger than 10
+
+```txt
+Input:
+3029
+4
+5
+42
+0
+
+Output:
+37
+28
+28
+25
+```
+
+{% endtab %}
+{% tab title='KT_easiest.py' %}
+
+```py
+def SOD(st):
+  return sum(map(int, st))
+while True:
+  n = input()
+  if n == '0':
+    break
+  for i in range(11, 100000):
+    if SOD(n) == SOD(str(int(n) * i)):
+      print(i)
+      break
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Minimum Elements to Add to Form a Given Sum](https://leetcode.com/problems/minimum-elements-to-add-to-form-a-given-sum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/LC_1785.md/)
+
+{% tabs %}
+{% tab title='LC_1785.md' %}
+
+> Question
+
+* Given an integer array nums and two integers limit and goal. abs(nums[i]) <= limit
+* Return the minimum number of elements you need to add to make the sum of the array equal to goal
+* The array must maintain its property that abs(nums[i]) <= limit
+
+```txt
+Input: nums = [1,-1,1], limit = 3, goal = -4
+Output: 2  # add -2 and -3, then the sum of the array will be 1 - 1 + 1 - 2 - 3 = -4
+```
+
+{% endtab %}
+{% tab title='LC_1785.py' %}
+
+```py
+def minElements(self, A, limit, goal):
+  return (abs(sum(A) - goal) + limit - 1) / limit
+```
+
+{% endtab %}
+{% endtabs %}

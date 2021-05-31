@@ -1,0 +1,800 @@
+> baekjoon
+
+* [Level 3 : Presents](https://www.acmicpc.net/problem/13771)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_13771.md/)
+
+{% tabs %}
+{% tab title='BJ_13771.md' %}
+
+> Question
+
+* Print second smallest number up to second floating point
+
+```txt
+Input:
+6
+62.95
+18.50
+17.49
+26.30
+58.95
+22.25
+
+Output: 18.50
+```
+
+{% endtab %}
+{% tab title='BJ_13771.py' %}
+
+```py
+N = int(input())
+print(f"{sorted([float(input()) for _ in range(N)])[1]:.2f}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 공 바꾸기](https://www.acmicpc.net/problem/10813)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_10813.md/)
+
+{% tabs %}
+{% tab title='BJ_10813.md' %}
+
+> Question
+
+* From now on, choose two baskets M and exchange the balls in the two baskets
+* Find what ball is in each basket after changing ball number M
+
+```txt
+Input:
+5 4
+1 2
+3 4
+1 4
+2 2
+
+Output: 3 1 4 2 5
+```
+
+{% endtab %}
+{% tab title='BJ_10813.py' %}
+
+```py
+n, m = map(int, input().split())
+l = [i + 1 for i in range(n)]
+for _ in range(m):
+  a, b = map(int, input().split())
+  l[a-1], l[b-1] = l[b-1], l[a-1]
+print(*l)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 대표값2](https://www.acmicpc.net/problem/2587)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_2587.md/)
+
+{% tabs %}
+{% tab title='BJ_2587.md' %}
+
+> Question
+
+* find average and median of five natural numbers
+
+```txt
+Input:
+10
+40
+30
+60
+30
+
+Output:
+34
+30
+```
+
+{% endtab %}
+{% tab title='BJ_2587.js' %}
+
+```js
+var n = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
+n = n.map(e => parseInt(e)).sort();
+var s = 0;
+for(var i = 0; i < n.length; ++i) {
+  s += n[i];
+}
+console.log((s / n.length) + '\n' + n[2]);
+```
+
+{% endtab %}
+{% tab title='BJ_2587.py' %}
+
+```py
+li = [int(input()) for _ in range(5)]
+li.sort()
+print(sum(li) // 5)
+print(li[2])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : BC](https://www.acmicpc.net/problem/3047)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_3047.md/)
+
+{% tabs %}
+{% tab title='BJ_3047.md' %}
+
+> Question
+
+* A, B, and C are given. A is smaller than B and B is smaller than C
+* From the input, print it out in the order given
+
+```txt
+Input: 1 5 3
+Output: ABC
+```
+
+{% endtab %}
+{% tab title='BJ_3047.py' %}
+
+```py
+li = list(sorted(map(int, input().split())))
+dic = {'A' : 0, 'B' : 1, 'C' : 2}
+order = input()
+print(li[dic[order[0]]], li[dic[order[1]]], li[dic[order[2]]])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 카드 바꿔치기](https://www.acmicpc.net/problem/18766)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_18766.md/)
+
+{% tabs %}
+{% tab title='BJ_18766.md' %}
+
+> Question
+
+* Check if two lists contains same elements
+
+```txt
+Input:
+4
+5
+R0 B9 R5 Y3 R2
+R0 B8 R6 Y3 R2
+1
+R0
+R0
+3
+R1 R0 R0
+R0 R1 R1
+3
+R1 R1 R0
+R0 R1 R1
+
+Output:
+CHEATER
+NOT CHEATER
+CHEATER
+NOT CHEATER
+```
+
+{% endtab %}
+{% tab title='BJ_18766.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+  int T; cin >> T;
+  while(T--) {
+    int N; cin >> N;
+    vector<string> v(N), v2(N);
+    for (auto &i : v)cin >> i;
+    for (auto &i : v2)cin >> i;
+    sort(v.begin(), v.end());
+    sort(v2.begin(), v2.end());
+    if (v == v2) cout << "NOT CHEATER\n";
+    else cout << "CHEATER\n";
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_18766.py' %}
+
+```py
+for _ in range(int(input())):
+  input()
+  a=list(input().split())
+  b=list(input().split())
+  a.sort()
+  b.sort()
+  print('NOT '*int(a==b)+'CHEATER')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 수 정렬하기](https://www.acmicpc.net/problem/2750)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_2750.md/)
+
+[//]: # (BJ_2751)
+
+* [Level 5 : 애너그램](https://www.acmicpc.net/problem/6996)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_6996.md/)
+
+{% tabs %}
+{% tab title='BJ_6996.md' %}
+
+> Question
+
+* Print if A, B are anagrams
+
+```txt
+Input:
+3
+blather reblath
+maryland landam
+bizarre brazier
+
+Output:
+blather & reblath are anagrams.
+maryland & landam are NOT anagrams.
+bizarre & brazier are anagrams.
+```
+
+{% endtab %}
+{% tab title='BJ_6996.py' %}
+
+```py
+for i in range(int(input())):
+  A,B = map(str,input().split())
+  if sorted(A) == sorted(B):
+    print(A, "&", B, 'are anagrams.')
+  else:
+    print(A, "&", B, 'are NOT anagrams.')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 단어 퍼즐](https://www.acmicpc.net/problem/9946)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_9946.md/)
+
+{% tabs %}
+{% tab title='BJ_9946.md' %}
+
+> Question
+
+* For each line, check if two string are anagram
+
+```txt
+Input:
+testing
+intestg
+abc
+aabbbcccc
+abcabcbcc
+aabbbcccc
+abc
+xyz
+END
+END
+
+Output:
+Case 1: same
+Case 2: different
+Case 3: same
+Case 4: different
+```
+
+{% endtab %}
+{% tab title='BJ_9946.py' %}
+
+```py
+i = 1
+while True:
+  a, b = input(), input()
+  if a == b == 'END':
+    break
+  if sorted(a) == sorted(b):
+    print(f'Case {i}: same')
+  else:
+    print(f'Case {i}: different')
+  i += 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : K번째 수](https://www.acmicpc.net/problem/11004)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_11004.md/)
+
+{% tabs %}
+{% tab title='BJ_11004.md' %}
+
+> Question
+
+* When A is sorted in ascending order, find the K-th number from the front
+
+```txt
+Input:
+5 2
+4 1 2 3 5
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_11004.py' %}
+
+```py
+k = int(input().split()[1])
+print(sorted(map(int,input().split()))[k-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 인기 투표](https://www.acmicpc.net/problem/11637)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_11637.md/)
+
+{% tabs %}
+{% tab title='BJ_11637.md' %}
+
+> Question
+
+* "majority winner R" for the majority of the votes, "minority winner R" for less than half of the votes
+* "no winner" for no more than one person with the most votes
+* R means the candidate number for the most votes, and the candidate number is given as 1, 2, . . and n in each case
+
+```txt
+Input:
+4
+3
+10
+21
+10
+3
+20
+10
+10
+3
+10
+10
+10
+4
+15
+15
+15
+45
+
+Output:
+majority winner 2
+minority winner 1
+no winner
+minority winner 4
+```
+
+{% endtab %}
+{% tab title='BJ_11637.py' %}
+
+```py
+t = int(input())
+for _ in range(t):
+  n = int(input())
+  votes_list = []
+  for i in range(n):
+    votes_list.append(int(input()))
+  x, y = sorted(votes_list)[-2:]
+  if x == y:
+    print("no winner")
+  else:
+    v = sum(votes_list)
+  if y / v > 0.5:
+    print(f"majority winner {votes_list.index(y) + 1}")
+  else:
+    print(f"minority winner {votes_list.index(y) + 1}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 배열 합치기](https://www.acmicpc.net/problem/11728)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_11728.md/)
+
+{% tabs %}
+{% tab title='BJ_11728.md' %}
+
+> Question
+
+* Print combined list in order
+
+```txt
+Input:
+2 2
+3 5
+2 9
+
+Output: 2 3 5 9
+```
+
+{% endtab %}
+{% tab title='BJ_11728.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int a[2000001];
+int n, m;
+
+int main() {
+  cin >> n >> m;
+  for (int i = 0; i < n + m; i++) {
+    cin >> a[i];
+  }
+  sort(a, a + n + m);
+  for (int i = 0; i < n + m; i++) {
+    cout << a[i] << ' ';
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11728.py' %}
+
+```py
+input()
+li1, li2 = list(map(int, input().split())), list(map(int, input().split()))
+print(*sorted(li1 + li2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 종이자르기](https://www.acmicpc.net/problem/2628)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_2628.md/)
+
+{% tabs %}
+{% tab title='BJ_2628.md' %}
+
+> Question
+
+![BJ_2628](sort/images/20210305_183144.png)
+
+* Given all cuts (0-horizontal, 1-vertical), find maximum area
+
+{% endtab %}
+{% tab title='BJ_2628.py' %}
+
+```py
+n,m = map(int,input().split())
+x, y = [n], [m]
+for _ in range(int(input())):
+  a,b = map(int,input().split())
+  if(a == 0):
+    y.append(b)
+  elif(a == 1):
+    x.append(b)
+
+x.sort()
+y.sort()
+
+X = [x[0]] + [x[i]-x[i-1] for i in range(1,len(x))]
+Y = [y[0]] + [y[i]-y[i-1] for i in range(1,len(y))]
+print(max(X)*max(Y))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 수 정렬하기 2](https://www.acmicpc.net/problem/2751)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_2751.md/)
+
+{% tabs %}
+{% tab title='BJ_2751.md' %}
+
+> Question
+
+* Print list in ascending order
+
+```txt
+Input:
+5
+5
+2
+3
+4
+1
+
+Output:
+1
+2
+3
+4
+5
+```
+
+{% endtab %}
+{% tab title='BJ_2751.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+li = [int(input()) for _ in range(int(input()))]
+for n in sorted(li):
+  print(n)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 성적 통계](https://www.acmicpc.net/problem/5800)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_5800.md/)
+
+{% tabs %}
+{% tab title='BJ_5800.md' %}
+
+> Question
+
+* first line, "Class X" is printed
+* X is the number of the class, increasing from 1 in the order given by the input
+* second line, output largest adjacent score difference when highest, lowest score, and grades are sorted in descending order
+
+```txt
+Input:
+2
+5 30 25 76 23 78
+6 25 50 70 99 70 90
+
+Output:
+Class 1
+Max 78, Min 23, Largest gap 46
+Class 2
+Max 99, Min 25, Largest gap 25
+```
+
+{% endtab %}
+{% tab title='BJ_5800.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+int arr[50];
+
+int main() {
+  int t;
+  scanf("%d", &t);
+
+  for (int tt = 1; tt <= t;++tt) {
+    int n;
+    cin >> n;
+    for (int i = 0; i < n;++i)
+      cin >> arr[i];
+    sort(arr, arr + n);
+
+    int mx = 0;
+    for (int i = 1; i < n; ++i)
+      mx = max(mx, arr[i] - arr[i - 1]);
+
+    printf("Class %d\nMax %d, Min %d, Largest gap %d\n", tt, arr[n - 1], arr[0], mx);
+  }
+
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_5800.py' %}
+
+```py
+for i in range(1,int(input())+1):
+  print("Class %d"%i)
+  n,*a=map(int,input().split())
+  a.sort()
+  print(f"Max {a[-1}, Min {a[0]}, Largest gap {max(a[j+1]-a[j] for j in range(n-1))}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 접미사 배열](https://www.acmicpc.net/problem/11656)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_11656.md/)
+
+{% tabs %}
+{% tab title='BJ_11656.md' %}
+
+> Question
+
+* When given the string S, sorts all suffixes alphabetically and then prints them out
+
+```txt
+Input:
+baekjoon
+
+Output:
+aekjoon
+baekjoon
+ekjoon
+joon
+kjoon
+n
+on
+oon
+```
+
+{% endtab %}
+{% tab title='BJ_11656.py' %}
+
+```py
+S = str(input())
+li = []
+for _ in S:
+  li.append(S)
+  S = S[1:]
+for i in sorted(li):
+  print(i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 순서쌍의 곱의 합](https://www.acmicpc.net/problem/13900)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_13900.md/)
+
+{% tabs %}
+{% tab title='BJ_13900.md' %}
+
+> Question
+
+* Find the sum of the two numbers in all cases in which two of the N integers are drawn from different locations
+
+```txt
+Input:
+4
+1 2 3 4
+
+Output: 35
+```
+
+{% endtab %}
+{% tab title='BJ_13900.py' %}
+
+```py
+N = int(input())
+nums = list(map(int, input().split()))
+sum_ = sum(nums)
+result = 0
+for num in nums:
+  sum_ -= num
+  result += num * sum_
+print(result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 전화번호 목록](https://www.acmicpc.net/problem/5052)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_5052.md/)
+
+{% tabs %}
+{% tab title='BJ_5052.md' %}
+
+> Question
+
+* Print out if one number is sometimes a prefix for another number
+
+```txt
+Input:
+2
+3
+911
+97625999
+91125426
+5
+113
+12340
+123440
+12345
+98346
+
+Output:
+NO
+YES
+```
+
+{% endtab %}
+{% tab title='BJ_5052.py' %}
+
+```py
+for _ in range(int(input())):
+  n = int(input())
+  li = [input() for _ in range(n)]
+  li.sort()
+  for i, j in zip(li, li[1:]):
+    if i == j[:len(i)]:
+      print("NO")
+      break
+  else:
+    print("YES")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Maximum Score From Removing Stones](https://leetcode.com/problems/maximum-score-from-removing-stones)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/LC_1753.md/)
+
+{% tabs %}
+{% tab title='LC_1753.md' %}
+
+> Question
+
+* Begin with three piles of stones of sizes a​​​​​​, b,​​​​​​ and c​​​​​​ respectively
+* Each turn you choose two different non-empty piles, take one stone from each, and add 1 point to your score
+* The game stops when there are fewer than two non-empty piles
+* return the maximum score you can get
+
+{% endtab %}
+{% tab title='LC_1753.py' %}
+
+```py
+def maximumScore(self, a: int, b: int, c: int) -> int:
+  a, b, c = sorted([a, b, c])
+  return (a + b + c) // 2 if a + b >= c else a + b
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Shortest Unsorted Continuous Subarray](https://leetcode.com/problems/shortest-unsorted-continuous-subarray)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/LC_581.md/)
+
+{% tabs %}
+{% tab title='LC_581.md' %}
+
+> Question
+
+* Given an array, find a continuous subarray that if you sort this subarray, then the whole array will be sorted
+* Return the shortest such subarray and output its length
+
+```txt
+Input: nums = [2,6,4,8,10,9,15]
+Output: 5
+```
+
+{% endtab %}
+{% tab title='LC_581.py' %}
+
+```py
+def findUnsortedSubarray(self, nums):
+  start, end = -1, 0
+  left_prev, right_prev = nums[0], nums[start]
+
+  for i in range(1, len(nums)):
+    # find largest index not in place
+    if nums[i] < left_prev:
+      end = i
+    else:
+      left_prev = nums[i]
+
+    # find smallest index not in place
+    if right_prev < nums[~i]:
+      start = ~i
+    else:
+      right_prev = nums[~i]
+
+  return 0 if end == 0 else end - (len(nums) + start) + 1
+```
+
+{% endtab %}
+{% endtabs %}

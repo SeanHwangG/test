@@ -1,0 +1,835 @@
+> baekjoon
+
+* [Level 4 : 한조서열정리하고옴ㅋㅋ](https://www.acmicpc.net/problem/14659)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_14659.md/)
+
+{% tabs %}
+{% tab title='BJ_14659.md' %}
+
+> Question
+
+* There are a N towers with diffrent height, each can kill visible tower on right
+* Find number of kills from best killer
+
+```txt
+Input:
+7
+6 4 10 2 5 7 11
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_14659.py' %}
+
+```py
+N = int(input())
+li = list(map(int, input().split()))
+cur_height, cnt, mx = 0, 0, 0
+for h in li:
+  if cur_height < h:
+    cur_height = h
+    cnt = 0
+  else:
+    cnt += 1
+  mx = max(cnt, mx)
+print(mx)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 뒤집기](https://www.acmicpc.net/problem/1439)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_1439.md/)
+
+{% tabs %}
+{% tab title='BJ_1439.md' %}
+
+> Question
+
+* You can grab one or more consecutive numbers and flip them all
+* How many times do we have to make them have all the numbers?
+
+```txt
+Input: 0001100
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_1439.py' %}
+
+```py
+S = input()
+count = 0
+for i in range(len(S)-1):
+  if S[i] != S[i+1]:
+    count += 1
+print((count + 1) // 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 주유소](https://www.acmicpc.net/problem/13305)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_13305.md/)
+
+{% tabs %}
+{% tab title='BJ_13305.md' %}
+
+> Question
+
+![BJ_13305](greedy/images/20210303_201332.png)
+
+* Calculates the price of gas at each city's gas station
+* minimum cost of moving from left-most city to right-most city by inputting length of the road connecting each city
+
+```txt
+Input:
+4
+2 3 1
+5 2 4 1
+
+Output: 18
+```
+
+{% endtab %}
+{% tab title='BJ_13305.py' %}
+
+```py
+n=int(input())
+a=[int(i) for i in input().split()]
+b=[int(i) for i in input().split()]
+c, r = 0, 0
+for i in range(n-1):
+  if b[i] < b[c]:
+    c = i
+  r += a[i] * b[c]
+print(r)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 수들의 합 2](https://www.acmicpc.net/problem/2003)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_2003.md/)
+
+{% tabs %}
+{% tab title='BJ_2003.md' %}
+
+> Question
+
+* Find number of ways where A[i] + A[i+1] + … + A[j-1] + A[j] == M
+
+```txt
+Input:
+10 5
+1 2 3 4 2 5 3 1 1 2
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2003.py' %}
+
+```py
+N, M = map(int, input().split())
+nums = list(map(int, input().split()))
+accums = [0] * (N + 1)
+for i in range(1, N + 1):
+  accums[i] = accums[i - 1] + nums[i - 1]
+count = 0
+for l in range(N):
+  for r in range(l + 1, N + 1):
+    if accums[r] - accums[l] > M:
+      break
+    elif accums[r] - accums[l] == M:
+      count += 1
+      break
+print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 행렬](https://www.acmicpc.net/problem/1080)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_1080.md/)
+
+{% tabs %}
+{% tab title='BJ_1080.md' %}
+
+> Question
+
+* In one operation you can swap all elements in 3 x 3 sub-matrix
+* Find the minimum value of the number of operation required to change the matrix A to matrix B
+
+```txt
+Input:
+3 4
+0000
+0010
+0000
+1001
+1011
+1001
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1080.py' %}
+
+```py
+N, M =map(int,input().split())
+A = [list(map(int,list(input()))) for _ in range(N)]
+B = [list(map(int,list(input()))) for _ in range(N)]
+def flip(G, x,y):
+  for i in range(x,x+3):
+    for j in range(y,y+3):
+      G[i][j] = 1 - G[i][j]
+cnt = 0
+for i in range(0,N-2):
+  for j in range(0,M-2):
+    if A[i][j] !=B[i][j]:
+      flip(A, i,j)
+      cnt+=1
+for i in range(N):
+  for j in range(M):
+    if A[i][j] != B[i][j]:
+      print(-1)
+      exit()
+print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 한 줄로 서기](https://www.acmicpc.net/problem/1138)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_1138.md/)
+
+{% tabs %}
+{% tab title='BJ_1138.md' %}
+
+> Question
+
+* Heights of N people are given
+* Given people remember how many people were taller on the left, prints out how to line them up
+
+```txt
+Input:
+4
+2 1 1 0
+
+Output: 4 2 1 3
+```
+
+{% endtab %}
+{% tab title='BJ_1138.py' %}
+
+```py
+n = int(input())
+a = list(map(int, input().split()) )
+b = []
+for i in range(n):
+  b.insert(a[n - 1 - i], n - i)
+print(*b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 잃어버린 괄호](https://www.acmicpc.net/problem/1541)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_1541.md/)
+
+{% tabs %}
+{% tab title='BJ_1541.md' %}
+
+> Question
+
+* Given expression with +, -, and parentheses, make the value of this expression minimal by parentheses
+
+```txt
+Input: 55-50+40
+Output: -35
+```
+
+{% endtab %}
+{% tab title='BJ_1541.py' %}
+
+```py
+equations = input().split('-')
+ret = 0
+for i, equation in enumerate(equations):
+  for num in equation.split('+'):
+    ret += int(num) if i == 0 else -int(num)
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 전구와 스위치](https://www.acmicpc.net/problem/2138)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_2138.md/)
+
+{% tabs %}
+{% tab title='BJ_2138.md' %}
+
+> Question
+
+* Pressing the switch i (1 < i < N) changes the state of the three bulbs, i-1, i, and i+1
+* Find minimum number of press
+
+```txt
+Input:
+3
+000
+010
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2138.py' %}
+
+```py
+def change(A, B):
+  press = 0
+  for i in range(1, n):
+    if A[i-1] == B[i-1]:
+      continue
+    press += 1
+    for j in range(i-1, i+2):
+      if j < n:
+        A[j] ^= 1
+
+  return press if A == B else float('inf')
+n = int(input())
+A = list(map(int,input()))
+B = list(map(int,input()))
+f_A = A[:]
+f_A[0] ^= 1
+f_A[1] ^= 1
+res = min(change(A, B), 1 + change(f_A, B))
+print(res if res != float('inf') else -1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codechef
+
+* [Level Easy : Consecutive Deletions](https://www.codechef.com/problems/CONDEL)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/CC_CONDEL.md/)
+
+{% tabs %}
+{% tab title='CC_CONDEL.md' %}
+
+> Question
+
+* Choose a subarray (a contiguous subsequence) with length K
+* choose two indices L and R such that 1 ≤ L ≤ R ≤ N and R − L + 1 = K
+* Choose one element of that subarray and change it to 0
+* The cost of this operation is the sum of this subarray before AP is changed
+
+```txt
+Input:
+3
+5 3
+1 0 1 0 1
+4 4
+1 1 0 1
+3 1
+1 1 0
+
+Output:
+3
+6
+2
+```
+
+{% endtab %}
+{% tab title='CC_CONDEL.py' %}
+
+```py
+def solution(li, width):
+  cur_total = sum(li[0: width])
+  mn_total = cur_total
+  for l in range(len(li) - width):
+    cur_total = cur_total - li[l] + li[l + width]
+    mn_total = min(mn_total, cur_total)
+  return sum(li) + sum(range(mn_total))
+
+for _ in range(int(input())):
+  _, width = map(int, input().split())
+  li = list(map(int, input().split()))
+  print(solution(li, width))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Maximum Ascending Subarray Sum](https://leetcode.com/problems/maximum-ascending-subarray-sum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_1800.md/)
+
+{% tabs %}
+{% tab title='LC_1800.md' %}
+
+> Question
+
+* Given an array of positive integers nums, return the maximum possible sum of an ascending subarray in nums
+
+```txt
+Input: nums = [10,20,30,5,10,50]
+Output: 65
+```
+
+{% endtab %}
+{% tab title='LC_1800.py' %}
+
+```py
+def maxAscendingSum(self, nums: List[int]) -> int:
+  mx = 0
+  for i, x in enumerate(nums):
+    if i == 0 or nums[i-1] >= nums[i]: cur = 0
+    cur += nums[i]
+    mx = max(mx, cur)
+  return mx
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Gas Station](https://leetcode.com/problems/gas-station)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_134.md/)
+
+{% tabs %}
+{% tab title='LC_134.md' %}
+
+> Question
+
+* There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i]
+* Empty gas car starts from any of gas station and it costs cost[i] to travel from ith station to its next (i + 1)th station
+* Given two arrays gas and cost, return starting gas station's index that can travel around once in the clockwise direction
+  * otherwise return -1. Solution is unique
+
+```txt
+Input: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_134.cpp' %}
+
+```cpp
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+  int total(0), subsum(INT_MAX), start(0);
+  for (int i = 0; i < gas.size(); ++i) {
+    total += gas[i] - cost[i];
+    if(total < subsum) {
+      subsum = total;
+      start = i + 1;
+    }
+  }
+  return (total < 0) ?  -1 : (start % gas.size());
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Largest Merge Of Two Strings](https://leetcode.com/problems/largest-merge-of-two-strings)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_1754.md/)
+
+{% tabs %}
+{% tab title='LC_1754.md' %}
+
+> Question
+
+* given two strings word1 and word2, construct a string merge in the following way
+* while either word1 or word2 are non-empty, choose one of the following options:
+  * If word1 is non-empty, append the first character in word1 to merge and delete it from word1
+  * If word2 is non-empty, append the first character in word2 to merge and delete it from word2
+* Return the lexicographically largest merge you can construct
+
+```txt
+Input: word1 = "abcabc", word2 = "abdcaba"
+Output: "abdcabcabcaba"
+```
+
+{% endtab %}
+{% tab title='LC_1754.py' %}
+
+```py
+def largestMerge(self, s1, s2):
+  if s1 >= s2 > '':
+    return s1[0] + self.largestMerge(s1[1:], s2)
+  if s2 >= s1 > '':
+    return s2[0] + self.largestMerge(s1, s2[1:])
+  return s1 + s2
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_316.md/)
+
+{% tabs %}
+{% tab title='LC_316.md' %}
+
+> Question
+
+* Given a string s, remove duplicate letters so that every letter appears once and only once
+* make sure your result is the smallest in lexicographical order among all possible results
+
+```txt
+Input: s = "cbacdcbc"
+Output: "acdb"
+```
+
+{% endtab %}
+{% tab title='LC_316.py' %}
+
+```py
+def removeDuplicateLetters(self, s):
+  for c in sorted(set(s)):
+    suffix = s[s.index(c):]
+    if set(suffix) == set(s):
+      return c + self.removeDuplicateLetters(suffix.replace(c, ''))
+  return ''
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Wiggle Subsequence](https://leetcode.com/problems/wiggle-subsequence)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_376.md/)
+
+{% tabs %}
+{% tab title='LC_376.md' %}
+
+> Question
+
+* A wiggle sequence is a sequence where differences between successive numbers strictly alternate between positive and negative
+* The first difference may be either positive or negative. One element is trivially a wiggle sequence
+* Find length of longest wiggle sequence
+
+```txt
+Input: nums = [1,7,4,9,2,5]
+Output: 6
+```
+
+{% endtab %}
+{% tab title='LC_376.py' %}
+
+```py
+def wiggleMaxLength(self, nums: List[int]) -> int:
+  len_dec, len_inc = 1, 1
+  for i in range(1, len(nums)):
+    len_dec = len_inc + 1 if nums[i] < nums[i-1] else len_dec
+    len_inc = len_dec + 1 if nums[i] > nums[i-1] else len_inc
+  return max(len_inc, len_dec)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Jump Game II](https://leetcode.com/problems/jump-game-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_45.md/)
+
+{% tabs %}
+{% tab title='LC_45.md' %}
+
+> Question
+
+* Given non-negative integers nums, each num represents your maximum jump length at that idx
+* From the first idx, find the the minimum number of jumps to reach the last index
+
+```txt
+Input: nums = [2,3,1,1,4]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_45.py' %}
+
+```py
+def jump(self, nums):
+  # Time : O(N) / Space : O(1)
+  l, r = 0, nums[0]
+  time = 1
+  while r < len(nums) - 1:
+    time += 1
+    nxt = max(i + nums[i] for i in range(l, r + 1))
+    l, r = r, nxt # nxt : farthest point that all points in [l, r] can reach
+  return time
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Jump Game](https://leetcode.com/problems/jump-game)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_55.md/)
+
+{% tabs %}
+{% tab title='LC_55.md' %}
+
+> Question
+
+* Given an array of non-negative integers nums, you are initially positioned at the first index of the array
+* Each element in the array represents your maximum jump length at that position
+
+```txt
+Input: nums = [2,3,1,1,4]
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_55.py' %}
+
+```py
+def canJump(self, nums: List[int]) -> bool:
+  pos = 0
+  for i, n in enumerate(nums):
+    if i <= pos:
+      pos = max(pos, i + n)
+  return len(nums) - 1 <= pos
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Monotone Increasing Digits](https://leetcode.com/problems/monotone-increasing-digits)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_738.md/)
+
+{% tabs %}
+{% tab title='LC_738.md' %}
+
+> Question
+
+* Print largest monotonic increasing number less than N
+
+```txt
+Input: n = 5432
+Output: 4999
+```
+
+> Solution
+
+* Find first decreasing digit
+* 20s / 5422 -> 300s / 5322 -> 4000s / 4322 -> 4999
+
+{% endtab %}
+{% tab title='LC_738.py' %}
+
+```py
+def monotoneIncreasingDigits(self, N: int) -> int:
+  s = list(str(N))
+  maker = len(s)
+  for i in range(len(s) - 1, 0, -1):
+    if s[i] < s[i - 1]:
+      maker = i
+      s[i - 1] = str(int(s[i - 1]) - 1)
+  s[maker:] = ['9'] * (len(s) - maker)
+  return int(''.join(s))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Candy](https://leetcode.com/problems/candy)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_135.md/)
+
+{% tabs %}
+{% tab title='LC_135.md' %}
+
+> Question
+
+* There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings
+* You are giving candies to these children subjected to the following requirements:
+  * Each child must have at least one candy
+  * Children with a higher rating get more candies than their neighbors
+* Return the minimum number of candies you need to have to distribute the candies to the children
+
+```txt
+Input: ratings = [1,0,2]
+Output: 5
+```
+
+{% endtab %}
+{% tab title='LC_135.py' %}
+
+```py
+# Time : O(N), Space : O(N)
+def candy(self, ratings: List[int]) -> int:
+  res = len(ratings) * [1]
+  for i in range(1, len(ratings)):
+    if ratings[i] > ratings[i-1]:
+      res[i] = res[i - 1] + 1
+  for i in range(len(ratings) - 1, 0, -1):
+    if ratings[i - 1] > ratings[i]:
+      res[i-1] = max(res[i - 1], res[i] + 1)
+  return sum(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Strong Password Checker](https://leetcode.com/problems/strong-password-checker)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_420.md/)
+
+{% tabs %}
+{% tab title='LC_420.md' %}
+
+> Question
+
+* It has at least 6 characters and at most 20 characters
+* It contains at least one lowercase letter, at least one uppercase letter, and at least one digit
+* It does not contain three repeating characters in a row
+  * [ex] "...aaa..." is weak, but "...aa...a..." is strong, assuming other conditions are met
+* minimum nubmer of steps to make password strong
+  * Insert one character to password,
+  * Delete one character from password, or
+  * Replace one character of password with another character
+
+```txt
+Input: password = "aA1"
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_420.py' %}
+
+```py
+def strongPasswordChecker(self, s):
+  missing_type = 3
+  if any('a' <= c <= 'z' for c in s): missing_type -= 1
+  if any('A' <= c <= 'Z' for c in s): missing_type -= 1
+  if any(c.isdigit() for c in s): missing_type -= 1
+
+  change = 0
+  one = two = 0
+  i = 2
+  while i < len(s):
+    if s[i] == s[i-1] == s[i-2]:
+      length = 2
+      while i < len(s) and s[i] == s[i-1]:
+        length += 1
+        i += 1
+
+      change += length // 3
+      if length % 3 == 0: one += 1
+      elif length % 3 == 1: two += 1
+    else:
+      i += 1
+
+  if len(s) < 6:
+    return max(missing_type, 6 - len(s))
+  elif len(s) <= 20:
+    return max(missing_type, change)
+  else:
+    delete = len(s) - 20
+
+    change -= min(delete, one)
+    change -= min(max(delete - one, 0), two * 2) // 2
+    change -= max(delete - one - 2 * two, 0) // 3
+
+    return delete + max(missing_type, change)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Couples Holding Hands](https://leetcode.com/problems/couples-holding-hands)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_765.md/)
+
+{% tabs %}
+{% tab title='LC_765.md' %}
+
+> Question
+
+* print minimum swaps to make partner sit next to each other (2 \* N, 2 \* N - 1)
+
+```txt
+Input: row = [0, 2, 1, 3]
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_765.py' %}
+
+```py
+def minSwapsCouples(self, row: List[int]) -> int:
+  n = len(row)
+  pair = defaultdict(int)
+  for i in range(0, len(row) - 1, 2):
+    G[i] = i + 1
+    G[i + 1] = i
+  ans = 0
+  for i in range(0, len(row) - 2, 2): #Traverse the array and swap if not with his/her pair
+    if not pair[row[i]] == row[i+1]:
+      ans += 1
+      temp = row.index(pair[row[i]])
+      row[i + 1], row[temp] = row[temp], row[i + 1]
+  return ans
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Three Equal Parts](https://leetcode.com/problems/three-equal-parts)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_927.md/)
+
+{% tabs %}
+{% tab title='LC_927.md' %}
+
+> Question
+
+* given an array arr which consists of only zeros and ones
+* divide the array into three non-empty parts such that all of these parts represent the same binary value
+* If it is possible, return any [i, j] with i + 1 < j, such that:
+  * arr[0], arr[1], ..., arr[i] is the first part,
+  * arr[i + 1], arr[i + 2], ..., arr[j - 1] is the second part, and
+  * arr[j], arr[j + 1], ..., arr[arr.length - 1] is the third part
+  * All three parts have equal binary values
+* If it is not possible, return [-1, -1]
+
+```txt
+Input: arr = [1,0,1,0,1]
+Output: [0,3]
+```
+
+{% endtab %}
+{% tab title='LC_927.py' %}
+
+```py
+class Solution:
+  def threeEqualParts(self, A: List[int]) -> List[int]:
+  num_ones = sum(A)
+  if num_ones == 0:
+    return [0, 2]
+  if num_ones % 3 != 0:
+    return [-1, -1]
+
+  c = 0
+  s1 = s2 = s3 = -1
+  for idx,x in enumerate(A): # Find the first 1 in each part
+    if x == 1:
+      c += 1
+    if c == 1 and s1 < 0:
+      s1 = idx
+    if c == num_ones // 3 + 1 and s2 < 0:
+      s2 = idx
+    if c == num_ones * 2 // 3 + 1 and s3 < 0:
+      s3 = idx
+      break
+  n = len(A[s3:]) # length of each part when all the leading 0's are removed
+  if A[s1: s1 + n] == A[s2: s2 + n] and A[s2: s2 + n] == A[s3:]:
+    return [s1 + n - 1, s2 + n]
+  else:
+    return [-1, -1]
+```
+
+{% endtab %}
+{% endtabs %}

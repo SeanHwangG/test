@@ -1,0 +1,277 @@
+> baekjoon
+
+* [Level 2 : lex Origami Squares](https://www.acmicpc.net/problem/11466)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_11466.md/)
+
+{% tabs %}
+{% tab title='BJ_11466.md' %}
+
+> Question
+
+* You should put three squares within a rectangle
+* determine the maximum possible size of the paper squares
+
+```txt
+Input: 250 100
+Output: 83.33333  # 3 box in vertical
+
+Input: 210 297
+Output: 83.3333   # 2 box and 1 box on top
+```
+
+{% endtab %}
+{% tab title='BJ_11466.py' %}
+
+```py
+a, b = map(int, input().split())
+if a > b:
+  a, b = b, a
+print(max(min(a, b / 3), min(a / 2, b / 2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : quare Pasture](https://www.acmicpc.net/problem/14173)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_14173.md/)
+
+{% tabs %}
+{% tab title='BJ_14173.md' %}
+
+> Question
+
+* 두 개의 목장의 좌표평면이 주어진다
+* 이것을 하나의 정사각형의 목장으로 덮으려고 할 때 최소 넓이를 구하라
+
+```txt
+Input:
+6 6 8 8
+1 8 4 9
+
+Output: 49
+```
+
+{% endtab %}
+{% tab title='BJ_13173.py' %}
+
+```py
+a, b, c, d = map(int, input().split())
+e, f, g, h = map(int, input().split())
+x = max(max(c, g) - min(a, e), max(d, h) - min(b, f))
+print(x ** 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : bbey Courtyard](https://www.acmicpc.net/problem/15610)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_15610.md/)
+
+{% tabs %}
+{% tab title='BJ_15610.md' %}
+
+> Question
+
+* Find side of square given area
+
+```txt
+Input: 64
+Output: 32.0
+```
+
+{% endtab %}
+{% tab title='BJ_15610.py' %}
+
+```py
+print(int(input()) ** 0.5 * 4)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Cutting Corners](https://www.acmicpc.net/problem/20215)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_20215.md/)
+
+{% tabs %}
+{% tab title='BJ_20215.md' %}
+
+> Question
+
+* Given rectangle print width + height - diagonal
+
+```txt
+Input: 3 4
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_20215.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a + b - (a * a + b * b) ** .5)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : trium](https://www.acmicpc.net/problem/20353)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_20353.md/)
+
+{% tabs %}
+{% tab title='BJ_20353.md' %}
+
+> Question
+
+* Given area of square, find it's perimeter
+
+```txt
+Input: 64
+Output: 32.0
+```
+
+{% endtab %}
+{% tab title='BJ_20353.py' %}
+
+```py
+a = int(input())
+print(a ** 0.5 * 4)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 거북이](https://www.acmicpc.net/problem/2959)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_2959.md/)
+
+{% tabs %}
+{% tab title='BJ_2959.md' %}
+
+> Question
+
+* print the largest rectangular width that can be made when given the length of four sides
+
+```txt
+Input: 1 2 3 4
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2959.py' %}
+
+```py
+a, b, c, d = sorted(map(int, input().split()))
+print(a * c)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Pole](https://www.acmicpc.net/problem/8716)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_8716.md/)
+
+{% tabs %}
+{% tab title='BJ_8716.md' %}
+
+> Question
+
+* Print overlapped area of two rectangle
+
+```txt
+Input:
+0 3 4 0
+2 4 6 1
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_8716.py' %}
+
+```py
+x1, y1, x2, y2 = map(int, input().split())
+x3, y3, x4, y4 = map(int, input().split())
+Xu, Yu = max(x1, x3), min(y1, y3)
+Xl, Yl = min(x2, x4), max(y2, y4)
+print(max(0, Xl - Xu) * max(0, Yu - Yl))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 내접사각형 만들기](https://www.acmicpc.net/problem/17177)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_17177.md/)
+
+{% tabs %}
+{% tab title='BJ_17177.md' %}
+
+> Question
+
+![BJ_17177](quadrilateral/images/20210227_193739.png)
+
+* Find length of last segment in a circle inscribed quadrangle
+
+```txt
+Input: 2 1 1
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_17177.py' %}
+
+```py
+a, b, c = map(int, input().split())
+
+ans = -1
+for i in range(1, a):
+  if (b * c + i * a) ** 2 == (a ** 2 - b ** 2) * (a ** 2 - c ** 2):
+    ans = i
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 색종이](https://www.acmicpc.net/problem/2563)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_2563.md/)
+
+{% tabs %}
+{% tab title='BJ_2563.md' %}
+
+> Question
+
+* Print total area of overlapping region
+
+```txt
+Input:
+3
+3 7
+15 7
+5 2
+
+Output: 260
+```
+
+{% endtab %}
+{% tab title='BJ_2563.py' %}
+
+```py
+n = int(input())
+x = set()
+for k in range(n):
+  a, b = map(int,input().split())
+  for i in range(10):
+    for j in range(10):
+      x.add((a+i, b+j))
+print(len(x))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : A Real Challenge](https://open.kattis.com/problems/areal)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/KT_areal.md/)
+
+[//]: # (BJ_15610)

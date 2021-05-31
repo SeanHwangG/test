@@ -1,0 +1,459 @@
+> baekjoon
+
+* [Level 3 : dding Reversed Numbers](https://www.acmicpc.net/problem/3486)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_3486.md/)
+
+{% tabs %}
+{% tab title='BJ_3486.md' %}
+
+> Question
+
+* sum reversed number and reverse back
+
+```txt
+Input:
+3
+24 1
+4358 754
+305 794
+
+Output:
+34
+1998
+1
+```
+
+{% endtab %}
+{% tab title='BJ_3486.py' %}
+
+```py
+t = int(input())
+for i in range(t):
+  a, b = map(str, input().split())
+  sum = 0
+  a = a[::-1]
+  b = b[::-1]
+  sum = str(int(a) + int(b))
+  print(int(sum[::-1]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 팰린드롬](https://www.acmicpc.net/problem/10174)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_10174.md/)
+
+{% tabs %}
+{% tab title='BJ_10174.md' %}
+
+> Question
+
+* for each line, print Yes if palindrome No otherwise
+
+```txt
+Input:
+6
+Nat tan
+Palindrome
+123454321
+Dogs and Cats
+**()()**
+1 221
+
+Output:
+Yes
+No
+Yes
+No
+No
+No
+```
+
+{% endtab %}
+{% tab title='BJ_10174.py' %}
+
+```py
+for _ in range(int(input())):
+  s = input().lower()
+  print("Yes" if s == s[::-1] else "No")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 카드 역배치](https://www.acmicpc.net/problem/10804)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_10804.md/)
+
+{% tabs %}
+{% tab title='BJ_10804.md' %}
+
+> Question
+
+* Given 20 numbers keep reverse given intervals 10 times
+
+```txt
+Input:
+5 10
+9 13
+1 2
+3 4
+5 6
+1 2
+3 4
+5 6
+1 20
+1 20
+
+Output:
+1 2 3 4 10 9 8 7 13 12 11 5 6 14 15 16 17 18 19 20
+```
+
+{% endtab %}
+{% tab title='BJ_10804.py' %}
+
+```py
+l=[*range(1,21)]
+for _ in range(10):
+  a, b = map(int, input().split())
+  l[a-1:b] = l[a-1:b][::-1]
+print(*l)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : !밀비 급일](https://www.acmicpc.net/problem/11365)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_11365.md/)
+
+{% tabs %}
+{% tab title='BJ_11365.md' %}
+
+> Question
+
+* Print reversed form until END
+
+```txt
+Input:
+ABC
+DF
+END
+
+Output:
+CBA
+FD
+```
+
+{% endtab %}
+{% tab title='BJ_11365.py' %}
+
+```py
+while True:
+  a = input()
+  if a == "END":
+    break
+  print(a[::-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 뜨거운 붕어빵](https://www.acmicpc.net/problem/11945)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_11945.md/)
+
+{% tabs %}
+{% tab title='BJ_11945.md' %}
+
+> Question
+
+* For each line print reversed string
+
+```txt
+Input:
+5 7
+0010000
+0111010
+1111111
+0111010
+0010000
+
+Output:
+0000100
+0101110
+1111111
+0101110
+0000100
+```
+
+{% endtab %}
+{% tab title='BJ_11945.py' %}
+
+```py
+n, m = map(int, input().split())
+for i in range(n):
+  print(input()[::-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 팰린드롬](https://www.acmicpc.net/problem/13235)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_13235.md/)
+
+{% tabs %}
+{% tab title='BJ_13235.md' %}
+
+> Question
+
+* Print true if palindrome false otherwise
+
+```txt
+Input: a
+Output: true
+```
+
+{% endtab %}
+{% tab title='BJ_13235.py' %}
+
+```py
+s = input()
+print("true" if s == s[::-1] else "false")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 상수](https://www.acmicpc.net/problem/2908)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_2908.md/)
+
+{% tabs %}
+{% tab title='BJ_2908.md' %}
+
+> Question
+
+* Print larger number when they are reversed
+
+```txt
+Input: 734 893
+Output: 437
+```
+
+{% endtab %}
+{% tab title='BJ_2908.py' %}
+
+```py
+a, b = input()[::-1].split()
+print(max(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 거울, 오! 거울](https://www.acmicpc.net/problem/4740)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_4740.md/)
+
+{% tabs %}
+{% tab title='BJ_4740.md' %}
+
+> Question
+
+* Reverse each line until ***
+
+```txt
+Input:
+AMBULANCE
+Evian
+madam, i'm adam
+***
+
+Output:
+ECNALUBMA
+naivE
+mada m'i ,madam
+```
+
+{% endtab %}
+{% tab title='BJ_4740.py' %}
+
+```py
+while (s:=input()) != '***':
+  print(s[::-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 팰린드롬수](https://www.acmicpc.net/problem/1259)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_1259.md/)
+
+{% tabs %}
+{% tab title='BJ_1259.md' %}
+
+> Question
+
+* For each line, a given number outputs a palindromic sleep "yes" or "no"
+
+```txt
+Input:
+121
+1231
+12421
+0
+
+Output:
+yes
+no
+yes
+```
+
+{% endtab %}
+{% tab title='BJ_1259.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  string s;
+  while (cin>>s) {
+    if(s=="0") break;
+    string t = s;
+    reverse(t.begin(), t.end());
+    cout << (s == t ? "yes" : "no")<<endl;
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1259.js' %}
+
+```js
+console.log((require('fs').readFileSync('/dev/stdin')+'').trim().split('\n').slice(0, -1)
+  .map(x => x == x.split('').reverse().join('') ? 'yes' : 'no').join('\n'))
+```
+
+{% endtab %}
+{% tab title='BJ_1259.py' %}
+
+```py
+while True:
+  n = input()
+  if n == '0':
+    break
+  if n == n[::-1]:
+    print("yes")
+  else:
+    print("no")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.2 : Filip](https://open.kattis.com/problems/filip)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/KT_filip.md/)
+
+[//]: # (BJ_2908)
+
+* [Level 1.6 : Mirror Images](https://open.kattis.com/problems/mirror)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/KT_mirror.md/)
+
+{% tabs %}
+{% tab title='KT_mirror.md' %}
+
+> Question
+
+* Print mirrored string
+
+```txt
+Input:
+2
+2 2
+.*
+..
+4 4
+***.
+**..
+....
+....
+
+Output:
+Test 1
+..
+*.
+Test 2
+....
+....
+..**
+.***
+```
+
+{% endtab %}
+{% tab title='KT_mirror.py' %}
+
+```py
+n_test = int(input())
+for test in range(1, n_test + 1):
+  R, C = map(int, input().split())
+  G = [input() for _ in range(R)]
+  print(f"Test {test}")
+  for st in reversed(G):
+    print("".join(reversed(st)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Reverse String](https://leetcode.com/problems/reverse-string)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/LC_344.md/)
+
+{% tabs %}
+{% tab title='LC_344.md' %}
+
+> Question
+
+* Reverse array of characters
+
+```txt
+Input: s = ["h","e","l","l","o"]
+Output: ["o","l","l","e","h"]
+```
+
+{% endtab %}
+{% tab title='LC_344.js' %}
+
+```js
+var reverseString = (s) => { s.reverse() }
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/LC_151.md/)
+
+{% tabs %}
+{% tab title='LC_151.md' %}
+
+> Question
+
+* Reverse word
+
+```txt
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+```
+
+{% endtab %}
+{% tab title='LC_151.py' %}
+
+```py
+def reverseWords(self, s: str) -> str:
+  return s[::-1]
+```
+
+{% endtab %}
+{% endtabs %}

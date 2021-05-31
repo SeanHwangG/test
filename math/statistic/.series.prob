@@ -1,0 +1,384 @@
+> baekjoon
+
+* [Level 1 : 합](https://www.acmicpc.net/problem/8393)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_8393.md/)
+
+{% tabs %}
+{% tab title='BJ_8393.md' %}
+
+> Question
+
+* Find sum of 1 ... N
+
+{% endtab %}
+{% tab title='BJ_8393.sh' %}
+
+```sh
+read n
+echo $(($n*($n+1)/2))
+```
+
+{% endtab %}
+{% tab title='BJ_8393.py' %}
+
+```py
+n = int(input())
+print(n * (n + 1) // 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Missing Runners](https://www.acmicpc.net/problem/16546)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_16546.md/)
+
+{% tabs %}
+{% tab title='BJ_16546.md' %}
+
+> Question
+
+* 첫 줄에 선수의 수 n이 주어진다
+* 두번 째 줄에 n - 1 의 선수가 주어지는데 이때 1 ... n 사이에 비어있는 선수의 번호를 출력하라
+
+```txt
+Input:
+5
+1 5 2 3
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_16546.py' %}
+
+```py
+n = int(input())
+print(n * (n + 1) // 2 - sum(map(int, input().split())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 고려대학교에는 공식 와인이 있다](https://www.acmicpc.net/problem/16673)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_16673.md/)
+
+{% tabs %}
+{% tab title='BJ_16673.md' %}
+
+> Question
+
+* Given c, k, p, print sum of over (1 ... c) Kn+Pn^2
+
+```txt
+Input: 3 1 1
+Output: 20  # 2 6 12
+```
+
+{% endtab %}
+{% tab title='BJ_16673.py' %}
+
+```py
+c, k, p = map(int,input().split())
+print(c * (c + 1) * k // 2 + c * (c + 1) * (2 * c + 1) * p // 6)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 오각형, 오각형, 오각형…](https://www.acmicpc.net/problem/1964)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_1964.md/)
+
+{% tabs %}
+{% tab title='BJ_1964.md' %}
+
+> Question
+
+![BJ_1964](series/images/20210303_204824.png)
+
+* Find number of points in Nth pattern module 45678
+
+```txt
+Input: 3
+Output: 22
+```
+
+{% endtab %}
+{% tab title='BJ_1964.py' %}
+
+```py
+n = int(input())
+print((n + 1) * (n * 3 + 2) // 2 % 45678)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 시그마](https://www.acmicpc.net/problem/2355)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_2355.md/)
+
+{% tabs %}
+{% tab title='BJ_2355.md' %}
+
+> Question
+
+* Given two integers A and B, find the sum of the numbers between the two integers
+
+```txt
+Input: 1 10
+Output: 55
+```
+
+{% endtab %}
+{% tab title='BJ_2355.py' %}
+
+```py
+a, b = map(int, input().split())
+print((a + b) * (abs(a - b) + 1) // 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 도미노](https://www.acmicpc.net/problem/2921)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_2921.md/)
+
+{% tabs %}
+{% tab title='BJ_2921.md' %}
+
+> Question
+
+![BJ_2921](series/images/20210601_114448.png)
+
+* Find number of points with n block
+
+```txt
+Input: 2
+Output: 12
+```
+
+{% endtab %}
+{% tab title='BJ_2921.py' %}
+
+```py
+n=int(input())
+print(n*(n+1)*(n+2)//2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 다음수](https://www.acmicpc.net/problem/4880)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_4880.md/)
+
+{% tabs %}
+{% tab title='BJ_4880.md' %}
+
+> Question
+
+* Find if Arithmetic or geometric series
+
+{% endtab %}
+{% tab title='BJ_4880.py' %}
+
+```py
+while True:
+  a, b, c = map(int, input().split())
+  if a == b == c == 0:
+    break
+  if c - b == b - a:
+    print(f"AP {c + (b - a)}")
+  else:
+    print(f"GP {c * (b // a)}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 수들의 합](https://www.acmicpc.net/problem/1789)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_1789.md/)
+
+{% tabs %}
+{% tab title='BJ_1789.md' %}
+
+> Question
+
+* Sum of distinct integers are S, find the maximum length
+
+```txt
+Input: 200
+Output: 19   # 1 2 3 4 ... 18 29
+```
+
+{% endtab %}
+{% tab title='BJ_1789.py' %}
+
+```py
+s = int(input())
+n = 1
+while n * (n + 1) / 2 <= s:
+  n += 1
+print(n - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 평면 분할](https://www.acmicpc.net/problem/18187)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/BJ_18187.md/)
+
+{% tabs %}
+{% tab title='BJ_18187.md' %}
+
+> Question
+
+* How many plane can you create with n line?
+
+```txt
+Input: 3
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_18187.py' %}
+
+```py
+count = 0
+result = 1
+for i in range(int(input())):
+  if i == 0 or i % 3 != 0:
+    count += 1
+  result += count
+print(result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Sum Kind of Problem](https://open.kattis.com/problems/sumkindofproblem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/KT_sumkindofproblem.md/)
+
+{% tabs %}
+{% tab title='KT_sumkindofproblem.md' %}
+
+> Question
+
+* 첫 줄에 n이 주어진다
+* 그 다음 n 줄에 k, m이 주어지는데, 이 때 k 와 첫 m개의 자연수, 홀수, 짝수 의 합을 구하라
+
+```txt
+Input:
+3
+1 1
+2 10
+3 1001
+
+Output:
+1 1 1 2
+2 55 100 110
+3 501501 1002001 1003002
+```
+
+{% endtab %}
+{% tab title='KT_sumkindofproblem.py' %}
+
+```py
+n = int(input())
+for i in range(n):
+  k, n = map(int, input().split())
+  print(k, n * (n + 1) // 2, n * (n + 1) - n, n * (n + 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Calculate Money in Leetcode Bank](https://leetcode.com/problems/calculate-money-in-leetcode-bank)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/LC_1716.md/)
+
+{% tabs %}
+{% tab title='LC_1716.md' %}
+
+> Question
+
+* Hercy puts money in Leetcode bank every day
+* He starts by putting in $1 on Monday, first day. Every day from Tuesday to Sunday, he will put in $1 more than day before
+* On every subsequent Monday, he will put in $1 more than the previous Monday
+* Given n, return the total amount of money he will have in the Leetcode bank at the end of the nth day
+
+```txt
+Input: n = 10
+Output: 37
+```
+
+{% endtab %}
+{% tab title='LC_1716.py' %}
+
+```py
+def totalMoney(self, n: int) -> int:
+  k, r = divmod(n, 7)
+  return 28 * k + k * (k - 1) // 2 * 7 + (1 + r) * r // 2 + k * r
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Missing Number](https://leetcode.com/problems/missing-number)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/LC_268.md/)
+
+{% tabs %}
+{% tab title='LC_268.md' %}
+
+> Question
+
+* Given an array nums containing n distinct numbers in range [0, n], return only number in range that is missing from array
+
+```txt
+Input: nums = [3,0,1]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_268.py' %}
+
+```py
+def missingNumber(self, nums: List[int]) -> int:
+  n = len(nums)
+  return n * (n+1) // 2 - sum(nums)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Nth Digit](https://leetcode.com/problems/nth-digit)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/series/LC_400.md/)
+
+{% tabs %}
+{% tab title='LC_400.md' %}
+
+> Question
+
+* Find nth digit of the infinite integer sequence 1,2,..
+
+```txt
+Input: n = 11
+Output: 0
+```
+
+{% endtab %}
+{% tab title='LC_400.py' %}
+
+```py
+def findNthDigit(self, n):
+  n -= 1
+  for digits in range(1, 11):
+    first = 10**(digits - 1)
+    if n < 9 * first * digits:
+      return int(str(first + n/digits)[n % digits])
+    n -= 9 * first * digits
+```
+
+{% endtab %}
+{% endtabs %}

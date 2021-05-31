@@ -1,0 +1,166 @@
+> hackerrank
+
+* [Level Easy : Average Population](https://www.hackerrank.com/challenges/average-population/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/aggregate/HR_average-population.md/)
+
+{% tabs %}
+{% tab title='HR_average-population.md' %}
+
+> Question
+
+* City
+
+| Population | City       | Country | State        | Zip    |
+| ---------- | ---------- | ------- | ------------ | ------ |
+| 100        | Rotterdam  | JPN     | Zuid-Holland | 593321 |
+| 200        | Ecottsdale | USA     | Arizona      | 202705 |
+| 300        | Corona     | USA     | California   | 124966 |
+
+* Query the average population for all cities in CITY, rounded down to the nearest integer
+
+| Poplution |
+| --------- |
+| 400       |
+
+{% endtab %}
+{% tab title='HR_average-population.sql' %}
+
+```sql
+SELECT ROUND(AVG(Population)) FROM City;
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Population Density Difference](https://www.hackerrank.com/challenges/population-density-difference/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/aggregate/HR_population-density-difference.md/)
+
+{% tabs %}
+{% tab title='HR_population-density-difference.md' %}
+
+> Question
+
+* City
+
+| Population | City       | Country | State        | Zip    |
+| ---------- | ---------- | ------- | ------------ | ------ |
+| 100        | Rotterdam  | JPN     | Zuid-Holland | 593321 |
+| 200        | Ecottsdale | USA     | Arizona      | 202705 |
+| 300        | Corona     | USA     | California   | 124966 |
+
+* Query the difference between the maximum and minimum populations in CITY
+
+| Poplution |
+| --------- |
+| 200       |
+
+{% endtab %}
+{% tab title='HR_population-density-difference.sql' %}
+
+```sql
+SELECT MAX(Population) - MIN(Population) FROM City;
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : The Blunder](https://www.hackerrank.com/challenges/the-blunder/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/aggregate/HR_the-blunder.md/)
+
+{% tabs %}
+{% tab title='HR_the-blunder.md' %}
+
+> Question
+
+* Employees
+
+| ID  | Name     | Salary |
+| --- | -------- | ------ |
+| 1   | Kristeen | 1420   |
+| 2   | Ashley   | 2006   |
+| 3   | Julia    | 2210   |
+| 4   | Maria    | 3000   |
+
+* finding the difference between her miscalculation (salaries with any zeros removed), and the actual average salary
+
+| Salary |
+| ------ |
+| 2061   |
+
+{% endtab %}
+{% tab title='HR_the-blunder.sql' %}
+
+```sql
+SELECT CEIL(AVG(Salary) - AVG(REPLACE(CAST(Salary AS CHAR), "0", ""))) FROM Employees;
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Weather Observation Station 4](https://www.hackerrank.com/challenges/weather-observation-station-4/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/aggregate/HR_weather-observation-station-4.md/)
+
+{% tabs %}
+{% tab title='HR_weather-observation-station-4.md' %}
+
+> Question
+
+* Station
+
+| Id   | City       | Country | State        | Zip    |
+| ---- | ---------- | ------- | ------------ | ------ |
+| 6    | Rotterdam  | NLD     | Zuid-Holland | 593321 |
+| 1661 | Ecottsdale | USA     | Arizona      | 202705 |
+| 3965 | Corona     | USA     | California   | 124966 |
+
+* find difference between total number of CITY entries in table and number of distinct CITY entries in table
+
+| Count |
+| ----- |
+| 13    |
+
+{% endtab %}
+{% tab title='HR_weather-observation-station-4.sql' %}
+
+```sql
+SELECT COUNT(City) - COUNT(DISTINCT City) FROM Station;
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Shortest Distance in a Plane](https://leetcode.com/problems/shortest-distance-in-a-plane)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/aggregate/LC_612.md/)
+
+{% tabs %}
+{% tab title='LC_612.md' %}
+
+> Question
+
+* point_2d
+
+| x   | y   |
+| --- | --- |
+| -1  | -1  |
+| 0   | 0   |
+| -1  | -2  |
+
+* find the shortest distance between these points rounded to 2 decimals
+* The shortest distance is 1.00 from point (-1,-1) to (-1,2). So the output should be:
+
+| shortest |
+| -------- |
+| 1.00     |
+
+{% endtab %}
+{% tab title='LC_612.py' %}
+
+```sql
+SELECT ROUND(MIN(SQRT(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2))),2) AS 'shortest'
+  FROM point_2d p1, point_2d p2 WHERE not (p1.x = p2.x and p1.y = p2.y)
+```
+
+{% endtab %}
+{% endtabs %}

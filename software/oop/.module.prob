@@ -1,0 +1,624 @@
+> baekjoon
+
+* [Level 3 : 그대로 출력하기](https://www.acmicpc.net/problem/11718)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_11718.md/)
+
+{% tabs %}
+{% tab title='BJ_11718.md' %}
+
+> Question
+
+* Print as input
+
+```txt
+Input:
+Hello
+Baekjoon
+Online Judge
+
+Output:
+Hello
+Baekjoon
+Online Judge
+```
+
+{% endtab %}
+{% tab title='BJ_11718.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+  string str;
+  while (getline(cin, str)){
+    cout << str << endl;
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11718.sh' %}
+
+```sh
+while read a
+do
+  echo "$a"
+done
+```
+
+{% endtab %}
+{% tab title='BJ_11718.py' %}
+
+```py
+import sys
+print(sys.stdin.read())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 부호](https://www.acmicpc.net/problem/1247)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_1247.md/)
+
+{% tabs %}
+{% tab title='BJ_1247.md' %}
+
+> Question
+
+* Given N integers, find the sign of these summed integers
+
+```txt
+Input:
+3
+0
+0
+0
+10
+1
+2
+4
+8
+16
+32
+64
+128
+256
+-512
+6
+9223372036854775807
+9223372036854775806
+9223372036854775805
+-9223372036854775807
+-9223372036854775806
+-9223372036854775804
+
+Output:
+0
+-
++
+```
+
+{% endtab %}
+{% tab title='BJ_1247.py' %}
+
+```py
+import sys
+for _ in range(3):
+  N = int(input())
+  li = [int(sys.stdin.readline()) for _ in range(N)]
+  total = sum(li)
+  if total > 0:
+    print('+')
+  elif total < 0:
+    print('-')
+  else:
+    print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 창용이의 시계](https://www.acmicpc.net/problem/12840)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_12840.md/)
+
+{% tabs %}
+{% tab title='BJ_12840.md' %}
+
+> Question
+
+* When T is 1, take C as input and turn the clock forward for C seconds
+* When T is 2, take C as input and turn the clock back for C seconds
+* When T is 3, the situation of the clock operated by Changyong is printed
+
+```txt
+Input:
+0 1 0
+4
+1 4263
+3
+2 1175
+3
+
+Output:
+1 12 3
+0 52 28
+```
+
+{% endtab %}
+{% tab title='BJ_12840.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+h, m, s = map(int, input().split())
+s += (h * 3600 + m * 60)
+
+for i in range(int(input())):
+  l = list(map(int, input().split()))
+  if len(l) == 2:
+    q, c = l
+  else:
+    q, c = l, 0
+
+  if q == 1:
+    s += c
+  elif q == 2:
+    s -= c
+  else:
+    print(s // 3600 % 24, (s % 3600) // 60, s % 60)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 경기 결과](https://www.acmicpc.net/problem/5523)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_5523.md/)
+
+{% tabs %}
+{% tab title='BJ_5523.md' %}
+
+> Question
+
+* Given the scores of A and B in N rounds
+* prints the number of times A has won, and the number of times B has won
+
+```txt
+Input:
+4
+100 0
+5 6
+40 50
+74 75
+
+Output: 1 3
+```
+
+{% endtab %}
+{% tab title='BJ_5523.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+N = int(input())
+li = []
+a_win, b_win = 0, 0
+for _ in range(N):
+  a, b = map(int, input().split())
+  if a > b:
+    a_win += 1
+  elif b > a:
+    b_win += 1
+
+print(a_win, b_win)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 빠른 A+B](https://www.acmicpc.net/problem/15552)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_15552.md/)
+
+{% tabs %}
+{% tab title='BJ_15552.md' %}
+
+> Question
+
+* Print a + b for each line
+
+```txt
+Input:
+5
+1 1
+12 34
+5 500
+40 60
+1000 1000
+
+Output:
+2
+46
+505
+100
+2000
+```
+
+{% endtab %}
+{% tab title='BJ_15552.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+int main() {
+  cin.tie(NULL);
+  ios::sync_with_stdio(false);
+  int T;
+  cin >> T;
+  while (T--) {
+    int A, B;
+    cin >> A >> B;
+    cout << A + B << '\n';
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_15552.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+n_test = int(input())
+for _ in range(n_test):
+  a, b = map(int, input().split())
+  print(a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 줄 세기](https://www.acmicpc.net/problem/4806)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_4806.md/)
+
+{% tabs %}
+{% tab title='BJ_4806.md' %}
+
+> Question
+
+* Count number of line
+
+```txt
+Input:
+one
+and two
+three
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_4806.py' %}
+
+```py
+import sys
+print(sys.stdin.read().count("\n"))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 그대로 출력하기 2](https://www.acmicpc.net/problem/11719)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_11719.md/)
+
+{% tabs %}
+{% tab title='BJ_11719.md' %}
+
+> Question
+
+* Print all input
+
+```txt
+Input:
+    Hello
+
+Baekjoon
+   Online Judge
+
+Output:
+    Hello
+
+Baekjoon
+   Online Judge
+```
+
+{% endtab %}
+{% tab title='BJ_11719.cpp' %}
+
+```cpp
+#include <iostream>
+int main() {
+  char c;
+  while ((c = std::cin.get()) != -1) {
+    std::cout << c;
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11719.py' %}
+
+```py
+import sys
+print(sys.stdin.read())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 집합](https://www.acmicpc.net/problem/11723)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_11723.md/)
+
+{% tabs %}
+{% tab title='BJ_11723.md' %}
+
+> Question
+
+* When an empty set of balls S is given, write a program that performs the operation below
+  * add x: Add x to S.  If S already has x, ignore the operation
+  * remove x: remove x from S  If S does not have x, ignore the operation
+  * check x: print 1 if S has x and 0 if not
+  * toggle x: If S has x, remove x; if not, add x
+  * all: Change S to {1, 2, ..., 20}
+  * empty: Replace S with a covalent set
+
+```txt
+Input:
+26
+add 1
+add 2
+check 1
+check 2
+check 3
+remove 2
+check 1
+check 2
+toggle 3
+check 1
+check 2
+check 3
+check 4
+all
+check 10
+check 20
+toggle 10
+remove 20
+check 10
+check 20
+empty
+check 1
+toggle 1
+check 1
+toggle 1
+check 1
+
+Output:
+1
+1
+0
+1
+0
+1
+0
+1
+0
+1
+1
+0
+0
+0
+1
+0
+```
+
+{% endtab %}
+{% tab title='BJ_11723.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+M = int(input())
+my_list = [False] * 20  # 0 ~ 19
+for _ in range(M):
+  c = input().split()
+  if len(c) > 1:
+    n = int(c[1]) - 1  # 1 ~ 20 -> 0 ~ 19
+  if c[0] == 'add':
+    my_list[n] = True
+  elif c[0] == 'remove':
+    my_list[n] = False
+  elif c[0] == 'check':
+    print(1 if my_list[n] else 0)
+  elif c[0] == 'toggle':
+    my_list[n] = not my_list[n]
+  elif c[0] == 'all':
+    my_list = [True] * 20
+  elif c[0] == 'empty':
+    my_list = [False] * 20
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 수 정렬하기 4](https://www.acmicpc.net/problem/11931)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_11931.md/)
+
+{% tabs %}
+{% tab title='BJ_11931.md' %}
+
+> Question
+
+* Print list in reversed order
+
+```txt
+Input:
+5
+1
+2
+3
+4
+5
+
+Output:
+5
+4
+3
+2
+1
+```
+
+{% endtab %}
+{% tab title='BJ_11931.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+n = int(input())
+li = [int(input()) for _ in range(n)]
+for e in sorted(li, reverse=True):
+  print(e)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 수 정렬하기 5](https://www.acmicpc.net/problem/15688)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_15688.md/)
+
+{% tabs %}
+{% tab title='BJ_15688.md' %}
+
+> Question
+
+* When given N numbers, sort them in descending order
+
+```txt
+Input:
+5
+5
+4
+3
+2
+1
+
+Output:
+1
+2
+3
+4
+5
+```
+
+{% endtab %}
+{% tab title='BJ_15688.py' %}
+
+```py
+import sys
+l = []
+for _ in range(int(sys.stdin.readline())):
+  l.append(int(sys.stdin.readline()))
+print("\n".join(map(str, sorted(l))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 1](https://www.acmicpc.net/problem/4375)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_4375.md/)
+
+{% tabs %}
+{% tab title='BJ_4375.md' %}
+
+> Question
+
+* 2와 5로 나누어 떨어지지 않는 정수 n(1 ≤ n ≤ 10000)가 주어졌을 때
+* Find multiple of n that consists of only 1
+
+```txt
+Input:
+3
+7
+9901
+
+Output:
+3
+6
+12
+```
+
+{% endtab %}
+{% tab title='BJ_4375.py' %}
+
+```py
+import sys
+for line in sys.stdin:
+  st = '1'
+  while True:
+    if int(st) % int(line) == 0:
+      print(len(st))
+      break
+    st += '1'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 이항 계수와 쿼리](https://www.acmicpc.net/problem/13977)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/oop/module/BJ_13977.md/)
+
+{% tabs %}
+{% tab title='BJ_13977.md' %}
+
+> Question
+
+* Given list of N, K print N choose K mod 1,000,000,007
+
+```txt
+Input:
+5
+5 2
+5 3
+10 5
+20 10
+10 0
+
+Output:
+10
+10
+252
+184756
+1
+```
+
+{% endtab %}
+{% tab title='BJ_13977.py' %}
+
+```py
+from sys import stdin
+input = stdin.readline
+
+MOD = 1000000007
+fac = [1]
+for i in range(1,4000001):
+  fac.append((fac[-1]*i)%MOD)
+for i in range(int(input())):
+  n, k = map(int,input().split())
+  f = fac[n]
+  f = (f * pow(fac[k], MOD-2, MOD)) % MOD
+  f = (f * pow(fac[n-k], MOD-2, MOD)) % MOD
+  print(f)
+```
+
+{% endtab %}
+{% endtabs %}

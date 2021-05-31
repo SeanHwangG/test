@@ -1,0 +1,684 @@
+> baekjoon
+
+* [Level 18 : NMK](https://www.acmicpc.net/problem/1201)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/BJ_1201.md/)
+
+{% tabs %}
+{% tab title='BJ_1201.md' %}
+
+> Question
+
+* Print array with N LIS and M LDS (Longest Decreasing subsequence)
+
+```txt
+Input: 4 2 2
+Output: 2 1 4 3
+```
+
+> Solution
+
+* **4** 3 2 1 **8** 7 6 5 **12** 11 10 9
+
+{% endtab %}
+{% tab title='BJ_1201.py' %}
+
+```py
+n, m, k = map(int, input().split())
+if m + k - 1 <= n <= m * k:
+  L = [k]
+  if m > 1: L+=[(n-k)//(m-1)]*(m-1)
+  for i in range(n-sum(L)):
+    L[i+1]+=1
+  c = 0
+  for i in range(len(L)):
+    for j in range(c, c + L[i])[::-1]:
+      print(j + 1, end=' ')
+    c += L[i]
+else:
+  print(-1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 롤러코스터](https://www.acmicpc.net/problem/2873)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/BJ_2873.md/)
+
+{% tabs %}
+{% tab title='BJ_2873.md' %}
+
+> Question
+
+* Find a path with maxium sum
+
+```txt
+Input:
+3 3
+5 1 3
+2 4 8
+1 1 2
+
+Output: RRDLLDRR
+```
+
+{% endtab %}
+{% tab title='BJ_2873.py' %}
+
+```py
+import sys
+r, c = map(int,input().split())
+joy = [list(map(int,sys.stdin.readline().split())) for _ in range(r)]
+
+if r%2 == 1:
+  print(('R' * (c - 1) + 'D' + 'L' * (c - 1) + 'D') * (r // 2) + 'R' * (c - 1))
+elif c%2 == 1:
+  print(('D' * (r - 1) + 'R' + 'U' * (r - 1) + 'R') * (c // 2) + 'D' * (r - 1))
+else:
+  x, y = 0,1
+  z = joy[x][y]
+  for i in range(r):
+    for j in range(c):
+      if (i + j) % 2 == 1 and z > joy[i][j]:
+        z = joy[i][j]
+        x, y = i, j
+  print(('D' * (r - 1) + 'R' + 'U' * (r - 1) + 'R')*  (y // 2) +('RDLD') * (x // 2), end='')
+  if x % 2 == 0:
+    print('DR', end='')
+  else:
+    print('RD', end='')
+  print(('DLDR') * ((r - x - 1) // 2) +('R' + 'U' * (r - 1) + 'R' + 'D' * (r - 1)) * ((c - y - 1) // 2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codechef
+
+* [Level Easy : Tree Distances](https://www.codechef.com/problems/TDISTS)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CC_TDISTS.md/)
+
+{% tabs %}
+{% tab title='CC_TDISTS.md' %}
+
+> Question
+
+* Find tree with following property
+* The number of pairs of vertices with an even distance between them is x
+* The number of pairs of vertices with an odd distance between them is y
+
+```txt
+Input:
+4
+2 2
+29 20
+3 12
+6 3
+Output:
+YES
+2
+1 2
+YES
+7
+1 2
+1 3
+2 4
+2 5
+3 6
+3 7
+NO
+NO
+```
+
+{% endtab %}
+{% tab title='CC_TDISTS.py' %}
+
+```py
+for _ in range(int(input())):
+  x, y = map(int, input().split())
+  root = int((x + y) ** 0.5)
+  if y % 2 == 1 or x + y != root ** 2:
+    print('NO')
+    continue
+  for i in range(1, int(y ** 0.5) + 1):
+    n, m = i, root-i
+    if n ** 2 + m ** 2 == x and 2 * n * m == y:
+      print('YES')
+      print(root)
+      for i in range(n):
+        print(1, 2 + i)
+      for i in range(m-1):
+        print(2, 2 + n + i)
+      break
+  else:
+    print('NO')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Medium : Array and Operations](https://www.codechef.com/problems/ARRAYOPS)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CC_ARRAYOPS.md/)
+
+{% tabs %}
+{% tab title='CC_ARRAYOPS.md' %}
+
+> Question
+
+* Given a1...an, all equal to 1, use following operation to reach the array b
+  * Take index i and multiply by 2
+  * Take two indexes i and j and aj from ai
+
+```txt
+Input:
+3
+1 2 3
+
+Output:
+4
+1 3
+1 3
+2 3 1
+1 2
+```
+
+> Solution
+
+* reverse the problem into
+  * Take the index i (> 1, < n), and divide it by 2, if bi is divisible by 2
+  * a[it2.second] = it2.first + it1.first;
+* Suppose all the numbers are odd, else we would keep on dividing them by 2 until they become odd
+* Now instead of finding a subset whose gcd equals 1, each time we take the maximum and minimum elements of the array
+* Let mx and mi be the maximum and minimum elements of the array respectively
+* As soon as we get any element of the array B equal to 1
+* Use this element to reduce all elements of array B to 1 as gcd of this element with any other element will be 1
+* This will take at most 2*N*log(C) operations
+
+{% endtab %}
+{% tab title='CC_ARRAYOPS.py' %}
+
+```cpp
+// Time : 2*N*log(C)
+#include <bits/stdc++.h>
+using namespace std;
+int a[(int)1e4 + 12];
+
+inline void normalize(vector<array<int, 3>>& oper, int i){
+  while(a[i] % 2 == 0) oper.push_back({1, i, -1}), a[i] /= 2;
+}
+
+int main () {
+  int t = 1;
+  while (t--){
+    int n, g = 0;
+    vector<array<int, 3>> oper;
+    set<pair<int, int>> vals;
+    cin >> n;
+    for (int i = 0; i < n; i++){
+      cin >> a[i];
+      normalize(oper, i);
+      g = __gcd(g, a[i]);
+      vals.insert({a[i], i});
+    }
+
+    if (g > 1){
+      cout << -1 << endl;
+      continue;
+    }
+    while(1) {
+      auto it1 = *vals.begin(), it2 = *vals.rbegin();
+      if (it1.first == it2.first && it1.first == 1) break;
+
+      while (it2.first != it1.first) {
+        if (it2.first < it1.first) swap(it1, it2);
+        vals.erase(it2);
+        a[it2.second] = it2.first + it1.first;
+
+        oper.push_back({2, it2.second, it1.second});
+        normalize(oper, it2.second);
+        it2.first = a[it2.second];
+        vals.insert({a[it2.second], it2.second});
+      }
+    }
+    cout << oper.size() << "\n";
+    reverse(oper.begin(), oper.end());
+    for (auto x : oper) {
+      cout << x[0] << " " << x[1] + 1;
+      if(x[2] != -1) cout << " " << x[2] + 1;
+      cout << "\n";
+    }
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codeforces
+
+* [Level 1200 : Morning Jogging](https://codeforces.com/contest/1517/problem/B)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CF_1517B.md/)
+
+{% tabs %}
+{% tab title='CF_1517B.md' %}
+
+> Question
+
+* There are n checkpoints wiht m different paths
+* Arange paths so that sum of following equation is minimum
+
+$$ \min _{i=1}^{n} l_{i} $$
+
+```txt
+Input:
+2
+2 3
+2 3 4
+1 3 5
+3 2
+2 3
+4 1
+3 5
+
+Output:
+2 3 4
+5 3 1
+2 3
+4 1
+3 5
+```
+
+{% endtab %}
+{% tab title='CF_1517B.py' %}
+
+```py
+for _ in range(int(input())):
+  n, m = map(int,input().split())
+  G = [list(sorted(map(int,input().split()))) for i in range(n)]
+  mins = [[10 ** 9, i] for i in range(m)]
+  for i in range(n):
+    o = list(sorted(mins, reverse=True))
+    ans = [0] * m
+    for j in range(m):
+      mins[o[j][1]][0] = min(o[j][0], G[i][j])
+      ans[o[j][1]] = G[i][j]
+    print(*ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1400 : Fillomino 2](https://codeforces.com/contest/1517/problem/C)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CF_1517C.md/)
+
+{% tabs %}
+{% tab title='CF_1517C.md' %}
+
+> Question
+
+* Given numbers on diagnal, split board into regions with size corresponding diagnal's number
+
+```txt
+Input:
+3
+2 3 1
+
+Output:
+2
+2 3
+3 3 1
+```
+
+![CF_1517C](constructive/images/20210424_181852.png)
+
+> Solution
+
+* Fill from the bottom only go down or left
+
+{% endtab %}
+{% tab title='CF_1517C.py' %}
+
+```py
+n = int(input())
+diag = list(map(int, input().split()))
+G = [[0] * n for _ in range(n)]
+
+for d in range(n):
+  for i in range(n - d):
+    G[d + i][i] = diag[i]
+  diag.remove(d + 1)
+
+for line in G:
+  print(*(c for c in line if c))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1600 : Basic Diplomacy](https://codeforces.com/contest/1483/problem/A)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CF_1483A.md/)
+
+{% tabs %}
+{% tab title='CF_1483A.md' %}
+
+> Question
+
+* On each of these days some friends will be available for playing, and all others will not
+* On each day Aleksey must choose one of his available friends to offer him playing the game
+* Help him to choose teammates so that nobody is chosen strictly more than half
+
+```txt
+Input:
+2
+4 6
+1 1
+2 1 2
+3 1 2 3
+4 1 2 3 4
+2 2 3
+1 3
+2 2
+1 1
+1 1
+
+Output:
+YES
+1 2 1 1 2 3
+NO
+```
+
+{% endtab %}
+{% tab title='CF_1483A.py' %}
+
+```py
+from collections import defaultdict
+
+for _ in range(int(input())):
+  n,m=map(int,input().split())
+  d=defaultdict(int)
+  i_days= [(i, list(map(int,input().split()))[1:]) for i in range(m)]
+  i_days.sort(key=lambda day : len(day[1]))
+  ans= [0] * m
+  for i, days in i_days:
+    for day in days:
+      if d[day] + 1 <= (m + 1) // 2:
+        ans[i] = day
+        d[day] += 1
+        break
+    else:
+      print("NO")
+      break
+  else:
+    print("YES")
+    print(*ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1600 : Min Cost String](https://codeforces.com/contest/1511/problem/D)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CF_1511D.md/)
+
+{% tabs %}
+{% tab title='CC_1511D.md' %}
+
+> Question
+
+* define cost of a string 𝑠 as number of index pairs i and j $$ (1 \leq i < j < |s| ) $$
+* such that $$ s_i == s_j $$ and $$ s_i + 1 = s_j + 1 $$
+* Given two positive integers 𝑛 and 𝑘
+* Among all strings with length 𝑛 that contain only first 𝑘 characters of alphabet, find string with minimum possible cost
+
+```txt
+Input: 9 4
+Output: aabacadbb
+```
+
+{% endtab %}
+{% tab title='CC_1511D.py' %}
+
+```py
+n, k = map(int, input().split())
+z = ""
+for i in range(k):
+  c = chr(ord('a') + i)
+  z += c
+  for j in range(i + 1, k):
+    z += c + chr(ord('a') + j)
+while len(z) < n:
+  z += z
+print(z[:n])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1800 : Almost Sorted](https://codeforces.com/contest/1508/problem/B)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CF_1508B.md/)
+
+{% tabs %}
+{% tab title='CC_1508B.md' %}
+
+> Question
+
+* A permutation 𝑎1, 𝑎2, …, 𝑎𝑛 of 1, 2, …, 𝑛 is said to be almost sorted
+* if condition 𝑎𝑖 + 1 ≥ 𝑎𝑖 − 1 holds for all 𝑖 between 1 and 𝑛−1 inclusive
+* find 𝑘-th permutation in the list with 1, 2, …, 𝑛
+
+```txt
+Input:
+5
+1 1
+1 2
+3 3
+6 5
+3 4
+
+Output:
+1
+-1
+2 1 3
+1 2 4 3 5 6
+3 2 1
+```
+
+{% endtab %}
+{% tab title='CC_1508B.py' %}
+
+```py
+for _ in range(int(input())):
+  n, k = map(int, input().split())
+  b = bin(k - 1)[2:]
+
+  if k - 1 > 0:
+    b += '0'
+
+  if len(b) > n:
+    print(-1)
+    continue
+
+  b = b.rjust(n, '0')
+  p, temp = [], []
+  for i in range(n):
+    temp += [str(i+1)]
+    if b[i] == '0':
+      p += temp[::-1]
+      temp = []
+  print(*p)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1800 : Almost Sorted](https://codeforces.com/contest/1509/problem/E)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CF_1509E.md/)
+
+{% tabs %}
+{% tab title='CF_1509E.md' %}
+
+> Question
+
+* array is almost sorted if the 𝑎𝑖+1≥𝑎𝑖−1 holds for all 𝑖 between 1 and 𝑛−1 inclusive
+* print nth almosted sorted array
+
+```txt
+Input:
+5
+1 1
+1 2
+3 3
+6 5
+3 4
+
+Output:
+1
+-1
+2 1 3
+1 2 4 3 5 6
+3 2 1
+```
+
+> Solution
+
+* Same as finding subarrays (reverse them)
+* 2𝑛−1 almost sorted permutations of size -> count each subarray
+
+{% endtab %}
+{% tab title='CF_1509E.py' %}
+
+```py
+for _ in range(int(input())):
+  n, k = map(int, input().split())
+  f = bin(k-1)[2:]
+  if k - 1:
+    f += "0"
+  if len(f) > n:
+    print("-1")
+    continue
+
+  f = "0" * (n - len(f)) + f
+  ans, arr = [], []
+  for i in range(n):
+    arr += [i + 1]
+    if f[i] == "0":
+      ans += arr[::-1]
+      arr = []
+  print(*ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1900 : Binary Literature](https://codeforces.com/contest/1508/problem/A)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CF_1508A.md/)
+
+{% tabs %}
+{% tab title='CF_1508A.md' %}
+
+> Question
+
+* contest consists of three bitstrings of length 2n
+* Find string with most 3n that contains at least two of the three given strings as subsequences
+
+```txt
+Input:
+2
+1
+00
+11
+01
+3
+011001
+111010
+010001
+
+Output:
+010
+011001010
+```
+
+{% endtab %}
+{% tab title='CF_1508A.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+for test in range(int(input())):
+  n = int(input())
+  s1, s2, s3 = input(), input(), input()
+  a, b, c = 0, 0, 0
+  s = ''
+  while a < 2 * n and b < 2 * n and c < 2 * n:
+    if s1[a] == s2[b]:
+      s += s1[a]
+      a, b = a + 1, b + 1
+    elif s1[a] == s3[c]:
+      s += s1[a]
+      a, c = a + 1, c + 1
+    elif s2[b] == s3[c]:
+      s += s2[b]
+      b, c = b + 1, c + 1
+  if a == 2 * n:
+    s += s2[b:] if b > c else s3[c:]
+  elif b == 2 * n:
+    s += s1[a:] if a > c else s3[c:]
+  else:
+    s += s1[a:] if a > b else s2[b:]
+  print(s[:3 * n])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2200 : Kill Anton](https://codeforces.com/contest/1526/problem/D)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/constructive/CF_1526D.md/)
+
+{% tabs %}
+{% tab title='CF_1526D.md' %}
+
+> Question
+
+* Given you can swap two adjacent characters, print distance from given strings
+
+```txt
+Input:
+4
+ANTON
+NAAN
+AAAAAA
+OAANTTON
+
+Output:
+NNOTA
+AANN
+AAAAAA
+TNNTAOOA
+```
+
+{% endtab %}
+{% tab title='CF_1526D.py' %}
+
+```py
+import itertools
+from collections import Counter
+
+for _ in range(int(input())):
+  s = input()
+  total = Counter()
+  p = Counter()
+  letters = set(s)
+  for a in s:
+    total[a] += 1
+    for b in letters:
+      if b != a:
+        p[b + a] += total[b]
+
+  def score(perm):
+    return sum(p[b + a] for (i, a) in enumerate(perm)
+                        for b in perm[i+1:])
+
+  winner = max(itertools.permutations(letters), key=score)
+  print(''.join(a * total[a] for a in winner))
+```
+
+{% endtab %}
+{% endtabs %}

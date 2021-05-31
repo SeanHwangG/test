@@ -1,0 +1,95 @@
+> baekjoon
+
+* [Level 14 : 오일러 회로](https://www.acmicpc.net/problem/1199)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/eulerian/BJ_1199.md/)
+
+{% tabs %}
+{% tab title='BJ_1199.md' %}
+
+> Question
+
+* Print eulerian path
+
+```txt
+Input:
+6
+0 1 0 1 1 1
+1 0 1 1 1 0
+0 1 0 1 0 0
+1 1 1 0 1 0
+1 1 0 1 0 1
+1 0 0 0 1 0
+
+Output: 1 2 3 4 1 5 2 4 5 6 1
+```
+
+{% endtab %}
+{% tab title='BJ_1199.py' %}
+
+```py
+import sys
+
+sys.setrecursionlimit(10000000)
+
+def dfs(u):
+  for v in adj[u]:
+    if G[u][v]:
+      G[u][v]-=1
+      G[v][u]-=1
+      yield from dfs(v)
+  yield (u + 1)
+
+n = int(input())
+G = [list(map(int,input().split())) for i in range(n)]
+adj = [[] for i in range(n)]
+
+for i in range(n):
+  cnt = 0
+  for j in range(n):
+    cnt += G[i][j]
+    for k in range(G[i][j]):
+      adj[i].append(j)
+  if cnt & 1:
+    print(-1)
+    break
+else:
+  print(*dfs(0))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/eulerian/LC_332.md/)
+
+{% tabs %}
+{% tab title='LC_332.md' %}
+
+* Given a list of airline tickets where tickets[i] = [fromi, toi] represent departure and arrival airports of one flight
+* Reconstruct itinerary in order and return it
+
+```txt
+Input: tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
+Output: ["JFK","ATL","JFK","SFO","ATL","SFO"]
+```
+
+{% endtab %}
+{% tab title='LC_332.py' %}
+
+```py
+def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+  targets = collections.defaultdict(list)
+  for a, b in sorted(tickets)[::-1]:
+    targets[a] += b,
+  route, stk = [], ['JFK']
+  while stk:
+    while targets[stk[-1]]:
+      stk += [targets[stk[-1]].pop()]
+    route += [stk.pop()]
+  return route[::-1]
+```
+
+{% endtab %}
+{% endtabs %}

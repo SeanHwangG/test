@@ -1,0 +1,728 @@
+> baekjoon
+
+* [Level 8 : 바이러스](https://www.acmicpc.net/problem/2606)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_2606.md/)
+
+{% tabs %}
+{% tab title='BJ_2606.md' %}
+
+> Question
+
+* given the number of computers and information connected to each other on the network
+* print the number of computers that are affected by the worm virus through computer 1
+
+```txt
+Input:
+7
+6
+1 2
+2 3
+1 5
+5 2
+5 6
+4 7
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_2606.js' %}
+
+```js
+const input = require("fs").readFileSync("/dev/stdin").toString().split("\n");
+
+const count = Number(input[1]);
+let warmNode = ["1"];
+for (let j = 0; j < count; j++) {
+  for (let i = 2; i < count + 2; i++) {
+    const [a, b] = input[i].split(" ");
+    if (warmNode.find((warm) => warm == a) || warmNode.find((warm) => warm == b)) {
+      warmNode.push(a, b);
+      warmNode = [...new Set(warmNode)];
+    }
+  }
+}
+
+console.log(warmNode.length - 1);
+```
+
+{% endtab %}
+{% tab title='BJ_2606.py' %}
+
+```py
+from collections import deque
+def bfs(G, start):
+  dq, visited = deque([start]), set([start])
+  while len(dq) != 0:
+    v = dq.popleft()
+    for adj in G[v]:
+      if adj not in visited:
+        visited.add(adj)
+        dq.append(adj)
+  return len(visited)
+N, M = int(input()), int(input())
+G = [[] for _ in range(N)]
+for _ in range(M):
+  u, v = map(int, input().split())
+  G[u - 1].append(v - 1)
+  G[v - 1].append(u - 1)
+print(bfs(G, 0) - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 촌수계산](https://www.acmicpc.net/problem/2644)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_2644.md/)
+
+{% tabs %}
+{% tab title='BJ_2644.md' %}
+
+> Question
+
+* Given the relationship between parents and children for different people
+* calculates the number of people who are given two
+
+```txt
+Input:
+9
+7 3
+7
+1 2
+1 3
+2 7
+2 8
+2 9
+4 5
+4 6
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2644.py' %}
+
+```py
+from collections import deque
+def bfs(G, start, end):
+  dq, visited = deque([(start, 0)]), set([start])
+  while len(dq) != 0:
+    v, dist = dq.popleft()
+    if v == end:
+      return dist
+    for adj in G[v]:
+      if adj not in visited:
+        visited.add(adj)
+        dq.append((adj, dist + 1))
+  return -1
+N = int(input())
+G = [[] for _ in range(N)]
+a, b = map(int, input().split())
+for _ in range(int(input())):
+  u, v = map(int, input().split())
+  G[u - 1].append(v - 1)
+  G[v - 1].append(u - 1)
+
+print(bfs(G, a - 1, b - 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 뱀과 사다리 게임](https://www.acmicpc.net/problem/16928)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_16928.md/)
+
+{% tabs %}
+{% tab title='BJ_16928.md' %}
+
+> Question
+
+* Given dice game where you can control dice result, find the fastest path with some shortcut
+
+```txt
+Input:
+3 7
+32 62
+42 68
+12 98
+95 13
+97 25
+93 37
+79 27
+75 19
+49 47
+67 17
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_16928.py' %}
+
+```py
+l, visited = [*range(102)], [0] * 101
+for i in range(sum(map(int,input().split()))):
+  x, y = map(int,input().split())
+  l[x] = y
+q, c = [1], 1
+while 1:
+  new = []
+  for i in q:
+    if i > 93: exit(print(c))
+    for j in range(i + 1, i + 7):
+      if not visited[l[j]]:
+        visited[l[j]] = 1
+        new += [l[j]]
+  q, c = new, c + 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 숨바꼭질](https://www.acmicpc.net/problem/1697)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_1697.md/)
+
+{% tabs %}
+{% tab title='BJ_1697.md' %}
+
+> Question
+
+* After 1 second, you can move to positions X-1, X+1, and 2*X
+* how many seconds after the earliest time you can find your brother
+
+```txt
+Input: 5 17
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_1697.py' %}
+
+```py
+from collections import deque
+def bfs(start, end):
+  dq, node2dist = deque([start]), {start : 0}
+  while len(dq) != 0:
+    v = dq.popleft()
+    if v == end:
+      return node2dist[end]
+    for adj in [v + 1, v - 1, v * 2]:
+      if adj not in node2dist and adj <= 100000:
+        node2dist[adj] = node2dist[v] + 1
+        dq.append(adj)
+start, end = map(int, input().split())
+print(bfs(start, end))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 물통](https://www.acmicpc.net/problem/2251)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_2251.md/)
+
+{% tabs %}
+{% tab title='BJ_2251.md' %}
+
+> Question
+
+* There are three buckets without measure, first two buckets are initially empty and third bucket is full
+* Find all amounts of water you can measure
+
+```txt
+Input: 8 9 10
+Output: 1 2 8 9 10
+```
+
+{% endtab %}
+{% tab title='BJ_2251.py' %}
+
+```py
+W = list(map(int, input().split()))
+vst, ans = set(), set()
+q = [(0, 0, W[2])]
+
+for cur in q:
+  if cur[0] == 0: ans.add(cur[2])
+  for i in range(3):
+    for k in range(1,3):
+      next = list(cur[:])
+      next[(i + k)%3] += next[i]
+      if next[(i + k) % 3] > W[(i + k) % 3]:
+        next[i] = next[(i + k) % 3] - W[(i + k) % 3]
+        next[(i + k) % 3] = W[(i + k) % 3]
+
+      else:
+        next[i] = 0
+      next = tuple(next)
+      if next not in vst:
+        vst.add(next)
+        q.append(next)
+print(*sorted(ans))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 결혼식](https://www.acmicpc.net/problem/5567)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_5567.md/)
+
+{% tabs %}
+{% tab title='BJ_5567.md' %}
+
+> Question
+
+* I decided to invite my friend and friend's friend to the wedding
+* All of students have a total of N students, and their academic records range from 1 to N. Sanggeun's school number is 1
+* Find the number of people to invite to the wedding based on your friendship list
+
+```txt
+Input:
+6
+5
+1 2
+1 3
+3 4
+2 3
+4 5
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_5567.py' %}
+
+```py
+from collections import deque
+def bfs(G, start):
+  dq, visited = deque([start]), set([start])
+  for _ in range(2):
+    for _ in range(len(dq)):
+      v = dq.popleft()
+      for e in G[v]:
+        if e not in visited:
+          dq.append(e)
+          visited.add(e)
+  return len(visited) - 1
+V, E = int(input()), int(input())
+G = [[] for _ in range(V + 1)]
+for _ in range(E):
+  u, v = map(int, input().split())
+  G[u].append(v)
+  G[v].append(u)
+
+print(bfs(G, 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 숨바꼭질](https://www.acmicpc.net/problem/6118)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_6118.md/)
+
+{% tabs %}
+{% tab title='BJ_6118.md' %}
+
+> Question
+
+* Find the maxmium distance from node 1
+* Print index (minimum among candidate), distance, candidates count
+
+```txt
+Input:
+6 7
+3 6
+4 3
+3 2
+1 3
+1 2
+2 4
+5 2
+
+Output: 4 2 3
+```
+
+{% endtab %}
+{% tab title='BJ_6118.py' %}
+
+```py
+from collections import deque
+
+N, M = map(int, input().split())
+graph = [[] for _ in range(N+1)]
+for i in range(M):
+  a, b = map(int, input().split())
+  graph[a].append(b)
+  graph[b].append(a)
+
+dq = deque([1])
+V = [0]*(N+1)
+V[1] = 1
+while dq:
+  s = dq.popleft()
+  for e in graph[s]:
+    if not V[e]:
+      V[e] = V[s] + 1
+      dq.append(e)
+m = max(V)
+print(V.index(m), m - 1, V.count(m))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 이모티콘](https://www.acmicpc.net/problem/14226)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_14226.md/)
+
+{% tabs %}
+{% tab title='BJ_14226.md' %}
+
+> Question
+
+* Copy all the emoticons on the screen and save them to the clipboard
+* Paste all the emoticons on the clipboard into the screen
+* Delete one of the emoticons on the screen
+* Find the minimum amount of time it takes Youngsun to make S emoticons on the screen
+
+```txt
+Input: 6
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_14226.py' %}
+
+```py
+from collections import deque
+
+def minimal_emoticon(goal):
+  dq, visited = deque([(1, 0, 0)]), set((1, 0, 0))
+
+  while len(dq):
+    out, clip, cnt = dq.popleft()
+    if out == goal:
+      return cnt
+    for n_out, n_clip in [(out + clip, clip), (out - 1, clip), (out, out)]:
+      if (n_out, n_clip) not in visited and 0 < n_out < 2000:
+        visited.add((n_out, n_clip))
+        dq.append((n_out, n_clip, cnt + 1))
+  return goal
+
+print(minimal_emoticon(int(input())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : L](https://www.acmicpc.net/problem/9019)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_9019.md/)
+
+{% tabs %}
+{% tab title='BJ_9019.md' %}
+
+> Question
+
+* Find minimum operations to change A to B
+  * rotate digits to left or right
+  * subtract 1 (9999 if 0)
+  * double (modulo 10000 if greater)
+
+```txt
+Input:
+3
+1234 3412
+1000 1
+1 16
+
+Output:
+LL
+L
+DDDD
+```
+
+{% endtab %}
+{% tab title='BJ_9019.py' %}
+
+```py
+import collections
+
+for __ in range(int(input())):
+  f, t = map(int, input().split())
+  v = {f: (None, None)}
+  q = collections.deque(v)
+  while q and t not in v:
+    x = q.popleft()
+    for n, c in zip((x * 2 % 10000, (x - 1) % 10000, x * 10 % 10000 + x // 1000, x // 10 + x % 10 * 1000), 'DSLR'):
+      if n not in v:
+        v[n] = (x, c)
+        q.append(n)
+  r = ''
+  x, c = v[t]
+  while c:
+    r += c
+    x, c = v[x]
+  print(r[::-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 숨바꼭질 4](https://www.acmicpc.net/problem/13913)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_13913.md/)
+
+{% tabs %}
+{% tab title='BJ_13913.md' %}
+
+> Question
+
+* If you walk when the position is X, you will move to X-1 or X+1 after one second
+* In case of teleportation, it is moved to a position of 2*X after 1 second
+* Find the fastest time you can find your brother in seconds
+
+```txt
+Input: 5 17
+Output:
+4
+5 10 9 18 17
+```
+
+{% endtab %}
+{% tab title='BJ_13913.py' %}
+
+```py
+from collections import deque
+
+def bfs(n, m):
+  dq, node2dist, node2head = deque([n]), {n : 0}, {}
+  while len(dq) != 0:
+    v = dq.popleft()
+    for adj in [v + 1, v - 1, v * 2]:
+      if adj not in node2dist and adj <= 100000:
+        node2head[adj] = v
+        node2dist[adj] = node2dist[v] + 1
+        dq.append(adj)
+    if v == m:
+      return node2head
+
+n, m = map(int, input().split())
+path = [m]
+cur = m
+node2head = bfs(n, m)
+while cur != n:
+  cur = node2head[cur]
+  path.append(cur)
+print(len(path) - 1)
+print(*reversed(path))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 중량제한](https://www.acmicpc.net/problem/1939)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_1939.md/)
+
+{% tabs %}
+{% tab title='BJ_1939.md' %}
+
+> Question
+
+* Find the maximum weight of the items that can be moved in a single movement
+
+```txt
+Input:
+3 3
+1 2 2
+3 1 3
+2 3 2
+1 3
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1939.py' %}
+
+```py
+from collections import deque, defaultdict
+def bfs(G, start, end, carry):
+  dq = deque([start])
+  visited = [i == start for i in range(len(G))]
+  while dq:
+    u = dq.popleft()
+    for adj, limit in G[u].items():
+      if not visited[adj] and carry <= limit:
+        dq.append(adj)
+        visited[adj] = True
+  return visited[end]
+
+n, m = map(int, input().split())
+G = [defaultdict(int) for _ in range(n)]
+for _ in range(m):
+  u, v, w = map(int, input().split())
+  G[u - 1][v - 1] = max(G[u - 1][v - 1], w)
+  G[v - 1][u - 1] = max(G[v - 1][u - 1], w)
+
+start, end = map(int, input().split())
+start -= 1; end -= 1
+lo_w = 1
+hi_w = 1000000000
+while lo_w < hi_w:
+  mi_w = (hi_w + lo_w + 1) // 2
+  if bfs(G, start, end, mi_w):
+    lo_w = mi_w
+  else:
+    hi_w = mi_w - 1
+
+print(lo_w)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 알파벳](https://www.acmicpc.net/problem/1987)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_1987.md/)
+
+{% tabs %}
+{% tab title='BJ_1987.md' %}
+
+> Question
+
+* Horses can be moved to one of the four adjacent compartments, top, bottom, left, and right
+* alphabet written in the new compartment must be different from the alphabet written in all the compartments passed so far
+* how many compartment can horse can move
+
+```txt
+Input: 2 4
+CAAB
+ADCB
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1987.py' %}
+
+```py
+n, m = map(int, input().split())
+G = [list(map(int, input().split())) for _ in range(n)]
+virs = [(r, c) for r in range(n) for c in range(n) if G[r][c] == 2]
+result = float('inf')
+for selects in combinations(virs, m):
+  cur = bfs(deepcopy(G), selects)
+  if cur != -1:
+    result = min(result, cur)
+print(-1 if result == float('inf') else result)
+def BFS(G, x, y):
+  answer = 1
+  q = set([(x, y, G[x][y])])
+  while q:
+    x, y, ans = q.pop()
+    for nr, nc in [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]:
+      if 0 <= nr < len(G) and 0 <= nc < len(G[0]) and G[nr][nc] not in ans:
+        q.add((nr,nc,ans + G[nr][nc]))
+        answer = max(answer, len(ans) + 1)
+  return answer
+R, C = map(int, input().split())
+G = [input() for _ in range(R)]
+return(BFS(G, 0, 0))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 퍼즐](https://www.acmicpc.net/problem/1525)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_1525.md/)
+
+{% tabs %}
+{% tab title='BJ_1525.md' %}
+
+> Question
+
+* Given 3 x 3 puzzle where you move to blank space (0), find minimum movements
+
+```txt
+Input:
+1 0 3
+4 2 5
+7 8 6
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1525.py' %}
+
+```py
+from collections import deque
+p = "".join(input().replace(" ", "") for _ in range(3))
+
+visited = {p: 0}
+qu = deque([p])
+
+while qu:
+  p = qu.popleft()
+  if p == "123456780":
+    print(visited[p])
+    break
+
+  a = p.find("0")
+  r, c = divmod(a, 3)
+  for nr, nc in (r + 1, c), (r, c + 1), (r - 1, c), (r, c - 1):
+    try:
+      b = nr * 3 + nc
+      np = list(p)
+      np[a], np[b] = np[b], np[a]
+      np = "".join(np)
+      if np not in visited:
+        visited[np] = visited[p] + 1
+        qu.append(np)
+    except:
+      pass  # out of bound
+else:
+  print(-1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 3 : Bus Routes](https://leetcode.com/problems/bus-routes)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/LC_815.md/)
+
+{% tabs %}
+{% tab title='LC_815.md' %}
+
+> Question
+
+* Start at the bus stop source (not on any bus initially), and you want to go to the bus stop target
+* Return the least number of buses you must take to travel from source to target. Return -1 if it's impossible
+
+```txt
+Input: routes = [[1,2,7],[3,6,7]], source = 1, target = 6
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_815.py' %}
+
+```py
+def numBusesToDestination(self, routes, S, T):
+  G = collections.defaultdict(set)
+  for i, route in enumerate(routes):
+    for j in route:
+      G[j].add(i)
+  bfs = [(S, 0)]
+  seen = set([S])
+  for stop, bus in bfs:
+    if stop == T: return bus
+    for i in G[stop]:
+      for j in routes[i]:
+        if j not in seen:
+          bfs.append((j, bus + 1))
+          seen.add(j)
+      routes[i] = []  # seen route
+  return -1
+```
+
+{% endtab %}
+{% endtabs %}

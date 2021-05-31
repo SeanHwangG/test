@@ -1,0 +1,194 @@
+> baekjoon
+
+* [Level 14 : 중앙값 구하기](https://www.acmicpc.net/problem/2696)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/binary-search/BJ_2696.md/)
+
+{% tabs %}
+{% tab title='BJ_2696.md' %}
+
+> Question
+
+* Every time you read an odd number, print the median value of the value you have received so far
+
+```txt
+Input:
+3
+9
+1 2 3 4 5 6 7 8 9
+9
+9 8 7 6 5 4 3 2 1
+23
+23 41 13 22 -3 24 -31 -11 -8 -7
+3 5 103 211 -311 -45 -67 -73 -81 -99
+-33 24 56
+
+Output:
+5
+1 2 3 4 5
+5
+9 8 7 6 5
+12
+23 23 22 22 13 3 5 5 3 -3
+-7 -3
+```
+
+{% endtab %}
+{% tab title='BJ_2696.py' %}
+
+```py
+from bisect import insort
+for _ in range(int(input())):
+  m = int(input())
+  print(str((m+1)//2))
+  nums = []
+  for t in range((m + 9) // 10):
+    for i, n in enumerate(map(int,input().split())):
+      insort(nums, n)
+      if i % 2 == 0:
+        print(nums[len(nums) // 2], end=' ')
+    if t % 2 == 1:
+      print()
+  if t%2==0:
+    print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 중앙값 측정](https://www.acmicpc.net/problem/9426)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/binary-search/BJ_9426.md/)
+
+{% tabs %}
+{% tab title='BJ_9426.md' %}
+
+> Question
+
+* Given N numbers, print sum of K recent median
+
+```txt
+Input:
+10 3
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+Output: 60
+```
+
+{% endtab %}
+{% tab title='BJ_9426.py' %}
+
+```py
+from bisect import *
+import sys;input=sys.stdin.readline
+nums=[]
+N, K = map(int,input().split())
+G = [int(input()) for i in range(N)]
+ret = 0
+kk = (K - 1) // 2
+for i in range(N):
+  insort(nums, G[i])
+  if i < K - 1:
+    continue
+  if i >= K:
+    nums.pop(bisect(nums, G[i - K])-1)
+  ret += nums[kk]
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level nr : UPER SUPER BINARY SEARCH DELUXE 2.5: THE LEGEND OF THE GOLDEN MAZASSUMNIDA, EPISODE 2: THE MAZWAETL UNIVERSE, PART 2: THE PARALLEL UNIVERSE AND THE LOST MAZASSUMNIDA: GAME OF THE YEAR EDITION](https://www.acmicpc.net/problem/15641)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/binary-search/BJ_15641.md/)
+
+{% tabs %}
+{% tab title='BJ_15641.md' %}
+
+> Question
+
+* Guess number given up down
+
+```txt
+Output: 50  # either up / down
+```
+
+{% endtab %}
+{% tab title='BJ_15641.py' %}
+
+```py
+print(50)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : First Bad Version](https://leetcode.com/problems/first-bad-version)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/binary-search/LC_278.md/)
+
+{% tabs %}
+{% tab title='LC_278.md' %}
+
+> Question
+
+* Find first bad version using isBadVersion function
+
+```txt
+50
+isBadVersion False
+25
+isBadVersion True
+...
+```
+
+{% endtab %}
+{% tab title='LC_278.py' %}
+
+```py
+def firstBadVersion(self, n):
+  lo, hi = 1, n
+  while lo < hi:
+    mi = (lo + hi) // 2
+    if not isBadVersion(mi):
+      lo = mi + 1
+    else:
+      hi = mi
+  return lo
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Search Insert Position](https://leetcode.com/problems/search-insert-position)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/binary-search/LC_35.md/)
+
+{% tabs %}
+{% tab title='LC_35.md' %}
+
+> Question
+
+* Search for insertion point
+
+```txt
+Input: nums = [1,3,5,6], target = 7
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_35.py' %}
+
+```py
+def searchInsert(self, nums, target):
+  return bisect.bisect_left(nums, target)
+```
+
+{% endtab %}
+{% endtabs %}

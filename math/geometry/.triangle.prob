@@ -1,0 +1,280 @@
+> baekjoon
+
+* [Level 2 : 삼각형 외우기](https://www.acmicpc.net/problem/10101)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/triangle/BJ_10101.md/)
+
+{% tabs %}
+{% tab title='BJ_10101.md' %}
+
+> Question
+
+* Given three angels, print triangle type
+
+```txt
+Input:
+60
+70
+50
+
+Output: Scalene
+```
+
+{% endtab %}
+{% tab title='BJ_10101.py' %}
+
+```py
+A = int(input())
+B = int(input())
+C = int(input())
+if A + B + C != 180:
+  print("Error")
+elif A == B == C:
+  print("Equilateral")
+elif A == B or B == C or A == C:
+  print("Isosceles")
+else:
+  print("Scalene")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 세 막대](https://www.acmicpc.net/problem/14215)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/triangle/BJ_14215.md/)
+
+{% tabs %}
+{% tab title='BJ_14215.md' %}
+
+> Question
+
+* When given a, b, c, write a program that finds the largest circumference of triangle you can make
+
+```txt
+Input: 1 2 3
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_14215.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print(min(a + b + c, (a + b + c - max(a, b, c)) * 2 - 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 삼각형과 세 변](https://www.acmicpc.net/problem/5073)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/triangle/BJ_5073.md/)
+
+{% tabs %}
+{% tab title='BJ_5073.md' %}
+
+> Question
+
+* Print (Equilateral, Isosceles, Scalene, Invalid) for each input
+
+```txt
+Input:
+7 7 7
+6 5 4
+3 2 5
+6 2 6
+0 0 0
+
+Output:
+Equilateral
+Scalene
+Invalid
+Isosceles
+```
+
+{% endtab %}
+{% tab title='BJ_5073.py' %}
+
+```py
+while True:
+  A, B, C = map(int, input().split())
+  if A == B == C == 0:
+    break
+  if max(A, B, C) >= A + B + C - max(A, B, C):
+    print("Invalid")
+  elif A == B == C:
+    print("Equilateral")
+  elif A == B or B == C or A == C:
+    print("Isosceles")
+  else:
+    print("Scalene")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 삼각형 분류](https://www.acmicpc.net/problem/9366)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/triangle/BJ_9366.md/)
+
+{% tabs %}
+{% tab title='BJ_9366.md' %}
+
+> Question
+
+* For each test case, print which type of triangle belongs to, "equilateral", "isoceles", or "scalene"
+* If a triangle is not created with the length of the given three sides, output "invalid!"
+
+```txt
+Input:
+2
+3 3 4
+6 4 2
+
+Output:
+Case #1: isosceles
+Case #2: invalid!
+```
+
+{% endtab %}
+{% tab title='BJ_9366.py' %}
+
+```py
+for i in range(int(input())):
+  a, b, c = sorted(list(map(int, input().split())))
+
+  if a + b <= c:
+    ans = 'invalid!'
+  elif a == b and b == c:
+    ans = 'equilateral'
+  elif a == b or b == c:
+    ans = 'isosceles'
+  else:
+    ans = 'scalene'
+  print(f'Case #{i + 1}: {ans}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 삼각형만들기](https://www.acmicpc.net/problem/2622)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/triangle/BJ_2622.md/)
+
+{% tabs %}
+{% tab title='BJ_2622.md' %}
+
+> Question
+
+* find the number of distinct triangle with total length of n
+
+```txt
+Input: 9
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2622.py' %}
+
+```py
+ans = 0
+for c in range(int(input())):
+  if 2 * c < n <= 3 * c:
+    ans += c - (n - c - 1) // 2
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 직각이등변삼각형찾기](https://www.acmicpc.net/problem/2658)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/triangle/BJ_2658.md/)
+
+{% tabs %}
+{% tab title='BJ_2658.md' %}
+
+> Question
+
+* Check if Grid is isosceles right triangle, if so print corner
+
+```txt
+Input:
+0000000000
+0000001000
+0000011000
+0000111000
+0001111000
+0000111000
+0000011000
+0000001000
+0000000000
+0000000000
+
+Output:
+2 7
+5 4
+8 7
+```
+
+{% endtab %}
+{% tab title='BJ_2658.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+#define MAX 15
+
+int G[MAX][MAX];
+
+pair<int, int> xy[3];
+int n_corner, t;
+
+bool is_filled() {
+  int zero, flag;
+  for(int i=1;i<=10;i++) {
+    flag = zero = 0;
+    for(int j=1;j<=10;j++) {
+      if (G[i][j]) {
+        if (flag) continue;
+        else {
+          if(zero) return false;
+          flag = 1;
+        }
+      }
+      else {
+        if(flag) {
+          flag=0;
+          zero++;
+        }
+        else continue;
+      }
+    }
+  }
+  return true;
+}
+
+int neighbor_zero(int x, int y) {
+    int cnt=0;
+    for(int i=-1;i<=1;i++)
+      for(int j=-1;j<=1;j++)
+        if(!G[x+i][y+j]) cnt++;
+
+    return cnt;
+}
+
+int main() {
+  for(int i=1;i<=10;i++)
+    for(int j=1;j<=10;j++)
+      scanf("%1d", &G[i][j]);
+  for(int i=1;i<=10;i++)
+    for(int j=1;j<=10;j++)
+      if(G[i][j]) {
+        t = neighbor_zero(i, j);
+        if (5 <= t and t < 8) xy[n_corner++] = {i, j};
+      }
+
+  if(!is_filled() or n_corner != 3) printf("0");
+  else {
+    sort(xy, xy + n_corner);
+    for(int i=0;i<n_corner;i++) printf("%d %d\n", xy[i].first, xy[i].second);
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}

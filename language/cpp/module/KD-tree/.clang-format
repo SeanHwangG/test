@@ -1,0 +1,5 @@
+BasedOnStyle: google
+UseTab: Never
+IndentWidth: 2
+CompactNamespaces: true
+ColumnLimit: 130

@@ -1,0 +1,170 @@
+> baekjoon
+
+* [Level 8 : 단어 뒤집기 2](https://www.acmicpc.net/problem/17413)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/group/BJ_17413.md/)
+
+{% tabs %}
+{% tab title='BJ_17413.md' %}
+
+> Question
+
+* Reverse strings that are not enclosed by square bracket
+
+```txt
+Input: <problem>17413<is hardest>problem ever<end>
+Output: <problem>31471<is hardest>melborp reve<end>
+```
+
+{% endtab %}
+{% tab title='BJ_17413.py' %}
+
+```py
+import re
+
+result = re.findall(r"(<.*?>)|(\w+)|(\s)", input())
+for tag, st, space in result:
+  print(tag + st[::-1] + space, end="")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : Contact](https://www.acmicpc.net/problem/1013)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/group/BJ_1013.md/)
+
+{% tabs %}
+{% tab title='BJ_1013.md' %}
+
+> Question
+
+* Check if each line match to following patterns (100+1+|01)+
+
+```txt
+Input:
+3
+10010111
+011000100110001
+0110001011001
+
+Output:
+NO
+NO
+YES
+```
+
+{% endtab %}
+{% tab title='BJ_1013.py' %}
+
+```py
+import re
+for i in range(int(input())):
+  print('YES'if re.fullmatch(r"(100+1+|01)+", input()) else 'NO')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 잠수함식별](https://www.acmicpc.net/problem/2671)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/group/BJ_2671.md/)
+
+{% tabs %}
+{% tab title='BJ_2671.md' %}
+
+> Question
+
+* match following sequence (100\*1\*|01)*
+
+```txt
+Input: 10010111
+Output: NOISE
+```
+
+{% endtab %}
+{% tab title='BJ_2671.py' %}
+
+```py
+import re
+print(re.match(r"(100+1+|01)+$", input()) and "SUBMARINE" or "NOISE")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> hackerrank
+
+* [Level Easy : Excluding Specific Characters](https://www.hackerrank.com/challenges/excluding-specific-characters/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/group/HR_excluding-specific-characters.md/)
+
+{% tabs %}
+{% tab title='HR_excluding-specific-characters.md' %}
+
+> Question
+
+* must be of length 6
+* First character should not be a digit
+* Second character should not be a lowercase vowel
+* Third character should not be b, c, D or F
+* Fourth character should not be a whitespace character ( \r, \n, \t, \f or \<space> )
+* Fifth character should not be a uppercase vowel
+* Sixth character should not be a . or , symbol
+
+```txt
+Input: think?
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_excluding-specific-characters.py' %}
+
+```py
+import re
+
+pattern = r'^[^\d][^aeiou][^bcDF]\S[^AEIOU][^.,]$'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Detect HTML Attributes](https://www.hackerrank.com/challenges/html-attributes/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/group/HR_html-attributes.md/)
+
+{% tabs %}
+{% tab title='HR_html-attributes.md' %}
+
+> Question
+
+* tag-n:attribute-1,attribute-2,attribute-3...
+* Where tag-1 is lexicographically smaller than tag-2 and attribute-1 is lexicographically smaller than attribute-2
+
+```txt
+Input:
+2
+<p><a href="http://www.quackit.com/html/tutorial/html_links.cfm">Example Link</a></p>
+<div class="more-info"><a href="http://www.quackit.com/html/examples/html_links_examples.cfm">More Link Examples...</a></div>
+
+Output:
+a:href
+div:class
+p:
+```
+
+{% endtab %}
+{% tab title='HR_html-attributes.py' %}
+
+```py
+import re
+from collections import defaultdict
+
+tags = defaultdict(set)
+
+for _ in range(int(input())):
+  for tag, attrs in re.findall(r'<(\w+)(.*?)?>', input()):
+    tags[tag].update(re.findall(r'\s(\w+)=', attrs))
+
+for tag, attrs in sorted(tags.items()):
+  print(f"{tag}:{','.join(sorted(attrs))}")
+```
+
+{% endtab %}
+{% endtabs %}

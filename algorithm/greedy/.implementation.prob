@@ -1,0 +1,936 @@
+> baekjoon
+
+* [Level 3 : Mini Fantasy War](https://www.acmicpc.net/problem/12790)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_12790.md/)
+
+{% tabs %}
+{% tab title='BJ_12790.md' %}
+
+> Question
+
+* Print changes in power, which is the product of followings
+  * HP: cannot be samller than 1 (* 5)
+  * MP: cannot be samller than 1 (* 2)
+  * Attack: cannot be smaller than 0
+  * Shield: can be negative
+
+```txt
+Input:
+3
+100 100 100 100 0 0 0 0
+10 20 30 40 40 30 20 10
+100 100 100 100 -200 0 400 400
+
+Output:
+1000
+500
+2501
+```
+
+{% endtab %}
+{% tab title='BJ_12790.py' %}
+
+```py
+for _ in range(int(input())):
+  a, b, c, d, e, f, g, h = map(int, input().split())
+  print(max(1, a + e) + 5 * max(1, b+f) + 2 * max(0, c + g) + 2 * (d + h))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 공](https://www.acmicpc.net/problem/1547)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_1547.md/)
+
+{% tabs %}
+{% tab title='BJ_1547.md' %}
+
+> Question
+
+* Print location of cup at the end of simulation
+
+```txt
+Input:
+4
+3 1
+2 3
+3 1
+3 2
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1547.py' %}
+
+```py
+n = int(input())
+cur = 1
+for _ in range(n):
+  a, b = map(int, input().split())
+  if cur == a:
+    cur = b
+  elif cur == b:
+    cur = a
+print(cur)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 카드게임](https://www.acmicpc.net/problem/10801)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_10801.md/)
+
+{% tabs %}
+{% tab title='BJ_10801.md' %}
+
+> Question
+
+* For each match number of larger score wins
+* Print winner of game who won more matches
+
+```txt
+Input:
+6 7 5 1 4 10 2 3 8 9
+1 10 2 9 4 8 3 7 5 6
+
+Output: A
+```
+
+{% endtab %}
+{% tab title='BJ_10801.py' %}
+
+```py
+A, B = list(map(int,input().split())), list(map(int,input().split()))()
+a = b = 0
+for i in range(10):
+  a+=A[i]>B[i]
+  b+=B[i]>A[i]
+if a>b: print('A')
+if a==b:print('D')
+if a<b: print('B')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 방 배정](https://www.acmicpc.net/problem/13300)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_13300.md/)
+
+{% tabs %}
+{% tab title='BJ_13300.md' %}
+
+> Question
+
+* Given N students, gender and their grades
+* Print minimum number of rooms when students with same gender and grade are in same room
+
+```txt
+Input:
+16 2
+1 1
+0 1
+1 1
+0 2
+1 2
+0 2
+0 3
+1 3
+1 4
+1 3
+1 3
+0 6
+1 5
+0 5
+1 5
+1 6
+
+Output: 12
+```
+
+{% endtab %}
+{% tab title='BJ_13300.py' %}
+
+```py
+a = [0] * 12
+N, K=map(int, input().split())
+for _ in range(N):
+  S, Y = map(int, input().split())
+  a[6*S+Y-1] += 1
+print(sum([(i + K - 1)//K for i in a]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 영식이와 친구들](https://www.acmicpc.net/problem/1592)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_1592.md/)
+
+{% tabs %}
+{% tab title='BJ_1592.md' %}
+
+> Question
+
+* count the number of throw if a person can receives up to M
+  * if it is odd, he throws the ball to the person who has the Lth clockwise from his or her current position
+  * if it is even, he throws the ball to the Lth counterclockwise from his or her current position
+
+```txt
+Input: 5 3 2
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_1592.py' %}
+
+```py
+n, m, l = map(int, input().split())
+people = [0 for _ in range(n)]
+p, cnt = 0, 0
+
+while True:
+  people[p] += 1
+  if people[p] == m:
+    print(cnt)
+    break
+  elif people[p] % 2 != 0:
+    p = (p+l) % n
+  else:
+    p = (p+n-l) % n
+  cnt += 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 커맨드](https://www.acmicpc.net/problem/17838)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_17838.md/)
+
+{% tabs %}
+{% tab title='BJ_17838.md' %}
+
+> Question
+
+* The string is 7 in length
+* A string consists of exactly two types of characters
+* It satisfies the AABBABB format
+
+```txt
+Input:
+1
+AABBABB
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_17838.cpp' %}
+
+```cpp
+#include<iostream>
+
+using namespace std;
+
+int CorrectCommand(string str) {
+  if (str.length() != 7)
+    return 0;
+
+  if (str[0] == str[1] &&
+    str[0] == str[4] &&
+    str[6] == str[2] &&
+    str[6] == str[3] &&
+    str[6] == str[5] &&
+    str[0] != str[6])
+    return 1;
+  else
+    return 0;
+}
+
+int main (void) {
+  int nT = 0;
+
+  cin >> nT;
+  for(int t = 0; t < nT; t++) {
+    string strTmp;
+    cin >> strTmp;
+    cout << CorrectCommand(strTmp) << endl;
+  }
+
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_17838.py' %}
+
+```py
+for _ in range(int(input())):
+  s = input()
+  print(1 if len(s)==7 and len(set(s))==2 and s.count(s[0])==3 and s[0]==s[1]==s[4] else 0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 크로스워드 만들기](https://www.acmicpc.net/problem/2804)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_2804.md/)
+
+{% tabs %}
+{% tab title='BJ_2804.md' %}
+
+> Question
+
+* Given words, make crosswords
+
+```txt
+.C..
+.C..
+ABBA
+.B..
+```
+
+{% endtab %}
+{% tab title='BJ_2804.py' %}
+
+```py
+a, b = map(str, input().split())
+r = 0
+c = 0
+for i in range(len(a)):
+  index = b.find(a[i])
+  if 0 <= index:
+    r = index
+    c = i
+    break
+for i in range(len(b)):
+  for j in range(len(a)):
+    if i == r:
+      print(a, end='')
+      break
+    elif j == c:
+      print(b[i], end='')
+    else:
+      print('.', end='')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 탄산 음료](https://www.acmicpc.net/problem/5032)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_5032.md/)
+
+{% tabs %}
+{% tab title='BJ_5032.md' %}
+
+> Question
+
+* 첫 줄에 e, f, c 가 주어진다
+* e와 f 를 합치면 가지고 있는 총 빈 병의 개수가 나오고,
+* 병을 c개 가지고 오면 꽉 찬 음료수를 받을 수 있다. 이 때 총 마실 수 있는 음료수의 수를 출력하라
+
+```txt
+Input: 9 0 3
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_5032.py' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+int main(void) {
+  int e, f, c, s, sum = 0;
+  cin >> e >> f >> c;
+  s = e + f;
+  while (1) {
+    if (s < c)
+      break;
+    sum += s / c;
+    s = s%c + s / c;
+  }
+  cout << sum;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 화성 수학](https://www.acmicpc.net/problem/5355)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_5355.md/)
+
+{% tabs %}
+{% tab title='BJ_5355.md' %}
+
+> Question
+
+* @ multiple 3, % add 5, # subtract 7
+
+```txt
+Input:
+3
+3 @ %
+10.4 # % @
+8 #
+
+Output:
+14.00
+25.20
+1.00
+```
+
+{% endtab %}
+{% tab title='BJ_5355.py' %}
+
+```py
+for t in range(int(input())):
+  k=input().split()
+  n=float(k[0])
+  for i in range(1,len(k)):
+    if k[i]=='@': n*=3
+    if k[i]=='%': n+=5
+    if k[i]=='#': n-=7
+  print('%.2f'%n)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 그림 비교](https://www.acmicpc.net/problem/2160)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_2160.md/)
+
+{% tabs %}
+{% tab title='BJ_2160.md' %}
+
+> Question
+
+![BJ_2160](implementation/images/20210304_195435.png)
+
+* Print most similar two pictures
+
+```txt
+Input:
+3
+..X....
+.XXX...
+.XX....
+.....X.
+.X...X.
+...X...
+..XX...
+.XX....
+.XX..X.
+.X...X.
+XX.....
+X......
+XX...XX
+XXXX.XX
+XXX..XX
+
+Output: 1 2
+```
+
+{% endtab %}
+{% tab title='BJ_2160.py' %}
+
+```py
+N = int(input())
+G = [[input() for _ in range(5)] for _ in range(N)]
+m=36
+for i in range(N-1):
+  for j in range(i+1,N):
+    d=0
+    for k in range(5):
+      for l in range(7):
+        if G[i][k][l]!=G[j][k][l]:
+          d+=1
+    if m>d:
+      m=d
+      i1,j1=i,j
+print(i1+1,j1+1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 빙고](https://www.acmicpc.net/problem/2578)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_2578.md/)
+
+{% tabs %}
+{% tab title='BJ_2578.md' %}
+
+> Question
+
+* Print when 3 bingo
+
+```txt
+Input:
+11 12 2 24 10
+16 1 13 3 25
+6 20 5 21 17
+19 4 8 14 9
+22 15 7 23 18
+5 10 7 16 2
+4 22 8 17 13
+3 18 1 6 25
+12 19 23 14 21
+11 24 9 20 15
+
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_2578.py' %}
+
+```py
+binggo = []
+for i in range(5):
+  binggo += list(map(int,input().split()))
+ans = []
+for i in range(5):
+  ans += list(map(int,input().split()))
+cnt = 0
+sum_low = [0 for i in range(5)]
+sum_col = [0 for i in range(5)]
+sum_dia = [0 for i in range(2)]
+for i in range(25):
+  idx = binggo.index(ans[i])
+  binggo[idx] = 0
+  for j in range(5):
+    if sum(binggo[5*j:5*j+5]) == 0:
+      sum_low[j] = 1
+    if sum(binggo[j:j+21:5]) == 0:
+      sum_col[j] = 1
+  if sum(binggo[0:26:6]) == 0:
+    sum_dia[0] = 1
+  if sum(binggo[4:21:4]) == 0:
+    sum_dia[1] = 1
+  if sum(sum_low) + sum(sum_col) + sum(sum_dia) >= 3:
+    iter = i + 1
+    break
+print(iter)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 틱택토 이기기](https://www.acmicpc.net/problem/9290)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_9290.md/)
+
+{% tabs %}
+{% tab title='BJ_9290.md' %}
+
+> Question
+
+* outputs the status of the game board
+
+```txt
+Input:
+3
+o--
+-o-
+xx-
+x
+o-x
+--o
+x--
+x
+xx-
+o-o
+---
+o
+
+Output:
+Case 1:
+o--
+-o-
+xxx
+Case 2:
+o-x
+-xo
+x--
+Case 3:
+xx-
+ooo
+---
+```
+
+{% endtab %}
+{% tab title='BJ_9290.py' %}
+
+```py
+for T in range(int(input())):
+  m = [[*input()] for i in range(3)]
+  k = input(f'Case {T+1}:\n')
+  for i in range(3):
+    if sorted(m[i]) == ['-',k,k]:
+      m[i] = k * 3
+      break
+  else:
+    for i,v in enumerate(zip(*m)):
+      if sorted(v) == ['-', k, k]:
+        for j in range(3):
+          m[j][i] = k
+        break
+    else:
+      if sorted(m[i][i] for i in range(3))==['-', k, k]:
+        for j in range(3):
+          m[j][j] = k
+      else:
+        for j in range(3):
+          m[j][2-j] = k
+  for i in m:
+    print(''.join(i))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 기타줄](https://www.acmicpc.net/problem/1049)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_1049.md/)
+
+{% tabs %}
+{% tab title='BJ_1049.md' %}
+
+> Question
+
+* Print minimum cost to buy to fix N string
+* There are M brands, each with cost for 6 string and 1 string
+
+```txt
+Input:
+10 3
+20 8
+40 7
+60 4
+
+Output: 36
+```
+
+{% endtab %}
+{% tab title='BJ_1049.py' %}
+
+```py
+n, m = map(int, input().split())
+c=[]
+d=[]
+for i in range(m):
+  a, b = map(int, input().split())
+  c.append(a)
+  d.append(b)
+e, f = min(c), min(d)
+print(min([(n // 6 * e) + n % 6 * f, n // 6 * e + e, n * f]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 사탕 게임](https://www.acmicpc.net/problem/3085)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_3085.md/)
+
+{% tabs %}
+{% tab title='BJ_3085.md' %}
+
+> Question
+
+* Print maximum consecutive length when swapping two adjacent blocks
+
+```txt
+Input:
+Output:
+```
+
+{% endtab %}
+{% tab title='BJ_3085.py' %}
+
+```py
+def score(row):
+  run, ans = 1, 1
+  for i in range(1, len(row)):
+    if row[i] == row[i-1]: run+= 1
+    else: ans = max(ans, run); run = 1
+  return max(run, ans)
+
+def swap(i1, j1, i2, j2):
+  G[i1][j1], G[i2][j2] = G[i2][j2], G[i1][j1]
+  a1 = max(score(row) for row in G)
+  a2 = max(score(row) for row in zip(*G))
+  G[i1][j1], G[i2][j2] = G[i2][j2], G[i1][j1]
+  return max(a1, a2)
+
+n = int(input())
+G = [list(input()) for i in range(n)]
+ans = 0
+
+for i in range(n):
+  for j in range(n-1):
+    ans = max(ans, swap(i, j, i, j+1))
+for i in range(n-1):
+  for j in range(n):
+    ans = max(ans, swap(i, j, i+1, j))
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : → B](https://www.acmicpc.net/problem/16953)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_16953.md/)
+
+{% tabs %}
+{% tab title='BJ_16953.md' %}
+
+> Question
+
+* Print minimum number of operations to convert a to b
+  * add one at the end
+  * multiple 2
+
+```txt
+Input: 100 40021
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_16953.py' %}
+
+```py
+a, b = map(int, input().split())
+c = 0
+while b > a:
+  c += 1
+  if b % 10 == 1:
+    b //= 10
+  elif b % 2:
+    break
+  else:
+    b //= 2
+print(c + 1 if b == a else -1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 틱택토](https://www.acmicpc.net/problem/7682)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_7682.md/)
+
+{% tabs %}
+{% tab title='BJ_7682.md' %}
+
+> Question
+
+* Given the state of the game board, determine whether it is the final state that can occur in the TikTakto game
+
+```txt
+Input:
+XXXOO.XXX
+XOXOXOXOX
+OXOXOXOXO
+XXOOOXXOX
+XO.OX...X
+.XXX.XOOO
+X.OO..X..
+OOXXXOOXO
+end
+
+Output:
+invalid
+valid
+invalid
+valid
+valid
+invalid
+invalid
+invalid
+```
+
+{% endtab %}
+{% tab title='BJ_7682.cpp' %}
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int chk[8] = { 0b100100100, 0b010010010, 0b001001001, 0b111000000, 0b000111000, 0b000000111, 0b100010001, 0b001010100 };
+
+bool match(int bit) {
+  for (int i = 0; i < 8; ++i)
+    if ((bit & chk[i]) == chk[i])
+      return true;
+
+  return false;
+}
+
+int main() {
+  while (true) {
+    string str;
+    int oBit = 0, xBit = 0;
+    int oCnt = 0, xCnt = 0;
+
+    cin >> str;
+    if (str == "end")
+      break;
+
+    for (char& c : str) {
+      if (c == 'O') {
+        ++oBit;
+        ++oCnt;
+      }
+      else if (c == 'X') {
+        ++xBit;
+        ++xCnt;
+      }
+
+      oBit <<= 1;
+      xBit <<= 1;
+    }
+    oBit >>= 1;
+    xBit >>= 1;
+
+    if (xCnt < oCnt || oCnt + 1 < xCnt || xCnt < 3)
+      cout << "invalid\n";
+    else if (xCnt > oCnt && match(xBit) && !match(oBit))
+      cout << "valid\n";
+    else if (xCnt == oCnt && match(oBit) && !match(xBit))
+      cout << "valid\n";
+    else if (xCnt + oCnt == 9 && !match(xBit) && !match(oBit))
+      cout << "valid\n";
+    else
+      cout << "invalid\n";
+  }
+
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_7682.py' %}
+
+```py
+while True:
+  s = list(input())
+  if s[0] == 'e':
+    break
+  x, y, cx, cy = 0, 0, 0, 0
+  for i in range(3):
+    if s[i * 3] == s[i * 3 + 1] == s[i * 3 + 2] == 'O' or s[i] == s[i + 3] == s[i + 6] == 'O' \
+      or s[0] == s[4] == s[8] == 'O' or s[2] == s[4] == s[6] == 'O':
+      x += 1
+    elif s[i * 3] == 'X' and s[i * 3 + 1] == 'X' and s[i * 3 + 2] == 'X' \
+      or s[i] == s[i + 3] == s[i + 6] == 'X' or s[0] == s[4] == s[8] == 'X' or s[2] == s[4] == s[6] == 'X':
+      y += 1
+    for j in range(3):
+      if s[i * 3 + j] == 'O':
+        cx += 1
+      if s[i * 3 + j] == 'X':
+        cy += 1
+  if cy - cx == 1 and y and x == 0:
+    print("valid")
+  elif cx == cy and x and y == 0:
+    print("valid")
+  elif cy == 5 and cx == 4 and y == 0 and x == 0:
+    print("valid")
+  else:
+    print("invalid")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Soda Slurper](https://open.kattis.com/problems/sodaslurper)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/KT_sodaslurper.md/)
+
+[//]: # (BJ_5032)
+
+> leetcode
+
+* [Level 2 : Valid Sudoku](https://leetcode.com/problems/valid-sudoku)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/LC_36.md/)
+
+{% tabs %}
+{% tab title='LC_36.md' %}
+
+> Question
+
+* Determine if a 9 x 9 Sudoku board is valid
+
+```txt
+Input: board =
+[["5","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_36.py' %}
+
+```py
+def isValidSudoku(self, board: List[List[str]]) -> bool:
+  seen = set()
+  for i, row in enumerate(board):
+    for j, cval in enumerate(row):
+      if cval != ".":
+        if (cval, i) in seen or (j, cval) in seen or (i // 3, j // 3, cval) in seen:
+          return False
+        else:
+          seen.add((cval, i))
+          seen.add((j, cval))
+          seen.add((i//3, j//3, cval))
+  return True
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Text Justification](https://leetcode.com/problems/text-justification)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/LC_68.md/)
+
+{% tabs %}
+{% tab title='LC_68.md' %}
+
+> Question
+
+* Full justify line
+
+```txt
+Input: words = ["This", "is", "an", "example", "of", "text", "justification."], maxWidth = 16
+Output:
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+```
+
+{% endtab %}
+{% tab title='LC_68.py' %}
+
+```py
+def fullJustify(self, words, maxWidth):
+  res, cur, num_of_letters = [], [], 0
+  for w in words:
+    if num_of_letters + len(w) + len(cur) > maxWidth:
+      for i in range(maxWidth - num_of_letters):
+        cur[i % (len(cur) - 1 or 1)] += ' '
+      res.append(''.join(cur))
+      cur, num_of_letters = [], 0
+    cur += [w]
+    num_of_letters += len(w)
+  return res + [' '.join(cur).ljust(maxWidth)]
+```
+
+{% endtab %}
+{% endtabs %}

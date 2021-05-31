@@ -1,0 +1,435 @@
+> baekjoon
+
+* [Level 10 : 1로 만들기 2](https://www.acmicpc.net/problem/12852)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/BJ_12852.md/)
+
+{% tabs %}
+{% tab title='BJ_12852.md' %}
+
+> Question
+
+* There are three operations available for integer X:
+  * If X is divided by 3, divide by 3
+  * If X is divided by 2, divide by 2
+  * Subtract one
+* Given an integer N, the three operations above are used appropriately to create 1
+* Print out the minimum number of times you use an operation
+
+```txt
+Input: 10
+Output:
+3
+10 9 3 1
+```
+
+{% endtab %}
+{% tab title='BJ_12852.py' %}
+
+```py
+N = int(input())
+
+result = [[0, []] for _ in range(N + 1)]
+result[1] = (0, [1])
+
+for i in range(2, N + 1):
+  result[i][0] = result[i-1][0] + 1
+  result[i][1] = result[i-1][1] + [i]
+
+  if i % 3 == 0 and result[i//3][0] + 1 < result[i][0]:
+    result[i][0] = result[i//3][0] + 1
+    result[i][1] = result[i//3][1] + [i]
+
+  if i % 2 == 0 and result[i//2][0] + 1 < result[i][0]:
+    result[i][0] = result[i//2][0] + 1
+    result[i][1] = result[i//2][1] + [i]
+
+print(result[N][0])
+print(*reversed(result[N][1]), sep=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 부분합](https://www.acmicpc.net/problem/1806)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/BJ_1806.md/)
+
+{% tabs %}
+{% tab title='BJ_1806.md' %}
+
+> Question
+
+* A length N-shaped beard consisting of a natural number of 10,000 or less is given
+* Find the length of the shortest number of subsets of successive numbers in this sequence, whose sum is greater than S
+
+```txt
+Input:
+10 15
+5 1 3 5 10 7 4 9 2 8
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1806.py' %}
+
+```py
+N, s = map(int, input().split())
+li = list(map(int, input().split()))
+acc = [0]
+for n in li:
+  acc.append(acc[-1] + n)
+
+mn_len = N
+for i in range(N):
+  lo, hi = i, N - 1
+  if acc[hi + 1] - acc[i] < s:
+    break
+  while lo < hi:
+    mi = (lo + hi) // 2
+    if s <= acc[mi + 1] - acc[i]:
+      hi = mi
+    else:
+      lo = mi + 1
+  mn_len = min(mn_len, lo - i + 1)
+print(0 if i == 0 else mn_len)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 짚신벌레](https://www.acmicpc.net/problem/2560)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/BJ_2560.md/)
+
+{% tabs %}
+{% tab title='BJ_2560.md' %}
+
+> Question
+
+* From the day bug become an adult, it duplicate everyday, from the day b after birth to death d
+* new bug from day a to the day before day b, creating a total of b-a objects throughout their lifetime
+* Find total bug modulo 1000
+
+{% endtab %}
+{% tab title='BJ_2560.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int a, b, d, n, ans = 1, sum = 0; cin >> a >> b >> d >> n;
+  vector<int> cnt(n + 1);
+  cnt[0] = 1;
+  for (int i = 1; i <= n; i++) {
+    if (i >= b) sum -= cnt[i - b] - 1000, sum %= 1000;
+    if (i >= a) sum += cnt[i - a], sum %= 1000;
+    cnt[i] = sum;
+    ans += cnt[i];
+    if (i >= d) ans -= cnt[i - d] - 1000, sum %= 1000;
+  }
+  cout << ans % 1000;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2560.py' %}
+
+```py
+from collections import deque
+a, b, d, n = map(int, input().split())
+lst = deque([1] + [0] * (d - 1))
+for i in range(n):
+  cnt = (cnt + lst[a-1] - lst[b-1]) % 1000
+  lst.appendleft(cnt)
+  lst.pop()
+print(sum(lst) % 1000)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : XOR 합 3](https://www.acmicpc.net/problem/13710)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/BJ_13710.md/)
+
+{% tabs %}
+{% tab title='BJ_13710.md' %}
+
+> Question
+
+* Find sum of all xor substring
+
+```txt
+Input:
+2
+1 2
+
+Output: 6   # 1 + 2 + 3
+```
+
+{% endtab %}
+{% tab title='BJ_13710.py' %}
+
+```py
+total = 0
+input()
+arr = list(map(int, input().split()))
+for i in range(30):
+  c_odd = 0
+  odd = 0
+  for j in range(len(arr)):
+    if arr[j] & (1 << i) > 0:
+      odd = ~odd
+    if odd:
+      c_odd += 1
+  for j in range(len(arr)):
+    total += (2 ** i) * c_odd
+    if (arr[j] & (1 << i)) > 0:
+      c_odd = len(arr) - j - c_odd
+print(total)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Jump Game VII](https://leetcode.com/problems/jump-game-vii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/LC_1871.md/)
+
+{% tabs %}
+{% tab title='LC_1871.md' %}
+
+> Question
+
+* given a 0-indexed binary string s and two integers minJump and maxJump
+* Starting at index 0, which is equal to '0', move from index i to index j if the following conditions are fulfilled:
+  * i + minJump <= j <= min(i + maxJump, s.length - 1), and s[j] == '0'
+* Return true if you can reach index s.length - 1 in s, or false otherwise
+
+```txt
+Input: s = "011010", minJump = 2, maxJump = 3
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_1871.py' %}
+
+```py
+def canReach(self, s, minJ, maxJ):
+  dp = [c == '0' for c in s]
+  pre = 0
+  for i in range(1, len(s)):
+    if i >= minJ: pre += dp[i - minJ]
+    if i > maxJ: pre -= dp[i - maxJ - 1]
+    dp[i] &= pre > 0
+  return dp[-1]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/LC_238.md/)
+
+{% tabs %}
+{% tab title='LC_238.md' %}
+
+> Question
+
+* Given an integer array nums, return an array answer such that answer[i] is equal to product of all nums except nums[i]
+* The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer
+
+```txt
+Input: nums = [1,2,3,4]
+Output: [24,12,8,6]
+```
+
+{% endtab %}
+{% tab title='LC_238.cpp' %}
+
+```cpp
+vector<int> productExceptSelf(vector<int>& nums) {
+  int n = nums.size();
+  vector<int> prods(n, 1);
+  for (int i = 1; i < n; i++) // product from left
+    prods[i] = prods[i - 1] * nums[i - 1];
+
+  for (int j = n - 1, m = 1; j >= 0; j--) {
+    prods[j] *= m; // product from right
+    m *= nums[j];
+  }
+  return prods;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Ugly Number II](https://leetcode.com/problems/ugly-number-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/LC_264.md/)
+
+{% tabs %}
+{% tab title='LC_264.md' %}
+
+> Question
+
+* Given an integer n, return the nth ugly number
+* Ugly number is a positive number whose prime factors only include 2, 3, and/or 5
+
+```txt
+Input: n = 10
+Output: 12 # [1, 2, 3, 4, 5, 6, 8, 9, 10, 12]
+```
+
+{% endtab %}
+{% tab title='LC_264.cpp' %}
+
+```cpp
+int nthUglyNumber(int n) {
+  vector<int> ugly(n, 1);
+  int c2 = 2, c3 = 3, c5 = 5;
+  int i2 = 0, i3 = 0, i5 = 0;
+  for (int i=1; i<n; ++i) {
+    int last = ugly[i] = min(c2, min(c3, c5));
+    while (c2 <= last) c2 = 2 * ugly[++i2];
+    while (c3 <= last) c3 = 3 * ugly[++i3];
+    while (c5 <= last) c5 = 5 * ugly[++i5];
+  }
+  return ugly[n-1];
+}
+```
+
+{% endtab %}
+{% tab title='LC_264.py' %}
+
+```py
+def nthUglyNumber(self, n):
+  ugly = [1]
+  i2 = i3 = i5 = 0
+  while len(ugly) < n:
+    while ugly[i2] * 2 <= ugly[-1]: i2 += 1
+    while ugly[i3] * 3 <= ugly[-1]: i3 += 1
+    while ugly[i5] * 5 <= ugly[-1]: i5 += 1
+    ugly.append(min(ugly[i2] * 2, ugly[i3] * 3, ugly[i5] * 5))
+  return ugly[-1]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Minimum Swaps To Make Sequences Increasing](https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/LC_801.md/)
+
+{% tabs %}
+{% tab title='LC_801.md' %}
+
+> Question
+
+* We can swap elements A[i] and B[i]
+* Find the minimum number of swaps so that A and B are both strictly increasing
+
+```txt
+Input: nums1 = [1,3,5,4], nums2 = [1,2,3,7]
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_801.py' %}
+
+```py
+def minSwap(self, A, B):
+  N = len(A)
+  not_swap, swap = [N] * N, [N] * N
+  not_swap[0], swap[0] = 0, 1
+  for i in range(1, N):
+    if A[i - 1] < A[i] and B[i - 1] < B[i]:
+      swap[i] = swap[i - 1] + 1     # Swap at i - 1 and Swap at i
+      not_swap[i] = not_swap[i - 1] # Stay at (i-1) and Stay at i,
+    if A[i - 1] < B[i] and B[i - 1] < A[i]:
+      swap[i] = min(swap[i], not_swap[i - 1] + 1) # Swap at i - 1 and stay at i
+      not_swap[i] = min(not_swap[i], swap[i - 1]) # Stay at i - 1 and swap at i
+  return min(swap[-1], not_swap[-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Valid Permutations for DI Sequence](https://leetcode.com/problems/valid-permutations-for-di-sequence)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/LC_903.md/)
+
+{% tabs %}
+{% tab title='LC_903.md' %}
+
+> Question
+
+* We are given s, a length n string of characters from the set {'D', 'I'}. (stand for "decreasing" and "increasing".)
+* Count permutation p[0], p[1], ..., p[n] of integers {0, 1, ..., n}, such that for all i:
+  * If s[i] == 'D', then p[i] > p[i+1], and;
+  * If s[i] == 'I', then p[i] < p[i+1]
+
+```txt
+Input: s = "DID"
+Output: 5   # (1, 0, 3 2) ...
+```
+
+{% endtab %}
+{% tab title='LC_903.py' %}
+
+```py
+def numPermsDISequence(self, S):
+  dp = [1] * (len(S) + 1)
+  for c in S:
+    if c == "I":
+      dp = dp[:-1]
+      for i in range(1, len(dp)):
+        dp[i] += dp[i - 1]
+    else:
+      dp = dp[1:]
+      for i in range(len(dp) - 1)[::-1]:
+        dp[i] += dp[i + 1]
+  return dp[0] % (10**9 + 7)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Odd Even Jump](https://leetcode.com/problems/odd-even-jump)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/tabulation/LC_975.md/)
+
+{% tabs %}
+{% tab title='LC_975.md' %}
+
+> Question
+
+* During odd-numbered jumps, jump to the index j s.t. arr[i] <= arr[j] and arr[j] is the smallest possible (value, index)
+* During even-numbered jumps, jump to the index j s.t. arr[i] >= arr[j] and arr[j] is the largest possible (value, index)
+* Return the number of indices where you can reach the end of the array
+
+```txt
+Input: arr = [10,13,12,14,15]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_975.py' %}
+
+```cpp
+int oddEvenJumps(vector<int>& A) {
+  int n  = A.size(), res = 1;
+  vector<int> higher(n), lower(n);
+  higher[n - 1] = lower[n - 1] = 1;
+  map<int, int> map;
+  map[A[n - 1]] = n - 1;
+  for (int i = n - 2; i >= 0; --i) {
+    auto hi = map.lower_bound(A[i]), lo = map.upper_bound(A[i]);
+    if (hi != map.end())   higher[i] = lower[hi->second];
+    if (lo != map.begin()) lower[i] = higher[(--lo)->second];
+    if (higher[i]) res++;
+    map[A[i]] = i;
+  }
+  return res;
+}
+```
+
+{% endtab %}
+{% endtabs %}

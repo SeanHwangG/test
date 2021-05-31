@@ -1,0 +1,120 @@
+> baekjoon
+
+* [Level 6 : 중복 빼고 정렬하기](https://www.acmicpc.net/problem/10867)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/ordered-set/BJ_10867.md/)
+
+{% tabs %}
+{% tab title='BJ_10867.md' %}
+
+> Question
+
+* Print in unique element in ascending order
+
+```txt
+Input:
+10
+1 4 2 3 1 4 2 3 1 2
+
+Output: 1 2 3 4
+```
+
+{% endtab %}
+{% tab title='BJ_10867.cpp' %}
+
+```cpp
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+int main() {
+  int n, a;
+  cin >> n;
+  set<int> S;
+  while (n--) {
+    cin >> a;
+    S.insert(a);
+  }
+  for (auto c : S) cout << c << " ";
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10867.py' %}
+
+```py
+input()
+print(*sorted(set(map(int, input().split()))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 회사에 있는 사람](https://www.acmicpc.net/problem/7785)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/ordered-set/BJ_7785.md/)
+
+{% tabs %}
+{% tab title='BJ_7785.md' %}
+
+> Question
+
+* n access records given, each person's name, and either "enter" or "leave". "enter"
+* Print all people in office
+
+```txt
+Input:
+4
+Baha enter
+Askar enter
+Baha leave
+Artem enter
+
+Output:
+Askar
+Artem
+```
+
+{% endtab %}
+{% tab title='BJ_7785.cpp' %}
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int n; cin >> n;
+
+  set<string> st;
+  while (n--) {
+    string nm, a; cin >> nm >> a;
+    if (a[0] == 'e')
+      st.insert(nm);
+    else
+      st.erase(nm);
+  }
+
+  for (auto it = st.rbegin(); it != st.rend(); it++)
+    cout << *it << '\n';
+
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_7785.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+people = set()
+for _ in range(int(input())):
+  name, act = input().split()
+  if act == "enter":
+    people.add(name)
+  else:
+    people.remove(name)
+print("\n".join(sorted(people, reverse=True)))
+```
+
+{% endtab %}
+{% endtabs %}

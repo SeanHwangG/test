@@ -1,0 +1,507 @@
+> baekjoon
+
+* [Level 1 : +B](https://www.acmicpc.net/problem/1000)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_1000.md/)
+
+{% tabs %}
+{% tab title='BJ_1000.md' %}
+
+> Question
+
+* Print a + b
+
+```txt
+Input: 1 2
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1000.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+char res[10010];
+int main() {
+  string a, b; cin >> a >> b;
+  int al = a.size() - 1, bl = b.size() - 1;
+  int c = 0, p = 10001;
+  while (al > -1 || bl > - 1 || c) {
+    if (al > -1) c += a[al--] - '0';
+    if (bl > -1) c += b[bl--] - '0';
+    res[--p] = c % 10 + '0';
+    c /= 10;
+  }
+  cout << res + p;
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1000.sh' %}
+
+```sh
+read q w
+echo $((q+w))
+```
+
+{% endtab %}
+{% tab title='BJ_1000.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a + b)
+```
+
+{% endtab %}
+{% tab title='BJ_1000.r' %}
+
+```r
+cat(sum(scan("stdin")))
+```
+
+{% endtab %}
+{% tab title='BJ_1000.v' %}
+
+```v
+module main;
+  integer a, b, c;
+  initial
+    begin
+      c = $fscanf(32'h8000_0000, "%d %d", a, b);
+      $display("%0d", a + b);
+        $finish;
+    end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 큰 수 A+B](https://www.acmicpc.net/problem/10757)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_10757.md/)
+
+[//]: # (BJ_1000)
+
+* [Level 1 : 꼬마 정민](https://www.acmicpc.net/problem/11382)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_11382.md/)
+
+{% tabs %}
+{% tab title='BJ_11382.md' %}
+
+> Question
+
+* Print a + b + c
+
+```txt
+Input: 1 5 2
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_11382.sh' %}
+
+```sh
+read a b c
+echo $(($a+$b+$c))
+```
+
+{% endtab %}
+{% tab title='BJ_11382.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print(a + b + c)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 큰 수 (BIG)](https://www.acmicpc.net/problem/14928)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_14928.md/)
+
+{% tabs %}
+{% tab title='BJ_14928.md' %}
+
+> Question
+
+* print remainder of 20000303
+
+```txt
+Input: 20000303200003032000030320000303200003032000030320000303200003032000030320000303
+Output: 0
+```
+
+{% endtab %}
+{% tab title='BJ_14928.py' %}
+
+```py
+a = int(input())
+print(a % 20000303)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : +B - 9](https://www.acmicpc.net/problem/15740)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_15740.md/)
+
+{% tabs %}
+{% tab title='BJ_15740.md' %}
+
+> Question
+
+* print a + b
+
+```txt
+Input: -60 40
+Output: -20
+```
+
+{% endtab %}
+{% tab title='BJ_15740.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 수학은 체육과목 입니다](https://www.acmicpc.net/problem/15894)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_15894.md/)
+
+{% tabs %}
+{% tab title='BJ_15894.md' %}
+
+> Question
+
+* print a * 4
+
+```txt
+Input: 3
+Output: 12
+```
+
+{% endtab %}
+{% tab title='BJ_15894.py' %}
+
+```py
+a = int(input())
+print(a * 4)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 홍익대학교](https://www.acmicpc.net/problem/16394)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_16394.md/)
+
+{% tabs %}
+{% tab title='BJ_16394.md' %}
+
+> Question
+
+* Hongik University opened in 1946
+* When given a particular year, print out how old it is
+
+```txt
+Input: 2018
+Output: 72
+```
+
+{% endtab %}
+{% tab title='BJ_16394.py' %}
+
+```py
+a = int(input())
+print(a-1946)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : +B - 2](https://www.acmicpc.net/problem/2558)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_2558.md/)
+
+{% tabs %}
+{% tab title='BJ_2558.md' %}
+
+> Question
+
+* Print a + b
+
+```txt
+Input:
+3
+5
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_2558.sh' %}
+
+```sh
+read a
+read b
+echo $((a+b))
+```
+
+{% endtab %}
+{% tab title='BJ_2558.py' %}
+
+```py
+a = int(input())
+b = int(input())
+print(a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 저작권](https://www.acmicpc.net/problem/2914)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_2914.md/)
+
+{% tabs %}
+{% tab title='BJ_2914.md' %}
+
+> Question
+
+* (창영이 앨범에 수록된 곡에 포함되어 있는 저작권이 있는 멜로디의 개수) / (앨범에 수록된 곡의 개수)
+* 적어도 몇 곡이 저작권이 있는 멜로디인지 구하라
+
+```txt
+Input: 38 24
+Output: 875
+```
+
+{% endtab %}
+{% tab title='BJ_2914.py' %}
+
+```py
+x, y = map(int, input().split())
+print(x * (y - 1) + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 킹, 퀸, 룩, 비숍, 나이트, 폰](https://www.acmicpc.net/problem/3003)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_3003.md/)
+
+{% tabs %}
+{% tab title='BJ_3003.md' %}
+
+> Question
+
+* print number of pieces needed or missing from chess (1, 1, 2, 2, 2, 8)
+
+```txt
+Input: 0 1 2 2 2 7
+Output: 1 0 0 0 0 1
+```
+
+{% endtab %}
+{% tab title='BJ_3003.py' %}
+
+```py
+a, b, c, d, e, f = map(int, input().split())
+print(1 - a, 1 - b, 2 - c, 2 - d, 2 - e, 8 - f)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 카드 게임](https://www.acmicpc.net/problem/5522)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_5522.md/)
+
+{% tabs %}
+{% tab title='BJ_5522.md' %}
+
+> Question
+
+* print sum of all 5 numbers
+
+```txt
+Input:
+1
+2
+3
+4
+5
+
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_5522.py' %}
+
+```py
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+e = int(input())
+print((a + b + c + d + e))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : ext in line](https://www.acmicpc.net/problem/6749)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_6749.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* Given a, b, print 2 * b - a
+
+```txt
+Input:
+12
+15
+
+Output: 18
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a, b = int(input()), int(input())
+print(b - a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Plane](https://www.acmicpc.net/problem/8370)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_8370.md/)
+
+{% tabs %}
+{% tab title='BJ_8370.md' %}
+
+> Question
+
+* print a \* b + c \* d
+
+```txt
+Input: 2 5 3 20
+Output: 70
+```
+
+{% endtab %}
+{% tab title='BJ_8370.py' %}
+
+```py
+a, b, c, d =map(int, input().split())
+print(a * b * c * d)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 타일 채우기 4](https://www.acmicpc.net/problem/15700)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_15700.md/)
+
+{% tabs %}
+{% tab title='BJ_15700.md' %}
+
+> Question
+
+* print a * b // 2
+
+```txt
+Input: 3 3
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_15700.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a * b // 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level nr : 더하기](https://www.acmicpc.net/problem/14918)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_14918.md/)
+
+[//]: # (BJ_1000)
+
+> kattis
+
+* [Level 1.3 : Bijele](https://open.kattis.com/problems/bijele)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/KT_bijele.md/)
+
+[//]: # (BJ_3003)
+
+* [Level 1.3 : Solving for Carrots](https://open.kattis.com/problems/carrots)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/KT_carrots.md/)
+
+{% tabs %}
+{% tab title='KT_carrots.md' %}
+
+> Question
+
+* given a, b print b
+
+```txt
+Input:
+2 1
+carrots?
+bunnies
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='KT_carrots.py' %}
+
+```py
+_, a = map(int, input().split())
+print(a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.9 : Simple Addition](https://open.kattis.com/problems/simpleaddition)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/KT_simpleaddition.md/)
+
+[//]: # (BJ_2558)
+
+> leetcode
+
+* [Level 1 : Count of Matches in Tournament](https://leetcode.com/problems/count-of-matches-in-tournament)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/LC_1688.md/)
+
+{% tabs %}
+{% tab title='LC_1688.md' %}
+
+> Question
+
+* in tournament, find minimum number of matches until winner
+
+```txt
+Input: n = 7
+Output: 6
+```
+
+{% endtab %}
+{% tab title='LC_1688.py' %}
+
+```py
+def numberOfMatches(self, n: int) -> int:
+  return n - 1
+```
+
+{% endtab %}
+{% endtabs %}

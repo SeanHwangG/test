@@ -1,0 +1,180 @@
+> baekjoon
+
+* [Level 5 : 행렬 덧셈](https://www.acmicpc.net/problem/2738)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/linear-algebra/matrix/BJ_2738.md/)
+
+{% tabs %}
+{% tab title='BJ_2738.md' %}
+
+> Question
+
+* Given two matrices A and B of N*M size, adds two matrices
+
+```txt
+Input:
+3 3
+1 1 1
+2 2 2
+0 1 0
+3 3 3
+4 4 4
+5 5 100
+
+Output:
+4 4 4
+6 6 6
+5 6 100
+```
+
+{% endtab %}
+{% tab title='BJ_2738.py' %}
+
+```py
+N, _ = map(int, input().split())
+G1, G2 = [], []
+for _ in range(N):
+  G1.append(list(map(int, input().split())))
+for _ in range(N):
+  G2.append(list(map(int, input().split())))
+
+for l1, l2 in zip(G1, G2):
+  for a, b in zip(l1, l2):
+    print(a + b, end=' ')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 행렬 곱셈](https://www.acmicpc.net/problem/2740)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/linear-algebra/matrix/BJ_2740.md/)
+
+{% tabs %}
+{% tab title='BJ_2740.md' %}
+
+> Question
+
+* Multiply two N \* M, M * K matrix
+
+```txt
+Input:
+3 2
+1 2
+3 4
+5 6
+2 3
+-1 -2 0
+0 0 3
+
+Output:
+-1 -2 6
+-3 -6 12
+-5 -10 18
+```
+
+{% endtab %}
+{% tab title='BJ_2740.py' %}
+
+```py
+N, M = map(int, input().split())
+A = [list(map(int, input().split())) for _ in range(N)]
+M, K = map(int, input().split())
+B = [list(map(int, input().split())) for _ in range(M)]
+for n in range(N):
+  for k in range(K):
+    tmp = 0
+    for m in range(M):
+      tmp += A[n][m] * B[m][k]
+    print(tmp, end = " ")
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 행렬 제곱](https://www.acmicpc.net/problem/10830)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/linear-algebra/matrix/BJ_10830.md/)
+
+{% tabs %}
+{% tab title='BJ_10830.md' %}
+
+> Question
+
+* Given N * N matrix A, print A ** B mod 1000
+
+```txt
+Input:
+2 5
+1 2
+3 4
+
+Output:
+69 558
+337 406
+```
+
+{% endtab %}
+{% tab title='BJ_10830.py' %}
+
+```py
+def mul(A, B):
+  return [[sum([A[i][l] * B[l][j] for l in range(n)]) % 1000 for j in range(n)] for i in range(n)]
+
+def matrix_exp(M, n):
+  if n == 1:
+    return [[i % 1000 for i in e] for e in M]
+  N = matrix_exp(mul(M, M), n // 2)
+  if n % 2 == 0:
+    return N
+  return mul(N, M)
+
+n, b = map(int, input().split())
+for e in matrix_exp([list(map(int, input().split())) for _ in range(n)], b):
+  print(*e)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : Message Passing](https://www.acmicpc.net/problem/13328)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/linear-algebra/matrix/BJ_13328.md/)
+
+{% tabs %}
+{% tab title='BJ_13328.md' %}
+
+> Question
+
+* Print D[t] (t > 2,000,000,000)
+  * D[0] = 1
+  * D[i < 0] = 0
+  * D[i > 0] = D[i-1] + D[i-2] + ... + D[i-d]
+
+```txt
+Input: 4 3
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_13328.py' %}
+
+```py
+def mat_mul(a, b, MOD):
+  zipb = list(zip(*b))
+  return [[sum((a * b) % MOD for a, b in zip(rowa, colb)) % MOD for colb in zipb] for rowa in a]
+
+def mat_pow(L, p, MOD):
+  if p == 1: return [[e%MOD for e in row] for row in L]
+  sq = mat_pow(L, p//2, MOD)
+  if p % 2==0: return mat_mul(sq,sq,MOD)
+  return mat_mul(mat_mul(sq,sq,MOD),L,MOD)
+
+d, t = map(int, input().split())
+mat = [[0]*d for i in range(d)]
+mat[0] = [1]*d
+for i in range(d-1): mat[i+1][i] = 1
+mat = mat_pow(mat, t, 31991)
+print(mat[0][0])
+```
+
+{% endtab %}
+{% endtabs %}

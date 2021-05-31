@@ -1,0 +1,420 @@
+> baekjoon
+
+* [Level 1 : 오늘 날짜](https://www.acmicpc.net/problem/10699)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_10699.md/)
+
+{% tabs %}
+{% tab title='BJ_10699.md' %}
+
+> Question
+
+* Print todays date
+
+```txt
+Output: 2015-01-24
+```
+
+{% endtab %}
+{% tab title='BJ_10699.py' %}
+
+```py
+print("2015-01-24")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : We love kriii](https://www.acmicpc.net/problem/10718)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_10718.md/)
+
+{% tabs %}
+{% tab title='BJ_10718.md' %}
+
+> Question
+
+```txt
+Output:
+강한친구 대한육군
+강한친구 대한육군
+```
+
+{% endtab %}
+{% tab title='BJ_10718.sh' %}
+
+```sh
+echo -e "강한친구 대한육군\n강한친구 대한육군"
+```
+
+{% endtab %}
+{% tab title='BJ_10718.py' %}
+
+```py
+print("강한친구 대한육군")
+print('강한친구 대한육군')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 고려대는 사랑입니다](https://www.acmicpc.net/problem/11942)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_11942.md/)
+
+{% tabs %}
+{% tab title='BJ_11942.md' %}
+
+> Question
+
+```txt
+Output: 고려대는 사랑입니다
+```
+
+{% endtab %}
+{% tab title='BJ_11942.py' %}
+
+```py
+print("고려대는 사랑입니다")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 와이버스 부릉부릉](https://www.acmicpc.net/problem/14645)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_14645.md/)
+
+{% tabs %}
+{% tab title='BJ_14645.md' %}
+
+> Question
+
+```txt
+Output: 비와이
+```
+
+{% endtab %}
+{% tab title='BJ_14645.py' %}
+
+```py
+print(‘비와이’)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 나는 누구인가](https://www.acmicpc.net/problem/15733)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_15733.md/)
+
+{% tabs %}
+{% tab title='BJ_15733.md' %}
+
+> Question
+
+```txt
+Output:
+I'm Sexy
+```
+
+{% endtab %}
+{% tab title='BJ_15733.py' %}
+
+```py
+print("I'm Sexy")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 새로운 시작](https://www.acmicpc.net/problem/15962)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_15962.md/)
+
+{% tabs %}
+{% tab title='BJ_15962.md' %}
+
+> Question
+
+```txt
+Output: 파이팅!!
+```
+
+{% endtab %}
+{% tab title='BJ_15962.py' %}
+
+```py
+print("파이팅!!")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 오늘의 날짜는?](https://www.acmicpc.net/problem/16170)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_16170.md/)
+
+{% tabs %}
+{% tab title='BJ_16170.md' %}
+
+> Question
+
+* Print today's date
+
+```txt
+Output:
+2020
+05
+23
+```
+
+{% endtab %}
+{% tab title='BJ_16170.py' %}
+
+```py
+print(2020)
+print('05')
+print(23)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 엔드게임 스포일러](https://www.acmicpc.net/problem/17295)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_17295.md/)
+
+{% tabs %}
+{% tab title='BJ_17295.md' %}
+
+> Question
+
+```txt
+Output: Avengers: Endgame
+```
+
+{% endtab %}
+{% tab title='BJ_17295.py' %}
+
+```py
+print("Avengers: Endgame")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Арифметическая магия](https://www.acmicpc.net/problem/18096)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_18096.md/)
+
+{% tabs %}
+{% tab title='BJ_18096.md' %}
+
+> Question
+
+```txt
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_18096.py' %}
+
+```py
+print(1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Hello World](https://www.acmicpc.net/problem/2557)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_2557.md/)
+
+{% tabs %}
+{% tab title='BJ_2557.md' %}
+
+> Question
+
+```txt
+Output: Hello World!
+```
+
+{% endtab %}
+{% tab title='BJ_2557.sh' %}
+
+```sh
+echo Hello World!
+```
+
+{% endtab %}
+{% tab title='BJ_2557.py' %}
+
+```py
+print("Hello World!")
+```
+
+{% endtab %}
+{% tab title='BJ_2557.v' %}
+
+```v
+module test;
+  initial begin
+    $display("Hello World!");
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 등록](https://www.acmicpc.net/problem/7287)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_7287.md/)
+
+{% tabs %}
+{% tab title='BJ_7287.md' %}
+
+> Question
+
+* Print number of solved question and your id
+
+```txt
+Output:
+123
+icpcname
+```
+
+{% endtab %}
+{% tab title='BJ_7287.py' %}
+
+```py
+print(123)
+print('Your_ICPC_Team_Name')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : FA](https://www.acmicpc.net/problem/14935)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_14935.md/)
+
+{% tabs %}
+{% tab title='BJ_14935.md' %}
+
+> Question
+
+```txt
+Output: FA
+```
+
+{% endtab %}
+{% tab title='BJ_14935.py' %}
+
+```py
+print('FA')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 행운의 편지](https://www.acmicpc.net/problem/13311)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_13311.md/)
+
+{% tabs %}
+{% tab title='BJ_13311.md' %}
+
+> Question
+
+```txt
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_13311.sh' %}
+
+```sh
+echo 1
+```
+
+{% endtab %}
+{% tab title='BJ_13311.py' %}
+
+```py
+print(1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level nr : 랜덤 게임~](https://www.acmicpc.net/problem/10943)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_10943.md/)
+
+{% tabs %}
+{% tab title='BJ_10943.md' %}
+
+> Question
+
+```txt
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_10943.py' %}
+
+```py
+print(1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level nr : 정ㅋ벅ㅋ](https://www.acmicpc.net/problem/1237)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_1237.md/)
+
+{% tabs %}
+{% tab title='BJ_1237.md' %}
+
+> Question
+
+```txt
+Output: 문제의 정답
+```
+
+{% endtab %}
+{% tab title='BJ_1237.sh' %}
+
+```sh
+echo 문제의 정답
+```
+
+{% endtab %}
+{% tab title='BJ_1237.py' %}
+
+```py
+print("문제의 정답")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level nr : 타노스](https://www.acmicpc.net/problem/15802)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/BJ_15802.md/)
+
+{% tabs %}
+{% tab title='BJ_15802.md' %}
+
+> Question
+
+* print 0 or 1, (half of change getting right)
+
+```txt
+Input: sean
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_15802.py' %}
+
+```py
+print(1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Hello World!](https://open.kattis.com/problems/hello)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/print/KT_hello.md/)
+
+[//]: # (BJ_2557)

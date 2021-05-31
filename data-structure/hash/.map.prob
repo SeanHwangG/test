@@ -1,0 +1,951 @@
+> baekjoon
+
+* [Level 3 : Just A Minim](https://www.acmicpc.net/problem/15036)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_15036.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+| Code | Name       | Length     |
+| ---- | ---------- | ---------- |
+| 0    | breve      | 2 notes    |
+| 1    | semibreve  | 1 notes    |
+| 2    | minim      | 1/2 notes  |
+| 4    | crotchet   | 1/4 notes  |
+| 8    | quaver     | 1/8 notes  |
+| 16   | semiquaver | 1/16 notes |
+
+* Given n codes, find sum of length
+
+```txt
+Input:
+10
+1 2 2 2 1 4 4 8 8 16
+
+Output: 4.3125
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+code2len = {0 : 2, 1: 1, 2: 1/2, 4 : 1/4, 8 : 1/8, 16 : 1/16}
+input()
+total = 0
+for i in map(int, input().split()):
+  total += code2len[i]
+print(total)i
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 학점계산](https://www.acmicpc.net/problem/2754)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_2754.md/)
+
+{% tabs %}
+{% tab title='BJ_2754.md' %}
+
+> Question
+
+* Given letter score, print GPA
+
+```txt
+Input: A0
+Output: 4.0
+```
+
+{% endtab %}
+{% tab title='BJ_2754.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+  char a, b; cin >> a >> b;
+  cout.precision(1);
+  if (a != 'F')
+    cout << fixed << (4 - (a - 'A') + (b == '+' ? 0.3 : (b == '0' ? 0 : -0.3)));
+  else
+    cout << "0.0";
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2754.py' %}
+
+```py
+GPA = {'A+': 4.3, 'A0': 4.0, 'A-': 3.7, 'B+': 3.3, 'B0': 3.0, 'B-': 2.7, 'C+': 2.3, 'C0': 2.0, 'C-': 1.7,
+      'D+': 1.3, 'D0': 1.0, 'D-': 0.7, 'F': 0.0}
+print(GPA[str(input())])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 팩토리얼 진법](https://www.acmicpc.net/problem/5692)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_5692.md/)
+
+{% tabs %}
+{% tab title='BJ_5692.md' %}
+
+> Question
+
+* The factorial calculates the value of digit i as ai×i!
+* When given a number written in the factorial, obtain the value read in decimal
+
+```txt
+Input:
+719
+1
+15
+110
+102
+0
+
+Output:
+53
+1
+7
+8
+8
+```
+
+{% endtab %}
+{% tab title='BJ_5692.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+base = [1, 2, 6, 24, 120]
+while True:
+  n = int(input())
+  if not n:
+    break
+  factorial, result = 0, 0
+  while n:
+    result += ((n % 10) * base[factorial])
+    factorial += 1
+    n //= 10
+  print(result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 문자열 분석](https://www.acmicpc.net/problem/10820)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_10820.md/)
+
+{% tabs %}
+{% tab title='BJ_10820.md' %}
+
+> Question
+
+* Find the number of lowercase letters, uppercase letters, numbers, and spaces in the string
+
+```txt
+Input:
+This is String
+SPACE    1    SPACE
+ S a M p L e I n P u T
+0L1A2S3T4L5I6N7E8
+
+Output:
+10 2 0 2
+0 10 1 8
+5 6 0 16
+0 8 9 0
+```
+
+{% endtab %}
+{% tab title='BJ_10820.py' %}
+
+```py
+import sys
+while True:
+  line = sys.stdin.readline().rstrip('\n')
+  up, lo, sp, nu = 0, 0, 0, 0
+  if not line:
+    break
+  for l in line:
+    if l.isupper():
+      up += 1
+    elif l.islower():
+      lo += 1
+    elif l.isdigit():
+      nu += 1
+    elif l.isspace():
+      sp += 1
+  print(f"{lo} {up} {nu} {sp}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : Hashing](https://www.acmicpc.net/problem/15829)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_15829.md/)
+
+{% tabs %}
+{% tab title='BJ_15829.md' %}
+
+> Question
+
+* It is common for r and M to be determined as small numbers
+* r is 31 and the value of M is 1234567891
+
+$$
+H=\sum_{i=0}^{l-1} a_{i} r^{i} \quad \bmod M
+$$
+
+```txt
+Input:
+5
+abcde
+
+Output: 4739715
+```
+
+{% endtab %}
+{% tab title='BJ_15829.py' %}
+
+```py
+n = int(input())
+st = (input())
+has = 0
+for i, ch in enumerate(st):
+  has = (has + 31 ** i * (ord(ch) - ord('a') + 1)) % 1234567891
+print(has)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 해독](https://www.acmicpc.net/problem/1672)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_1672.md/)
+
+{% tabs %}
+{% tab title='BJ_1672.md' %}
+
+> Question
+
+* Given rules print result sequence
+
+```txt
+Input:
+6
+AAGTCG
+
+Output: A
+```
+
+| Before | After |
+| ------ | ----- |
+| 'AA'   | 'A',  |
+| 'AG'   | 'C',  |
+| 'AC'   | 'A',  |
+| 'AT'   | 'G',  |
+| 'GA'   | 'C',  |
+| 'GG'   | 'G',  |
+| 'GC'   | 'T',  |
+| 'GT'   | 'A',  |
+| 'CA'   | 'A',  |
+| 'CG'   | 'T',  |
+| 'CC'   | 'C',  |
+| 'CT'   | 'G',  |
+| 'TA'   | 'G',  |
+| 'TG'   | 'A',  |
+| 'TC'   | 'G',  |
+| 'TT'   | 'T',  |
+
+{% endtab %}
+{% tab title='BJ_1672.py' %}
+
+```py
+m = {
+  'AA': 'A',
+  'AG': 'C',
+  'AC': 'A',
+  'AT': 'G',
+  'GA': 'C',
+  'GG': 'G',
+  'GC': 'T',
+  'GT': 'A',
+  'CA': 'A',
+  'CG': 'T',
+  'CC': 'C',
+  'CT': 'G',
+  'TA': 'G',
+  'TG': 'A',
+  'TC': 'G',
+  'TT': 'T',
+}
+input()
+s = input()
+while len(s) > 1:
+  s = s[:-2] + m[s[-2:]]
+print(s)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 욕심쟁이 돼지](https://www.acmicpc.net/problem/3060)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_3060.md/)
+
+{% tabs %}
+{% tab title='BJ_3060.md' %}
+
+> Question
+
+* The pigs want to eat current amount + the pig sitting on both sides of them + sitting across
+* Save the day when Hyun-soo cannot meet the demands of the six pigs when given the amount the pigs ate on the first day
+
+```txt
+Input:
+2
+21
+1 2 3 4 5 6
+21
+1 2 3 4 5 7
+
+Output:
+2
+1
+```
+
+{% endtab %}
+{% tab title='BJ_3060.py' %}
+
+```py
+from copy import copy
+for _ in range(int(input())):
+  total = int(input())
+  li = list(map(int, input().split()))
+  for d in range(1, 100000):
+    if sum(li) > total:
+      print(d)
+      break
+    old = copy(li)
+    for i in range(6):
+      li[i] = old[i] + old[(i + 1) % 6] + old[(i + 3) % 6] + old[(i + 5) % 6]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : ](https://www.acmicpc.net/problem/1969)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_1969.md/)
+
+{% tabs %}
+{% tab title='BJ_1969.md' %}
+
+> Question
+
+* Output the DNA with the smallest sum of Hamming Distance on the first line, and Hamming Distance on the second line
+* When there are multiple such DNA, the first one is printed alphabetically
+
+```txt
+Input:
+5 8
+TATGATAC
+TAAGCTAC
+AAAGATCC
+TGAGATAC
+TAAGATGT
+
+Output:
+TAAGATAC
+7
+```
+
+{% endtab %}
+{% tab title='BJ_1969.py' %}
+
+```py
+n, m = map(int, input().split())
+dna = [input().strip() for _ in range(n)]
+dna_to_num = {'A':0, 'C':1, 'G':2, 'T':3}
+res = ''
+cnt = 0
+for d in range(m):
+  check = [0] * 4
+  for i in range(n):
+    check[dna_to_num[dna[i][d]]] += 1
+  max_dna = max(check)
+  max_dna_idx = check.index(max_dna)
+  res += "ACGT"[max_dna_idx]
+  check[max_dna_idx] = 0
+  cnt += sum(check)
+print(res)
+print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 나는야 포켓몬 마스터 이다솜](https://www.acmicpc.net/problem/1620)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_1620.md/)
+
+{% tabs %}
+{% tab title='BJ_1620.md' %}
+
+> Question
+
+* If a number is entered as an input, you can print the name of the Pokémon corresponding to the number
+* If a letter is received, you can print the number corresponding to the Pokémon's name
+
+```txt
+Input:
+26 5
+Bulbasaur
+Ivysaur
+Venusaur
+Charmander
+Charmeleon
+Charizard
+Squirtle
+Wartortle
+Blastoise
+Caterpie
+Metapod
+Butterfree
+Weedle
+Kakuna
+Beedrill
+Pidgey
+Pidgeotto
+Pidgeot
+Rattata
+Raticate
+Spearow
+Fearow
+Ekans
+Arbok
+Pikachu
+Raichu
+25
+Raichu
+3
+Pidgey
+Kakuna
+
+Output:
+Pikachu
+26
+Venusaur
+16
+14
+```
+
+{% endtab %}
+{% tab title='BJ_1620.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+n, m = map(int, input().split())
+names = []
+name2i = {}
+for i in range(n):
+  name = input().strip()
+  names.append(name)
+  name2i[name] = i
+
+for _ in range(m):
+  i = input().strip()
+  if i.isdigit():
+    print(names[int(i) - 1])
+  else:
+    print(name2i[i] + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 비밀번호 찾기](https://www.acmicpc.net/problem/17219)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_17219.md/)
+
+{% tabs %}
+{% tab title='BJ_17219.md' %}
+
+> Question
+
+* The first line is given the number of stored site addresses N (< 100,000) and the number of site addresses M (< 100,000)
+* find the password for each website from the notepad
+
+```txt
+Input:
+16 4
+noj.am IU
+acmicpc.net UAENA
+startlink.io THEKINGOD
+google.com ZEZE
+nate.com VOICEMAIL
+naver.com REDQUEEN
+daum.net MODERNTIMES
+utube.com BLACKOUT
+zum.com LASTFANTASY
+dreamwiz.com RAINDROP
+hanyang.ac.kr SOMEDAY
+dhlottery.co.kr BOO
+duksoo.hs.kr HAVANA
+hanyang-u.ms.kr OBLIVIATE
+yd.es.kr LOVEATTACK
+mcc.hanyang.ac.kr ADREAMER
+startlink.io
+acmicpc.net
+noj.am
+mcc.hanyang.ac.kr
+
+Output:
+THEKINGOD
+UAENA
+IU
+ADREAMER
+```
+
+{% endtab %}
+{% tab title='BJ_17219.py' %}
+
+```py
+N, Q = map(int, input().split())
+site2pw = {}
+for _ in range(N):
+  site, pw = input().split()
+  site2pw[site] = pw
+for _ in range(Q):
+  print(site2pw[input()])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : HTML](https://www.acmicpc.net/problem/6581)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_6581.md/)
+
+{% tabs %}
+{% tab title='BJ_6581.md' %}
+
+> Question
+
+* When you read the \<br\> tag, you start a new line
+* If you read the \<hr\> tag, start a new line if it is not already first part of line, and enter '-' 80 characters per line
+* After that, start a new line again
+
+```txt
+Input:
+Hallo, dies ist eine
+ziemlich lange Zeile, die in Html
+aber nicht umgebrochen wird.
+<br>
+Zwei <br> <br> produzieren zwei Newlines.
+Es gibt auch noch das tag <hr> was einen Trenner darstellt.
+Zwei <hr> <hr> produzieren zwei Horizontal Rulers.
+Achtung       mehrere Leerzeichen irritieren
+
+Html genauso wenig wie
+
+mehrere Leerzeilen.
+
+Output:
+Hallo, dies ist eine ziemlich lange Zeile, die in Html aber nicht umgebrochen
+wird.
+Zwei
+
+produzieren zwei Newlines. Es gibt auch noch das tag
+--------------------------------------------------------------------------------
+was einen Trenner darstellt. Zwei
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+produzieren zwei Horizontal Rulers. Achtung mehrere Leerzeichen irritieren Html
+genauso wenig wie mehrere Leerzeilen.
+```
+
+{% endtab %}
+{% tab title='BJ_6581.py' %}
+
+```py
+import sys
+lines = sys.stdin.read().split()
+for i, line in enumerate(lines):
+  if line == "<br>":
+    print()
+  elif line == "<hr>":
+    if i != 0 and lines[i-1] not in ("<br>", "<hr>"):
+      print()
+    print("-" * 80)
+  else:
+    print(line, end=" ")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 감시 카메라](https://www.acmicpc.net/problem/5884)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_5884.md/)
+
+{% tabs %}
+{% tab title='BJ_5884.md' %}
+
+> Question
+
+* Check if all points are covered by three lines
+
+```txt
+Input:
+6
+1 7
+0 0
+1 2
+2 0
+1 4
+3 4
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_5884.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+const int MXN = 5e4;
+int x[MXN], y[MXN], ck[MXN],n;
+bool comp(pair<int,int> i, pair<int,int> j) { return i.second < j.second; }
+int main() {
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) scanf("%d %d", x + i, y + i);
+  for (int i = 0; i < 3; i++) {
+    map<int,int> mp1, mp2;
+    for (int i = 0; i < n; i++) if (!ck[i]) mp1[x[i]]++, mp2[y[i]]++;
+    auto it1 = max_element(mp1.begin(), mp1.end(), comp), it2 = max_element(mp2.begin(), mp2.end(), comp);
+    if (it1 == mp1.end()) continue;
+    if (it1 -> second > it2 -> second) {
+      for (int i = 0; i < n; i++) if (x[i] == it1->first) ck[i] = 1;
+    }
+    else for (int i = 0; i < n; i++) if (y[i] == it2->first) ck[i] = 1;
+  }
+  for (int i = 0; i < n; i++)if (!ck[i]) {
+    puts("0");
+    break;
+  }
+  if (i == n) puts("1");
+  return 0;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : Black and White](https://www.acmicpc.net/problem/11467)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_11467.md/)
+
+{% tabs %}
+{% tab title='BJ_11467.md' %}
+
+> Question
+
+* Given you observed N data (id, position) from 0, 1 map
+* Print minimum number of crossing
+
+```txt
+Input:
+8
+3 1
+3 0
+6 0
+2 1
+4 1
+3 0
+4 0
+3 1
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_11467.py' %}
+
+```py
+di=dict()
+a = 0
+
+for i in range(int(input())):
+  x, y = map(int, input().split())
+  if x in di and di[x] != y:
+    a += 1
+  di[x] = y
+
+print(a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Bela](https://open.kattis.com/problems/bela)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/KT_bela.md/)
+
+{% tabs %}
+{% tab title='KT_bela.md' %}
+
+> Question
+
+* 첫 줄의 N과 B이 주어진다
+* 그 다음 N줄에 Value, Suit 이 주어지는데,
+* Suit 이 B와 같을 시 Dominant, 다를 시 Not dominant 점수를 얻는다. 총 합을 출력하라
+
+```txt
+Input:
+2 S
+TH
+9C
+KS
+QS
+JS
+TD
+AD
+JH
+
+Output: 60
+```
+
+{% endtab %}
+{% tab title='KT_bela.py' %}
+
+```py
+n_line, suit = input().split()
+n_line = int(n_line)
+dic = {'A': (11, 11), 'K': (4, 4), 'Q': (3, 3), 'J':(20, 2), 'T': (10, 10), '9': (14, 0), '8' : (0, 0), '7': (0, 0)}
+ret = 0
+for _ in range(n_line * 4):
+  card = input()
+  if card[1] == suit:
+    ret += dic[card[0]][0]
+  else:
+    ret += dic[card[0]][1]
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Synchronizing Lists](https://open.kattis.com/problems/synchronizinglists)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/KT_synchronizinglists.md/)
+
+{% tabs %}
+{% tab title='KT_synchronizinglists.md' %}
+
+> Question
+
+* For each test case, print out the second list so that it has same ordering as first list, with a blank line between lists
+
+```txt
+Input:
+4
+10
+67
+68
+28
+55
+73
+10
+6
+7
+98
+23
+61
+49
+1
+79
+9
+1
+15
+32
+47
+68
+39
+24
+0
+
+Output:
+6
+55
+73
+10
+
+68
+24
+39
+32
+1
+47
+15
+```
+
+{% endtab %}
+{% tab title='KT_synchronizinglists.py' %}
+
+```py
+while True:
+  n = int(input())
+
+  if n == 0:
+    break
+
+  l1 = [int(input()) for _ in range(n)]
+  l2 = list(sorted([int(input()) for _ in range(n)]))
+  rank = {}
+  for i, e in enumerate(sorted(l1)):
+    rank[e] = i
+  for e in l1:
+    print(l2[rank[e]])
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.8 : Parking](https://open.kattis.com/problems/parking)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/KT_parking.md/)
+
+{% tabs %}
+{% tab title='KT_parking.md' %}
+
+> Question
+
+* 직선으로 되어있는 시장에서 모든 n개의 가게에서 장을 본다
+* 이때 총 이동거리를 최소화 시키는 시작점에서 모든 장을 보고 돌아오는 데까지 걸리는 거리를 출력하라
+
+```txt
+Input:
+5 3 1
+1 6
+3 5
+2 8
+
+Output: 33
+```
+
+{% endtab %}
+{% tab title='KT_parking.py' %}
+
+```py
+n_test = int(input())
+for i in range(n_test):
+  N = int(input())
+  li = list(map(int, input().split()))
+  print((max(li) - min(li)) * 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Two Sum](https://leetcode.com/problems/two-sum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/LC_1.md/)
+
+{% tabs %}
+{% tab title='LC_1.md' %}
+
+> Question
+
+* Find two index that sums up to target
+
+```txt
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+```
+
+{% endtab %}
+{% tab title='LC_1.py' %}
+
+```py
+def twoSum(self, nums, target):
+  d = {}
+  for i, num in enumerate(nums):
+    if target - num in d:
+      return d[target - num], i
+    d[num] = i
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/LC_219.md/)
+
+{% tabs %}
+{% tab title='LC_219.md' %}
+
+> Question
+
+* Given array and integer k
+* return if there are two distinct indices i and j in the array st nums[i] == nums[j] and abs(i - j) <= k
+
+```txt
+Input: nums = [1,2,3,1], k = 3
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_219.py' %}
+
+```py
+def containsNearbyDuplicate(self, nums, k):
+  dic = {}
+  for i, v in enumerate(nums):
+    if v in dic and i - dic[v] <= k:
+      return True
+    dic[v] = i
+  return False
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Allocate Mailboxes](https://leetcode.com/problems/allocate-mailboxes)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/LC_1478.md/)
+
+{% tabs %}
+{% tab title='LC_1478.md' %}
+
+> Question
+
+* Given array houses and integer k, where houses[i] is location of ith house along a street, allocate k mailboxes in street
+* Return minimum total distance between each house and its nearest mailbox
+
+```txt
+Input: names = ["onepiece","onepiece(1)","onepiece(2)","onepiece(3)","onepiece"]
+Output: ["onepiece","onepiece(1)","onepiece(2)","onepiece(3)","onepiece(4)"]
+```
+
+{% endtab %}
+{% tab title='LC_1478.py' %}
+
+```py
+class Solution:
+  def getFolderNames(self, names: List[str]) -> List[str]:
+    used = set()
+    counter = defaultdict(int)
+    result = []
+    for name in names:
+      count = counter[name]
+      candidate = name
+      while candidate in used:
+        count += 1
+        candidate = f'{name}({count})'
+      counter[name] = count
+      result.append(candidate)
+      used.add(candidate)
+    return result
+```
+
+{% endtab %}
+{% endtabs %}

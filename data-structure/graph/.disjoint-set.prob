@@ -1,0 +1,643 @@
+> baekjoon
+
+* [Level 12 : 집합의 표현](https://www.acmicpc.net/problem/1717)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/BJ_1717.md/)
+
+{% tabs %}
+{% tab title='BJ_1717.md' %}
+
+> Question
+
+* The sum is given an input in the form of 0 a b
+* This means that the set containing a and the set containing b are combined
+* An operation that verifies that two elements are contained in the same set is given an input in the form of 1 a b
+
+```txt
+Input:
+7 8
+0 1 3
+1 1 7
+0 7 6
+1 7 1
+0 3 7
+0 4 2
+0 1 1
+1 1 1
+
+Output:
+NO
+NO
+YES
+```
+
+{% endtab %}
+{% tab title='BJ_1717.cpp' %}
+
+```cpp
+#include <cstdio>
+
+using namespace std;
+
+int parent[1000001];
+int n;
+
+int find(int x) {
+  if (x == parent[x]) return x;
+  return parent[x] = find(parent[x]);
+}
+
+void union_(int x, int y) {
+  int px = find(x);
+  int py = find(y);
+
+  if (px > py) parent[px] = py;
+  else if (px < py) parent[py] = px;
+}
+
+int main() {
+  int m;
+
+  scanf("%d %d", &n, &m);
+
+  for (int i = 0; i <= n; i++) parent[i] = i;
+
+  for (int i = 0; i < m; i++) {
+    int op, x, y;
+    scanf("%d %d %d", &op, &x, &y);
+
+    if (op == 0) {
+      union_(x, y);
+    } else {
+      if (find(x) == find(y)) printf("YES\n");
+      else printf("NO\n");
+    }
+  }
+  return 0;
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 공항](https://www.acmicpc.net/problem/10775)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/BJ_10775.md/)
+
+{% tabs %}
+{% tab title='BJ_10775.md' %}
+
+> Question
+
+* Each person can sit on 1...n
+* Print maximum number of seats people can seat sequentially
+
+```txt
+Input:
+4
+3
+4
+1
+1
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_10775.py' %}
+
+```py
+def find(x):
+  if x == p[x]:
+    return x
+  p[x] = find(p[x])
+  return p[x]
+
+G, P = int(input()), int(input())
+p = [i for i in range(G+1)]
+cnt = 0
+for _ in range(P):
+  g = int(input())
+  scan_g = find(g)
+  if scan_g == 0:
+    break
+  else:
+    p[scan_g] = find(scan_g-1)
+    cnt += 1
+print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 친구 네트워크](https://www.acmicpc.net/problem/4195)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/BJ_4195.md/)
+
+{% tabs %}
+{% tab title='BJ_4195.md' %}
+
+> Question
+
+* Whenever you have a friend relationship, write a program to find out how many people are on your friend's network
+
+```txt
+Input:
+2
+3
+Fred Barney
+Barney Betty
+Betty Wilma
+3
+Fred Barney
+Betty Wilma
+Barney Betty
+
+Output:
+2
+3
+4
+2
+2
+4
+```
+
+{% endtab %}
+{% tab title='BJ_4195.py' %}
+
+```py
+class UF:
+  def __init__(self, N):
+    self.parent = list(range(N))
+    self.size = [1] * N
+
+  def find(self, x):
+    if self.parent[x] != x:
+      self.parent[x] = self.find(self.parent[x])
+    return self.parent[x]
+  def union(self, x, y):
+    px, py = self.find(x), self.find(y)
+    if px != py:
+      size_x, size_y = self.size[px], self.size[py]
+      if size_x < size_y:
+        self.parent[px] = py
+        self.size[py] += size_x
+      else:
+        self.parent[py] = px
+        self.size[px] += size_y
+
+for _ in range(int(input())):
+  N = int(input())
+  name2idx, names = {}, [input() for _ in range(N)]
+  uf = UF(N * 2)
+  for name in names:
+    a, b = name.split()
+    if a not in name2idx:
+      name2idx[a] = len(name2idx)
+    if b not in name2idx:
+      name2idx[b] = len(name2idx)
+    a, b = name2idx[a], name2idx[b]
+    uf.union(a, b)
+    print(max(uf.size[uf.find(a)], uf.size[uf.find(b)]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : trongly Connected Component](https://www.acmicpc.net/problem/2150)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/BJ_2150.md/)
+
+{% tabs %}
+{% tab title='BJ_2150.md' %}
+
+> Question
+
+* When outputting each SCC, the vertices in it are printed in ascending order
+* outputs several SCCs in order of the smallest vertex number within them
+
+```txt
+Input:
+7 9
+1 4
+4 5
+5 1
+1 6
+6 7
+2 7
+7 3
+3 7
+7 2
+
+Output:
+3
+1 4 5 -1
+2 3 7 -1
+6 -1
+```
+
+{% endtab %}
+{% tab title='BJ_2150.py' %}
+
+```py
+import sys
+sys.setrecursionlimit(10000)
+def dfs(G, start, visited, stk = None):
+  visited.add(start)
+  for adj in G[start]:
+    if adj not in visited:
+      dfs(G, adj, visited, stk)
+
+  if stk != None:
+    stk.append(start)
+
+V, E = map(int, input().split())
+G, G_inv = [[] for _ in range(V)], [[] for _ in range(V)]
+for _ in range(E):
+  v1, v2 = map(int, input().split())
+  G[v1 - 1].append(v2 - 1)
+  G_inv[v2 - 1].append(v1 - 1)
+visited, stk = set(), []
+for v in range(V):
+  if v not in visited:
+    dfs(G, v, visited, stk)
+
+visited, SCCs, scced = set(), [], set()
+for v in reversed(stk):
+  if v not in visited:
+    dfs(G_inv, v, visited)
+    SCCs.append(visited - scced)
+    scced |= visited
+
+print(len(SCCs))
+for SCC in sorted(SCCs, key=lambda li: min(li)):
+  print(*sorted(SCC), -1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 문명](https://www.acmicpc.net/problem/14868)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/BJ_14868.md/)
+
+{% tabs %}
+{% tab title='BJ_14868.md' %}
+
+> Question
+
+* each trbie expand by 1 in 2d
+* Print minimum number of years so that all tribes are combined
+
+```txt
+Input:
+5 4
+1 1
+2 1
+2 5
+5 2
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_14868.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 2005, K = 100005;
+
+using pii = pair<int, int>;
+#define X first
+#define Y second
+
+const pii dx[] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+int n, k, c, a[N][N], d[N][N], p[K];
+queue<pii> q;
+
+int fnd(int x){ return (p[x] == x) ? x : (p[x] = fnd(p[x])); }
+void uni(int x, int y){
+  x = fnd(x); y = fnd(y);
+  if(x == y) return;
+  p[y] = x;
+  c--;
+}
+
+int main(){
+  ios_base::sync_with_stdio(false); cin.tie(NULL);
+  cin >> n >> k;
+  c = k;
+  iota(p + 1, p + k + 1, 1);
+  for(int i = 1, x, y; i <= k; i++){
+    cin >> x >> y;
+    a[x][y] = i;
+    q.emplace(x, y);
+  }
+  while(!q.empty()){
+    int x, y;
+    tie(x, y) = q.front();
+    q.pop();
+    for(pii t : dx){
+      int nx = x + t.X, ny = y + t.Y;
+      if(nx < 1 || ny < 1 || nx > n || ny > n) continue;
+      if(a[nx][ny] && d[nx][ny] <= d[x][y]) uni(a[x][y], a[nx][ny]);
+      else if(!a[nx][ny]){
+        a[nx][ny] = a[x][y];
+        d[nx][ny] = d[x][y] + 1;
+        q.emplace(nx, ny);
+      }
+    }
+    if(c == 1){
+      cout << d[x][y] << endl;
+      return 0;
+    }
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Redundant Connection](https://leetcode.com/problems/redundant-connection)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/LC_684.md/)
+
+{% tabs %}
+{% tab title='LC_684.md' %}
+
+> Question
+
+* Return an edge that can be removed so that the resulting graph is a tree of N nodes
+
+```txt
+Input: edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]
+Output: [1,4]
+```
+
+{% endtab %}
+{% tab title='LC_684.cpp' %}
+
+```cpp
+vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+  vector<int> parent(edges.size()+1, 0);
+  for (auto &e: edges) {
+    int v1 = e[0], v2 = e[1];
+    while (parent[v1]) v1 = parent[v1];
+    while (parent[v2]) v2 = parent[v2];
+    if (v1 == v2) return e;
+    parent[v1] = v2;
+  }
+}
+```
+
+{% endtab %}
+{% tab title='LC_684.py' %}
+
+```py
+# Time : O(n^2) because of string replace / Space : O(n)
+def findRedundantConnection(self, edges):
+  tree = ''.join(map(chr, range(1001)))
+  for u, v in edges:
+    if tree[u] == tree[v]:
+      return [u, v]
+    tree = tree.replace(tree[u], tree[v])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/LC_947.md/)
+
+{% tabs %}
+{% tab title='LC_947.md' %}
+
+> Question
+
+* stone can be removed if it shares either the same row or the same column
+* return the largest possible number of stones that can be removed
+
+```txt
+Input: stones = [[0,0],[0,1],[1,0],[1,2],[2,1],[2,2]]
+Output: 5
+```
+
+{% endtab %}
+{% tab title='LC_947.cpp' %}
+
+```cpp
+int removeStones(vector<vector<int>>& stones) {
+  for (int i = 0; i < stones.size(); ++i)
+    uni(stones[i][0], ~stones[i][1]);
+  return stones.size() - islands;
+}
+
+unordered_map<int, int> f;
+int islands = 0;
+
+int find(int x) {
+  if (!f.count(x)) f[x] = x, islands++;
+  if (x != f[x]) f[x] = find(f[x]);
+  return f[x];
+}
+
+void uni(int x, int y) {
+  x = find(x), y = find(y);
+  if (x != y) f[x] = y, islands--;
+}
+```
+
+{% endtab %}
+{% tab title='LC_947.py' %}
+
+```py
+def removeStones(self, points):
+  UF = {}
+  def find(x):
+    if x != UF[x]:
+      UF[x] = find(UF[x])
+    return UF[x]
+  def union(x, y):
+    UF.setdefault(x, x)
+    UF.setdefault(y, y)
+    UF[find(x)] = find(y)
+
+  for i, j in points:
+    union(i, ~j)
+  return len(points) - len({find(x) for x in UF})
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Regions Cut By Slashes](https://leetcode.com/problems/regions-cut-by-slashes)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/LC_959.md/)
+
+{% tabs %}
+{% tab title='LC_959.md' %}
+
+> Question
+
+* In a N x N grid composed of 1 x 1 squares, each 1 x 1 square consists of a /, \, or blank space
+* These characters divide the square into contiguous regions
+* Return the number of regions
+
+```txt
+Input:
+[ " /",
+  "/ " ]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_959.py' %}
+
+```py
+def regionsBySlashes(self, grid: List[str]) -> int:
+  f = {}
+  def find(x):
+    f.setdefault(x, x)
+    if x != f[x]:
+      f[x] = find(f[x])
+    return f[x]
+  def union(x, y):
+    f[find(x)] = find(y)
+
+  for i in range(len(grid)):
+    for j in range(len(grid)):
+      if i:
+        union((i - 1, j, 2), (i, j, 0))
+      if j:
+        union((i, j - 1, 1), (i, j, 3))
+      if grid[i][j] != "/":
+        union((i, j, 0), (i, j, 1))
+        union((i, j, 2), (i, j, 3))
+      if grid[i][j] != "\\":
+        union((i, j, 3), (i, j, 0))
+        union((i, j, 1), (i, j, 2))
+  return len(set(map(find, f)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Redundant Connection II](https://leetcode.com/problems/redundant-connection-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/LC_685.md/)
+
+{% tabs %}
+{% tab title='LC_685.md' %}
+
+> Question
+
+* Return an edge that can be removed so that the resulting graph is a rooted tree of n nodes
+
+```txt
+Input: edges = [[1,2],[2,3],[3,4],[4,1],[1,5]]
+Output: [4,1]
+```
+
+> Solution
+
+1. There is no cycle in the graph, but there exist two edges pointing to the same node;
+1. There is a cycle, but there do not exist two edges pointing to the same node;
+1. There is a cycle, and there exist two edges pointing to the same node.
+
+{% endtab %}
+{% tab title='LC_685.py' %}
+
+```py
+class UnionFind:
+  def __init__(self, n):
+    self.parent = list(range(n))
+
+  def find(self, x):
+    if self.parent[x] == x:
+      return x
+    return self.find(self.parent[x])
+
+  def union(self, x, y):
+    x, y = self.find(x), self.find(y)
+    self.parent[x] = self.parent[y]
+    return x != y
+
+class Solution:
+  def findRedundantDirectedConnection(self, edges: List[List[int]]) -> List[int]:
+    cand1, cand2, point_to = None, None, {} # if cycle exists and cand1, cand2 are None, edge that incurs cycle is bad
+    for node1, node2 in edges:
+      if node2 in point_to:
+        cand1, cand2 = point_to[node2], [node1, node2] # save edges that point to one node
+        break
+      point_to[node2] = [node1, node2]
+
+    uf = UnionFind(len(edges))
+    for node1, node2 in edges: # pretend the edges are undirected
+      if [node1, node2] == cand2: continue # ignored, if a cycle is detected in the union find process
+      if not uf.union(node1 - 1, node2 - 1):
+        if cand1: return cand1
+        return [node1, node2]
+    return cand2
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Largest Component Size by Common Factor](https://leetcode.com/problems/largest-component-size-by-common-factor)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/disjoint-set/LC_952.md/)
+
+{% tabs %}
+{% tab title='LC_952.md' %}
+
+> Question
+
+* There is an edge between A[i] and A[j] if and only if A[i] and A[j] share a common factor greater than 1
+* Return the size of the largest connected component in the graph
+
+```txt
+Input: nums = [20,50,9,63]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_952.py' %}
+
+```py
+import collections
+import math
+class UF:
+  def __init__(self, N):
+    self.parent = list(range(N))
+    self.size = [1] * N
+
+  def find(self, x):
+    if self.parent[x] != x:
+      self.parent[x] = self.find(self.parent[x])
+    return self.parent[x]
+
+  def union(self, x, y):
+    px, py = self.find(x), self.find(y)
+    if px != py:
+      size_x, size_y = self.size[px], self.size[py]
+      if size_x < size_y:
+        self.parent[px] = py
+        self.size[py] += size_x
+      else:
+        self.parent[py] = px
+        self.size[px] += size_y
+def largestComponentSize(self, A: List[int]) -> int:
+  factor2i = collections.defaultdict(int)
+  uf = UF(len(A))
+  for i, num in enumerate(A):
+    for factor in range(2, int(math.sqrt(num) + 1)):
+      if num % factor == 0:
+        for fac in (factor, num // factor):
+          if fac in factor2i:
+            uf.union(i, factor2i[fac])
+          else:
+            factor2i[fac] = i
+    if num not in factor2i:
+      factor2i[num] = i
+    else:
+      uf.union(i, factor2i[num])
+  return max(uf.size)
+```
+
+{% endtab %}
+{% endtabs %}

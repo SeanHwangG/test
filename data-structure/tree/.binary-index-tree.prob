@@ -1,0 +1,371 @@
+> baekjoon
+
+* [Level 17 : 요세푸스 문제 2](https://www.acmicpc.net/problem/1168)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-index-tree/BJ_1168.md/)
+
+{% tabs %}
+{% tab title='BJ_1168.md' %}
+
+> Question
+
+* Keep remove Kth person until N person left
+
+```txt
+Input: 7 3
+Output: <3, 6, 2, 7, 5, 1, 4>
+```
+
+{% endtab %}
+{% tab title='BJ_1168.py' %}
+
+```py
+def pop(v):
+  idx = 0
+  for i in reversed(range(17)):
+    j = idx + (1 << i)
+    if j < n + 1:
+      if t[j] < v:
+        idx = j
+        v -= t[j]
+      else:
+        t[j] -= 1
+  return idx + 1
+
+n, k = map(int, __import__('sys').stdin.readline().split())
+t = [0] * (n + 1)
+for i in range(1, n + 1):
+  t[i] = i & -i
+
+ans = []
+idx = 1
+for i in range(n, 0, -1):
+  idx = (idx + k - 2) % i + 1
+  ans.append(pop(idx))
+
+print(f'<{", ".join(map(str, ans))}>')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : XO](https://www.acmicpc.net/problem/14245)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-index-tree/BJ_14245.md/)
+
+{% tabs %}
+{% tab title='BJ_14245.md' %}
+
+> Question
+
+* Type 1 (1, a, b, c)
+  * xor c in A[a...b]
+* Type 2 (2, a)
+  * Print A[a]
+
+```txt
+Input:
+5
+1 2 3 4 5
+6
+1 0 4 9
+2 0
+2 1
+2 2
+2 3
+2 4
+
+Output:
+8
+11
+10
+13
+12
+```
+
+{% endtab %}
+{% tab title='BJ_14245.py' %}
+
+```py
+class RUPQ:
+  def __init__(self, size):
+    self.arr = [0]*size
+
+  def update(self, i, j, val):
+    while i < len(self.arr):
+      self.arr[i] ^= val; i |= i+1
+    j+= 1
+    while j < len(self.arr):
+      self.arr[j] ^= val; j |= j+1
+
+  def get(self, i):
+    res = 0
+    while i >= 0:
+      res ^= self.arr[i]
+       i = (i&(i+1))-1
+    return res
+
+input = __import__('sys').stdin.readline
+
+n = int(input())
+F = RUPQ(n)
+ini = list(map(int, input().split()))
+for QUERY in range(int(input())):
+  qt, *par = map(int, input().split())
+  if qt == 1:
+    a, b, c = par
+    F.update(a, b, c)
+  else: print(F.get(par[0]) ^ ini[par[0]])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 영화 수집](https://www.acmicpc.net/problem/3653)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-index-tree/BJ_3653.md/)
+
+{% tabs %}
+{% tab title='BJ_3653.md' %}
+
+> Question
+
+* Print location of movie when you put movie on top after watching
+
+```txt
+Input:
+2
+3 3
+3 1 1
+5 3
+4 4 5
+
+Output:
+2 1 0
+3 0 4
+```
+
+{% endtab %}
+{% tab title='BJ_3653.py' %}
+
+```py
+def sum(i):
+  ans=0
+  while i>0:
+    ans+=BIT[i]
+    i-=i&-i
+  return ans
+def update(i,num):
+  while i <= n+m:
+    BIT[i] += num
+    i += i&-i
+
+for i in range(int(input())):
+  n,m = list(map(int,input().split()))
+  BIT = [0]*(n+m+1)
+  A=[0]*(n+1)
+  for i in range(1,n+1):
+    A[i] = m+i
+    update(i+m,1)
+  L = [None] + list(map(int,input().split()))
+  for i in range(1,m+1):
+    print(sum(A[L[i]]-1),end=' ')
+    update(A[L[i]],-1)
+    A[L[i]]=m+1-i
+    update(A[L[i]],1)
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 22 : 조개 줍기](https://www.acmicpc.net/problem/14870)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-index-tree/BJ_14870.md/)
+
+{% tabs %}
+{% tab title='BJ_14870.md' %}
+
+> Question
+
+* D[i][j] = max sum from top left to i, j
+* each query increase or decrease a grid by 1
+
+```txt
+Input:
+3
+3 2 7
+4 2 6
+5 3 8
+U 1 2
+D 3 2
+U 1 2
+
+Output:
+107
+111
+110
+114
+```
+
+{% endtab %}
+{% tab title='BJ_14870.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+const int N = 1505;
+int n;
+ll a[N][N];
+
+struct BIT{
+  ll d[N][N], tot;
+  void upd(int x, int s, int e, ll v){
+    tot += v * (e - s + 1);
+    for(; s <= n; s += s & -s) d[x][s] += v;
+    for(e++; e <= n; e += e & -e) d[x][e] -= v;
+  }
+  ll get(int x, int y){
+    int r = 0;
+    for(; y; y -= y & -y) r += d[x][y];
+    return r;
+  }
+} B;
+
+int main(){
+  ios_base::sync_with_stdio(false); cin.tie(NULL);
+  cin >> n;
+  for(int i = 1; i <= n; i++){
+    for(int j = 1; j <= n; j++){
+      cin >> a[i][j];
+      B.upd(i, j, j, a[i][j] + max(B.get(i - 1, j), B.get(i, j - 1)));
+    }
+  }
+  cout << B.tot << endl;
+  auto dp = [](int x, int y){ return max(B.get(x - 1, y), B.get(x, y - 1)) + a[x][y]; };
+  for(int t = 0, x, y; t < n; t++){
+    char b[3];
+    cin >> b >> x >> y;
+    b[0] = (b[0] == 'U' ? 1 : -1);
+    a[x][y] += b[0];
+    int s = y, e = y + 1;
+    for(int i = x; i <= n && s < e; i++){
+      for(; s <= n; s++) if(dp(i, s) != B.get(i, s)) break;
+      B.upd(i, s, e - 1, b[0]);
+      for(; e <= n; e++){
+        if(dp(i, e) == B.get(i, e)) break;
+        B.upd(i, e, e, b[0]);
+      }
+    }
+    cout << B.tot << endl;
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 3 : Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-index-tree/LC_315.md/)
+
+{% tabs %}
+{% tab title='LC_315.md' %}
+
+> Question
+
+* Given an integer array nums and you have to return a new counts array
+* The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i]
+
+```txt
+Input: nums = [5,2,6,1]
+Output: [2,1,1,0]
+```
+
+{% endtab %}
+{% tab title='LC_315.py' %}
+
+```py
+class BIT:
+  def __init__(self, n):
+    self.n = n + 1
+    self.sums = [0] * self.n
+
+  def update(self, i, delta):
+    while i < self.n:
+      self.sums[i] += delta
+      i += i & (-i)
+
+  def query(self, i):
+    res = 0
+    while i > 0:
+      res += self.sums[i]
+      i -= i & (-i)
+    return res
+
+def countSmaller(self, li):
+  ranks, bit, ret = {e : i + 1 for i, e in enumerate(sorted(li))}, self.BIT(len(li)), []
+  for e in reversed(li):
+    ret.append(bit.query(ranks[e] - 1))
+    bit.update(ranks[e], 1)
+  return ret[::-1]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Reverse Pairs](https://leetcode.com/problems/reverse-pairs)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-index-tree/LC_493.md/)
+
+{% tabs %}
+{% tab title='LC_493.md' %}
+
+> Question
+
+* Given an integer array nums, return the number of reverse pairs in the array.
+* A reverse pair is a pair (i, j) where 0 <= i < j < nums.length and nums[i] > 2 * nums[j].
+
+```txt
+Input: nums = [2,4,3,5,1]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_493.py' %}
+
+```py
+class BIT:
+  def __init__(self, n):
+    self.n = n + 1
+    self.sums = [0] * self.n
+
+  def update(self, i, delta):
+    while i < self.n:
+      self.sums[i] += delta
+      i += i & (-i)
+
+  def query(self, i):
+    res = 0
+    while i > 0:
+      res += self.sums[i]
+      i -= i & (-i)
+    return res
+
+def reversePairs(self, nums):
+  # BIT O(nlogn)
+  new_nums = nums + [x * 2 for x in nums]
+  sorted_set = sorted(list(set(new_nums)))
+  tree = self.BIT(len(sorted_set))
+  res = 0
+  ranks = {}
+  for i, n in enumerate(sorted_set):
+    ranks[n] = i + 1
+
+  for n in nums[::-1]:
+    res += tree.query(ranks[n] - 1)
+    tree.update(ranks[n * 2], 1)
+
+  return res
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,74 @@
+> baekjoon
+
+* [Level 18 : 님 게임](https://www.acmicpc.net/problem/11694)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sprague-grundy/BJ_11694.md/)
+
+{% tabs %}
+{% tab title='BJ_11694.md' %}
+
+> Question
+
+* Find winner of nim game if last person who remove stone piles loses
+
+```txt
+Input:
+4
+1 2 3 4
+
+Output: koosaga
+```
+
+> Solution
+
+* XOR sum
+
+{% endtab %}
+{% tab title='BJ_11694.py' %}
+
+```py
+input()
+stone = list(map(int,input().split()))
+res = stone[0]
+for i in range(1, len(stones)):
+  res ^= stone[i]
+if max(stone) == 1:
+  print("koosaga" if res!=1 else "cubelover")
+else:
+  print("koosaga" if res else "cubelover")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 18 : 다각형 게임](https://www.acmicpc.net/problem/13034)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sprague-grundy/BJ_13034.md/)
+
+{% tabs %}
+{% tab title='BJ_13034.md' %}
+
+> Question
+
+* Print winner of game (first person 1, second person 2)
+* Draw line from two vertex in convex-polygon without crossing existing lines
+* Loses when no possible move
+
+```txt
+Input: 15
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_13034.py' %}
+
+```py
+nimber = [0,0,1]
+for n in range(3, 1001):
+  T = {nimber[j]^nimber[n-j-2] for j in range(n-1)}
+  for x in range(123123):
+    if x not in T: nimber.append(x); break
+
+print(1 if nimber[int(input())] else 2)
+```
+
+{% endtab %}
+{% endtabs %}

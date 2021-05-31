@@ -1,0 +1,247 @@
+> baekjoon
+
+* [Level 1 : 16진수](https://www.acmicpc.net/problem/1550)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/BJ_1550.md/)
+
+{% tabs %}
+{% tab title='BJ_1550.md' %}
+
+> Question
+
+* Convert hex to decimal
+
+```txt
+Input: A
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_1550.py' %}
+
+```py
+print(int(input(), 16))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 8진수 2진수](https://www.acmicpc.net/problem/1212)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/BJ_1212.md/)
+
+{% tabs %}
+{% tab title='BJ_1212.md' %}
+
+> Question
+
+* Print oct to binary
+
+```txt
+Input: 314
+Output: 11001100
+```
+
+{% endtab %}
+{% tab title='BJ_1212.py' %}
+
+```py
+n = int(input(), 8)
+print(bin(n)[2:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 9진수](https://www.acmicpc.net/problem/14491)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/BJ_14491.md/)
+
+{% tabs %}
+{% tab title='BJ_14491.md' %}
+
+> Question
+
+* convert to base-9 number system
+
+```txt
+Input: 100
+Output: 121
+```
+
+{% endtab %}
+{% tab title='BJ_14491.py' %}
+
+```py
+N = int(input())
+ret = count = 0
+while N > 0:
+  ret += N % 9 * pow(10, count)
+  count += 1
+  N //= 9
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 8진수, 10진수, 16진수](https://www.acmicpc.net/problem/11816)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/BJ_11816.md/)
+
+{% tabs %}
+{% tab title='BJ_11816.md' %}
+
+> Question
+
+* print oct or hex or dec in decimal
+
+```txt
+Input: 010
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_11816.py' %}
+
+```py
+line = input()
+if line[0] == '0':
+  if line[1] == 'x':
+    print(int(line, 16))
+  else:
+    print(int(line, 8))
+else:
+  print(line)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 2진수 8진수](https://www.acmicpc.net/problem/1373)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/BJ_1373.md/)
+
+{% tabs %}
+{% tab title='BJ_1373.md' %}
+
+> Question
+
+* Convert binary into oct
+
+```txt
+Input: 11001100
+Output: 314
+```
+
+{% endtab %}
+{% tab title='BJ_1373.py' %}
+
+```py
+print(oct(int(input(), 2))[2:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 진법 변환 2](https://www.acmicpc.net/problem/11005)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/BJ_11005.md/)
+
+{% tabs %}
+{% tab title='BJ_11005.md' %}
+
+> Question
+
+* Print decimal into B's number
+
+```txt
+Input: 60466175 36
+Output: ZZZZZ
+```
+
+{% endtab %}
+{% tab title='BJ_11005.py' %}
+
+```py
+a, b = map(int, input().split())
+conv = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ret = ""
+while a != 0:
+  ret = conv[a % b] + ret
+  a //= b
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 8진수](https://www.acmicpc.net/problem/2998)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/BJ_2998.md/)
+
+{% tabs %}
+{% tab title='BJ_2998.md' %}
+
+> Question
+
+* Convert binary to oct
+
+```txt
+Input: 1010
+Output: 12
+```
+
+{% endtab %}
+{% tab title='BJ_2998.py' %}
+
+```py
+print(oct(int(input(), 2))[2:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.9 : Oktalni](https://open.kattis.com/problems/oktalni)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/KT_oktalni.md/)
+
+[//]: # (BJ_2998)
+
+> leetcode
+
+* [Level 3 : Serialize and Deserialize N-ary Tree](https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/LC_428.md/)
+
+{% tabs %}
+{% tab title='LC_428.md' %}
+
+> Question
+
+* Design an algorithm to serialize and deserialize an N-ary tree
+
+```txt
+Input: root = [1,null,3,2,4,null,5,6]
+Output: [1,null,3,2,4,null,5,6]
+```
+
+{% endtab %}
+{% tab title='LC_428.py' %}
+
+```py
+class Codec:
+  def serialize(self, root):
+    if not root:
+        return []
+
+    if not root.children:
+        return root.val
+
+    return [root.val, [self.serialize(c) for c in root.children]]
+
+  def deserialize(self, data):
+    if data == []:
+        return None
+
+    if isinstance(data, int):
+      return Node(data, [])
+
+    return Node(val = data[0], children = [self.deserialize(c) for c in data[1]])
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,312 @@
+> baekjoon
+
+* [Level 15 : 구간 곱 구하기](https://www.acmicpc.net/problem/11505)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/segment-tree/BJ_11505.md/)
+
+{% tabs %}
+{% tab title='BJ_11505.md' %}
+
+> Question
+
+* N, M (<= 10000) changes, K (<= 10000) Query
+* Type 1 (1, b, c)
+  * Change A[b] to c
+* Type 2 (2, b, c)
+  * Print product between A[b .. c]
+
+```txt
+Input:
+5 2 2
+1
+2
+3
+4
+5
+1 3 6
+2 2 5
+1 5 2
+2 3 5
+
+Output:
+240
+48
+```
+
+{% endtab %}
+{% tab title='BJ_11505.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+
+def update(i, v):
+  tree[i]=v
+  while i>1:
+    tree[i // 2] = (tree[i] * tree[i ^ 1]) % MOD
+    i //= 2
+
+def query(l,r):
+  res = 1
+  while l < r:
+    if l & 1:
+      res *= tree[l]
+      l += 1
+    if r & 1:
+      r -= 1
+      res *= tree[r]
+    l >>= 1
+    r >>= 1
+  return res % MOD
+
+MOD = 10 ** 9 + 7
+n, m, k = map(int, input().split())
+tree = [1] * (2 * n + 10)
+for i in range(n + 1, 2 * n + 1):
+  tree[i] = int(input())
+for i in range(n, 0, -1):
+  tree[i] = (tree[2 * i] * tree[2 * i + 1]) % MOD
+
+for _ in range(m + k):
+  a, b, c=map(int, input().split())
+  if a==1:
+    update(n+b,c)
+  else:
+    print(query(n+b,n+c+1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : Counting Inversions](https://www.acmicpc.net/problem/10090)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/segment-tree/BJ_10090.md/)
+
+{% tabs %}
+{% tab title='BJ_10090.md' %}
+
+> Question
+
+* Two integers in а permutation form an inversion, when the bigger one is before the smaller one
+* Count number of inversion
+
+```txt
+Input:
+7
+4 2 7 1 5 6 3
+
+Output: 10    # 42 / 41 / 43 / 21 / 71 / 75 / 76 / 73 / 53 / 63
+```
+
+{% endtab %}
+{% tab title='BJ_10090.py' %}
+
+```py
+class SegmentTree:
+  def __init__(self, nums):
+    self.N = len(nums)
+    self.tree = [0] * self.N + nums
+    for i in range(self.N - 1, 0, -1):
+      self.tree[i] = self.tree[i<<1] + self.tree[i<<1|1]
+
+  def update(self, i, val):
+    n = self.N + i
+    self.tree[n] = val
+    while n > 1:
+      self.tree[n>>1] = self.tree[n] + self.tree[n^1]
+      n >>= 1
+
+  def sumRange(self, i, j):
+    m, n = self.N + i, self.N + j
+    res = 0
+    while m <= n:
+      if m & 1:
+        res += self.tree[m]
+        m += 1
+      m >>= 1
+      if n & 1 ==0:
+        res += self.tree[n]
+        n -= 1
+      n >>= 1
+    return res
+N, res = int(input()), 0
+st = SegmentTree([0] * (N + 1))
+
+for n in map(int, input().split()):
+  st.update(n, 1)
+  res += st.sumRange(n + 1, N)
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 공장](https://www.acmicpc.net/problem/7578)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/segment-tree/BJ_7578.md/)
+
+{% tabs %}
+{% tab title='BJ_7578.md' %}
+
+> Question
+
+* Given two list each number belongs to a pair, print number of cross cables
+
+```txt
+Input:
+5
+132 392 311 351 231
+392 351 132 311 231
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_7578.py' %}
+
+```py
+N = int(input())
+A, t = list(map(int,input().split())), list(map(int,input().split()))
+B = {t[i] : i + 1 for i in range(N)}
+tree, ret = [0] * (N + 1), 0
+def Sum(i):
+  ans = 0
+  while i > 0:
+    ans += tree[i]
+    i -= (i & -i)
+  return ans
+
+def update(i,dif):
+  while i <= N:
+    tree[i] += dif
+    i += (i & -i)
+
+for i in range(N):
+  ix = B[A[i]]
+  ret += Sum(N) - Sum(ix)
+  update(ix, 1)
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 17 : 수열과 쿼리 21](https://www.acmicpc.net/problem/16975)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/segment-tree/BJ_16975.md/)
+
+{% tabs %}
+{% tab title='BJ_16975.md' %}
+
+> Question
+
+* Type 1 (1 i j k)
+  * Add k from Ai, ..., Aj
+* Type 2 (x)
+  * Print Ak
+
+```txt
+Input:
+5
+1 2 3 4 5
+4
+1 3 4 6
+2 3
+1 1 3 -2
+2 3
+
+Output:
+9
+7
+```
+
+{% endtab %}
+{% tab title='BJ_16975.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+
+def get(i):
+  ans = a[i - 1]
+  while i > 0:
+    ans += t[i]
+    i -= i & -i
+  return ans
+
+def update(i, v):
+  while i < n + 1:
+    t[i] += v
+    i += i & -i
+
+n = int(input())
+a = list(map(int, input().split()))
+t = [0] * (n + 1)
+
+for _ in range(int(input())):
+  q, *x = map(int, input().split())
+  if q == 1:
+    update(x[0], x[2])
+    if x[1] < n: update(x[1] + 1, -x[2])
+  else:
+    print(get(x[0]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/segment-tree/LC_307.md/)
+
+{% tabs %}
+{% tab title='LC_307.md' %}
+
+> Question
+
+* Design class with following methods
+  * NumArray(int[] nums) initializes the object with the integer array nums
+  * void update(int index, int val) updates the value of nums[index] to be val
+  * int sumRange(int left, int right) returns the sum of the subarray nums[left, right]
+    * (i.e., nums[left] + nums[left + 1], ..., nums[right])
+* At most 3 * 10^4 calls will be made to update and sumRange
+
+```txt
+Input:
+["NumArray", "sumRange", "update", "sumRange"]
+[[[1, 3, 5]], [0, 2], [1, 2], [0, 2]]
+
+Output: [null, 9, null, 8]
+```
+
+{% endtab %}
+{% tab title='LC_307.py' %}
+
+```py
+class NumArray(object):
+  def __init__(self, nums):
+    self.n = len(nums)
+    self.a, self.c = nums, [0] * (self.n + 1)
+    for i in range(self.n):
+      k = i + 1
+      while k <= self.n:
+        self.c[k] += nums[i]
+        k += (k & -k)
+
+  def update(self, i, val):
+    diff, self.a[i] = val - self.a[i], val
+    i += 1
+    while i <= self.n:
+      self.c[i] += diff
+      i += (i & -i)
+
+  def sumRange(self, i, j):
+    res, j = 0, j + 1
+    while j:
+      res += self.c[j]
+      j -= (j & -j)
+    while i:
+      res -= self.c[i]
+      i -= (i & -i)
+    return res
+```
+
+{% endtab %}
+{% endtabs %}

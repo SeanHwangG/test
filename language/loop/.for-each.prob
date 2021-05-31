@@ -1,0 +1,65 @@
+> baekjoon
+
+* [Level 3 : 핸드폰 요금](https://www.acmicpc.net/problem/1267)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-each/BJ_1267.md/)
+
+{% tabs %}
+{% tab title='BJ_1267.md' %}
+
+> Question
+
+* Type 1: 10 won every 30 (starts from 1)
+* Type 2: 60 won every 15 (starts from 1)
+* print chepare one
+
+```txt
+Input:
+3
+40 40 40
+
+Output: M 45
+```
+
+{% endtab %}
+{% tab title='BJ_1267.py' %}
+
+```py
+input()
+y = m = 0
+for p in map(int, input().split()):
+  y += p // 30 * 10 + 10
+  m += p // 60 * 15 + 15
+print('M' if y > m else 'Y' if y<m else 'Y M', min(y, m))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 그릇](https://www.acmicpc.net/problem/7567)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-each/BJ_7567.md/)
+
+{% tabs %}
+{% tab title='BJ_7567.md' %}
+
+> Question
+
+* Add 10 if it's same as previous or add 5
+
+```txt
+Input: (((()
+Output: 35
+```
+
+{% endtab %}
+{% tab title='BJ_7567.py' %}
+
+```py
+r, b = 0, '.'
+for n in input():
+  r += 10 if b != n else 5
+  b=n
+print(r)
+```
+
+{% endtab %}
+{% endtabs %}

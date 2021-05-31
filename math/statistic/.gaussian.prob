@@ -1,0 +1,75 @@
+> hackerrank
+
+* [Level Easy : Day 5: Normal Distribution I](https://www.hackerrank.com/challenges/s10-normal-distribution-1/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/gaussian/HR_s10-normal-distribution-1.md/)
+
+{% tabs %}
+{% tab title='HR_s10-normal-distribution-1.md' %}
+
+> Question
+
+* time taken to assemble a car is a random variable, X having a normal distribution mean = 20 hours, STD = 2 hours
+* What is the probability that a car can be assembled at this plant in:
+  * Less than 19.5 hours?
+  * Between 20 and 22 hours?
+
+```txt
+Input:
+20 2
+19.5
+20 22
+
+Output:
+0.401
+0.341
+```
+
+{% endtab %}
+{% tab title='HR_s10-normal-distribution-1.py' %}
+
+```py
+import math
+mean, std = 20, 2
+cdf = lambda x: 0.5 * (1 + math.erf((x - mean) / (std * (2 ** 0.5))))
+
+print(f'{cdf(19.5):.3f}')         # Less than 19.5
+print(f'{cdf(22) - cdf(20):.3f}') # Between 20 and 22
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Day 5: Normal Distribution II](https://www.hackerrank.com/challenges/s10-normal-distribution-2/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/gaussian/HR_s10-normal-distribution-2.md/)
+
+{% tabs %}
+{% tab title='HR_s10-normal-distribution-2.md' %}
+
+> Question
+
+* grades for a exam taken by students have a mean of 70 and a STD of 10, find probabilities
+* higher than 80, 60 / lower than 60
+
+```txt
+Input: 70 10
+
+Output:
+80
+60
+```
+
+{% endtab %}
+{% tab title='HR_s10-normal-distribution-2.py' %}
+
+```py
+import math
+mean, std = 70, 10
+cdf = lambda x: 0.5 * (1 + math.erf((x - mean) / (std * (2 ** 0.5))))
+
+print(round((1 - cdf(80)) * 100, 2))
+print(round((1 - cdf(60)) * 100, 2))
+print(round((cdf(60)) * 100, 2))
+```
+
+{% endtab %}
+{% endtabs %}

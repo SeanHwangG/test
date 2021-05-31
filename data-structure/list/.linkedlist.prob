@@ -1,0 +1,525 @@
+> kattis
+
+* [Level 1.6 : Ptice](https://open.kattis.com/problems/ptice)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/KT_ptice.md/)
+
+{% tabs %}
+{% tab title='KT_Ptice.md' %}
+
+> Question
+
+* Repeat ABC, BABC, CCAABB
+* find whose sequence contains the most correct answers
+
+```txt
+Input:
+5
+BAACC
+
+Output:
+3
+Bruno
+```
+
+{% endtab %}
+{% tab title='KT_Ptice.py' %}
+
+```py
+length = int(input())
+li = list(input())
+a = ['A', 'B', 'C']
+b = ['B', 'A','B', 'C']
+g = ['C', 'C', 'A','A','B','B']
+scores = [0, 0 , 0]
+for i in range(length):
+  if li[i] == a[i % 3]:
+    scores[0] += 1
+  if li[i] == b[i % 4]:
+    scores[1] += 1
+  if li[i] == g[i % 6]:
+    scores[2] += 1
+
+print(max(scores))
+if max(scores) == scores[0]:
+  print('Adrian')
+if max(scores) == scores[1]:
+  print('Bruno')
+if max(scores) == scores[2]:
+  print('Goran')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Linked List Cycle](https://leetcode.com/problems/linked-list-cycle)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_141.md/)
+
+{% tabs %}
+{% tab title='LC_141.md' %}
+
+> Question
+
+* Check if linkedlist has cycle
+
+```txt
+Input: head = [3,2,0,-4], pos = 1
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_141.py' %}
+
+```py
+def hasCycle(self, head):
+  try:
+    slow = head
+    fast = head.next
+    while slow is not fast:
+      slow = slow.next
+      fast = fast.next.next
+    return True
+  except:
+    return False
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Reverse Linked List](https://leetcode.com/problems/reverse-linked-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_206.md/)
+
+{% tabs %}
+{% tab title='LC_206.md' %}
+
+> Question
+
+* Reverse linked list
+
+```txt
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+```
+
+{% endtab %}
+{% tab title='LC_206.js' %}
+
+```js
+var reverseList = function(head) {
+  let [prev, current] = [null, head]
+  while (current) {
+    [current.next, prev, current] = [prev, current, current.next]
+  }
+  return prev
+}
+```
+
+{% endtab %}
+{% tab title='LC_206.py' %}
+
+```py
+def reverseList(self, head: ListNode) -> ListNode:
+  if head == None:    return None
+  prev = None
+  while head.next != None:
+    nxt = head.next
+    head.next = prev
+    prev, head = head, nxt
+  head.next = prev
+  return head
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_21.md/)
+
+{% tabs %}
+{% tab title='LC_21.md' %}
+
+> Question
+
+* Merge two linked lists
+
+```txt
+Input: l1 = [1,2,4], l2 = [1,3,4]
+Output: [1,1,2,3,4,4]
+```
+
+{% endtab %}
+{% tab title='LC_21.cpp' %}
+
+```cpp
+ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
+  ListNode dummy(INT_MIN);
+  ListNode *tail = &dummy;
+  while (l1 && l2) {
+    if (l1->val < l2->val) {
+      tail->next = l1;
+      l1 = l1->next;
+    } else {
+      tail->next = l2;
+      l2 = l2->next;
+    }
+    tail = tail->next;
+  }
+
+  tail->next = l1 ? l1 : l2;
+  return dummy.next;
+}
+
+```
+
+{% endtab %}
+{% tab title='LC_21.py' %}
+
+```py
+def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+  dummy = cur = ListNode(0)
+  while l1 and l2:
+    if l1.val < l2.val:
+      cur.next = l1
+      l1 = l1.next
+    else:
+      cur.next = l2
+      l2 = l2.next
+    cur = cur.next
+  cur.next = l1 or l2
+  return dummy.next
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_876.md/)
+
+{% tabs %}
+{% tab title='LC_876.md' %}
+
+> Question
+
+* Print middle node in linked list
+
+```txt
+Input: [1,2,3,4,5,6]
+Output: Node 4 from this list (Serialization: [4,5,6])
+```
+
+{% endtab %}
+{% tab title='LC_876.py' %}
+
+```py
+def middleNode(self, head: ListNode) -> ListNode:
+  slow, fast = head, head
+  while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
+  return slow
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_109.md/)
+
+{% tabs %}
+{% tab title='LC_109.md' %}
+
+> Question
+
+* make BST from sorted linked list
+
+```txt
+Input: head = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+```
+
+{% endtab %}
+{% tab title='LC_109.py' %}
+
+```py
+def sortedListToBST(self, head):
+  if not head:
+    return
+  if not head.next:
+    return TreeNode(head.val)
+
+  slow, fast = head, head.next.next
+  while fast and fast.next:
+    fast = fast.next.next
+    slow = slow.next
+  tmp = slow.next
+
+  slow.next = None
+  root = TreeNode(tmp.val)
+  root.left = self.sortedListToBST(head)
+  root.right = self.sortedListToBST(tmp.next)
+  return root
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_138.md/)
+
+{% tabs %}
+{% tab title='LC_138.md' %}
+
+> Question
+
+* linked list of length n is given st each node contains an random pointer, which could point to any node in list, or null
+* Construct a deep copy of the list
+
+```txt
+Input: head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+Output: [[7,null],[13,0],[11,4],[10,2],[1,0]]
+```
+
+{% endtab %}
+{% tab title='LC_138.py' %}
+
+```py
+class Solution:
+  def copyRandomList(self, head: 'Node') -> 'Node':
+    # create new nodes
+    node = head
+    while node:
+      node.random, node = Node(node.val, node.random, None), node.next
+    # populate random field of the new node
+    node = head
+    while node:
+      node.random.random, node = node.random.next.random if node.random.next else None, node.next
+    # restore original list and build new list
+    head_copy, node = head.random if head else None, head
+    while node:
+      node.random.next, node.random, node = node.next.random if node.next else None, node.random.next, node.next
+    return head_copy
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_142.md/)
+
+{% tabs %}
+{% tab title='LC_142.md' %}
+
+> Question
+
+* Given a linked list, return the node where the cycle begins. If there is no cycle, return null
+
+```txt
+Input: head = [3,2,0,-4], pos = 1
+Output: tail connects to node index 1
+```
+
+{% endtab %}
+{% tab title='LC_142.py' %}
+
+```py
+def detectCycle(self, head):
+  try:
+    fast = head.next
+    slow = head
+    while fast is not slow:
+      fast = fast.next.next
+      slow = slow.next
+  except:
+    return None
+
+  slow = slow.next
+  while head is not slow:
+    head = head.next
+    slow = slow.next
+  return head
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Reorder List](https://leetcode.com/problems/reorder-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_143.md/)
+
+{% tabs %}
+{% tab title='LC_143.md' %}
+
+> Question
+
+* Given head of a singly linked-list. The list can be represented as:
+  * Reorder the list to be on the following form:
+  * L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+
+```txt
+Input: head = [1,2,3,4]
+Output: [1,4,2,3]
+```
+
+{% endtab %}
+{% tab title='LC_143.py' %}
+
+```py
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+  def reorderList(self, head):
+    # find the mid point
+    slow = fast = head
+    while fast and fast.next:
+      slow = slow.next
+      fast = fast.next.next
+
+    # reverse the second half in-place
+    pre, node = None, slow
+    while node:
+      pre, node.next, node = node, pre, node.next
+
+    # Merge in-place; Note : the last node of "first" and "second" are the same
+    first, second = head, pre
+    while second.next:
+      first.next, first = second, first.next
+      second.next, second = first, second.next
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_19.md/)
+
+{% tabs %}
+{% tab title='LC_19.md' %}
+
+> Question
+
+* Remove nth node from end
+
+```txt
+Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+```
+
+{% endtab %}
+{% tab title='LC_19.cpp' %}
+
+```cpp
+class Solution {
+public:
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode* node = head, *offsetNode = head;
+    for (int i = 0; i < n; ++i) node = node->next;
+    if (node == NULL) return head->next;
+    while (node->next != NULL) {
+      node = node->next;
+      offsetNode = offsetNode->next;
+    }
+    offsetNode->next = offsetNode->next->next;
+    return head;
+  }
+};
+```
+
+{% endtab %}
+{% tab title='LC_19.py' %}
+
+```py
+def removeNthFromEnd(self, head, n):
+  fast = slow = head
+  for _ in range(n):
+    fast = fast.next
+  if not fast:
+    return head.next
+  while fast.next:
+    fast = fast.next
+    slow = slow.next
+  slow.next = slow.next.next
+  return head
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Add Two Numbers](https://leetcode.com/problems/add-two-numbers)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_2.md/)
+
+{% tabs %}
+{% tab title='LC_2.md' %}
+
+> Question
+
+* Add two linked list number
+
+```txt
+Input: l1 = [2,4,3], l2 = [5,6,4]
+Output: [7,0,8]
+```
+
+{% endtab %}
+{% tab title='LC_2.py' %}
+
+```py
+def addTwoNumbers(self, l1, l2):
+  carry = 0
+  res = n = ListNode(0)
+  while l1 or l2 or carry:
+    if l1:
+      carry += l1.val
+      l1 = l1.next
+    if l2:
+      carry += l2.val
+      l2 = l2.next
+    carry, val = divmod(carry, 10)
+    n.next = n = ListNode(val)
+  return res.next
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Rotate List](https://leetcode.com/problems/rotate-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_61.md/)
+
+{% tabs %}
+{% tab title='LC_61.md' %}
+
+> Question
+
+* Given the head of a linked list, rotate the list to the right by k places
+
+```txt
+Input: head = [1,2,3,4,5], k = 2
+Output: [4,5,1,2,3]
+```
+
+{% endtab %}
+{% tab title='LC_61.py' %}
+
+```py
+def rotateRight(self, head: ListNode, k: int) -> ListNode:
+  if not head:
+    return None
+  old_last = head
+  length = 1
+  while old_last.next:
+    old_last = old_last.next
+    length += 1
+  k = k % length
+  old_last.next = head
+  new_last = head
+  for _ in range(length - k - 1):
+    new_last = new_last.next
+  answer = new_last.next
+  new_last.next = None
+  return answer
+```
+
+{% endtab %}
+{% endtabs %}

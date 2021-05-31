@@ -1,0 +1,401 @@
+> baekjoon
+
+* [Level 3 : 서버](https://www.acmicpc.net/problem/10409)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_10409.md/)
+
+{% tabs %}
+{% tab title='BJ_10409.md' %}
+
+> Question
+
+* Find number of jobs can be finished in with given time
+
+```txt
+Input:
+6 180
+45 30 55 20 80 20
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_10409.py' %}
+
+```py
+n, T = map(int, input().split())
+times = list(map(int, input().split()))
+count = 0
+for time in times:
+  T -= time
+  if T < 0:
+    break
+  count += 1
+print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 2018 연세대학교 프로그래밍 경진대회](https://www.acmicpc.net/problem/15667)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_15667.md/)
+
+{% tabs %}
+{% tab title='BJ_15667.md' %}
+
+> Question
+
+* 처음 발사된 폭죽이 만든 하나의 대형 불꽃은 적당한 높이에 도달하면 화려한 폭발과 함께 K개의 중형 불꽃으로 갈라진다
+* 각 K개의 중형 불꽃은 다시 각각 K개의 소형 불꽃으로 갈라지며 터진다
+* 그 이후 모든 불꽃은 소멸한다
+* 폭죽이 만들 모든 불꽃의 개수가 주어지면 K의 값을 찾아보도록 하자
+
+```txt
+Input: 21
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_15667.py' %}
+
+```py
+N = int(input())-1
+for x in range(1000):
+  if x * (x + 1) == N:
+    print(x)
+    break
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 암호제작](https://www.acmicpc.net/problem/1837)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_1837.md/)
+
+{% tabs %}
+{% tab title='BJ_1837.md' %}
+
+> Question
+
+* A password that have divisor less than K is BAD password
+
+```txt
+Input: 143 10
+Output: GOOD
+```
+
+{% endtab %}
+{% tab title='BJ_1837.py' %}
+
+```py
+a, b = map(int, input().split())
+for n in range(2, b):
+  if a % n == 0:
+    print("BAD", n)
+    break
+else:
+  print("GOOD")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 터널의 입구와 출구](https://www.acmicpc.net/problem/5612)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_5612.md/)
+
+{% tabs %}
+{% tab title='BJ_5612.md' %}
+
+> Question
+
+* \# vehicles passing in one minute at the entrance and exit of Namsan Tunnel 1 was investigated
+* \# cars passing through entrance and # cars passing through exit in one minute from (i-1) minutes have passed
+* At this time, find out how many vehicles there were when there were the most vehicles in the tunnel
+
+```txt
+Input:
+3
+2
+2 3
+2 3
+4 1
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_5612.py' %}
+
+```py
+n = int(input())
+m = res = int(input())
+for _ in range(n):
+  a,b = map(int, input().split())
+  m += a - b
+  res = max(m,res)
+  if m < 0:
+    print(0)
+    break
+else:
+  print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 분해합](https://www.acmicpc.net/problem/2231)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_2231.md/)
+
+{% tabs %}
+{% tab title='BJ_2231.md' %}
+
+> Question
+
+* The decomposition sum of the natural numbers N means the sum of each digit of N and N
+* If the decomposition sum of any natural number of M is N, M is called the constructor of N
+* Given a natural number of N, find the smallest constructor of N
+
+```txt
+Input: 216
+Output: 198
+```
+
+{% endtab %}
+{% tab title='BJ_2231.py' %}
+
+```py
+N = int(input())
+print_num = 0
+for i in range(N+1):
+  sum_num = i + sum(map(int, str(i)))
+  if sum_num == N:
+    print(i)
+    break
+else:
+  print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 수 뒤집기](https://www.acmicpc.net/problem/3062)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_3062.md/)
+
+{% tabs %}
+{% tab title='BJ_3062.md' %}
+
+> Question
+
+* Check whether original and original + reversed is palindrome
+
+```txt
+Input:
+4
+13
+58
+120
+5056
+
+Output:
+YES
+NO
+YES
+NO
+```
+
+{% endtab %}
+{% tab title='BJ_3062.py' %}
+
+```py
+for _ in range(int(input())):
+  n = input()
+  s = str(int(n) + int(n[::-1]))
+  for i in range(0, len(s)//2):
+    if(s[i]!=s[len(s)-i-1]):
+      print('NO')
+      break
+  else:
+    print('YES')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 가장 큰 금민수](https://www.acmicpc.net/problem/1526)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_1526.md/)
+
+{% tabs %}
+{% tab title='BJ_1526.md' %}
+
+> Question
+
+* print biggest number under N, that consists of 4 or 7
+
+```txt
+Input: 100
+Output: 77
+```
+
+{% endtab %}
+{% tab title='BJ_1526.py' %}
+
+```py
+n = int(input())
+for i in range(n, 3, -1):
+  if all([(s == '4' or s == '7') for s in str(i)]):
+    print(i)
+    break
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 설탕 배달](https://www.acmicpc.net/problem/2839)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_2839.md/)
+
+{% tabs %}
+{% tab title='BJ_2839.md' %}
+
+> Question
+
+* Given 3, 5kg bags, find fewest number of bags
+
+```txt
+Input: 18
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_2839.py' %}
+
+```py
+N = int(input())
+for i in range(0, N + 1, 3):
+  if (N - i) % 5 == 0:
+    print(i // 3 + (N - i) // 5)
+    break
+else:
+  print(-1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 슈퍼 마리오](https://www.acmicpc.net/problem/2851)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_2851.md/)
+
+{% tabs %}
+{% tab title='BJ_2851.md' %}
+
+> Question
+
+* If you stopped eating mushrooms in the middle, you can not eat all of the mushrooms that have come since then
+* Mario tries to make the sum of the scores he receives as close as possible to 100
+
+```txt
+Input:
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+
+Output: 100
+```
+
+{% endtab %}
+{% tab title='BJ_2851.py' %}
+
+```py
+m = []
+score = 0
+for i in range(10):
+  m.append(int(input()))
+for j in m:
+  score += j
+  if score >= 100:
+    if score - 100 > 100 - (score - j):
+      score -= j
+    break
+print(score)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 등수 구하기](https://www.acmicpc.net/problem/1205)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_1205.md/)
+
+{% tabs %}
+{% tab title='BJ_1205.md' %}
+
+> Question
+
+* Sorted N scores on the list are given, and new scores are given
+* At this time, find out what the new score ranks on the ranking list
+* If the score is too low to be on the ranking list, print -1
+
+```txt
+Input:
+3 90 10
+100 90 80
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1205.py' %}
+
+```py
+N, score, p = map(int, input().split())
+if N == 0:
+  print(1)
+  exit()
+li = list(map(int, input().split()))
+if len(li) >= p and li[p - 1] >= score:
+  print(-1)
+else:
+  li += [-1]
+  for i in range(p):
+    if li[i] <= score:
+      print(i + 1)
+      break
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 거스름돈](https://www.acmicpc.net/problem/14916)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-break/BJ_14916.md/)
+
+{% tabs %}
+{% tab title='BJ_14916.md' %}
+
+> Question
+
+* Find minum number of coin to exchange back when you have 2, 5 won
+
+```txt
+Input: 13
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_14916.py' %}
+
+```py
+N = int(input())
+for i in range(0, N + 1, 2):
+  if (N - i) % 5 == 0:
+    print(i // 2 + (N - i) // 5)
+    break
+else:
+  print(-1)
+```
+
+{% endtab %}
+{% endtabs %}

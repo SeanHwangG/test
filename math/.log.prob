@@ -1,0 +1,148 @@
+> baekjoon
+
+* [Level 3 : 지수연산](https://www.acmicpc.net/problem/2052)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/log/BJ_2052.md/)
+
+{% tabs %}
+{% tab title='BJ_2052.md' %}
+
+> Question
+
+* print 2 ** -n up to n preciesion
+
+```txt
+Input: 5
+Output: 0.03125
+```
+
+{% endtab %}
+{% tab title='BJ_2052.py' %}
+
+```py
+n = int(input())
+print(f'{2 ** (-n):.{n}f}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 만취한 상범](https://www.acmicpc.net/problem/6359)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/log/BJ_6359.md/)
+
+{% tabs %}
+{% tab title='BJ_6359.md' %}
+
+> Question
+
+* print floor of square root of number
+
+```txt
+Input:
+2
+5
+100
+
+Output:
+2
+10
+```
+
+{% endtab %}
+{% tab title='BJ_6359.py' %}
+
+```py
+for i in range(int(input())):
+  print(int(int(input())**0.5))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Tetration](https://open.kattis.com/problems/tetration)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/log/KT_tetration.md/)
+
+{% tabs %}
+{% tab title='KT_tetration.md' %}
+
+> Question
+
+* 첫 줄에 n 이 주어진다
+* n^(1 / n) 을 출력하라
+
+```txt
+Input: 2.000000
+Output: 1.414214
+```
+
+{% endtab %}
+{% tab title='KT_tetration.py' %}
+
+```py
+n = float(input())
+print(n ** (1/n))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2.0 : 3D Printed Statues](https://open.kattis.com/problems/3dprinter)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/log/KT_3dprinter.md/)
+
+{% tabs %}
+{% tab title='KT_3dprinter.md' %}
+
+> Question
+
+* You can make 3d printer or prodcut using 3d printer
+* What is the minimum possible number of days needed to print at least 𝑛 statues?
+
+```txt
+Input: 5
+Output: 4
+```
+
+{% endtab %}
+{% tab title='KT_3dprinter.py' %}
+
+```py
+from math import ceil, log
+line = int(input())
+print(int(ceil(log(line, 2) + 1)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Sqrt(x)](https://leetcode.com/problems/sqrtx)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/log/LC_69.md/)
+
+{% tabs %}
+{% tab title='LC_69.md' %}
+
+> Question
+
+* Implement sqrt function
+
+> Solution
+
+* Newton's method
+
+$$ x_{k + 1} = \frac{1}{2} (x_k+\frac{n}{x_k}), k \geq 0, x_0 > 0 $$
+
+{% endtab %}
+{% tab title='LC_69.py' %}
+
+```py
+def mySqrt(self, x: int) -> int:
+  r = x
+  while r * r > x:
+    r = (r + x / r) / 2
+  return r
+```
+
+{% endtab %}
+{% endtabs %}

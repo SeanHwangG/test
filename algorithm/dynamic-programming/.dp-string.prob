@@ -1,0 +1,397 @@
+> baekjoon
+
+* [Level 11 : LC](https://www.acmicpc.net/problem/9251)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/BJ_9251.md/)
+
+{% tabs %}
+{% tab title='BJ_9251.md' %}
+
+> Question
+
+* Find Longest Common Subsequence
+
+```txt
+Input:
+ACAYKP
+CAPCAK
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_9251.py' %}
+
+```py
+S1 = input()
+S2 = input()
+dp = [[0] * (len(S2) + 1) for _ in range(len(S1) + 1)]
+for i, c1 in enumerate(S1):
+  for j, c2 in enumerate(S2):
+    if c1 == c2:
+      dp[i + 1][j + 1] = dp[i][j] + 1
+    else:
+      dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])
+print(dp[-1][-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : LCS 2](https://www.acmicpc.net/problem/9252)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/BJ_9252.md/)
+
+{% tabs %}
+{% tab title='BJ_9252.md' %}
+
+> Question
+
+* Find length of longest common subsequence
+
+```txt
+Input:
+ACAYKP
+CAPCAK
+
+Output: 4  # ACAK
+```
+
+{% endtab %}
+{% tab title='BJ_9252.py' %}
+
+```py
+S1 = input()
+S2 = input()
+dp = [[""] * (len(S2) + 1) for _ in range(len(S1) + 1)]
+for i, c1 in enumerate(S1):
+  for j, c2 in enumerate(S2):
+    if c1 == c2:
+      dp[i + 1][j + 1] = dp[i][j] + c1
+    else:
+      if len(dp[i][j + 1]) > len(dp[i + 1][j]):
+        dp[i + 1][j + 1] = dp[i][j + 1]
+      else:
+        dp[i + 1][j + 1] = dp[i + 1][j]
+print(len(dp[-1][-1]))
+print(dp[-1][-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : LCS 3](https://www.acmicpc.net/problem/1958)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/BJ_1958.md/)
+
+{% tabs %}
+{% tab title='BJ_1958.md' %}
+
+> Question
+
+* Find LCS of three string
+
+```txt
+Input:
+abcdefghijklmn
+bdefg
+efg
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1958.py' %}
+
+```py
+A, B, C = input(), input(), input()
+dp = [[[0] * (len(C) + 1) for j in range(len(B) + 1)] for k in range(len(A) + 1)]
+for i, a in enumerate(A):
+  for j, b in enumerate(B):
+    for k, c in enumerate(C):
+      if a == b == c:
+        dp[i + 1][j + 1][k + 1] = dp[i][j][k] + 1
+      else:
+        dp[i + 1][j + 1][k + 1] = max(dp[i][j + 1][k + 1], dp[i + 1][j][k + 1], dp[i + 1][j + 1][k], \
+                                      dp[i][j][k + 1], dp[i + 1][j][k], dp[i][j + 1][k])
+print(dp[-1][-1][-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Shortest Distance to a Character](https://leetcode.com/problems/shortest-distance-to-a-character)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_821.md/)
+
+{% tabs %}
+{% tab title='LC_821.md' %}
+
+> Question
+
+* Find closest occurrence of character c in s
+
+```txt
+Input: s = "loveleetcode", c = "e"
+Output: [3,2,1,0,1,0,0,1,2,2,1,0]
+```
+
+{% endtab %}
+{% tab title='LC_821.py' %}
+
+```py
+def shortestToChar(self, S: str, C: str) -> List[int]:
+  ret = [0 if s == C else len(S) for s in S]
+  for i in range(1, len(S)):
+    ret[i] = min(ret[i - 1] + 1, ret[i])
+  for i in range(len(S) - 2, -1, -1):
+    ret[i] = min(ret[i + 1] + 1, ret[i])
+  return ret
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Word Break](https://leetcode.com/problems/word-break)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_139.md/)
+
+{% tabs %}
+{% tab title='LC_139.md' %}
+
+> Question
+
+* Given a string s and a dictionary of strings wordDict
+* return true if s can be segmented into a space-separated sequence of one or more dictionary words
+
+```txt
+Input: s = "applepenapple", wordDict = ["apple","pen"]
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_139.py' %}
+
+```py
+def wordBreak(self, s: str, words: List[str]) -> bool:
+  dp, words_set, max_len = [True], set(words), len(max(words, key=len)) if words else 0
+  for i in range(1, len(s) + 1):
+    dp += any(dp[j] and s[j:i] in words_set for j in range(max(0, i - max_len), i)),
+  return dp[-1]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_5.md/)
+
+{% tabs %}
+{% tab title='LC_5.md' %}
+
+> Question
+
+* Given a string s, return the longest palindromic substring in s
+
+{% endtab %}
+{% tab title='LC_5.java' %}
+
+```java
+// Time: O(N^2), Space : O(N)
+public String longestPalindrome(String s) {
+  int max = 0, idx = 0;
+  for (int i = 0; i < s.length(); i++) {
+    int len1 = extend(s, i, i), len2 = extend(s, i, i + 1);
+    if (max < Math.max(len1, len2)) {
+      idx = (len1 > len2) ? (i - len1 / 2) : (i - len2 / 2 + 1);
+      max = Math.max(len1, len2);
+    }
+  }
+  return s.substring(idx, idx + max);
+}
+
+private int extend(String s, int i, int j) {
+  for (; i >= 0 && j < s.length(); i--, j++)
+    if (s.charAt(i) != s.charAt(j)) break;
+  return j - i - 2 + 1; // 2 means current two unmatched char
+}
+```
+
+{% endtab %}
+{% tab title='LC_5.py' %}
+
+```py
+# Time: O(N), Space : O(N)
+def longestPalindrome(self, s): # Manacher algorithm
+  T = '#'.join(f'^{s}$') # (example, S = "abba", T = "^#a#b#b#a#$")
+  P = [0] * len(T)
+  C = R = 0
+  for i in range (1, len(T)-1):
+    P[i] = (R > i) and min(R - i, P[2 * C - i]) # equals to i' = C - (i-C)
+    while T[i + 1 + P[i]] == T[i - 1 - P[i]]: # Attempt to expand palindrome centered at i
+      P[i] += 1
+
+    # If palindrome centered at i expand past R, adjust center based on expanded palindrome.
+    if i + P[i] > R:
+      C, R = i, i + P[i]
+
+  max_len, center_i = max(in, i) for i, n in enumerate(P)) # Find the maximum element in P
+  return s[(center_i  - max_len) // 2: (center_i  + maxien)//2]
+
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_516.md/)
+
+{% tabs %}
+{% tab title='LC_516.md' %}
+
+> Question
+
+* Given a string s, find the longest palindromic subsequence's length in s
+
+{% endtab %}
+{% tab title='LC_516.cpp' %}
+
+```cpp
+// Time, Space: O(N^2), O(N)
+int longestPalindromeSubseq(string s) {
+  vector<int> dp(s.size(), 1);
+  for (int j = 0; j < s.size(); ++j) {
+    int prev = 0;
+    for (int i = j - 1; i >= 0; --i) {
+      int tmp = dp[i];
+      if (s[i] == s[j]) dp[i] = 2 + prev;
+      else              dp[i] = max(dp[i + 1], dp[i]);
+      prev = tmp;
+    }
+  }
+  return dp[0];
+}
+```
+
+{% endtab %}
+{% tab title='LC_516.py' %}
+
+```py
+# Time, Space O(N^2), O(N^2)
+@lru_cache(None)
+def longestPalindromeSubseq(self, s):
+  recurse = lambda i, j: 1 if i == j else 2 + self.longestPalindromeSubseq(s[i+1:j])
+  return max((recurse(s.find(ch), s.rfind(ch)) for ch in set(s)), default=0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Maximum Length of Repeated Subarray](https://leetcode.com/problems/maximum-length-of-repeated-subarray)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_718.md/)
+
+{% tabs %}
+{% tab title='LC_718.md' %}
+
+> Question
+
+* Given two integer arrays nums1 and nums2, return the maximum length of a subarray that appears in both arrays
+
+```txt
+Input: nums1 = [1,2,3,2,1], nums2 = [3,2,1,4,7]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_718.py' %}
+
+```py
+def findLength(self, A, B):
+  dp = [[0 for _ in range(len(B) + 1)] for _ in range(len(A) + 1)]
+  for i in range(1, len(A) + 1):
+    for j in range(1, len(B) + 1):
+      if A[i - 1] == B[j - 1]:
+        dp[i][j] = dp[i - 1][j - 1] + 1
+  return max(max(row) for row in dp)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Palindrome Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_132.md/)
+
+{% tabs %}
+{% tab title='LC_132.md' %}
+
+> Question
+
+* Given a string s, partition s such that every substring of the partition is a palindrome
+* Return the minimum cuts needed for a palindrome partitioning of s
+
+```txt
+Input: s = "aab"
+Output: 1
+```
+
+> Solution
+
+* Generate 2d palindrome table with l index and r indices (N^2 space)
+* dp[n] stores the minimum number of cuts s[0: n] (N space)
+
+{% endtab %}
+{% tab title='LC_132.py' %}
+
+```py
+# Time : O(N^2), Space : O(N)
+def minCut(self, s: str) -> int:
+  dp = list(range(-1, len(s)))
+  for m in range(1, len(s)):
+    for l, r in (m, m), (m - 1, m):
+      while l >= 0 and r < len(s) and s[l] == s[r]:
+        dp[r + 1] = min(dp[r + 1], dp[l] + 1)
+        l -= 1
+        r += 1
+  return dp[-1]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Count Different Palindromic Subsequences](https://leetcode.com/problems/count-different-palindromic-subsequences)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_730.md/)
+
+{% tabs %}
+{% tab title='LC_730.md' %}
+
+> Question
+
+* Given a string s, find # different non-empty palindromic subsequences in s, and return that number modulo 10^9 + 7
+
+```txt
+Input: s = 'bccb'
+Output: 6
+```
+
+> Solution
+
+* Given l and r index of palindrome, the number is dp[l + 1][r - 1] + 2
+* Improve using another two dps instead of index, rindex
+
+{% endtab %}
+{% tab title='LC_730.py' %}
+
+```py
+def countPalindromicSubsequences(self, S: str) -> int:
+  dp = [[0] * len(S) for _ in range(len(S))]
+  for size in range(1, len(S) + 1):
+    for i in range(len(S) - size + 1):
+      for c in "abcd":
+        try:
+          l, r = S.index(c, i, i + size), S.rindex(c, i, i + size)
+          if l == r: dp[i][i + size - 1] += 1
+          else:      dp[i][i + size - 1] += dp[l + 1][r - 1] + 2
+        except:
+          pass
+  return dp[0][-1] % 1000000007
+```
+
+{% endtab %}
+{% endtabs %}

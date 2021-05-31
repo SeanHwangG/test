@@ -1,0 +1,337 @@
+> baekjoon
+
+* [Level 1 : ×B](https://www.acmicpc.net/problem/10998)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_10998.md/)
+
+{% tabs %}
+{% tab title='BJ_10998.md' %}
+
+> Question
+
+* Print a * b
+
+```txt
+Input: 3 5
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_10998.sh' %}
+
+```sh
+read A B
+echo $((A*B))
+```
+
+{% endtab %}
+{% tab title='BJ_10998.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a * b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 큰 수 곱셈](https://www.acmicpc.net/problem/13277)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_13277.md/)
+
+{% tabs %}
+{% tab title='BJ_13277.md' %}
+
+> Question
+
+* print a * b
+
+```txt
+Input: 5 3
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_13277.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a * b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 이상한 기호](https://www.acmicpc.net/problem/15964)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_15964.md/)
+
+{% tabs %}
+{% tab title='BJ_15964.md' %}
+
+> Question
+
+* Print (a + b) * (a - b)
+
+```txt
+Input: 5 3
+Output: 16
+```
+
+{% endtab %}
+{% tab title='BJ_15964.sh' %}
+
+```sh
+read a b
+echo $(((a+b)*(a-b)))
+```
+
+{% endtab %}
+{% tab title='BJ_15964.py' %}
+
+```py
+a, b = map(int, input().split())
+print((a+b)*(a-b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : ats](https://www.acmicpc.net/problem/18301)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_18301.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* a, b, c 가 주어질 때, a + 1 와 b + 1 의 곱을 c + 1로 나눈 몫에 1를 뺀 수를 출력하라
+
+```txt
+Input: 15 18 11
+Output: 24
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print((a + 1) * (b + 1) // (c + 1) - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : ite Score](https://www.acmicpc.net/problem/20254)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_20254.md/)
+
+{% tabs %}
+{% tab title='BJ_20254.md' %}
+
+> Question
+
+* print sum of 56 \* a, 24 \* b, 14 \* c, 6 \* d
+
+```txt
+Input: 1 10 100 1000
+Output: 7696
+```
+
+{% endtab %}
+{% tab title='BJ_20254.py' %}
+
+```py
+a, b, c, d = map(int, input().split())
+print(56 * a + 24 * b + 14 * c + 6 * d)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 긴자리 계산](https://www.acmicpc.net/problem/2338)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_2338.md/)
+
+{% tabs %}
+{% tab title='BJ_2338.md' %}
+
+> Question
+
+* Given two integers a and b, print a + b, a - b, a * b in each line
+
+```txt
+Input:
+1
+-1
+
+Output:
+0
+2
+-1
+```
+
+{% endtab %}
+{% tab title='BJ_2338.py' %}
+
+```py
+a = int(input())
+b = int(input())
+print(a + b)
+print(a - b)
+print(a * b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 파티가 끝나고 난 뒤](https://www.acmicpc.net/problem/2845)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_2845.md/)
+
+{% tabs %}
+{% tab title='BJ_2845.md' %}
+
+> Question
+
+* Given L, P and five number print L * P - each number
+
+```txt
+Input:
+5 20
+99 101 1000 0 97
+
+Output: -1 1 900 -100 -3
+```
+
+{% endtab %}
+{% tab title='BJ_2845.py' %}
+
+```py
+w, h = map(int, input().split())
+a, b, c, d, e = map(int, input().split())
+r = w * h
+print(a - r, b - r, c - r, d - r, e - r)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 2](https://www.acmicpc.net/problem/3046)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_3046.md/)
+
+{% tabs %}
+{% tab title='BJ_3046.md' %}
+
+> Question
+
+* Print 2 * b - a
+
+```txt
+Input: 4 2
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_3046.py' %}
+
+```py
+a, b = map(int, input().split())
+print((2 * b) - a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 초콜릿 자르기](https://www.acmicpc.net/problem/2163)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_2163.md/)
+
+{% tabs %}
+{% tab title='BJ_2163.md' %}
+
+> Question
+
+* Given width, height of chocolate, find minimum number of breaks to make all single piece
+
+```txt
+Input: 2 2
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2163.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a * b - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level nr : 별 찍기 - 14](https://www.acmicpc.net/problem/2556)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_2556.md/)
+
+{% tabs %}
+{% tab title='BJ_2556.md' %}
+
+> Question
+
+* Print star in square
+
+```txt
+Input: 2
+
+Output:
+**
+**
+```
+
+{% endtab %}
+{% tab title='BJ_2556.js' %}
+
+```js
+t = +(require('fs').readFileSync('/dev/stdin')+'')
+console.log(('*'.repeat(t) + '\n').repeat(t))
+```
+
+{% endtab %}
+{% tab title='BJ_2556.py' %}
+
+```py
+n=int(input())
+print(('*' * n + '\n') * n)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Faktor](https://open.kattis.com/problems/faktor)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/KT_faktor.md/)
+
+{% tabs %}
+{% tab title='KT_faktor.md' %}
+
+> Question
+
+* a, b, c 는 모두 정수이다
+* ceil(c / a) = b 이다. ceil(1) = 1, ceil(1.1) = 2, ceil(0.9) = 1
+* a, b가 주어졌을때 c의 최솟값을 구하여라
+
+```txt
+Input: 38 24
+Output: 875
+```
+
+{% endtab %}
+{% tab title='KT_faktor.py' %}
+
+```py
+a, b = map(int, input().split())
+print((b - 1) * a + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : R2](https://open.kattis.com/problems/r2)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/KT_r2.md/)
+
+[//]: # (BJ_3046)

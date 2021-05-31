@@ -1,0 +1,446 @@
+> baekjoon
+
+* [Level 9 : 유기농 배추](https://www.acmicpc.net/problem/1012)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/floodfill/BJ_1012.md/)
+
+{% tabs %}
+{% tab title='BJ_1012.md' %}
+
+> Question
+
+* Find number of island
+
+```txt
+Input:
+1
+5 3 6
+0 2
+1 2
+2 2
+3 2
+4 2
+4 0
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1012.py' %}
+
+```py
+from collections import deque
+def floodfill(G, r, c):
+  dq = deque([(r, c)])
+  G[r][c] = 0
+  while len(dq) != 0:
+    r, c = dq.popleft()
+    for nr, nc in ([r, c + 1], [r, c - 1], [r + 1, c], [r - 1, c]):
+      if 0 <= nr < len(G) and 0 <= nc < len(G[0]) and G[nr][nc] == 1:
+        G[nr][nc] = 0
+        dq.append((nr, nc))
+n_test = int(input())
+for _ in range(n_test):
+  N, M, E = map(int, input().split())
+  G = [[0] * M for _ in range(N)]
+  for _ in range(E):
+    r, c = map(int, input().split())
+    G[r][c] = 1
+
+  count = 0
+  for i in range(N):
+    for j in range(M):
+      if G[i][j]:
+        floodfill(G, i, j)
+        count += 1
+  print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 그림](https://www.acmicpc.net/problem/1926)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/floodfill/BJ_1926.md/)
+
+{% tabs %}
+{% tab title='BJ_1926.md' %}
+
+> Question
+
+* Print out the number of paintings on the first row and the widest of them on the second row
+
+```txt
+Input:
+6 5
+1 1 0 1 1
+0 1 1 0 0
+0 0 0 0 0
+1 0 1 1 1
+0 0 1 1 1
+0 0 1 1 1
+
+Output:
+4
+9
+```
+
+{% endtab %}
+{% tab title='BJ_1926.py' %}
+
+```py
+from collections import deque
+def floodfill(G, r, c):
+  dq, visited = deque([(r, c)]), set([(r, c)])
+  G[r][c] = 0
+  while len(dq) != 0:
+    r, c = dq.popleft()
+    for nr, nc in ([r, c + 1], [r, c - 1], [r + 1, c], [r - 1, c]):
+      if 0 <= nr < len(G) and 0 <= nc < len(G[0]) and G[nr][nc] == 1:
+        G[nr][nc] = 0
+        visited.add((nr, nc))
+        dq.append((nr, nc))
+  return len(visited)
+N, M = map(int, input().split())
+G = [list(map(int, input().split())) for _ in range(N)]
+mx_size, count = 0, 0
+for i in range(N):
+  for j in range(M):
+    if G[i][j] == 1:
+      count += 1
+      mx_size = max(mx_size, floodfill(G, i, j))
+
+print(count)
+print(mx_size)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 적록색약](https://www.acmicpc.net/problem/10026)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/floodfill/BJ_10026.md/)
+
+{% tabs %}
+{% tab title='BJ_10026.md' %}
+
+> Question
+
+* When a picture is given as an input, find the number of zones when a person who is a red-green drug sees and when not
+
+```txt
+Input:
+5
+RRRBB
+GGBBB
+BBBRR
+BBRRR
+RRRRR
+
+Output:
+4 3
+```
+
+{% endtab %}
+{% tab title='BJ_10026.py' %}
+
+```py
+N = int(input())
+G = [list(input()) for _ in range(N)]
+cb_G = deepcopy(G)
+count = 0
+for r in range(N):
+  for c in range(N):
+    if G[r][c] != '_':
+      floodfill(G, r, c, G[r][c])
+      count += 1
+print(count, end=' ')
+cb_count = 0
+for r in range(N):
+  for c in range(N):
+    if cb_G[r][c] != '_':
+      floodfill(cb_G, r, c, 'RG' if cb_G[r][c] != 'B' else 'B')
+      cb_count += 1
+print(cb_count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Surrounded Regions](https://leetcode.com/problems/surrounded-regions)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/floodfill/LC_130.md/)
+
+{% tabs %}
+{% tab title='LC_130.md' %}
+
+> Question
+
+* Given an m x n matrix board containing 'X' and 'O', capture all regions surrounded by 'X'
+
+```txt
+Input: board =
+[["X","X","X","X"],
+["X","O","O","X"],
+["X","X","O","X"],
+["X","O","X","X"]]
+
+Output:
+[["X","X","X","X"],
+["X","X","X","X"],
+["X","X","X","X"],
+["X","O","X","X"]]
+```
+
+{% endtab %}
+{% tab title='LC_130.py' %}
+
+```py
+def solve(self, G):
+  n, m = len(G), len(G[0])
+  boardFilter = lambda (i, j): 0 <= i < n and 0 <= j < m and G[i][j] == 'O'
+  queue = filter(boardFilter, [x for i in range(max(n, m)) for x in ((i, 0), (i, m - 1), (0, i), (n - 1, i))])
+  while queue:
+    x, y = queue.pop()
+    G[x][y] = 'M'
+    queue.extend(filter(boardFilter, [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]))
+  G[:] = [['XO'[x == 'M'] for x in row] for row in G]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Number of Islands](https://leetcode.com/problems/number-of-islands)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/floodfill/LC_200.md/)
+
+{% tabs %}
+{% tab title='LC_200.md' %}
+
+> Question
+
+* Find number of island
+
+```txt
+Input: grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_200.cpp' %}
+
+```cpp
+int numIslands(vector<vector<char>>& grid) {
+  int m = grid.size(), n = m ? grid[0].size() : 0, islands = 0;
+  for (int i = 0; i < m; i++)
+    for (int j = 0; j < n; j++)
+      if (grid[i][j] == '1') {
+        islands++;
+        floodfill(grid, i, j);
+      }
+  return islands;
+}
+void floodfill(vector<vector<char>>& grid, int i, int j) {
+  int m = grid.size(), n = grid[0].size();
+  if (i < 0 || i == m || j < 0 || j == n || grid[i][j] == '0')
+    return;
+  grid[i][j] = '0';
+  floodfill(grid, i - 1, j);
+  floodfill(grid, i + 1, j);
+  floodfill(grid, i, j - 1);
+  floodfill(grid, i, j + 1);
+}
+```
+
+{% endtab %}
+{% tab title='LC_200.py' %}
+
+```py
+def numIslands(self, grid):
+  def floodfill(i, j):
+    if 0 <= i < len(grid) and 0 <= j < len(grid[i]) and grid[i][j] == '1':
+      grid[i][j] = '0'
+      list(map(floodfill, (i+1, i-1, i, i), (j, j, j+1, j-1)))
+      return 1
+    return 0
+  return sum(floodfill(i, j) for i in range(len(grid)) for j in range(len(grid[i])))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Shortest Bridge](https://leetcode.com/problems/shortest-bridge)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/floodfill/LC_934.md/)
+
+{% tabs %}
+{% tab title='LC_934.md' %}
+
+> Question
+
+* In given 2D binary array A, there are two islands (4-directionally connected group of 1s not connected to any other 1s)
+* Now, we may change 0s to 1s so as to connect the two islands together to form 1 island
+* Return the smallest number of 0s that must be flipped.  (It is guaranteed that the answer is at least 1.)
+
+```txt
+Input: A =
+[[1,1,1,1,1],
+ [1,0,0,0,1],
+ [1,0,1,0,1],
+ [1,0,0,0,1],
+ [1,1,1,1,1]]
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_934.py' %}
+
+```cpp
+int paint(vector<vector<int>>& A, int i, int j) {
+  if (i < 0 || j < 0 || i == A.size() || j == A.size() || A[i][j] != 1) return 0;
+  A[i][j] = 2;
+  return 1 + paint(A, i + 1, j) + paint(A, i - 1, j) + paint(A, i, j + 1) + paint(A, i, j - 1);
+}
+bool expand(vector<vector<int>>& A, int i, int j, int cl) {
+  if (i < 0 || j < 0 || i == A.size() || j == A.size()) return false;
+  if (A[i][j] == 0) A[i][j] = cl + 1;
+  return A[i][j] == 1;
+}
+int shortestBridge(vector<vector<int>>& A) {
+  for (int i = 0, found = 0; !found && i < A.size(); ++i)
+    for (int j = 0; !found && j < A[0].size(); ++j) found = paint(A, i, j);
+
+  for (int cl = 2;; ++cl)
+    for (int i = 0; i < A.size(); ++i)
+      for (int j = 0; j < A.size(); ++j)
+        if (A[i][j] == cl && ((expand(A, i - 1, j, cl) || expand(A, i, j - 1, cl) || expand(A, i + 1, j, cl) \
+                            || expand(A, i, j + 1, cl))))
+            return cl - 2;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Number of Distinct Islands II](https://leetcode.com/problems/number-of-distinct-islands-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/floodfill/LC_711.md/)
+
+{% tabs %}
+{% tab title='LC_711.md' %}
+
+> Question
+
+* An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical)
+* island is considered to be the same as another if they have same shape, or have same shape after rotation or reflection
+
+```txt
+Input:
+grid =
+[[1,1,0,0,0],
+ [1,0,0,0,0],
+ [0,0,0,0,1],
+ [0,0,0,1,1]]
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_711.py' %}
+
+```py
+class Solution(object):
+  def dfs(self, G, r, c, shape):
+    G[r][c] = 0
+    shape.append((r, c))
+    for nr, nc in [(r, c - 1), (r - 1, c), (r, c + 1), (r + 1, c)]:
+      if 0 <= nr < len(G) and 0 <= nc < len(G[0]) and G[nr][nc] != 0:
+        self.dfs(G, nr, nc, shape)
+
+  def normalize(self, shape):
+    rotated_shapes, norm_res = [[] for _ in range(8)], []
+
+    for x, y in shape:
+      rotated_shapes[0].append((x, y))
+      rotated_shapes[1].append((-x, y))
+      rotated_shapes[2].append((x, -y))
+      rotated_shapes[3].append((-x, -y))
+      rotated_shapes[4].append((y, x))
+      rotated_shapes[5].append((-y, x))
+      rotated_shapes[6].append((y, -x))
+      rotated_shapes[7].append((-y, -x))
+
+    for rs in rotated_shapes:
+      rs.sort()
+      tmp = [(0, 0)]
+      for i in range(1, len(rs)):
+        tmp.append((rs[i][0] - rs[0][0], rs[i][1] - rs[0][1]))
+      norm_res.append(tmp[:])
+    norm_res.sort()
+
+    return tuple(norm_res[0])
+
+  def numDistinctIslands2(self, G: list[list[int]]) -> int:
+    res = set()
+    for r in range(0, len(G)):
+      for c in range(0, len(G[0])):
+        if G[r][c] == 1:
+          shape = []
+          self.dfs(G, r, c, shape)
+          norm = self.normalize(shape)
+          res.add(norm)
+
+    return len(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Making A Large Island](https://leetcode.com/problems/making-a-large-island)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/floodfill/LC_827.md/)
+
+{% tabs %}
+{% tab title='LC_827.md' %}
+
+> Question
+
+* Given an n x n binary matrix grid. You are allowed to change at most one 0 to be 1
+* Return the size of the largest island in grid after applying this operation
+* An island is a 4-directionally connected group of 1s
+
+```txt
+Input: grid = [[1,1],[1,0]]
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_827.cpp' %}
+
+```cpp
+int get(int i, int j, vector<vector<int>>& g) {
+  return (i < 0 || j < 0 || i >= g.size() || j >= g[0].size()) ? 0 : g[i][j];
+}
+int paint(int i, int j, int clr, vector<vector<int>>& g) {
+  if (get(i, j, g) != 1) return 0;
+  g[i][j] = clr;
+  return 1 + paint(i + 1, j, clr, g) + paint(i - 1, j, clr, g) + paint(i, j + 1, clr, g) + paint(i, j - 1, clr, g);
+}
+int largestIsland(vector<vector<int>>& g) {
+  int res = 0;
+  vector<int> sizes = { 0, 0 }; // sentinel values; colors start from 2.
+  for (auto i = 0; i < g.size(); ++i)
+    for (auto j = 0; j < g[i].size(); ++j)
+      if (g[i][j] == 1) sizes.push_back(paint(i, j, sizes.size(), g));
+  for (auto i = 0; i < g.size(); ++i)
+    for (auto j = 0; j < g[i].size(); ++j)
+      if (g[i][j] == 0) {
+        unordered_set<int> s = { get(i + 1, j, g), get(i - 1, j, g), get(i, j + 1, g), get(i, j - 1, g) };
+        res = max(res, 1 + accumulate(begin(s), end(s), 0, [&](int a, int b) {return a + sizes[b];}));
+      }
+  return res == 0 ? g.size() * g[0].size(): res;
+}
+```
+
+{% endtab %}
+{% endtabs %}

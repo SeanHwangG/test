@@ -1,0 +1,1007 @@
+> baekjoon
+
+* [Level 3 : 종이접기](https://www.acmicpc.net/problem/16504)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_16504.md/)
+
+{% tabs %}
+{% tab title='BJ_16504.md' %}
+
+> Question
+
+* Find sum of given 2d array
+
+```txt
+Input:
+2
+1 2 3
+-1 -3 2
+
+Output: 0
+```
+
+{% endtab %}
+{% tab title='BJ_16504.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int N; cin >> N;
+  long long ans = 0;
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < N; j++) {
+      int x; cin >> x;
+      ans += x;
+    }
+  }
+  cout << ans << "\n";
+}
+```
+
+{% endtab %}
+{% tab title='BJ_16504.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+agg = 0
+for _ in range(int(input())):
+  agg += sum(map(int, inp().split()))
+print(agg)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 최댓값](https://www.acmicpc.net/problem/2566)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_2566.md/)
+
+{% tabs %}
+{% tab title='BJ_2566.md' %}
+
+> Question
+
+* The maximum value is printed on first line, and row number and column number
+* where maximum value is located on second line, are printed in order with blanks between them
+* If there is more than one maximum value, print the location of one of them
+
+```txt
+Input:
+3 23 85 34 17 74 25 52 65
+10 7 39 42 88 52 14 72 63
+87 42 18 78 53 45 18 84 53
+34 28 64 85 12 16 75 36 55
+21 77 45 35 28 75 90 76 1
+25 87 65 15 28 11 37 28 74
+65 27 75 41 7 89 78 64 39
+47 47 70 45 23 65 3 41 44
+87 13 82 38 31 12 29 29 80
+
+Output:
+90
+5 7
+```
+
+{% endtab %}
+{% tab title='BJ_2566.py' %}
+
+```py
+G = []
+for _ in range(9):
+  G.append(list(map(int, input().split())))
+mx, mr, mc = 0, 0, 0
+for r in range(9):
+  for c in range(9):
+    if mx < G[r][c]:
+      mx = G[r][c]
+      mr, mc = r + 1, c + 1
+print(mx)
+print(mr, mc)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 색종이](https://www.acmicpc.net/problem/10163)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_10163.md/)
+
+{% tabs %}
+{% tab title='BJ_10163.md' %}
+
+> Question
+
+![BJ_10163](dimension-2/images/20210305_165449.png)
+
+* Print visible area of all rectangles
+
+{% endtab %}
+{% tab title='BJ_10163.py' %}
+
+```py
+N = int(input())
+G = [[0] * 1001 for _ in range(1001)]
+for i in range(1, N + 1):
+  a, b, c, d = map(int, input().split())
+  for r in range(a, a + c):
+    for c in range(b, b + d):
+      G[r][c] = i
+
+for i in range(1, N + 1):
+  print(sum(li.count(i) for li in G))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 세로읽기](https://www.acmicpc.net/problem/10798)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_10798.md/)
+
+{% tabs %}
+{% tab title='BJ_10798.md' %}
+
+> Question
+
+* When words are given on the blackboard, print the letters in the order they are read vertically
+
+```txt
+Input:
+ABCDE
+abcde
+01234
+FGHIJ
+fghij
+
+Output: Aa0FfBb1GgCc2HhDd3IiEe4Jj
+```
+
+{% endtab %}
+{% tab title='BJ_10798.py' %}
+
+```py
+li = [input() for _ in range(5)]
+for i in range(15):
+  for j in range(5):
+    if i < len(li[j]):
+      print(li[j][i], end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 준오는 조류혐오야!!](https://www.acmicpc.net/problem/14647)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_14647.md/)
+
+{% tabs %}
+{% tab title='BJ_14647.md' %}
+
+> Question
+
+* Get rid of row or column with most number of 9s written across all rows and columns and find number of remaining 9
+
+{% endtab %}
+{% tab title='BJ_14647.cpp' %}
+
+```cpp
+#include<iostream>
+using namespace std;
+int max_val;
+int arr[500][500];
+int row[500], col[500];
+int sum;
+
+int func(int num) {
+  int cnt = 0;
+  while (num) {
+    if (num % 10== 9) cnt++;
+    num /= 10;
+  }
+  return cnt;
+}
+
+int main() {
+  cin.tie(0);
+  cin.sync_with_stdio(false);
+  int n, m;
+  cin >> n >> m;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      cin >> arr[i][j];
+      row[i] += func(arr[i][j]);
+      col[j] += func(arr[i][j]);
+      sum += func(arr[i][j]);
+    }
+  }
+  for (int i = 0; i < n; i++)
+    if (row[i] > max_val) max_val = row[i];
+
+  for (int j = 0; j < m; j++)
+    if (col[j] > max_val) max_val = col[j];
+
+  cout << sum - max_val <<endl;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_14647.py' %}
+
+```py
+n, m=map(int, input().split())
+a=[]
+for _ in range(n):
+  for i in input().split():
+    a.append(i.count('9'))
+print(sum(a)-max(max([sum(a[m*i:m*i+m]) for i in range(n)]), max([sum(a[i:n*m:m]) for i in range(m)])))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 파스칼의 삼각형](https://www.acmicpc.net/problem/16395)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_16395.md/)
+
+{% tabs %}
+{% tab title='BJ_16395.md' %}
+
+> Question
+
+* Given a Pascal's triangle, outputs the k-th number in the nth row
+
+```txt
+Input: 5 3
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_16395.py' %}
+
+```py
+pascal = [[1 for _ in range(i)] for i in range(1, 31)]
+
+for i in range(2, 30):
+  for j in range(1, i):
+    pascal[i][j] = pascal[i-1][j-1] + pascal[i-1][j]
+
+n, k = map(int, input().split())
+print(pascal[n-1][k-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 주디와 당근농장](https://www.acmicpc.net/problem/16433)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_16433.md/)
+
+{% tabs %}
+{% tab title='BJ_16433.md' %}
+
+> Question
+
+* You can plant up to one carrot in each compartment
+* if you have a carrot in one compartment, you can't plant it in the adjacent compartments
+* Print result compartment
+
+```txt
+Input: 4 2 3
+Output:
+.v.v
+v.v.
+.v.v
+v.v.
+```
+
+{% endtab %}
+{% tab title='BJ_16433.py' %}
+
+```py
+n,r,c = map(int,input().split())
+for y in range(n):
+  print(*['v' if x%2 ^ y%2 == r%2 ^ c%2 else '.' for x in range(n)], sep='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 누울 자리를 찾아라](https://www.acmicpc.net/problem/1652)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_1652.md/)
+
+{% tabs %}
+{% tab title='BJ_1652.md' %}
+
+> Question
+
+![BJ_1652.md](dimension-2/images/20210305_170037.png)
+
+* Find number places unique 1x2 or 2x1 white rectangle
+
+```txt
+Input:
+5
+....X
+..XX.
+.....
+.XX..
+X....
+
+Output: 5 4
+```
+
+{% endtab %}
+{% tab title='BJ_1652.py' %}
+
+```py
+a = int(input())
+G = []
+for i in range(a):
+  G.append(input() + 'X')
+G.append('X' * (a + 1))
+hor, ver = 0, 0
+for i in range(a):
+  for j in range(a - 1):
+    if G[i][j] == '.' and G[i][j + 1] == '.' and G[i][j + 2] == 'X':
+      hor += 1
+    if G[j][i] == '.' and G[j + 1][i] == '.' and G[j + 2][i] == 'X':
+      ver += 1
+print(hor, ver)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 아스키 아트](https://www.acmicpc.net/problem/17072)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_17072.md/)
+
+{% tabs %}
+{% tab title='BJ_17072.md' %}
+
+> Question
+
+![BJ_17072](dimension-2/images/20210305_232714.png)
+
+* Convert to picture
+
+```txt
+Input:
+16 11
+0 0 0 0 254 255 249 255 248 245 255 244 254 255 249 255 241 255 255 237 255 255 244 253 255 255 239 255 255 243 255 249 255
+0 0 0 0 255 251 213 255 241 83 145 106 229 255 242 235 255 255 223 255 255 226 255 255 244 255 253 255 250 248 255 251 255
+0 0 0 0 255 248 191 255 224 64 161 92 74 152 100 191 255 236 178 255 244 55 158 115 222 255 249 254 255 253 255 255 251
+251 248 255 244 255 248 92 147 92 74 163 83 60 168 83 53 165 89 59 166 96 64 161 94 77 155 97 223 255 234 241 255 246
+240 255 255 255 251 255 255 253 241 217 255 217 60 170 83 64 160 86 216 255 220 219 255 220 62 161 79 69 161 96 238 255 251
+0 0 253 255 246 255 255 249 255 227 255 246 193 255 216 74 156 94 226 255 241 91 148 115 63 159 98 199 255 230 239 255 250
+0 0 253 248 255 255 238 255 255 224 255 245 92 153 93 82 153 85 208 255 235 207 255 250 218 255 251 237 255 248 252 255 253
+0 0 255 252 255 246 241 255 224 122 137 78 117 131 52 75 115 19 94 150 61 112 139 88 255 247 243 255 237 255 255 248 255
+255 240 255 255 244 216 128 91 13 239 186 92 135 85 0 119 95 0 217 197 82 246 184 101 174 57 39 255 219 243 255 236 255
+255 229 250 150 68 47 177 65 2 255 158 83 255 161 92 255 177 101 165 73 0 194 57 0 221 43 15 195 45 56 255 235 253
+255 224 238 171 63 63 202 46 33 241 31 16 241 29 18 195 42 28 169 57 37 255 213 193 230 27 20 215 40 45 255 231 239
+255 227 232 163 55 68 209 37 59 255 9 39 255 9 36 214 37 63 161 61 85 255 212 236 233 30 52 224 38 51 255 237 239
+255 240 236 149 58 65 212 36 56 255 15 40 255 15 36 210 35 52 160 58 79 173 50 78 215 30 61 202 39 58 255 240 243
+255 250 243 255 236 234 193 44 46 238 30 30 234 29 26 200 45 40 255 217 217 255 219 225 183 51 65 255 224 236 255 244 248
+243 255 249 255 246 242 255 230 228 171 56 53 179 54 48 180 53 47 173 54 50 158 63 61 255 237 236 255 248 249 255 255 255
+0 0 0 0 254 255 255 243 250 255 242 251 255 233 242 255 222 234 255 219 228 255 236 237 254 255 250 229 255 255 240 255 255
+
+Output:
+0000.......
+0000.......
+0000+..+...
+..+++++++..
+....++..++.
+00...+.++..
+.0..++.....
+00.++o++...
+0.o-oo--o..
+.oo---oooo.
+.oooooo.oo.
+.oooooo.oo.
+.ooooooooo.
+..oooo..o..
+...ooooo...
+0000.......
+```
+
+{% endtab %}
+{% tab title='BJ_17072.cpp' %}
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+  int n, m;
+  cin >> n >> m;
+  vector<vector<int>> li(n, vector<int>(m));
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      int r, g, b;
+      cin >> r >> g >> b;
+      li[i][j] = 2126 * r + 7152 * g + 722 * b;
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (li[i][j] < 510000)
+        cout << (char)35;
+      else if (li[i][j] < 1020000)
+        cout << (char)111;
+      else if (li[i][j] < 1530000)
+        cout << (char)43;
+      else if (li[i][j] < 2040000)
+        cout << (char)45;
+      else cout << (char)46;
+    }
+    cout << endl;
+  }
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_17072.py' %}
+
+```py
+n,m = map(int,input().split())
+for i in range(n):
+  l=[*map(int,input().split())]
+  s=''
+  for j in range(m):
+    r,g,b = l[3*j:3*j+3]
+    s+='#o+-..'[(2126*r+7152*g+722*b)//510000]
+  print(s)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 교수님 그림이 깨지는데요?](https://www.acmicpc.net/problem/20205)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_20205.md/)
+
+{% tabs %}
+{% tab title='BJ_20205.md' %}
+
+> Question
+
+* Enlarge picture
+
+```txt
+Input:
+2 2
+0 1
+1 0
+
+Output:
+0 0 1 1
+0 0 1 1
+1 1 0 0
+1 1 0 0
+```
+
+{% endtab %}
+{% tab title='BJ_20205.py' %}
+
+```py
+n,k=map(int,input().split())
+for _ in range(n):
+  l = [s for s in input().split()for _ in range(k)]
+  for _ in range(k):
+    print(*l)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 스캐너](https://www.acmicpc.net/problem/3035)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_3035.md/)
+
+{% tabs %}
+{% tab title='BJ_3035.md' %}
+
+> Question
+
+* Stretch picture
+
+```txt
+Input:
+3 3 1 2
+.x.
+x.x
+.x.
+
+Output:
+..xx..
+xx..xx
+..xx..
+```
+
+{% endtab %}
+{% tab title='BJ_3035.py' %}
+
+```py
+a,b,c,d = [int(x) for x in input().split()]
+e = []
+for _ in range(0, a):
+  e.append(input())
+for i in range(0, a):
+  for _ in range(0, c):
+    print(''.join([x*d for x in e[i]]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 체스판 다시 칠하기](https://www.acmicpc.net/problem/1018)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_1018.md/)
+
+{% tabs %}
+{% tab title='BJ_1018.md' %}
+
+> Question
+
+* minimum number of squares that need to be repainted to make as checker board
+
+```txt
+Input:
+10 13
+BBBBBBBBWBWBW
+BBBBBBBBBWBWB
+BBBBBBBBWBWBW
+BBBBBBBBBWBWB
+BBBBBBBBWBWBW
+BBBBBBBBBWBWB
+BBBBBBBBWBWBW
+BBBBBBBBBWBWB
+WWWWWWWWWWBWB
+WWWWWWWWWWBWB
+
+Output: 12
+```
+
+{% endtab %}
+{% tab title='BJ_1018.py' %}
+
+```py
+def block_cnt(r, c):
+  cntWB, cntBW = 0, 0
+  for i in range(r, r+8):
+    for j in range(c, c+8):
+      if (i - r + j - c) % 2 == 0:
+        if G[i][j] == 'B':  cntWB += 1
+        else:               cntBW += 1
+      else:
+        if G[i][j] == 'W':  cntWB += 1
+        else:               cntBW += 1
+  return min(cntWB, cntBW)
+min_change = N * M
+for i in range(N-7):
+  for j in range(M-7):
+    min_change = min(min_change, block_cnt(i, j))
+
+print(min_change)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 덩치](https://www.acmicpc.net/problem/7568)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_7568.md/)
+
+{% tabs %}
+{% tab title='BJ_7568.md' %}
+
+> Question
+
+* If the sizes of two people A and B are x > p and y > q, respectively, we say that A is "greater" than B
+* Print out the order of the order of the order of magnitude
+
+```txt
+Input:
+5
+55 185
+58 183
+88 186
+60 175
+46 155
+
+Output: 2 2 1 2 5
+```
+
+{% endtab %}
+{% tab title='BJ_7568.py' %}
+
+```py
+t=[(*map(int,input().split()),) for k in range(int(input()))]
+print(*(sum(x < p and y < q for p, q in t) + 1 for x, y in t))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 수열의 합](https://www.acmicpc.net/problem/5623)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/BJ_5623.md/)
+
+{% tabs %}
+{% tab title='BJ_5623.md' %}
+
+> Question
+
+* Given sum of all the two numbers of sequence A, time, output A
+
+```txt
+Input:
+4
+0 3 6 7
+3 0 5 6
+6 5 0 9
+7 6 9 0
+
+Output: 2 1 4 5
+```
+
+{% endtab %}
+{% tab title='BJ_5623.cpp' %}
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int arr[2][1000];
+int main() {
+  int n;
+  cin >> n;
+
+  for (int i = 0; i < 2; i++)
+    for (int j = 0; j < n; j++)
+      cin >> arr[i][j];
+
+  if (n == 2) {
+    if (arr[0][1] == 2) {
+      cout << "1 1";
+      return 0;
+    }
+  }
+  int a1 = (arr[0][1] + arr[0][2] - arr[1][2]) / 2;
+  cout << a1 << ' ';
+  for (int i = 1; i < n; i++)
+    cout <<(int)( arr[0][i] - a1) << ' ';
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_5623.py' %}
+
+```py
+n = int(input())
+if n == 2:
+  print(1, 1)
+else:
+  S = [list(map(int,input().split())) for i in range(n)]
+  for i in range(n):
+    j = (i + 1) % n
+    k = (i + 2) % n
+    print((S[i][j] + S[i][k] - S[j][k])//2, end=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Cudoviste](https://open.kattis.com/problems/cudoviste)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/KT_cudoviste.md/)
+
+{% tabs %}
+{% tab title='KT_cudoviste.md' %}
+
+> Question
+
+* N, M이 주어지고 N개의 라인의 주차장이 주어진다
+* 이 때 . 은 빈칸, '#' 은 건물, 'X' 는 다른 차량이다
+* 2x2의 차를 주차 할 때 0, 1, 2, 3, 4개의 차량을 치우고 댈 수 있는 가지 수를 각 라인에 출력하라
+
+```txt
+Input:
+4 4
+#..#
+..X.
+..X.
+#XX#
+
+Output:
+1
+1
+2
+1
+0
+```
+
+{% endtab %}
+{% tab title='KT_cudoviste.py' %}
+
+```py
+N, M = map(int, input().split())
+G = []
+for _ in range(N):
+  G.append(input())
+rets = [0, 0, 0, 0, 0]
+for i in range(1, N):
+  for j in range(1, M):
+    spaces = [G[i - 1][j - 1], G[i - 1][j], G[i][j - 1], G[i][j]]
+    if '#' in spaces:
+      continue
+    rets[spaces.count('X')] += 1
+for ret in rets:
+  print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Encoded Message](https://open.kattis.com/problems/encodedmessage)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/KT_encodedmessage.md/)
+
+{% tabs %}
+{% tab title='KT_encodedmessage.md' %}
+
+> Question
+
+![KT_encodedmessage](dimension-2/images/20210301_024150.png)
+
+* Encode as following
+
+{% endtab %}
+{% tab title='KT_encodedmessage.py' %}
+
+```py
+n = int(input())
+for _ in range(n):
+  s = input()
+
+  G = []
+  m = int(len(s) ** 0.5)
+  for i in range(m):
+    G.append(s[i * m: (i + 1) * m])
+
+  for j in reversed(range(m)):
+    for i in range(m):
+      print(G[i][j], end='')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Gerrymandering](https://open.kattis.com/problems/gerrymandering)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/KT_gerrymandering.md/)
+
+{% tabs %}
+{% tab title='KT_gerrymandering.md' %}
+
+> Question
+
+$$ E\left(V, w_{A}, w_{B}\right)=\frac{\left|w_{A}-w_{B}\right|}{V} $$
+
+* Given # precincts: party vote totals for each precinct, and how those precincts have been grouped into districts
+* For each district determine winner party and wasted votes for each party
+* determine efficiency gap between two parties over all districts
+
+{% endtab %}
+{% tab title='KT_gerrymandering.py' %}
+
+```py
+n, m = map(int, input().split())
+G = [[0, 0] for i in range(m)]
+for i in range(n):
+  a, b, c = map(int, input().split())
+  G[a - 1][0] += b
+  G[a - 1][1] += c
+
+total_wa = 0
+total_wb = 0
+for a, b in G:
+  if a < b:
+    wa = a
+    wb = b - (a + b) // 2 - 1
+    print('B', wa, wb)
+  else:
+    wa = a - (a + b) // 2 - 1
+    wb = b
+    print('A', wa, wb)
+  total_wa += wa
+  total_wb += wb
+
+print(abs(total_wa - total_wb) / sum(sum(l) for l in G))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.6 : Skener](https://open.kattis.com/problems/skener)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/KT_skener.md/)
+
+{% tabs %}
+{% tab title='KT_skener.md' %}
+
+> Question
+
+* print magnified picture with r, c factor
+
+```txt
+Input:
+3 3 2 1
+.x.
+x.x
+.x.
+
+Output:
+..xx..
+xx..xx
+..xx..
+```
+
+{% endtab %}
+{% tab title='KT_skener.py' %}
+
+```py
+N, M, a, b = map(int, input().split())
+G = [input() for _ in range(N)]
+for i in range(N):
+  for _ in range(a):
+    for j in range(M):
+      for _ in range(b):
+        print(G[i][j], end='')
+    print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.7 : Prva](https://open.kattis.com/problems/prva)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/KT_prva.md/)
+
+{% tabs %}
+{% tab title='KT_prva.md' %}
+
+> Question
+
+* Output the lexicographically smallest word with <1 character in the crossword
+
+```txt
+Input:
+4 4
+luka
+o#a#
+kula
+i#a#
+
+Output: kala
+```
+
+{% endtab %}
+{% tab title='KT_prva.py' %}
+
+```py
+n, m = map(int, input().split())
+G = []
+for _ in range(n):
+  G.append(input() + "#")
+G.append('#' * (m + 1))
+words = []
+for i in range(n + 1):
+  word = ""
+  for j in range(m + 1):
+    if G[i][j] == '#':
+      if len(word) > 1:
+        words.append(word)
+      word = ""
+    else:
+      word += G[i][j]
+
+for j in range(m + 1):
+  word = ""
+  for i in range(n + 1):
+    if G[i][j] == '#':
+      if len(word) > 1:
+        words.append(word)
+      word = ""
+    else:
+      word += G[i][j]
+print(sorted(words)[0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Find Nearest Point That Has the Same X or Y Coordinate](https://leetcode.com/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/LC_1779.md/)
+
+{% tabs %}
+{% tab title='LC_1779.md' %}
+
+> Question
+
+* given two integers, x and y, which represent your current location on a Cartesian grid: (x, y)
+* given an array points where each points[i] = [ai, bi] represents that a point exists at (ai, bi)
+* A point is valid if it shares the same x-coordinate or the same y-coordinate as your location
+* Return the index (0-indexed) of the valid point with the smallest Manhattan distance from your current location
+
+```txt
+Input: x = 3, y = 4,
+points =
+[[1,2],
+ [3,1],
+ [2,4],
+ [2,3],
+ [4,4]]
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_1779.py' %}
+
+```py
+def nearestValidPoint(self, x: int, y: int, points: List[List[int]]) -> int:
+  distances = [abs(x - point[0]) + abs(y - point[1]) if point[0] == x or point[1] == y else float('inf') for point in points]
+  return distances.index(min(distances)) if min(distances) != float('inf') else -1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Rotate Image](https://leetcode.com/problems/rotate-image)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/dimension-2/LC_48.md/)
+
+{% tabs %}
+{% tab title='LC_48.md' %}
+
+> Question
+
+* Rotate 2D array
+
+```txt
+Input:
+matrix =
+[[5,1,9,11],
+[2,4,8,10],
+[13,3,6,7],
+[15,14,12,16]]
+
+Output:
+[[15,13,2,5],
+[14,3,4,1],
+[12,6,8,9],
+[16,7,10,11]]
+```
+
+{% endtab %}
+{% tab title='LC_48.cpp' %}
+
+```cpp
+/*
+ * clockwise rotate: first reverse up to down, then swap the symmetry
+ * 1 2 3     7 8 9     7 4 1
+ * 4 5 6  => 4 5 6  => 8 5 2
+ * 7 8 9     1 2 3     9 6 3
+*/
+void rotate(vector<vector<int> > &matrix) {
+  reverse(matrix.begin(), matrix.end());
+  for (int i = 0; i < matrix.size(); ++i)
+    for (int j = i + 1; j < matrix[i].size(); ++j)
+      swap(matrix[i][j], matrix[j][i]);
+}
+```
+
+{% endtab %}
+{% tab title='LC_48.py' %}
+
+```py
+def rotate(self, A):
+  A[:] = zip(*A[::-1])
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,51 @@
+> hackerrank
+
+* [Level Medium : Correlation and Regression Lines - A Quick Recap #4](https://www.hackerrank.com/challenges/correlation-and-regression-lines-4/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/multivariate-normal-distribution/HR_correlation-and-regression-lines-4.md/)
+
+{% tabs %}
+{% tab title='HR_correlation-and-regression-lines-4.md' %}
+
+> Question
+
+* 4x – 5y + 33 = 0 (line of y on x) 20x – 9y – 107 = 0 (line of x on y)
+* Estimate the value of x when y = 7. Compute the correct answer to one decimal place
+
+```txt
+Output: 8.5
+```
+
+{% endtab %}
+{% tab title='HR_correlation-and-regression-lines-4.py' %}
+
+```py
+print(f'{(9 * 7 + 107) / 20:.1f}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Medium : Correlation and Regression Lines - A Quick Recap #5](https://www.hackerrank.com/challenges/correlation-and-regression-lines-5/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/multivariate-normal-distribution/HR_correlation-and-regression-lines-5.md/)
+
+{% tabs %}
+{% tab title='HR_correlation-and-regression-lines-5.md' %}
+
+> Question
+
+* 4x – 5y + 33 = 0 (line of y on x) 20x – 9 – 107 = 0 (line of x on y)
+* Estimate the value of x when y = 7. Compute the correct answer to one decimal place.
+
+```txt
+Output: 16
+```
+
+{% endtab %}
+{% tab title='HR_correlation-and-regression-lines-5.py' %}
+
+```py
+print(f'{(9 * 7 + 107) / 20:.1f}')
+```
+
+{% endtab %}
+{% endtabs %}

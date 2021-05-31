@@ -1,0 +1,510 @@
+> baekjoon
+
+* [Level 6 : 돌 게임](https://www.acmicpc.net/problem/9655)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/BJ_9655.md/)
+
+{% tabs %}
+{% tab title='BJ_9655.md' %}
+
+> Quesiton
+
+* N stones on the table, person who takes the last stone wins the game, find winner (0 < N < 1000)
+* CY, SK take turns to take one or three stones can be taken, SK starts first
+
+```txt
+Input: 5
+Output: SK
+```
+
+{% endtab %}
+{% tab title='BJ_9655.py' %}
+
+```py
+n = int(input())
+print('CY' if n % 2 == 0 else 'SK')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 돌 게임 3](https://www.acmicpc.net/problem/9657)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/BJ_9657.md/)
+
+{% tabs %}
+{% tab title='BJ_9657.md' %}
+
+> Question
+
+* N stones on the table, person who takes the last stone wins the game, find winner
+* SK and CY take turns taking stones, and they can take one, three, or four stones, SK starts first
+
+```txt
+Input: 6
+Output: SK
+```
+
+{% endtab %}
+{% tab title='BJ_9657.sh' %}
+
+```sh
+read n
+n=$(($n%7))
+nn=( CY SK CY SK SK SK SK )
+echo ${nn[$n]}
+```
+
+{% endtab %}
+{% tab title='BJ_9657.py' %}
+
+```py
+n = int(input())
+dp = [False, True, False, True, True]
+for i in range(n - 4):
+  dp.append(not all([dp[-4], dp[-3], dp[-1]]))
+print("SK" if dp[n] else "CY")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 돌 게임 5](https://www.acmicpc.net/problem/9659)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/BJ_9659.md/)
+
+{% tabs %}
+{% tab title='BJ_9659.md' %}
+
+> Question
+
+* N stones on the table, person who takes the last stone wins the game, find winner
+* CY, SK take turns to take one or three stones can be taken, SK starts first
+
+```txt
+Input: 5
+Output: SK
+```
+
+{% endtab %}
+{% tab title='BJ_9659.py' %}
+
+```py
+print('SK' if int(input()) % 2 else 'CY')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 돌 게임 4](https://www.acmicpc.net/problem/9658)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/BJ_9658.md/)
+
+{% tabs %}
+{% tab title='BJ_9658.md' %}
+
+> Question
+
+* N stones on the table, person who takes the last stone loses the game, find winner  (0 < N < 10000000)
+* CY, SK take turns to take one or three stones can be taken, SK starts first
+
+```txt
+Input: 6
+Output: SK
+```
+
+{% endtab %}
+{% tab title='BJ_9658.sh' %}
+
+```sh
+read n
+n=$(($n%7))
+nn=( SK CY SK CY SK SK SK )
+echo ${nn[$n]}
+```
+
+{% endtab %}
+{% tab title='BJ_9658.py' %}
+
+```py
+n = int(input())
+dp = [True, False, True, False]
+for i in range(n - 3):
+  dp.append(not all([dp[-4], dp[-3], dp[-1]]))
+print("SK" if dp[n] else "CY")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 돌 게임 6](https://www.acmicpc.net/problem/9660)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/BJ_9660.md/)
+
+{% tabs %}
+{% tab title='BJ_9660.md' %}
+
+> Question
+
+* N stones on the table, person who takes the last stone wins the game, find winner
+* CY, SK take turns to take 1, 3, 4 stones can be taken, SK starts first
+
+```txt
+Input: 6
+Output: SK
+```
+
+{% endtab %}
+{% tab title='BJ_9660.py' %}
+
+```py
+print("CY" if int(input()) % 7 in [0, 2] else "SK")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 돌 게임 7](https://www.acmicpc.net/problem/9661)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/BJ_9661.md/)
+
+{% tabs %}
+{% tab title='BJ_9661.md' %}
+
+> Question
+
+* N stones on the table, person who takes the last stone wins the game, find winner
+* CY, SK take turns to take 4 ** x stones can be taken, SK starts first
+
+```txt
+Input: 3
+Output: SK
+```
+
+{% endtab %}
+{% tab title='BJ_9661.py' %}
+
+```py
+print("CY" if int(input()) % 5 in [0, 2] else "SK")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codeforces
+
+* [Level 1900 : Palindrome Game (hard version)](https://codeforces.com/contest/1527/problem/B2)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/CF_1527B2.md/)
+
+{% tabs %}
+{% tab title='CF_1527B2.md' %}
+
+> Question
+
+* In each turn, the player can perform one of the following operations:
+  * Choose any 𝑖 (1≤𝑖≤𝑛), where 𝑠[𝑖]= '0' and change 𝑠[𝑖] to '1'. Pay 1 dollar
+  * Reverse the whole string, pay 0 dollars
+    * only allowed if the string is not a palindrome, and the last operation was not reverse
+* game ends when every character of string becomes '1'
+* The player who spends minimum dollars till this point wins the game and it is a draw if both spend equal dollars
+* If both players play optimally, output whether Alice wins, Bob wins, or if it is a draw
+
+```txt
+Input:
+3
+3
+110
+2
+00
+4
+1010
+
+Output:
+ALICE
+BOB
+ALICE
+```
+
+{% endtab %}
+{% tab title='CF_1527B2.py' %}
+
+```py
+for _ in range (int(input())):
+  n = int(input())
+  s = input()
+  c = s.count('0')
+  if n % 2 and s[n//2]=='0':
+    if c > 2:
+      print("ALICE")
+    elif c==2:
+      print("DRAW")
+    else:
+      print("BOB")
+  elif s == s[::-1]:
+    print("BOB")
+  else:
+    print("ALICE")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Nim Game](https://leetcode.com/problems/nim-game)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/LC_292.md/)
+
+{% tabs %}
+{% tab title='LC_292.md' %}
+
+> Question
+
+* Initially, there is a heap of stones on the table
+* You and your friend will alternate taking turns, and you go first
+* On each turn, the person whose turn it is will remove 1 to 3 stones from the heap
+* The one who removes the last stone is the winner
+
+```txt
+Input: 4
+Output: false
+```
+
+{% endtab %}
+{% tab title='LC_292.cpp' %}
+
+```cpp
+bool canWinNim(int n) {
+  return (n % 4) != 0;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Stone Game VII](https://leetcode.com/problems/stone-game-vii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/LC_1690.md/)
+
+{% tabs %}
+{% tab title='LC_1690.md' %}
+
+> Question
+
+* There are n stones arranged in a row
+* On each player's turn, they can remove either the leftmost stone or the rightmost stone from the row
+* and receive points equal to the sum of the remaining stones' values in the row
+* The winner is the one with the higher score when there are no stones left to remove
+
+```txt
+Input: stones = [5,3,1,4,2]
+Output: 6
+```
+
+{% endtab %}
+{% tab title='LC_1690.cpp' %}
+
+```cpp
+int dp[1001][1001] = {};
+int dfs(vector<int>& s, int i, int j, int sum) {
+  if (i == j)
+    return 0;
+  return dp[i][j] ? dp[i][j] : dp[i][j] = max(sum - s[i] - dfs(s, i + 1, j, sum - s[i]),
+    sum - s[j] - dfs(s, i, j - 1, sum - s[j]));
+}
+int stoneGameVII(vector<int>& s) {
+  return dfs(s, 0, s.size() - 1, accumulate(begin(s), end(s), 0));
+}
+```
+
+{% endtab %}
+{% tab title='LC_1690.py' %}
+
+```py
+def stoneGameVII(self, s: List[int]) -> int:
+  dp = [[0] * len(s) for _ in range(len(s))]
+  p_sum = [0] + list(accumulate(s))
+  def dfs(i, j):
+    if i == j:
+      return 0
+    if dp[i][j] == 0:
+      dp[i][j] = p_sum[j + 1] - p_sum[i] - min(s[i] + dfs(i + 1, j), s[j] + dfs(i, j - 1))
+    return dp[i][j]
+  return dfs(0, len(s) - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Guess Number Higher or Lower II](https://leetcode.com/problems/guess-number-higher-or-lower-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/LC_375.md/)
+
+{% tabs %}
+{% tab title='LC_375.md' %}
+
+> Question
+
+* I pick a number between 1 and n, you guess a number
+* If you guess right, you win the game
+* If you guess wrong, then tell you whether the number I picked is higher or lower, and you will continue guessing
+* Every time you guess a wrong number x, you will pay x dollars. If you run out of money, you lose the game
+
+```txt
+Input: 2
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_375.cpp' %}
+
+```cpp
+int getMoneyAmount(int n) {
+  vector<vector<int>> dp(n + 1, vector<int>(n + 1));
+  for (int d = 1; d < n; d++) {
+    for (int i = 1; i + d <= n; i++) {
+      int j = i + d;
+      int cur = INT_MAX / 2;
+      for (int p = i; p < j; p++) {
+        cur = min(cur, max(dp[i][p - 1], + dp[p + 1][j]) + p);
+      }
+      dp[i][j] = cur;
+    }
+  }
+  return dp[1][n];
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Can I Win](https://leetcode.com/problems/can-i-win)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/LC_464.md/)
+
+{% tabs %}
+{% tab title='LC_464.md' %}
+
+> Question
+
+* In the "100 game" two players take turns adding, to a running total, any integer from 1 to 10
+* The player who first causes the running total to reach or exceed 100 wins
+* What if we change the game so that players cannot re-use integers?
+* [ex] two players might take turns drawing from a common pool of numbers from 1 to 15 without replacement
+  until they reach a total >= 100
+* Given two integers maxChoosableInteger and desiredTotal, return if the first player to move can force a win
+* Assume both players play optimally
+
+```txt
+Input: maxChoosableInteger = 10, desiredTotal = 11
+Output: false
+```
+
+{% endtab %}
+{% tab title='LC_464.cpp' %}
+
+```py
+  bool canIWin(int M, int T) {
+    int sum = M*(M+1)/2; // sum of entire choosable pool
+    if (T < 2) return true; // I just pick 1 to win
+
+    // Total is too large, nobody can win
+    else if (sum < T) return false;
+
+    // Total happens to match sum, whoever picks at odd times wins
+    else if (sum == T) return M%2;
+
+    // Non-trivial case: do DFS
+    // Initial total: T
+    // Initial game state: k = 0 (all numbers are not picked)
+    else return dfs(M, T, 0);
+  }
+
+  // DFS to check if I can win
+  // k: current game state
+  // T: remaining total to reach
+  bool dfs(int M, int T, int k)
+  {
+    if (mem[k] != 0) return mem[k] > 0; // memorized
+
+    // total is already reached by opponent, so I lose
+    if (T <= 0) return false;
+
+    // try all currently available numbers
+    for (int i = 0; i < M; ++i)
+      // if (i+1) is available to pick and my opponent can't win after I picked, I win!
+      if (!(k&(1<<i)) && !dfs(M, T-i-1, k|(1<<i))) {
+        mem[k] = 1;
+        return true;
+      }
+
+    mem[k] = -1; // Otherwise, I will lose
+    return false;
+  }
+
+  // m[key]: memorized game result when pool state = key
+  // 0: un-computed; 1: I win; -1: I lose
+  int mem[1<<20] = {};
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Predict the Winner](https://leetcode.com/problems/predict-the-winner)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/LC_486.md/)
+
+{% tabs %}
+{% tab title='LC_486.md' %}
+
+> Question
+
+* Given an integer array nums. Two players are playing a game with this array: player 1 and player 2
+* Player takes one of the numbers from either end of the array, adds chosen number to their score
+* If you start first, can you win?
+
+```txt
+Input: nums = [1,5,2]
+Output: false
+```
+
+{% endtab %}
+{% tab title='LC_486.py' %}
+
+```java
+// Time, Space : O(N^2), O(N^2)
+public boolean PredictTheWinner(int[] nums) {
+  return helper(nums, 0, nums.length-1, new Integer[nums.length][nums.length]) >= 0;
+}
+private int helper(int[] nums, int s, int e, Integer[][] mem){
+  if(mem[s][e] == null)
+    mem[s][e] = s == e ? nums[e] : Math.max(nums[e] - helper(nums, s, e - 1, mem), nums[s] - helper(nums, s + 1, e, mem));
+  return mem[s][e];
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Stone Game VIII](https://leetcode.com/problems/stone-game-viii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/minimax/LC_1872.md/)
+
+{% tabs %}
+{% tab title='LC_1872.md' %}
+
+> Question
+
+* n stones arranged in a row. On each player's turn, while the number of stones is more than one, do the following:
+  * Choose an integer x > 1, and remove the leftmost x stones from the row
+  * Add the sum of the removed stones' values to the player's score
+  * Place a new stone, whose value is equal to that sum, on the left side of the row
+* The game stops when only one stone is left in the row
+* Given Alice starting, find score difference between Alice and Bob if they both play optimally
+
+```txt
+Input: stones = [-1,2,-3,4,-5]
+Output: 5
+```
+
+{% endtab %}
+{% tab title='LC_1872.py' %}
+
+```py
+def stoneGameVIII(self, stones):
+  ans = sum(stones)
+  for num in list(accumulate(stones))[::-1][1:-1]:
+    ans = max(ans, num - ans)
+  return ans
+```
+
+{% endtab %}
+{% endtabs %}

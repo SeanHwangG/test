@@ -1,0 +1,268 @@
+> leetcode
+
+* [Level 3 : Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_10.md/)
+
+{% tabs %}
+{% tab title='LC_10.md' %}
+
+> Question
+
+* Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*' where:
+* '.' Matches any single character.​​​​
+* '*' Matches zero or more of the preceding element
+* The matching should cover the entire input string (not partial)
+
+```txt
+Input: s = "aab", p = "c*a*b"
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_10.py' %}
+
+```py
+@lru_cache(None)
+def isMatch(self, s, p):
+  if not p: return not s
+  if not s: return len(p) > 1 and p[1] == '*' and self.isMatch(s, p[2:])
+  matched = (p[0] == '.' or p[0] == s[0])
+  if len(p) > 1 and p[1] == '*':
+    return (matched and self.isMatch(s[1:], p)) or self.isMatch(s, p[2:])
+  return matched and self.isMatch(s[1:], p[1:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Word Break II](https://leetcode.com/problems/word-break-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_140.md/)
+
+{% tabs %}
+{% tab title='LC_140.md' %}
+
+> Question
+
+* Given a string s and a dictionary of strings wordDict
+* add spaces in s to construct a sentence where each word is a valid dictionary word
+* Return all such possible sentences in any order
+
+```txt
+Input: s = "catsanddog", wordDict = ["cat","cats","and","sand","dog"]
+Output: ["cats and dog","cat sand dog"]
+```
+
+{% endtab %}
+{% tab title='LC_140.py' %}
+
+```py
+def wordBreak(self, s: str, words: List[str]) -> List[str]:
+  words, dp = set(words), dict()
+
+  @lru_cache
+  def helper(r):
+    if r == 0:
+      return ['']
+    rst = []
+    for l in range(r - 1, -1, -1):
+      if s[l: r] in words:
+        for prevStr in helper(l):
+          rst.append(' '.join([prevStr, s[l: r]]).strip())
+    return rst
+
+  return helper(len(s))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Minimum Number of Days to Eat N Oranges](https://leetcode.com/problems/minimum-number-of-days-to-eat-n-oranges)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_1553.md/)
+
+{% tabs %}
+{% tab title='LC_1553.md' %}
+
+> Question
+
+* There are n oranges in the kitchen and you decided to eat some of these oranges every day as follows:
+  * Eat one orange
+  * If the number of remaining oranges (n) is divisible by 2 then you can eat  n/2 oranges
+  * If the number of remaining oranges (n) is divisible by 3 then you can eat  2*(n/3) oranges
+
+```txt
+Input: n = 10
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_1553.cpp' %}
+
+```cpp
+unordered_map<int, int> dp;
+int minDays(int n) {
+  if (n <= 1)
+    return n;
+  if (dp.count(n) == 0)
+    dp[n] = 1 + min(n % 2 + minDays(n / 2), n % 3 + minDays(n / 3));
+  return dp[n];
+}
+```
+
+{% endtab %}
+{% tab title='LC_1553.py' %}
+
+```py
+@lru_cache()
+def minDays(self, n: int) -> int:
+  if n <= 1:
+    return n
+  return 1 + min(n % 2 + self.minDays(n // 2), n % 3 + self.minDays(n // 3))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_329.md/)
+
+{% tabs %}
+{% tab title='LC_329.md' %}
+
+> Question
+
+* Given an m x n integers matrix, return the length of the longest increasing path in matrix
+
+```txt
+Input: matrix = [[9,9,4],[6,6,8],[2,1,1]]
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_329.py' %}
+
+```py
+def longestIncreasingPath(self, G: List[List[int]]) -> int:
+  @lru_cache(None)
+  def dfs(x, y):
+    length = 1
+    for r, c in (x+1, y), (x-1, y), (x, y+1), (x, y-1):
+      if 0 <= r < len(G) and 0 <= c < len(G[0]) and G[x][y] < G[r][c]:
+        length = max(length, dfs(r, c) + 1)
+    return length
+  if not any(G): return 0
+  return max(dfs(i, j) for i in range(len(G)) for j in range(len(G[0])))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Frog Jump](https://leetcode.com/problems/frog-jump)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_403.md/)
+
+{% tabs %}
+{% tab title='LC_403.md' %}
+
+> Question
+
+* Given a list of stones' positions in sorted ascending order, determine if frog can cross river by landing on last stone
+* Initially, frog is on first stone and assumes first jump must be 1 unit
+* If frog's last jump was k units, its next jump must be either k - 1, k, or k + 1 units
+ *frog can only jump in the forward direction
+
+```txt
+Input: stones = [0,1,3,5,6,8,12,17]
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_403.py' %}
+
+```py
+from functools import lru_cache
+
+class Solution(object):
+  def canCross(self, stones):
+    goal, stones = stones[-1], set(stones)
+
+    @lru_cache(None)
+    def bt(cur, speed):
+      if cur > goal or cur<0 or speed<=0 or cur not in stones:
+        return False
+      return cur == goal or any(bt(cur + ns, ns) for ds in (speed-1, speed, speed + 1) if cur + ns in stones)
+
+    return bt(1, 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Concatenated Words](https://leetcode.com/problems/concatenated-words)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_472.md/)
+
+{% tabs %}
+{% tab title='LC_472.md' %}
+
+> Question
+
+* Given an array of unique strings words, return all the concatenated words in the given list of words
+
+```txt
+Input: words = ["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]
+Output: ["catsdogcats","dogcatsdog","ratcatdogcat"]
+```
+
+{% endtab %}
+{% tab title='LC_472.py' %}
+
+```py
+def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
+  words = set(words)
+  @lru_cache(None)
+  def dfs(word):
+    for i in range(1, len(word)):
+      prefix, suffix = word[:i], word[i:]
+      if prefix in words and (suffix in words or dfs(suffix)):
+        return True
+    return False
+  return [word for word in words if dfs(word)]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Strange Printer](https://leetcode.com/problems/strange-printer)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_664.md/)
+
+{% tabs %}
+{% tab title='LC_664.md' %}
+
+> Question
+
+* The printer can only print a sequence of the same character each time
+* At each turn, printer can print new characters starting from and ending at any place and will cover original existing characters
+* Given a string s, return the minimum number of turns the printer needed to print it
+
+```txt
+Input: s = "aba"
+Output: 2  # Print "aaa" first and then print "b"
+```
+
+{% endtab %}
+{% tab title='LC_664.py' %}
+
+```py
+def strangePrinter(self, S):
+  S = re.sub(r'(.)\1*', r'\1', S)
+  @lru_cache(None)
+  def dp(i, j):
+    if i > j: return 0
+    ans = dp(i + 1, j) + 1
+    for k in range(i + 1, j + 1):
+      if S[k] == S[i]:
+        ans = min(ans, dp(i, k - 1) + dp(k + 1, j))
+    return ans
+  return dp(0, len(S) - 1)
+```
+
+{% endtab %}
+{% endtabs %}

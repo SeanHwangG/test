@@ -1,0 +1,709 @@
+> baekjoon
+
+* [Level 2 : 감정이입](https://www.acmicpc.net/problem/14623)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_14623.md/)
+
+{% tabs %}
+{% tab title='BJ_14623.md' %}
+
+> Question
+
+* Print multiple of two binary
+
+```txt
+Input:
+1010
+11
+
+Output: 11110
+```
+
+{% endtab %}
+{% tab title='BJ_14623.py' %}
+
+```py
+a, b = int(input(), 2), int(input(), 2)
+print(bin(a * b)[2:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 17배](https://www.acmicpc.net/problem/5893)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_5893.md/)
+
+{% tabs %}
+{% tab title='BJ_5893.md' %}
+
+> Question
+
+* Multiple 17 to binary
+
+```txt
+Input: 10110111
+Output: 110000100111
+```
+
+{% endtab %}
+{% tab title='BJ_5893.py' %}
+
+```py
+a = int(input(), 2)
+print(bin(a * 17)[2:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 이건 무슨 진법이지?](https://www.acmicpc.net/problem/13877)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_13877.md/)
+
+{% tabs %}
+{% tab title='BJ_13877.md' %}
+
+> Question
+
+* Interpret given number in octa, decimal, hexa
+* If inputted string cannot be interpreted as an octagonal number, print zero
+
+```txt
+Input:
+4
+1 1234
+2 9
+3 1777
+4 129
+
+Output:
+1 668 1234 4660
+2 0 9 9
+3 1023 1777 6007
+4 0 129 297
+```
+
+{% endtab %}
+{% tab title='BJ_13877.py' %}
+
+```py
+for _ in range(int(input())):
+  a, b = input().split()
+  print(a, end = ' ')
+  if '8' in b or '9' in b:
+    print(0, end = ' ')
+  else:
+    print(int(b, 8), end = ' ')
+  print(int(b, 10), int(b, 16))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 노솔브 방지문제야!!](https://www.acmicpc.net/problem/15917)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_15917.md/)
+
+{% tabs %}
+{% tab title='BJ_15917.md' %}
+
+> Question
+
+* Determine if a number can be represented by the power of 2?
+
+```txt
+Input:
+10
+1
+2
+7
+4
+14
+32
+33
+34
+35
+36
+
+Output:
+1
+1
+0
+1
+0
+1
+0
+0
+0
+0
+```
+
+{% endtab %}
+{% tab title='BJ_15917.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+N = int(input())
+for _ in range(N):
+  a = int(input())
+  if a&(-a) != a:
+    print('0')
+  else:
+    print('1')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 문어 숫자](https://www.acmicpc.net/problem/1864)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_1864.md/)
+
+{% tabs %}
+{% tab title='BJ_1864.md' %}
+
+> Question
+
+* Convert into oct number
+  * \- : 0, \ : 1, ( : 2, @ : 3, ? : 4, > : 5, & : 6, %: 7, /: -1
+
+```txt
+Input:
+(@&
+?/--
+/(\
+?
+#
+
+Output:
+158
+1984
+-47
+4
+```
+
+{% endtab %}
+{% tab title='BJ_1864.py' %}
+
+```py
+ch2int = {'-':0, '\\':1, '(':2, '@':3, '?':4, '>':5, '&':6, '%':7, '/':-1}
+while True:
+  string = input()
+  if string == '#':
+    break
+  ret = 0
+  for ch in string:
+    ret *= 8
+    ret += ch2int[ch]
+  print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : umber Game](https://www.acmicpc.net/problem/1975)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_1975.md/)
+
+{% tabs %}
+{% tab title='BJ_1975.md' %}
+
+> Question
+
+* Define f(N, b) as the last number of consecutive zeros to follow when N is represented in binary b
+
+$$
+\sum_{b=2}^{\infty} f(N, b)
+$$
+
+```txt
+Input:
+2
+5
+10
+
+Output:
+1
+3
+```
+
+{% endtab %}
+{% tab title='BJ_1975.py' %}
+
+```py
+from sys import stdin
+def func(n):
+  r = 0
+  for b in range(2,n+1):
+    t = n
+    while t % b == 0:
+      r += 1
+      t //= b
+  return r
+input()
+A = list(map(func, range(1001)))
+for s in stdin:
+  print(A[int(s)])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 이진수](https://www.acmicpc.net/problem/3460)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_3460.md/)
+
+{% tabs %}
+{% tab title='BJ_3460.md' %}
+
+> Question
+
+* Find all 1's position in binary
+
+```txt
+Input:
+1
+13
+
+Output: 0 2 3
+```
+
+{% endtab %}
+{% tab title='BJ_3460.py' %}
+
+```py
+n = int(input())
+for _ in range(n):
+  x = int(input())
+  n = 0
+  while x != 0:
+    if x & 1:
+      print(n, end=' ')
+    n += 1
+    x //= 2
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Error Detection](https://www.acmicpc.net/problem/5220)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_5220.md/)
+
+{% tabs %}
+{% tab title='BJ_5220.md' %}
+
+> Question
+
+* a, b 가 주이전다
+* a를 이진수로 바꿨을때 1의 개수를 2로 나눈게 b 라면 "Valid" 아니면 "Corrupt"를 출력하라
+
+```txt
+Input:
+4
+34173 1
+45 1
+15 0
+31 0
+
+Output:
+Valid
+Corrupt
+Valid
+Corrupt
+```
+
+{% endtab %}
+{% tab title='BJ_5220.py' %}
+
+```py
+for _ in range(int(input())):
+    a, b = input().split()
+    print("Valid" if bin(int(a))[2:].count("1") % 2 == int(b) else "Corrupt")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 이진수 변환](https://www.acmicpc.net/problem/10829)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_10829.md/)
+
+{% tabs %}
+{% tab title='BJ_10829.md' %}
+
+> Question
+
+* Convert decimal to binary
+
+```txt
+Input: 53
+Output: 110101
+```
+
+{% endtab %}
+{% tab title='BJ_10829.py' %}
+
+```py
+print(bin(int(input()))[2:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 진법 변환](https://www.acmicpc.net/problem/2745)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_2745.md/)
+
+{% tabs %}
+{% tab title='BJ_2745.md' %}
+
+> Question
+
+* Given a, b, convert b's number of a to decimal
+
+```txt
+Input: ZZZZZ 36
+Ouput: 60466175
+```
+
+{% endtab %}
+{% tab title='BJ_2745.py' %}
+
+```py
+a, b = input().split()
+print(int(a, int(b)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 이진수 합](https://www.acmicpc.net/problem/8741)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_8741.md/)
+
+{% tabs %}
+{% tab title='BJ_8741.md' %}
+
+> Question
+
+* find the sum of all natural numbers with k digits or less, given k, expressed in binary
+
+```txt
+Input: 3
+Output: 11100
+```
+
+{% endtab %}
+{% tab title='BJ_8741.py' %}
+
+```py
+k = int(input())
+print(str(bin((2 ** (k-1)) * ((2 ** k)-1)))[2:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 2진수 뒤집기](https://www.acmicpc.net/problem/11179)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_11179.md/)
+
+{% tabs %}
+{% tab title='BJ_11179.md' %}
+
+> Question
+
+* Reverse binary and print in decimal
+
+```txt
+Input: 13
+Output: 11
+```
+
+{% endtab %}
+{% tab title='BJ_11179.py' %}
+
+```py
+print(int(bin(int(input()))[:1:-1],2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 이진수 덧셈](https://www.acmicpc.net/problem/1252)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_1252.md/)
+
+{% tabs %}
+{% tab title='BJ_1252.md' %}
+
+> Question
+
+* Add number in binary
+
+```txt
+Input: 1001101 10010
+Output: 1011111
+```
+
+{% endtab %}
+{% tab title='BJ_1252.py' %}
+
+```py
+a, b = map(int, input().split(), [2, 2])
+print(bin(a + b)[2:])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 막대기](https://www.acmicpc.net/problem/1094)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_1094.md/)
+
+{% tabs %}
+{% tab title='BJ_1094.md' %}
+
+> Question
+
+* count number of 1 in binary
+
+```txt
+Input: 23
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_1094.py' %}
+
+```py
+print(bin(int(input())).count('1'))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : if](https://www.acmicpc.net/problem/15549)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_15549.md/)
+
+{% tabs %}
+{% tab title='BJ_15549.md' %}
+
+> Question
+
+* ??? x = ???;
+* x != 0 && x == -x
+* Fill two ???
+
+{% endtab %}
+{% tab title='BJ_15549.txt' %}
+
+```txt
+int -2147483648
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : if 2](https://www.acmicpc.net/problem/15550)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_15550.md/)
+
+{% tabs %}
+{% tab title='BJ_15550.md' %}
+
+* ??? a = ???;
+* ??? b = ???;
+* ??? c = ???;
+* a == b && b == c && c != a
+
+{% endtab %}
+{% tab title='BJ_15550.txt' %}
+
+```txt
+int 16777216 float 16777216 int 16777217
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 단어 암기](https://www.acmicpc.net/problem/18119)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_18119.md/)
+
+{% tabs %}
+{% tab title='BJ_18119.md' %}
+
+* 1 x: Forget the alphabet x
+* 2 x: Remember the alphabet x
+* remember all the alphabets at first, and never forget the vowel because I memorized it perfectly
+* Output the number of words you know completely for each query
+
+```txt
+5 10
+apple
+actual
+banana
+brick
+courts
+1 l
+1 b
+1 c
+1 n
+2 l
+2 b
+1 s
+2 c
+2 s
+2 n
+```
+
+{% endtab %}
+{% tab title='BJ_18119.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+n, m = map(int, input().split())
+words = [0 for i in range(n)]
+for i in range(n):
+  for ch in input().rstrip():
+    words[i] |= 1 << (ord(ch) - 97)
+alpha = 0xffffffff
+for _ in range(m):
+  o, x = input().split()
+  if o == '1':
+    alpha &= ~(1 << ord(x)-97)
+  elif o == '2':
+    alpha |= (1 << ord(x)-97)
+  print(sum(1 for word in words if (word & alpha) == word))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Reversed Binary Numbers](https://open.kattis.com/problems/reversebinary)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/KT_reversebinary.md/)
+
+{% tabs %}
+{% tab title='KT_reversebinary.md' %}
+
+> Question
+
+* Print reversed binary
+
+```txt
+Input: 13
+Output: 11
+```
+
+{% endtab %}
+{% tab title='KT_reversebinary.py' %}
+
+```py
+a = bin(int(input()))[2:]
+print(int(a[::-1],2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Reverse Bits](https://leetcode.com/problems/reverse-bits)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/LC_190.md/)
+
+{% tabs %}
+{% tab title='LC_190.md' %}
+
+> Question
+
+* Reverse bits of a given 32 bits unsigned integer
+
+```txt
+Input: n = 00000010100101000001111010011100
+Output:    964176192 (00111001011110000010100101000000)
+```
+
+{% endtab %}
+{% tab title='LC_190.cpp' %}
+
+```cpp
+class Solution {
+public:
+  uint32_t reverseBits(uint32_t n) {
+    n = (n >> 16) | (n << 16);
+    n = ((n & 0xff00ff00) >> 8) | ((n & 0x00ff00ff) << 8);
+    n = ((n & 0xf0f0f0f0) >> 4) | ((n & 0x0f0f0f0f) << 4);
+    n = ((n & 0xcccccccc) >> 2) | ((n & 0x33333333) << 2);
+    n = ((n & 0xaaaaaaaa) >> 1) | ((n & 0x55555555) << 1);
+    return n;
+  }
+};
+```
+
+{% endtab %}
+{% tab title='LC_190.py' %}
+
+```py
+class Solution:
+  def reverseBits(self, n):
+    return int(bin(n)[:1:-1].ljust(32, '0'), 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/LC_191.md/)
+
+{% tabs %}
+{% tab title='LC_191.md' %}
+
+> Question
+
+* Find number of 1 in binary
+
+```txt
+Input: n = 00000000000000000000000000001011
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_191.cpp' %}
+
+```cpp
+int hammingWeight(uint32_t n) {
+  return __builtin_popcount(n);
+}
+```
+
+{% endtab %}
+{% tab title='LC_191.py' %}
+
+```py
+def hammingWeight(self, n: int) -> int:
+  return bin(n).count('1')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Counting Bits](https://leetcode.com/problems/counting-bits)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/LC_338.md/)
+
+{% tabs %}
+{% tab title='LC_338.md' %}
+
+> Question
+
+* calculate the number of 1's in their binary representation and return them as an array
+
+```txt
+Input: n = 5
+Output: [0,1,1,2,1,2]
+```
+
+{% endtab %}
+{% tab title='LC_338.py' %}
+
+```py
+def countBits(self, num) -> List[int]:
+  ret = [0] * (num + 1)
+  for i in range(num + 1):
+    ret[i] = ret[i // 2] + i % 2
+  return ret
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,138 @@
+> hackerrank
+
+* [Level Easy : Higher Than 75 Marks](https://www.hackerrank.com/challenges/more-than-75-marks/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/order-by/HR_more-than-75-marks.md/)
+
+{% tabs %}
+{% tab title='HR_more-than-75-marks.md' %}
+
+> Question
+
+| ID  | Name     | Marks |
+| --- | -------- | ----- |
+| 1   | Ashley   | 81    |
+| 2   | Samantha | 75    |
+| 4   | Julia    | 76    |
+| 3   | Belvet   | 84    |
+
+* Query the Name of any student in STUDENTS who scored higher than 75 Marks
+* Order your output by the last three characters of each name
+  * If students both have names ending in same last three characters (i.e.: Bobby, Robby, etc.), sort them by ascending ID
+
+{% endtab %}
+{% tab title='HR_more-than-75-marks.sql' %}
+
+```sql
+SELECT Name FROM Students WHERE Marks > 75
+  ORDER BY RIGHT(Name, 3), Id;
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Article Views I](https://leetcode.com/problems/article-views-i)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/order-by/LC_1148.md/)
+
+{% tabs %}
+{% tab title='LC_1148.md' %}
+
+> Question
+
+| article_id | author_id | viewer_id | view_date  |
+| ---------- | --------- | --------- | ---------- |
+| 1          | 3         | 5         | 2019-08-01 |
+| 1          | 3         | 6         | 2019-08-02 |
+| 2          | 7         | 7         | 2019-08-01 |
+| 2          | 7         | 6         | 2019-08-02 |
+| 4          | 7         | 1         | 2019-07-22 |
+| 3          | 4         | 4         | 2019-07-21 |
+| 3          | 4         | 4         | 2019-07-21 |
+
+* find all the authors that viewed at least one of their own articles, sorted in ascending order by their id
+
+| id  |
+| --- |
+| 4   |
+| 7   |
+
+{% endtab %}
+{% tab title='LC_1148.sql' %}
+
+```sql
+SELECT DISTINCT v.author_id AS "id" FROM Views v
+  WHERE v.author_id = v.viewer_id
+  ORDER BY v.author_id
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Fix Names in a Table](https://leetcode.com/problems/fix-names-in-a-table)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/order-by/LC_1667.md/)
+
+{% tabs %}
+{% tab title='LC_1667.md' %}
+
+> Question
+
+| user_id | name  |
+| ------- | ----- |
+| 1       | aLice |
+| 2       | bOB   |
+
+* fix the names so that only the first character is uppercase and the rest are lowercase
+* Return the result table ordered by user_id
+
+| user_id | name  |
+| ------- | ----- |
+| 1       | Alice |
+| 2       | Bob   |
+
+{% endtab %}
+{% tab title='LC_1667.sql' %}
+
+```sql
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2))) AS 'name'
+  FROM Users
+  ORDER BY user_id ASC
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Not Boring Movies](https://leetcode.com/problems/not-boring-movies)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/order-by/LC_620.md/)
+
+{% tabs %}
+{% tab title='LC_620.md' %}
+
+> Question
+
+| id  | movie      | description | rating |
+| --- | ---------- | ----------- | ------ |
+| 1   | War        | great 3D    | 8.9    |
+| 2   | Science    | fiction     | 8.5    |
+| 3   | irish      | boring      | 6.2    |
+| 4   | Ice song   | Fantacy     | 8.6    |
+| 5   | House card | Interesting | 9.1    |
+
+* output movies with an odd numbered ID and a description that is not 'boring'. Order the result by rating
+
+| id  | movie      | description | rating |
+| --- | ---------- | ----------- | ------ |
+| 5   | House card | Interesting | 9.1    |
+| 1   | War        | great 3D    | 8.9    |
+
+{% endtab %}
+{% tab title='LC_620.sql' %}
+
+```sql
+SELECT * FROM cinema
+  WHERE description != 'boring' AND id % 2 = 1
+  ORDER BY rating DESC;
+```
+
+{% endtab %}
+{% endtabs %}

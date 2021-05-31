@@ -1,0 +1,140 @@
+> baekjoon
+
+* [Level 9 : 조합 0의 개수](https://www.acmicpc.net/problem/2004)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/binomial-coefficient/BJ_2004.md/)
+
+{% tabs %}
+{% tab title='BJ_2004.md' %}
+
+> Question
+
+$$
+\left(\begin{array}{l}
+n \\
+m
+\end{array}\right)
+$$
+
+* Find number of 0 at the end of above equation
+
+```txt
+Input: 25 12
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_2004.py' %}
+
+```py
+def div_number(k, n):
+  count = 0
+  while k != 0:
+    k = k // n
+    count += k
+  return count
+n, m = list(map(int, input().split()))
+div_five = div_number(n, 5) - div_number(m, 5) - div_number(n-m, 5)
+div_two = div_number(n, 2) - div_number(m, 2) - div_number(n-m, 2)
+print(min(div_five, div_two))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 이항 계수 4](https://www.acmicpc.net/problem/11402)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/binomial-coefficient/BJ_11402.md/)
+
+{% tabs %}
+{% tab title='BJ_11402.md' %}
+
+> Question
+
+* Given N, K print  $$ \left(\begin{array}{l} N \\ K \end{array}\right) $$ Mod M
+* N < 10**18, 0 <= K <= N
+
+```txt
+Input: 100 45 13
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_11402.py' %}
+
+```py
+n, k, p = map(int, input().split())
+c = [[0] * p for i in range(p)]
+for i in range(p):
+  c[i][0] = 1
+  for j in range(1,i+1):
+    c[i][j] = (c[i-1][j-1] + c[i-1][j]) % p
+ans = 1
+while n:
+  ans = (ans * c[n % p][k % p]) % p
+  n //= p
+  k //= p
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Unique Paths](https://leetcode.com/problems/unique-paths)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/binomial-coefficient/LC_62.md/)
+
+{% tabs %}
+{% tab title='LC_62.md' %}
+
+> Question
+
+* robot is located at the top-left corner of a m x n grid, can move either down or right
+* How many possible unique paths are there to the bottom-right corner of the grid?
+
+```txt
+Input: m = 7, n = 3
+Output: 28
+```
+
+{% endtab %}
+{% tab title='LC_62.py' %}
+
+```py
+from math import comb
+def uniquePaths(self, m: int, n: int) -> int:
+  return comb(m + n - 2, m - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Minimum Number of Operations to Make String Sorted](https://leetcode.com/problems/minimum-number-of-operations-to-make-string-sorted)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/binomial-coefficient/LC_1830.md/)
+
+{% tabs %}
+{% tab title='LC_1830.md' %}
+
+> Question
+
+* what is the lexicographical order of string
+
+```txt
+Input: s = "cba"
+Output: 5
+```
+
+{% endtab %}
+{% tab title='LC_1830.py' %}
+
+```py
+cnt, ans, cur = [0] * 26, 0, 1  # cur: #op for cur positions
+for i, cur_letter in enumerate(s[::-1]):
+  num = ord(cur_letter) - ord('a')
+  cnt[num] += 1
+  cur = cur * (i + 1) // cnt[num]
+  ans += cur * sum(cnt[:num]) // (i + 1) # Add number of combinations for all smaller letters than current
+return ans % 1000000007
+```
+
+{% endtab %}
+{% endtabs %}

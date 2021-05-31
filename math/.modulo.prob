@@ -1,0 +1,609 @@
+> baekjoon
+
+* [Level 1 : 나머지](https://www.acmicpc.net/problem/10430)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_10430.md/)
+
+{% tabs %}
+{% tab title='BJ_10430.md' %}
+
+> Question
+
+* Print (A+B)%C, ((A%C) + (B%C))%C, (A×B)%C, ((A%C) × (B%C))%C for each line
+
+```txt
+Input: 5 8 4
+Output:
+1
+1
+0
+0
+```
+
+{% endtab %}
+{% tab title='BJ_10430.sh' %}
+
+```sh
+read A B C
+
+echo $(((A+B)%C))
+echo $((((A%C)+(B%C))%C))
+echo $(((A*B)%C))
+echo $((((A%C)*(B%C))%C))
+```
+
+{% endtab %}
+{% tab title='BJ_10430.py' %}
+
+```py
+A, B, C = map(int, input().split())
+print((A + B) % C)
+print((A % C + B % C) % C)
+print(A * B % C)
+print((A % C) * (B % C) % C)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 사칙연산](https://www.acmicpc.net/problem/10869)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_10869.md/)
+
+{% tabs %}
+{% tab title='BJ_10869.md' %}
+
+> Question
+
+* print add, subtract, multiply, division, remainer in each line
+
+```txt
+Input: 7 3
+Output:
+10
+4
+21
+2
+1
+```
+
+{% endtab %}
+{% tab title='BJ_10869.sh' %}
+
+```sh
+read A B
+echo $(($A+$B))
+echo $(($A-$B))
+echo $(($A*$B))
+echo $(($A/$B))
+echo $(($A%$B))
+```
+
+{% endtab %}
+{% tab title='BJ_10869.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a+b, a-b, a*b, a//b, a%b, sep='\n')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 엄청난 부자2](https://www.acmicpc.net/problem/1271)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_1271.md/)
+
+{% tabs %}
+{% tab title='BJ_1271.md' %}
+
+> Question
+
+* In the first line, print out the amount of money that goes to one living thing
+* And in the second row, the remaining money that cannot be distributed by one won is printed out
+
+```txt
+Input: 1000 100
+
+Output:
+10
+0
+```
+
+{% endtab %}
+{% tab title='BJ_1271.py' %}
+
+```py
+a, b = map(int, input().split())
+print(a // b)
+print(a % b)
+print(c // (a * 2) * b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 나는 행복합니다~](https://www.acmicpc.net/problem/14652)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_14652.md/)
+
+{% tabs %}
+{% tab title='BJ_14652.md' %}
+
+> Question
+
+* Find row and column given following bench
+
+![BJ_14652](modulo/images/20210228_143813.png)
+
+```txt
+Input: 3 4 6
+Output: 1 2
+```
+
+{% endtab %}
+{% tab title='BJ_14652.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print(c // b, c % b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 심부름 가는 길](https://www.acmicpc.net/problem/5554)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_5554.md/)
+
+{% tabs %}
+{% tab title='BJ_5554.md' %}
+
+> Question
+
+* add all four seconds and prints in m, s format
+
+```txt
+Input:
+31
+34
+7
+151
+
+Output:
+3
+43
+```
+
+{% endtab %}
+{% tab title='BJ_5554.py' %}
+
+```py
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+print((a + b + c + d) // 60)
+print((a + b + c + d) % 60)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 전자레인지](https://www.acmicpc.net/problem/10162)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_10162.md/)
+
+{% tabs %}
+{% tab title='BJ_10162.md' %}
+
+> Question
+
+* with 5, 1 minute, 10 second button, find the minimum button operation method to meet the given cooking time of T seconds
+
+```txt
+Input: 100
+Output: 0 1 4
+```
+
+{% endtab %}
+{% tab title='BJ_10162.py' %}
+
+```py
+n = int(input())
+if n % 10 != 0:
+  print(-1)
+else:
+  print(n // 300, n % 300 // 60, n % 60 // 10)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 폰 노이만과 파리](https://www.acmicpc.net/problem/14924)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_14924.md/)
+
+{% tabs %}
+{% tab title='BJ_14924.md' %}
+
+> Question
+
+![BJ_14924](modulo/images/20210228_144543.png)
+
+* Given S T D, find fly's travel distance
+
+```txt
+Input: 50 75 200
+Output: 150
+```
+
+{% endtab %}
+{% tab title='BJ_14924.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print(c // (a * 2) * b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Every Second Counts](https://www.acmicpc.net/problem/15080)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_15080.md/)
+
+{% tabs %}
+{% tab title='BJ_15080.md' %}
+
+> Question
+
+* Print time difference
+
+```txt
+Input:
+10 : 0 : 0
+11 : 0 : 0
+
+Output: 3600
+```
+
+{% endtab %}
+{% tab title='BJ_15080.py' %}
+
+```py
+a, b, c = map(int, input().split(" : "))
+d, e, f = map(int, input().split(" : "))
+print(((d - a) * 3600 + (e - b) * 60 + f - c + 24 * 3600) % (24 * 3600))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : /B - 3](https://www.acmicpc.net/problem/16428)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_16428.md/)
+
+{% tabs %}
+{% tab title='BJ_16428.md' %}
+
+> Question
+
+* Print quotient and remainder
+
+```txt
+Input: 7 -3
+
+Output:
+-2
+1
+```
+
+{% endtab %}
+{% tab title='BJ_16428.py' %}
+
+```py
+a, b = map(int, input().split())
+if b < 0:
+  print(a // b + 1)
+  print(a % b - b)
+else:
+  print(a // b)
+  print(a % b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 오븐 시계](https://www.acmicpc.net/problem/2525)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_2525.md/)
+
+{% tabs %}
+{% tab title='BJ_2525.md' %}
+
+> Question
+
+* calculates time when oven is finished, given time required to start smoked duck and time required to bake oven over division
+
+```txt
+Input:
+14 30
+20
+
+Output: 14 50
+```
+
+{% endtab %}
+{% tab title='BJ_2525.py' %}
+
+```py
+a, b = map(int, input().split())
+c = int(input())
+m = (a * 60 + b + c) % 1440
+print(m // 60, m % 60)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 인공지능 시계](https://www.acmicpc.net/problem/2530)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_2530.md/)
+
+{% tabs %}
+{% tab title='BJ_2530.md' %}
+
+> Question
+
+* calculates the time when the oven is finished
+* given the time in seconds to start the smoked duck and the time needed to bake the oven
+
+```txt
+Input:
+14 30 0
+200
+
+Output: 14 33 20
+```
+
+{% endtab %}
+{% tab title='BJ_2530.py' %}
+
+```py
+h, m, s = map(int, input().split())
+total = h * 3600 + m * 60 + s + int(input())
+print(total % (24 * 3600) // 3600, total % 3600 // 60, total % 60)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 곱셈](https://www.acmicpc.net/problem/2588)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_2588.md/)
+
+
+{% tabs %}
+{% tab title='BJ_2588.md' %}
+
+> Question
+
+![BJ_2588](modulo/images/20210227_030614.png)
+
+* Given 1 and 2, print 3 4 5 6
+
+```txt
+Input:
+472
+385
+
+Output:
+2360
+3776
+1416
+181720
+```
+
+{% endtab %}
+{% tab title='BJ_2588.py' %}
+
+```py
+a = int(input())
+b = int(input())
+print(a*(b%10),a*((b//10)%10),a*(b//100),a*b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Contest Timing](https://www.acmicpc.net/problem/5928)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_5928.md/)
+
+{% tabs %}
+{% tab title='BJ_5928.md' %}
+
+> Question
+
+* How many minutes have been paseed from11d, 11h 11m, -1 if it's before
+
+```txt
+Input: 12 13 14
+Output: 1563
+```
+
+{% endtab %}
+{% tab title='BJ_5928.py' %}
+
+```py
+d, h, m = map(int, input().split())
+dif = d * 60 * 24 + h * 60 + m - (11 * 60 * 24 + 11 * 60 + 11)
+print(-1 if dif < 0 else dif)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Koszykarz](https://www.acmicpc.net/problem/8710)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_8710.md/)
+
+{% tabs %}
+{% tab title='8710.md' %}
+
+> Question
+
+* b - a - 1 를 c 로 나눈 몫의 1을 더한 값을 출력하라
+
+```txt
+Input: 180 202 10
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a, b, c = map(int, input().split())
+print((b - a - 1) // c + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Jogo de Boca](https://www.acmicpc.net/problem/15048)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_15048.md/)
+
+{% tabs %}
+{% tab title='BJ_15048.md' %}
+
+> Question
+
+* 3 으로 나눈 나머지를 출력하라
+
+```txt
+Input: 5
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_15048.py' %}
+
+```py
+a = int(input())
+print(a % 3)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 세탁소 사장 동혁](https://www.acmicpc.net/problem/2720)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_2720.md/)
+
+{% tabs %}
+{% tab title='BJ_2720.md' %}
+
+> Question
+
+* Given integer, print number of exchanges in Quarter, Dime, Nickel, Penny
+
+```txt
+Input:
+3
+124
+25
+194
+
+Output:
+4 2 0 4
+1 0 0 0
+7 1 1 4
+```
+
+{% endtab %}
+{% tab title='BJ_2720.py' %}
+
+```py
+for i in range(int(input())):
+  x = int(input())
+  print(x // 25, x % 25 // 10, x % 25 % 10 // 5, x % 25 % 10 % 5)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 알람 시계](https://www.acmicpc.net/problem/2884)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_2884.md/)
+
+{% tabs %}
+{% tab title='BJ_2884.md' %}
+
+> Question
+
+* print time 45m ago
+
+```txt
+Input: 10 10
+Output: 9 25
+```
+
+{% endtab %}
+{% tab title='BJ_2884.sh' %}
+
+```sh
+read a b
+t=$((60*a+b-45))
+if [ $t -lt 0 ]; then
+  t=$((t+1440))
+fi
+echo $((t/60)) $((t%60))
+```
+
+{% endtab %}
+{% tab title='BJ_2884.py' %}
+
+```py
+h, m = map(int, input().split())
+m = h * 60 + m - 45
+if m < 0:
+  m += 1440
+print(m // 60, m % 60)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : What is n, Daddy?](https://www.acmicpc.net/problem/6794)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/BJ_6794.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* 첫 줄에 n 이 주어진다 다음 n * 2 줄에 a, b 가 주어 질때
+* a 나누기 b의 몫과 나머지를 각각 출력하라
+
+```txt
+Input:
+2
+4 2
+5 2
+
+Output:
+2
+0
+
+2
+1
+
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+n = int(input())
+for i in range(n):
+  a, b = int(input()), int(input())
+  print(a // b)
+  print(a % b)
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.6 : Spavanac](https://open.kattis.com/problems/spavanac)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/modulo/KT_spavanac.md/)
+
+[//]: # (BJ_2884)

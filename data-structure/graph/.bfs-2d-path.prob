@@ -1,0 +1,645 @@
+> baekjoon
+
+* [Level 9 : 나이트의 이동](https://www.acmicpc.net/problem/7562)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_7562.md/)
+
+{% tabs %}
+{% tab title='BJ_7562.md' %}
+
+> Question
+
+* Count the minimum number of moves from a night from start position to goal position
+* For each TC: length of square board, start posititoin, goal position
+
+```txt
+Input:
+3
+8
+0 0
+7 0
+100
+0 0
+30 50
+10
+1 1
+1 1
+
+Output:
+5
+28
+0
+```
+
+{% endtab %}
+{% tab title='BJ_7562.py' %}
+
+```py
+from collections import deque
+dx, dy = [-1, -1, -2, -2, 1, 1, 2, 2], [-2, 2, -1, 1, -2, 2, -1, 1]
+for _ in range(int(input())):
+  n = int(input())
+  D = [[-1]*n for __ in range(n)]
+  a, b = map(int, input().split())
+  c, d = map(int, input().split())
+  q = deque([[a, b]])
+  D[a][b]=0
+  while q:
+    x, y = q.popleft()
+    if x == c and y == d:
+      print(D[x][y])
+      break
+    for i in range(8):
+      nx, ny = x + dx[i], y+dy[i]
+      if 0 <= nx < n and 0 <= ny < n and D[nx][ny] == -1:
+        D[nx][ny]=D[x][y]+1
+        q.append([nx, ny])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 미로 탐색](https://www.acmicpc.net/problem/2178)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_2178.md/)
+
+{% tabs %}
+{% tab title='BJ_2178.md' %}
+
+> Question
+
+* Outputs the minimum number of spaces that must be passed
+
+```txt
+Input:
+4 6
+101111
+101010
+101011
+111011
+
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_2178.py' %}
+
+```py
+import collections
+def bfs(G, r, c):
+  q = collections.deque([(r, c)])
+  while q:
+    r, c = q.popleft()
+    for nr, nc in [(r,c-1),(r,c+1),(r-1,c),(r+1,c)]:
+      if 0 <= nr < len(G) and 0 <= nc < len(G[0]) and G[nr][nc] == 1:
+        q.append((nr, nc))
+        G[nr][nc] = G[r][c] + 1
+  return G[-1][-1]
+N, M = map(int,input().split())
+G = [list(map(int,input())) for _ in range(N)]
+print(bfs(G, 0,0))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 아기 상어](https://www.acmicpc.net/problem/16236)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_16236.md/)
+
+{% tabs %}
+{% tab title='BJ_16236.md' %}
+
+> Question
+
+* Size of shark grows by 1 as it touches smaller fish and seeks nearest eatable fish
+* Print total distance until shark stop moving
+
+```txt
+Input:
+3
+0 0 1
+0 0 0
+0 9 0
+
+Output: 3
+
+Input:
+4
+4 3 2 1
+0 0 0 0
+0 0 9 0
+1 2 3 4
+
+Output: 14
+```
+
+{% endtab %}
+{% tab title='BJ_16236.py' %}
+
+```py
+from heapq import heappush, heappop
+
+t, n = 0, int(input())
+G = [[*map(int, input().split())] for _ in range(n)]
+
+for i in range(n):
+  for j in range(n):
+    if G[i][j] > 8:
+      x, y = i, j
+      break
+
+q, siz, cnt, ans = [[0, x, y]], 2, 2, 0
+visited = [[0] * n for _ in range(n)]
+G[x][y] = visited[x][y] = -1
+while q:
+  t, i, j = heappop(q)
+  if 0 < G[i][j] < siz:
+    ans, G[i][j] = t, 0
+    visited, q = [[0] * n for _ in range(n)], [[t, i, j]]
+    cnt -= 1
+    if cnt == 0:
+      siz += 1
+      cnt = siz + 1
+
+  for i, j in [[i + 1, j], [i - 1, j], [i, j + 1], [i, j - 1]]:
+    if 0 <= i < n and 0 <= j < n and visited[i][j] and G[i][j] <= siz:
+      heappush(q, [t + 1, i, j])
+      visited[i][j] = -1
+
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 벽 부수고 이동하기](https://www.acmicpc.net/problem/2206)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_2206.md/)
+
+{% tabs %}
+{% tab title='BJ_2206.md' %}
+
+> Question
+
+* To move from (1, 1) to (N, M), find the shortest distance when you break up to one wall
+
+```txt
+Input:
+6 4
+0100
+1110
+1000
+0000
+0111
+0000
+
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_2206.py' %}
+
+```py
+from collections import deque
+def bfs(G, r, c):
+  dq = deque([[0, 0, 1]])
+  dp = [[[0] * 2 for i in range(m)] for i in range(n)]
+  dp[r][c][1] = 1
+  while dq:
+    a, b, w = dq.popleft()
+    if a == n - 1 and b == m - 1:
+      return dp[a][b][w]
+    for r, c in [(a + 1, b), (a, b + 1), (a - 1, b), (a, b - 1)]:
+      if 0 <= r < n and 0 <= c < m:
+        if G[r][c] == '1' and w == 1:
+          dp[r][c][0] = dp[a][b][1] + 1
+          dq.append([r, c, 0])
+        elif G[r][c] == '0' and dp[r][c][w] == 0:
+          dp[r][c][w] = dp[a][b][w] + 1
+          dq.append([r, c, w])
+  return -1
+n, m = map(int, input().split())
+G = [input() for _ in range(n)]
+print(bfs(G, 0, 0))
+
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 열쇠](https://www.acmicpc.net/problem/9328)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_9328.md/)
+
+{% tabs %}
+{% tab title='BJ_9328.md' %}
+
+> Question
+
+* Find maximum number of documents given
+  * lower_case: key
+  * uppoer_case: door
+  * \*: wall
+  * .: empty
+  * $: document
+
+```txt
+Input:
+3
+5 17
+*****************
+.............**$*
+*B*A*P*C**X*Y*.X.
+*y*x*a*p**$*$**$*
+*****************
+cz
+5 11
+*.*********
+*...*...*x*
+*X*.*.*.*.*
+*$*...*...*
+***********
+0
+7 7
+*ABCDE*
+X.....F
+W.$$$.G
+V.$$$.H
+U.$$$.J
+T.....K
+*SQPML*
+irony
+
+Output:
+3
+1
+0
+```
+
+{% endtab %}
+{% tab title='BJ_9328.py' %}
+
+```py
+import sys; input = sys.stdin.readline
+from collections import deque
+dx = [-1, 1, 0, 0]; dy = [0, 0, -1 ,1]
+
+def bfs():
+  q = deque()
+  q.append((0,0))
+  ch[0][0] = 0
+  dq = [deque() for i in range(26)]
+  ans = 0
+
+  while q:
+    x, y = q.popleft()
+
+    for i in range(4):
+      nx = x+dx[i]; ny = y+dy[i]
+      if 0<=nx<h+2 and 0<=ny<w+2:
+
+        if G[nx][ny] == '*': continue
+        if ch[nx][ny] == -1:
+          ch[nx][ny] = 0
+
+          if G[nx][ny] == '$':
+            ans+=1
+          elif 'A' <= G[nx][ny] <= 'Z':
+            tmp = ord(G[nx][ny])-ord('A')
+            if alp[tmp] is False:
+              dq[tmp].append((nx,ny))
+              continue
+          elif 'a' <= G[nx][ny] <= 'z':
+            k = ord(G[nx][ny]) - ord('a')
+            alp[k] = True
+            while dq[k]:
+              kx, ky = dq[k].popleft()
+              q.append((kx,ky))
+
+          q.append((nx,ny))
+  return ans
+
+tc = int(input())
+for i in range(tc):
+  h, w = map(int, input().split())
+  G = [list('.'*(w+2))]
+  for i in range(h):
+    G.append(list('.'+input().strip()+'.'))
+  G.append(list('.'*(w+2)))
+
+  key = input().strip()
+  ch = [[-1]*(w+2) for i in range(h+2)]
+  alp = [False]*26
+  if key!='0':
+    for i in key:
+      alp[ord(i) - ord('a')] = True
+
+  print(bfs())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 경찰차](https://www.acmicpc.net/problem/2618)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_2618.md/)
+
+{% tabs %}
+{% tab title='BJ_2618.md' %}
+
+> Question
+
+* Given N accidents on 2D plane
+* Minimize path sum with two police car
+
+```txt
+Input:
+6
+3
+3 5
+5 5
+2 3
+
+Output:
+9
+2
+2
+1
+```
+
+{% endtab %}
+{% tab title='BJ_2618.py' %}
+
+```py
+n, w = int(input()), int(input())
+p = [(1, 1), (n, n)]
+dist = lambda i, j: abs(p[i][0] - p[j][0]) + abs(p[i][1] - p[j][1])
+dp = [[(0, 0, 2)]] # d (dist), i (idx), num (which car)
+for i in range(2, 2 + w):
+  p.append(tuple(map(int, input().split())))
+  last, cur = dp[-1], []
+  mn_dist, mn_i, mn_num = 1e9, 0, 0
+  for j, (d, _, num) in enumerate(last):
+    cur.append((d + dist(i, i - 1), j, num))
+    if mn_dist > d + dist(i, j):
+      mn_dist, mn_i, mn_num = d + dist(i, j), j, num
+  cur.append((mn_dist, mn_i, mn_num % 2 + 1))
+  dp.append(cur)
+d, j, num = sorted(dp.pop())[0]
+ans = []
+while dp:
+  ans.append(num)
+  _, j, num = dp.pop()[j]
+print(d, *reversed(ans), sep='\n')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codeforces
+
+* [Level 2200 : To Go Or Not To Go?](https://codeforces.com/contest/1520/problem/G)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/CF_1520G.md/)
+
+{% tabs %}
+{% tab title='CF_1520G.md' %}
+
+> Question
+
+![CF_1520G](bfs-2d-path/images/20210506_034646.png)
+
+* Find the minimum time it will take him to get from home to school
+* city is a rectangular field of 𝑛 × 𝑚 size. Each cell (𝑖, 𝑗) on this field is denoted by one number a𝑖𝑗
+  * number −1 means that the passage through the cell is prohibited
+  * number 0 means that the cell is free and Dima can walk though it
+  * number 𝑥 (1≤𝑥≤109) means that cell contains a portal (free) with a cost of 𝑥
+
+```txt
+Input:
+5 5 1
+0 -1 0 1 -1
+0 20 0 0 -1
+-1 -1 -1 -1 -1
+3 0 0 0 0
+-1 0 0 0 0
+
+Output : 14
+```
+
+> Solution
+
+* First: do not use portals. Here it is enough to find the shortest path between two points
+* single transition: Let's choose a portal from which we should teleport
+* Obviously, this is a portal with a minimum distance to it and the cost of the transition
+* Similarly, the portal in which we should teleport is selected
+
+{% endtab %}
+{% tab title='CF_1520G.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int dd[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+
+void bfs(int sx, int sy, vector<vector<int>> &d, vector<vector<int>> &G) {
+  queue<pair<int, int>> q({sx, sy});
+  d[sx][sy] = 1;
+  while (!q.empty()) {
+    auto [x, y] = q.front();
+    q.pop();
+    for (auto [dx, dy] : dd) {
+      int tx = x + dx, ty = y + dy;
+      if (tx >= 0 && ty >= 0 && tx < d.size() && ty < d[0].size() && d[tx][ty] == 0 && G[tx][ty] != -1) {
+        d[tx][ty] = d[x][y] + 1;
+        q.push({tx, ty});
+      }
+    }
+  }
+  for (auto &e : d)
+    for (auto &i : e)
+      i--;
+}
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int n, m, w;
+  cin >> n >> m >> w;
+  vector<vector<int>> G(n, vector<int>(m)), d1(n, vector<int>(m)), d2(n, vector<int>(m));
+  for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++)
+      cin >> G[i][j];
+  bfs(0, 0, d1, G);
+  bfs(n - 1, m - 1, d2, G);
+  long long bestFinish = 1e18;
+  for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++)
+      if (d2[i][j] != -1 && G[i][j] >= 1)
+        bestFinish = min(bestFinish, G[i][j] + w * 1ll * d2[i][j]);
+
+  long long ans = (d1[n - 1][m - 1] == -1)? 1e18: w * 1ll * d1[n - 1][m - 1];
+
+  for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++)
+      if (d1[i][j] != -1 && G[i][j] >= 1 && bestFinish != 1e18)
+        ans = min(ans, w * 1ll * d1[i][j] + G[i][j] + bestFinish);
+
+  cout << (ans == 1e18 ? -1: ans);
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : The Maze](https://leetcode.com/problems/the-maze)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/LC_490.md/)
+
+{% tabs %}
+{% tab title='LC_490.md' %}
+
+> Question
+
+* through the empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall
+* When the ball stops, it could choose the next direction.
+* Given the m x n maze, the ball's start position and the destination, return if the ball can stop at the destination
+
+```txt
+Input: maze = [[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]], start = [0,4], destination = [4,4]
+Output: true  # left -> down -> left -> down -> right -> down -> right.
+```
+
+{% endtab %}
+{% tab title='LC_490.py' %}
+
+```py
+def hasPath(self, G: List[List[int]], start: List[int], goal: List[int]) -> bool:
+  Q = deque([start])
+  dirs = ((0, 1), (0, -1), (1, 0), (-1, 0))
+
+  while Q:
+    i, j = Q.popleft()
+    G[i][j] = 2
+
+    if i == goal[0] and j == goal[1]:
+      return True
+
+    for x, y in dirs:
+      row, col = i + x, j + y
+      while 0 <= row < len(G) and 0 <= col < len(G[0]) and G[row][col] != 1:
+        row, col = row + x, col + y
+      row -= x
+      col -= y
+      if G[row][col] == 0:
+        Q.append([row, col])
+
+  return False
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/LC_1368.md/)
+
+{% tabs %}
+{% tab title='LC_1368.md' %}
+
+> Question
+
+![LC_1368](bfs-2d-path/images/20210301_030401.png)
+
+* Find minimum number of changes to make at least one valid path
+
+```txt
+Input:
+grid =
+[[1,1,1,1],
+ [2,2,2,2],
+ [1,1,1,1],
+ [2,2,2,2]]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_1368.py' %}
+
+```py
+def minCost(self, G: List[List[int]]) -> int:
+  def neighborhood(r: int, c: int) -> Iterator[Tuple[int, int, int]]:
+    if c + 1 < len(G[0]):
+      yield r, c + 1, int(G[r][c] != 1)
+    if c > 0:
+      yield r, c - 1, int(G[r][c] != 2)
+    if r + 1 < len(G):
+      yield r + 1, c, int(G[r][c] != 3)
+    if r > 0:
+      yield r - 1, c, int(G[r][c] != 4)
+
+  min_cost = collections.defaultdict(lambda: math.inf, {(0, 0): 0})
+  dq = collections.deque([(0, 0, 0)])
+
+  while dq:
+    r, c, cost = dq.popleft()
+
+    for r2, c2, step_cost in neighborhood(r, c):
+      if (cost2 := cost + step_cost) < min_cost[r2, c2]:
+        min_cost[r2, c2] = cost2
+        if not step_cost:
+          dq.appendleft((r2, c2, cost2))
+        else:
+          dq.append((r2, c2, cost2))
+
+  return min_cost[(len(G) - 1, len(G[0]) - 1)]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : The Maze III](https://leetcode.com/problems/the-maze-iii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/LC_499.md/)
+
+{% tabs %}
+{% tab title='LC_499.md' %}
+
+> Question
+
+* The ball can go through empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall
+* return a string instructions of all instructions that ball should follow to drop in hole with the shortest distance possible
+* print lexicographically minimum in case of tie
+
+```txt
+Input: maze = [[0,0,0,0,0],[1,1,0,0,1],[0,0,0,0,0],[0,1,0,0,1],[0,1,0,0,0]], ball = [4,3], hole = [0,1]
+Output: "lul"
+```
+
+{% endtab %}
+{% tab title='LC_499.py' %}
+
+```py
+def findShortestWay(self, G, ball, hole):
+  ball, hole = tuple(ball), tuple(hole)
+  def neighbors(r, c):
+    for dr, dc, di in [(-1, 0, 'u'), (0, 1, 'r'), (0, -1, 'l'), (1, 0, 'd')]:
+      cr, cc, dist = r, c, 0
+      while 0 <= cr + dr < len(G) and  0 <= cc + dc < len(G[0]) and not G[cr+dr][cc+dc]:
+        cr += dr
+        cc += dc
+        dist += 1
+        if (cr, cc) == hole:
+          break
+      yield (cr, cc), di, dist
+
+  pq = [(0, '', ball)]
+  seen = set()
+  while pq:
+    dist, path, node = heapq.heappop(pq)
+    if node in seen: continue
+    if node == hole: return path
+    seen.add(node)
+    for nei, di, nei_dist in neighbors(*node):
+      heapq.heappush(pq, (dist+nei_dist, path+di, nei) )
+
+  return "impossible"
+```
+
+{% endtab %}
+{% endtabs %}

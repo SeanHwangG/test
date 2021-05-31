@@ -1,0 +1,367 @@
+> leetcode
+
+* [Level 1 : N-Repeated Element in Size 2N Array](https://leetcode.com/problems/n-repeated-element-in-size-2n-array)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/random/LC_961.md/)
+
+{% tabs %}
+{% tab title='LC_961.md' %}
+
+> Question
+
+* In a array nums of size 2 * n, there are n + 1 unique elements, and exactly one of these elements is repeated n times
+* Return the element repeated n times
+
+```txt
+Input: nums[2,1,2,5,3,2]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_961.py' %}
+
+```py
+def repeatedNTimes(self, A):
+  while 1:
+    s = random.sample(A, 2)
+    if s[0] == s[1]:
+      return s[0]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/random/LC_380.md/)
+
+{% tabs %}
+{% tab title='LC_380.md' %}
+
+> Question
+
+* Implement the RandomizedSet class:
+  * RandomizedSet() Initializes the RandomizedSet object
+  * bool insert(int val) Inserts an item val into the set if not present. Returns if the item was not present
+  * bool remove(int val) Removes an item val from set if present. Returns if the item was present
+  * int getRandom() Returns a random element from current set of elements (guaranteed element exists when method is called)
+    * Each element must have the same probability of being returned
+
+```txt
+Input:
+["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"]
+[[], [1], [2], [2], [], [1], [2], []]
+
+Output: [null, true, false, true, 2, true, false, 2]
+```
+
+{% endtab %}
+{% tab title='LC_380.py' %}
+
+```py
+import random
+
+class RandomizedSet(object):
+  def __init__(self):
+    self.nums, self.pos = [], {}
+
+  def insert(self, val):
+    if val not in self.pos:
+      self.nums.append(val)
+      self.pos[val] = len(self.nums) - 1
+      return True
+    return False
+
+  def remove(self, val):
+    if val in self.pos:
+      idx, last = self.pos[val], self.nums[-1]
+      self.nums[idx], self.pos[last] = last, idx
+      self.nums.pop(); self.pos.pop(val, 0)
+      return True
+    return False
+
+  def getRandom(self):
+    return self.nums[random.randint(0, len(self.nums) - 1)]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Linked List Random Node](https://leetcode.com/problems/linked-list-random-node)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/random/LC_382.md/)
+
+{% tabs %}
+{% tab title='LC_382.md' %}
+
+> Question
+
+* Given a singly linked list, return a random node's value from the linked list
+
+```txt
+Input:
+["Solution", "getRandom", "getRandom", "getRandom", "getRandom", "getRandom"]
+[[[1, 2, 3]], [], [], [], [], []]
+
+Output:
+[null, 1, 3, 2, 2, 3]
+```
+
+{% endtab %}
+{% tab title='LC_382.py' %}
+
+```py
+def __init__(self, head):
+  self.head = head
+
+def getRandom(self):
+  result, node, index = self.head, self.head.next, 1
+  while node:
+    if random.randint(0, index) is 0:
+      result = node
+    node = node.next
+    index += 1
+  return result.val
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Random Pick Index](https://leetcode.com/problems/random-pick-index)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/random/LC_398.md/)
+
+{% tabs %}
+{% tab title='LC_398.md' %}
+
+> Question
+
+* Given an integer array nums with possible duplicates, randomly output the index of a given target number
+* You can assume that the given target number must exist in the array
+
+```txt
+Input:
+["Solution", "pick", "pick", "pick"]
+[[[1, 2, 3, 3, 3]], [3], [1], [3]]
+
+Output:
+[null, 4, 0, 2]
+```
+
+> Solution
+
+* Reservior sampling
+
+{% endtab %}
+{% tab title='LC_398.java' %}
+
+```java
+int[] nums;
+Random rnd;
+
+public Solution(int[] nums) {
+  this.nums = nums;
+  this.rnd = new Random();
+}
+
+public int pick(int target) {
+  int result = -1;
+  int count = 0;
+  for (int i = 0; i < nums.length; i++) {
+    if (nums[i] != target)
+      continue;
+    if (rnd.nextInt(++count) == 0)
+      result = i;
+  }
+
+  return result;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Implement Rand10() Using Rand7()](https://leetcode.com/problems/implement-rand10-using-rand7)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/random/LC_470.md/)
+
+{% tabs %}
+{% tab title='LC_470.md' %}
+
+> Question
+
+* Print rand10() given rand7()
+
+```txt
+Input: n = 2
+Output: [2, 8]
+```
+
+{% endtab %}
+{% tab title='LC_470.cpp' %}
+
+```cpp
+int rand10() {
+  int rand40 = 40;
+  while (rand40 >= 40)
+    rand40 = (rand7() - 1) * 7 + rand7() - 1;
+
+  return rand40 % 10 + 1;
+}
+```
+
+{% endtab %}
+{% tab title='LC_470.py' %}
+
+```py
+def rand10(self):
+  rand40 = 40
+  while rand40 >= 40:
+    rand40 = (rand7() - 1) * 7 + rand7() - 1
+  return rand40 % 10 + 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Generate Random Point in a Circle](https://leetcode.com/problems/generate-random-point-in-a-circle)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/random/LC_478.md/)
+
+{% tabs %}
+{% tab title='LC_478.md' %}
+
+> Question
+
+* Print random point inside circle
+
+```txt
+Input:
+["Solution", "randPoint", "randPoint", "randPoint"]
+[[1.0, 0.0, 0.0], [], [], []]
+
+Output:
+[null, [-0.02493, -0.38077], [0.82314, 0.38945], [0.36572, 0.17248]]
+```
+
+{% endtab %}
+{% tab title='LC_478.py' %}
+
+```py
+import math
+import random
+def __init__(self, radius, x_center, y_center):
+  self.radius = radius
+  self.x_center = x_center
+  self.y_center = y_center
+  random.seed()
+def randPoint(self):
+  degree = random.uniform(0, 2 * math.pi)
+  dist = (2 * random.uniform(0, self.radius ** 2 / 2.0)) ** (1/2.0)
+  x = dist * math.cos(degree)
+  y = dist * math.sin(degree)
+  return [self.x_center + x, self.y_center + y]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Insert Delete GetRandom O(1) - Duplicates allowed](https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/random/LC_381.md/)
+
+{% tabs %}
+{% tab title='LC_381.md' %}
+
+> Question
+
+* Implement the RandomizedCollection class:
+  * RandomizedCollection(): Initializes the RandomizedCollection object
+  * bool insert(int val): Inserts an item val into the multiset if not present. Returns if item not present
+  * bool remove(int val) Removes one item val from multiset if present. Returns if item is present
+  * int getRandom() Returns a random element from current multiset of elements
+    * it's guaranteed that at least one element exists when this method is called
+* The probability of each element being returned is linearly related to the number of same values the multiset contains
+
+```txt
+Input:
+["RandomizedCollection", "insert", "insert", "insert", "getRandom", "remove", "getRandom"]
+[[], [1], [1], [2], [], [1], []]
+
+Output:
+[null, true, false, true, 2, true, 1]
+```
+
+{% endtab %}
+{% tab title='LC_381.java' %}
+
+```java
+public class RandomizedCollection {
+  ArrayList<Integer> nums;
+  HashMap<Integer, Set<Integer>> locs;
+  java.util.Random rand = new java.util.Random();
+
+  public RandomizedCollection() {
+    nums = new ArrayList<Integer>();
+    locs = new HashMap<Integer, Set<Integer>>();
+  }
+
+  /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
+  public boolean insert(int val) {
+    boolean contain = locs.containsKey(val);
+    if (!contain) locs.put(val, new LinkedHashSet<Integer>());
+    locs.get(val).add(nums.size());
+    nums.add(val);
+    return ! contain ;
+  }
+
+  /** Removes a value from the collection. Returns true if the collection contained the specified element. */
+  public boolean remove(int val) {
+    boolean contain = locs.containsKey(val);
+    if (!contain) return false;
+    int loc = locs.get(val).iterator().next();
+    locs.get(val).remove(loc);
+    if (loc < nums.size() - 1) {
+       int lastone = nums.get(nums.size() - 1);
+       nums.set(loc , lastone);
+       locs.get(lastone).remove( nums.size()-1);
+       locs.get(lastone).add(loc);
+    }
+    nums.remove(nums.size() - 1);
+
+    if (locs.get(val).isEmpty()) locs.remove(val);
+    return true;
+  }
+
+  /** Get a random element from the collection. */
+  public int getRandom() {
+    return nums.get(rand.nextInt(nums.size()));
+  }
+}
+```
+
+{% endtab %}
+{% tab title='LC_381.py' %}
+
+```py
+import random
+
+class RandomizedCollection(object):
+  def __init__(self):
+    self.vals, self.idxs = [], collections.defaultdict(set)
+
+  def insert(self, val):
+    self.vals.append(val)
+    self.idxs[val].add(len(self.vals) - 1)
+    return len(self.idxs[val]) == 1
+
+  def remove(self, val):
+    if self.idxs[val]:
+      out, ins = self.idxs[val].pop(), self.vals[-1]
+      self.vals[out] = ins
+      if self.idxs[ins]:
+        self.idxs[ins].add(out)
+        self.idxs[ins].discard(len(self.vals) - 1)
+      self.vals.pop()
+      return True
+    return False
+
+  def getRandom(self):
+      return random.choice(self.vals)
+```
+
+{% endtab %}
+{% endtabs %}

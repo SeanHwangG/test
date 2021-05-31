@@ -1,0 +1,657 @@
+> baekjoon
+
+* [Level 4 : 줄 세우기](https://www.acmicpc.net/problem/2605)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_2605.md/)
+
+{% tabs %}
+{% tab title='BJ_2605.md' %}
+
+> Question
+
+* When students in line are given the numbers selected one by one
+* print out the order in which the students finally line up
+
+```txt
+Input:
+5
+0 1 1 3 2
+
+Output: 4 2 5 3 1
+```
+
+{% endtab %}
+{% tab title='BJ_2605.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+int N, K;
+list<int> L;
+
+int main() {
+  cin >> N;
+  list<int>::iterator I;
+
+  for (int i = 1; i <= N; i++) {
+    I = L.begin();
+    cin >> K;
+    while (K--) I++;
+    L.insert(I, i);
+  }
+
+  L.reverse();
+  for (I = L.begin(); I != L.end(); I++)
+    cout << *I << " ";
+
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2605.py' %}
+
+```py
+from collections import deque
+N = int(input())
+student = list(map(int, input().split()))
+result = deque()
+for i, move in enumerate(student):
+  result.rotate(move)
+  result.append(i + 1)
+  result.rotate(-move)
+print(*result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 큐 2](https://www.acmicpc.net/problem/18258)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_18258.md/)
+
+{% tabs %}
+{% tab title='BJ_18258.md' %}
+
+> Question
+
+* Design queue
+
+```txt
+Input:
+15
+push 1
+push 2
+front
+back
+size
+empty
+pop
+pop
+pop
+size
+empty
+pop
+push 3
+empty
+front
+
+Output:
+1
+2
+2
+0
+1
+2
+-1
+0
+1
+-1
+0
+3
+```
+
+{% endtab %}
+{% tab title='BJ_18258.py' %}
+
+```py
+from collections import deque
+import sys
+N = int(input())
+samples = deque()
+for _ in range(N):
+  tokens = sys.stdin.readline().split()
+  if tokens[0] == 'push':
+    samples.append(tokens[1])
+  elif tokens[0] == 'pop':
+    print(samples.popleft() if samples else -1)
+  elif tokens[0] ==  'size':
+    print(len(samples))
+  elif tokens[0] == 'empty':
+    print(0 if samples else 1)
+  elif tokens[0] == 'front':
+    print(samples[0] if samples else -1)
+  elif tokens[0] == 'back':
+    print(samples[-1] if samples else -1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 카드2](https://www.acmicpc.net/problem/2164)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_2164.md/)
+
+{% tabs %}
+{% tab title='BJ_2164.md' %}
+
+> Question
+
+* Throw the top card on the floor. Then, move the top card to the bottom of the card
+* When given N, write a program to obtain the card that is left last
+
+```txt
+Input: 6
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_2164.cpp' %}
+
+```cpp
+#include<iostream>
+#include<queue>
+using namespace std;
+
+int N;
+queue<int> q;
+
+int main() {
+  cin >> N;
+  for (int i = 1; i <= N; i++) q.push(i);
+  while (q.size() != 1) {
+    q.pop();
+    q.push(q.front());
+    q.pop();
+  }
+  cout << q.front();
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2164.py' %}
+
+```py
+from collections import deque
+deck = deque(range(1, int(input()) + 1))
+while len(deck) > 1:
+  deck.popleft()
+  deck.append(deck.popleft())
+print(deck[0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 균형잡힌 세상](https://www.acmicpc.net/problem/4949)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_4949.md/)
+
+{% tabs %}
+{% tab title='BJ_4949.md' %}
+
+> Question
+
+* If the parentheses in string are balanced on each line, print "yes" or "no"
+
+```txt
+Input:
+So when I die (the [first] I will see in (heaven) is a score list).
+[ first in ] ( first out ).
+Half Moon tonight (At least it is better than no Moon at all].
+A rope may form )( a trail in a maze.
+Help( I[m being held prisoner in a fortune cookie factory)].
+([ (([( [ ] ) ( ) (( ))] )) ]).
+ .
+.
+
+Output:
+yes
+yes
+no
+no
+no
+yes
+yes
+```
+
+{% endtab %}
+{% tab title='BJ_4949.py' %}
+
+```py
+while True:
+  line = input()
+  if line == '.':
+    break
+  stk = []
+  for ch in line:
+    if ch == '(' or ch == '[':
+      stk.append(ch)
+    elif ch == ')':
+      if not stk or stk[-1] == '[':
+        print("no")
+        break
+      elif stk[-1] == '(':
+        stk.pop()
+    elif ch == ']':
+      if not stk or stk[-1] == '(':
+        print("no")
+        break
+      elif stk[-1] == '[':
+        stk.pop()
+  else:
+    print("no" if stk else "yes")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 쇠막대기](https://www.acmicpc.net/problem/10799)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_10799.md/)
+
+{% tabs %}
+{% tab title='BJ_10799.md' %}
+
+> Question
+
+![BJ_10799](queue/images/20210302_020009.png)
+
+* Given a parenthesis representation of the arrangement of the iron rod and the laser
+* Find the total number of pieces of the cut iron rod
+
+```txt
+Input: ()(((()())(())()))(())
+Output: 17
+```
+
+{% endtab %}
+{% tab title='BJ_10799.py' %}
+
+```py
+s=input().replace('()', 'L')
+a=0
+num = s.count('(')
+for n in s:
+  if n=='(':
+    a+=1
+  elif n==')':
+    a-=1
+  elif n=='L':
+    num += a
+
+print(num)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 프린터 큐](https://www.acmicpc.net/problem/1966)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_1966.md/)
+
+{% tabs %}
+{% tab title='BJ_1966.md' %}
+
+> Question
+
+* Check “importance” of document currently at forefront of Queue
+* If any of remaining documents are more important than current, don't print this document and redeploy it to back of queue
+* otherwise print it immediately
+
+```txt
+Input:
+3
+1 0
+5
+4 2
+1 2 3 4
+6 0
+1 1 9 1 1 1
+
+Output:
+1
+2
+5
+```
+
+{% endtab %}
+{% tab title='BJ_1966.py' %}
+
+```py
+from collections import deque
+for _ in range(int(input())):
+  N, M = map(int, input().split())
+  weight = deque(map(int, input().split()))
+  index = deque(range(N))
+
+  res = 1
+  while True:
+    if index[0] == M and weight[0] == max(weight):
+      break
+    else:
+      if weight[0] == max(weight):
+        weight.popleft()
+        index.popleft()
+        res += 1
+      else:
+        weight.append(weight.popleft())
+        index.append(index.popleft())
+  print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 후위 표기식](https://www.acmicpc.net/problem/1918)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_1918.md/)
+
+{% tabs %}
+{% tab title='BJ_1918.md' %}
+
+> Question
+
+![BJ_1918](queue/images/20210302_020057.png)
+
+* Solve postfix notation
+
+```txt
+Input: A*(B+C)
+Output: ABC+*
+```
+
+{% endtab %}
+{% tab title='BJ_1918.py' %}
+
+```py
+stack=[]
+prior={ '*':2, '/':2, '+':1, '-':1, '(':0 }
+for ch in '(' + input() + ')':
+  if ch.isupper():
+    print(ch, end='')
+  elif ch=='(':
+    stack.append(ch)
+  elif ch==')':
+    while True:
+      o=stack.pop()
+      if o == '(':
+        break
+      print(o,end='')
+  else:
+    while stack[-1] != '(' and prior[ch] <= prior[stack[-1]]:
+      print(stack.pop(),end='')
+    stack.append(ch)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 쇼핑몰](https://www.acmicpc.net/problem/17612)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_17612.md/)
+
+{% tabs %}
+{% tab title='BJ_17612.md' %}
+
+> Question
+
+* Given information of N customers (membership numbers, # purchases) who are standing in line to enter the checkout counter
+* calculate and find the order in which they exit the mall
+
+```txt
+Input:
+10 3
+123 4
+21 5
+34 14
+56 1
+45 7
+723 5
+55 7
+13 5
+910 10
+73 3
+
+Output: 13900
+```
+
+{% endtab %}
+{% tab title='BJ_17612.py' %}
+
+```py
+import sys
+from heapq import *
+input = sys.stdin.readline
+n,k = map(int,input().split())
+pq = [(0, i) for i in range(k)]
+arr, ids = [],[]
+for i in range(n):
+  id_,buy = map(int,input().split())
+  time, kiosk = heappop(pq)
+  heappush(pq,(time + buy, kiosk))
+  arr.append((time + buy, kiosk, i+1))
+  ids.append(id_)
+arr.sort(key=lambda x:(x[0],-x[1]))
+s = 0
+for i in range(n):
+  s += ids[arr[i][2] - 1] * (i + 1)
+print(s)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 히스토그램에서 가장 큰 직사각형](https://www.acmicpc.net/problem/6549)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/BJ_6549.md/)
+
+{% tabs %}
+{% tab title='BJ_6549.md' %}
+
+> Question
+
+* find the largest rectangle inside the histogram
+
+```txt
+Input:
+7 2 1 4 5 1 3 3
+4 1000 1000 1000 1000
+0
+
+Output:
+8
+4000
+```
+
+{% endtab %}
+{% tab title='BJ_6549.py' %}
+
+```py
+def largest_rect(heights):
+  hws, mx_area = [], 0
+  for i, h in enumerate(heights):
+    width = 0
+    while len(hws) and h < hws[-1][0]:
+      width += hws[-1][1]
+      mx_area = max(mx_area, width * hws[-1][0])
+      hws.pop()
+    hws.append([h, width + 1])
+  while hws:
+    width += hws[-1][1]
+    mx_area = max(mx_area, width * hws.pop()[0])
+  return mx_area
+
+while True:
+  line = input()
+  if line == '0':
+    break
+  heights = list(map(int, line.split()))[1:]
+  print(largest_rect(heights))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/LC_232.md/)
+
+{% tabs %}
+{% tab title='LC_232.md' %}
+
+* Implement a first in first out (FIFO) queue using only two stacks
+* The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty)
+
+```txt
+Input:
+["MyQueue", "push", "push", "peek", "pop", "empty"]
+[[], [1], [2], [], [], []]
+
+Output:
+[null, null, null, 1, 1, false]
+```
+
+{% endtab %}
+{% tab title='LC_232.py' %}
+
+```cpp
+class Queue {
+  stack<int> input, output;
+  public:
+
+  void push(int x) {
+    input.push(x);
+  }
+
+  void pop(void) {
+    peek();
+    output.pop();
+  }
+
+  int peek(void) {
+    if (output.empty())
+      while (input.size())
+        output.push(input.top()), input.pop();
+    return output.top();
+  }
+
+  bool empty(void) {
+    return input.empty() && output.empty();
+  }
+};
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/LC_703.md/)
+
+{% tabs %}
+{% tab title='LC_703.md' %}
+
+> Question
+
+* Design a class to find the kth largest element in a stream
+* Note that it is the kth largest element in the sorted order, not the kth distinct element
+
+```txt
+Input
+["KthLargest", "add", "add", "add", "add", "add"]
+[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]
+
+Output
+[null, 4, 5, 5, 8, 8]
+```
+
+{% endtab %}
+{% tab title='LC_703.py' %}
+
+```py
+class KthLargest:
+  def __init__(self, k: int, nums: List[int]):
+    self.pq, self.k = [], k
+    for n in nums:
+      self.add(n)
+
+  def add(self, val: int) -> int:
+    heapq.heappush(self.pq, val)
+    if len(self.pq) > self.k:
+      heapq.heappop(self.pq)
+    return self.pq[0]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/queue/LC_636.md/)
+
+{% tabs %}
+{% tab title='LC_636.md' %}
+
+```txt
+[Input]
+Input: n = 2, logs = ["0:start:0","1:start:2","1:end:5","0:end:6"]
+[Output]
+[3,4]
+```
+
+{% endtab %}
+{% tab title='LC_636.py' %}
+
+```cpp
+class Solution {
+public:
+  vector<int> exclusiveTime(int n, vector<string>& logs) {
+    int lastTime = 0;
+    stack<int> stk;
+    vector<int> runTime(n, 0);
+    for( int i = 0; i < logs.size(); i++ ) {
+      string str = logs[i];
+      int col_1 = str.find(":"), col_2 = str.find_last_of(":");
+
+      int funcId = stoi(str.substr(0, col_1));
+      string type = str.substr(col_1 + 1, col_2 - col_1 - 1);
+      int currTime = stoi(str.substr(col_2 + 1));
+
+      if ( type == "start" ) {
+        if (stk.size() > 0)
+          runTime[stk.top()] += currTime-lastTime;
+        stk.push(funcId);
+        lastTime = currTime;
+      } else {
+        runTime[stk.top()] += currTime+ 1 - lastTime;
+        stk.pop();
+        lastTime = currTime+1;
+      }
+    }
+    return runTime;
+  }
+};
+```
+
+```py
+def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
+  ans, stk = [0]*n, []
+  for log in logs:
+    f_id, event, time = log.split(':')
+    f_id, time = int(f_id), int(time)
+    if event=='start':
+      if stk:
+        ans[stk[-1][0]] += time-stk[-1][1]
+      stk.append([f_id, time])
+    else:
+      popped = stk.pop()
+      ans[popped[0]] += time-popped[1]+1
+      if stk:
+        stk[-1][1] = time+1
+  return ans
+```
+
+{% endtab %}
+{% endtabs %}

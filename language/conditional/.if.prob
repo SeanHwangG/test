@@ -1,0 +1,557 @@
+> baekjoon
+
+* [Level 2 : 특별한 날](https://www.acmicpc.net/problem/10768)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_10768.md/)
+
+{% tabs %}
+{% tab title='BJ_10768.md' %}
+
+> Question
+
+* Print if it's before Febuary 18th
+
+```txt
+Input:
+1
+7
+
+Output: Before
+```
+
+{% endtab %}
+{% tab title='BJ_10768.py' %}
+
+```py
+a = int(input())
+b = int(input())
+s = 100 * a + b
+print('Before' if s < 218 else 'After' if s > 218 else 'Special')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 두 수 비교하기](https://www.acmicpc.net/problem/1330)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_1330.md/)
+
+{% tabs %}
+{% tab title='BJ_1330.md' %}
+
+> Question
+
+* Print comparison result of two integers
+
+```txt
+Input: 3 5
+Output: <
+```
+
+{% endtab %}
+{% tab title='BJ_1330.sh' %}
+
+```sh
+read a b
+if [ $a -eq $b ]; then
+  echo '=='
+elif [ $a -gt $b ]; then
+  echo '>'
+else
+  echo '<'
+fi
+```
+
+{% endtab %}
+{% tab title='BJ_1330.py' %}
+
+```py
+A, B = map(int, input().split())
+print(">" if A > B else "<" if A < B else "==")
+```
+
+{% endtab %}
+{% tab title='BJ_1330.r' %}
+
+```r
+x=scan("stdin")
+a=x[1]
+b=x[2]
+cat(ifelse(a>b, ">", ifelse(a < b, "<", ifelse(a==b, "=="))))
+```
+
+{% endtab %}
+{% tab title='BJ_1330.v' %}
+
+```v
+module main;
+integer a, b, c;
+
+initial begin
+    c = $fscanf(32'h8000_0000, "%d %d", a, b);
+    $display("%0s", a > b ? ">" : a < b ? "<" : "==");
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Equality](https://www.acmicpc.net/problem/13985)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_13985.md/)
+
+{% tabs %}
+{% tab title='BJ_13985.md' %}
+
+> Question
+
+* Print if equation is correct
+
+```txt
+Input: 2 + 2 = 5
+Output: NO
+```
+
+{% endtab %}
+{% tab title='BJ_13985.py' %}
+
+```py
+st = input().split()
+print('YES' if int(st[0]) + int(st[2]) == int(st[4]) else 'NO')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 연세대학교](https://www.acmicpc.net/problem/15680)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15680.md/)
+
+{% tabs %}
+{% tab title='BJ_15680.md' %}
+
+> Question
+
+* Print YONSEI if 0 or "Leading the Way to the Future"
+
+```txt
+Input: 0
+Output: YONSEI
+```
+
+{% endtab %}
+{% tab title='BJ_15680.py' %}
+
+```py
+a = int(input())
+print('YONSEI' if input() == '0' else 'Leading the Way to the Future')
+```
+
+{% endtab %}
+{% tab title='BJ_15680.v' %}
+
+```v
+module main;
+  integer a, b;
+  initial begin
+      b = $fscanf(32'h8000_0000, "%d", a);
+      $display("%0s", a? "Leading the Way to the Future": "YONSEI");
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 수찬은 마린보이야!!](https://www.acmicpc.net/problem/15921)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15921.md/)
+
+{% tabs %}
+{% tab title='BJ_15921.md' %}
+
+> Question
+
+* a가 0이면 divide by zero, 아니면 1.00을 출력하라
+
+```txt
+Input:
+5
+5 10 10 15 20
+
+Output: 1.00
+```
+
+{% endtab %}
+{% tab title='BJ_15921.py' %}
+
+```py
+print("divide by zero" if input() == "0" else '1.00')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : CASIO](https://www.acmicpc.net/problem/15963)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15963.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* print 1 if two integers are same else 0
+
+```txt
+Input: 1 1
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_9498.sh' %}
+
+```sh
+read a b
+echo $((a == b))
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a, b = map(int, input().split())
+print(1 if a == b else 0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Counting Clauses](https://www.acmicpc.net/problem/17903)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_17903.md/)
+
+{% tabs %}
+{% tab title='BJ_17903.md' %}
+
+> Question
+
+* a, b 가 주어진다
+* a 가 8 보다 크거나 같으면 satisfactory 아니면 unsatisfactory 를 출력하라
+
+```txt
+Input:
+5 3
+-1 2 3
+-1 -2 3
+1 -2 3
+1 -2 -3
+1 2 -3
+
+Output: unsatisfactory
+```
+
+{% endtab %}
+{% tab title='BJ_17903.py' %}
+
+```py
+a, b= map(int, input().split())
+print("satisfactory" if a >= 8 else "unsatisfactory")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 3 つの整数 (Three Integers)](https://www.acmicpc.net/problem/18408)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_18408.md/)
+
+{% tabs %}
+{% tab title='BJ_18408.md' %}
+
+> Question
+
+* 세 수의 합이 4보다 작거나 같으면 1, 아니면 2를 출력
+
+```txt
+Input: 1 1 0
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_18408.py' %}
+
+```py
+a, b, c = map(int,input().split())
+print(1 if a + b + c <= 4 else 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Dog Treats](https://www.acmicpc.net/problem/19602)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_19602.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* if a + 2 \* b + 3 \* c < 10 print sad else print happy
+
+```txt
+Input: 1 1 1
+Output: sad
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a = int(input())
+b = int(input())
+c = int(input())
+print('sad' if a + 2 * b + 3 * c < 10 else 'happy')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Ролевая игра](https://www.acmicpc.net/problem/21645)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_21645.md/)
+
+{% tabs %}
+{% tab title='BJ_21645.md' %}
+
+> Question
+
+* Given a, b, c, print a \* b if a < b else n \* ((k - 1) + m // k)
+
+```txt
+Input: 3 4 2
+Output:
+```
+
+{% endtab %}
+{% tab title='BJ_21645.py' %}
+
+```py
+n, m, k = map(int, input().split())
+print(n * m if m < k else n * ((k - 1) + m // k))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 윤년](https://www.acmicpc.net/problem/2753)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_2753.md/)
+
+{% tabs %}
+{% tab title='BJ_2753.md' %}
+
+> Question
+
+* print 1 if leap year else 0
+
+```txt
+Input: 2000
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_2753.py' %}
+
+```py
+n = int(input())
+print(1 if n % 4 == 0 and (n % 100 != 0 or n % 400 == 0) else 0)
+```
+
+{% endtab %}
+{% tab title='BJ_2753.r' %}
+
+```r
+x <- scan("stdin")
+cat(ifelse(x[1] %% 4 == 0 & x[1] %% 100 != 0 | x[1] %% 400 == 0, 1, 0))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 멀티탭 충분하니?](https://www.acmicpc.net/problem/15780)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15780.md/)
+
+{% tabs %}
+{% tab title='BJ_15780.md' %}
+
+> Question
+
+* 모든 사람이 멀티탭에 코드를 꽂을 수 있는경우 “YES” 아니라면 “NO”를 출력한다
+
+```txt
+Input:
+3 5
+3 4 5 6 7
+
+Output: YES
+```
+
+{% endtab %}
+{% tab title='BJ_15780.py' %}
+
+```py
+n, k = map(int, input().split())
+print('YES' if sum([(n + 1) // 2 for n in map(int, input().split())]) >= n else "NO")
+
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Automated Telephone Exchange](https://www.acmicpc.net/problem/3507)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_3507.md/)
+
+{% tabs %}
+{% tab title='BJ_3507.md' %}
+
+> Question
+
+* print 199 - n, if n > 199 print 0
+
+```txt
+Input: 201
+Output: 0
+```
+
+{% endtab %}
+{% tab title='BJ_3507.py' %}
+
+```py
+n = int(input())
+print(0 if 199 < n else 199 - ate)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 아!](https://www.acmicpc.net/problem/4999)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_4999.md/)
+
+{% tabs %}
+{% tab title='BJ_4999.md' %}
+
+> Question
+
+* print "no" if second line is longer else "go"
+
+```txt
+Input:
+aaah
+ah
+
+Output: go
+```
+
+{% endtab %}
+{% tab title='BJ_4999.py' %}
+
+```py
+a = input()
+b = input()
+print("no" if len(b) > len(a) else "go")
+```
+
+{% endtab %}
+{% tab title='BJ_4999.sh' %}
+
+```sh
+read a
+read b
+if [ ${#b} -gt ${#a} ]; then
+  echo 'no'
+else
+  echo 'go'
+fi
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 돌 게임 2](https://www.acmicpc.net/problem/9656)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_9656.md/)
+
+{% tabs %}
+{% tab title='BJ_9656.md' %}
+
+> Question
+
+* print CY if odd else SK
+
+```txt
+Input: 4
+Output: SK
+```
+
+{% endtab %}
+{% tab title='BJ_9656.py' %}
+
+```py
+n = int(input())
+print('CY' if n % 2 == 1 else 'SK')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Take Two Stones](https://open.kattis.com/problems/twostones)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/KT_twostones.md/)
+
+{% tabs %}
+{% tab title='KT_twostones.md' %}
+
+> Question
+
+* a개의 돌이 다음과 같이 1열로 나열되어 있다. 1 2 3 … a
+* Alice 와 Bob 이 번갈아 가며 2개의 연속된 번호의 돌을 가져간다
+* 더 이상 가져갈 수 있는 돌이 없을때, 남은 돌의 개수가 홀수이면 Alice가 이기고 짝수면 Bob이 이긴다
+* 예를들어 돌 1 2 3 4 로 시작해 Alice 가 2, 3 을 가져가면 Bob은 더 이상 가져갈 수 있는 연속된 돌이 없고,
+* 남은 돌의 개수는 1, 4, 총 2개이므로 Bob이 승리한다
+* Alice가 항상 먼저 시작 가져가고 두 명은 항상 최적의 수를 둔다
+* a가 주어질때 승자를 구하여라
+
+```txt
+Input: 2
+Output: Bob
+```
+
+{% endtab %}
+{% tab title='KT_twostones.py' %}
+
+```py
+a = int(input())
+print("Alice" if a % 2 == 1 else "Bob")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Railroad](https://open.kattis.com/problems/railroad2)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/KT_railroad2.md/)
+
+{% tabs %}
+{% tab title='KT_railroad2.md' %}
+
+> Question
+
+* a와 b가 주어진다
+* b가 짝수이면 possible 홀수이면 impossible을 출력한다
+
+```txt
+Input: 0 2
+Output: possible
+```
+
+{% endtab %}
+{% tab title='KT_railroad2.py' %}
+
+```py
+a, b = map(int, input().split())
+print("possible" if b % 2 == 0 else "impossible")
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,169 @@
+> hackerrank
+
+* [Level Easy : Backreferences To Failed Groups](https://www.hackerrank.com/challenges/backreferences-to-failed-groups/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/repetition/HR_backreferences-to-failed-groups.md/)
+
+{% tabs %}
+{% tab title='HR_backreferences-to-failed-groups.md' %}
+
+> Question
+
+* consists of 8 digits
+* \- separator such that string S gets divided in 4 parts, with each part having exactly two digits
+
+```txt
+Input1: 12345678
+Output1: true
+
+Input2: 1-234-56-78
+Output2: false
+```
+
+{% endtab %}
+{% tab title='HR_backreferences-to-failed-groups.py' %}
+
+```py
+import re
+pattern = r"^((\d{8})|(\d{2}-\d{2}-\d{2}-\d{2}))$"
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Capturing & Non-Capturing Groups](https://www.hackerrank.com/challenges/capturing-non-capturing-groups/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/repetition/HR_capturing-non-capturing-groups.md/)
+
+{% tabs %}
+{% tab title='HR_capturing-non-capturing-groups.md' %}
+
+> Question
+
+* should have or more consecutive repetitions of ok
+
+```txt
+Input: okokok! cya
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_capturing-non-capturing-groups.py' %}
+
+```py
+import re
+pattern = r'(ok){3,}'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Matching {x} Repetitions](https://www.hackerrank.com/challenges/matching-x-repetitions/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/repetition/HR_matching-x-repetitions.md/)
+
+{% tabs %}
+{% tab title='HR_matching-x-repetitions.md' %}
+
+> Question
+
+* must be of length equal to 45
+* The first characters should consist of letters(both lowercase and uppercase), or of even digits
+* The last characters should consist of odd digits or whitespace characters
+
+```txt
+Input: 2222222222aaaaaaaaaa2222222222aaaaaaaaaa13 57
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_matching-x-repetitions.py' %}
+
+```py
+import re
+pattern = r'^[a-zA-Z02468]{40}[13579\s]{5}$'  # Do not delete 'r'.
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Matching {x, y} Repetitions](https://www.hackerrank.com/challenges/matching-x-y-repetitions/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/repetition/HR_matching-x-y-repetitions.md/)
+
+{% tabs %}
+{% tab title='HR_matching-x-y-repetitions.md' %}
+
+> Question
+
+* should begin with 3, 4 or 5 digits
+* After that, should have 3 or more letters (both lowercase and uppercase)
+* Then should end with up to 3 symbol(s). You can end with 0 to 3. symbol(s), inclusively
+
+{% endtab %}
+{% tab title='HR_matching-x-y-repetitions.py' %}
+
+```py
+import re
+pattern = r'^\d{1,2}[a-zA-Z]{3,}\.{0,3}$'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Matching Zero Or More Repetitions](https://www.hackerrank.com/challenges/matching-zero-or-more-repetitions/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/repetition/HR_matching-zero-or-more-repetitions.md/)
+
+{% tabs %}
+{% tab title='HR_matching-zero-or-more-repetitions.md' %}
+
+* begin with 1 or 2 digits
+* After that, 3 or more letters (both lowercase and uppercase)
+* end with up to 3 symbol(s)
+
+{% endtab %}
+{% tab title='HR_matching-zero-or-more-repetitions.py' %}
+
+```py
+import re
+pattern = r'^\d{1,2}[a-zA-Z]{3,}\.{0,3}$'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Valid PAN format](https://www.hackerrank.com/challenges/valid-pan-format/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/repetition/HR_valid-pan-format.md/)
+
+{% tabs %}
+{% tab title='HR_valid-pan-format.md' %}
+
+> Question
+
+* \<char>\<char>\<char>\<char>\<char>\<digit>\<digit>\<digit>\<digit>\<char>
+
+```txt
+Input:
+3
+ABCDS1234Y
+ABAB12345Y
+avCDS1234Y
+
+Output:
+YES
+NO
+NO
+```
+
+{% endtab %}
+{% tab title='HR_valid-pan-format.py' %}
+
+```py
+import re
+for i in range(int(input())):
+  print("YES" if re.match(r'[A-Z]{5}[0-9]{4}[A-Z]{1}', input()) else "NO")
+```
+
+{% endtab %}
+{% endtabs %}

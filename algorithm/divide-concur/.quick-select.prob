@@ -1,0 +1,143 @@
+> leetcode
+
+* [Level 1 : Majority Element](https://leetcode.com/problems/majority-element)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/quick-select/LC_169.md/)
+
+{% tabs %}
+{% tab title='LC_169.md' %}
+
+> Question
+
+* Given an array nums of size n, return the majority element
+
+```txt
+Input: [3,2,3]
+Output: 3
+```
+
+> Solutino
+
+* Boyer-Moore Voting Algorithm
+
+{% endtab %}
+{% tab title='LC_169.cpp' %}
+
+```cpp
+// Time : O(N)
+int majorityElement(vector<int>& nums) {
+  int counter = 0, majority;
+  for (int num : nums) {
+    if (!counter)
+      majority = num;
+    counter += num == majority ? 1 : -1;
+  }
+  return majority;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Third Maximum Number](https://leetcode.com/problems/third-maximum-number)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/quick-select/LC_414.md/)
+
+{% tabs %}
+{% tab title='LC_414.md' %}
+
+> Question
+
+* Given integer array nums, return the third maximum number in this array
+* If the third maximum does not exist, return the maximum number
+
+```txt
+Input: nums = [2,2,3,1]
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_414.py' %}
+
+```py
+def thirdMax(self, nums):
+  a = b = c = -float("inf")
+  for n in nums:
+    if n in (a, b, c): continue
+    if n > a: n, a = a, n
+    if n > b: n, b = b, n
+    if n > c: n, c = c, n
+  return a if c == -float("inf") else c
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/quick-select/LC_215.md/)
+
+{% tabs %}
+{% tab title='LC_215.md' %}
+
+> Question
+
+* Find kth largest number
+
+```txt
+Input: nums = [3,2,1,5,6,4], k = 2
+Output: 5
+```
+
+{% endtab %}
+{% tab title='LC_215.py' %}
+
+```py
+def findKthLargest(self, li, k):
+  pivot = random.choice(li)
+  lo  = [l for l in li if l < pivot]
+  mi = [e for e in li if e == pivot]
+  hi = [r for r in li if r > pivot]
+  if k <= len(hi):
+    return self.findKthLargest(hi, k)
+  elif (k - len(hi)) <= len(mi):
+    return mi[0]
+  else:
+    return self.findKthLargest(lo, k - len(hi) - len(mi))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/quick-select/LC_347.md/)
+
+{% tabs %}
+{% tab title='LC_347.md' %}
+
+> Question
+
+* Return Top Kth frequent number
+
+```txt
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+```
+
+{% endtab %}
+{% tab title='LC_347.py' %}
+
+```py
+# 1. Using built in
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+  co = Counter(nums)
+  return [a for a, b in co.most_common(k)]
+
+# 2. O(n) using count buckets
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+  b = [[] for _ in range(len(nums)+1)]
+  c = Counter(nums)
+  for x in c:
+    b[c[x]].append(x)
+  return list(chain(*b))[-k:]
+```
+
+{% endtab %}
+{% endtabs %}

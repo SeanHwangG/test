@@ -1,0 +1,94 @@
+> baekjoon
+
+* [Level 2 : 사파리월드](https://www.acmicpc.net/problem/2420)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/abs/BJ_2420.md/)
+
+{% tabs %}
+{% tab title='BJ_2420.md' %}
+
+> Question
+
+* Print difference of two integers
+
+```txt
+Input: 2 6
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_2420.py' %}
+
+```py
+a, b = map(int, input().split())
+print(abs(a - b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 꼬리를 무는 숫자 나열](https://www.acmicpc.net/problem/1598)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/abs/BJ_1598.md/)
+
+{% tabs %}
+{% tab title='BJ_1598.md' %}
+
+> Question
+
+![BJ_1598](abs/images/20210227_034432.png)
+
+* Given number, find manhattan difference
+
+```txt
+Input: 11 33
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_1598.py' %}
+
+```py
+a, b = map(int, input().split())
+a -= 1
+b -= 1
+print(abs(a // 4 - b // 4) + abs(a % 4 - b % 4))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 평균 중앙값 문제](https://www.acmicpc.net/problem/5691)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/abs/BJ_5691.md/)
+
+{% tabs %}
+{% tab title='BJ_5691.md' %}
+
+> Question
+
+* Print minimum number so that median and average are same
+
+```txt
+Input:
+1 2
+6 10
+1 1000000000
+0 0
+
+Output:
+0
+2
+-999999998
+```
+
+{% endtab %}
+{% tab title='BJ_5691.py' %}
+
+```py
+import sys
+while True:
+  a,b=map(int, input().split())
+  if a==0 and b==0: break
+  print(min(a, b) - abs(a - b))
+```
+
+{% endtab %}
+{% endtabs %}

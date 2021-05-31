@@ -1,0 +1,101 @@
+> hackerrank
+
+* [Level Easy : Draw The Triangle 2](https://www.hackerrank.com/challenges/draw-the-triangle-2/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/select/HR_draw-the-triangle-2.md/)
+
+{% tabs %}
+{% tab title='HR_draw-the-triangle-2.md' %}
+
+> Question
+
+* Draw triangle when input is 20
+
+```txt
+Input: 5
+Output:
+*
+* *
+* * *
+* * * *
+* * * * *
+```
+
+{% endtab %}
+{% tab title='HR_draw-the-triangle-2.sql' %}
+
+```sql
+SELECT REPEAT('* ', @NUMBER:= @NUMBER + 1) FROM information_schema.tables, (SELECT @NUMBER:=0) t LIMIT 20
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Select All](https://www.hackerrank.com/challenges/select-all-sql/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/select/HR_select-all-sql.md/)
+
+{% tabs %}
+{% tab title='HR_select-all-sql.md' %}
+
+> Question
+
+| Id   | City       | Country | State        | Zip    |
+| ---- | ---------- | ------- | ------------ | ------ |
+| 6    | Rotterdam  | JPN     | Zuid-Holland | 593321 |
+| 1661 | Ecottsdale | USA     | Arizona      | 202705 |
+| 3965 | Corona     | USA     | California   | 124966 |
+
+* Select all city information
+
+| Id   | City       | Country | State        | Zip    |
+| ---- | ---------- | ------- | ------------ | ------ |
+| 6    | Rotterdam  | JPN     | Zuid-Holland | 593321 |
+| 1661 | Ecottsdale | USA     | Arizona      | 202705 |
+| 3965 | Corona     | USA     | California   | 124966 |
+
+{% endtab %}
+{% tab title='HR_select-all-sql.sql' %}
+
+```sql
+SELECT * FROM City;
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Weather Observation Station 1](https://www.hackerrank.com/challenges/weather-observation-station-1/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/select/HR_weather-observation-station-1.md/)
+
+{% tabs %}
+{% tab title='HR_weather-observation-station-1.md' %}
+
+> Question
+
+* Station
+
+| Field  | Type     |
+| ------ | -------- |
+| ID     | NUMBER   |
+| CITY   | VARCHAR2 |
+| STATE  | VARCHAR2 |
+| LAT_N  | NUMBER   |
+| LONG_W | NUMBER   |
+
+* Query a list of CITY and STATE from the STATION table.
+
+| City    | State |
+| ------- | ----- |
+| Acme    | LA    |
+| Addison | MI    |
+| Agency  | MO    |
+| Aguanga | CA    |
+| Alanson | MI    |
+
+{% endtab %}
+{% tab title='HR_weather-observation-station-1.sql' %}
+
+```sql
+SELECT City, State FROM STATION;
+```
+
+{% endtab %}
+{% endtabs %}

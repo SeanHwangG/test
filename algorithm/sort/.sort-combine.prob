@@ -1,0 +1,406 @@
+> baekjoon
+
+* [Level 4 : 트럭 주차](https://www.acmicpc.net/problem/2979)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-combine/BJ_2979.md/)
+
+{% tabs %}
+{% tab title='BJ_2979.md' %}
+
+> Question
+
+* The parking lot offers a discount on parking fees depending on the number of trucks parked
+* For a truck, A won per minute. Pay B won per minute for two cars and C won per minute for three cars
+* When A, B, and C are given, and full-time trucks are given parking time, find how much they should pay for parking
+
+```txt
+Input:
+5 3 1
+1 6
+3 5
+2 8
+
+Output: 33
+```
+
+{% endtab %}
+{% tab title='BJ_2979.py' %}
+
+```py
+costs = list(map(int, input().split()))
+li = []
+for _ in range(3):
+  e, l = map(int, input().split())
+  li.extend([(e, 'e'), (l, 'l')])
+
+ret, cur, last = 0, 0, 0
+for time, typ in sorted(li):
+  if typ == 'e':
+    ret += (time - last) * costs[cur - 1] * cur
+    cur += 1
+  else:
+    ret += (time - last) * costs[cur - 1] * cur
+    cur -= 1
+  last = time
+
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 좌표 정렬하기](https://www.acmicpc.net/problem/11650)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-combine/BJ_11650.md/)
+
+{% tabs %}
+{% tab title='BJ_11650.md' %}
+
+> Question
+
+* Arrange coordinates in order of increasing x-coordinates, and if the x-coordinates are equal, then outputs them
+
+```txt
+Input:
+5
+3 4
+1 1
+1 -1
+2 2
+3 3
+
+Output:
+1 -1
+1 1
+2 2
+3 3
+3 4
+```
+
+{% endtab %}
+{% tab title='BJ_11650.cpp' %}
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int N;
+  cin >> N;
+
+  vector<pair<int, int>> data(N);
+  for (int i = 0; i < N; i++)
+    cin >> data[i].first >> data[i].second;
+
+  sort(data.begin(), data.end());
+
+  for (int i = 0; i < data.size(); i++)
+    cout << data[i].first << " " <<data[i].second << "\n";
+
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11650.py' %}
+
+```py
+n = int(input())
+li = []
+for _ in range(n):
+  a, b = map(int, input().split())
+  li.append((a, b))
+for a, b in sorted(li):
+  print(a, b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 좌표 정렬하기 2](https://www.acmicpc.net/problem/11651)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-combine/BJ_11651.md/)
+
+{% tabs %}
+{% tab title='BJ_11651.md' %}
+
+> Question
+
+* N points above the two-dimensional plane are given
+* Arrange coordinates in the order that (y-coordinate, x-coordinate)
+
+```txt
+Input:
+5
+0 4
+1 2
+1 -1
+2 2
+3 3
+
+Output:
+1 -1
+1 2
+2 2
+3 3
+0 4
+```
+
+{% endtab %}
+{% tab title='BJ_11651.py' %}
+
+```py
+n = int(input())
+li = []
+for _ in range(n):
+  a, b = map(int, input().split())
+  li.append((b, a))
+for a, b in sorted(li):
+  print(b, a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 점수 계산](https://www.acmicpc.net/problem/2822)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-combine/BJ_2822.md/)
+
+{% tabs %}
+{% tab title='BJ_2822.md' %}
+
+> Question
+
+* Print sum of top 5 scores and their index in sorted order
+
+```txt
+Input:
+20
+30
+50
+48
+33
+66
+0
+64
+
+Output:
+261
+3 4 5 6 8
+```
+
+{% endtab %}
+{% tab title='BJ_2822.py' %}
+
+```py
+a = [(int(input()), i+1) for i in range(8)]
+s = sorted(a)[-5:]
+print(sum(p[0] for p in s))
+print(*(sorted(p[1] for p in s)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 생일](https://www.acmicpc.net/problem/5635)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-combine/BJ_5635.md/)
+
+{% tabs %}
+{% tab title='BJ_5635.md' %}
+
+> Question
+
+* Print yongest and oldest people
+
+```txt
+Input:
+5
+Mickey 1 10 1991
+Alice 30 12 1990
+Tom 15 8 1993
+Jerry 18 9 1990
+Garfield 20 9 1990
+
+Output:
+Tom
+Jerry
+```
+
+{% endtab %}
+{% tab title='BJ_5635.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+int main(void) {
+  int N;
+  cin >> N;
+  vector<pair<pair<int, int>, pair<int, string>>> v(N);
+  for (int i = 0; i < N; i++) {
+    cin >> v[i].second.second >> v[i].second.first >> v[i].first.second >> v[i].first.first;
+  }
+  sort(v.begin(), v.end());
+  cout << v[N-1].second.second << "\n" << v[0].second.second << "\n";
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_5635.py' %}
+
+```py
+l = []
+for _ in range(int(input())):
+  a, b, c, d = input().split()
+  l.append((int(d), int(c), int(b), a))
+l.sort()
+print(l[-1][3])
+print(l[0][3])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 올림픽](https://www.acmicpc.net/problem/8979)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-combine/BJ_8979.md/)
+
+{% tabs %}
+{% tab title='BJ_8979.md' %}
+
+> Question
+
+* a country with more gold medals
+* If the number of gold medals is the same, a country with a higher number of silver medals
+* Countries with more bronze medals, if both gold and silver medals are the same
+* Print out the ranking of the given country
+
+```txt
+Input:
+4 3
+1 1 2 0
+2 0 1 0
+3 0 1 0
+4 0 0 1
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_8979.py' %}
+
+```py
+n, k = map(int, input().split())
+medals = [list(map(int, input().split())) for _ in range(n)]
+medals.sort(key = lambda x : (x[1], x[2], x[3]), reverse=True)
+idx = [medals[i][0] for i in range(n)].index(k)
+for i in range(n):
+  if medals[idx][1:] == medals[i][1:]:
+    print(i+1)
+    break
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 국영수](https://www.acmicpc.net/problem/10825)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-combine/BJ_10825.md/)
+
+{% tabs %}
+{% tab title='BJ_10825.md' %}
+
+> Question
+
+* Descending Korean score, ascending English score increases, descending mathematics score, ascending names in ascii
+
+```txt
+Input:
+12
+Junkyu 50 60 100
+Sangkeun 80 60 50
+Sunyoung 80 70 100
+Soong 50 60 90
+Haebin 50 60 100
+Kangsoo 60 80 100
+Donghyuk 80 60 100
+Sei 70 70 70
+Wonseob 70 70 90
+Sanghyun 70 70 80
+nsj 80 80 80
+Taewhan 50 60 90
+
+Output:
+Donghyuk
+Sangkeun
+Sunyoung
+nsj
+Wonseob
+Sanghyun
+Sei
+Kangsoo
+Haebin
+Junkyu
+Soong
+Taewhan
+```
+
+{% endtab %}
+{% tab title='BJ_10825.py' %}
+
+```py
+from collections import Counter
+li = []
+for _ in range(N):
+  name, a, b, c = input().split()
+  li.append(tuple((-int(a), int(b), -int(c), name)))
+for e in sorted(li):
+  print(e[3])
+n, c = map(int, input().split())
+li = input().split()
+co = Counter(li)
+print(" ".join(sorted(li, key=co.get, reverse=True)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.6 : Stacking Cups](https://open.kattis.com/problems/cups)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-combine/KT_cups.md/)
+
+{% tabs %}
+{% tab title='KT_cups.md' %}
+
+> Question
+
+* n개 줄에 색 반지름 / 지름 색
+* 둘 중 하나의 포맷으로 주어진다. 이 색들을 작은 반지름 순서대로 출력하라
+
+```txt
+Input:
+3
+red 10
+10 blue
+green 7
+
+Output:
+blue
+green
+red
+```
+
+{% endtab %}
+{% tab title='KT_cups.py' %}
+
+```py
+n_line = int(input())
+li = []
+for _ in range(n_line):
+  a, b = input().split()
+  if a.isdigit():
+    li.append((int(a), b))
+  else:
+    li.append((int(b) * 2, a))
+for _, color in sorted(li):
+  print(color)
+```
+
+{% endtab %}
+{% endtabs %}

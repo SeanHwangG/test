@@ -1,0 +1,9 @@
+name: Run daily
+on:
+  schedule:
+    - cron: "0 0 * * *"
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1

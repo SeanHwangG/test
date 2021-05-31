@@ -1,0 +1,111 @@
+> baekjoon
+
+* [Level 15 : 버블 소트](https://www.acmicpc.net/problem/1517)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/merge-sort/BJ_1517.md/)
+
+{% tabs %}
+{% tab title='BJ_1517.md' %}
+
+> Question
+
+* Count number of swap during bubble sort
+
+```txt
+Input:
+3
+3 2 1
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1517.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10 ** 9)
+
+def merge_sort(start, end):
+  global swap
+  size = end - start
+  mid = (start + end) // 2
+  if size <= 1:
+    return
+  merge_sort(start, mid)
+  merge_sort(mid, end)
+
+  new_arr = []
+  idx1, idx2 = start, mid
+  cnt = 0
+  while idx1 < mid and idx2 < end:
+    if arr[idx1] > arr[idx2]:
+      new_arr.append(arr[idx2])
+      idx2, cnt = idx2 + 1, cnt + 1
+    else:
+      new_arr.append(arr[idx1])
+      idx1, swap = idx1 + 1, swap + cnt
+
+  while idx1 < mid:
+    new_arr.append(arr[idx1])
+    idx1, swap = idx1 + 1, swap + cnt
+  while idx2 < mid:
+    new_arr.append(arr[idx2])
+    idx2 += 1
+
+  for t in range(len(new_arr)):
+    arr[start + t] = new_arr[t]
+
+n = int(input())
+arr = list(map(int, input().split()))
+swap = 0
+merge_sort(0, n)
+print(swap)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 3 : Count of Range Sum](https://leetcode.com/problems/count-of-range-sum)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/merge-sort/LC_327.md/)
+
+{% tabs %}
+{% tab title='LC_327.md' %}
+
+> Question
+
+* Given an integer array nums and two integers lower and upper, return # range sums that lie in [lower, upper] inclusive
+* Range sum S(i, j) is defined as the sum of the elements in nums between indices i and j inclusive, where i <= j
+
+```txt
+Input: nums = [-2,5,-1], lower = -2, upper = 2
+Output: 3  # [0,0], [2,2], and [0,2]
+```
+
+{% endtab %}
+{% tab title='LC_327.py' %}
+
+```py
+def countRangeSum(self, nums, lower, upper):
+  first = [0]
+  for num in nums:
+    first.append(first[-1] + num)
+  def sort(lo, hi):
+    mid = (lo + hi) / 2
+    if mid == lo:
+      return 0
+    count = sort(lo, mid) + sort(mid, hi)
+    i = j = mid
+    for left in first[lo:mid]:
+      while i < hi and first[i] - left < lower: i += 1
+      while j < hi and first[j] - left <= upper: j += 1
+      count += j - i
+    first[lo:hi] = sorted(first[lo:hi])
+    return count
+  return sort(0, len(first))
+```
+
+{% endtab %}
+{% endtabs %}

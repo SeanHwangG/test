@@ -1,0 +1,674 @@
+> baekjoon
+
+* [Level 5 : 직사각형 네개의 합집합의 면적 구하기](https://www.acmicpc.net/problem/2669)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_2669.md/)
+
+{% tabs %}
+{% tab title='BJ_2669.md' %}
+
+> Question
+
+* Print total area covered by 4 rectangles
+
+```txt
+Input:
+1 2 4 4
+2 3 5 7
+3 1 6 5
+7 3 8 6
+
+Output: 26
+```
+
+{% endtab %}
+{% tab title='BJ_2669.py' %}
+
+```py
+r=[]
+for i in range(4):
+  x,y,a,b=map(int,input().split())
+  for m in range(x,a):
+    [r.append((m,n)) for n in range(y,b)]
+print(len(set(r)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 놀이공원](https://www.acmicpc.net/problem/2594)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_2594.md/)
+
+{% tabs %}
+{% tab title='BJ_2594.md' %}
+
+> Question
+
+* When given a ride schedule, finds the longest time for Se-hyuk and Geun-young to be together on that day
+
+```txt
+Input:
+3
+1030 1300
+1900 2110
+1230 1650
+
+Output: 110
+```
+
+{% endtab %}
+{% tab title='BJ_2594.py' %}
+
+```py
+times = [(0, 600), (1320, 1440)]
+for _ in range(int(input())):
+  a, b = input().split()
+  times.append((int(a[:2]) * 60 + int(a[2:]) - 10, int(b[:2]) * 60 + int(b[2:]) + 10))
+times.sort()
+mx, last_ended = 0, 600
+for start, end in times:
+  mx = max(mx, start - last_ended)
+  last_ended = max(last_ended, end)
+
+print(mx)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 흙길 보수하기](https://www.acmicpc.net/problem/1911)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_1911.md/)
+
+{% tabs %}
+{% tab title='BJ_1911.md' %}
+
+> Question
+
+* Find mimum number of segments to cover all lines
+
+```txt
+Input:
+3 3
+1 6
+13 17
+8 12
+
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_1911.py' %}
+
+```py
+N, L = map(int, input().split())
+p = sorted(tuple(map(int, input().split())) for i in range(N))
+res, s = 0, 0
+for l, r in p:
+  s = max(l, s)
+  diff = r - s
+  count = (diff + L - 1) // L
+  res += count
+  s += count * L
+
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 강의실 배정](https://www.acmicpc.net/problem/11000)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_11000.md/)
+
+{% tabs %}
+{% tab title='BJ_11000.md' %}
+
+> Question
+
+* Print minimum number of rooms to holds these meetings
+
+```txt
+Input:
+3
+1 3
+2 4
+3 5
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_11000.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+lst = []
+for _ in range(n):
+  a,b = map(int,input().split())
+  lst.append((a,1))
+  lst.append((b,-1))
+lst.sort()
+ret , s =0, 0
+for a,b in lst:
+  s += b
+  ret = max(ret, s)
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 선 긋기](https://www.acmicpc.net/problem/2170)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_2170.md/)
+
+{% tabs %}
+{% tab title='BJ_2170.md' %}
+
+> Question
+
+* Print length of all combined lines
+
+```txt
+Input:
+4
+1 3
+2 5
+3 5
+6 7
+
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_2170.py' %}
+
+```py
+import sys
+input=sys.stdin.readline
+n = int(input())
+a = sorted(tuple(sorted(map(int,input().split()))) for _ in range(n))
+l = 0
+s, t = a[0]
+for u, v in a:
+  if t < u:
+    l += t - s
+    s, t = u, v
+  else:
+    t = max(t, v)
+print(l + t - s)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 철로](https://www.acmicpc.net/problem/13334)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_13334.md/)
+
+{% tabs %}
+{% tab title='BJ_13334.md' %}
+
+> Question
+
+* Find the number of lines within given line
+
+```txt
+Input:
+8
+5 40
+35 25
+10 20
+10 25
+30 50
+50 60
+30 25
+80 100
+30
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_13334.cpp' %}
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+struct Line{ int left, right; };
+bool compare(Line a, Line b){ return a.right < b.right; }
+
+int main(){
+  int a, b, d, ans = -1, n;
+  cin >> n;
+  Line line[100001];
+  for(int i = 0;i < n; i++){
+    cin >> a >> b;
+    line[i] = {min(a, b), max(a, b)};
+  }
+  cin >> d;
+  sort(line, line+n, compare);
+  priority_queue<int> pq;
+  for(int i = 0; i < n; i++){
+    pq.push(-line[i].left);
+    while(!pq.empty() && -pq.top() < line[i].right - d) pq.pop();
+    ans = max(ans, (int)pq.size());
+  }
+  cout << ans;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_13334.py' %}
+
+```py
+from heapq import *
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+pos = [*sorted([[*sorted(map(int, input().split()))] for i in range(N)], key=lambda x:(x[1], x[0]))]
+d = int(input())
+hq, res = [], 0
+
+for s, e in pos:
+  heappush(hq, s)
+  if hq and hq[0] < e - d:
+    heappop(hq)
+  res = max(res, len(hq))
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 여러 직사각형의 전체 면적 구하기](https://www.acmicpc.net/problem/2672)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_2672.md/)
+
+{% tabs %}
+{% tab title='BJ_2672.md' %}
+
+> Question
+
+* Print total area covered by following rectangles
+
+```txt
+Input:
+4
+52.7 22.9 27.3 13.3
+68.8 57.6 23.2 8.0
+20.0 48.0 37.0 23.5
+41.5 36.2 27.3 21.4
+
+Output: 1853.61
+```
+
+{% endtab %}
+{% tab title='BJ_2672.py' %}
+
+```py
+x = [[] for _ in range(10 ** 4)]
+for _ in range(int(input())):
+  l = [int(float(x) * 10) for n in input().split())]
+  for i in range(l[0], l[0] + l[2]):
+    x[i] += [(l[1], l[1] + l[3])]
+
+s = 0
+for i in x:
+  if not i: continue
+  i.sort()
+  r=0
+  for j in i:
+    if j[1] <= r: continue
+    s += j[1] - max(r,j[0])
+    r = j[1]
+print(s // 100 if s % 100 == 0 else s / 100)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : Clique Problem](https://www.acmicpc.net/problem/13027)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_13027.md/)
+
+{% tabs %}
+{% tab title='BJ_13027.md' %}
+
+> Question
+
+* N points are given with x, w
+  * They are connected if $$ w_i + w_j \leq | x_i - x_j | $$
+* Print maximum number of connected components
+
+```txt
+Input:
+4
+2 2
+3 1
+6 2
+1 1
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_13027.py' %}
+
+```py
+import heapq, sys, math
+
+n = int(input())
+heap = []
+
+for i in range(n):
+  xi, wi = map(int, sys.stdin.readline().split())
+  heapq.heappush(heap, (xi + wi, xi - wi))
+
+meetings = 0
+last_fi = -math.inf
+while heap:
+  ti, si = heapq.heappop(heap)
+  if si >= last_fi:
+    last_fi = ti
+    meetings += 1
+
+print(meetings)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 버스 노선](https://www.acmicpc.net/problem/10165)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/BJ_10165.md/)
+
+{% tabs %}
+{% tab title='BJ_10165.md' %}
+
+> Question
+
+* Given segment on a circle
+* Print indices that has non overlapping segment
+
+```txt
+Input:
+10
+5
+0 4
+2 6
+5 0
+7 9
+9 4
+
+Output: 2 3 5
+```
+
+{% endtab %}
+{% tab title='BJ_10165.py' %}
+
+```py
+import sys
+
+N, M = int(input()), int(input())
+li = []
+for i in range(1, M + 1):
+  l, h = map(int, sys.stdin.readline().split())
+  if l < h:
+    li.append([l, h, i])
+  else:
+    li.append([l - N, h, i])
+    li.append([l, h + N, i])
+
+li.sort(key = lambda x : (x[0], -x[1]))
+print(*li, sep='\n')
+res = set()
+right = -1
+
+for i in range(len(li)):
+  if right < li[i][1]:
+    right = li[i][1]
+    res.add(li[i][2])
+print(*sorted(res))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Maximum Population Year](https://leetcode.com/problems/maximum-population-year)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/LC_1854.md/)
+
+{% tabs %}
+{% tab title='LC_1854.md' %}
+
+> Question
+
+* Given a 2D integer array logs where each logs[i] = [birthi, deathi] indicates birth and death years of ith person
+* Return earliest year with the maximum population
+
+```txt
+Input: logs = [[1993,1999],[2000,2010]]
+Output: 1993
+```
+
+{% endtab %}
+{% tab title='LC_1854.cpp' %}
+
+```cpp
+int maximumPopulation(vector<vector<int>>& logs) {
+  int pop[2051] = {}, res = 0;
+  for (auto &l : logs) {
+    ++pop[l[0]];
+    --pop[l[1]];
+  }
+  for (auto i = 1950; i < 2050; ++i) {
+    pop[i] += pop[i - 1];
+    res = pop[i] > pop[res] ? i : res;
+  }
+  return res;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Remove Covered Intervals](https://leetcode.com/problems/remove-covered-intervals)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/LC_1288.md/)
+
+{% tabs %}
+{% tab title='LC_1288.md' %}
+
+> Question
+
+* Given a list of intervals, remove all intervals that are covered by another interval in the list
+* Interval [a,b) is covered by interval [c,d) if and only if c <= a and b <= d
+
+```txt
+Input: intervals = [[1,4],[3,6],[2,8]]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_1288.py' %}
+
+```py
+def removeCoveredIntervals(self, A: List[List[int]]) -> int:
+  res = right = 0
+  A.sort(key=lambda a: (a[0], -a[1]))
+  for i, j in A:
+    res += j > right
+    right = max(right, j)
+  return res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : My Calendar I](https://leetcode.com/problems/my-calendar-i)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/LC_729.md/)
+
+{% tabs %}
+{% tab title='LC_729.md' %}
+
+> Question
+
+* Implement a MyCalendar class to store your events
+  * book(int start, int end). represents a booking on the half open interval [start, end)
+* Return False if booking is impossible
+
+```txt
+MyCalendar();
+MyCalendar.book(10, 20); // returns true
+MyCalendar.book(15, 25); // returns false
+MyCalendar.book(20, 30); // returns true
+```
+
+{% endtab %}
+{% tab title='LC_729.py' %}
+
+```py
+class MyCalendar:
+  def __init__(self):
+    self.intervals = []
+
+  def book(self, start : int, end : int) -> bool:
+    i = bisect.bisect_right(self.intervals, start)
+    j = bisect.bisect_left(self.intervals, end)
+    if i % 2 or i != j:  # start is in interval or another interval exists
+      return False
+
+    self.intervals[i:i] = [start, end]
+    return True
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : My Calendar II](https://leetcode.com/problems/my-calendar-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/LC_731.md/)
+
+{% tabs %}
+{% tab title='LC_731.md' %}
+
+> Question
+
+* Implement a MyCalendar class to store your events
+  * book(int start, int end). represents a booking on the half open interval [start, end)
+* Return False if booking is impossible (event can be added if adding the event will not cause a triple booking)
+
+```txt
+MyCalendar();
+MyCalendar.book(10, 20); // returns true
+MyCalendar.book(50, 60); // returns true
+MyCalendar.book(10, 40); // returns true
+MyCalendar.book(5, 15);  // returns false
+MyCalendar.book(5, 10);  // returns true
+MyCalendar.book(25, 55); // returns true
+```
+
+{% endtab %}
+{% tab title='LC_731.py' %}
+
+```py
+# Time : O(n) (Per query) / Space : O(n)
+class MyCalendarTwo:
+  def __init__(self):
+    self.overlaps, self.calendar = [], []
+
+  def book(self, start, end):
+    for i, j in self.overlaps:
+      if start < j and end > i:
+        return False
+    for i, j in self.calendar:
+      if start < j and end > i:
+        self.overlaps.append((max(start, i), min(end, j)))
+    self.calendar.append((start, end))
+    return True
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : The Skyline Problem](https://leetcode.com/problems/the-skyline-problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/LC_218.md/)
+
+{% tabs %}
+{% tab title='LC_218.md' %}
+
+> Question
+
+![LC_218](sweeping/images/20210301_025150.png)
+
+```txt
+Input: buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]
+Output: [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]
+```
+
+{% endtab %}
+{% tab title='LC_218.py' %}
+
+```py
+from heapq import heappush, heappop
+def getSkyline(self, buildings):
+  # add start-building events,add end-building (with 0 height), sort events in l->ri
+  events = [(L, -H, R) for L, R, H in buildings]
+  events += list({(R, 0, 0) for _, R, _ in buildings})
+  events.sort()
+
+  # res: result, [x, height]
+  # live: heap, [-height, ending position]
+  res = [[0, 0]]
+  live = [(0, float("inf"))]
+  for pos, negH, R in events:
+    # 1, pop buildings that are already ended
+    # 2, if it's start-building event, make building alive
+    # 3, if previous keypoint height != current highest height, edit result
+    while live[0][1] <= pos: heappop(live)
+    if negH: heappush(live, (negH, R))
+    if res[-1][1] != -live[0][0]:
+      res += [[pos, -live[0][0]]]
+  return res[1:]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : My Calendar III](https://leetcode.com/problems/my-calendar-iii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/sweeping/LC_732.md/)
+
+{% tabs %}
+{% tab title='LC_732.md' %}
+
+> Question
+
+* A k-booking happens when k events have some non-empty intersection (i.e., there is some time that is common to all k events.)
+* given events [start, end), after each given event, return an k representing maximum k-booking between all previous events
+
+```txt
+Input:
+["MyCalendarThree", "book", "book", "book", "book", "book", "book"]
+[[], [10, 20], [50, 60], [10, 40], [5, 15], [5, 10], [25, 55]]
+
+Output: [null, 1, 1, 2, 3, 3, 3]
+```
+
+{% endtab %}
+{% tab title='LC_732.py' %}
+
+```cpp
+class MyCalendarThree {
+public:
+  map<int, int> count = {{-1, 0}};
+  int res = 0;
+  MyCalendarThree() {}
+  int book(int s, int e) {
+    auto start = count.emplace(s, (--count.upper_bound(s))->second);
+    auto end = count.emplace(e, (--count.upper_bound(e))->second);
+    for (auto i = start.first; i != end.first; ++i)
+      res = max(res, ++(i->second));
+    return res;
+  }
+};
+```
+
+{% endtab %}
+{% endtabs %}

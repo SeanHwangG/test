@@ -1,0 +1,127 @@
+> hackerrank
+
+* [Level Easy : Matching Ending Items](https://www.hackerrank.com/challenges/matching-ending-items/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/anchor/HR_matching-ending-items.md/)
+
+{% tabs %}
+{% tab title='HR_matching-ending-items.md' %}
+
+> Question
+
+* should consist of only lowercase and uppercase letters (no numbers or symbols)
+* should end in s
+
+```txt
+Input: Kites
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_matching-ending-items.py' %}
+
+```py
+import re
+pattern = r'^[a-zA-Z]*s$'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Matching Start & End](https://www.hackerrank.com/challenges/matching-start-end/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/anchor/HR_matching-start-end.md/)
+
+{% tabs %}
+{% tab title='HR_matching-start-end.md' %}
+
+> Question
+
+* must start with a digit and end with . symbol
+* should be characters long only
+
+```txt
+Input: 0qwer.
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_matching-start-end.py' %}
+
+```py
+import re
+
+pattern = r'^\d\w\w\w\w\.$'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Matching Word Boundaries](https://www.hackerrank.com/challenges/matching-word-boundaries/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/anchor/HR_matching-word-boundaries.md/)
+
+{% tabs %}
+{% tab title='HR_matching-word-boundaries.md' %}
+
+> Question
+
+* Start with vowel (a,e,i,o, u, A, E, I , O or U)
+* Any length. The matched word should consist of letters (lowercase and uppercase both) only
+* The matched word must start and end with a word boundary
+  * Before the first character in the string, if the first character is a word character
+  * Between two characters in the string, where one is a word character and the other is not a word character
+  * After the last character in the string, if the last character is a word character
+
+```txt
+Input: Found any match?
+Output: true
+```
+
+{% endtab %}
+{% tab title='HR_matching-word-boundaries.py' %}
+
+```py
+import re
+pattern = r'\b[aeiouAEIOU][a-zA-Z]*\b'
+print(str(bool(re.search(pattern, input()))).lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Medium : Find a Word](https://www.hackerrank.com/challenges/find-a-word/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/anchor/HR_find-a-word.md/)
+
+{% tabs %}
+{% tab title='HR_find-a-word.md' %}
+
+> Question
+
+* For every word, print the number of occurrences of the word in all the N sentences listed
+
+```txt
+Input:
+1
+foo bar (foo) bar foo-bar foo_bar foobar bar-foo bar, foo.
+2
+foo
+foobar
+
+Output:
+5  # foobar doesn't count
+1
+```
+
+{% endtab %}
+{% tab title='HR_find-a-word.py' %}
+
+```py
+import re
+
+sentence = ' '.join(input() for _ in range(int(input())))
+for _ in range(int(input())):
+  print(len(re.findall(fr'\b{input()}\b', sentence)))
+```
+
+{% endtab %}
+{% endtabs %}

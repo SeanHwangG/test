@@ -1,0 +1,157 @@
+> baekjoon
+
+* [Level 4 : CAP](https://www.acmicpc.net/problem/15000)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/case/BJ_15000.md/)
+
+{% tabs %}
+{% tab title='BJ_15000.md' %}
+
+> Question
+
+* Print given string in uppercase
+
+```txt
+Input: alert
+Output: ALERT
+```
+
+{% endtab %}
+{% tab title='BJ_15000.py' %}
+
+```py
+print(input().upper())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 대소문자 바꾸기](https://www.acmicpc.net/problem/2744)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/case/BJ_2744.md/)
+
+{% tabs %}
+{% tab title='BJ_2744.md' %}
+
+> Question
+
+* Swap case
+
+```txt
+Input: Hi
+Output: hI
+```
+
+{% endtab %}
+{% tab title='BJ_2744.cpp' %}
+
+```cpp
+#include<cstdio>
+char w[101];
+
+int main() {
+  scanf("%s", w);
+  for (int i = 0; w[i]; ++i) {
+    printf("%c", w[i] ^ 32);
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2744.py' %}
+
+```py
+st = input()
+for ch in st:
+  if ch.islower():
+    print(ch.upper(), end='')
+  else:
+    print(ch.lower(), end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 입실 관리](https://www.acmicpc.net/problem/5524)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/case/BJ_5524.md/)
+
+{% tabs %}
+{% tab title='BJ_5524.md' %}
+
+> Question
+
+* Print name in lower case
+
+```txt
+Input:
+3
+WatanabE
+ITO
+YamaMoto
+
+Output:
+watanabe
+ito
+yamamoto
+```
+
+{% endtab %}
+{% tab title='BJ_5524.py' %}
+
+```py
+for _ in range(int(input())):
+  print(input().lower())
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Alphabet Spam](https://open.kattis.com/problems/alphabetspam)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/case/KT_alphabetspam.md/)
+
+{% tabs %}
+{% tab title='KT_alphabetspam.md' %}
+
+> Question
+
+* 첫줄에 문장이 주어진다
+* 이 때 문장에서 _의 비율, 소문자의 비율, 대문자의 비율, 나머지 부호의 비율을 각각 출력하라
+
+```txt
+Input: Welcome_NWERC_participants!
+
+Output:
+0.0740740740740741
+0.666666666666667
+0.222222222222222
+0.0370370370370370
+```
+
+{% endtab %}
+{% tab titlepyT_alphabetspam.md'' %}
+
+```py
+st = input()
+white = 0
+lower = 0
+upper = 0
+symbol = 0
+for ch in st:
+  if ch == '_':
+    white += 1
+  elif ch.islower():
+    lower += 1
+  elif ch.isupper():
+    upper += 1
+  else:
+    symbol += 1
+
+total = white + lower + upper + symbol
+print(white / total)
+print(lower / total)
+print(upper / total)
+print(symbol / total)
+```
+
+{% endtab %}
+{% endtabs %}

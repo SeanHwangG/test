@@ -1,0 +1,197 @@
+> baekjoon
+
+* [Level 4 : 정수 N개의 합](https://www.acmicpc.net/problem/15596)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/function/BJ_15596.md/)
+
+{% tabs %}
+{% tab title='BJ_15596.md' %}
+
+> Question
+
+* Write function to return sum
+
+```txt
+def solve(a: list) -> int:
+  # TODO
+```
+
+{% endtab %}
+{% tab title='BJ_15596.py' %}
+
+```py
+def solve(a):
+  return sum(a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 트로피 진열](https://www.acmicpc.net/problem/1668)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/function/BJ_1668.md/)
+
+{% tabs %}
+{% tab title='BJ_1668.md' %}
+
+> Question
+
+* Outputs the number of views on the left side of the first line and the number on the right side of the second line
+
+```txt
+Input:
+5
+1
+2
+3
+4
+5
+
+Output:
+5
+1
+```
+
+{% endtab %}
+{% tab title='BJ_1668.py' %}
+
+```py
+def count_visible(li):
+  count, cur_mx = 0, 0
+  for e in li:
+    if e > cur_mx:
+      count += 1
+      cur_mx = e
+  return count
+li=[int(input()) for _ in range(int(input()))]
+print(count_visible(li))
+print(count_visible(reversed(li)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 싱기한 네자리 숫자](https://www.acmicpc.net/problem/6679)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/function/BJ_6679.md/)
+
+{% tabs %}
+{% tab title='BJ_6679.md' %}
+
+> Question
+
+* Find all number from [1000, 9999] such that
+* numbers represented by decimal, twelfth, and sixteenth digits
+* for each number, when the digits of each number are added, all three values ​​should be the same
+
+```txt
+Output:
+2992
+...
+```
+
+{% endtab %}
+{% tab title='BJ_6679.py' %}
+
+```py
+def sum_digit(dec, n):
+  ret = 0
+  while n != 0:
+    ret += n % dec
+    n //= dec
+  return ret
+
+for n in range(1000, 10000):
+  if sum_digit(10, n) == sum_digit(12, n) == sum_digit(16, n):
+    print(n)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 뒤집힌 덧셈](https://www.acmicpc.net/problem/1357)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/function/BJ_1357.md/)
+
+{% tabs %}
+{% tab title='BJ_1357.md' %}
+
+> Question
+
+* find rev(rev(a) + rev(b))
+
+```txt
+Input: 123 100
+Output: 223
+```
+
+{% endtab %}
+{% tab titlepyJ_1357.md'' %}
+
+```py
+a, b = map(int, input().split())
+def rev(a):
+  return int("".join(reversed(str(a))))
+print(rev(rev(a) + rev(b)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 셀프 넘버](https://www.acmicpc.net/problem/4673)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/syntax/function/BJ_4673.md/)
+
+{% tabs %}
+{% tab title='BJ_4673.md' %}
+
+> Question
+
+* For positive integer n, define d(n) as a function that adds each digit of n and n, for example, d(75) = 75+7+5 = 87
+* Find all self number below 10000
+
+```txt
+Output:
+1
+3
+5
+7
+9
+20
+31
+42
+53
+64
+ |
+ |       <-- a lot more numbers
+ |
+9903
+9914
+9925
+9927
+9938
+9949
+9960
+9971
+9982
+9993
+```
+
+{% endtab %}
+{% tab title='BJ_4673.py' %}
+
+```py
+li = [True] * 10090
+def d(n):
+  ret = n
+  while n:
+    ret += n % 10
+    n //= 10
+  return ret
+
+for n in range(10000):
+  li[d(n)] = False
+
+for i in range(10001):
+  if li[i]:
+    print(i)
+n = int(input())
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,677 @@
+> baekjoon
+
+* [Level 3 : Baseball](https://www.acmicpc.net/problem/10214)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_10214.md/)
+
+{% tabs %}
+{% tab title='BJ_10214.md' %}
+
+> Question
+
+* Print winner between Yonsei or Korea in baseball match
+
+```txt
+Input:
+1
+1 0
+0 0
+0 0
+0 0
+0 0
+0 0
+0 0
+0 0
+0 0
+Output: Yonsei
+```
+
+{% endtab %}
+{% tab title='BJ_10214.py' %}
+
+```py
+for _ in range(int(input())):
+  yonsei = korea = 0
+  for _ in range(9):
+    a, b = map(int, input().split())
+    yonsei += a
+    korea += b
+  if yonsei > korea:
+    print('Yonsei')
+  elif yonsei == korea:
+    print('Draw')
+  else:
+    print('Korea')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : egative People in Da House](https://www.acmicpc.net/problem/11161)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_11161.md/)
+
+{% tabs %}
+{% tab title='BJ_11161.md' %}
+
+> Question
+
+* 첫 줄에 테스트 개수 n가 주어진다. 각각 n 개의 테스트마다 m이 주어지는데
+* m 개의 줄에 방에서 나간 사람, 들어온 사람의 수가 주어진다
+* 이 때 방에 최고로 많았던 사람의 수를 구하라
+
+```txt
+Input:
+1
+3
+3 5
+3 4
+1 0
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_11161.py' %}
+
+```py
+for _ in range(int(input())):
+  max_people, cur_people = 0, 0
+  for _ in range(int(input())):
+    a, b = map(int, input().split())
+    cur_people = cur_people + b - a
+    max_people = max(cur_people, max_people)
+  print(max_people)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : HOMWRK](https://www.acmicpc.net/problem/18398)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_18398.md/)
+
+{% tabs %}
+{% tab title='BJ_18398.md' %}
+
+> Question
+
+* Print sum and multiple for N test for n line
+
+```txt
+Input:
+1
+2
+20 30
+40 60
+
+Output:
+50 600
+100 2400
+```
+
+{% endtab %}
+{% tab title='BJ_18398.py' %}
+
+```py
+for _ in range(int(input())):
+  for _ in range(int(input())):
+    a, b = map(int, input().split())
+    print(a + b, a * b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : M 찍기](https://www.acmicpc.net/problem/18883)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_18883.md/)
+
+{% tabs %}
+{% tab title='BJ_18883.md' %}
+
+> Question
+
+* Given N, M, output in the output format from 1 to N×M
+
+```txt
+Input: 3 4
+
+Output:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+```
+
+{% endtab %}
+{% tab title='BJ_18883.py' %}
+
+```py
+n, m = map(int, input().split())
+num = 0
+for i in range(n):
+  for j in range(m):
+    num += 1
+    if j == m - 1:
+      print(num)
+    else:
+      print(num, end=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 짝수를 찾아라](https://www.acmicpc.net/problem/3058)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_3058.md/)
+
+{% tabs %}
+{% tab title='BJ_3058.md' %}
+
+> Question
+
+* Print sum of even number and minimum of even
+
+```txt
+Input:
+2
+1 2 3 4 5 6 7
+13 78 39 42 54 93 86
+
+Output:
+12 2
+260 42
+```
+
+{% endtab %}
+{% tab title='BJ_3058.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  evens = [n for n in list(map(int, input().split())) if n % 2 == 0]
+  print(sum(evens), min(evens))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 가위 바위 보?](https://www.acmicpc.net/problem/4493)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_4493.md/)
+
+{% tabs %}
+{% tab title='BJ_4493.md' %}
+
+> Question
+
+* Given Rock Paper Scissors, print winner
+
+```txt
+Input:
+3
+2
+R P
+S R
+3
+P P
+R S
+S R
+1
+P R
+
+Output:
+Player 2
+TIE
+Player 1
+```
+
+{% endtab %}
+{% tab title='BJ_4493.py' %}
+
+```py
+for t in range(int(input())):
+  n = int(input())
+  a = 0
+  for i in range(n):
+    b = input()
+    if b in ('P R','R S','S P'):
+      a += 1
+    elif b in ('R P','S R','P S'):
+      a -= 1
+  if a < 0:
+    print("Player 2")
+  elif a > 0:
+    print("Player 1")
+  else:
+    print("TIE")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 직사각형을 만드는 방법](https://www.acmicpc.net/problem/8320)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_8320.md/)
+
+{% tabs %}
+{% tab title='BJ_8320.md' %}
+
+> Question
+
+* Sanggeun has n squares with a side length of 1
+* How many rectangles can be made using this square in total?
+
+```txt
+Input: 6
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_8320.py' %}
+
+```py
+n = int(input())
+cnt = 0
+for i in range(1, n + 1):
+  for j in range(i, n + 1):
+    if i * j <= n:
+      cnt += 1
+print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 얼마?](https://www.acmicpc.net/problem/9325)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_9325.md/)
+
+{% tabs %}
+{% tab title='BJ_9325.md' %}
+
+> Question
+
+* The line consists of q and p. q is the number of specific options Haebin wants to buy, and p is the price of that option
+
+```txt
+Input:
+2
+10000
+2
+1 2000
+3 400
+50000
+0
+
+Output:
+13200
+50000
+```
+
+{% endtab %}
+{% tab title='BJ_9325.py' %}
+
+```py
+T = int(input())
+
+for _ in range(T):
+  s = int(input())
+  n = int(input())
+  price = s
+
+  for _ in range(n):
+    q, p = map(int, input().split())
+    price += q * p
+
+  print(price)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 꿍의 우주여행](https://www.acmicpc.net/problem/9501)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_9501.md/)
+
+{% tabs %}
+{% tab title='BJ_9501.md' %}
+
+> Question
+
+* Given distance, and n spaceship with fuel efficiency and max speed, find number of spaceships that can travel distance
+
+```txt
+Input:
+2
+3 100
+52 75 10
+88 13 44
+56 9 5
+2 920368
+950 950 1
+943 976 1
+
+Output:
+2
+1
+```
+
+{% endtab %}
+{% tab title='BJ_9501.py' %}
+
+```py
+t = int(input())
+for i in range(t):
+  n, d = map(int, input().split())
+  result = 0
+  for j in range(n):
+    v, f, c = map(int, input().split())
+    if f / c * v >= d: result += 1
+  print(result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 아이들은 사탕을 좋아해](https://www.acmicpc.net/problem/9550)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_9550.md/)
+
+{% tabs %}
+{% tab title='BJ_9550.md' %}
+
+> Question
+
+* For each test case, find sum of quotient divided by right number
+
+> Question
+
+```txt
+Input:
+2
+3 2
+4 5 7
+3 8
+4 5 7
+Output:
+7
+0
+```
+
+{% endtab %}
+{% tab title='BJ_9550.py' %}
+
+```py
+for _ in range(int(input())):
+  N, K = map(int,input().split())
+  answer = 0
+  for i in list(map(int, input().split())):
+    answer += i // K
+  print(answer)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 문자열 반복](https://www.acmicpc.net/problem/2675)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_2675.md/)
+
+{% tabs %}
+{% tab title='BJ_2675.md' %}
+
+```txt
+Input:
+2
+3 ABC
+5 /HTP
+Output:
+AAABBBCCC
+/////HHHHHTTTTTPPPPP
+```
+
+{% endtab %}
+{% tab title='BJ_2675.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  a, b = input().split()
+  for ch in b:
+    print(ch * int(a), end='')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 부녀회장이 될테야](https://www.acmicpc.net/problem/2775)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_2775.md/)
+
+{% tabs %}
+{% tab title='BJ_2775.md' %}
+
+> Question
+
+* If you want to live in room B on floor A, take people from room 1 to room B on the floor below you
+* For k and n, print how many people live in room n on floor k
+
+```txt
+Input:
+2
+1
+3
+2
+3
+
+Output:
+6
+10
+```
+
+{% endtab %}
+{% tab title='BJ_2775.py' %}
+
+```py
+for _ in range(int(input())):
+  k = int(input())
+  n = int(input())
+  people = list(range(n + 1))
+  for i in range(k):
+    for j in range(1, n + 1):
+      people[j] = people[j] + people[j - 1]
+  print(people[-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 해밍 거리](https://www.acmicpc.net/problem/3449)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_3449.md/)
+
+{% tabs %}
+{% tab title='BJ_3449.md' %}
+
+> Question
+
+* Print hamming distance between two strings
+
+```txt
+Input:
+4
+0
+1
+000
+000
+1111111100000000
+0000000011111111
+101
+000
+
+Output:
+Hamming distance is 1.
+Hamming distance is 0.
+Hamming distance is 16.
+Hamming distance is 2.
+```
+
+{% endtab %}
+{% tab title='BJ_3449.py' %}
+
+```py
+for _ in range(int(input())):
+  A, B = input(), input()
+  s = 0
+  for a, b in zip(A, B):
+    if a != b:
+      s += 1
+  print(f"Hamming distance is {s}.")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : OX퀴즈](https://www.acmicpc.net/problem/8958)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_8958.md/)
+
+{% tabs %}
+{% tab title='BJ_8958.md' %}
+
+> Question
+
+* N Score is added when N consecutive number is right
+
+```txt
+Input:
+5
+OOXXOXXOOO
+OOXXOOXXOO
+OXOXOXOXOXOXOX
+OOOOOOOOOO
+OOOOXOOOOXOOOOX
+
+Output:
+10
+9
+7
+55
+30
+```
+
+{% endtab %}
+{% tab title='BJ_8958.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  st = input()
+  score, row = 0, 0
+  for ch in st:
+    if ch == 'X':
+      row = 0
+    else:
+      row += 1
+      score += row
+  print(score)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Detailed Differences](https://open.kattis.com/problems/detaileddifferences)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/KT_detaileddifferences.md/)
+
+{% tabs %}
+{% tab title='KT_detaileddifferences.md' %}
+
+> Question
+
+* 두 문자가 주어질 때 그 문자를 출력하고
+* 같은 자리는 . 다른 자리는 *를 아래에 출력하라
+
+```txt
+Input:
+3
+ATCCGCTTAGAGGGATT
+GTCCGTTTAGAAGGTTT
+abcdefghijklmnopqrstuvwxyz
+bcdefghijklmnopqrstuvwxyza
+abcdefghijklmnopqrstuvwxyz0123456789
+abcdefghijklmnopqrstuvwxyz0123456789
+
+Output:
+ATCCGCTTAGAGGGATT
+GTCCGTTTAGAAGGTTT
+*....*.....*..*..
+
+abcdefghijklmnopqrstuvwxyz
+bcdefghijklmnopqrstuvwxyza
+**************************
+
+abcdefghijklmnopqrstuvwxyz0123456789
+abcdefghijklmnopqrstuvwxyz0123456789
+....................................
+
+```
+
+{% endtab %}
+{% tab title='KT_detaileddifferences.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  st1 = input()
+  st2 = input()
+  print(st1)
+  print(st2)
+  for c1, c2 in zip(st1, st2):
+    if c1 == c2:
+      print('.', end='')
+    else:
+      print('*', end='')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Missing Numbers](https://open.kattis.com/problems/missingnumbers)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/KT_missingnumbers.md/)
+
+{% tabs %}
+{% tab title='KT_missingnumbers.md' %}
+
+> Question
+
+* print all missing number
+
+```txt
+Input:
+9
+2
+4
+5
+7
+8
+9
+10
+11
+13
+
+Output:
+1
+3
+6
+12
+```
+
+{% endtab %}
+{% tab title='KT_missingnumbers.py' %}
+
+```py
+n = int(input())
+gap = False
+prev = 0
+for i in range(n):
+  a = int(input())
+  for j in range(prev + 1, a):
+    print(j)
+    gap = True
+  prev = a
+if not gap:
+  print('good job')
+```
+
+{% endtab %}
+{% endtabs %}

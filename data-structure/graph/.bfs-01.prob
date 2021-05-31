@@ -1,0 +1,152 @@
+> baekjoon
+
+* [Level 11 : 숨바꼭질 3](https://www.acmicpc.net/problem/13549)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-01/BJ_13549.md/)
+
+{% tabs %}
+{% tab title='BJ_13549.md' %}
+
+> Question
+
+* After a second, it moves to X-1 or X+1. In case of teleportation, move to the position of 2*X after 0 seconds
+* Prints out the fastest time to find a younger brother
+
+```txt
+Input: 5 17
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_13549.py' %}
+
+```py
+from collections import deque
+
+def bfs(start, end):
+  dq, node2dist = deque([start]), {start:0}
+  while dq:
+    v = dq.popleft()
+    if v == end:
+      return node2dist[v]
+    for adj in (v - 1, v + 1, 2 * v):
+      if adj not in node2dist and 0 <= adj <= 100000:
+        if adj == 2 * v:
+          node2dist[adj] = node2dist[v]
+          dq.appendleft(adj)
+        else:
+          node2dist[adj] = node2dist[v] + 1
+          dq.append(adj)
+
+start, end = map(int, input().split())
+print(bfs(start, end))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 알고스팟](https://www.acmicpc.net/problem/1261)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-01/BJ_1261.md/)
+
+{% tabs %}
+{% tab title='BJ_1261.md' %}
+
+> Question
+
+* Given N * M grid with wall with 1
+* Print minimum number of walls to break from 1, 1 to N, M
+
+```txt
+Input:
+3 3
+011
+111
+110
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1261.py' %}
+
+```py
+from collections import deque
+M, N = map(int, input().split())
+D = [[*input()] for _ in range(N)]
+G = [[-1] * M for _ in range(N)]
+q = deque([[0, 0]])
+G[0][0] = 0
+while q:
+  r, c = q.popleft()
+  for nx, ny in [(r, c + 1), (r, c - 1), (r + 1, c), (r - 1, c)]:
+    if 0 <= nx < N and 0<=ny<M and G[nx][ny]==-1:
+      if D[nx][ny]=='0':
+        G[nx][ny] = G[r][c]
+        q.appendleft([nx, ny])
+      else:
+        C[nx][ny] = G[r][c]+1
+        q.append([nx,ny])
+print(G[N-1][M-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 전구를 켜라](https://www.acmicpc.net/problem/2423)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-01/BJ_2423.md/)
+
+{% tabs %}
+{% tab title='BJ_2423.md' %}
+
+> Question
+
+* Print minimum number of tiles we should rotate to make a path from 0, 0 to N, M
+
+```txt
+Input:
+3 5
+\\/\\
+\\///
+/\\\\
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_2423.py' %}
+
+```py
+import heapq
+
+r, c = map(int,input().split())
+G = [[[] for i in range(c + 1)] for j in range(r + 1)]
+if (r + c) % 2 == 1:
+  print("NO SOLUTION")
+  exit()
+
+for i in range(r):
+  row = input()
+  for j in range(c):
+    if row[j] == '/':
+      botr, topr = 1, 0
+    else:
+      botr, topr = 0, 1
+    G[i][j].append((i+1, j+1, botr))
+    G[i+1][j+1].append((i, j, botr))
+    G[i+1][j].append((i, j+1, topr))
+    G[i][j+1].append((i+1, j, topr))
+
+dist = [[float('inf')] * (c + 1) for i in range(r + 1)]
+dist[0][0] = 0
+PQ = [(0, 0, 0)]
+while PQ:
+  d, i, j = heapq.heappop(PQ)
+  if dist[i][j] != d: continue
+  for ni, nj, c in G[i][j]:
+    if dist[ni][nj] > d + c:
+      dist[ni][nj] = d + c
+      heapq.heappush(PQ, (d + c, ni, nj))
+print(dist[-1][-1])
+```
+
+{% endtab %}
+{% endtabs %}

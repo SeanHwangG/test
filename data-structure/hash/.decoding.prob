@@ -1,0 +1,91 @@
+> baekjoon
+
+* [Level 4 : BASE64 디코딩](https://www.acmicpc.net/problem/10936)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/decoding/BJ_10936.md/)
+
+{% tabs %}
+{% tab title='BJ_10936.md' %}
+
+> Question
+
+* Decode given BASE64 encoded string
+
+```txt
+Input: QmFla2pvb24=
+Output: Baekjoon
+```
+
+{% endtab %}
+{% tab title='BJ_10936.py' %}
+
+```py
+import base64
+print(base64.b64decode(input()).decode())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : BASE32 디코딩](https://www.acmicpc.net/problem/10939)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/decoding/BJ_10939.md/)
+
+{% tabs %}
+{% tab title='BJ_10939.md' %}
+
+> Question
+
+* Decode given BASE64 encoded string
+
+```txt
+Input: IJQWK23KN5XW4===
+Output: Baekjoon
+```
+
+{% endtab %}
+{% tab title='BJ_10939.py' %}
+
+```py
+import base64
+print(base64.b32decode(input()).decode())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : BASE16 디코딩](https://www.acmicpc.net/problem/10941)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/decoding/BJ_10941.md/)
+
+{% tabs %}
+{% tab title='BJ_10941.md' %}
+
+> Question
+
+* Decode given BASE64 encoded string
+
+```txt
+Input: 4261656B6A6F6F6E
+Output: Baekjoon
+```
+
+{% endtab %}
+{% tab title='BJ_10941.cpp' %}
+
+```cpp
+#include <cstdio>
+int main(){
+  int n;
+  while(scanf("%2X",&n)!=EOF)
+    printf("%c",n);
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10941.py' %}
+
+```py
+import base64
+print(base64.b16decode(input()).decode())
+```
+
+{% endtab %}
+{% endtabs %}

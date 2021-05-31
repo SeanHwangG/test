@@ -1,0 +1,3 @@
+static/
+.mypy_cache
+env

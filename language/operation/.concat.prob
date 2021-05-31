@@ -1,0 +1,120 @@
+> baekjoon
+
+* [Level 1 : ??!](https://www.acmicpc.net/problem/10926)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/concat/BJ_10926.md/)
+
+{% tabs %}
+{% tab title='BJ_10926.md' %}
+
+> Question
+
+* Print input with ??!
+
+```txt
+Input: joonas
+Output: joonas??!
+```
+
+{% endtab %}
+{% tab title='BJ_10926.py' %}
+
+```py
+print(input() + "??!")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 네 수](https://www.acmicpc.net/problem/10824)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/concat/BJ_10824.md/)
+
+{% tabs %}
+{% tab title='BJ_10824.md' %}
+
+> Question
+
+* print a concat b + c concat d
+
+```txt
+Input: 10 20 30 40
+Output: 4060
+```
+
+{% endtab %}
+{% tab title='BJ_10824.js' %}
+
+```js
+var t = (require('fs').readFileSync('/dev/stdin')+'').split(' ');
+console.log(+(t[0] + t[1])+ +(t[2] + t[3]));
+```
+
+{% endtab %}
+{% tab title='BJ_10824.py' %}
+
+```py
+a, b, c, d = input().split()
+print(int(a + b) + int(c + d))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 팬들에게 둘러싸인 홍준](https://www.acmicpc.net/problem/14581)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/concat/BJ_14581.md/)
+
+{% tabs %}
+{% tab title='BJ_14581.md' %}
+
+> Question
+
+* Print in following format
+
+```txt
+Input:
+appa
+
+Output:
+:fan::fan::fan:
+:fan::appa::fan:
+:fan::fan::fan:
+```
+
+{% endtab %}
+{% tab title='BJ_14581.py' %}
+
+```py
+print(":fan::fan::fan:")
+print(f":fan::{input()}::fan:")
+print(":fan::fan::fan:")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 수 이어 쓰기 3](https://www.acmicpc.net/problem/2154)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/concat/BJ_2154.md/)
+
+{% tabs %}
+{% tab title='BJ_2154.md' %}
+
+> Question
+
+* Find index of a given string in a sequence like below
+* 1234567891011121314151617181920212223
+
+```txt
+Input: 34
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_2154.py' %}
+
+```py
+a = ''
+for i in range(100001): a += str(i)
+print(a.index(input()))
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,899 @@
+> baekjoon
+
+* [Level 4 : 개표](https://www.acmicpc.net/problem/10102)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_10102.md/)
+
+{% tabs %}
+{% tab title='BJ_10102.md' %}
+
+> Question
+
+* The winner of the final will be determined by a vote of the judges
+* Find out who wins when the judges' votes are given
+
+```txt
+Input:
+6
+ABBABB
+
+Output: B
+```
+
+{% endtab %}
+{% tab title='BJ_10102.py' %}
+
+```py
+import collections
+input()
+co = collections.Counter(input())
+if co['A'] < co['B']:
+  print('B')
+elif co['B'] < co['A']:
+  print('A')
+else:
+  print("Tie")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 가장 많은 글자](https://www.acmicpc.net/problem/1371)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_1371.md/)
+
+{% tabs %}
+{% tab title='BJ_1371.md' %}
+
+> Question
+
+* Prints out the most frequently displayed characters
+* In multiple cases, print all of the leading alphabetically and without spaces
+
+```txt
+Input: baekjoon online judge
+Output: eno
+```
+
+{% endtab %}
+{% tab title='BJ_1371.py' %}
+
+```py
+from collections import Counter
+import sys
+input = sys.stdin.read
+co = Counter(input().replace(' ', '').replace('\n', ''))
+for k in sorted(co.keys()):
+  if co[k] == max(co.values()):
+    print(k, end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 애너그램 만들기](https://www.acmicpc.net/problem/1919)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_1919.md/)
+
+{% tabs %}
+{% tab title='BJ_1919.md' %}
+
+> Question
+
+* When removing a character, it can be removed from any location
+* Given two English words Determines minimum # characters that must be removed to make two words in an anagram relationship
+
+```txt
+Input:
+aabbcc
+xxyybb
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_1919.py' %}
+
+```py
+import string
+from collections import Counter
+cnt1 = Counter(input())
+cnt2 = Counter(input())
+ret = 0
+for ch in string.ascii_lowercase:
+  ret += abs(cnt1[ch] - cnt2[ch])
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 단어 공부](https://www.acmicpc.net/problem/1157)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_1157.md/)
+
+{% tabs %}
+{% tab title='BJ_1157.md' %}
+
+> Question
+
+* In the first line, the alphabet most commonly used in this word is capitalized
+* If there are multiple alphabets that are used most frequently, output ?
+
+```txt
+Input: Mississipi
+Output: ?
+```
+
+{% endtab %}
+{% tab title='BJ_1157.java' %}
+
+```java
+import java.util.*;
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    String L = sc.nextLine();
+    L = L.toUpperCase();
+    int[] arr = new int[26];
+    for(int i=0; i < L.length(); i++)
+      arr[L.charAt(i)-'A']++;
+
+    int max = -1;
+    char ch ='?';
+    for(int i = 0; i < 26; i++) {
+      if(arr[i] > max) {
+        max = arr[i];
+        ch = (char)(i+65);
+      }
+      else if (arr[i]==max)
+        ch = '?';
+    }
+    System.out.println(ch);
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1157.js' %}
+
+```js
+let c = [...Array(255)].fill(0);
+for(const i of (require('fs').readFileSync('/dev/stdin')+'').trim().toUpperCase()) {
+  c[i.charCodeAt(0)]++;
+}
+let m = Math.max.apply(0, c);
+console.log(c.filter(x => x == m).length != 1 ? '?' : String.fromCharCode(c.findIndex(x => x == m)))
+```
+
+{% endtab %}
+{% tab title='BJ_1157.py' %}
+
+```py
+import collections
+st = input()
+cnter = collections.Counter(st.lower())
+mc = cnter.most_common(2)
+if len(mc) == 2 and mc[0][1] == mc[1][1]:
+  print('?')
+else:
+  print(mc[0][0].upper())
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 평행선](https://www.acmicpc.net/problem/2358)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_2358.md/)
+
+{% tabs %}
+{% tab title='BJ_2358.md' %}
+
+> Question
+
+* Selecting two different points among the points creates a straight line
+* When creating a straight line like this, print how many straight lines are parallel to the x-axis or y-axis
+
+```txt
+Input:
+4
+0 0
+10 10
+0 10
+10 0
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_2358.py' %}
+
+```py
+from collections import Counter
+N = int(input())
+x_cnt = Counter()
+y_cnt = Counter()
+for _ in range(N):
+  x, y = map(int, input().split())
+  x_cnt[x] += 1
+  y_cnt[y] += 1
+
+ret = 0
+for x in x_cnt:
+  if x_cnt[x] > 1:
+    ret += 1
+for y in y_cnt:
+  if y_cnt[y] > 1:
+    ret += 1
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 동전 게임](https://www.acmicpc.net/problem/2684)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_2684.md/)
+
+{% tabs %}
+{% tab title='BJ_2684.md' %}
+
+> Question
+
+* 3-Output how many times the coin sequence appeared
+
+```txt
+Input:
+4
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+HHTTTHHTTTHTHHTHHTTHTTTHHHTHTTHTTHTTTHTH
+HTHTHHHTHHHTHTHHHHTTTHTTTTTHHTTTTHTHHHHT
+
+Output:
+0 0 0 0 0 0 0 38
+38 0 0 0 0 0 0 0
+4 7 6 4 7 4 5 1
+6 3 4 5 3 6 5 6
+```
+
+{% endtab %}
+{% tab title='BJ_2684.py' %}
+
+```py
+from collections import Counter
+a = 'TTT TTH THT THH HTT HTH HHT HHH'.split()
+for _ in[0]*int(input()):
+  s = input()
+  t = Counter(s[i:i+3]for i in range(0, len(s)-2))
+  print(*[t[i]for i in a])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 유니크](https://www.acmicpc.net/problem/5533)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_5533.md/)
+
+{% tabs %}
+{% tab title='BJ_5533.md' %}
+
+> Question
+
+* Each player shall submit an integer not less than 1 but not more than 100 on the card
+* Each player gets the same score as the number he or she writes if no one writes the same number
+* If there are other people who write the same number, you cannot get a score
+* Played this game three times
+* When each player is given a written number, write a program to get the total score from Game 3
+
+```txt
+Input:
+5
+100 99 98
+100 97 92
+63 89 63
+99 99 99
+89 97 98
+
+Output:
+0
+92
+215
+198
+89
+```
+
+{% endtab %}
+{% tab title='BJ_5533.py' %}
+
+```py
+from collections import Counter
+N = int(input())
+G = []
+c1, c2, c3 = Counter(), Counter(), Counter()
+for _ in range(N):
+  a, b, c = map(int, input().split())
+  c1[a] += 1
+  c2[b] += 1
+  c3[c] += 1
+  G.append([a, b, c])
+for a, b, c in G:
+  print((a if c1[a] == 1 else 0) + (b if c2[b] == 1 else 0) + (c if c3[c] == 1 else 0))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 숫자 카드 2](https://www.acmicpc.net/problem/10816)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_10816.md/)
+
+{% tabs %}
+{% tab title='BJ_10816.md' %}
+
+> Question
+
+* A number card is a card with an integer written on it. Sanggeun has N number cards. When given an integer M
+* find out how many full-time employees have with this number on them
+
+```txt
+Input:
+10
+6 3 2 10 10 10 -10 -10 7 3
+8
+10 9 -5 2 3 4 5 -10
+
+Output: 3 0 0 1 2 0 0 2
+```
+
+{% endtab %}
+{% tab title='BJ_10816.py' %}
+
+```py
+import collections
+input()
+cnt = collections.Counter(map(int, input().split()))
+input()
+for n in map(int, input().split()):
+  print(cnt[n])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 카드](https://www.acmicpc.net/problem/11652)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_11652.md/)
+
+{% tabs %}
+{% tab title='BJ_11652.md' %}
+
+> Question
+
+* Prints the integer that you have the most
+
+```txt
+Input:
+5
+1
+2
+1
+2
+1
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_11652.py' %}
+
+```py
+import sys
+from collections import Counter
+n_test = int(input())
+dic = Counter()
+top, ret = 0, 0
+for _ in range(n_test):
+  n = int(sys.stdin.readline())
+  dic[n]+=1
+  if dic[n] > top or dic[n] == top and n < ret:
+    top, ret = dic[n], n
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 팰린드롬 만들기](https://www.acmicpc.net/problem/1213)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_1213.md/)
+
+{% tabs %}
+{% tab title='BJ_1213.md' %}
+
+> Question
+
+* Make word to palindrome, Print I'm Sorry Hansoo if it is impossible
+
+```txt
+Input: AABB
+Output: ABBA
+```
+
+{% endtab %}
+{% tab title='BJ_1213.js' %}
+
+```js
+var s = require('fs').readFileSync('/dev/stdin').toString().trim().split('');
+var a = [], c = 0;
+while (c <= 1 && s.length > 1) {
+  var t = s.shift(), k = s.indexOf(t);
+  if(k === -1) {
+    ++c
+    s.push(t);
+  } else {
+    a.push(t);
+    s.splice(k, 1);
+  }
+}
+if (s.length > 1)
+  console.log('I\'m Sorry Hansoo');
+else {
+  a = a.sort(function(x, y) { return (x.charCodeAt() - y.charCodeAt()); });
+  var x = a.join('');
+  if (s.length === 1)
+    x += s[0];
+  x += a.reverse().join('');
+  console.log(x);
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1213.py' %}
+
+```py
+from collections import Counter
+s = input()
+co = Counter(s)
+odds = [k for k in co if co[k] % 2 != 0]
+if 1 < len(odds):
+  print("I'm Sorry Hansoo")
+else:
+  ret = ""
+  for k in sorted(co):
+    ret += k * (co[k] // 2)
+  print(ret + ("" if len(odds) == 0 else odds[0]) + ret[::-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 비슷한 단어](https://www.acmicpc.net/problem/2607)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_2607.md/)
+
+{% tabs %}
+{% tab title='BJ_2607.md' %}
+
+> Question
+
+* If two words have same composition, or if one character is added, subtracted, or replaced with another
+* these two words are called similar words
+* Print number of similar words from first word
+
+```txt
+Input:
+4
+DOG
+GOD
+GOOD
+DOLL
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_2607.py' %}
+
+```py
+from collections import Counter
+def is_sim(a, b):
+  c1 = Counter(a)
+  c2 = Counter(b)
+  return max(sum((c1 - c2).values()), sum((c2 - c1).values())) <= 1
+
+n = int(input())
+li = [input() for _ in range(n)]
+ret = 0
+for i in range(1, n):
+  if is_sim(li[0], li[i]):
+    ret += 1
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 빈도 정렬](https://www.acmicpc.net/problem/2910)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/BJ_2910.md/)
+
+{% tabs %}
+{% tab title='BJ_2910.md' %}
+
+> Question
+
+* Sort number by frequency, if frequence is same print in original order
+
+```txt
+Input:
+5 2
+2 1 2 1 2
+Output: 2 2 2 1 1
+```
+
+{% endtab %}
+{% tab title='BJ_2910.py' %}
+
+```py
+from collections import Counter
+
+n, c = map(int, input().split())
+arr = list(map(int, input().split()))
+
+c = Counter(arr).most_common()
+
+for i in range(len(c)):
+  for j in range(c[i][1]):
+    print(c[i][0], end=' ')
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : ACM Contest Scoring](https://open.kattis.com/problems/acm)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/KT_acm.md/)
+
+{% tabs %}
+{% tab title='KT_acm.md' %}
+
+> Question
+
+* 문제를 풀 때 정답이면 정답인 시간을 더하고,
+* 오답이면 그 문제에 대한 penalty가 20분 씩 쌓여 그 문제를 맞았을 때 기존에 쌓인 페널티를 합쳐서 시간을 계산한다
+* 시간, 문제, 결과가 입력 될 때 총 시간을 구하라
+* -1 이 입력될 까지 계속 된다
+
+```txt
+Input:
+3 E right
+10 A wrong
+30 C wrong
+50 B wrong
+100 A wrong
+200 A right
+250 C wrong
+300 D right
+-1
+
+Output: 3 543
+```
+
+{% endtab %}
+{% tab title='KT_acm.py' %}
+
+```py
+from collections import Counter
+total_score = total_time = 0
+penalty = Counter()
+while True:
+  st = input()
+  if st == '-1':
+    break
+  t, prob, result = st.split()
+  t = int(t)
+
+  if result == 'wrong':
+    penalty[prob] += 20
+  elif result == 'right':
+    total_time += t + penalty[prob]
+    total_score += 1
+
+print(total_score, total_time)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Poker Hand](https://open.kattis.com/problems/pokerhand)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/KT_pokerhand.md/)
+
+{% tabs %}
+{% tab title='KT_pokerhand.md' %}
+
+> Question
+
+* First character is rank
+* How many times did msot frequent rank appeared
+
+```txt
+Input: AC AD AH AS KD
+Output: 4
+```
+
+{% endtab %}
+{% tab title='KT_pokerhand.py' %}
+
+```py
+from collections import Counter
+cnter = Counter()
+for card in input().split():
+  cnter[card[0]]+=1
+print(cnter.most_common(1)[0][1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Seven Wonders](https://open.kattis.com/problems/sevenwonders)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/KT_sevenwonders.md/)
+
+{% tabs %}
+{% tab title='KT_sevenwonders.md' %}
+
+> Question
+
+* 문자열이 주어진다
+* 이 때 T, C, G 중 가장 적게 나온 개수 * 7 + T 개수^2 + C 개수^2 + G 개수^2 의 합을 구하라
+
+```txt
+Input: TCGTTC
+Output: 21
+```
+
+{% endtab %}
+{% tab title='KT_sevenwonders.py' %}
+
+```py
+from collections import Counter
+st = input()
+co = Counter(st)
+ret = min(co['T'], co['C'], co['G']) * 7
+ret += co['T'] ** 2
+ret += co['C'] ** 2
+ret += co['G'] ** 2
+
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.7 : Peragrams](https://open.kattis.com/problems/peragrams)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/KT_peragrams.md/)
+
+
+{% tabs %}
+{% tab title='KT_peragrams.md' %}
+
+> Question
+
+* Peragrams is Palindrome when suffle it's character
+* Given string, how many character should I remove to make Peragrams
+
+```txt
+Input: abc
+Output: 0
+```
+
+{% endtab %}
+{% tab title='KT_peragrams.py' %}
+
+```py
+from collections import Counter
+cnt = Counter()
+for ch in input():
+  cnt[ch] += 1
+ret = 0
+for count in cnt:
+  if cnt[count] % 2 == 1:
+    ret += 1
+print(max(0, ret - 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.7 : Yin and Yang Stones](https://open.kattis.com/problems/yinyangstones)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/KT_yinyangstones.md/)
+
+{% tabs %}
+{% tab title='KT_yinyangstones.md' %}
+
+> Question
+
+* W와 B의 개수가 같으면 1 아니면 0을 출력하라
+
+```txt
+Input: WWBWBB
+Output: 1
+```
+
+{% endtab %}
+{% tab title='KT_yinyangstones.py' %}
+
+```py
+from collections import Counter
+cnt = Counter(input())
+print(1 if cnt['W'] == cnt['B'] else 0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Find Center of Star Graph](https://leetcode.com/problems/find-center-of-star-graph)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/LC_1791.md/)
+
+{% tabs %}
+{% tab title='LC_1791.md' %}
+
+> Question
+
+* Find most common item in 2d list
+
+```txt
+Input: edges = [[1,2],[2,3],[4,2]]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_1791.py' %}
+
+```py
+def findCenter(self, edges: List[List[int]]) -> int:
+  return collections.Counter([v for edge in edges for v in edge]).most_common()[0][0]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Design A Leaderboard](https://leetcode.com/problems/design-a-leaderboard)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/LC_1244.md/)
+
+{% tabs %}
+{% tab title='LC_1244.md' %}
+
+> Question
+
+* Design a Leaderboard class, which has 3 functions:
+  * addScore(playerId, score): Update the leaderboard by adding score to the given player's score
+    * If there is no player with such id in the leaderboard, add him to the leaderboard with the given score.
+  * top(K): Return the score sum of the top K players.
+  * reset(playerId): Reset the score of the player with the given id to 0 (in other words erase it from the leaderboard)
+    * It is guaranteed that the player was added to the leaderboard before calling this function.
+
+```txt
+Input:
+["Leaderboard","addScore","addScore","addScore","addScore","addScore","top","reset","reset","addScore","top"]
+[[],[1,73],[2,56],[3,39],[4,51],[5,4],[1],[1],[2],[2,51],[3]]
+
+Output:
+[null,null,null,null,null,null,73,null,null,null,141]
+```
+
+{% endtab %}
+{% tab title='LC_1244.py' %}
+
+```py
+class Leaderboard(object):
+  def __init__(self):
+    self.A = collections.Counter()
+
+  def addScore(self, playerId, score):
+    self.A[playerId] += score
+
+  def top(self, K):
+    return sum(v for i,v in self.A.most_common(K))
+
+  def reset(self, playerId):
+    self.A[playerId] = 0
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Max Number of K-Sum Pairs](https://leetcode.com/problems/max-number-of-k-sum-pairs)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/LC_1679.md/)
+
+{% tabs %}
+{% tab title='LC_1679.md' %}
+
+> Question
+
+* Given an integer array nums and an integer k
+* In one operation, you can pick two numbers from the array whose sum equals k and remove them from the array
+* Return the maximum number of operations you can perform on the array
+
+```txt
+Input: nums = [1,2,3,4], k = 5
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_1679.cpp' %}
+
+```cpp
+int maxOperations(vector<int>& nums, int k) {
+  unordered_map<int, int> num2count;
+  for (auto &num: nums) num2count[num]++;  // count freq of nums
+  int ans = 0;
+
+  for(auto it = num2count.begin(); it != num2count.end(); ++it){
+    int num = it->first, count = it->second;
+    if (k - num == num) ans += count/2;   // if num is half of k add half of it's count in ans
+    else if (num2count.count(k - num)){   // find k-num in nums and add min freq of num or k-num to ans
+      int mn = min(count, num2count[k-num]);
+      ans += mn;
+      num2count[num] -= mn;
+      num2count[k-num] -= mn;
+    }
+  }
+
+  return ans;
+}
+```
+
+{% endtab %}
+{% tab title='LC_1679.py' %}
+
+```py
+from collections import Counter
+class Solution:
+  def maxOperations(self, nums: List[int], target: int) -> int:
+    co, ret = Counter(nums), 0
+    for n in co:
+      if n <= target // 2:
+        ret += co[target - n] // 2 if n * 2 == target else min(co[n], co[target - n])
+    return ret
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 4Sum II](https://leetcode.com/problems/4sum-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/counter/LC_454.md/)
+
+{% tabs %}
+{% tab title='LC_454.md' %}
+
+> Question
+
+* Given four lists A, B, C, D of integer values
+* compute how many tuples (i, j, k, l) there are such that A[i] + B[j] + C[k] + D[l] is zero
+
+```txt
+Input: nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_454.cpp' %}
+
+```cpp
+int fourSumCount(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D) {
+  int res = 0;
+  unordered_map<int, int> AB;
+  for (int a : A)
+    for (int b : B)
+      AB[a + b]++;
+  for (int c : C)
+    for (int d : D)
+      res += AB[-c - d];
+  return res;
+}
+```
+
+{% endtab %}
+{% tab title='LC_454.py' %}
+
+```py
+def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
+  AB = collections.Counter(a+b for a in A for b in B)
+  return sum(AB[-c-d] for c in C for d in D)
+```
+
+{% endtab %}
+{% endtabs %}

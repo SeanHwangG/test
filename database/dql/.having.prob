@@ -1,0 +1,324 @@
+> hackerrank
+
+* [Level Medium : Weather Observation Station 20](https://www.hackerrank.com/challenges/weather-observation-station-20/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/having/HR_weather-observation-station-20.md/)
+
+{% tabs %}
+{% tab title='HR_weather-observation-station-20.md' %}
+
+> Question
+
+* STATION
+
+| LAT_N | City       |
+| ----- | ---------- |
+| 10    | Rotterdam  |
+| 123   | Ecottsdale |
+| 123   | Corona     |
+
+* Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to 4 decimal places
+
+| Median   |
+| -------- |
+| 123.0000 |
+
+{% endtab %}
+{% tab title='HR_weather-observation-station-20.sql' %}
+
+```sql
+SELECT ROUND(x.LAT_N,4) from STATION x, STATION y
+  GROUP BY x.LAT_N
+  HAVING SUM(SIGN(1-SIGN(y.LAT_N-x.LAT_N))) = (COUNT(*)+1)/2;
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Actors and Directors Who Cooperated At Least Three Times](https://leetcode.com/problems/actors-and-directors-who-cooperated-at-least-three-times)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/having/LC_1050.md/)
+
+{% tabs %}
+{% tab title='LC_1050.md' %}
+
+> Question
+
+* ActorDirector
+
+| actor_id    | director_id | timestamp   |
++-------------+-------------+-------------+
+| 1           | 1           | 0           |
+| 1           | 1           | 1           |
+| 1           | 1           | 2           |
+| 1           | 2           | 3           |
+| 1           | 2           | 4           |
+| 2           | 1           | 5           |
+| 2           | 1           | 6           |
+
+* report that provides the pairs (actor_id, director_id) where the actor have cooperated with the director at least 3 times
+
+| actor_id    | director_id |
++-------------+-------------+
+| 1           | 1           |
+
+{% endtab %}
+{% tab title='LC_1050.sql' %}
+
+```sql
+SELECT actor_id, director_id FROM ActorDirector
+  GROUP BY actor_id, director_id HAVING COUNT(1) >= 3
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Sales Analysis I](https://leetcode.com/problems/sales-analysis-i)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/having/LC_1082.md/)
+
+{% tabs %}
+{% tab title='LC_1082.md' %}
+
+> Question
+
+* Product
+
+| product_id | product_name | unit_price |
+| ---------- | ------------ | ---------- |
+| 1          | S8           | 1000       |
+| 2          | G4           | 800        |
+| 3          | iPhone       | 1400       |
+
+* Sales
+
+| seller_id | product_id | buyer_id | sale_date  | quantity | price |
+| --------- | ---------- | -------- | ---------- | -------- | ----- |
+| 1         | 1          | 1        | 2019-01-21 | 2        | 2000  |
+| 1         | 2          | 2        | 2019-02-17 | 1        | 800   |
+| 2         | 2          | 3        | 2019-06-02 | 1        | 800   |
+| 3         | 3          | 4        | 2019-05-13 | 2        | 2800  |
+
+* reports the best seller by total sales price, If there is a tie, report them all
+
+| seller_id |
+| --------- |
+| 1         |
+| 3         |
+
+{% endtab %}
+{% tab title='LC_1082.sql' %}
+
+```sql
+SELECT seller_id FROM Sales
+  GROUP BY seller_id HAVING SUM(price) = (SELECT SUM(price) FROM Sales GROUP BY seller_id ORDER BY 1 DESC LIMIT 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Customer Order Frequency](https://leetcode.com/problems/customer-order-frequency)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/having/LC_1511.md/)
+
+{% tabs %}
+{% tab title='LC_1511.md' %}
+
+> Question
+
+* Customers
+
+| customer_id  | name      | country     |
++--------------+-----------+-------------+
+| 1            | Winston   | USA         |
+| 2            | Jonathan  | Peru        |
+| 3            | Moustafa  | Egypt       |
+
+* Product
+
+| product_id   | description | price       |
++--------------+-------------+-------------+
+| 10           | LC Phone    | 300         |
+| 20           | LC T-Shirt  | 10          |
+| 30           | LC Book     | 45          |
+| 40           | LC Keychain | 2           |
+
+* Orders
+
+| order_id     | customer_id | product_id  | order_date  | quantity  |
++--------------+-------------+-------------+-------------+-----------+
+| 1            | 1           | 10          | 2020-06-10  | 1         |
+| 2            | 1           | 20          | 2020-07-01  | 1         |
+| 3            | 1           | 30          | 2020-07-08  | 2         |
+| 4            | 2           | 10          | 2020-06-15  | 2         |
+| 5            | 2           | 40          | 2020-07-01  | 10        |
+| 6            | 3           | 20          | 2020-06-24  | 2         |
+| 7            | 3           | 30          | 2020-06-25  | 2         |
+| 9            | 3           | 30          | 2020-05-08  | 3         |
+
+* report customer_id and customer_name of customers who have spent at least $100 in each month of June and July 2020
+
+| customer_id  | name       |
++--------------+------------+
+| 1            | Winston    |
+
+{% endtab %}
+{% tab title='LC_1511.sql' %}
+
+```sql
+SELECT customer_id, name FROM Customers
+  JOIN Orders USING(customer_id) JOIN Product USING(product_id)
+  GROUP BY customer_id
+  HAVING SUM(IF(LEFT(order_date, 7) = '2020-06', quantity, 0) * price) >= 100
+    AND SUM(IF(LEFT(order_date, 7) = '2020-07', quantity, 0) * price) >= 100
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Duplicate Emails](https://leetcode.com/problems/duplicate-emails)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/having/LC_182.md/)
+
+{% tabs %}
+{% tab title='LC_182.md' %}
+
+> Question
+
+| Id  | Email   |
+| --- | ------- |
+| 1   | a@b.com |
+| 2   | c@d.com |
+| 3   | a@b.com |
+
+* Write a SQL query to find all duplicate emails in a table named Person
+
+| Email   |
+| ------- |
+| a@b.com |
+
+{% endtab %}
+{% tab title='LC_182.sql' %}
+
+```sql
+SELECT email FROM Person
+  GROUP BY email HAVING count(*) > 1;
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Customers Who Bought All Products](https://leetcode.com/problems/customers-who-bought-all-products)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/having/LC_1045.md/)
+
+{% tabs %}
+{% tab title='LC_1045.md' %}
+
+> Question
+
+* Customer
+
+| customer_id | product_key |
+| ----------- | ----------- |
+| 1           | 5           |
+| 2           | 6           |
+| 3           | 5           |
+| 3           | 6           |
+| 1           | 6           |
+
+* Product
+
+| product_key |
+| ----------- |
+| 5           |
+| 6           |
+
+* report that provides the customer ids from the Customer table that bought all the products in the Product table
+
+| customer_id |
+| ----------- |
+| 1           |
+| 3           |
+
+{% endtab %}
+{% tab title='LC_1045.sql' %}
+
+```sql
+SELECT customer_id FROM (SELECT * FROM Customer WHERE product_key in (SELECT * FROM Product)) AS A
+  GROUP BY customer_id
+  HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Article Views II](https://leetcode.com/problems/article-views-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/having/LC_1149.md/)
+
+{% tabs %}
+{% tab title='LC_1149.md' %}
+
+> Question
+
+| article_id | author_id | viewer_id | view_date  |
+| ---------- | --------- | --------- | ---------- |
+| 1          | 3         | 5         | 2019-08-01 |
+| 3          | 4         | 5         | 2019-08-01 |
+| 1          | 3         | 6         | 2019-08-02 |
+| 2          | 7         | 7         | 2019-08-01 |
+| 2          | 7         | 6         | 2019-08-02 |
+| 4          | 7         | 1         | 2019-07-22 |
+| 3          | 4         | 4         | 2019-07-21 |
+| 3          | 4         | 4         | 2019-07-21 |
+
+* Find all the people who viewed more than one article on the same date, sorted in ascending order by their id
+
+| id  |
+| --- |
+| 5   |
+| 6   |
+
+{% endtab %}
+{% tab title='LC_1149.sql' %}
+
+```sql
+SELECT DISTINCT viewer_id AS id#, count(DISTINCT article_id) AS total FROM views
+  GROUP BY viewer_id, view_date HAVING Count(DISTINCT Article_id) > 1 ORDER by 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Last Person to Fit in the Bus](https://leetcode.com/problems/last-person-to-fit-in-the-bus)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/having/LC_1204.md/)
+
+{% tabs %}
+{% tab title='LC_1204.md' %}
+
+> Question
+
+| person_id | person_name       | weight | turn |
++-----------+-------------------+--------+------+
+| 5         | George Washington | 250    | 1    |
+| 3         | John Adams        | 350    | 2    |
+| 6         | Thomas Jefferson  | 400    | 3    |
+| 2         | Will Johnliams    | 200    | 4    |
+| 4         | Thomas Jefferson  | 175    | 5    |
+| 1         | James Elephant    | 500    | 6    |
+
+* The maximum weight the elevator can hold is 1000
+* find person_name of the last person who will fit in the elevator without exceeding the weight limit
+
+| person_name       |
++-------------------+
+| Thomas Jefferson  |
+
+{% endtab %}
+{% tab title='LC_1204.sql' %}
+
+```sql
+SELECT q1.person_name FROM Queue q1 JOIN Queue q2 ON q1.turn >= q2.turn
+  GROUP BY q1.turn HAVING SUM(q2.weight) <= 1000
+  ORDER BY SUM(q2.weight) DESC
+  LIMIT 1
+```
+
+{% endtab %}
+{% endtabs %}

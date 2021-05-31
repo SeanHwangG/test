@@ -1,0 +1,592 @@
+> baekjoon
+
+* [Level 1 : Vera and Outfits](https://www.acmicpc.net/problem/15439)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_15439.md/)
+
+{% tabs %}
+{% tab title='BJ_15439.md' %}
+
+> Question
+
+* You have N shirts and pants with distict color
+* Find the number of ways to wear without wearing same color of shirt and part
+
+```txt
+Input: 3
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_15439.sh' %}
+
+```sh
+read a
+echo $((a * a - a))
+```
+
+{% endtab %}
+{% tab title='BJ_15439.py' %}
+
+```py
+a = int(input())
+print(a * (a - 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : on’t pass me the ball!](https://www.acmicpc.net/problem/6768)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_6768.md/)
+
+{% tabs %}
+{% tab title='BJ_6768.md' %}
+
+> Question
+
+* Count number of ways to choose 4 people from N
+
+```txt
+Input: 4
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_6768.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+  int n;
+  cin >> n;
+  cout <<(n-1)*(n-2)*(n-3)/6;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_6768.py' %}
+
+```py
+import math
+n = int(input())
+print(math.comb(n - 1, 3))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 다각형의 대각선](https://www.acmicpc.net/problem/3049)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_3049.md/)
+
+{% tabs %}
+{% tab title='BJ_3049.md' %}
+
+> Question
+
+* Find the number of intersections from polygon's diagonals
+
+```txt
+Input: 6
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_3049.py' %}
+
+```py
+n = int(input())
+print(n * (n - 1) * (n -2) * (n - 3) // 24)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 이항 계수 1](https://www.acmicpc.net/problem/11050)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_11050.md/)
+
+{% tabs %}
+{% tab title='BJ_11050.md' %}
+
+> Question
+
+* Find $$ \left(\begin{array}{l} N \\ K \end{array}\right) $$
+
+```txt
+Input: 5 2
+Ouput: 10
+```
+
+{% endtab %}
+{% tab title='BJ_11050.py' %}
+
+```py
+import math
+a, b = map(int, input().split())
+print(math.comb(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 차량 번호판 1](https://www.acmicpc.net/problem/16968)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_16968.md/)
+
+{% tabs %}
+{% tab title='BJ_16968.md' %}
+
+> Question
+
+* Numbers available on the license plate are 0, 1, 2, ..., 8, 9
+* The characters available are a, b, c, d, ..., y, z
+* The form of the license plate is up to 4 letters, and can be represented by a string consisting of c and d
+* C is the place where the character is located, and d is the place where the number is located
+* The same character or number should not appear twice in a row
+
+```txt
+Input: dcdd
+Output: 23400
+```
+
+{% endtab %}
+{% tab title='BJ_16968.py' %}
+
+```py
+s = input()
+ret = 1
+for i, ch in enumerate(s):
+  if ch == 'd':
+    if i != 0 and s[i - 1] == 'd':
+      ret *= 9
+    else:
+      ret *= 10
+  else:
+    if i != 0 and s[i - 1] == 'c':
+      ret *= 25
+    else:
+      ret *= 26
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 차량 번호판 2](https://www.acmicpc.net/problem/16969)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_16969.md/)
+
+{% tabs %}
+{% tab title='BJ_16969.md' %}
+
+> Question
+
+* The numbers available for license plates are 0, 1, 2, ..., 8, 9
+* The characters available are a, b, c, d, ..., y, and z
+* The format of the license plate is up to 1,000,000 characters and can be represented by strings of c and d
+* c is the position of the letter and d is the position of the number
+* The same letter or number should not appear twice in a row
+
+```txt
+Input: dcdd
+Output: 23400
+```
+
+{% endtab %}
+{% tab title='BJ_16969.py' %}
+
+```py
+s = input()
+ret = 1
+for i, ch in enumerate(s):
+  if ch == 'd':
+    if i != 0 and s[i - 1] == 'd':
+      ret *= 9
+    else:
+      ret *= 10
+  else:
+    if i != 0 and s[i - 1] == 'c':
+      ret *= 25
+    else:
+      ret *= 26
+  ret %= 1000000009
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 다리 놓기](https://www.acmicpc.net/problem/1010)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_1010.md/)
+
+{% tabs %}
+{% tab title='BJ_1010.md' %}
+
+> Question
+
+* There are n nodes and m nodes on each side of river
+* Find number of ways to put bridges without bridge crossing one another
+
+```txt
+Input:
+3
+2 2
+1 5
+13 29
+
+Output:
+1
+5
+67863915
+```
+
+{% endtab %}
+{% tab title='BJ_1010.py' %}
+
+```py
+import math
+N = int(input())
+for _ in range(N):
+  a, b = map(int, input().split())
+  print(math.comb(b, a))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 이항 쇼다운](https://www.acmicpc.net/problem/6591)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_6591.md/)
+
+{% tabs %}
+{% tab title='BJ_6591.md' %}
+
+> Question
+
+* How many ways do you choose k out of n elements without order?
+
+```txt
+Input:
+4 2
+10 5
+49 6
+0 0
+
+Output:
+6
+252
+13983816
+```
+
+{% endtab %}
+{% tab title='BJ_6591.py' %}
+
+```py
+import math
+while True:
+  a, b = map(int, input().split())
+  if a == b == 0:
+    break
+  print(math.comb(a, b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 패션왕 신해빈](https://www.acmicpc.net/problem/9375)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_9375.md/)
+
+{% tabs %}
+{% tab title='BJ_9375.md' %}
+
+> Question
+
+* Print number of unique combination with given costumes
+
+```txt
+Input:
+2
+3
+hat headgear
+sunglasses eyewear
+turban headgear
+3
+mask face
+sunglasses face
+makeup face
+
+Output:
+5
+3
+```
+
+{% endtab %}
+{% tab title='BJ_9375.py' %}
+
+```py
+from collections import Counter
+from math import prod
+
+for _ in range(int(input())):
+  N = int(input())
+  print(prod(i + 1 for i in Counter([input().split()[1] for _ in range(N)]).values()) - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 조합](https://www.acmicpc.net/problem/2407)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_2407.md/)
+
+{% tabs %}
+{% tab title='BJ_2407.md' %}
+
+> Question
+
+* Find n choose M
+
+```txt
+Input: 100 6
+Output: 1192052400
+```
+
+{% endtab %}
+{% tab title='BJ_2407.py' %}
+
+```py
+import math
+print(math.comb(*map(int,input().split()))) # a! / b! / (a - b)!
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 오르막 수](https://www.acmicpc.net/problem/11057)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_11057.md/)
+
+{% tabs %}
+{% tab title='BJ_11057.md' %}
+
+> Question
+
+* Find N length ascending number
+
+```txt
+Input: 3
+Output: 220
+```
+
+{% endtab %}
+{% tab title='BJ_11057.cpp' %}
+
+```cpp
+#include <stdio.h>
+int D[1020][10];
+int main(){
+  int i,j,n;
+  scanf("%d",&n);
+  for(i=0;i<n+10;++i){
+    D[i][0]=1;
+    for(j=1;j<10&&j<=i;++j)D[i][j]=(D[i-1][j]+D[i-1][j-1])%10007;
+  }
+  printf("%d",D[n+9][9]);
+  return 0;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_11057.py' %}
+
+```py
+import math
+n = int(input())
+print(math.comb(9 + n, n) % 10007)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 소수의 배수](https://www.acmicpc.net/problem/17436)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_17436.md/)
+
+{% tabs %}
+{% tab title='BJ_17436.md' %}
+
+> Question
+
+* Counter number of integers under M that is divisible by any of the number
+
+```txt
+Input:
+3 100
+2 3 5
+
+Output: 74
+```
+
+{% endtab %}
+{% tab title='BJ_17436.py' %}
+
+```py
+from math import prod
+from itertools import combinations
+
+m, n = map(int, input().split())
+p_set = list(map(int, input().split()))
+ans = 0
+
+for r in range(1, m+1):
+  t = sum(n // prod(c) for c in combinations(p_set, r))
+  ans += t if r & 1 else -t
+
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 서로소](https://www.acmicpc.net/problem/9359)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_9359.md/)
+
+{% tabs %}
+{% tab title='BJ_9359.md' %}
+
+> Question
+
+* Find number between A, B which is coprime with N
+
+```txt
+Input:
+2
+1 10 2
+3 15 5
+
+Output:
+Case #1: 5
+Case #2: 10
+```
+
+> Solution
+
+* Remove all multiples of that are prime of N
+
+{% endtab %}
+{% tab title='BJ_9359.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main() {
+  int tt; cin >> tt;
+  for (int tc = 1; tc <= tt; tc++) {
+    ll a, b, n;
+    cin >> a >> b >> n;
+    ll ans = b - a + 1;
+
+    ll temp = n;
+    vector<ll> comp;
+    for (ll i = 2; i * i <= n; i++) {
+      if (temp % i == 0) {
+        comp.push_back(i);
+        while (temp % i == 0) temp /= i;
+      }
+    }
+    if (temp != 1) comp.push_back(temp);
+
+    ll k = comp.size(), sum = 0;
+    for (ll i = 1; i < (1ll << k); i++) {
+      ll cnt = 0, lcm = 0;
+      for (ll j = 0; j < k; j++) {
+        if (i & (1 << j)) {
+          cnt++;
+          if (lcm == 0) lcm = comp[j];
+          else lcm = lcm * comp[j] / __gcd(lcm, comp[j]);
+        }
+      }
+      ll d = b / lcm - (a - 1) / lcm;
+      if (cnt % 2 == 1) sum += d;
+      else if (cnt > 0) sum -= d;
+    }
+    cout << "Case #" << tc << ": " << ans - sum << '\n';
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 이항 계수 3](https://www.acmicpc.net/problem/11401)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_11401.md/)
+
+{% tabs %}
+{% tab title='BJ_11401.md' %}
+
+> Question
+
+* Given N, K print N choose K mod 1,000,000,007
+
+```txt
+Input: 5 2
+Output: 10
+```
+
+{% endtab %}
+{% tab title='BJ_11401.py' %}
+
+```py
+n, k = map(int, input().split())
+MOD = 1000000007
+res = 1
+k = min(k, n - k)
+for i in range(k):
+  res = res * (n - i) % MOD
+  res = res * pow(i + 1, MOD - 2, MOD) % MOD
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.7 : Sjecista](https://open.kattis.com/problems/sjecista)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/KT_sjecista.md/)
+
+[//]: # (BJ_3049)
+
+> leetcode
+
+* [Level 2 : Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/LC_96.md/)
+
+{% tabs %}
+{% tab title='LC_96.md' %}
+
+> Question
+
+* Given an integer n, return # structurally unique BST's which has exactly n nodes of unique values from 1 to n
+
+```txt
+Input: n = 3
+Output: 5
+```
+
+> Solution
+
+* Catalan numbers: $$ \frac{(2n)!}{(n + 1)!n!} $$
+
+{% endtab %}
+{% tab title='LC_96.py' %}
+
+```py
+# Time, Space : O(N), O(1)
+def numTrees(self, n):
+  # return factorial(2*n)//factorial(n)//factorial(n)//(n+1)
+  res = [1]  + [0] * n
+  for i in ange(1, n + 1):
+    for j in range(i):
+      # # unique BST with specified root F(i), is a product of number of BSTs for its left and right subtrees
+      res[i] += res[j] * res[i - 1 - j]
+  return res[n]
+```
+
+{% endtab %}
+{% endtabs %}

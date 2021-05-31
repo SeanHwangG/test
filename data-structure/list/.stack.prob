@@ -1,0 +1,816 @@
+> baekjoon
+
+* [Level 7 : 제로](https://www.acmicpc.net/problem/10773)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_10773.md/)
+
+{% tabs %}
+{% tab title='BJ_10773.md' %}
+
+> Question
+
+* zero, erases the most recent number
+* Print sum of all numbers
+
+```txt
+Input:
+10
+1
+3
+5
+4
+0
+0
+7
+0
+0
+6
+
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_10773.cpp' %}
+
+```cpp
+#include<iostream>
+#include<stack>
+using namespace std;
+
+int main(){
+  stack<int> st;
+  int n, x;
+  cin >> n;
+  while(n--){
+  cin >> x;
+    if(!x) st.pop();
+    else st.push(x);
+  }
+  x = 0;
+  while(st.size()){
+    x += st.top();
+    st.pop();
+  }
+  cout << x;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10773.py' %}
+
+```py
+stk = []
+for _ in range(int(input())):
+  num = int(input())
+  if num == 0:
+    stk.pop()
+  else:
+    stk.append(num)
+print(sum(stk))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 스택](https://www.acmicpc.net/problem/10828)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_10828.md/)
+
+{% tabs %}
+{% tab title='BJ_10828.md' %}
+
+> Question
+
+* Implement stack operation (push, pop, size, empty, top)
+
+```txt
+Input:
+14
+push 1
+push 2
+top
+size
+empty
+pop
+pop
+pop
+size
+empty
+pop
+push 3
+empty
+top
+
+Output:
+2
+2
+0
+2
+1
+-1
+0
+1
+-1
+0
+3
+```
+
+{% endtab %}
+{% tab title='BJ_10828.cpp' %}
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int n;
+  cin >> n;
+  stack<int> s;
+  for (int x = n; x != 0; x--){
+    string str;
+    cin >> str;
+
+    if (str == "push")  cin >> n, s.push(n);
+    if (str == "size")  cout << s.size() << "\n";
+    if (str == "empty") cout << (s.size()? 0: 1) << "\n";
+    if (str == "top")   cout << (s.size()? s.top(): -1) << "\n";
+    if (str == "pop") {
+      if (s.size()){
+          cout << s.top() << "\n";
+          s.pop();
+      } else {
+        cout << "-1\n";
+      }
+    }
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_10828.py' %}
+
+```py
+import sys
+l = []
+
+for _ in range(int(input())):
+  o = sys.stdin.readline().split()
+  try:
+    if o[0] == "push":
+      l.append(o[1])
+    elif o[0] == "pop":
+      print(l.pop())
+    elif o[0] == "size":
+      print(len(l))
+    elif o[0] == "empty":
+      print(0 if l else 1)
+    elif o[0] == "top":
+      print(l[len(l)-1])
+  except:
+    print(-1)
+```
+
+{% endtab %}
+{% tab title='BJ_10828.v' %}
+
+```v
+module main;
+  initial begin
+    integer code, n, x, stack[$];
+    string cmd;
+
+    for (code = $fscanf(32'h8000_0000, "%d", n); n>0; n--)
+    begin
+      code = $fscanf(32'h8000_0000, "%s", cmd);
+      if (cmd == "push") begin
+        code = $fscanf(32'h8000_0000, "%d", x);
+        stack.insert(0, x);
+      end
+      if (cmd == "pop" || cmd == "top") begin
+        if (stack.size() == 0) $display("-1");
+        else begin
+          $display("%0d", stack[0]);
+          if (cmd == "pop") stack.delete(0);
+        end
+      end
+      if (cmd == "size")  $display("%0d", stack.size());
+      if (cmd == "empty") $display("%0d", stack.size() == 0);
+    end
+    $finish;
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 괄호](https://www.acmicpc.net/problem/9012)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_9012.md/)
+
+{% tabs %}
+{% tab title='BJ_9012.md' %}
+
+> Question
+
+* Print if input has valid parenthesis
+
+```txt
+Input:
+6
+(())())
+(((()())()
+(()())((()))
+((()()(()))(((())))()
+()()()()(()()())()
+(()((())()(
+
+Output:
+NO
+NO
+YES
+NO
+YES
+NO
+```
+
+{% endtab %}
+{% tab title='BJ_9012.py' %}
+
+```py
+for T in range(int(input())):
+  f, a, s = 1, 0, input()
+  for i in s:
+    if i=="(":
+      a+=1
+    else:
+      a-=1
+    if a<0:
+      f=0
+  print("YES" if f and a==0 else "NO")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 에디터](https://www.acmicpc.net/problem/1406)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_1406.md/)
+
+{% tabs %}
+{% tab title='BJ_1406.md' %}
+
+> Question
+
+* Simultate typing with cursor
+  * L, R: move cursor left, right
+  * B: Remove char from left
+  * P $: add $ to left
+
+```txt
+Input:
+abcd
+3
+P x
+L
+P y
+
+Output: abcdyx
+```
+
+{% endtab %}
+{% tab title='BJ_1406.py' %}
+
+```py
+import sys
+l, r = list(input()), []
+input()
+for c in sys.stdin:
+  if c[0]=='L':
+    if l: r.append(l.pop())
+  elif c[0]=='D':
+    if r: l.append(r.pop())
+  elif c[0]=='B':
+    if l: l.pop()
+  else:
+    l.append(c[2])
+print(''.join(l + r[::-1]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 스택 수열](https://www.acmicpc.net/problem/1874)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_1874.md/)
+
+{% tabs %}
+{% tab title='BJ_1874.md' %}
+
+> Question
+
+* Print if integer sequence can be made using stack that can push integer (1...n)
+
+```txt
+Input:
+8
+4
+3
+6
+8
+7
+5
+2
+1
+
+Output:
++  # {1}
++  # {1, 2}
++  # {1, 2, 3}
++  # {1, 2, 3, 4}
+-  # {1, 2, 3}
+-
++
++
+-
++
++
+-
+-
+-
+-
+-
+```
+
+{% endtab %}
+{% tab title='BJ_1874.py' %}
+
+```py
+s = [0]
+x, v, r = 0, 0, ''
+for i in [int(input()) for _ in range(int(input()))]:
+  if s[-1] != i:
+    v += x > i
+    while x<i:
+      x += 1
+      s += [x]
+      r += '+'
+  r += '-'
+  s.pop()
+print('NO'if v else'\n'.join(r))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 탑](https://www.acmicpc.net/problem/2493)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_2493.md/)
+
+{% tabs %}
+{% tab title='BJ_2493.md' %}
+
+> Question
+
+* Given height of towers, print where it's left beam will hit
+
+```txt
+Input:
+5
+6 9 5 7 4
+
+Output: 0 0 2 2 4
+```
+
+{% endtab %}
+{% tab title='BJ_2493.py' %}
+
+```py
+n = int(input())
+towers = list(map(int, input().split()))
+stack = []
+for i, t in enumerate(towers):
+  while stack and towers[stack[-1]] < t:
+    stack.pop()
+  print(stack[-1] + 1 if stack else 0, end = ' ')
+  stack.append(i)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 히스토그램](https://www.acmicpc.net/problem/1725)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_1725.md/)
+
+{% tabs %}
+{% tab title='BJ_1725.md' %}
+
+> Question
+
+![BJ_1725](stack/images/20210302_015453.png)
+
+* find the largest rectangle inside the histogram
+
+```txt
+Input:
+7
+2
+1
+4
+5
+1
+3
+3
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_1725.py' %}
+
+```py
+def largest_rect(heights):
+  hws, mx_area = [], 0
+  for i, h in enumerate(heights):
+    width = 0
+    while len(hws) and h < hws[-1][0]:
+      width += hws[-1][1]
+      mx_area = max(mx_area, width * hws[-1][0])
+      hws.pop()
+    hws.append([h, width + 1])
+  while hws:
+    width += hws[-1][1]
+    mx_area = max(mx_area, width * hws.pop()[0])
+  return mx_area
+
+line = int(input())
+heights = [int(input()) for _ in range(line)]
+print(largest_rect(heights))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codeforces
+
+* [Level 2000 : Robot Collisions](https://codeforces.com/contest/1525/problem/C)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/CF_1525C.md/)
+
+{% tabs %}
+{% tab title='CF_1525C.md' %}
+
+> Question
+
+* Print collision time of each robot, -1 if doens't collid
+* Robot changes direction when hit by wall
+* Robot disappear when two robots are at the same point
+
+```txt
+Input:
+5
+7 12
+1 2 3 4 9 10 11
+R R L L R R R
+2 10
+1 6
+R R
+2 10
+1 3
+L L
+1 10
+5
+R
+7 8
+6 1 7 2 3 5 4
+R L R L L L L
+
+Output:
+1 1 1 1 2 -1 2
+-1 -1
+2 2
+-1
+-1 2 7 3 2 7 3
+```
+
+{% endtab %}
+{% tab title='CF_1525C.py' %}
+
+```py
+def solve(robots, m, ans):
+  robots.sort()
+  stk = []
+  for x, d, i in robots:
+    if d == 'L':
+      if not stk:
+        stk.append((i, -x))
+      else:
+        i2, x2 = stk[-1]
+        ans[i] = ans[i2] = (x - x2) // 2
+        stk.pop()
+    else:
+      stk.append((i,x))
+
+  while len(stk) >= 2:
+    i1, x1 = stk.pop()
+    x1 = 2 * m - x1
+    i2, x2 = stk.pop()
+    ans[i1] = ans[i2] = (x1 - x2) // 2
+for _ in range(int(input())):
+  n, m = map(int,input().split())
+  info = list(zip(map(int, input().split()), input().split()))
+  robots = [[],[]]
+  for i in range(n):
+    x, d = info[i]
+    robots[x & 1].append((x, d, i))
+  ans = [-1 for i in range(n)]
+  solve(robots[0], m, ans)
+  solve(robots[1], m, ans)
+  print(*ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Minimum Remove to Make Valid Parentheses](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/LC_1249.md/)
+
+{% tabs %}
+{% tab title='LC_1249.md' %}
+
+> Question
+
+* Given a string s of '(' , ')' and lowercase English characters
+* remove the minimum number of parentheses ( '(' or ')', in any positions )
+* so that the resulting parentheses string is valid and return any valid string
+
+```txt
+Input: s = "(a(b(c)d)"
+Output: "a(b(c)d)"
+```
+
+{% endtab %}
+{% tab title='LC_1249.cpp' %}
+
+```cpp
+class Solution {
+public:
+  string minRemoveToMakeValid(string s) {
+    stack<int> st;
+    for (auto i = 0; i < s.size(); ++i) {
+      if (s[i] == '(') st.push(i);
+      if (s[i] == ')') {
+        if (!st.empty()) st.pop();
+        else s[i] = '*';
+      }
+    }
+    while (!st.empty()) {
+      s[st.top()] = '*';
+      st.pop();
+    }
+    s.erase(remove(s.begin(), s.end(), '*'), s.end());
+    return s;
+  }
+};
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/LC_227.md/)
+
+{% tabs %}
+{% tab title='LC_227.md' %}
+
+> Question
+
+* Given a string s which represents an expression, evaluate this expression and return its value
+* The integer division should truncate toward zero
+
+```txt
+Input: s = "3+2*2"
+Output: 7
+```
+
+{% endtab %}
+{% tab title='LC_227.cpp' %}
+
+```cpp
+class Solution {
+public:
+  // O(N) time O(1) space
+  int calculate(string s) {
+    stringstream ss("+" + s);
+    char op;
+    int n, last, ans = 0;
+    while (ss >> op >> n) {
+      if (op == '+' || op == '-') {
+        n = op == '+' ? n : -n;
+        ans += n;
+      } else {
+        n = op == '*' ? last * n: last / n;
+        ans = ans - last + n; // simulate a stack by recovering last values
+      }
+      last = n;
+    }
+    return ans;
+  }
+};
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Flatten Nested List Iterator](https://leetcode.com/problems/flatten-nested-list-iterator)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/LC_341.md/)
+
+{% tabs %}
+{% tab title='LC_341.md' %}
+
+> Question
+
+* Implement the NestedIterator class:
+  * NestedIterator(List\<NestedInteger\> nestedList) Initializes the iterator with the nested list nestedList.
+  * int next() Returns the next integer in the nested list.
+  * boolean hasNext() Returns true if there are still some integers in the nested list and false otherwise.
+
+```txt
+Input: nestedList = [[1,1],2,[1,1]]
+Output: [1,1,2,1,1]
+```
+
+{% endtab %}
+{% tab title='LC_341.py' %}
+
+```py
+# class NestedInteger:
+#   def isInteger(self) -> bool:
+#     """ @return True if this NestedInteger holds a single integer, rather than a nested list. """
+#
+#   def getInteger(self) -> int:
+#     """ @return the single integer that this NestedInteger holds, if it holds a single integer
+#     return None if this NestedInteger holds a nested list #
+#
+#   def getList(self) -> [NestedInteger]:
+#     """ @return the nested list that this NestedInteger holds, if it holds a nested list
+#     return None if this NestedInteger holds a single integer """
+def __init__(self, nestedList):
+  self.stack = [[nestedList, 0]]
+
+def next(self):
+  self.hasNext()
+  nestedList, i = self.stack[-1]
+  self.stack[-1][1] += 1
+  return nestedList[i].getInteger()
+
+def hasNext(self):
+  s = self.stack
+  while s:
+    nestedList, i = s[-1]
+    if i == len(nestedList):
+      s.pop()
+    else:
+      x = nestedList[i]
+      if x.isInteger():
+        return True
+      s[-1][1] += 1
+      s.append([x.getList(), 0])
+  return False
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Basic Calculator](https://leetcode.com/problems/basic-calculator)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/LC_224.md/)
+
+{% tabs %}
+{% tab title='LC_224.md' %}
+
+> Question
+
+* Given a string s representing an expression, implement a basic calculator to evaluate it
+* s consists of digits, '+', '-', '(', ')', and ' '
+
+```txt
+Input: s = "(1+(4+5+2)-3)+(6+8)"
+Output: 23
+```
+
+{% endtab %}
+{% tab title='LC_224.py' %}
+
+```py
+"""
+Here's an example trace for input 3-(2+(9-4)).
+  remaining   sign stack      total
+3-(2+(9-4))   [1, 1]            0
+ -(2+(9-4))   [1]               3
+  (2+(9-4))   [1, -1]           3
+   2+(9-4))   [1, -1, -1]       3
+    +(9-4))   [1, -1]           1
+     (9-4))   [1, -1, -1]       1
+      9-4))   [1, -1, -1, -1]   1
+       -4))   [1, -1, -1]      -8
+        4))   [1, -1, -1, 1]   -8
+         ))   [1, -1, -1]      -4
+          )   [1, -1]          -4
+              [1]              -4
+"""
+def calculate(self, s):
+  total = 0
+  i, signs = 0, [1, 1]
+  while i < len(s):
+    if s[i].isdigit():
+      start = i
+      while i < len(s) and s[i].isdigit():
+        i += 1
+      total += signs.pop() * int(s[start:i])
+      continue
+    if s[i] in '+-(':
+      signs += signs[-1] * (1, -1)[c == '-'],
+    elif s[i] == ')':
+      signs.pop()
+    i += 1
+  return total
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Expression Add Operators](https://leetcode.com/problems/expression-add-operators)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/LC_282.md/)
+
+{% tabs %}
+{% tab title='LC_282.md' %}
+
+> Question
+
+* Given a string num that contains only digits an, an integer target
+* return all possibilities to add binary operators '+', '-', or '*' between digits so that result evaluates to target
+
+```txt
+Input: num = "105", target = 5
+Output: ["1*0+5","10-5"]
+```
+
+{% endtab %}
+{% tab title='LC_282.py' %}
+
+```py
+def addOperators(self, num: str, target: int) -> List[str]:
+  ans, stk = [], [(1, num[0], num[0]=='0')] # next_index, path, has_leading_zero
+  while stk:
+    i, path, zero = stk.pop()
+    if i >= len(num):
+      if eval(path) == target:
+        ans.append(path)
+    else:
+      if not zero:
+        stk.append((i+1, path+num[i], zero))
+      stk.append((i+1, path+'+'+num[i], num[i]=='0'))
+      stk.append((i+1, path+'-'+num[i], num[i]=='0'))
+      stk.append((i+1, path+'*'+num[i], num[i]=='0'))
+  return ans
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Number of Atoms](https://leetcode.com/problems/number-of-atoms)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/LC_726.md/)
+
+{% tabs %}
+{% tab title='LC_726.md' %}
+
+> Question
+
+* Given a chemical formula (given as a string), return the count of each atom
+
+```txt
+Input: formula = "K4(ON(SO3)2)2"
+Output: "K4N2O14S4"
+```
+
+{% endtab %}
+{% tab title='LC_726.py' %}
+
+```py
+import re
+from collections import defaultdict
+class Solution(object):
+  def countOfAtoms(self, formula: str) -> str:
+    tokens = re.findall('([A-Z]{1}[a-z]?|\(|\)|\d+)', formula)
+    stack, i = [defaultdict(int)], -1
+    while i + 1 < len(tokens):
+      i, token = i + 1, tokens[i + 1]
+      if token == '(':
+        stack.append(defaultdict(int))
+      else:
+        count = 1
+        if i + 1 < len(tokens) and tokens[i + 1].isdigit():
+          count, i = int(tokens[i + 1]), i + 1
+        atoms = stack.pop() if token == ')' else { token: 1 }
+        for atom in atoms: # Combine counts of atoms.
+          stack[-1][atom] += atoms[atom] * count
+    return ''.join([atom + (str(count) if count > 1 else '') for atom, count in sorted(stack[-1].items())])
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,567 @@
+> baekjoon
+
+* [Level 0 : CII Labyrinth](https://www.acmicpc.net/problem/1775)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/BJ_1775.md/)
+
+{% tabs %}
+{% tab title='BJ_1775.md' %}
+
+> Question
+
+* Given blocks as left picture, rotate to make a path as right picture
+
+```txt
+Input:
+1
+4 6
++---+---+---+---+---+---+
+|   |   |   |   |   |   |
+|***|***|** |** |** |***|
+|   |   | * | * | * |   |
++---+---+---+---+---+---+
+|   |   |   |   |   |   |
+|   |** |** |***|** |** |
+|   | * | * |   | * | * |
++---+---+---+---+---+---+
+|   |   |   |   |   |   |
+|***|** |***|***|***|** |
+|   | * |   |   |   | * |
++---+---+---+---+---+---+
+|   |   |   |   |   |   |
+|** |   |***|   |** |** |
+| * |   |   |   | * | * |
++---+---+---+---+---+---+
+
+Output:
++---+---+---+---+---+---+
+|   |   |   |   |   |   |
+|***|***|** |   |   |   |
+|   |   | * |   |   |   |
++---+---+---+---+---+---+
+|   |   | * |   |   |   |
+|   |   | **|***|** |   |
+|   |   |   |   | * |   |
++---+---+---+---+---+---+
+|   |   |   |   | * |   |
+|   |   |   |   | * |   |
+|   |   |   |   | * |   |
++---+---+---+---+---+---+
+|   |   |   |   | * |   |
+|   |   |   |   | **|** |
+|   |   |   |   |   | * |
++---+---+---+---+---+---+
+Number of solutions: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1775.py' %}
+
+```py
+U, D, L, R = range(4)
+UD, UL, UR, DL, DR, LR, BLANK = range(7)
+def dfs(r, c, face):
+  global ans_G
+  if r == n_row - 1 and c == n_col - 1:
+    return 1
+  if r < 0 or r >= n_row or c < 0 or c >= n_col or ans_G[r][c] != BLANK:
+    return 0
+  ret = 0
+  if G[r][c] == LR:
+    if face == U:
+      ans_G[r][c] = UD
+      ret = dfs(r - 1, c, U)
+    elif face == D:
+      ans_G[r][c] = UD
+      ret = dfs(r + 1, c, D)
+    elif face == L:
+      ans_G[r][c] = LR
+      ret = dfs(r, c - 1, L)
+    elif face == R:
+      ans_G[r][c] = LR
+      ret = dfs(r, c + 1, R)
+
+  elif G[r][c] == DL:
+    if face == U:
+      ans_G[r][c] = DL
+      ret = dfs(r, c - 1, L)
+      if ans_G[r][c] == BLANK:
+        ans_G[r][c] = DR
+      ret += dfs(r, c + 1, R)
+    elif face == D:
+      ans_G[r][c] = UL
+      ret = dfs(r, c - 1, L)
+      if ans_G[r][c] == BLANK:
+        ans_G[r][c] = UR
+      ret += dfs(r, c + 1, R)
+    elif face == L:
+      ans_G[r][c] = UR
+      ret = dfs(r - 1, c, U)
+      if ans_G[r][c] == BLANK:
+        ans_G[r][c] = DR
+      ret += dfs(r + 1, c, D)
+    elif face == R:
+      ans_G[r][c] = UL
+      ret = dfs(r - 1, c, U)
+      if ans_G[r][c] == BLANK:
+        ans_G[r][c] = DL
+      ret += dfs(r + 1, c, D)
+  if ret:
+    return ret
+  ans_G[r][c] = BLANK
+  return 0
+
+for _ in range(int(input())):
+  n_row, n_col = map(int, input().split())
+  input()
+  G = [["" for _ in range(n_col)] for _ in range(n_row)]
+  for r in range(n_row):
+    _, l = input(), input()
+    for c in range(n_col):
+      mid_G = l[c * 4 + 1: c * 4 + 4]
+      G[r][c] = LR if '***' in mid_G else DL if '**' in mid_G else BLANK
+    input(), input()
+  ans_G = [[BLANK for _ in range(n_col)] for _ in range(n_row)]
+  n = dfs(0, 0, R)
+  ans_grid = [[" " for _ in range(n_col * 4 + 1)] for _ in range(n_row * 4 + 1)]
+  for r in range(n_row * 4 + 1):
+    if r % 4 == 0:
+      for c in range(n_col * 4 + 1):
+        ans_grid[r][c] = "-" if c % 4 else "+"
+  for c in range(n_col * 4 + 1):
+    if c % 4 == 0:
+      for r in range(n_row * 4 + 1):
+        ans_grid[r][c] = "|" if r % 4 else "+"
+  for r in range(n_row):
+    for c in range(n_col):
+      mid_r, mid_c = 2 + r * 4, 2 + c * 4
+      if ans_G[r][c] == BLANK:
+        pass
+      elif ans_G[r][c] == UD:
+        ans_grid[mid_r - 1][mid_c] = ans_grid[mid_r][mid_c] = ans_grid[mid_r + 1][mid_c] = "*"
+      elif ans_G[r][c] == UL:
+        ans_grid[mid_r - 1][mid_c] = ans_grid[mid_r][mid_c] = ans_grid[mid_r][mid_c - 1] = "*"
+      elif ans_G[r][c] == UR:
+        ans_grid[mid_r - 1][mid_c] = ans_grid[mid_r][mid_c] = ans_grid[mid_r][mid_c + 1] = "*"
+      elif ans_G[r][c] == DL:
+        ans_grid[mid_r + 1][mid_c] = ans_grid[mid_r][mid_c] = ans_grid[mid_r][mid_c - 1] = "*"
+      elif ans_G[r][c] == DR:
+        ans_grid[mid_r + 1][mid_c] = ans_grid[mid_r][mid_c] = ans_grid[mid_r][mid_c + 1] = "*"
+      elif ans_G[r][c] == LR:
+        ans_grid[mid_r][mid_c - 1] = ans_grid[mid_r][mid_c] = ans_grid[mid_r][mid_c + 1] = "*"
+  for l in ans_grid:
+    print(*l, sep="")
+  print(f"Number of solutions: {n}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : FS와 BFS](https://www.acmicpc.net/problem/1260)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/BJ_1260.md/)
+
+{% tabs %}
+{% tab title='BJ_1260.md' %}
+
+> Question
+
+* Output the results of exploring the graph with DFS and the results of exploring with BFS
+
+```txt
+Input:
+4 5 1
+1 2
+1 3
+1 4
+2 4
+3 4
+
+Output:
+1 2 4 3
+1 2 3 4
+```
+
+{% endtab %}
+{% tab title='BJ_1260.py' %}
+
+```py
+from collections import deque
+def dfs(G, v, visited=None):
+  visited = visited or set([v])
+  print(v, end=' ')
+  for neighbor in sorted(G[v]):
+    if neighbor not in visited:
+      visited.add(neighbor)
+      dfs(G, neighbor, visited)
+  return visited
+def bfs(G, start):
+  dq, visited = deque([start]), set([start])
+  while len(dq) != 0:
+    v = dq.popleft()
+    print(v, end=' ')
+    for adj in sorted(G[v]):
+      if adj not in visited:
+        visited.add(adj)
+        dq.append(adj)
+N, M, v = map(int, input().split())
+G = [[] for i in range(N+1)]
+for i in range(M):
+  a, b = map(int, input().split())
+  G[a].append(b)
+  G[b].append(a)
+
+dfs(G, v)
+print()
+bfs(G, v)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 숫자판 점프](https://www.acmicpc.net/problem/2210)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/BJ_2210.md/)
+
+{% tabs %}
+{% tab title='BJ_2210.md' %}
+
+> Question
+
+* There is a 5×5 number plate. Each column contains a number (digit, 0 through 9)
+* Starting from any position on this number plate, five times moving in the four adjacent directions
+* putting the number written in each column in turn makes six digits
+* Find the number of six different digits you can make
+
+```txt
+Input:
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 2 1
+1 1 1 1 1
+
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_2210.py' %}
+
+```py
+def dfs(x, y, number):
+  if len(number) == 6:
+    if number not in result:
+      result.append(number)
+    return
+  for nx, ny in [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]:
+    if 0 <= nx < 5 and 0 <= ny < 5:
+      dfs(nx, ny, number + matrix[nx][ny])
+
+matrix = [list(map(str, input().split())) for _ in range(5)]
+result = []
+for i in range(5):
+  for j in range(5):
+    dfs(i, j, matrix[i][j])
+print(len(result))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 섬의 개수](https://www.acmicpc.net/problem/4963)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/BJ_4963.md/)
+
+{% tabs %}
+{% tab title='BJ_4963.md' %}
+
+> Question
+
+* An island and sea map consisting of squares are given. Counts the number of islands
+
+```txt
+Input:
+1 1
+0
+2 2
+0 1
+1 0
+3 2
+1 1 1
+1 1 1
+5 4
+1 0 1 0 0
+1 0 0 0 0
+1 0 1 0 1
+1 0 0 1 0
+5 4
+1 1 1 0 1
+1 0 1 0 1
+1 0 1 0 1
+1 0 1 1 1
+5 5
+1 0 1 0 1
+0 0 0 0 0
+1 0 1 0 1
+0 0 0 0 0
+1 0 1 0 1
+0 0
+
+Output:
+0
+1
+1
+3
+1
+9
+```
+
+{% endtab %}
+{% tab title='BJ_4963.py' %}
+
+```py
+import sys
+sys.setrecursionlimit(1500)
+def dfs(G, w, h):
+  if 0 <= w < len(G) and 0 <= h < len(G[0]) and G[w][h] == 1:
+    G[w][h] = -1
+    for i, j in [(1, 1), (1, 0), (1, -1), (0, 1), (0, -1), (-1, 0), (-1, 1), (-1, 0), (-1, -1)]:
+      dfs(G, w + i, h + j)
+
+while True:
+  first_line = input()
+  if first_line == "0 0":
+    break
+  w, h = map(int, first_line.split())
+  G = []
+  for i in range(h):
+    G.append(list(map(int, input().split())))
+
+  count = 0
+  for r in range(h):
+    for c in range(w):
+      if G[r][c] == 1:
+        count += 1
+        dfs(G, r, c)
+  print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 내리막 길](https://www.acmicpc.net/problem/1520)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/BJ_1520.md/)
+
+{% tabs %}
+{% tab title='BJ_1520.md' %}
+
+> Question
+
+* When given a map, find # paths that start at top left like this and always travel downhill to bottom rightmost point
+
+```txt
+Input:
+4 5
+50 45 37 32 30
+35 50 40 20 25
+30 30 25 17 28
+27 24 22 15 10
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1520.py' %}
+
+```py
+import sys
+sys.setrecursionlimit(1500)
+def dfs(G, r, c, dp):
+  if dp[r][c] != -1:
+    return dp[r][c]
+  dp[r][c] = 0
+  for nr, nc in [(r + 1, c), (r, c + 1), (r - 1, c), (r, c - 1)]:
+    if 0 <= nr < len(G) and 0 <= nc < len(G[0]):
+      if G[nr][nc] < G[r][c]:
+        dp[r][c] += dfs(G, nr, nc, dp)
+  return dp[r][c]
+m, n = map(int, input().split())
+G = [list(map(int, input().split())) for _ in range(m)]
+dp = [[-1]*n for _ in range(m)]
+dp[-1][-1] = 1
+print(dfs(G, 0, 0, dp))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 텀 프로젝트](https://www.acmicpc.net/problem/9466)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/BJ_9466.md/)
+
+{% tabs %}
+{% tab title='BJ_9466.md' %}
+
+> Question
+
+* When students say (s1, s2, ..., sr)
+* team can form when if r=1 and s1 select s1, s1 select s2, s2 select s3, sr-1 select sr, and sr select s1
+
+```txt
+Input:
+2
+7
+3 1 3 7 3 4 6
+8
+1 2 3 4 5 6 7 8
+
+Output:
+3
+0
+```
+
+{% endtab %}
+{% tab title='BJ_9466.py' %}
+
+```py
+for _ in range(int(input())):
+  n = int(input())
+  choice = list(n - 1 for n in map(int, input().split()))
+  visit = [0] * n
+  group = 1
+  for i in range(n):
+    while visit[i] == 0:
+      visit[i] = group
+      i = choice[i]
+    while visit[i] == group:
+      visit[i] = -1
+      i = choice[i]
+    group += 1
+  print(n - visit.count(-1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Nested List Weight Sum II](https://leetcode.com/problems/nested-list-weight-sum-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/LC_364.md/)
+
+{% tabs %}
+{% tab title='LC_364.md' %}
+
+> Question
+
+* Given a nested list of ints nestedList, Each element is int or list whose elements may also be ints or other lists
+* Depth is number of lists that it is inside of, weight of an int is maxDepth - (the depth of the int) + 1
+* Return the sum of each int in nestedList multiplied by its weight.
+
+```txt
+Input: nestedList = [[1,1],2,[1,1]]
+Output: 8  # 1*1 + 1*1 + 2*2 + 1*1 + 1*1 = 8
+
+Input: nestedList = [1,[4,[6]]]
+Output: 17  # 1*3 + 4*2 + 6*1 = 17
+```
+
+{% endtab %}
+{% tab title='LC_364.py' %}
+
+```py
+def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
+  unweighted = 0
+  weighted = 0
+  while nestedList:
+    nextLevel = []
+    for item in nestedList:
+      if item.isInteger():
+        unweighted += item.getInteger()
+      else:
+        nextLevel.extend(item.getList())
+    weighted += unweighted
+    nestedList = nextLevel
+  return weighted
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/LC_785.md/)
+
+{% tabs %}
+{% tab title='LC_785.md' %}
+
+> Question
+
+* graph is bipartite if the nodes can be partitioned into two independent sets A and B
+* such that every edge in the graph connects a node in set A and a node in set B
+* Return true if given graph is bipartite
+
+```txt
+Input: graph = [[1,3],[0,2],[1,3],[0,2]]
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_785.py' %}
+
+```py
+def isBipartite(self, G):
+  color = {}
+  def dfs(pos):
+    for i in G[pos]:
+      if i in color:
+        if color[i] == color[pos]:
+          return False
+      else:
+        color[i] = 1 - color[pos]
+        if not dfs(i):
+          return False
+    return True
+  for i in range(len(G)):
+    if i not in color:
+      color[i] = 0
+      if not dfs(i):
+        return False
+  return True
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Detect Cycles in 2D Grid](https://leetcode.com/problems/detect-cycles-in-2d-grid)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/dfs/LC_1559.md/)
+
+{% tabs %}
+{% tab title='LC_1559.md' %}
+
+> Question
+
+* Given a 2D array of grid of size m x n, find if there exists any cycle consisting of the same value in grid
+
+```txt
+Input: grid =
+[["a","a","a","a"],
+ ["a","b","b","a"],
+ ["a","b","b","a"],
+ ["a","a","a","a"]]
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_1559.py' %}
+
+```py
+def containsCycle(self, G: List[List[str]]) -> bool:
+  seen = defaultdict(int)
+  def dfs(r, c, p):
+    if seen[r, c]: return seen[r,c] == -1
+    seen[r, c] = -1
+    for nr, nc in (r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1):
+      if (nr, nc) == p: continue
+      if len(G) > nr >= 0 <= nc < len(G[0]) and G[nr][nc] == G[r][c] and dfs(nr, nc, (r, c)):
+        return True
+    seen[r, c] = 1
+    return False
+  return any(not seen[r, c] and dfs(r, c, -1) for r, c in product(range(len(G)), range(len(G[0]))))
+```
+
+{% endtab %}
+{% endtabs %}

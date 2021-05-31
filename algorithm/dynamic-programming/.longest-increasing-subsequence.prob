@@ -1,0 +1,435 @@
+> baekjoon
+
+* [Level 8 : 수열](https://www.acmicpc.net/problem/2491)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_2491.md/)
+
+{% tabs %}
+{% tab title='BJ_2491.md' %}
+
+> Question
+
+* Print maximum length of longest increasing subsequence or decreasing subsequence
+
+```txt
+Input:
+9
+1 2 2 4 4 5 7 7 2
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_2491.py' %}
+
+```py
+import sys
+n = int(sys.stdin.readline().strip())
+seq = list(map(int,sys.stdin.readline().split()))
+
+result = 1
+increase = 1
+decrease = 1
+for i in range(1,n):
+  if seq[i - 1] <= seq[i]:
+    increase += 1
+    result = min(result, increase)
+  else:
+    increase = 1
+for i in range(1, n):
+  if seq[i - 1] >= seq[i]:
+    decrease += 1
+    result = min(result, decrease)
+  else:
+    decrease = 1
+print(result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 가장 긴 증가하는 부분 수열](https://www.acmicpc.net/problem/11053)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_11053.md/)
+
+[//]: # (BJ_12738)
+
+* [Level 9 : 가장 큰 증가 부분 수열](https://www.acmicpc.net/problem/11055)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_11055.md/)
+
+{% tabs %}
+{% tab title='BJ_11055.md' %}
+
+> Question
+
+* Print maximum sub among all longest increasing subsequences
+
+```txt
+Input:
+10
+1 100 2 50 60 3 5 6 7 8
+
+Output: 113
+```
+
+{% endtab %}
+{% tab title='BJ_11055.py' %}
+
+```py
+n = int(input())
+li = list(map(int, input().split()))
+dp = [0] * n
+for i in range(n):
+  s = 0
+  for j in range(i):
+    if li[i] > li[j]:
+      s = max(s, dp[j])
+  dp[i] = li[i] + s
+print(max(dp))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 가장 긴 감소하는 부분 수열](https://www.acmicpc.net/problem/11722)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_11722.md/)
+
+{% tabs %}
+{% tab title='BJ_11722.md' %}
+
+> Question
+
+* Find the longest decreasing sequence
+
+```txt
+Input:
+6
+10 30 10 20 20 10
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_11722.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+int solution(vector<int> v){
+  int N = v.size(), ret = 0;
+  vector<int> dp(N, -1);
+  for (int n : v){
+    int i = lower_bound(dp.begin(), dp.begin() + ret, n, [](int a, int b){return a > b;}) - dp.begin();
+    dp[i] = n;
+    if (ret == i){
+      ret++;
+    }
+  }
+  return ret;
+}
+int main() {
+  int n;
+  cin >> n;
+  vector<int> v;
+  while (n--){
+    int buff;
+    cin >> buff;
+    v.push_back(buff);
+  }
+  cout << solution(v);
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 상자넣기](https://www.acmicpc.net/problem/1965)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_1965.md/)
+
+[//]: # (BJ_12738)
+
+* [Level 13 : 가장 긴 바이토닉 부분 수열](https://www.acmicpc.net/problem/11054)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_11054.md/)
+
+{% tabs %}
+{% tab title='BJ_11054.md' %}
+
+> Question
+
+* S1 < S2 < ... based on which number of Sk is sequence S Sk-1 < Sk > Sk+1 > ... If SN-1 > SN, the sequence is called a bitonic
+* Find longest bitonic
+
+```txt
+Input:
+10
+1 5 2 1 4 3 4 5 2 1
+
+Output: 7
+```
+
+{% endtab %}
+{% tab title='BJ_11054.py' %}
+
+```py
+N = int(input())
+li = list(map(int, input().split()))
+increase = [1 for _ in range(N)]
+decrease = [1 for _ in range(N)]
+mx_bitonic = 1
+for i in range(N):
+  for j in range(i):
+    if li[i] > li[j]:
+      increase[i] = max(increase[i], increase[j] + 1)
+
+for i in range(N-1, -1, -1):
+  for j in range(i + 1, N):
+    if li[i] > li[j]:
+      decrease[i] = max(decrease[i], decrease[j] + 1)
+    mx_bitonic = max(mx_bitonic, decrease[i] + increase[i] - 1)
+
+print(mx_bitonic)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 가장 긴 증가하는 부분 수열 2](https://www.acmicpc.net/problem/12015)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_12015.md/)
+
+[//]: # (BJ_12738)
+
+* [Level 14 : 가장 긴 증가하는 부분 수열 3](https://www.acmicpc.net/problem/12738)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_12738.md/)
+
+{% tabs %}
+{% tab title='BJ_12738.md' %}
+
+> Question
+
+* When given sequence A, find the longest increasing partial sequence
+
+```txt
+Input:
+6
+10 20 10 30 20 50
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_12738.py' %}
+
+```py
+# O(N ** 2)
+# input()
+# dp = [0] * 1001
+# for a in map(int, input().split()):
+#  dp[a] = max(dp[:a]) + 1
+# print(max(dp))
+
+# O(N log N)
+import bisect
+input()
+D = []
+for e in map(int,input().split()):
+  if len(D) == 0 or e > D[-1]:
+    D += [e]
+  else:
+    D[bisect.bisect_left(D, e)] = e
+print(len(D))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 14 : 오름세](https://www.acmicpc.net/problem/3745)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_3745.md/)
+
+{% tabs %}
+{% tab title='BJ_3745.md' %}
+
+> Question
+
+* When given the stock price for n days, print the longest rising day
+
+```txt
+Input:
+6
+5 2 1 4 5 3
+3
+1 1 1
+4
+4 3 2 1
+
+Output:
+3
+1
+1
+```
+
+{% endtab %}
+{% tab title='BJ_3745.py' %}
+
+```py
+import sys
+import bisect
+li = sys.stdin.readlines()
+for i in range(0, len(li), 2):
+  D = []
+  for e in map(int, li[i + 1].split()):
+    if len(D) == 0 or e > D[-1]:
+      D += [e]
+    else:
+      D[bisect.bisect_left(D, e)] = e
+  print(len(D))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 16 : 가장 긴 증가하는 부분 수열 5](https://www.acmicpc.net/problem/14003)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/BJ_14003.md/)
+
+{% tabs %}
+{% tab title='BJ_14003.md' %}
+
+> Question
+
+* Print Longest Increasing subsequence (N ≤ 1,000,000)
+
+```txt
+Input:
+6
+10 20 10 30 20 50
+
+Output:
+4
+10 20 30 50
+```
+
+{% endtab %}
+{% tab title='BJ_14003.py' %}
+
+```py
+from bisect import bisect_left
+input()
+li = [*map(int,input().split())]
+b, p, c = [li[0]], [], 0
+for i in li:
+  if i > b[-1]:
+    b.append(i)
+    c+=1
+    p.append(c)
+  else:
+    k = bisect_left(b, i)
+    b[k] = i
+    p.append(k)
+print(len(b))
+r = [0] * len(b)
+for i in range(len(li) - 1, -1, -1):
+  if p[i] == c:
+    r[c] = li[i]
+    c -= 1
+  if c < 0:
+    break
+print(*r)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/LC_300.md/)
+
+{% tabs %}
+{% tab title='LC_300.md' %}
+
+> Question
+
+* Given an integer array nums, return the length of the longest strictly increasing subsequence
+
+```txt
+Input: nums = [10,9,2,5,3,7,101,18]
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_300.cpp' %}
+
+```cpp
+int lengthOfLIS(vector<int>& nums) {
+  vector<int> res; // res[i] keeps track of the smallest tail of subsequences with length i + 1
+  for(int i = 0; i < nums.size(); i++) {
+    auto it = lower_bound(res.begin(), res.end(), nums[i]);
+    if (it == res.end()) res.push_back(nums[i]);
+    else *it = nums[i];
+  }
+  return res.size();
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Length of Longest Fibonacci Subsequence](https://leetcode.com/problems/length-of-longest-fibonacci-subsequence)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/LC_873.md/)
+
+{% tabs %}
+{% tab title='LC_873.md' %}
+
+> Question
+
+* Find the longest fibonacci subsequence
+
+```txt
+Input: arr = [1,3,7,11,12,14,18]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_873.py' %}
+
+```py
+def lenLongestFibSubseq(self, A: List[int]) -> int:
+  dp = collections.defaultdict(int)
+  s = set(A)
+  for j in range(len(A)):
+    for i in range(j):
+      if A[j] - A[i] < A[i] and A[j] - A[i] in s:
+        dp[A[i], A[j]] = dp.get((A[j] - A[i], A[i]), 2) + 1
+  return max(dp.values() or [0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/longest-increasing-subsequence/LC_354.md/)
+
+{% tabs %}
+{% tab title='LC_354.md' %}
+
+> Question
+
+* given widths and heights find maximum number of envelopes you can Russian doll
+
+```txt
+Input: envelopes = [[5,4],[6,4],[6,7],[2,3]]
+Output: 3   # [2,3] => [5,4] => [6,7]
+```
+
+{% endtab %}
+{% tab title='LC_354.py' %}
+
+```py
+def maxEnvelopes(self, en: List[List[int]]) -> int:
+  en.sort(key = lambda x: (x[0], -x[1]))
+  nums, lis = [j for _, j in en], []
+  for current in nums:
+    idx = bisect.bisect_left(lis, current)
+    lis[idx:idx+1] = [current]
+  return len(lis)
+```
+
+{% endtab %}
+{% endtabs %}

@@ -1,0 +1,251 @@
+> baekjoon
+
+* [Level 9 : 회의실 배정](https://www.acmicpc.net/problem/1931)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/scheduling/BJ_1931.md/)
+
+{% tabs %}
+{% tab title='BJ_1931.md' %}
+
+> Question
+
+* Information for each meeting is given, which gives the start and end times of the meeting with spaces between them
+* Find the maximum number of meetings
+
+```txt
+Input:
+11
+1 4
+3 5
+0 6
+5 7
+3 8
+5 9
+6 10
+8 11
+8 12
+2 13
+12 14
+
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_1931.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+N = int(input())
+discuss = [list(map(int, input().split())) for _ in range(N)]
+cnt, time_now = 0, -1
+for diss in sorted(discuss, key=lambda x: (x[1], x[0])):
+  if diss[0] >= time_now: # Beginning of meeting
+    time_now = diss[1]
+    cnt+=1
+
+print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 과제](https://www.acmicpc.net/problem/13904)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/scheduling/BJ_13904.md/)
+
+{% tabs %}
+{% tab title='BJ_13904.md' %}
+
+> Question
+
+* You can finish one task a day, but each task has a deadline, so you may not be able to finish all the tasks
+* Each task has a score that you can get when you finish it, but you cannot get a score for a task that is past the deadline
+* Find the maximum number of points
+
+```txt
+Input:
+7
+4 60
+4 40
+1 20
+2 50
+3 30
+4 10
+6 5
+
+Output: 185
+```
+
+{% endtab %}
+{% tab title='BJ_13904.py' %}
+
+```py
+N=int(input())
+L = []
+for i in range(N):
+  due, score = map(int,input().split())
+  L.append((score, due))
+L.sort(reverse=True)
+busy, total = set(), 0
+for i in range(N):
+  score, due = L[i]
+  for j in range(due, 0, -1):
+    if j not in busy:
+      busy.add(j)
+      total += score
+      break
+print(total)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 멀티탭 스케줄링](https://www.acmicpc.net/problem/1700)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/scheduling/BJ_1700.md/)
+
+{% tabs %}
+{% tab title='BJ_1700.md' %}
+
+> Question
+
+* Print mimum number of cache miss given N cache size with different job
+
+```txt
+Input:
+2 7
+2 3 2 3 1 2 7
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1700.py' %}
+
+```py
+N, K = map(int, input().split())
+li = list(map(int, input().split(" ")))
+
+tab = []
+res = 0
+
+for i, n in enumerate(li):
+  if not n in tab:
+    if len(tab) < N:
+      tab.append(n)
+    else:
+      tmp = [K] * N
+      for j in range(N):
+        if tab[j] in li:
+          tmp[j] = li.index(tab[j])
+      tab[tmp.index(max(tmp))] = n
+      res += 1
+  li[i] = 0
+
+print(res)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/scheduling/LC_435.md/)
+
+{% tabs %}
+{% tab title='BJ_435.md' %}
+
+> Question
+
+* Given an array of intervals intervals where intervals[i] = [starti, endi]
+* return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping
+
+```txt
+Input: intervals = [[1,2],[2,3],[3,4],[1,3]]
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_435.py' %}
+
+```py
+def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+  end, cnt = float('-inf'), 0
+  for s, e in sorted(intervals, key=lambda x: x[1]):
+    if s >= end:
+      end = e
+    else:
+      cnt += 1
+  return cnt
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Task Scheduler](https://leetcode.com/problems/task-scheduler)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/scheduling/LC_621.md/)
+
+{% tabs %}
+{% tab title='LC_621.md' %}
+
+> Question
+
+* Given a characters array tasks, representing the tasks a CPU needs to do, where each letter represents a different task
+* Each task is done in one unit of time. For each unit of time, the CPU could complete either one task or just be idle
+* However, there is a non-negative integer n that represents the cooldown period between two same tasks
+* Return the least number of units of times that the CPU will take to finish all the given tasks
+
+```txt
+Input: tasks = ["A","A","A","B","B","B"], n = 2
+Output: 8
+```
+
+{% endtab %}
+{% tab title='LC_621.py' %}
+
+```py
+def leastInterval(self, tasks: List[str], n: int) -> int:
+  tasks_count = list(collections.Counter(tasks).values())
+  max_count = max(tasks_count)
+  max_count_tasks = tasks_count.count(max_count)
+  return max(len(tasks), (max_count - 1) * (n + 1) + max_count_tasks)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Set Intersection Size At Least Two](https://leetcode.com/problems/set-intersection-size-at-least-two)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/scheduling/LC_757.md/)
+
+{% tabs %}
+{% tab title='LC_757.md' %}
+
+> Question
+
+* An integer interval [a, b] (for integers a < b) is a set of all consecutive integers from a to b, including a and b
+* Find min size of a set S st for every integer interval A in intervals, intersection of S with A has size 2+
+
+```txt
+Input: intervals = [[1,3],[1,4],[2,5],[3,5]]
+Output: 3 # {2, 3 4}
+```
+
+{% endtab %}
+{% tab title='LC_757.py' %}
+
+```py
+def intersectionSizeTwo(self, intervals: List[List[int]]) -> int:
+  intervals.sort(key=lambda x:(x[1],-x[0]))
+  res = 0
+  cur = []
+  for start, end in intervals:
+    if not cur or start > cur[1]:
+      res += 2
+      cur = [end - 1, end]
+    elif start > cur[0]:
+      res += 1
+      cur = [cur[1], end]
+  return res
+```
+
+{% endtab %}
+{% endtabs %}

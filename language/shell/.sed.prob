@@ -1,0 +1,143 @@
+> hackerrank
+
+* [Level Easy : 'Sed' command #3](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-3/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/sed/HR_text-processing-in-linux-the-sed-command-3.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-sed-3.md' %}
+
+> Question
+
+* highlight all the occurrences of 'thy' by wrapping them up in brace brackets
+
+{% endtab %}
+{% tab title='HR_text-processing-sed-3.sh' %}
+
+```sh
+# & is captured group
+sed -e 's/thy/{&}/gi'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Medium : Remove the First Capital Letter from Each Element](https://www.hackerrank.com/challenges/bash-tutorials-remove-the-first-capital-letter-from-each-array-element/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/sed/HR_bash-tutorials-remove-the-first-capital-letter-from-each-array-element.md/)
+
+{% tabs %}
+{% tab title='HR_bash-tutorials-remove-the-first-capital-letter-from-each-array-element.md' %}
+
+> Question
+
+* Transform the names as described and display the entire array of country names with a space between each of them
+
+```txt
+Input:
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+
+Output: .amibia .auru .epal .etherlands .ewZealand .icaragua .iger .igeria .orthKorea .orway
+```
+
+{% endtab %}
+{% tab title='HR_bash-tutorials-remove-the-first-capital-letter-from-each-array-element.py' %}
+
+```sh
+sed 's/^[A-Z]/./' | tr '\n' ' '
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Medium : 'Sed' command #1](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-1/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/sed/HR_text-processing-in-linux-the-sed-command-1.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-sed-1.md' %}
+
+> Question
+
+* For each line in a given input file, transform the first occurrence of the word 'the' with 'this'
+* The search and transformation should be strictly case sensitive
+
+{% endtab %}
+{% tab title='HR_text-processing-sed-1.sh' %}
+
+```sh
+# \< and > in regex world (sed syntax) represents words boundaries
+sed -e 's/\<the\>/this/'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Medium : 'Sed' command #2](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-2/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/sed/HR_text-processing-in-linux-the-sed-command-2.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-sed-2.md' %}
+
+> Question
+
+* transform all the occurrences of the word 'thy' with 'your'
+
+{% endtab %}
+{% tab title='HR_text-processing-sed-2.sh' %}
+
+```sh
+# g : global
+# i : insensitive
+sed 's/thy/your/ig'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Hard : 'Sed' command #4](https://www.hackerrank.com/challenges/sed-command-4/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/sed/HR_sed-command-4.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-sed-4.md' %}
+
+> Question
+
+* Each line contains a credit card number in the form dddd dddd dddd dddd
+* mask first 12 character
+
+{% endtab %}
+{% tab title='HR_text-processing-sed-4.sh' %}
+
+```sh
+sed 's/[0-9]\+ /**** /g'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Hard : 'Sed' command #5](https://www.hackerrank.com/challenges/sed-command-5/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/shell/filter/sed/HR_sed-command-5.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-sed-5.md' %}
+
+> Question
+
+* reverse the ordering of segments in each credit card number
+
+{% endtab %}
+{% tab title='HR_text-processing-sed-5.sh' %}
+
+```sh
+sed -r 's/(.... )(.... )(.... )(....)/\4 \3\2\1/'
+```
+
+{% endtab %}
+{% endtabs %}

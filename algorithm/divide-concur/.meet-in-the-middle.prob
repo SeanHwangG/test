@@ -1,0 +1,128 @@
+> baekjoon
+
+* [Level 14 : 부분수열의 합 2](https://www.acmicpc.net/problem/1208)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/meet-in-the-middle/BJ_1208.md/)
+
+{% tabs %}
+{% tab title='BJ_1208.md' %}
+
+> Question
+
+* Count number of subsequence s.t sum is equal to S
+
+```txt
+Input:
+5 0
+-7 -3 -2 5 8
+
+Output: 1  # -3 -2 5
+```
+
+{% endtab %}
+{% tab title='BJ_1208.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int A[40], N, S, ans;
+unordered_map<int, int> m;
+
+void dfs_l(int i, int sum) {
+  m[sum]++;
+  for (; i < N / 2; i++)
+    dfs_l(i + 1, sum + A[i]);
+}
+void dfs_r(int i, int sum) {
+  ans += m[S - sum];
+  for (; i >= N / 2; i--)
+    dfs_r(i - 1, sum + A[i]);
+}
+
+int main() {
+    cin >> N >> S;
+  for (int i = 0; i < N; i++)
+    cin >> A[i];
+  dfs_l(0, 0), dfs_r(N - 1, 0);
+  cout <<  ans - !S;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_1208.py' %}
+
+```py
+from collections import defaultdict
+n, s = map(int,input().split())
+a = [*map(int,input().split())]
+d = defaultdict(int)
+d[0]=1
+for i in range(n):
+  m = sum([x for x in a[i+1:] if x < 0])
+  M = sum([x for x in a[i+1:] if x > 0])
+  l = list(d.items())
+  for y, z in l:
+    if s - M <= y + a[i] <= s - m:
+      d[y + a[i]] += z
+print(d[s] if s else d[s] - 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 냅색문제](https://www.acmicpc.net/problem/1450)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/meet-in-the-middle/BJ_1450.md/)
+
+{% tabs %}
+{% tab title='BJ_1450.md' %}
+
+> Question
+
+* Given N items and bag capacity C, find the number of ways put items in bag
+
+```txt
+Input:
+2 1
+1 1
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1450.py' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+long long N, C, W[31], ans;
+vector<long long> group1, group2;
+
+void dfs(int s, int e, vector<long long>& v, long long sum) {
+  if(s > e) {
+    v.push_back(sum);
+  } else {
+    dfs(s+1, e, v, sum);
+    dfs(s+1, e, v, sum+W[s]);
+  }
+}
+
+int main() {
+  cin >> N >> C;
+
+  for(int i = 0; i < N; i++)
+    cin >> W[i];
+
+  dfs(0, N/2, group1, 0);
+  dfs(N/2 + 1, N-1, group2, 0);
+  sort(group2.begin(), group2.end());
+
+  for(int i = 0; i < group1.size(); i++)
+    ans += upper_bound(group2.begin(), group2.end(), C - group1[i]) - group2.begin();
+
+  cout << ans << endl;
+}
+```
+
+{% endtab %}
+{% endtabs %}

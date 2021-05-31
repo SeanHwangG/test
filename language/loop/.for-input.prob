@@ -1,0 +1,694 @@
+> baekjoon
+
+* [Level 2 : 타임 카드](https://www.acmicpc.net/problem/5575)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_5575.md/)
+
+{% tabs %}
+{% tab title='BJ_5575.md' %}
+
+> Question
+
+* Find work hour for each person
+
+```txt
+Input:
+9 0 0 18 0 0
+9 0 1 18 0 0
+12 14 52 12 15 30
+
+Output:
+9 0 0
+8 59 59
+0 0 38
+```
+
+{% endtab %}
+{% tab title='BJ_5575.py' %}
+
+```py
+def worked(li):
+  total = li[3] * 3600 + li[4] * 60 + li[5] - li[0] * 3600 - li[1] * 60 - li[2]
+  print(total // 3600, total % 3600 // 60, total % 60)
+
+worked(list(map(int, input().split())))
+worked(list(map(int, input().split())))
+worked(list(map(int, input().split())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 다면체](https://www.acmicpc.net/problem/10569)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_10569.md/)
+
+{% tabs %}
+{% tab title='BJ_10569.md' %}
+
+> Question
+
+* Find number of faces of convex polyhedrons for Vertex and Edge
+
+```txt
+Input:
+2
+8 12
+4 6
+
+Output:
+6
+4
+```
+
+{% endtab %}
+{% tab title='BJ_10569.py' %}
+
+```py
+for _ in range(int(input())):
+  V, E = map(int, input().split())
+  print(2 - V + E)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : +B - 3](https://www.acmicpc.net/problem/10950)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_10950.md/)
+
+{% tabs %}
+{% tab title='BJ_10950.md' %}
+
+> Question
+
+* Solve a + b for N lines
+
+```txt
+Input:
+2
+1 2
+-1 2
+
+Output:
+3
+1
+```
+
+{% endtab %}
+{% tab title='BJ_10950.sh' %}
+
+```sh
+read t
+for((;t--;));do
+  read a b;echo $((a+b))
+done
+```
+
+{% endtab %}
+{% tab title='BJ_10950.py' %}
+
+```py
+for _ in range(int(input())):
+  a, b = map(int, input().split())
+  print(a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 쿠키애호가](https://www.acmicpc.net/problem/11134)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_11134.md/)
+
+{% tabs %}
+{% tab title='BJ_11134.md' %}
+
+> Question
+
+* He eats C of his cookies. If there are less than C cookies left, eat them all
+* If Chul-soo has N cookies, how many days he can eat them
+
+```txt
+Input:
+2
+6 2
+10 3
+
+Output:
+3
+4
+```
+
+{% endtab %}
+{% tab title='BJ_11134.py' %}
+
+```py
+for _ in range(int(input())):
+  n, c = map(int, input().split())
+  print((n - 1) // c + 1)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Heart Rate](https://www.acmicpc.net/problem/15279)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_15279.md/)
+
+{% tabs %}
+{% tab title='BJ_15279.md' %}
+
+> Question
+
+* 첫줄에 N이 주어지고 N줄에 b,p가 차례로 주어진다
+* ABPM최솟값, BPM값, ABPM최댓값을 한 줄에 출력하라. (BPM은 60b/p로 계산)
+
+```txt
+Input:
+2
+6 5.0000
+2 3.1222
+
+Output:
+60.0000 72.0000 84.0000
+19.2172 38.4344 57.6517
+```
+
+{% endtab %}
+{% tab title='BJ_15279.py' %}
+
+```py
+n_test = int(input())
+for _ in range(n_test):
+  beat, sec = map(float, input().split())
+  print((beat - 1) / sec * 60, beat / sec * 60, (beat + 1) / sec * 60)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : ime to Decompress](https://www.acmicpc.net/problem/17010)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_17010.md/)
+
+{% tabs %}
+{% tab title='BJ_17010.md' %}
+
+> Question
+
+```txt
+Input:
+4
+9 +
+3 -
+12 A
+2 X
+
+Output:
++++++++++
+---
+AAAAAAAAAAAA
+XX
+```
+
+{% endtab %}
+{% tab title='BJ_17010.py' %}
+
+```py
+for _ in range(int(input())):
+  n, c = input().split()
+  print(c * int(n))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 겨울왕국 티켓 예매](https://www.acmicpc.net/problem/18247)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_18247.md/)
+
+{% tabs %}
+{% tab title='BJ_18247.md' %}
+
+> Question
+
+![BJ_18247](for-input/images/20210304_193855.png)
+
+* Print number of L4 seat, -1 if not exist
+
+```txt
+Input:
+2
+13 5
+10 9
+
+Output: -1
+```
+
+{% endtab %}
+{% tab title='BJ_18247.py' %}
+
+```py
+for _ in range(int(input())):
+  n, m = map(int, input().split())
+  if m < 4 or n < 12:
+  print(-1 if m < 4 or n < 12 else 11 * m + 4)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 주사위 게임](https://www.acmicpc.net/problem/2476)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_2476.md/)
+
+{% tabs %}
+{% tab title='BJ_2476.md' %}
+
+> Question
+
+* If all three numbers are same print (sum of all) * 10000 + 1000
+* else if only two of them are same print (sum of two) * 100 + 1000
+* else print max * 100
+* Print money who got the most price
+
+```txt
+Input:
+3
+3 3 6
+2 2 2
+6 2 5
+
+Output:
+12000
+```
+
+{% endtab %}
+{% tab title='BJ_2476.py' %}
+
+```py
+for _ in range(int(input())):
+  a, b, c = map(int, input().split())
+  if a == b == c:
+    print(10000 + a * 1000)
+  elif a == b or a == c:
+    print(1000 + a * 100)
+  elif b == c:
+    print(1000 + c * 100)
+  else:
+    print(max(a, b, c) * 100)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : G](https://www.acmicpc.net/problem/5063)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_5063.md/)
+
+{% tabs %}
+{% tab title='BJ_5063.md' %}
+
+> Question
+
+* r is the expected revenue if you do not advertise, e, is the expected revenue if you do advertise, c, is the cost of advertising
+
+```txt
+Input:
+3
+0 100 70
+100 130 30
+-100 -70 40
+
+Output:
+advertise
+does not matter
+do not advertise
+```
+
+{% endtab %}
+{% tab title='BJ_5063.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+int n, r, e, c;
+int main() {
+  cin >> n;
+  while (n--) {
+    cin >> r >> e >> c;
+    if (r < e - c) { cout << "advertise"<<'\n'; }
+    else if (r > e - c) { cout << "do not advertise" << '\n'; }
+    else { cout << "does not matter"<<'\n'; }
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_5063.py' %}
+
+```py
+for _ in range(int(input())):
+  r, e, c = map(int, input().split())
+  if r > e - c:
+    print('do not advertise')
+  elif r == e - c:
+    print('does not matter')
+  else:
+    print('advertise')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : J박스](https://www.acmicpc.net/problem/5354)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_5354.md/)
+
+{% tabs %}
+{% tab title='BJ_5354.md' %}
+
+> Question
+
+* Given side length, print following box
+
+```txt
+Input:
+3
+3
+5
+4
+
+Output:
+###
+#J#
+###
+
+#####
+#JJJ#
+#JJJ#
+#JJJ#
+#####
+
+####
+#JJ#
+#JJ#
+####
+```
+
+{% endtab %}
+{% tab title='BJ_5354.py' %}
+
+```py
+for _ in range(int(input())):
+  a = int(input())
+  print("#" * a)
+  for _ in range(a - 2):
+    print("#" + "J" * (a - 2) + "#")
+  if a > 1:
+    print("#" * a)
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Can you add this?](https://www.acmicpc.net/problem/7891)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_7891.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* Print sum of each line
+
+```txt
+Input:
+2
+1 5
+-5 2
+
+Output:
+6
+-3
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+for _ in range(int(input())):
+  a, b = map(int, input().split())
+  print(a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 폰 노이만](https://www.acmicpc.net/problem/9469)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_9469.md/)
+
+{% tabs %}
+{% tab title='BJ_9469.md' %}
+
+> Question
+
+* Each test case consists of five numbers N, D, A, B, and F
+* N is the number of the test case, D is the length of the railroad D, and A and B are the speeds A, B, and Paris F
+* At this point, how many miles did Paris travel?
+
+```txt
+Input:
+5
+1 250 10 15 20
+2 10.7 3.5 4.7 5.5
+3 523.7 15.3 20.7 33.3
+4 1000 30 30 50
+5 500 15 15 25
+
+Output:
+1 200.000000
+2 7.176829
+3 484.422500
+4 833.333333
+5 416.666667
+```
+
+{% endtab %}
+{% tab title='BJ_9469.py' %}
+
+```py
+for _ in range(int(input())):
+  i, d, a, b, f = map(float, input().split())
+  print(int(i), d/(a+b)*f)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : +B - 6](https://www.acmicpc.net/problem/10953)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_10953.md/)
+
+{% tabs %}
+{% tab title='BJ_10953.md' %}
+
+> Question
+
+* Print sum of two numbers separated by comma
+
+```txt
+Input:
+2
+1,2
+2,3
+
+Output:
+3
+5
+```
+
+{% endtab %}
+{% tab title='BJ_10953.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  a, b = map(int, input().split(','))
+  print(a + b)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : eport Card Time](https://www.acmicpc.net/problem/11367)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_11367.md/)
+
+{% tabs %}
+{% tab title='BJ_11367.md' %}
+
+> Question
+
+* Print grade given score
+
+```txt
+Input:
+5
+Bilbo 13
+Sam 90
+Pippin 78
+Frodo 97
+Merry 70
+
+Output:
+Bilbo F
+Sam A
+Pippin C+
+Frodo A+
+Merry C
+```
+
+{% endtab %}
+{% tab title='BJ_11367.py' %}
+
+```py
+for i in range(int(input())):
+  name, score = input().split()
+  print(name,end=" ")
+  score = int(score)
+  if score >= 97:
+    print("A+")
+  elif score >= 90:
+    print("A")
+  elif score >= 87:
+    print("B+")
+  elif score >= 80:
+    print("B")
+  elif score >= 77:
+    print("C+")
+  elif score >= 70:
+    print("C")
+  elif score >= 67:
+    print("D+")
+  elif score >= 60:
+    print("D")
+  else:
+    print("F")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 홀수일까 짝수일까](https://www.acmicpc.net/problem/5988)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_5988.md/)
+
+{% tabs %}
+{% tab title='BJ_5988.md' %}
+
+> Question
+
+* For each line print oddity
+
+```txt
+Input:
+2
+1
+4
+
+Output:
+odd
+even
+```
+
+{% endtab %}
+{% tab title='BJ_5988.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  if int(input()) % 2 == 0:
+    print("even")
+  else:
+    print("odd")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.3 : Nasty Hacks](https://open.kattis.com/problems/nastyhacks)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/KT_nastyhacks.md/)
+
+{% tabs %}
+{% tab title='BJ_5063.md' %}
+
+> Question
+
+* r is the expected revenue if you do not advertise, e, is the expected revenue if you do advertise, c, is the cost of advertising
+
+```txt
+Input:
+3
+0 100 70
+100 130 30
+-100 -70 40
+
+Output:
+advertise
+does not matter
+do not advertise
+```
+
+{% endtab %}
+{% tab title='BJ_5063.py' %}
+
+```py
+for _ in range(int(input())):
+  r, e, c = map(int, input().split())
+  if r > e - c:
+    print('do not advertise')
+  elif r == e - c:
+    print('does not matter')
+  else:
+    print('advertise')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Number Fun](https://open.kattis.com/problems/numberfun)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/KT_numberfun.md/)
+
+{% tabs %}
+{% tab title='KT_numberfun.md' %}
+
+> Question
+
+* a, b, c가 주어 질 때, a, b와 +, -, *, / 로 c를 만들 수 있으면 Possible 불가능 하면 Impossible을 출력하라
+
+```txt
+Input:
+6
+1 2 3
+2 24 12
+5 3 1
+9 16 7
+7 2 14
+12 4 2
+
+Output:
+Possible
+Possible
+Impossible
+Possible
+Possible
+Impossible
+```
+
+{% endtab %}
+{% tab title='KT_numberfun.py' %}
+
+```py
+n_test = int(input())
+for _ in range(n_test):
+  a, b, c = map(int, input().split())
+  if a + b == c or a - b == c or b - a == c or a * b == c or a / b == c or b / a == c:
+    print("Possible")
+  else:
+    print("Impossible")
+```
+
+{% endtab %}
+{% endtabs %}

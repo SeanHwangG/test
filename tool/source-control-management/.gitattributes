@@ -1,0 +1,4 @@
+# .gitattributes
+
+# Defining attributes per path
+\* text=auto

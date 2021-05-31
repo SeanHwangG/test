@@ -1,0 +1,769 @@
+> baekjoon
+
+* [Level 3 : utomated Checking Machine](https://www.acmicpc.net/problem/10395)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/BJ_10395.md/)
+
+{% tabs %}
+{% tab title='BJ_10395.md' %}
+
+> Question
+
+* two 5 numbers are given
+* print if none of them match
+
+```txt
+Input:
+1 1 0 1 0
+0 0 1 0 1
+
+Output: Y
+```
+
+{% endtab %}
+{% tab title='BJ_10395.py' %}
+
+```py
+a1, b1, c1, d1, e1 = map(int, input().split())
+a2, b2, c2, d2, e2 = map(int, input().split())
+if a1 ^ a2 and b1 ^ b2 and c1 ^ c2 and d1 ^ d2 and e1 & e2:
+  print("Y")
+else:
+  print("N")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : XORXORXO](https://www.acmicpc.net/problem/12833)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/BJ_12833.md/)
+
+{% tabs %}
+{% tab title='BJ_12833.md' %}
+
+> Question
+
+* ( ( ( ( A XOR B ) XOR B ) XOR B ) … ) XOR B up to C time
+
+```txt
+Input: 13 3 1
+Output: 14
+```
+
+{% endtab %}
+{% tab title='BJ_12833.py' %}
+
+```py
+a, b, c = map(int, input().split())
+for _ in range(c % 2):
+  a ^= b
+print(a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 네 번째 점](https://www.acmicpc.net/problem/3009)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/BJ_3009.md/)
+
+{% tabs %}
+{% tab title='BJ_3009.md' %}
+
+> Question
+
+* Given three points, find the fourth point needed to create a rectangle parallel to the axis
+
+```txt
+Input:
+30 20
+10 10
+10 20
+
+Output: 30 10
+```
+
+{% endtab %}
+{% tab title='BJ_3009.js' %}
+
+```js
+let X = 0, Y = 0;
+
+require('fs').readFileSync('/dev/stdin').toString().split('\n').forEach((line) => {
+  const [x, y] = line.split(' ').map(Number);
+  X ^= x;
+  Y ^= y;
+})
+
+console.log(X, Y);
+```
+
+{% endtab %}
+{% tab title='BJ_3009.py' %}
+
+```py
+a, b = map(int, input().split())
+c, d = map(int, input().split())
+e, f = map(int, input().split())
+print(a ^ c ^ e, b ^ d ^ f)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 이진수 연산](https://www.acmicpc.net/problem/12813)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/BJ_12813.md/)
+
+{% tabs %}
+{% tab title='BJ_12813.md' %}
+
+> Question
+
+* Given A, B, print A & B, A | B, A ^ B, ~A, ~B in each line
+
+```txt
+Input:
+0001011000
+0000101111
+
+Output:
+0000001000
+0001111111
+0001110111
+1110100111
+1111010000
+```
+
+{% endtab %}
+{% tab title='BJ_12813.py' %}
+
+```py
+a = input()
+b = input()
+a, b = int(a, 2), int(b, 2)
+print(f'{a & b:0100000b}')
+print(f'{a | b:0100000b}')
+print(f'{a ^ b:0100000b}')
+print(f'{~a & (1 << 100000) - 1:0100000b}')
+print(f'{~b & (1 << 100000) - 1:0100000b}')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 패리티](https://www.acmicpc.net/problem/4597)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/BJ_4597.md/)
+
+{% tabs %}
+{% tab title='BJ_4597.md' %}
+
+> Question
+
+* When the last digit is given a erased bit string
+* the parity of this bit string is given, write a program to get the last digit correctly
+
+```txt
+Input:
+101e
+010010o
+1e
+000e
+110100101o
+#
+
+Output:
+1010
+0100101
+11
+0000
+1101001010
+```
+
+{% endtab %}
+{% tab title='BJ_4597.py' %}
+
+```py
+while 1:
+  r = input()
+  if r == '#':
+    break
+  print(r[:-1] + str(r.count('1') % 2 ^ (r[-1]=='o')))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 토너먼트](https://www.acmicpc.net/problem/1057)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/BJ_1057.md/)
+
+{% tabs %}
+{% tab title='BJ_1057.md' %}
+
+> Question
+
+* Tournament size and two numbers are given
+* Determine which round will two person meet
+
+```txt
+Input: 16 8 9
+Output: 4
+```
+
+{% endtab %}
+{% tab title='BJ_1057.py' %}
+
+```py
+_, a, b = [int(x) - 1 for x in input().split()]
+print((a ^ b).bit_length())
+```
+
+{% endtab %}
+{% endtabs %}
+
+> codechef
+
+* [Level Beginner : Matrix XOR](https://www.codechef.com/problems/MATXOR)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/CC_MATXOR.md/)
+
+{% tabs %}
+{% tab title='CC_COOK127B.md' %}
+
+> Question
+
+![CC_COOK127B](xor/images/20210322_013658.png)
+
+```txt
+Input:
+2
+2 2 5
+2 3 7
+
+Output:
+14
+5
+```
+
+{% endtab %}
+{% tab title='CC_COOK127B.py' %}
+
+```py
+from functools import reduce
+
+def solution(a, b, c):
+  xors = []
+  count = 0
+  for i in range(2, a + b + 1):
+    if a >= i - 1 and b >= i - 1:
+      count += 1
+    elif a < i - 1 and b < i - 1:
+      count -= 1
+    if count % 2 == 1:
+      xors.append(c + i)
+  return reduce(lambda x, y: x ^ y, xors)
+
+for _ in range(int(input())):
+  a, b, c = map(int, input().split())
+  print(solution(a, b, c))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : Chef and Sorting](https://www.codechef.com/problems/CHEFSORT)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/CC_CHEFSORT.md/)
+
+{% tabs %}
+{% tab title='CC_CHEFSORT.md' %}
+
+> Question
+
+* Given a sequence A1,A2,…,AN, wants to sort it in non-decreasing order
+* Unfortunately, he can only modify it using specific operations. In each operation, Chef should do the following:
+  * Choose an integer K such that 0<K<230
+  * Choose an integer P such that 1≤P≤N
+  * Perform one of the following actions:
+    * type t=1: for each i (1≤i≤P), change Ai to Ai+K
+    * type t=2: for each i (P≤i≤N), change Ai to Ai+K
+    * type t=3: for each i (1≤i≤P), change Ai to Ai⊕K
+    * type t=4: for each i (P≤i≤N), change Ai to Ai⊕K
+* Note that you do not need to minimise the number of operations
+* It is guaranteed that a solution using at most ⌊N/2⌋ operations always exists
+
+```txt
+Input:
+5
+3
+1 10 9
+4
+4 3 5 1
+6
+12 13 15 3 7 5
+3
+1 2 3
+3
+1 2 3
+
+Output:
+1
+4 2 11
+2
+4 4 4
+2 2 2
+2
+3 3 12
+4 3 2
+1
+1 3 3
+0
+```
+
+{% endtab %}
+{% tab title='CC_CHEFSORT.py' %}
+
+```py
+for _ in range(int(input())):
+  N = int(input())
+  A = list(map(int, input().split()))
+  ops = []
+  up = sum(A[i + 1] > A[i] for i in range(N - 1))
+  down = sum(A[i + 1] < A[i] for i in range(N - 1))
+  P = pow(2, 30) - 1
+  flag = False
+  if down > up:
+    flag = True
+    ops.append((3, N, P)) # xor to inversion
+  for i in range(N - 1):
+    if (A[i+1] < A[i] and not flag) or (A[i+1] > A[i] and flag):
+      ops.append((2, i + 2, abs(A[i] - A[i+1])))
+  print(len(ops))
+  for op in ops: print(*op)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Cetvrta](https://open.kattis.com/problems/cetvrta)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/KT_cetvrta.md/)
+
+{% tabs %}
+{% tab title='KT_cetvrta.md' %}
+
+> Question
+
+* Given coordinate of three corners of rectangle, find the last corner
+
+```txt
+Input:
+1 3
+2 3
+2 5
+
+Output: 1 5
+```
+
+{% endtab %}
+{% tab title='KT_cetvrta.py' %}
+
+```py
+x1, y1 = map(int, input().split())
+x2, y2 = map(int, input().split())
+x3, y3 = map(int, input().split())
+print(x1 ^ x2 ^ x3, y1 ^ y2 ^ y3)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Odd Man Out](https://open.kattis.com/problems/oddmanout)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/KT_oddmanout.md/)
+
+{% tabs %}
+{% tab title='KT_oddmanout.md' %}
+
+> Question
+
+* n_test개의 줄에 N과 N개의 정수가 주어진다
+* 이때 짝이 없는 정수를 출력하라
+
+```txt
+Input:
+3
+3
+1 2147483647 2147483647
+5
+3 4 7 4 3
+5
+2 10 2 10 5
+
+Output:
+Case #1: 1
+Case #2: 7
+Case #3: 5
+```
+
+{% endtab %}
+{% tab title='KT_oddmanout.py' %}
+
+```py
+for test in range(1, int(input()) + 1):
+  N = int(input())
+  ret = 0
+  for x in map(int, input().split()):
+    ret ^= x
+  print(f"Case #{test}: {ret}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 1 : Single Number](https://leetcode.com/problems/single-number)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_136.md/)
+
+{% tabs %}
+{% tab title='LC_136.md' %}
+
+> Question
+
+* Find only number where all other numbers appear twice
+
+```txt
+Input: nums = [0,1,0,1,99]
+Output: 99
+```
+
+{% endtab %}
+{% tab title='LC_136.cpp' %}
+
+```cpp
+int singleNumber(vector<int>& nums) {
+  return accumulate(begin(nums), end(nums), 0, bit_xor<int>());
+};
+```
+
+{% endtab %}
+{% tab title='LC_136.py' %}
+
+```py
+def singleNumber(self, nums: List[int]) -> int:
+  return reduce(lambda x, y: x ^ y, nums)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Find the Difference](https://leetcode.com/problems/find-the-difference)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_389.md/)
+
+{% tabs %}
+{% tab title='LC_389.md' %}
+
+> Question
+
+* String t is generated by random shuffling string s and then add one more letter at a random position
+* Return the letter that was added to t
+
+```txt
+Input: s = "abcd", t = "abcde"
+Output: "e"
+```
+
+{% endtab %}
+{% tab title='LC_389.py' %}
+
+```py
+def findTheDifference(self, s: str, t: str) -> str:
+  return chr(reduce(operator.xor, map(ord, s + t)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : XOR Queries of a Subarray](https://leetcode.com/problems/xor-queries-of-a-subarray)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_1310.md/)
+
+{% tabs %}
+{% tab title='LC_1310.md' %}
+
+> Question
+
+* Given the array arr of positive integers and the array queries where queries[i] = [Li, Ri]
+* for each query i compute the XOR of elements from Li to Ri (that is, arr[Li] xor arr[Li+1] xor ... xor arr[Ri])
+
+```txt
+Input: arr = [1,3,4,8], queries = [[0,1],[1,2],[0,3],[3,3]]
+Output: [2,7,14,8]
+```
+
+{% endtab %}
+{% tab title='LC_1310.py' %}
+
+```py
+def xorQueries(self, A, queries):
+  for i in range(len(A) - 1):
+    A[i + 1] ^= A[i]
+  return [A[j] ^ A[i - 1] if i else A[j] for i, j in queries]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Single Number II](https://leetcode.com/problems/single-number-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_137.md/)
+
+{% tabs %}
+{% tab title='LC_137.md' %}
+
+> Question
+
+* Given an integer array nums where every element appears three times except for one, which appears exactly once
+* Find the single element and return it
+
+```txt
+Input: nums = [0,1,0,1,0,1,99]
+Output: 99
+```
+
+{% endtab %}
+{% tab title='LC_137.java' %}
+
+```java
+public int singleNumber(int[] A) {
+  int ones = 0, twos = 0;
+  for (int i = 0; i < A.length; i++) {
+    ones = (ones ^ A[i]) & ~twos;
+    twos = (twos ^ A[i]) & ~ones;
+  }
+  return ones;
+}
+```
+
+{% endtab %}
+{% tab title='LC_137.py' %}
+
+```py
+# O(32N)
+def singleNumber(self, nums):
+  single = 0
+  for i in range(32):
+    count = 0
+    for num in nums:
+      if num & (1 << i) == (1 << i):
+        count += 1
+    single |= (count%3) << i
+
+  return single if single < (1<<31) else single - (1 << 32)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Concatenation of Consecutive Binary Numbers](https://leetcode.com/problems/concatenation-of-consecutive-binary-numbers)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_1680.md/)
+
+{% tabs %}
+{% tab title='LC_1680.md' %}
+
+> Question
+
+* Given n, return decimal value of binary string formed by concatenating binary of 1 to n in order, modulo 10**9 + 7
+
+```txt
+Input: n = 3
+Output: 27   # 11011
+```
+
+{% endtab %}
+{% tab title='LC_1680.cpp' %}
+
+```cpp
+int concatenatedBinary(int n) {
+  long ans = 0, mod = 1e9+7, len = 0;
+  for (int i = 1; i <= n; ++i) {
+    if ((i & (i - 1)) == 0) ++len;
+    ans = ((ans << len) % mod + i) % mod;
+  }
+  return ans;
+}
+```
+
+{% tab title='LC_1680.py' %}
+{% endtab %}
+
+```py
+def concatenatedBinary(self, n: int) -> int:
+  ans, l, MOD = 0, 0, 10 ** 9 + 7
+  for x in range(1, n + 1):
+    if x & (-x) == x: l += 1
+    ans = (ans * (1 << l) + x) % MOD
+  return ans
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Maximum XOR for Each Query](https://leetcode.com/problems/maximum-xor-for-each-query)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_1829.md/)
+
+{% tabs %}
+{% tab title='LC_1829.md' %}
+
+> Question
+
+* given a sorted array of n non-negative integers and an integer maximumBit, perform the following query n times:
+  * Find a non-negative integer k < 2maximumBit such that nums[0] ^ nums[1] ^ ... ^ nums[nums.length-1] ^ k is maximized
+    * kis the answer to the ith query
+  * Remove the last element from the current array nums, Return answer, where answer[i] is the answer to the ith query
+
+```txt
+Input: nums = [0,1,1,3], maximumBit = 2
+Output: [0,3,2,3]  # [0 ^ 1 ^ 1 ^ 3, 3 ^ 0 ^ 1 ^ 1, 2 ^ 0 ^ 1, 3 ^ 0]
+```
+
+{% endtab %}
+{% tab title='LC_1829.py' %}
+
+```cpp
+vector<int> getMaximumXor(vector<int>& n, int maximumBit) {
+  vector<int> res(n.size());
+  int val = (1 << maximumBit) - 1;
+  for (int i = 0; i < n.size(); ++i)
+    res[n.size() - i - 1] = val ^= n[i];
+  return res;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Single Number III](https://leetcode.com/problems/single-number-iii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_260.md/)
+
+{% tabs %}
+{% tab title='LC_260.md' %}
+
+> Question
+
+* Given an integer array nums, in which exactly two elements appear only once and all the other elements appear exactly twice
+* Find the two elements that appear only once. You can return the answer in any order
+
+```txt
+Input: nums = [1,2,1,3,2,5]
+Output: [3,5]  # [5, 3] is also a valid answer.
+```
+
+{% endtab %}
+{% tab title='LC_260.py' %}
+
+```cpp
+class Solution {
+public:
+  vector<int> singleNumber(vector<int>& nums) {
+    int xored = accumulate(nums.begin(), nums.end(), 0, bit_xor<int>());
+    xored &= -xored;
+    vector<int> ret = {0, 0};
+    for (int num : nums){
+      if (xored & num) ret[0] ^= num;
+      else             ret[1] ^= num;
+    }
+    return ret;
+  }
+};
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Divide Two Integers](https://leetcode.com/problems/divide-two-integers)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_29.md/)
+
+{% tabs %}
+{% tab title='LC_29.md' %}
+
+> Question
+
+* Implement division without using multiplication, division, and mod
+
+```txt
+Input: dividend = 7, divisor = -3
+Output: -2
+```
+
+{% endtab %}
+{% tab title='LC_29.py' %}
+
+```py
+def divide(self, A, B):
+  if A == -2147483648 and B == -1: return 2147483647
+  a, b, res = abs(A), abs(B), 0
+  for x in range(32)[::-1]:
+    if (a >> x) >= b:
+      res += 1 << x
+      a -= b << x
+  return res if (A > 0) == (B > 0) else -res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Sum of Two Integers](https://leetcode.com/problems/sum-of-two-integers)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_371.md/)
+
+{% tabs %}
+{% tab title='LC_371.md' %}
+
+> Question
+
+* Given two integers a and b, return the sum of the two integers without using the operators + and -
+
+```txt
+Input: a = 1, b = 2
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_371.cpp' %}
+
+```cpp
+int getSum(int a, int b) {
+  return b==0? a:getSum(a^b, (a&b)<<1); //be careful about the terminating condition;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Perfect Rectangle](https://leetcode.com/problems/perfect-rectangle)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/xor/LC_391.md/)
+
+{% tabs %}
+{% tab title='LC_391.md' %}
+
+> Question
+
+* Given an array rectangles where rectangles[i] = [xi, yi, ai, bi] represents an axis-aligned rectangle
+* Return true if all the rectangles together form an exact cover of a rectangular region
+
+```txt
+Input: rectangles = [[1,1,3,3],[3,1,4,2],[3,2,4,4],[1,3,2,4],[2,3,3,4]]
+Output: true  # All 5 rectangles together form an exact cover of a rectangular region.
+```
+
+{% endtab %}
+{% tab title='LC_391.py' %}
+
+```py
+def isRectangleCover(self, rectangles):
+  cornera = set()
+  a, b, c, d, area = float('inf'), float('inf'), float('-inf'), float('-inf'), 0
+  for x1, y1, x2, y2 in rectangles:
+    a, b = min((a, b), (x1, y1))
+    c, d = max((c, d), (x2, y2))
+    area += (x2-x1) * (y2-y1)
+    corner ^= {(x1,y1), (x2,y2), (x1,y2), (x2,y1)}
+  return corner == {(a,b), (c,d), (a,d), (c,b)} and area == (c-a) * (d-b)
+```
+
+{% endtab %}
+{% endtabs %}

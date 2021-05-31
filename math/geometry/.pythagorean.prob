@@ -1,0 +1,213 @@
+> baekjoon
+
+* [Level 2 : Cutting Corners](https://www.acmicpc.net/problem/20215)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/pythagorean/BJ_20215.md/)
+
+{% tabs %}
+{% tab title='BJ_20215.md' %}
+
+> Question
+
+* Given width and height of rectangle print width + height - diagonal
+
+```txt
+Input: 3 4
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_20215.py' %}
+
+```py
+w, h = map(int, input().split())
+print(w + h - (w ** 2 + h ** 2) ** 0.5)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Patyki](https://www.acmicpc.net/problem/8723)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/pythagorean/BJ_8723.md/)
+
+{% tabs %}
+{% tab title='BJ_8723.md' %}
+
+> Question
+
+* Given three sides print 2 if equilateral, 1 if right triangle, else 0
+
+```txt
+Input: 3 4 5
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_8723.py' %}
+
+```py
+a, b, c = sorted(map(int, input().split()))
+if a == b and b == c: print(2)
+elif a ** 2 + b **2 == c**2: print(1)
+else: print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 앵그리 창영](https://www.acmicpc.net/problem/3034)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/pythagorean/BJ_3034.md/)
+
+{% tabs %}
+{% tab title='BJ_3034.md' %}
+
+> Question
+
+* The number of matches thrown is N, and the horizontal size W of the box and the vertical size H are given
+* For each match, print "NE" if "DA" is not present if it can fit in the box
+
+```txt
+Input:
+5 3 4
+3
+4
+5
+6
+7
+
+Output:
+DA
+DA
+DA
+NE
+NE
+```
+
+{% endtab %}
+{% tab title='BJ_3034.py' %}
+
+```py
+n, w, h = map(int, input().split())
+for _ in range(n):
+  a = int(input())
+  if  a ** 2 <= w ** 2 + h ** 2:
+    print('DA')
+  else:
+    print('NE')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 직각삼각형](https://www.acmicpc.net/problem/4153)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/pythagorean/BJ_4153.md/)
+
+{% tabs %}
+{% tab title='BJ_4153.md' %}
+
+> Question
+
+* Print if we can create right triangle
+* Last line only contains 0
+
+```txt
+Input:
+6 8 10
+25 52 60
+5 12 13
+0 0 0
+
+Output:
+right
+wrong
+right
+```
+
+{% endtab %}
+{% tab title='BJ_4153.py' %}
+
+```py
+while True:
+  a, b, c = sorted(map(int, input().split()))
+  if a == 0:
+    break
+  if c ** 2 == a ** 2 + b ** 2:
+    print("right")
+  else:
+    print('wrong')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 고급 수학](https://www.acmicpc.net/problem/7510)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/pythagorean/BJ_7510.md/)
+
+{% tabs %}
+{% tab title='BJ_7510.md' %}
+
+> Question
+
+* Outputs "yes" if the triangle given as input is a right-angled triangle, or "no" if not
+
+```txt
+Input:
+2
+36 77 85
+40 55 69
+
+Output:
+Scenario #1:
+yes
+
+Scenario #2:
+no
+```
+
+{% endtab %}
+{% tab title='BJ_7510.py' %}
+
+```py
+for i in range(int(input())):
+  sides = sorted(map(int, input().split()))
+  if sides[0] ** 2 + sides[1] ** 2 + sides[2] ** 2 == max(sides) ** 2 * 2:
+    print(f'Scenario #{i + 1}:\nyes')
+  else:
+    print(f'Scenario #{i + 1}:\nno')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 평행사변형](https://www.acmicpc.net/problem/1064)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/pythagorean/BJ_1064.md/)
+
+{% tabs %}
+{% tab title='BJ_1064.md' %}
+
+> Question
+
+* Print difference between maximum and minimum perimeter of parallelogram
+
+```txt
+Input: 0 0 0 1 1 0
+Output: 0.8284271247461898
+```
+
+{% endtab %}
+{% tab title='BJ_1064.py' %}
+
+```py
+a1, a2, b1, b2, c1, c2 = list(map(int, input().split(' ')))
+if a1 * b2 + b1 * c2 + c1 * a2 = a2 * b1 + b2 * c1 + c2 * a1: # same line
+  print(-1/1)
+else:
+  t1 = ((a1 - b1) ** 2 + (a2 - b2) ** 2) ** 0.5
+  t2 = ((b1 - c1) ** 2 + (b2 - c2) ** 2) ** 0.5
+  t3 = ((c1 - a1) ** 2 + (c2 - a2) ** 2) ** 0.5
+  l1, l2, l3 = t1 + t2, t2 + t3, t3 + t1
+  print(2 * (max(l1, l2, l3) - min(l1, l2, l3)))
+```
+
+{% endtab %}
+{% endtabs %}

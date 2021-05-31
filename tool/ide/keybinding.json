@@ -1,0 +1,8 @@
+{
+  "key": "cmd+1",
+  "command": "type",
+  "args": {
+    "text": "{% tabs %}\n{% tab title='' %}\n{% endtab %}\n{% endtabs %}"
+  },
+  "when": "editorTextFocus"
+}

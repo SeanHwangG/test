@@ -1,0 +1,154 @@
+> baekjoon
+
+* [Level 9 : 안녕](https://www.acmicpc.net/problem/1535)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/knapsack/BJ_1535.md/)
+
+{% tabs %}
+{% tab title='BJ_1535.md' %}
+
+> Question
+
+* Given weights of bags and values, print maximum value with capcity
+
+```txt
+Input:
+3
+1 21 79
+20 30 25
+
+Output: 50
+```
+
+{% endtab %}
+{% tab title='BJ_1535.py' %}
+
+```py
+def knapsack(cur_weight, weights, values, i = 0):
+  if i == len(weights):
+    return 0
+  if weights[i] >= cur_weight:
+    return knapsack(cur_weight, weights, values, i + 1)
+  else:
+    return max(values[i] + knapsack(cur_weight - weights[i], weights, values, i + 1),
+           knapsack(cur_weight, weights, values, i + 1))
+
+n = input()
+weights = list(map(int, input().split()))
+values = list(map(int, input().split()))
+print(knapsack(100, weights, values))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : Charm Bracelet](https://www.acmicpc.net/problem/6144)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/knapsack/BJ_6144.md/)
+
+{% tabs %}
+{% tab title='BJ_6144.md' %}
+
+> Question
+
+* Given N and max_capa in first line, solve knapsack problem with weight, values for N line
+
+```txt
+Input:
+4 6
+1 4
+2 6
+3 12
+2 7
+
+Output: 23
+```
+
+{% endtab %}
+{% tab title='BJ_6144.py' %}
+
+```py
+N, M = map(int, input().split())
+treasures = [tuple(map(int, input().split())) for _ in range(N)]
+weight2max_value = [0] * (M + 1)
+for weight, value in treasures:
+  for i in range(M, weight - 1, -1):
+    weight2max_value[i] = max(weight2max_value[i], weight2max_value[i - weight] + value)
+print(weight2max_value[-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 평범한 배낭](https://www.acmicpc.net/problem/12865)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/knapsack/BJ_12865.md/)
+
+{% tabs %}
+{% tab title='BJ_12865.md' %}
+
+> Question
+
+* Each item has a weight W and a value V
+* Find max value with total m
+
+```txt
+Input:
+4 7
+6 13
+4 8
+3 6
+5 12
+
+Output: 14
+```
+
+{% endtab %}
+{% tab title='BJ_12865.py' %}
+
+```py
+n, m = map(int, input().split())
+dp = [[0] * (m + 1) for _ in range(n + 1)]
+for i in range(n):
+  w, v = map(int, input().split())
+  for j in range(m + 1):
+    dp[i + 1][j] = max(dp[i][j], 0 if w > j else dp[i][j - w] + v)
+
+print(dp[-1][-1])
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Last Stone Weight II](https://leetcode.com/problems/last-stone-weight-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/knapsack/LC_1049.md/)
+
+{% tabs %}
+{% tab title='LC_1049.md' %}
+
+> Questions
+
+* Given an array of integers stones where stones[i] is the weight of the ith stone
+* On each turn, choose any two stones with x, y (x <= y) and smash them together
+  * If x == y, both stones are destroyed, and
+  * If x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x
+* Return the smallest possible weight of the left stone at the end. if no stones left, 0
+
+> Solution
+
+* w[i] = stones[i] (Weight of jewel)
+* v[i] = stones[i] (Value of jewel)
+* W = sum(stones) / 2 (Capacity of bag)
+
+{% endtab %}
+{% tab title='LC_1049.py' %}
+
+```py
+def lastStoneWeightII(self, A):
+  dp = {0}  # record achievable sum of smaller group
+  for a in A:
+    dp |= {a + i for i in dp}
+  return min(abs(sum(A) - i - i) for i in dp)
+```
+
+{% endtab %}
+{% endtabs %}

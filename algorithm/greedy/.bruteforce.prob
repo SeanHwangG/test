@@ -1,0 +1,699 @@
+> baekjoon
+
+* [Level 3 : idy Numbers (Small)](https://www.acmicpc.net/problem/14790)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_14790.md/)
+
+[//]: # (BJ_14791)
+
+* [Level 3 : 완전 제곱수](https://www.acmicpc.net/problem/6131)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_6131.md/)
+
+{% tabs %}
+{% tab title='BJ_6131.md' %}
+
+> Question
+
+* The square of A is greater than the square of B by N
+* Find the number of pairs A and B that meet the above conditions
+
+```txt
+Input: 15
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_6131.py' %}
+
+```py
+l, n, r = [i ** 2 for i in range(1, 501)], int(input()), 0
+for i in range(1, 500):
+  for j in range(0, i):
+    if l[i] - l[j] == n:
+      r+=1
+print(r)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 수학적 호기심](https://www.acmicpc.net/problem/9094)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_9094.md/)
+
+{% tabs %}
+{% tab title='BJ_9094.md' %}
+
+> Question
+
+* Given two integers n and m, obtain the number of pairs (a2+b2+m)/(ab) of integer pairs (a, b) with 0 < a < b < n
+
+{% endtab %}
+{% tab title='BJ_9094.py' %}
+
+```py
+for i in range(int(input())):
+  n, m = map(int, input().split())
+  cnt = 0
+  for a in range(1, n-1):
+    for b in range(a+1, n):
+      if (a*a+b*b+m)%(a*b)==0:
+        cnt += 1
+  print(cnt)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 틱! 택! 토!](https://www.acmicpc.net/problem/12759)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_12759.md/)
+
+{% tabs %}
+{% tab title='BJ_12759.md' %}
+
+> Question
+
+* Find who win the tictactoe and when
+
+```txt
+Input:
+2
+1 3
+1 1
+3 1
+2 2
+3 3
+2 3
+3 2
+1 2
+2 1
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_12759.py' %}
+
+```py
+def is_win(p):
+  if [p,p,p] in grid: return True
+  if any(grid[0][x]==grid[1][x]==grid[2][x]==p for x in range(3)): return True
+  if grid[0][0]==grid[1][1]==grid[2][2]==p: return True
+  if grid[0][2]==grid[1][1]==grid[2][0]==p: return True
+  return False
+
+grid = [[0]*3 for i in range(3)]
+p = int(input())
+for turn in range(9):
+  i, j = map(int,input().split()); i-=1; j-=1
+  grid[i][j] = p
+  if is_win(p):
+    print(p); break
+  p = 3 - p
+else:
+  print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 기숙사 바닥](https://www.acmicpc.net/problem/2858)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_2858.md/)
+
+{% tabs %}
+{% tab title='BJ_2858.md' %}
+
+> Question
+
+![BJ_2858](bruteforce/images/20210304_194838.png)
+
+* 빨간색과 갈색 타일의 개수가 주어졌을 때, 상근이 방의 크기를 구하는 프로그램을 작성하시오
+
+```txt
+Input: 10 2
+Output: 4 3
+```
+
+{% endtab %}
+{% tab title='BJ_2858.py' %}
+
+```py
+r, b = map(int, input().split())
+for i in range(3, 2000):
+  for j in range(3, i + 1):
+    a = (i * 2) + ((j - 2) * 2)
+    if a == r and (i * j) - a == b:
+      print(i, j)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 0의 개수](https://www.acmicpc.net/problem/11170)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_11170.md/)
+
+{% tabs %}
+{% tab title='BJ_11170.md' %}
+
+> Question
+
+* Given A, B, count all 0 between A and B
+
+```txt
+Input:
+3
+0 10
+33 1005
+1 4
+
+Output:
+2
+199
+0
+```
+
+{% endtab %}
+{% tab title='BJ_11170.py' %}
+
+```py
+x = int(input())
+for i in range(x):
+  count = 0
+  a, b = map(int, input().split())
+  for i in range(a, b+1):
+    w = str(i)
+    count += w.count('0')
+  print(count)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 단어 나누기](https://www.acmicpc.net/problem/1251)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_1251.md/)
+
+{% tabs %}
+{% tab title='BJ_1251.md' %}
+
+> Question
+
+* 단어: arrested
+* 세 단어로 나누기: ar / rest / ed
+* 각각 뒤집기: ra / tser / de
+* 합치기: ratserde
+* 단어가 주어지면, 이렇게 만들 수 있는 단어 중에서 사전순으로 가장 앞서는 단어를 출력하는 프로그램을 작성하시오
+
+```txt
+Input: mobitel
+Output: bometil
+```
+
+{% endtab %}
+{% tab title='BJ_1251.py' %}
+
+```py
+import sys
+s = sys.stdin.readline().rstrip()
+arr = []
+for i in range(0,len(s)-2):
+  for j in range(i+1,len(s)-1):
+    a = s[0:i+1][::-1]
+    b = s[i+1:j+1][::-1]
+    c = s[j+1:][::-1]
+    arr.append(a+b+c)
+arr.sort()
+print(arr[0])
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 숫자 야구](https://www.acmicpc.net/problem/2503)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_2503.md/)
+
+{% tabs %}
+{% tab title='BJ_2503.md' %}
+
+> Question
+
+* 숫자 야구의 결과값이 주어질 떄
+* 첫 줄에 영수가 생각하고 있을 가능성이 있는 답의 총 개수를 출력한다
+
+```txt
+Input:
+4
+123 1 1
+356 1 0
+327 2 0
+489 0 1
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_2503.py' %}
+
+```py
+def check(number, answer):
+  strike, ball = 0, 0
+  for i, v in enumerate(str(number)):
+    if v in str(answer[0]):
+      if v == str(answer[0])[i]:
+        strike += 1
+      else:
+        ball += 1
+  return answer[1] == strike and answer[2] == ball
+
+res = []
+numbers = []
+for i in range(123, 988):
+  if '0' not in str(i) and len(set(list(str(i)))) == 3:
+    numbers.append(i)
+N = int(input())
+answers = []
+for i in range(N):
+  answers.append(list(map(int, input().split())))
+for number in numbers:
+  for answer in answers:
+    if not check(number, answer):
+      break
+  else:
+    res.append(number)
+print(len(res))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 진짜 메시지](https://www.acmicpc.net/problem/9324)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_9324.md/)
+
+{% tabs %}
+{% tab title='BJ_9324.md' %}
+
+> Question
+
+* An algorithmically modified message is inserted one more time with each character appearing three times
+* Find out if each character is fake
+
+```txt
+Input:
+3
+BAPC
+AABA
+ABCABCBBAAACC
+
+Output:
+OK
+FAKE
+OK
+```
+
+{% endtab %}
+{% tab title='BJ_9324.py' %}
+
+```py
+for _ in range(int(input())):
+  s=input()
+  c=[0]*26
+  for i in range(len(s)):
+    x=s[i]
+    j=ord(x)-65
+    c[j]+=1
+    if c[j]%4==3:
+      if i==len(s)-1 or s[i+1]!=x:
+        print('FAKE')
+        break
+  else:
+    print('OK')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 문자열](https://www.acmicpc.net/problem/1120)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_1120.md/)
+
+{% tabs %}
+{% tab title='BJ_1120.md' %}
+
+> Question
+
+* Add any alphabet before A
+* Add any alphabet after A
+* At this time, write a program that has the same length as A and B, but minimizes the difference between A and B
+
+```txt
+Input: adaabc aababbc
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1120.py' %}
+
+```py
+a, b = input().split()
+cnts = list()
+for i in range(len(b) - len(a)+1):
+  cnt = 0
+  for j in range(len(a)):
+    if(a[j] != b[j+i]):
+      cnt += 1
+  cnts.append(cnt)
+print(min(cnts))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 숫자 정사각형](https://www.acmicpc.net/problem/1051)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_1051.md/)
+
+{% tabs %}
+{% tab title='BJ_1051.md' %}
+
+> Question
+
+* Find largest square where corners have same number
+
+```txt
+Input:
+3 5
+42101
+22100
+22101
+
+Output: 9
+```
+
+{% endtab %}
+{% tab title='BJ_1051.py' %}
+
+```py
+N, M = map(int, input().split())
+m = min(N, M)
+li = []
+for _ in range(N):
+  li.append(list(map(int, list(input()))))
+ok = False
+for l in range(m, 0, -1):
+  if ok:
+    break
+  for i in range(N+1-l):
+    if ok:
+      break
+    for j in range(M+1-l):
+      if li[i][j] == li[i+l-1][j] == li[i+l-1][j+l-1] == li[i][j+l-1]:
+        ans = l
+        ok = True
+        break
+print(ans**2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : idy Numbers (Large)](https://www.acmicpc.net/problem/14791)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_14791.md/)
+
+{% tabs %}
+{% tab title='BJ_14790.md' %}
+
+> Question
+
+* Tidy number, when written in base 10 with no leading zeroes, have their digits sorted in non-decreasing order
+* Some examples of this are 8, 123, 555, and 224488
+* Print last tidy number smaller than x
+
+```txt
+Input:
+4
+132
+1000
+7
+111111111111111110
+
+Output:
+Case #1: 129
+Case #2: 999
+Case #3: 7
+Case #4: 99999999999999999
+```
+
+{% endtab %}
+{% tab title='BJ_14790.py' %}
+
+```py
+def preceding_tidy(number):
+  number = list(map(int, number))
+  for i in range(len(number)-2, -1, -1):
+    if number[i] > number[i+1]:
+      number[i] -= 1
+      for j in range(i+1, len(number)):
+        number[j] = 9
+  return ''.join(str(n) for n in number).lstrip('0')
+
+for i in range(int(input())):
+  print(f"Case #{i + 1}: {preceding_tidy(input())}")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 8 : 마인크래프트](https://www.acmicpc.net/problem/18111)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_18111.md/)
+
+{% tabs %}
+{% tab title='BJ_18111.md' %}
+
+> Question
+
+* Remove the topmost block of coordinates (i, j) and place it in the inventory
+* Take a block out of the inventory and place it on top of the block at the top of the coordinates (i, j)
+* Task number 1 takes 2 seconds and task number 2 takes 1 second
+* At night, scary monsters come out, so you have to finish picking the ground as soon as possible
+* Print out the minimum time required for the 'land picking' operation and the height of the ground
+
+```txt
+Input:
+3 4 99
+0 0 0 0
+0 0 0 0
+0 0 0 1
+
+Output: 2 0
+```
+
+{% endtab %}
+{% tab title='BJ_18111.py' %}
+
+```py
+import sys
+input = sys.stdin.readline
+n, m, b = map(int, input().split())
+G = [list(map(int, input().split())) for _ in range(n)]
+height, ans = 0, float('inf')
+for i in range(257):
+  mx, mn = 0, 0
+  for row in G:
+    for e in row:
+      if e < i:
+        mn += i - e
+      else:
+        mx += e - i
+  if mx + b >= mn:
+    time = 2 * mx + mn
+    if time <= ans:
+      ans = time
+      height = i
+print(ans, height)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 리모컨](https://www.acmicpc.net/problem/1107)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_1107.md/)
+
+{% tabs %}
+{% tab title='BJ_1107.md' %}
+
+> Question
+
+* 수빈이는 TV를 보고 있다. 수빈이는 채널을 돌리려고 했지만, 버튼을 너무 세게 누르는 바람에, 일부 숫자 버튼이 고장났다
+* 리모컨에는 버튼이 0부터 9까지 숫자, +와 -가 있다. +를 누르면 현재 보고있는 채널에서 +1된 채널로 이동하고, -를 누르면 -1된 채널로 이동한다
+* 채널 0에서 -를 누른 경우에는 채널이 변하지 않고, 채널은 무한대 만큼 있다
+* 수빈이가 지금 이동하려고 하는 채널은 N이다. 어떤 버튼이 고장났는지 주어졌을 때, 채널 N으로 이동하기 위해서 버튼을 최소 몇 번 눌러야하는지 구하는 프로그램을 작성하시오
+
+```txt
+Input:
+5457
+3
+6 7 8
+
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_1107.py' %}
+
+```py
+n, m = int(input()), int(input())
+s = list(input().strip())
+result = abs(n - 100)
+for i in range(1000001):
+  if all(n not in s for n in str(i)):
+    result = min(result, len(str(i)) + abs(i - n))
+print(result)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 테트로미노](https://www.acmicpc.net/problem/14500)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_14500.md/)
+
+{% tabs %}
+{% tab title='BJ_14500.md' %}
+
+> Problem
+
+* Find maximum block with tetromino
+
+![BJ_14500](bruteforce/images/20210304_200335.png)
+
+```txt
+Input:
+5 5
+1 2 3 4 5
+5 4 3 2 1
+2 3 4 5 6
+6 5 4 3 2
+1 2 1 2 1
+
+Output:
+19
+```
+
+{% endtab %}
+{% tab title='BJ_14500.py' %}
+
+```py
+n, m = map(int, input().split())
+a = [list(map(int, input().split())) for _ in range(n)]
+b = [
+  [(0,1), (1,0), (1,1)],
+  [(0,1), (0,2), (0,3)],
+  [(1,0), (2,0), (3,0)],
+  [(0,1), (0,2), (1,0)],
+  [(0,1), (0,2), (-1,2)],
+  [(1,0), (1,1), (1,2)],
+  [(0,1), (0,2), (1,2)],
+  [(1,0), (2,0), (2,1)],
+  [(0,1), (1,1), (2,1)],
+  [(0,1), (1,0), (2,0)],
+  [(1,0), (2,0), (2,-1)],
+  [(1,0), (1,1), (2,1)],
+  [(0,1), (1,0), (-1,1)],
+  [(0,1), (1,0), (1,-1)],
+  [(0,1), (1,1), (1,2)],
+  [(0,1), (0,2), (1,1)],
+  [(1,0), (1,1), (1,-1)],
+  [(1,0), (2,0), (1,-1)],
+  [(1,0), (1,1), (2,0)]]
+
+def tetromino(x, y):
+  ret = 0
+  for i in range(19):
+    cur = a[x][y]
+    for j in range(3):
+      try:
+        nx = x+b[i][j][0]
+        ny = y+b[i][j][1]
+        cur += a[nx][ny]
+      except IndexError:
+        continue
+    ret = max(ret, cur)
+  return ret
+
+ans = 0
+for i in range(n):
+  for j in range(m):
+    ans = max(ans, tetromino(i, j))
+
+print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 괄호 추가하기](https://www.acmicpc.net/problem/16637)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/BJ_16637.md/)
+
+{% tabs %}
+{% tab title='BJ_16637.md' %}
+
+> Question
+
+* Maximize equation using unnested braces
+
+```txt
+Input:
+9
+3+8*7-9*2
+Output:136
+```
+
+{% endtab %}
+{% tab title='BJ_16637.py' %}
+
+```py
+der recur(n, expr):
+  if expr == '':
+    return n
+  if len(expr) == 2:
+    return eval(f"({n}){expr}")
+  return max(recur(eval(f"({n}){expr[:2]}"), expr[2:]), recur(eval(f"({n}){expr[0]}({expr[1:4]})"), expr[4:]))
+
+input()
+expr = input()
+print(recur(int(expr[0]), expr[1:]))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 3 : First Missing Positive](https://leetcode.com/problems/first-missing-positive)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/bruteforce/LC_41.md/)
+
+{% tabs %}
+{% tab title='LC_41.md' %}
+
+> Question
+
+* Given an unsorted integer array nums, find the smallest missing positive integer
+
+```txt
+Input: nums = [1,2,0]
+Output: 3
+```
+
+{% endtab %}
+{% tab title='LC_41.cpp' %}
+
+```cpp
+int firstMissingPositive(int A[], int n) {
+  for (int i = 0; i < n; ++ i)
+    while (A[i] > 0 && A[i] <= n && A[A[i] - 1] != A[i])
+      swap(A[i], A[A[i] - 1]); // Put number in its right place
+
+  for(int i = 0; i < n; ++ i)
+    if(A[i] != i + 1)
+      return i + 1;
+
+  return n + 1;
+}
+```
+
+{% endtab %}
+{% endtabs %}
