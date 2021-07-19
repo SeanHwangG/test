@@ -43,7 +43,6 @@
 * Collision Domain: A network segment where only one device can communicate at a time
   * If multiple systems send data at once, electrical pulses sent across cable can interfere with each other
 
-* HTTPS: uses the private and public keys encryption method to encrypt the communication between the website and the server
 * SSL: Certified Authors: GlobalSign, Cloud Flare (Free), Comodo (Paid/Free), GeoTrust (Free Trial), DigiCert
 
 ### DNS
@@ -97,25 +96,26 @@
 
 ### SEO
 
-> On-site SEO
+* sitemap.xml: Informs search engines of the site structures
+  * provides some meta information about individual pages
 
-![On-site SEO](images/20210514_153407.png)
+* On-site SEO: titles, tags and meta description
+  * Make them specific and relevant to user’s keywords. add meat of content in first 150 characters of meta descriptions
+  * the actual content on your website: Add Contact Us section, add testimonials etc
+  * main elements: By adding the primary keywords in the main elements of your site like headings, titles, footer etc
+  * URLs: include primary keywords in the URLs of your website and keep them as simple and shorter as possible
+  * XML Sitemap: Generate and submit an XML Sitemap to search engines
+    * let the search engine know whenever you make any changes like add a new page, or edit content
+  * Robot.txt: placed in root dir of domain that instructs web crawlers which part / index of website can crawl
+  ![On-site SEO](images/20210514_153407.png)
 
-* titles, tags and meta description
-  * Make them specific and relevant to user’s keywords. add meat of content in first 150 characters of your meta descriptions
-* the actual content on your website: Add Contact Us section, add testimonials etc
-* main elements: By adding the primary keywords in the main elements of your site like headings, titles, footer etc
-* URLs: Make sure to include primary keywords in the URLs of your website and keep them as simple and shorter as possible
-* XML Sitemap: Generate and submit an XML Sitemap to search engines
-  * let the search engine know whenever you make any changes like add a new page, or edit content
-* Robot.txt: placed in root dir of domain that instructs web crawlers which part / index of website can crawl
-
-> Off-site SEO
-
-* backlinks to your website from other sources such as social media, articles, blogs
-* Look up for websites that already link competitors (ex: Google Adwords and Ahrefs)
+* Off-site SEO: backlinks to your website from other sources such as social media, articles, blogs
+  * Look up for websites that already link competitors (ex: Google Adwords and Ahrefs)
 
 ## Communication
+
+{% tabs %}
+{% tab title='shell' %}
 
 * ifconfig: configure network interface parameters
   * apt install net-tools
@@ -132,51 +132,199 @@
 * speedtest-cli
   * sudo pip3 install speedtest-cli
 
-### http
+{% endtab %}
+{% endtabs %}
+
+## http
+
+![HTTP](images/20210719_163846.png)
+
+* Hypertext Transfer Protocol is application-layer protocol for transmitting hypermedia docs with port 80 ([ex] HTML)
+* [-] Stateless: no link between two requests being successively carried out on the same connection
+* [+] Authentication: [ex] WWW-Authenticate, or specific session using HTTP cookies
+* [+] Caching: server can instruct proxies and clients, about what to cache and for how long
+* [+] Proxy: hide their true IP address from other computers
+* [+] Relaxing origin constraint: allowing document to become a patchwork of information sourced from different domains
+* [+] Session: Cookies allow user to carry auth information
 
 {% tabs %}
 {% tab title='shell' %}
 
-> gunicorn
-
-* based on the pre-fork worker model → a central master process that manages worker processes
-* master never knows anything about individual clients
-* All requests and responses are handled completely by worker processes
-* Best practice: number of worker
-  * DO NOT scale the number of workers to the number of clients you expect to have
-  * should only need 4-12 worker processes to handle hundreds or thousands of requests per second
-  * recommend (2 x $num_cores) + 1 as the number of workers to start off with
-  * Too many processes start thrashing system resources decreasing throughput of entire system
-  * gunicorn --bind:8080 --workers 1 --threads 8 page.app:app
-
-* --chdir
+* gunicorn: based on the pre-fork worker model → a central master process that manages worker processes
+  * master never knows anything about individual clients
+  * All requests and responses are handled completely by worker processes
+  * Best practice: number of worker
+    * DO NOT scale the number of workers to the number of clients you expect to have
+    * should only need 4-12 worker processes to handle hundreds or thousands of requests per second
+    * recommend (2 x $num_cores) + 1 as the number of workers to start off with
+    * Too many processes start thrashing system resources decreasing throughput of entire system
+    * gunicorn --bind:8080 --workers 1 --threads 8 page.app:app
+  * --chdir
 
 {% endtab %}
 {% tab title='python' %}
 
-> http.server.HTTPServer
+* http.server.HTTPServer
+  * serve_forever()
+  * python3 -m http.server
 
-* serve_forever()
-* python3 -m http.server
+* http.server
+  * python -m http.server --cgi 8000
 
-> http.server
+* django.http
+  * HttpRequest()
+  * HttpResponse()
+    * content: raw bytes
+  * HttpResponseNotFound()
+  * get_object_or_404(): prefer over get, only use in views
+  * render(`request`, `context`)
 
-* python -m http.server --cgi 8000
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+  return HttpResponse("Hello World!")
+
+# 1. Single paramter
+def show_age(request, age):
+  return HttpResponse(f"I am {age} years old.")
+```
 
 {% endtab %}
 {% endtabs %}
 
+### Apache
+
+> Terms
+
+* Order allow,deny: Deny will win if matched by both directives
+* Order deny,allow: allow will win if matched by both directives
+* Require all granted: Allow all requests
+* Require all denied: Deny all requests
+* Require host safe.com: Only from safe.com are allowed
+
+* hostname
+* hostnamectl
+* httpd: Apache HyperText Transfer Protocol (HTTP) server program
+  * sudo brew services restart httpd
+  * /usr/local/etc/httpd/httpd.conf: mac
+  * /home1/irteam/apps/apache/conf/httpd.conf: server
+  * /home1/irteam/apps/apache
+
+![apache workflow](images/20210305_210007.png)
+
+* CLI
+  * apachectl: wrapper over httpd and just sets some environment variables and adds further functionality
+    * -V: show which apache config using
+    * cgid_: creates external daemon responsible for forking child processes to run CGI scripts
+    * restart
+
+{% tabs %}
+{% tab title='shell' %}
+
+* Mac
+  * brew install apache2
+  * brew services start httpd
+
+{% endtab %}
+{% endtabs %}
+
+> Error
+
+* 48)Address already in use: AH00072: make_sock: could not bind to address [::]:80
+  * sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist
+  * sudo apachectl -k restart
+
+* Internal Server Error
+  * server encountered an internal error or misconfiguration and was unable to complete your request
+
+* /usr/local/bin/apachectl: line 95: lynx: command not found
+  * sudo tail /var/log/apache2/error_log
+
+> Reference
+
+<https://httpd.apache.org/docs/current/ssl/ssl_howto.html>
+<https://www.educative.io/courses/securing-nodejs-apps/qV9MEpkDGjG>
+
+{% repo 'apache-files' %}
+
+### nginx
+
+* Can couple as a reverse proxy server, host more than one site
+* Has async way (not rely on threads) of handling web requests -> higher performance while handling multiple request
+* load balancing traffic
+* terminate SSL encryption and serve static files
+
+* nginx
+  * -s reload: update nignx
+  * -t: Check syntax
+  * -g: set global configuration directives ([ex] 'daemon off;')
+
+* sudo systemctl
+  * status nginx: nginx current status
+  * stop nginx: Stop nginx
+  * reload nginx: Reload nginx
+  * restart nginx: Restart nginx
+
+{% repo 'nginx-conf' %}
+{% repo 'lemp' %}
+
+## HTTPS
+
+* Use port 443 with SSL-encrypted message body
+* uses the private and public keys encryption method to encrypt the communication between website and server
+* [+] protected from man-in-the-middle attacks, including the session hijacking
+* [-] virtual hosts cannot be used with SSL ([ex] shared hosting or running multiple sites on the same server)
+* [-] Speed: require SSL handshakes to establish the connection -> subsequent connections are faster so not much issue
+
+> Terms
+
+* Certificate
+  * Domain validated: cheap (50$) but do not verify as much information as their counterparts ([ex] let's encrypt)
+  * Extended Validation: validate you as domain’s owner and verify identity and legitimacy of domain owner
+* /usr/bin/ssl/yourApp.key: RSA Key
+* /usr/bin/ssl/yourApp.csr: certificate signing request
+
+{% tabs %}
+{% tab title='shell' %}
+
+* openssl
+  * genrsa -out yourApp.key 1024
+  * req -new -key yourApp.key -out yourApp.csr
+
+{% endtab %}
+{% endtabs %}
+
+> Reference
+
+<https://letsencrypt.org/>
+
 ### Client
 
 {% tabs %}
-{% tab title='graphql' %}
+{% tab title='javascript' %}
+
+* Express: web application framework works on the server-side, running on top of node.js
+  * Handle route, accept client requests, retrieve data from DB, prepare views and send back responses
 
 ```js
+// 1. Rest client
+const express = require('express');
+const PORT = process.env.HTTP_PORT || 4001;
+const app = express();
+app.get('/', (req, res) => {
+  res.send('flowers smell nice');
+});
+app.listen(PORT, () => {
+  console.log(`Server listening at port ${PORT}.`);
+});
+
+// 2. graphql Client
 const client = new client("https://myapi.com/graphql");
 
 
-// Now, send your query as a string (Note that ` is used to create a multi-line
-// string in javascript).
+/* Now, send your query as a string (Note that ` is used to create a multi-line string in javascript).
 
 client.query(`
   query {
@@ -185,6 +333,35 @@ client.query(`
       name
     }
   }`);
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+* Schema()
+  * auto_camelcase: [ex] **True**, False
+
+```py
+import graphine
+
+# 1. graphql
+
+class Query(graphene.ObjectType):
+  is_staff = graphene.Boolean()
+
+  def resolve_is_staff(self, info):
+    return True
+
+schema = graphene.Schema(query=Query)
+
+result = schema.execute(
+  '''
+  {
+    isStaff
+  }
+  '''
+)
+print(dict(result.data.items()))  # {'isStaff': True}
 ```
 
 {% endtab %}
@@ -216,6 +393,9 @@ client.query(`
 * Secure shell mostly used in terminal/command line to do something on remote computer with encrypted traffic
 * Protocol1 is less secure which can be changed in ssh/config
 
+{% tabs %}
+{% tab title='bash' %}
+
 > Command
 
 * ssh: Forwarding sends data in one port through a SSH and send it to a port on the remote
@@ -238,8 +418,8 @@ client.query(`
   * -s: Generate Bourne shell commands on stdout
 
 * ssh-keygen: create public, private key
-  * public key (id_rsa.pub) encrypt messages, server knows a set of public keys it trusts
-  * private key (id_rsa), stored in PC, decrypts messages (mathematical relations with public key)
+  * public key ([ex] id_rsa.pub) encrypt messages, server knows a set of public keys it trusts
+  * private key ([ex] id_rsa), stored in PC, decrypts messages (mathematical relations with public key)
   * append (id_rsa.pub) to known_hosts in ~/.ssh/authorized_keys
   * -b `num`: Specifies # bits in the key to create ([ex] 4096)
   * -H: hash known hosts file
@@ -254,37 +434,64 @@ client.query(`
 * sshpass: allows us to supply password to the Linux CLI, helps to supply SSH password in automation scripts
   * -p `password`
 
+* Window
+  * Window10 supports native ssh, putty is required in older version of Windows
+  * Use Git bash & other terminall programs
+* Ubuntu
+  * sudo service ssh status: Check ssh status
+* Restart ssh
+  * sudo launchctl unload  /System/Library/LaunchDaemons/ssh.plist
+  * sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+
 ```sh
 echo $SSH_CONNECTION  # Check ssh ip
 
 # 1. Enable ssh on other machine (ssh-copy-id)
 ssh-keygen -t rsa -b 4096
-
 ssh-copy-id user@hostname.example.com
+
+# 2. without password
+ssh-keygen -t rsa -b 4096
+
+export USER_AT_HOST="your-user-name-on-host@hostname"
+export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
+ssh-copy-id -i "$PUBKEYPATH" "$USER_AT_HOST"  # Linux host
+ssh $USER_AT_HOST "powershell New-Item -Force -ItemType Directory -Path \"\$HOME\\.ssh\"; Add-Content -Force \
+  -Path \"\$HOME\\.ssh\\authorized_keys\" -Value '$(tr -d '\n\r' < "$PUBKEYPATH")'"  # window host
 ```
+
+> ssh localhost: sean@localhost: Permission denied (publickey).
+
+```sh
+cd ~/.ssh
+cat id_rsa.pub >> authorized_keys
+chmod 640 authorized_keys
+sudo service ssh restart
+ssh localhost
+```
+
+{% endtab %}
+{% endtabs %}
 
 {% tabs %}
-{% tab title='window' %}
+{% tab title='gcp' %}
 
-* Window10 supports native ssh, putty is required in older version of Windows
-* Use Git bash & other terminall programs
+> gcloud compute CLI
 
-{% endtab %}
-{% tab title='ubuntu' %}
+* config-ssh: Create ~/.ssh/config automatically
+  * --delete: clear ~/.ssh/config generated by google
+* firewall-rules
+  * create: [ex] default-allow-ssh
+    * --allow tcp:22
+  * describe: [ex] default-allow-ssh
+    * --project `project`
+  * list
 
-```sh
-# 1. Check ssh status
-sudo service ssh status
-```
+> gcloud.compute.ssh) [/usr/bin/ssh] exited with return code [255]
 
-{% endtab %}
-{% tab title='mac' %}
-
-```sh
-# 1. Restart ssh
-sudo launchctl unload  /System/Library/LaunchDaemons/ssh.plist
-sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
-```
+* Add ~/.ssh/google_compute_engine.pub to
+  [Metadata](https://console.cloud.google.com/compute/metadata?project=seanhwangg&folder&organizationId)
+  [Documentation](cloud.google.com/compute/docs/instances/adding-removing-ssh-keys#edit-ssh-metadata)
 
 {% endtab %}
 {% tab title='vscode' %}
@@ -296,16 +503,6 @@ sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 
 {% endtab %}
 {% endtabs %}
-
-> ssh localhost: sean@localhost: Permission denied (publickey).
-
-```sh
-cd ~/.ssh
-cat id_rsa.pub >> authorized_keys
-chmod 640 authorized_keys
-sudo service ssh restart
-ssh localhost
-```
 
 ### SSH Client
 
@@ -486,80 +683,6 @@ rsync -av -e "ssh -i /path/to/your.pem" . ec2-user@ec2-WWW-XXX-YYY-ZZZ.REGION.co
 rsync -rav --include '*/' --include '*.bin' --exclude='*' . remote:/data: Copy all bin files to remote
 rsync -avCL -e "ssh tunnel ssh" cgw01.nlp:/home/data/*.db .: get files through tunnel
 ```
-
-## apache
-
-> Terms
-
-* Apache
-  * Order allow,deny: Deny will win if matched by both directives
-  * Order deny,allow: allow will win if matched by both directives
-  * Require all granted : Allow all requests
-  * Require all denied  : Deny all requests
-  * Require host safe.com: Only from safe.com are allowed
-
-> CLI
-
-* apachectl: wrapper over httpd and just sets some environment variables and adds further functionality
-  * -V: show which apache config using
-  * cgid_: creates external daemon responsible for forking child processes to run CGI scripts
-
-* hostname
-* hostnamectl
-* httpd: Apache HyperText Transfer Protocol (HTTP) server program
-  * sudo brew services restart httpd
-  * /usr/local/etc/httpd/httpd.conf: mac
-  * /home1/irteam/apps/apache/conf/httpd.conf: server
-  * /home1/irteam/apps/apache
-
-![apache workflow](images/20210305_210007.png)
-
-> 48)Address already in use: AH00072: make_sock: could not bind to address [::]:80
-
-* sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist
-* sudo apachectl -k restart
-
-> Internal Server Error
-
-* server encountered an internal error or misconfiguration and was unable to complete your request
-
-> /usr/local/bin/apachectl: line 95: lynx: command not found
-
-* sudo tail /var/log/apache2/error_log
-
-{% tabs %}
-{% tab title='mac' %}
-
-* brew install apache2
-* brew services start httpd
-
-{% endtab %}
-{% endtabs %}
-
-### Apache File
-
-{% repo 'usr' %}
-
-## nginx
-
-* Can couple as a reverse proxy server, host more than one site
-* Has async way (not rely on threads) of handling web requests -> higher performance while handling multiple request
-* load balancing traffic
-* terminate SSL encryption and serve static files
-
-* nginx
-  * -s reload: update nignx
-  * -t: Check syntax
-  * -g: set global configuration directives ([ex] 'daemon off;')
-
-* sudo systemctl
-  * status nginx: nginx current status
-  * stop nginx: Stop nginx
-  * reload nginx: Reload nginx
-  * restart nginx: Restart nginx
-
-{% repo 'nginx-conf' %}
-{% repo 'lemp' %}
 
 ## NFS
 

@@ -1,0 +1,77 @@
+> hackerrank
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/paste/HR_paste-1.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-paste-1.md' %}
+
+* join all rows with ;
+
+{% endtab %}
+{% tab title='HR_text-processing-paste-1.sh' %}
+
+```sh
+# -d
+# Use one or more of the provided characters to replace the newline characters instead of the default tab.
+# -s
+# Concatenate all of the lines of each separate input file in command line order.
+paste -sd ';'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/paste/HR_paste-2.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-paste-2.md' %}
+
+* Restructure the file so that three consecutive rows are folded into one line and are separated by semicolons
+
+{% endtab %}
+{% tab title='HR_text-processing-paste-2.sh' %}
+
+```sh
+paste - - - -d ';'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/paste/HR_paste-3.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-paste-3.md' %}
+
+* Replace the newlines in the input with tabs as demonstrated in the sample
+
+{% endtab %}
+{% tab title='HR_text-processing-paste-3.sh' %}
+
+```sh
+paste -s
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/paste/HR_paste-4.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-paste-4.md' %}
+
+* Restructure that every group of three consecutive rows are folded into one, and separated by tab
+
+{% endtab %}
+{% tab title='HR_text-processing-paste-4.sh' %}
+
+```sh
+paste - - -
+```
+
+{% endtab %}
+{% endtabs %}

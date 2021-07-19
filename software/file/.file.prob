@@ -1,6 +1,6 @@
 > hackerrank
 
-* [Level  : UNKNOWN]()
+* [Level Easy : Display an element of an array](https://www.hackerrank.com/challenges/bash-tutorials-display-the-third-element-of-an-array/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_bash-tutorials-display-the-third-element-of-an-array.md/)
 
 {% tabs %}
@@ -20,7 +20,7 @@ head -n3 | tail -n1
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Easy : Head of a Text File #1](https://www.hackerrank.com/challenges/text-processing-head-1/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-head-1.md/)
 
 {% tabs %}
@@ -41,7 +41,7 @@ head -n 20
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Easy : Head of a Text File #2](https://www.hackerrank.com/challenges/text-processing-head-2/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-head-2.md/)
 
 {% tabs %}
@@ -61,7 +61,7 @@ head -c 20
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Easy : Middle of a Text File](https://www.hackerrank.com/challenges/text-processing-in-linux---the-middle-of-a-text-file/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-in-linux---the-middle-of-a-text-file.md/)
 
 {% tabs %}
@@ -82,7 +82,7 @@ head -n 22 | tail -n +12
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Easy : Tail of a Text File #1](https://www.hackerrank.com/challenges/text-processing-tail-1/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-tail-1.md/)
 
 {% tabs %}
@@ -102,7 +102,7 @@ tail -n 20
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Easy : Tail of a Text File #2](https://www.hackerrank.com/challenges/text-processing-tail-2/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/file/HR_text-processing-tail-2.md/)
 
 {% tabs %}

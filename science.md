@@ -6,6 +6,9 @@
 
 ![Scientific method](images/20210704_235449.png)
 
+* cardinal points: (4: write east west in Korean)
+  ![cardinal points](images/20210718_145553.png)
+
 ## Engineering
 
 * study of algorithmic processes, computational machines and computation itself

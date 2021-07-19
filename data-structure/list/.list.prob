@@ -129,7 +129,7 @@ else:
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : tatistics](https://www.acmicpc.net/problem/20674)
+* [Level 3 : Statistics](https://www.acmicpc.net/problem/20674)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_20674.md/)
 
 {% tabs %}

@@ -1,6 +1,6 @@
 > baekjoon
 
-* [Level 1 : +B](https://www.acmicpc.net/problem/1000)
+* [Level 1 : A+B](https://www.acmicpc.net/problem/1000)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_1000.md/)
 
 {% tabs %}
@@ -81,7 +81,7 @@ endmodule
 * [Level 1 : 큰 수 A+B](https://www.acmicpc.net/problem/10757)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_10757.md/)
 
-[//]: # (BJ_1000)
+[Duplicate](./BJ_1000.md)
 
 * [Level 1 : 꼬마 정민](https://www.acmicpc.net/problem/11382)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_11382.md/)
@@ -143,7 +143,7 @@ print(a % 20000303)
 {% endtab %}
 {% endtabs %}
 
-* [Level 1 : +B - 9](https://www.acmicpc.net/problem/15740)
+* [Level 1 : A+B - 9](https://www.acmicpc.net/problem/15740)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_15740.md/)
 
 {% tabs %}
@@ -222,7 +222,7 @@ print(a-1946)
 {% endtab %}
 {% endtabs %}
 
-* [Level 1 : +B - 2](https://www.acmicpc.net/problem/2558)
+* [Level 1 : A+B - 2](https://www.acmicpc.net/problem/2558)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_2558.md/)
 
 {% tabs %}
@@ -350,7 +350,7 @@ print((a + b + c + d + e))
 {% endtab %}
 {% endtabs %}
 
-* [Level 1 : ext in line](https://www.acmicpc.net/problem/6749)
+* [Level 1 : Next in line](https://www.acmicpc.net/problem/6749)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_6749.md/)
 
 {% tabs %}
@@ -434,14 +434,14 @@ print(a * b // 2)
 * [Level nr : 더하기](https://www.acmicpc.net/problem/14918)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/BJ_14918.md/)
 
-[//]: # (BJ_1000)
+[Duplicate](./BJ_1000.md)
 
 > kattis
 
 * [Level 1.3 : Bijele](https://open.kattis.com/problems/bijele)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/KT_bijele.md/)
 
-[//]: # (BJ_3003)
+[Duplicate](./BJ_3003.md)
 
 * [Level 1.3 : Solving for Carrots](https://open.kattis.com/problems/carrots)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/KT_carrots.md/)
@@ -476,7 +476,7 @@ print(a)
 * [Level 1.9 : Simple Addition](https://open.kattis.com/problems/simpleaddition)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/add/KT_simpleaddition.md/)
 
-[//]: # (BJ_2558)
+[Duplicate](./BJ_2558.md)
 
 > leetcode
 

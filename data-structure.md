@@ -1,5 +1,10 @@
 # Data Structure
 
+> Term
+
+* Abstract data types: Logical description ([ex] List, Map)
+* Data Structure: concrete ([ex] LinkedList, ArrayList, HashMap, TreeMap)
+
 ## Time
 
 {% tabs %}

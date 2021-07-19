@@ -8,7 +8,7 @@
 
 * Area of revolution
 
-$$ S=\int_{a}^{b} 2 \pi f(x) \sqrt{1+\left[f^{\prime}(x)\right]^{2}} d x $$
+$$ S=\int_{a}^{b} 2 π f(x) \sqrt{1+\left[f^{\prime}(x)\right]^{2}} d x $$
 
 > Laplace
 

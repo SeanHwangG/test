@@ -38,12 +38,10 @@
 > Terms
 
 * clock cycles
-
-$$ \text{CPU clock cycles for a program} = \frac{\text{CPU execution time for a program}}{\text{Clock cycle time}} $$
+  $$ \text{CPU clock cycles for a program} = \frac{\text{CPU execution time for a program}}{\text{Clock cycle time}} $$
 
 * CPI (clock cycles per instruction): the average number of clock cycles each instruction takes to execute
-
-$$ CPI = \frac{\text{CPU clock cycles}}{\text{Instruction count}} $$
+  $$ CPI = \frac{\text{CPU clock cycles}}{\text{Instruction count}} $$
 
 * CPU Time: the time the CPU spends computing for this task
   * user CPU Time: time spent in the program
@@ -61,8 +59,9 @@ $$ CPI = \frac{\text{CPU clock cycles}}{\text{Instruction count}} $$
   * Kernel time is the time spent in Linux kernel, and user time is time spent in application or library code
   * not a separate process. a collection of code and data structures that the system uses to manage all the processes
   * ex) micro kernel, monolithic kernel, hybrid kernel, exokernel, microkernel
+  ![Kernel](images/20210301_181916.png)
 
-![Kernel](images/20210301_181916.png)
+* POSIX: Portable OS Interface, standards specified by the IEEE Computer Society for maintaining compatibility between OS
 
 * Response time (execution time): total time required for the computer to complete a task
   * disk accesses, memory accesses, I/O, operating system overhead, CPU execution
@@ -93,9 +92,10 @@ $$ CPI = \frac{\text{CPU clock cycles}}{\text{Instruction count}} $$
   * [ex] SIGALRM, SIGUP, SIGTERM, SIGSEGV
 * [ex] trap, fault (Divide by zero, Segmentation violation) and abort
 
-> Difference between I/O Interrupt vs Exception
+> Question
 
-* external events (serial ports, keyboard) vs instruction faults, (division by zero, undefined opcode)
+* Difference between I/O Interrupt vs Exception
+  * external events (serial ports, keyboard) vs instruction faults, (division by zero, undefined opcode)
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -208,7 +208,17 @@ try {
   * print_exc()
   * format_exc()
 
+* django
+  * APIException
+  * MiddlewareNotUsed: in the init function of your middleware to check if used
+  * ObjectDoesNotExist: when get doesn't return
+  * ValidationError
+
 ```py
+from django.utils.translation import ugettext_lazy as _
+from rest_framework import status
+from rest_framework.exceptions import APIException
+
 # 1. Exception trace
 import traceback
 try:
@@ -234,12 +244,21 @@ for x, y in test_cases:
   else:
     print("Successful")
 
-# 3. Raise exception quitely
+# 3. Raise exception
+""" Quitely """
 class StopExecution(Exception):
   def _render_traceback_(self):
     pass
 
 raise StopExecution
+
+""" Loudly """
+def test(a, b):
+  try:
+    assert a == b
+  except AssertionError:
+    print(a, b)
+    raise
 
 # 4. Raise exception on top of current
 try:
@@ -248,6 +267,22 @@ except ImportError as exc:
   raise ImportError("Couldn't import Django. Are you sure it's installed and "
                     "available on your PYTHONPATH environment variable? Did you "
                     "forget to activate a virtual environment?") from exc
+
+# 5. API Exception
+class BadRequest(APIException):
+  status_code = status.HTTP_400_BAD_REQUEST
+  default_detail = _('Bad Request.')
+  default_code = 'Bad Request.'
+
+# 6. Validation function (validator.py)
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ValidationError
+def validate_tasty(value):
+  """Raise a ValidationError if the value doesn't start with the word 'Tasty'. """
+  if not value.startswith('Tasty'):
+    msg = 'Must start with Tasty'
+  raise ValidationError(msg)
+# title = models.CharField(max_length=255, validators=[validate_tasty])
 ```
 
 {% endtab %}
@@ -262,39 +297,6 @@ except ImportError as exc:
 } || { # catch
     # save log for exception
 }
-```
-
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title='django' %}
-
-* APIException
-* MiddlewareNotUsed: in the init function of your middleware to check if used
-* ObjectDoesNotExist: when get doesn't return
-* ValidationError
-
-```py
-from django.utils.translation import ugettext_lazy as _
-from rest_framework import status
-from rest_framework.exceptions import APIException
-
-# 1. API Exception
-class BadRequest(APIException):
-  status_code = status.HTTP_400_BAD_REQUEST
-  default_detail = _('Bad Request.')
-  default_code = 'Bad Request.'
-
-# 2. Validation function (validator.py)
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.exceptions import ValidationError
-def validate_tasty(value):
-  """Raise a ValidationError if the value doesn't start with the word 'Tasty'. """
-  if not value.startswith('Tasty'):
-    msg = 'Must start with Tasty'
-  raise ValidationError(msg)
-# title = models.CharField(max_length=255, validators=[validate_tasty])
 ```
 
 {% endtab %}
@@ -451,8 +453,7 @@ def validate_tasty(value):
 * PCB (Process control block): data structure used by OS to store information about a process
   * When OS stops / run it saves / loads registers in PCB
   * dynamically allocated in OS memory (user process cannot access)
-
-![PCB](images/20210410_051204.png)
+  ![PCB](images/20210410_051204.png)
 
 * Process Queue: stores all process
 
@@ -477,8 +478,6 @@ def validate_tasty(value):
 * Ready: waiting to be assigned to the cpu
 * Waiting: waiting for an envent: I/O completion
 * Halted
-
-> Question : How many processes are created and ls is called?
 
 {% tabs %}
 {% tab title='c' %}
@@ -641,6 +640,74 @@ int main(int argc, char *arg[]) {
   * start()
   * join(`timeout`): method blocks until the process whose join() method is called terminates
 
+* os
+  * getuid(): current process’s real user id
+  * getpid(): current process id
+  * fork(): an operation whereby a process creates a copy of itself. usually a system call, implemented in the kernel
+
+* concurrent.futures
+  * as_completed(fs, timeout=None): returns an iterator over the Future instances
+  * ProcessPoolExecutor(initializer=init_globals, initargs=(counter,))
+  * submit(fn): returns Future object
+  * shutdown(wait=True): free using resources when currently pending futures are done executing
+  * cancel()
+  * cancelled()
+  * running()
+  * done()
+  * result(): returns the value returned by the call
+
+* shlex
+  * split(command_line): split command line into list
+
+* multiprocessing: used for CPU intensive tasks
+  * new process has \_\_mp_main\_\_
+  * cpu_count(): total number of cpu
+  * join(): Wait worker processes to exit, must call close|terminate()
+  * imap / map(func, iterable[, chunksize]): use imap to lower memory usage for long iterables
+  * starmap(func, iterable[, chunksize]): [(1,2), (3, 4)] ⇒ [func(1,2), func(3,4)]
+  * RawArray: Raw cannot be synchronized
+
+* subprocess
+  * run(["ls", "-l"]): simplified Popen, execute and wait
+    * capture_output=True
+    * text=True
+  * Popen(args): Execute a child program in a new process
+    * stdout=subprocess.PIPE
+    * stderr=subprocess.PIPE
+    * universal_newlines=False: input/output is accepted as bytes, not Unicode
+    * attributes
+      * returncode
+    * methods
+      * communicate() -> Tuple(byte, byte): returns stdout and sterr of output
+      * poll(): update return code
+      * wait(): Wait for child process to terminate
+
+```py
+import os
+import subprocess
+import time
+from collections import deque
+
+def top():
+  cpu_usages = [1]
+  while True:
+    process = subprocess.Popen("ps -a -o %cpu,%mem,cmd".split(), stdout=subprocess.PIPE)
+    out, _ = process.communicate()
+    try:
+      cpu_usages.append(int([line.split()[0] for line in out.decode('utf-8').split('\n') if "_type_" in line][0]))
+      print(cpu_usages)
+      time.sleep(0.1)
+    except Exception as e:
+      return sum(cpu_usages) / len(cpu_usages)
+
+def cpu_usage():
+  p = subprocess.Popen(['/usr/bin/time'] + ["ls"], stdout=open(os.devnull, 'wb', 0), stderr=subprocess.PIPE)
+  with p.stderr:
+    q = deque(iter(p.stderr.readline, b''), maxlen=2)
+    rc = p.wait()
+  return b''.join(q).decode().strip()
+```
+
 {% endtab %}
 {% tab title='shell' %}
 
@@ -759,15 +826,15 @@ def udp_server():
 {% tabs %}
 {% tab title='cpp' %}
 
-> sys/wait.h
-
-* pid_t waitpid(int *statloc, int options): return pid if success or -1 if failed
-  * pid=-1: wait for arbitrary
-  * pid=0: wait for same process group pid
-  * pid < 0 or pid >0: waitfor process with abs(pid)
+* sys/wait.h
+  * pid_t waitpid(int *statloc, int options): return pid if success or -1 if failed
+    * pid=-1: wait for arbitrary
+    * pid=0: wait for same process group pid
+    * pid < 0 or pid >0: waitfor process with abs(pid)
 
 ```cpp
 #include <sys/wait.h>
+
 // 1. Parent is okay even exec fails
 while (1) {
   char *cmd = read_command();
@@ -906,13 +973,13 @@ with timeout(1):
 
 ![Thread states](images/20210221_221853.png)
 
-> Kernel thread vs User thread
+> Question
 
-![Kernel Level vs User Level](images/20210414_231703.png)
-
-* User-lvel threads are invisible to the OS -> not well integrated so we can use both
-* Can associate a user-level thread with a kernel level thread
-* Multiplex user-level threads on top of kernel-level threads
+* Kernel thread vs User thread
+  ![Kernel Level vs User Level](images/20210414_231703.png)
+  * User-lvel threads are invisible to the OS -> not well integrated so we can use both
+  * Can associate a user-level thread with a kernel level thread
+  * Multiplex user-level threads on top of kernel-level threads
 
 | User Level (thread in JVM)               | Kernel Level                                    |
 | ---------------------------------------- | ----------------------------------------------- |
@@ -924,18 +991,15 @@ with timeout(1):
 {% tabs %}
 {% tab title='cpp' %}
 
-> pthread
-
-* Thread is joinable by default in pthread library
-
-* int ptrhead_create()
-  * pthread_t * thread: structure of type pthread_t
-  * const pthread_attr_t * attr: specify any attributes this thread might have (pagesize)
-  * void *(*start_routine(void*)): which function should this thread start running in
-  * void *arg: argument to be passed to the function
-* int pthread_join()
-  * ptrhead_t thread: used to specify which thread to wait for
-  * void **value_ptr: pointer to the return value you expect to get back
+* pthread: Thread is joinable by default in pthread library
+  * int ptrhead_create()
+    * pthread_t * thread: structure of type pthread_t
+    * const pthread_attr_t * attr: specify any attributes this thread might have (pagesize)
+    * void *(*start_routine(void*)): which function should this thread start running in
+    * void *arg: argument to be passed to the function
+  * int pthread_join()
+    * ptrhead_t thread: used to specify which thread to wait for
+    * void **value_ptr: pointer to the return value you expect to get back
 
 ```cpp
 #include <pthread.h>
@@ -1184,37 +1248,33 @@ while (1) {
   * set of pages a process needs in memory to prevent heavy faulting
   ![Working set vs pagefault](images/20210522_231004.png)
 
-> 32bit system with 1K pages, offest is 10bits and single level paging
+> Question
 
-* How many bits are in the VPN?
-  * 32 - 10 = 22 bits
-* For a virtual address of 0xFFFF, what is virtual page number?
-  * 0xFC00 (0x0000FFFF & 0xFFFFFC00) is page address
-  * 0x3F (0xFC00 >> 10)
-* What is physical address of the base of physical page number 0x4?
-  * 4 \* 1k = 4096
-* If virtual page for 0xFFFF is mapped to physical page number 0x4,
-  what's physical address corresponding to virtual address 0xFFFF
-  * 0x100 (physical) + 0x3FF (offset) = 0x13FF
+* 32bit system with 1K pages, offest is 10bits and single level paging
+  * How many bits are in the VPN?: 32 - 10 = 22 bits
+  * For a virtual address of 0xFFFF, what is virtual page number?
+    * 0xFC00 (0x0000FFFF & 0xFFFFFC00) is page address
+    * 0x3F (0xFC00 >> 10)
+  * What is physical address of the base of physical page number 0x4?
+    * 4 \* 1k = 4096
+  * If virtual page for 0xFFFF is mapped to physical page number 0x4,
+    what's physical address corresponding to virtual address 0xFFFF
+    * 0x100 (physical) + 0x3FF (offset) = 0x13FF
 
-> 44bit virtual address, page size is 64K and 4bytes per page table entry
-
-* How many pages are in the virtual address space?
+* 44bit virtual address, page size is 64K and 4bytes per page table entry
+  How many pages are in the virtual address space?
   * \# pages = 2^44 (virtual address space) / 2^16 (page size) = 2^28
 
-> When do most of the operating systems run a background thread to evict pages to free memory space?
+* When do most of the operating systems run a background thread to evict pages to free memory space?
+  * when they notice​ fewer​ HW pages available than LW pages available
 
-* when they notice​ fewer​ HW pages available than LW pages available
+* What would be valid, reference, modified bit immediately after a successful store instruction to a page in memory
+  * 1, 1, 1
 
-> What would be valid, reference, modified bit immediately after a successful store instruction to a page in memory
+* What is the most important factor in determining the page size
+  * TLB hit rate
 
-* 1, 1, 1
-
-> What is the most important factor in determining the page size
-
-* TLB hit rate
-
-> For three page frames, how many page faults would be generated
+* For three page frames, how many page faults would be generated
 
 ```cpp
 int A[][] = new int[100][100];
@@ -1436,6 +1496,123 @@ else:
 * line: of bits (aka, index)
 * tag: of lines required to uniquely identify a memory address block
 * word: least significant bits which uniquely identify a word on a line of cache
+
+{% tabs %}
+{% tab title='aws' %}
+
+* Redis3, Memcached, Redis 5
+
+{% endtab %}
+{% tab title='javascript' %}
+
+```js
+import React from 'react';
+
+const App = () => {
+  const stories = [
+    {
+      title: 'React',
+      url: 'https://reactjs.org/',
+      author: 'Jordan Walke',
+      num_comments: 3,
+      points: 4,
+      objectID: 0,
+    },
+    {
+      title: 'Redux',
+      url: 'https://redux.js.org/',
+      author: 'Dan Abramov, Andrew Clark',
+      num_comments: 2,
+      points: 5,
+      objectID: 1,
+    },
+  ];
+
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem('search') || 'React'
+  );
+
+  React.useEffect(() => {
+    localStorage.setItem('search', searchTerm);
+  }, [searchTerm]);
+
+  const handleSearch = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  const searchedStories = stories.filter(story =>
+    story.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div>
+      <h1>My Hacker Stories</h1>
+      <Search search={searchTerm} onSearch={handleSearch} />
+      <hr />
+      <List list={searchedStories} />
+    </div>
+  );
+};
+
+const Search = ({ search, onSearch }) => (
+  <div>
+    <label htmlFor="search">Search: </label>
+    <input
+      id="search"
+      type="text"
+      value={search}
+      onChange={onSearch}
+    />
+  </div>
+);
+
+const List = ({ list }) =>
+  list.map(item => <Item key={item.objectID} item={item} />);
+
+const Item = ({ item }) => (
+  <div>
+    <span>
+      <a href={item.url}>{item.title}</a>
+    </span>
+    <span>{item.author}</span>
+    <span>{item.num_comments}</span>
+    <span>{item.points}</span>
+  </div>
+);
+
+export default App;
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+* django
+
+```py
+# settings.py
+CACHES = {
+  'default': {
+    'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    'LOCATION': 'unique-snowflake',
+    'TIMEOUT': 300,  # 기본값 300초 = 5분
+    'OPTIONS': {
+      'MAX_ENTRIES': 300  # 기본값 = 300
+    }
+  }
+}
+```
+
+* view.html
+
+```html
+{% load cache %}
+{% cache 600 sidebar %}
+  .. sidebar ..
+{% endcache %}
+```
+
+{% endtab %}
+{% endtabs %}
 
 ### Invalidation
 
@@ -1663,25 +1840,21 @@ else:
 * Priority inversion: risk unless all resources are jointly scheduled (break on car)
 * priority inheritance
 
-> STCF (Shortest Time-to-Completion First) / PSJF (Preemptive Shortest Job First)
+> Term
 
-* determines which of the jobs has the least time left, and schedules that one
-* [-] starvation for long job (bad response time)
+* STCF (Shortest Time-to-Completion First) / PSJF (Preemptive Shortest Job First)
+  * determines which of the jobs has the least time left, and schedules that one
+  * [-] starvation for long job (bad response time)
 
-> RR (Round Robin)
+* RR (Round Robin): run time slice (scheduling quantum) and then switches to the next job in the queue
+  * length of a time slice must be a multiple of the timer-interrupt period
+  * [-] Time slice too large: Response time (heuristic: 7~80 % jobs within slice / 50 ms)
+  * [-] Time slice too small: Context switch, bad turnaround time
+  ![Round Robin](images/20210406_044023.png)
 
-* run time slice (scheduling quantum) and then switches to the next job in the queue
-* length of a time slice must be a multiple of the timer-interrupt period
-* [-] Time slice too large: Response time (heuristic: 7~80 % jobs within slice / 50 ms)
-* [-] Time slice too small: Context switch, bad turnaround time
-
-![Round Robin](images/20210406_044023.png)
-
-> MLFQ (Multi-level Feedback Queue)
-
-* Have multiple ready queues which use different algorithm for each
-* Move processes among queus based upon execution history
-* optimize turnaround time without knowing job length
+* MLFQ (Multi-level Feedback Queue): Have multiple ready queues which use different algorithm for each
+  * Move processes among queus based upon execution history
+  * optimize turnaround time without knowing job length
 
 {% tabs %}
 {% tab title='python' %}

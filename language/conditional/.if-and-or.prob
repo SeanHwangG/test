@@ -55,7 +55,7 @@ else:
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : elemarketer or not?](https://www.acmicpc.net/problem/16017)
+* [Level 2 : Telemarketer or not?](https://www.acmicpc.net/problem/16017)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_16017.md/)
 
 {% tabs %}
@@ -86,7 +86,7 @@ print('ignore' if a > 7 < d and b == c else 'answer')
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : arius님 한타 안 함?](https://www.acmicpc.net/problem/20499)
+* [Level 2 : Darius님 한타 안 함?](https://www.acmicpc.net/problem/20499)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_20499.md/)
 
 {% tabs %}
@@ -353,7 +353,7 @@ print("yup" if s == 'OCT 31' or s == 'DEC 25' else "nope")
 * [Level 1.3 : Quadrant Selection](https://open.kattis.com/problems/quadrant)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/KT_quadrant.md/)
 
-[//]: # (BJ_14681)
+[Duplicate](./BJ_14681.md)
 
 * [Level 1.8 : Moscow Dream](https://open.kattis.com/problems/moscowdream)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/KT_moscowdream.md/)

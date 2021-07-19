@@ -1,9 +1,169 @@
 # Web
 
-## Html
+> Term
 
-* Hyper Text Markup Language where W3 Consortium is main international standards organization
+* API (Application Programming Interface): a software intermediary that enables two apps to communicate with each other
+  * All Web services are APIs but not all APIs are Web services
+  * All Web services need a network to operate while APIs don’t need a network for operation
+  * First estimate your usage and understand how that will impact the overall cost of the offering
+  * Many protocols are now available to be used in API testing (ex JMS, REST, HTTP, UDDI and SOAP)
+* Content delivery network (CDN)
+* Cross-site request forgeries (csrf): POST, PUT, PATCH, DELETE request for secret session value that malicious app
+  * a type of malicious exploit whereby unauthorized commands are performed on behalf of an authenticated user
+* HTML: Hyper Text Markup Language where W3 Consortium is main international standards organization
   * request and response protocol, media independent protocol, stateless protocol
+* Framework: piece of code that dictates the architecture of your project and aids in programs
+* Library: pre-written JavaScript which allows for easier development of JavaScript-based applications
+* Websocket: two way communication between the clients and the servers
+  * Four main events: Open / Close / Error / Message
+* xml: Extensible Markup Language
+  * markup language that defines a set of rules for encoding documents both human and machine-readable
+* Same Origin Policy: When using XMLHttpRequest or Fetch API → local files origin is null
+* URI (Uniform Resource Identifier): string designed for identification of resources and extensibility via URI scheme
+* xss (Cross Site Scripting): users executed malicious scripts (payloads) unintentionally by clicking on untrusted links
+  * these scripts pass cookies information to attackers
+
+{% tabs %}
+{% tab title='javascript' %}
+
+* interpreted, dynamic typing, prototype-based programming language
+* Speed Optimization
+  * [Google page speed](https://developers.google.com/speed/pagespeed/insights/)
+  * [image optimization](https://tinyjpg.com)
+
+* ES5
+  * developed in 2009
+  * Fully supported in all modern browsers
+
+* ES6: ECMAScript 2015
+  * Internet Explorer does not support ECMAScript 2015
+  * let and const, default parameter values, Array.find(), Array.findIndex()
+
+> Terms
+
+* React
+  * Create-react-app → Need node > 6
+  * Webpack development environment → run live server and a development environment
+  * babel → manage your code, make it write a version compatible with older browsers
+
+> React Terms
+
+* JSX: React DOM escapes any values embedded in JSX before rendering them → Prevents Injection Attacks
+  * Babel compiles JSX down to React.createElement() calls
+
+* Element: React elements are immutable → can’t change its children or attributes
+  * ReactDOM.render() every second from a setInterval() callback → usually called once
+
+* Key: special string attribute you need to include when creating lists of elements
+  * key only has to be unique among its siblings, not globally unique
+
+* Props: props are read only
+
+```js
+function NumberList(props) {
+  return (
+    <ul>{props.numbers.map((number) => <li>{number}</li>);}</ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+
+const uuid = require('uuid/v1');
+const todoItems = todos.map((todo, index) =>
+  <li key={uuid()}> {todo.text} </li>
+);
+```
+
+> Maximum update depth exceeded error
+
+```jsx
+// pass function or use arrow function instead of calling it
+{<td><span onClick={this.toggle()}>Details</span></td>}
+{<td><span onClick={this.toggle}>Details</span></td>}
+```
+
+> Refused to apply style from 'https://cdn.jsdelivr.net/npm/instantsearch.js'
+  because its MIME type ('application/javascript') is'nt supported stylesheet MIME type, and strict MIME checking is enabled
+
+```html
+<link rel="stylesheet" href="styles.css"\>
+```
+
+> Uncaught SyntaxError: Cannot use import statement outside a module`
+
+```html
+<script type="module" src="../src/main.js"></script>
+```
+
+> (node:32660) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing
+  inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch().
+  To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict`
+  ([See also](https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode)). (rejection id: 1)
+  (node:32660) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated.
+  In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
+* Do not throw again in catch which is uncaught
+* Do not trust auto import, from sequelize.types -> from sequelize
+* await async function that throws an error
+
+{% endtab %}
+{% endtabs %}
+
+## Crawling
+
+* robot.txt: give rules on how site can be crawled
+  * links to sitemap
+
+{% tabs %}
+{% tab title='python' %}
+
+> bs4
+
+* from bs4 import BeautifulSoup
+
+* name: tagname
+* text, attrs: inside text, attribute object
+* next / previous_elements: next / previous tags generator
+* next / previous_siblings: next sibling tags generator
+* original_encoding
+
+* bs4.element.Tag
+  * string
+  * text
+  * clear(): removes the contents of a tag:
+  * decompose(): remove tag
+  * extract(): hide element
+  * find_all(tag, href=None, limit=None) → [Tags]: find all matching tags
+  * find("span"): find tags inside
+  * get_text():
+  * insert(pos, tag): insert tag to position
+  * insert_before() / after(): immediately before
+  * prettify()
+  * wrap(soup.new_tag("b")): wrap around new tags
+  * new_button = soup.new_tag('a')
+  * new_button.attrs["onclick"] = "toggle()"
+  * new_button.append('This is a new button!')
+
+> selenium
+
+* WebElement
+  * tag_name
+  * text
+  * parent
+  * find_element_by_css_selector()
+    * .id,.name: get multiple selctor
+  * get_property(`property`): get property of tag (ex: href)
+
+> Error DevToolsActivePort file doesn't exist
+
+* chrome_options.add_argument("--single-process")
+
+{% endtab %}
+{% endtabs %}
 
 ## DOM
 
@@ -155,90 +315,6 @@ class LoggingButton extends React.Component {
 {% endtab %}
 {% endtabs %}
 
-## Javascript
-
-* interpreted, dynamic typing, prototype-based programming language
-* Speed Optimization
-  * [Google page speed](https://developers.google.com/speed/pagespeed/insights/)
-  * [image optimization](https://tinyjpg.com)
-
-* ES5
-  * developed in 2009
-  * Fully supported in all modern browsers
-
-* ES6: ECMAScript 2015
-  * Internet Explorer does not support ECMAScript 2015
-  * let and const, default parameter values, Array.find(), Array.findIndex()
-
-> Terms
-
-* Packages
-
-* Content delivery network (CDN)
-* Cross-site request forgeries (csrf)
-  * a type of malicious exploit whereby unauthorized commands are performed on behalf of an authenticated user
-  * POST, PUT, PATCH, or DELETE request for a secret session value that the malicious application
-
-* xml: Extensible Markup Language
-  * markup language that defines a set of rules for encoding documents both human and machine-readable
-
-* API (Application Programming Interface): a software intermediary that enables two apps to communicate with each other
-  * All Web services are APIs but not all APIs are Web services
-  * All Web services need a network to operate while APIs don’t need a network for operation
-  * First estimate your usage and understand how that will impact the overall cost of the offering
-  * Many protocols are now available to be used in API testing (ex JMS, REST, HTTP, UDDI and SOAP)
-
-* Websocket: two way communication between the clients and the servers
-  * Four main events: Open / Close / Error / Message
-
-* Same Origin Policy
-  * When using XMLHttpRequest or Fetch API → local files origin is null
-
-* URI (Uniform Resource Identifier)
-  * a string designed for unambiguous identification of resources and extensibility via the URI scheme
-
-* xss (Cross Site Scripting)
-  * users executed malicious scripts (aka payloads) unintentionally by clicking on untrusted links and hence
-  * these scripts pass cookies information to attackers
-
-> Maximum update depth exceeded error
-
-```jsx
-// pass function or use arrow function instead of calling it
-{<td><span onClick={this.toggle()}>Details</span></td>}
-{<td><span onClick={this.toggle}>Details</span></td>}
-```
-
-> Refused to apply style from 'https://cdn.jsdelivr.net/npm/instantsearch.js'
-  because its MIME type ('application/javascript') is'nt supported stylesheet MIME type, and strict MIME checking is enabled
-
-```html
-<link rel="stylesheet" href="styles.css"\>
-```
-
-> Uncaught SyntaxError: Cannot use import statement outside a module`
-
-```html
-<script type="module" src="../src/main.js"></script>
-```
-
-> (node:32660) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing
-  inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch().
-  To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict`
-  ([See also](https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode)). (rejection id: 1)
-  (node:32660) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated.
-  In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
-
-* Do not throw again in catch which is uncaught
-* Do not trust auto import, from sequelize.types -> from sequelize
-* await async function that throws an error
-
-* robot.txt: give rules on how site can be crawled
-  * links to sitemap
-
-* sitemap.xml: Informs search engines of the site structures
-  * provides some meta information about individual pages
-
 ## Jquery
 
 * introduces css-like syntax and several visual and UI enhancements
@@ -388,55 +464,6 @@ object.style['display'] != 'none'               // only checks the element
 {% endtab %}
 {% endtabs %}
 
-## Input Tag
-
-* input
-  * `<input([type=])>`: an input control (text, password, number)
-  * onfocus / onfocusout    // add handler function when user click / unclick form
-
-* form
-  * an HTML form for user input
-  * outline: none;: hide blue outline for text input
-
-* textarea: a multiline input control (text area)
-* button
-* optgroup: a group of related options in a drop-down list
-* fieldset: related elements in a form
-* legend: a caption for a fieldset element
-* output: the result of a calculation
-* datalist: a list of pre-defined options for input controls
-
-* select: a drop-down list
-* option: an option in a drop-down list
-
-> media
-
-* alt
-  * Specifies an alternate text for an image
-* src
-  * Source file path
-
-* area
-* map
-
-{% tabs %}
-{% tab title='javascript' %}
-
-```jsx
-// 1. area
-<area shape="rect" coords="0,0,82,126" alt="Sun" href="sun.htm">
-<area shape="circle" coords="90,58,3" alt="Mercury" href="mercur.htm">
-
-// 2. Map
-<img src="planets.gif" width="145" height="126" alt="Planets" usemap="#planetmap">
-<map name="planetmap">
-<area shape="rect" coords="0,0,82,126" alt="Sun" href="sun.htm">
-</map>
-```
-
-{% endtab %}
-{% endtabs %}
-
 > Position
 
 ![position](images/20210219_221142.png)
@@ -557,30 +584,6 @@ margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
   * referrerpolicy     // Specifies which referrer information to send when fetching a script
   * src URL            // Specifies the URL of an external script file
   * type scripttype    // Specifies the media type of the script
-
-## Media
-
-* border: 1px solid #ddd
-* border-radius: 4px
-* opacity: 0.5
-
-{% tabs %}
-{% tab title='css' %}
-
-```js
-background-image: url("photographer.jpg");
-background-repeat: no-repeat, repeat
-background-size: cover, contain
-display: none;
-position: absolute;
-top, left: 25px;
-z-index: 2;
-padding        # space between border and content
-margin         # space between border and surrounding content
-```
-
-{% endtab %}
-{% endtabs %}
 
 ## Node
 
@@ -745,88 +748,6 @@ christina.emit('name');
 
 * eb init --platform node.js --region us-east-2
 
-> winston
-
-```js
-// 1. log_object
-import * as winston from "winston"
-const { combine, timestamp, label, prettyPrint } = winston.format
-
-const logger = winston.createLogger({
-level: 'info',
-format: combine(timestamp(), prettyPrint()),
-transport: [
-new winston.transport.File({ filename: 'error.log', level: 'error' }),
-new winston.transport.File({ filename: 'combined.log' }),
-]
-})
-
-export default logger
-
-// 2. fileno
-var winston = require("winston");
-var path = require("path");
-var PROJECT_ROOT = path.join(__dirname, "../../");
-
-var transports = [];
-
-if (process.env.NODE_ENV !== "development") {
-  transports.push(new winston.transports.Console());
-} else {
-  transports.push(
-    new winston.transports.Console({
-      format: winston.format.combine(winston.format.cli(), winston.format.splat()),
-    }),
-  );
-}
-var logger = winston.createLogger({ transports: transports });
-logger.stream = { write: function (message) { logger.info(message); } };
-module.exports.debug = module.exports.log = function () { logger.debug.apply(logger, formatLogArguments(arguments)); };
-module.exports.info = function () { logger.info.apply(logger, formatLogArguments(arguments)); };
-module.exports.warn = function () { logger.warn.apply(logger, formatLogArguments(arguments)); };
-module.exports.error = function () { logger.error.apply(logger, formatLogArguments(arguments)); };
-module.exports.stream = logger.stream;
-
-function formatLogArguments(args) {
-args = Array.prototype.slice.call(args);
-var stackInfo = getStackInfo(1);
-if (stackInfo) {
-  // get file path relative to project root
-  var calleeStr = "(" + stackInfo.relativePath + ":" + stackInfo.line + ")";
-
-  if (typeof args[0] === "string") {
-    args[0] = calleeStr + " " + args[0];
-  } else {
-    args.unshift(calleeStr);
-  }
-}
-return args;
-}
-
-// Parses and returns info about the call stack at the given index.
-function getStackInfo(stackIndex) {
-var stacklist = new Error().stack.split("\n").slice(3);
-
-var stackReg = /at\s+(.*)\s+\((.*):(\d*):(\d*)\)/gi;
-var stackReg2 = /at\s+()(.*):(\d*):(\d*)/gi;
-
-var s = stacklist[stackIndex] || stacklist[0];
-var sp = stackReg.exec(s) || stackReg2.exec(s);
-
-
-if (sp && sp.length === 5) {
-  return {
-    method: sp[1],
-    relativePath: path.relative(PROJECT_ROOT, sp[2]),
-    line: sp[3],
-    pos: sp[4],
-    file: path.basename(sp[2]),
-    stack: stacklist.join("\n"),
-  };
-}
-}
-```
-
 > Input Type
 
 * Request body: almost any kind of HTTP request
@@ -850,69 +771,6 @@ if (sp && sp.length === 5) {
 > Error: write EPROTO 140421695491864:error:100000f7:SSL routines:OPENSSL_internal:WRONG_VERSION_NUMBER:../../third_party/boringssl/src/ssl/tls_record.cc:242:
 
 * Use http instead https because SSL is not set up
-
-> nodeschedule
-
-* [Comparison](https://velog.io/@filoscoder/%EC%8A%A4%EC%BC%80%EC%A4%84-%EC%97%85%EB%AC%B4-%EC%9E%90%EB%8F%99%ED%99%94-Node-cron-vs-Node-schedule-%EB%B9%84%EA%B5%90-clk4dyynve)
-
-```js
-const j = schedule.scheduleJob('00 30 11 * * 1-5', () => {
-  console.log('Cron-style Scheduling')
-})
-
-// Recurrence Rule Scheduling
-// Sun ~ Sat 0 ~ 6
-// 월 ~ 일 17시 45분 실행
-const rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 17;
-rule.minute = 45;
-const k = schedule.scheduleJob(rule, () => {
-  console.log('Recurrence Rule Scheduling');
-})
-```
-
-> Nodecron
-
-![nodecron](images/20210217_201302.png)
-
-* Node.js is in practice single-threaded
-* Communication methods
-* priority queue (Kue is a common queue library)
-
-* expression string: Cron expression
-* function Function: Task to be executed
-* options Object: Optional configuration for job scheduling
-* Options
-  * scheduled: A boolean to set if the created task is schaduled. Default true;
-  * timezone: The timezone that is used for job scheduling
-
-```js
-var cron = require('node-cron');    // Starts the scheduled task.
-var task = cron.schedule('* * * * *', () =>  {
-  console.log('stoped task');
-}, {
-  scheduled: false
-  timezone: "America/Sao_Paulo"
-});
-
-task.start();         // The task won't be executed unless re-started.
-var cron = require('node-cron');
-var task = cron.schedule('* * * * *', () =>  {
-  console.log('will execute every minute until stopped');
-});
-
-task.stop();          // The task will be stopped and completely destroyed.
-var cron = require('node-cron');
-var task = cron.schedule('* * * * *', () =>  {
-  console.log('will not execute anymore, nor be able to restart');
-});
-
-task.destroy();       // Validate that the given string is a valid cron expression.
-var cron = require('node-cron');
-var valid = cron.validate('59 * * * *');
-var invalid = cron.validate('60 * * * *');
-```
 
 > cheerio
 
@@ -1241,7 +1099,7 @@ Foo.findOne({
 ```
 
 {% tabs %}
-{% tab title='sequelize' %}
+{% tab title='javascript' %}
 
 * subQuery
 
@@ -1317,8 +1175,8 @@ Project.findAll({
 * LEFT OUTER JOIN
   * required: false
 
-{% tabs %}
-{% tab title='join.js' %}
+{% endtab %}
+{% tab title='javascript' %}
 
 ```js
 // 1. Inner
@@ -1353,221 +1211,24 @@ await User.findAll({
 ```
 
 {% endtab %}
-{% tab title='read.js' %}
-
-```js
-// 2. Nested: Sequelize help the main (larger query) but you will still have to write that sub-query by yourself
-// SELECT *, (SELECT COUNT(*) FROM reactions AS reaction
-//            WHERE reaction.postId = post.id AND reaction.type = "Laugh") AS laughReactionsCount
-// FROM posts AS post
-Post.findAll({
-  attributes: {
-    include: [[ sequelize.literal(`( SELECT COUNT(*) FROM reactions AS reaction
-                                     WHERE reaction.postId = post.id AND reaction.type = "Laugh")`),
-                                     'laughReactionsCount']]
-  }
-});
-
-// SELECT * FROM characteristic
-//   WHERE characteristic_id = 1 and characteristic_id in (
-//     select characteristic_id from characteristic_variant_val where rel_type = 'variant')
-characteristic_id : {
-  $in: [clout.sequelize.literal('select characteristic_id from characteristic_variant_val'))]
-}
-```
-
-{% endtab %}
-{% tab title='update.js' %}
-
-```js
-// 1. Update
-//// Change everyone without a last name to "Doe"
-await User.update({ lastName: "Doe" }, {
-  where: { lastName: null }
-});
-
-//// UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
-Post.update({
-  updatedAt: null,
-}, {
-  where :{
-    deletedAt: { [Op.ne]: null }
-  }
-})
-
-//// Toggle boolean
-{
-  where: { id },
-  params: { finish: Sequelize.literal("NOT finish") },
-}
-
-// 2. Transaction
-const t = await sequelize.transaction();
-
-try {
-  // Then, we do some calls passing this transaction as an option:
-  const user = await User.create({
-    firstName: 'Bart',
-    lastName: 'Simpson'
-  }, { transaction: t });
-
-  await user.addSibling({
-    firstName: 'Lisa',
-    lastName: 'Simpson'
-  }, { transaction: t });
-
-  // If the execution reaches this line, no errors were thrown. We commit the transaction.
-  await t.commit();
-
-} catch (error) {
-
-  // If the execution reaches this line, an error was thrown. We rollback the transaction.
-  await t.rollback();
-}
-```
-
-{% endtab %}
-{% tab title='delete.js' %}
-
-```js
-// 1. Delete
-// Delete everyone named "Jane"
-await User.destroy({
-  where: { firstName: "Jane" }
-});
-
-// DELETE FROM post WHERE status = "inactive"
-Post.destroy({
-  where: {
-    status: 'inactive'
-  }
-});
-```
-
-{% endtab %}
 {% endtabs %}
-
-## Express
-
-* Express works on the server-side, running on top of node.js
-* Express is a 'web application framework'
-* Handle route, accept client requests, retrieve data from DB, prepare views and send back responses
-
-```js
-// 1. Hello World
-const express = require('express');
-const PORT = process.env.HTTP_PORT || 4001;
-const app = express();
-app.get('/', (req, res) => {
-  res.send('flowers smell nice');
-});
-app.listen(PORT, () => {
-  console.log(`Server listening at port ${PORT}.`);
-});
-
-// Router
-const express = require("express"); // Simple 3000 hosting
-const app = express();              // set up view engine
-app.set("view engine", "ejs");
-app.get("/", (req, res) => {res.render("home");}); // create home route
-
-app.listen(3000, () => {
-  console.log("app now listening for requests on port 3000");
-});
-```
-
-{% repo 'url_shorten' %}
-
-## React
-
-* Framework vs Library
-  * Framework is a piece of code that dictates the architecture of your project and aids in programs
-  * pre-written JavaScript which allows for easier development of JavaScript-based applications
-
-* Create-react-app → Need node > 6
-* Webpack development environment → run live server and a development environment
-* babel → manage your code, make it write a version compatible with older browsers
-
-> Terms
-
-* JSX: React DOM escapes any values embedded in JSX before rendering them → Prevents Injection Attacks
-  * Babel compiles JSX down to React.createElement() calls
-
-* Element: React elements are immutable → can’t change its children or attributes
-  * ReactDOM.render() every second from a setInterval() callback → usually called once
-
-* Key: special string attribute you need to include when creating lists of elements
-  * key only has to be unique among its siblings, not globally unique
-
-* Props: props are read only
-
-```js
-function NumberList(props) {
-  return (
-    <ul>{props.numbers.map((number) => <li>{number}</li>);}</ul>
-  );
-}
-
-const numbers = [1, 2, 3, 4, 5];
-ReactDOM.render(
-  <NumberList numbers={numbers} />,
-  document.getElementById('root')
-);
-
-const uuid = require('uuid/v1');
-const todoItems = todos.map((todo, index) =>
-  <li key={uuid()}> {todo.text} </li>
-);
-```
 
 ## Component
 
 {% tabs %}
-{% tab title='react' %}
+{% tab title='javascript' %}
 
 > Term
 
-* HOC: higher-order component is a function that takes a component and returns a new component
-  * replacement of mixin as it introduces implicit dependencies and cause name clashes, complexity
-  * [ex] CommentList, BlogPost
+* Class Component: functions accept inputs (props) and return elements
+  * must have only one div
+  * starts with upper-cass
+* Functional: Hook allows you to use functional component
+  * Only call Hooks at the top level. Don’t call Hooks inside loops, conditions, or nested functions
+  * Only call Hooks from React function components. Don’t call Hooks from regular JavaScript functions
 
 ```ts
-function withSubscription(WrappedComponent, selectData) {  // This function takes a component.
-  return class extends React.Component {  // returns another component.
-    constructor(props) {
-      super(props);
-      this.handleChange = this.handleChange.bind(this);
-      this.state = { data: selectData(DataSource, props) };
-    }
-
-    componentDidMount() {
-      DataSource.addChangeListener(this.handleChange);  // ... that takes care of the subscription...
-    }
-
-    componentWillUnmount() { DataSource.removeChangeListener(this.handleChange); }
-
-    handleChange() {
-      this.setState({ data: selectData(DataSource, this.props) });
-    }
-
-    render() {
-      // renders the wrapped component with the fresh data! Notice that we pass through any additional props
-      return <WrappedComponent data={this.state.data} {...this.props} />;
-    }
-  };
-}
-```
-
-{% endtab %}
-{% endtabs %}
-
-### Class
-
-* functions accept inputs (props) and return elements
-* must have only one div
-* starts with upper-cass
-
-```js
+// 1. class component
 class Movie extends React.Component{
   constructor(props) {
     super(props);
@@ -1580,20 +1241,13 @@ class Movie extends React.Component{
            </div>)
   }
 }
-```
 
-### Functional
-
-* Hook allows you to use functional component
-* Only call Hooks at the top level. Don’t call Hooks inside loops, conditions, or nested functions
-* Only call Hooks from React function components. Don’t call Hooks from regular JavaScript functions
-
-```js
+// 2. Functional component
 const [count, setCount] = useState(0);
 
-// Similar to componentDidMount and componentDidUpdate:
+/* Similar to componentDidMount and componentDidUpdate: */
 useEffect(() => {
-  // Update the document title using the browser API
+  /* Update the document title using the browser API */
   document.title = `You clicked ${count} times`;
 });
 
@@ -1606,6 +1260,9 @@ return (
   </div>
 );
 ```
+
+{% endtab %}
+{% endtabs %}
 
 ## Context
 
@@ -1677,10 +1334,33 @@ export default class App extends Component {
 ### Router
 
 {% tabs %}
-{% tab title='django' %}
+{% tab title='javascript' %}
+
+```js
+// Router
+const express = require("express"); // Simple 3000 hosting
+const app = express();              // set up view engine
+app.set("view engine", "ejs");
+app.get("/", (req, res) => {res.render("home");}); // create home route
+
+app.listen(3000, () => {
+  console.log("app now listening for requests on port 3000");
+});
+```
+
+> (16,8): error TS2322: Type '{ children: Element; }' is not assignable to type 'IntrinsicAttributes & ...
+  Type '{ children: Element; }' is not assignable to type 'Readonly\<RouterProps\>'.
+  Property 'history' is missing in type '{ children: Element; }'.
+
+```js
+// import { Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+```
+
+{% endtab %}
+{% tab title='python' %}
 
 ```py
-# 1. views.py
 from .models import Article
 from .serializers import ArticleSerializer
 from rest_framework import viewsets
@@ -1688,6 +1368,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 
+# 1. views.py
 class ArticleViewSet(viewsets.ViewSet):
   def list(self, request):
     articles = Article.objects.all()
@@ -1709,24 +1390,12 @@ class ArticleViewSet(viewsets.ViewSet):
 ```
 
 {% endtab %}
-{% tab title='react' %}
-
-> (16,8): error TS2322: Type '{ children: Element; }' is not assignable to type 'IntrinsicAttributes & ...
-  Type '{ children: Element; }' is not assignable to type 'Readonly\<RouterProps\>'.
-  Property 'history' is missing in type '{ children: Element; }'.
-
-```js
-// import { Router } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-```
-
-{% endtab %}
 {% endtabs %}
 
 ## States
 
 {% tabs %}
-{% tab title='react' %}
+{% tab title='javascript' %}
 
 * Read-only
 * share state by moving to closest common ancestor of the components that need it → lifting state up
@@ -1900,7 +1569,7 @@ export class UiState {
 ### Nav
 
 {% tabs %}
-{% tab title='react' %}
+{% tab title='javascript' %}
 
 ```jsx
 import React, { Component } from "react";
@@ -2000,26 +1669,14 @@ ReactDOM.render(<TimerView timer={myTimer} />, document.body)
   * loosely coupled pieces of information about the UI
   * [ex] Session information, how far your application loaded, data not stored in the backend, data affects the UI globally
 
-### Mobx react
-
-* observe: intercept changes after they have been made
-* intercept: detect and modify mutations before they are applied to the observable (validating, normalizing or cancelling)
-
-> Method
-
-* observer(): HoC automatically subscribes React components to any observables that are used during rendering
-* useObserver(): Low level implementation used internally by observer HOC and Observer component
-  * allows you to use an observer like behaviour
+* Mobx react
+  * observe: intercept changes after they have been made
+  * intercept: detect and modify mutations before they are applied to the observable (validating, normalizing or cancelling)
+  * observer(): HoC automatically subscribes React components to any observables that are used during rendering
+  * useObserver(): Low level implementation used internally by observer HOC and Observer component
+    * allows you to use an observer like behaviour
 
 {% repo 'mobx-react' %}
-
-## Material UI
-
-* Explicitly built for react
-* Flexibility, customize than bootstrap and semantic UI
-* Active development, hooks
-
-{% repo 'material' %}
 
 ### Expo
 
@@ -2044,6 +1701,70 @@ cd my-new-project
 expo start
 npm run eject    # removes the app from the Expo framework
 ```
+
+## Login
+
+{% tabs %}
+{% tab title='python' %}
+
+```py
+from flask_login import UserMixin
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium import webdriver
+from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from itertools import islice
+from ..common import get_chrome_driver, PATH, logger
+import json
+import re
+import os
+import time
+
+# 1. Flask login
+class Member(UserMixin):
+  def __init__(self, member_id, baekjoon_id, team_id, en_name, kr_name="", solved_problem_ids=None, is_admin=False, id=""):
+    self.id = member_id  # for flask_login mixin
+    self.member_id = member_id
+    self.baekjoon_id = baekjoon_id
+    self.team_id = team_id
+    self.en_name = en_name
+    self.kr_name = kr_name
+    self.solved_problem_ids = set(solved_problem_ids) if solved_problem_ids else set()
+    self.is_admin = is_admin
+
+  def __repr__(self):
+    return f"{self.id}"
+
+  @staticmethod
+  def update_baekjoon_solved(member):
+    from ..database import remote_db
+    driver = get_chrome_driver()
+    try:
+      driver.get(f"https://www.acmicpc.net/user/{member.baekjoon_id}")
+      WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'panel-body')))
+      member.solved_problem_ids = list(f'BJ_{prob_id}' for prob_id in driver.find_element_by_class_name('panel-body').text.split())
+      remote_db.add("member", member)
+      return True
+    except Exception as e:
+      logger.warning(f"{e}")
+      logger.warning(f"{member}")
+      return False
+    finally:
+      driver.quit()
+
+  @staticmethod
+  def update_all_baekjoon_solved(members, limit=10000):
+    logger.debug(f"update_all_baekjoon_solved({members})")
+
+    with ThreadPoolExecutor() as ex:
+      futures = [ex.submit(Member.update_baekjoon_solved, member) for member in islice(members, limit)]
+      return all(future.result() for future in as_completed(futures))
+```
+
+{% endtab %}
+{% endtabs %}
 
 ## Heatlh Check
 
@@ -2080,6 +1801,44 @@ HEALTH_CHECK = {
     'DISK_USAGE_MAX': 90, # percent
     'MEMORY_MIN': 100,    # in MB
 }
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Icons
+
+{% tabs %}
+{% tab title='javascript' %}
+
+* Material UI: Explicitly built for react
+  * Flexibility, customize than bootstrap and semantic UI
+  * Active development, hooks
+
+{% endtab %}
+{% endtabs %}
+
+{% repo 'material' %}
+
+## Media
+
+{% tabs %}
+{% tab title='javascript' %}
+
+* border: 1px solid #ddd
+* border-radius: 4px
+* opacity: 0.5
+
+```js
+background-image: url("photographer.jpg");
+background-repeat: no-repeat, repeat
+background-size: cover, contain
+display: none;
+position: absolute;
+top, left: 25px;
+z-index: 2;
+padding        # space between border and content
+margin         # space between border and surrounding content
 ```
 
 {% endtab %}

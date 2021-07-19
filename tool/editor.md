@@ -18,33 +18,50 @@
   * `<C-l> <Esc>:w<CR>`:!clear;python %\<CR\>: run python script
   * filetype cpp nnoremap \<F5>:w \<bar> exec '!g++ -g -O2 -std=gnu++17 -static %'\<CR>: run cpp
 
-* Copy
-  * yy: yank line
-  * dd: delete and copy current line
-  * ggyG: yank entire file
-  * :d: delete current line
-  * :m0: move current line to line 0
-  * :wqa: write close all
-  * :%w !pbcopy: copy to clipboard
-  * :r !pbpaste: paste from the clipboard
-  * :w !sudo tee %: without permission
-
 * -o *: Open with horizontal split
 * -o *: Open with vertical split
 * -p *: Open with each tab
 * -r .swp: recover swp file
 * --version: Show version
 
-## Visual
+## Copy
+
+{% tabs %}
+{% tab title='vim' %}
+
+* yy: yank line
+* dd: delete and copy current line
+* ggyG: yank entire file
+* :d: delete current line
+* :m0: move current line to line 0
+* :wqa: write close all
+* :%w !pbcopy: copy to clipboard
+* :r !pbpaste: paste from the clipboard
+* :w !sudo tee %: without permission
+* :3,5y: copy from line 3 to 5
+
+{% endtab %}
+{% endtabs %}
+
+## Highlight
+
+{% tabs %}
+{% tab title='vim' %}
 
 * ctrl + v: multiple line
 * U: Capitalize
 
 ```sh
-ctrl + v | shift + i # enter : python multiline comment
+ctrl + v | shift + i \# enter : python multiline comment
 ```
 
+{% endtab %}
+{% endtabs %}
+
 ## Macro
+
+{% tabs %}
+{% tab title='vim' %}
 
 * q[a-z][command]q
 * @a
@@ -55,43 +72,56 @@ ctrl + v | shift + i # enter : python multiline comment
 * "kyy: copy current line to register k
 * “kp: paste k register
 
+{% endtab %}
+{% endtabs %}
+
 ## Navigation
 
-```sh
-# 1. Navigation
-0 | $          # begin | end of the line
-^              # first non-blank character
-( | )          # begin | end of the current paragraph
-zt | z. | zb   # cursor top | middle | bottom
-H | M | L      # move to top | middle | low of the page
-w / W          # jump by start of words (punctuation considered words / spaces separate words)
-e / E          # jump to end of words (punctuation considered words / no punctuation)
+{% tabs %}
+{% tab title='vim' %}
 
-]] / [[        # move the cursor a section forwards or to the next { / previous {
+0 | $: begin | end of the line
+^: first non-blank character
+( | ): begin | end of the current paragraph
+zt | z. | zb: cursor top | middle | bottom
+H | M | L: move to top | middle | low of the page
+w / W: jump by start of words (punctuation considered words / spaces separate words)
+e / E: jump to end of words (punctuation considered words / no punctuation)
 
-gg / G         # go to first / last line
-ge             # jump backward to end of words
-nG             # go To line n
+]] / [[: move the cursor a section forwards or to the next { / previous {
 
-CTRL-f | b     # scroll full screen forward | backward
-CTRL-d | u     # scroll half screen forward | backward
+gg / G: go to first / last line
+ge: jump backward to end of words
+nG: go To line n
 
-# 2. Search
-/copy\C / \c   # Case sensitive / insensitive
-* / #          # Search current word forward / backward
-:g/pattern/d   # delete all line matching patterns
-:g!/pattern/d
-:g/^\s*$/d     # delete all blank lines
-:g/^$/d        # Delete empty line
-\c             # ignore case
-:s/sunny/(&)/  # & is matched text
-:g/pattern/m$  # Move all lines matching a pattern to end of file
+CTRL-f | b: scroll full screen forward | backward
+CTRL-d | u: scroll half screen forward | backward
 
-f/Fx           # search line forward / backward for 'x'
-t/Tx           # search line forward / backward before 'x'
-```
+{% endtab %}
+{% endtabs %}
 
-### Mark
+## Search
+
+* /copy\C / \c: Case sensitive / insensitive
+* \*: Search current word forward
+* #: Search current word backward
+* :g/pattern/d: delete all line matching patterns
+* :g!/pattern/d
+* :g/^\s*$/d: delete all blank lines
+* :g/^$/d: Delete empty line
+* \c: ignore case
+* :s/sunny/(&)/: & is matched text
+* :g/pattern/m$: Move all lines matching a pattern to end of file
+
+* f/Fx: search line forward / backward for 'x'
+* t/Tx: search line forward / backward before 'x'
+
+### Bookmark
+
+* Ability to move to specific line
+
+{% tabs %}
+{% tab title='vim' %}
 
 * :marks: list all the current marks
 * :delmarks a: delete mark
@@ -100,38 +130,53 @@ t/Tx           # search line forward / backward before 'x'
 * 'a: go to the line with bookmark a
 * `.: go to the line that you last edited
 
+{% endtab %}
+{% endtabs %}
+
 ## Editing
 
+{% tabs %}
+{% tab title='vim' %}
+
 * ~: Change the case of current character
+* r: replace a single character (does not use insert mode)
+* R: enter Insert mode, replacing characters rather than inserting
+* J: join line below to the current one
+* g~iw: switch case of current word
+* guw: make current word lower / upper(U) case
+* gu$: make lower / uppercase (U) until end of line
+* ==: auto-indent current line
 
-```sh
-# 1. Editing
-r               # replace a single character (does not use insert mode)
-R               # enter Insert mode, replacing characters rather than inserting
-J               # join line below to the current one
+* Delete
+  * x: delete current / previous character
+  * dw: delete the current word
+  * dd: delete (cut) a line
+  * dt\': delete until the next ' character on the line (replace ' by any character)
+  * D: delete from cursor to end of line
+  * :[range]d: delete [range] lines
 
-g~iw            # switch case of current word
-guw             # make current word lower / upper(U) case
-gu$             # make lower / uppercase (U) until end of line
-==              # auto-indent current line
+* Spelling
+  * ]/[s: next / previous misspelled word
+  * zg: add word to wordlist
+  * zug: undo last add word
+  * z=: suggest word
 
-# 2. Deleting
-x               # delete current / previous character
-dw              # delete the current word
-dd              # delete (cut) a line
-dt\'            # delete until the next ' character on the line (replace ' by any character)
-D               # delete from cursor to end of line
-:[range]d       # delete [range] lines
+* :![cmd]: run terminal command
+* :history: Last command
+* :retab: Repace tab to spaces
 
-# 3. Spelling
-]/[s            # next / previous misspelled word
-zg              # add word to wordlist
-zug             # undo last add word
-z=              # suggest word
-
+```vim
+<!-- lastline -->
+command Gb :normal i {% tabs %} <CR> {% tab title=""} <CR> {% endtab %} <CR> {% endtabs %} <ESC>
 ```
 
-## Files
+{% endtab %}
+{% endtabs %}
+
+## Editor Files
+
+{% tabs %}
+{% tab title='vim' %}
 
 * .vimrc: Located in home\(~\) directory, get run every time when open vim
 
@@ -234,133 +279,5 @@ q:             # history
 :saveas        # save file as
 ```
 
-## Lastline
-
-* :![cmd]: run terminal command
-* :history: Last command
-* :help key-notation: man page
-* :retab: Repace tab to spaces
-* :3,5y: copy from line 3 to 5
-
-```vim
-<!-- lastline -->
-command Gb :normal i {% tabs %} <CR> {% tab title=""} <CR> {% endtab %} <CR> {% endtabs %} <ESC>
-```
-
-## Vimscript
-
-```sh
-# 1. Primitive
-str2float("2.3")
-str2nr("3")
-float2nr("3.14")
-
-# 3. Dictionary
-count(dict, 'x')
-empty(dict)
-get(dict, "apple")
-has_key(dict, 'foo')
-keys(dict)
-len(dict)
-max(dict)
-min(dict)
-remove(dict, "apple")
-let longlist = mylist + [5, 6]
-let mylist += [7, 8]
-mylist[2:]
-let alist = add(mylist, 4)
-
-# Construct
-let colors = {
-\ "apple": "red",
-\ "banana": "yellow"
-}
-
-# Access
-echo colors["a"]
-
-for key in keys(dict)
-  echo key . ': ' . dict(key)
-endfor
-
-# 4. List
-let longlist = mylist + [5, 6]
-let mylist += [7, 8]
-mylist[2:]
-let alist = add(mylist, 4)
-```
-
-### Operation
-
-{% tabs %}
-{% tab title='vim' %}
-
-```vim
-# 1. Conditional
-if name ==# 'John'    # case-sensitive
-if name ==? 'John'    # case-insensitive
-if name == 'John'     # depends on :set ignorecase
-"hello" =~ '/x/'      # regex match
-"hello" !~ '/x/'
-&&    # and
-||    # or
-if
-
-let char = getchar()
-if char == "\<LeftMouse>"
-  " …
-elseif char == "\<RightMouse>"
-  " …
-else
-  " …
-endif
-
-# 2. For Loop
-for s in list
-  echo s
-  continue  " jump to start of loop
-  break     " breaks out of a loop
-endfor
-
-# 3. While Loop
-while x < 5
-endwhile
-```
-
 {% endtab %}
 {% endtabs %}
-
-### Function
-
-* Vimscript functions must start with a capital letter if they are unscoped
-
-{% tabs %}
-{% tab title='vim' %}
-
-```vim
-<!-- function -->
-let temp = @@
-let @@ = temp  : prevent overwriting current register
-
-function Varg(...)
-a:000    # a list containing all the extra arguments that were passed
-a:0      # number of argument
-a:1      # first argument
-
-<!-- 2. CPrototype -->
-func! CPrototypeFunction()
-let temp = @@
-  exe "normal! mayy"
-  exe "normal! /Prototypes\<CR>"
-  exe "normal! )kpA;\<ESC>"
-  exe "normal@ 'a"
-let @@ = temp
-endfunc
-```
-
-{% endtab %}
-{% endtabs %}
-
-> Terms
-
-* Integrated development environment

@@ -425,7 +425,7 @@ for each vertex selected in a left-to-right sweeping order:
 * models: abstractions of the real world
 * computation: Robots are real-time systems, which limits the amount of computation carried out
 
-### Error
+### Sensor Error
 
 $$
 p\left(z_{t}^{k} \mid x_{t}, m\right)=\left(\begin{array}{c}
@@ -443,11 +443,8 @@ $$
 
 ![Error model](images/20210527_173717.png)
 
-> Failure
-
-* sensing black, light-absorbing objects or when measuring objects in bright light
-
-![Failure](images/20210527_173847.png)
+* Failure: sensing black, light-absorbing objects or when measuring objects in bright light
+  ![Failure](images/20210527_173847.png)
 
 $$
 p_{\max }\left(z_{t}^{k} \mid x_{t}, m\right)=I\left(z=z_{\max }\right)=\left\{\begin{array}{ll}
@@ -456,69 +453,54 @@ p_{\max }\left(z_{t}^{k} \mid x_{t}, m\right)=I\left(z=z_{\max }\right)=\left\{\
 \end{array}\right.
 $$
 
-> Gaussian
-
-![Gaussian](images/20210527_174044.png)
-
-* limited resolution of range sensors, atmospheric effect on the measurement signal
+* Gaussian: limited resolution of range sensors, atmospheric effect on the measurement signal
+  ![Gaussian](images/20210527_174044.png)
 
 * Measurement probability
-
-$$
-p_{\text {hit }}\left(z_{t}^{k} \mid x_{t}, m\right)=\left\{\begin{array}{ll}
-\eta \mathcal{N}\left(z_{t}^{k} ; z_{t}^{k *}, σ_{\text{hit }}^{2}\right) & \text { if } 0 \leq z_{t}^{k} \leq z_{max} \\
-0 & \text { otherwise }
-\end{array}\right.
-$$
+  $$
+  p_{\text {hit }}\left(z_{t}^{k} \mid x_{t}, m\right)=\left\{\begin{array}{ll}
+  \eta \mathcal{N}(z_{t}^{k} ; z_{t}^{k *}, σ_{\text{hit }}^{2}) & \text { if } 0 \leq z_{t}^{k} \leq z_{max} \\
+  0 & \text { otherwise }
+  \end{array}\right.
+  $$
 
 * Univariate normal distribution
-
-$$
-\mathcal{N}(z_{t}^{k} ; z_{t}^{k *}, σ_{hit}^{2})=\frac{1}{\sqrt{2 \pi σ_{hit}^{2}}}
-e^{-\frac{1}{2} \frac{(z_{t}^{k}-z_{t}^{k*})^{2}}{σ_{hit}^{2}}}
-$$
+  $$
+  \mathcal{N}(z_{t}^{k} ; z_{t}^{k *}, σ_{hit}^{2})=\frac{1}{\sqrt{2 π σ_{hit}^{2}}}
+  e^{-\frac{1}{2} \frac{(z_{t}^{k}-z_{t}^{k*})^{2}}{σ_{hit}^{2}}}
+  $$
 
 * Normalizer
+  $$
+  \eta=(\int_{0}^{z_{\max }} \mathcal{N}(z_{t}^{k} ; z_{t}^{k *}, \sigma_{\text {hit }}^{2}) d z_{t}^{k})^{-1}
+  $$
 
-$$
-\eta=\left(\int_{0}^{z_{\max }} \mathcal{N}\left(z_{t}^{k} ; z_{t}^{k *}, \sigma_{\text {hit }}^{2}\right) d z_{t}^{k}\right)^{-1}
-$$
+* Rand model: e subject to cross-talk between different sensors
+  $$
+  p_{\text {rand }}\left(z_{t}^{k} \mid x_{t}, m\right)=\left\{\begin{array}{ll}
+  \frac{1}{z_{\max }} & \text { if } 0 \leq z_{t}^{k}<z_{\max } \\
+  0 & \text { otherwise }
+  \end{array}\right.
+  $$
 
-> Rand model
-
-* e subject to cross-talk between different sensors
-
-$$
-p_{\text {rand }}\left(z_{t}^{k} \mid x_{t}, m\right)=\left\{\begin{array}{ll}
-\frac{1}{z_{\max }} & \text { if } 0 \leq z_{t}^{k}<z_{\max } \\
-0 & \text { otherwise }
-\end{array}\right.
-$$
-
-> Unexpected Objects
-
-![Unexpected Objects](images/20210527_173942.png)
-
-* objects not contained in the map can cause rangefinders to produce surprisingly short ranges
-
-$$
-p_{\text {short }}\left(z_{t}^{k} \mid x_{t}, m\right)=\left\{\begin{array}{ll}
-\eta \lambda_{\text {short }} e^{-\lambda_{\text {dhott }} z_{t}^{k}} & \text { if } 0 \leq z_{t}^{k} \leq z_{t}^{k *} \\
-0 & \text { otherwise }
-\end{array}\right.
-$$
+* Unexpected Objects: objects not contained in the map can cause rangefinders to produce surprisingly short ranges
+  ![Unexpected Objects](images/20210527_173942.png)
+  $$
+  p_{\text {short }}(z_{t}^{k} \mid x_{t}, m)=\{\begin{array}{ll}
+  \eta λ_{\text {short }} e^{-λ_{\text {dhott }} z_{t}^{k}} & \text { if } 0 \leq z_{t}^{k} \leq z_{t}^{k *} \\
+  0 & \text { otherwise }
+  \end{array}
+  $$
 
 * Univariate normal dsitribution
-
-$$
-\begin{aligned}
-\int_{0}^{z_{t}^{k\star}} λ_{short} e^{-λ_{dhont} z_{i}^{k}} d z_{t}^{k} &=-e^{-λ_{short} z_{t}^{k\*}}+e^{-λ_{short} 0} \\
-&=1-e^{-\lambda_{shart} z_{t}^{k\*}} \end{aligned}
-$$
+  $$
+  \begin{aligned}
+  ∫_{0}^{z_{t}^{k⋆}} λ_{short} e^{-λ_{dhont} z_{i}^{k}} d z_{t}^{k} &=-e^{-λ_{short} z_{t}^{k*}}+e^{-λ_{short} 0} \\
+  &=1-e^{-λ_{short} z_{t}^{k*}} \end{aligned}
+  $$
 
 * Normalizer
-
-$$ \eta=\frac{1}{1-e^{-\lambda_{\text {short }} z_{t}^{k^{k}}}} $$
+  $$ \eta=\frac{1}{1-e^{-λ_{\text {short }} z_{t}^{k^{k}}}} $$
 
 ## ROS
 

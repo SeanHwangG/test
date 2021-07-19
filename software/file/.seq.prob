@@ -1,0 +1,41 @@
+> hackerrank
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/seq/HR_bash-tutorials---looping-and-skipping.md/)
+
+{% tabs %}
+{% tab title='HR_bash-tutorials---looping-and-skipping.md' %}
+
+> Question
+
+* Display 1, 3, 5 ..., 99
+
+{% endtab %}
+{% tab title='HR_bash-tutorials---looping-and-skipping.sh' %}
+
+```sh
+seq 1 2 99
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/seq/HR_bash-tutorials---looping-with-numbers.md/)
+
+{% tabs %}
+{% tab title='HR_bash-tutorials---looping-with-numbers.md' %}
+
+> Question
+
+* Print 1, 2, ..., 50
+
+{% endtab %}
+{% tab title='HR_bash-tutorials---looping-with-numbers.sh' %}
+
+```sh
+seq 50
+```
+
+{% endtab %}
+{% endtabs %}

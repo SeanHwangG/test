@@ -35,7 +35,7 @@ print(a * (a - 1))
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : on’t pass me the ball!](https://www.acmicpc.net/problem/6768)
+* [Level 2 : Don’t pass me the ball!](https://www.acmicpc.net/problem/6768)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/BJ_6768.md/)
 
 {% tabs %}
@@ -550,7 +550,7 @@ print(res)
 * [Level 1.7 : Sjecista](https://open.kattis.com/problems/sjecista)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/counting/KT_sjecista.md/)
 
-[//]: # (BJ_3049)
+[Duplicate](./BJ_3049.md)
 
 > leetcode
 

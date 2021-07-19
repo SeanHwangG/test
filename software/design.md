@@ -145,51 +145,33 @@ class PizzaDelivery:
 
 ![Aggregation](images/20210220_234605.png)
 
-* Association
-* Represents the ability of one instance to send a message to another instance
-* ex) student ↔ seat
+* Association: Represents the ability of one instance to send a message to another instance
+  * [ex] student ↔ seat
 
 * Composition
-* It is not a standard UML relationship, but it is still used in various applications
-* whole/part relationship. if composite is deleted, other associated parts are delete
-* Final keyword to represent Composition
-* ex) visitor center ↔ Lobby, Human ↔ Leg
-* Implement: class implements interface
+  * It is not a standard UML relationship, but it is still used in various applications
+  * whole/part relationship. if composite is deleted, other associated parts are delete
+  * Final keyword to represent Composition
+  * [ex] visitor center ↔ Lobby, Human ↔ Leg
+  * Implement: class implements interface
 
 * Visibility: (public), - (private) # (protected) ~ (package)
 
-> Behavior UML
+* Behavior UML
+  * Activity diagram: captures the process flow, used for functional modeling
+  * Communication diagram
+  * Interaction overview diagram
+  * Sequence diagram: tracks the interaction between the objects
+  * State diagram
+  * Timing diagram
+  * Use case diagram: set of actions (use cases) that a system can perform in collaboration with one+ external users of system
+  * Actors: An actor is an entity who performs specific actions
+  * System boundary: defines the scope and limits of the system
+  * describes high-level functional behavior of the system as a user point of view
+  * what will the system do / not do
 
-* Activity diagram: captures the process flow, used for functional modeling
-* Communication diagram
-* Interaction overview diagram
-* Sequence diagram: tracks the interaction between the objects
-* State diagram
-* Timing diagram
-* Use case diagram: set of actions (use cases) that a system can perform in collaboration with one+ external users of system
-* Actors: An actor is an entity who performs specific actions
-* System boundary: defines the scope and limits of the system
-* describes high-level functional behavior of the system as a user point of view
-* what will the system do / not do
-
-> Structural UML
-
-* Class, Object, Component, Composite structure, Profile diagram
-* Deployment, Package
-
-### Chess
-
-> Requirements
-
-![Chess : Use case diagram](images/20210415_225703.png)
-
-> Class Diagram
-
-![Chess : Class diagram](images/20210415_225751.png)
-
-> Activity Diagram
-
-![Chess : Activity Diagram](images/20210415_225849.png)
+* Structural UML: Class, Object, Component, Composite structure, Profile diagram
+  * Deployment, Package
 
 ### Moview Ticket
 
@@ -201,51 +183,6 @@ class PizzaDelivery:
 
 {% repo 'library' %}
 {% repo 'parking_lots' %}
-
-## Game
-
-{% tabs %}
-{% tab title='python' %}
-
-```py
-import pygame
-
-pygame.init()
-win = pygame.display.set_mode((500, 500))
-pygame.display.set_caption("First game")
-x, y = 50, 50
-width, height, vel = 30, 30, 5
-run = True
-while run:
-  pygame.time.delay(100)
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      run = False
-    keys = pygame.key.get_pressed()
-
-    if keys[pygame.K_LEFT]:
-      x -= vel
-    if keys[pygame.K_RIGHT]:
-      x += vel
-    if keys[pygame.K_UP]:
-      y -= vel
-    if keys[pygame.K_DOWN]:
-      y += vel
-
-  win.fill((0, 0, 0))
-  pygame.draw.rect(win, (255, 0, 0), (x, y, width, height))
-  pygame.display.update()
-```
-
-{% endtab %}
-{% endtabs %}
-
-{% repo '2048' %}
-{% repo 'snake' %}
-
-### Turn-based
-
-{% include '.game.prob' %}
 
 {% repo 'tinyurl' %}
 {% repo 'pastebin' %}

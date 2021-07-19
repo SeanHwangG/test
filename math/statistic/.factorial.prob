@@ -30,7 +30,7 @@ print(ret)
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : ilnia](https://www.acmicpc.net/problem/8558)
+* [Level 3 : Silnia](https://www.acmicpc.net/problem/8558)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/BJ_8558.md/)
 
 {% tabs %}
@@ -59,7 +59,7 @@ print(math.factorial(int(input()))%10)
 * [Level 4 : 팩토리얼](https://www.acmicpc.net/problem/7489)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/BJ_7489.md/)
 
-[//]: # (BJ_2553)
+[Duplicate](./BJ_2553.md)
 
 * [Level 7 : 팩토리얼 0의 개수](https://www.acmicpc.net/problem/1676)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/factorial/BJ_1676.md/)

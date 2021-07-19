@@ -1,6 +1,6 @@
 > baekjoon
 
-* [Level 2 : ournament Selection](https://www.acmicpc.net/problem/14038)
+* [Level 2 : Tournament Selection](https://www.acmicpc.net/problem/14038)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_14038.md/)
 
 {% tabs %}
@@ -220,7 +220,7 @@ else:
 * [Level 2 : Even or Odd?](https://www.acmicpc.net/problem/18005)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_18005.md/)
 
-[//]: # (BJ_21185)
+[Duplicate](./BJ_21185.md)
 
 * [Level 2 : 뉴비의 기준은 뭘까?](https://www.acmicpc.net/problem/19944)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_19944.md/)
@@ -255,7 +255,7 @@ else:
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : rchivist](https://www.acmicpc.net/problem/20232)
+* [Level 2 : Archivist](https://www.acmicpc.net/problem/20232)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_20232.md/)
 
 {% tabs %}
@@ -344,7 +344,7 @@ else: print('A')
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : ome Sum](https://www.acmicpc.net/problem/21185)
+* [Level 2 : Some Sum](https://www.acmicpc.net/problem/21185)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_21185.md/)
 
 {% tabs %}
@@ -441,7 +441,7 @@ else:
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : peed fines are not fine!](https://www.acmicpc.net/problem/6763)
+* [Level 2 : Speed fines are not fine!](https://www.acmicpc.net/problem/6763)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_6763.md/)
 
 {% tabs %}
@@ -487,7 +487,7 @@ else:
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : ounds fishy!](https://www.acmicpc.net/problem/6764)
+* [Level 2 : Sounds fishy!](https://www.acmicpc.net/problem/6764)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_6764.md/)
 
 {% tabs %}
@@ -641,4 +641,4 @@ else:
 * [Level 1.8 : Some Sum](https://open.kattis.com/problems/somesum)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/KT_somesum.md/)
 
-[//]: # (BJ_21185)
+[Duplicate](./BJ_21185.md)

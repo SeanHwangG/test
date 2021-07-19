@@ -1,0 +1,299 @@
+> hackerrank
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/awk/HR_awk-1.md/)
+
+{% tabs %}
+{% tab title='HR_awk-1.md' %}
+
+> Question
+
+* For each student, if one or more of the three scores is missing
+  * display Not all scores are available for [Identifier]
+
+```txt
+Input:
+A 25 27 50
+B 35 75
+C 75 78
+D 99 88 76
+
+Output:
+Not all scores are available for B
+Not all scores are available for C
+```
+
+{% endtab %}
+{% tab title='HR_awk-1.sh' %}
+
+```sh
+awk '{if (NF < 4){print "Not all scores are available for "$1}}'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/awk/HR_awk-2.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-awk-2.md' %}
+
+> Question
+
+* A student is considered to have passed if (s)he has a score 50 or more in each of the three subjects
+* display the following for each student: `[Identifier]: [Pass/Fail]`
+
+```txt
+Input:
+A 25 27 50
+B 35 37 75
+C 75 78 80
+D 99 88 76
+
+Output:
+A : Fail
+B : Fail
+C : Pass
+D : Pass
+```
+
+{% endtab %}
+{% tab title='HR_text-processing-awk-2.sh' %}
+
+```sh
+awk '{print $1,":", ($2<50||$3<50||$4<50) ? "Fail" : "Pass"}'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/awk/HR_awk-3.md/)
+
+{% tabs %}
+{% tab title='HR_awk-3.md' %}
+
+> Question
+
+* A >=80, B >= 60, C >= 60, FAIL otherwise
+
+```txt
+Input:
+A 25 27 50
+B 35 37 75
+C 75 78 80
+D 99 88 76
+
+Output:
+A 25 27 50 : FAIL
+B 35 37 75 : FAIL
+C 75 78 80 : B
+D 99 88 76 : A
+```
+
+{% endtab %}
+{% tab title='HR_awk-3.sh' %}
+
+```sh
+awk '{avg=($2+$3+$4)/3; print $0, ":", (avg<50)?"FAIL":(avg<80)?"B":"A"}'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/awk/HR_awk-4.md/)
+
+{% tabs %}
+{% tab title='HR_awk-4.md' %}
+
+> Question
+
+```txt
+Input:
+A 25 27 50
+B 35 37 75
+C 75 78 80
+D 99 88 76
+
+Output:
+A 25 27 50;B 35 37 75
+C 75 78 80;D 99 88 76
+```
+
+{% endtab %}
+{% tab title='HR_awk-4.sh' %}
+
+```sh
+awk 'ORS=NR%2?";":"\n"'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/awk/HR_bash-tutorials-concatenate-an-array-with-itself.md/)
+
+{% tabs %}
+{% tab title='HR_bash-tutorials-concatenate-an-array-with-itself.md' %}
+
+> Question
+
+* Concatenate three repetitions of the original array
+
+```txt
+Input:
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+
+Output:
+Namibia Nauru Nepal Netherlands NewZealand Nicaragua Niger Nigeria NorthKorea Norway Namibia Nauru Nepal Netherlands \
+NewZealand Nicaragua Niger Nigeria NorthKorea Norway Namibia Nauru Nepal Netherlands NewZealand Nicaragua Niger Nigeria \
+NorthKorea Norway
+```
+
+{% endtab %}
+{% tab title='HR_bash-tutorials-concatenate-an-array-with-itself.sh' %}
+
+```sh
+tr `$'\n' ' ' | awk '{print $`0 `$0 $`0}'
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/awk/LC_192.md/)
+
+{% tabs %}
+{% tab title='LC_192.md' %}
+
+> Question
+
+* Your script should output the following, sorted by descending frequency:
+
+```txt
+Input:
+the day is sunny the the
+the sunny is is
+
+Output:
+the 4
+is 3
+sunny 2
+day 1
+```
+
+{% endtab %}
+{% tab title='LC_192.sh' %}
+
+```sh
+# tr -s: truncate the string with target string, but only remaining one instance (e.g. multiple whitespaces)
+# sort: To make the same string successive so that uniq could count the same string fully and correctly.
+# uniq -c: uniq is used to filter out the repeated lines which are successive, -c means counting
+# sort -r: -r means sorting in descending order
+# awk '{ print $2, $1 }': To format the output, see here.
+
+cat words.txt | tr -s ' ' '\n' | sort | uniq -c | sort -r | awk '{ print $2, $1 }'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/awk/LC_194.md/)
+
+{% tabs %}
+{% tab title='LC_194.md' %}
+
+> Question
+
+* transpose its contents
+
+```txt
+Input:
+name age
+alice 21
+ryan 30
+
+Output:
+name alice ryan
+age 21 30
+```
+
+{% endtab %}
+{% tab title='LC_194.sh' %}
+
+```sh
+# in awk ,$i is the i-th column of the line segmented by Field Separator(default " ")
+# NF = Number of Fields, how many pieces of the line we got after segmentation
+# END tells what to do after previous expression
+# awk '{for(i=0;++i<=NF;)a[i]=a[i]?a[i] FS $i:$i}END{for(i=0;i++<NF;)print a[i]}' file.txt
+
+awk '
+{
+  for (i = 1; i <= NF; i++) {
+    if(NR == 1) {
+      s[i] = $i;
+    } else {
+      s[i] = s[i] " " $i;
+    }
+  }
+}
+END {
+  for (i = 1; s[i] != ""; i++) {
+    print s[i];
+  }
+}' file.txt
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/awk/LC_195.md/)
+
+{% tabs %}
+{% tab title='LC_195.md' %}
+
+> Question
+
+* Print 10th line
+
+```txt
+Input:
+123
+52
+2lk
+sdlkfj
+werkljla
+sdkfjlw
+wer
+we
+qw
+10th line
+sdfk
+
+Output: 10th line
+```
+
+{% endtab %}
+{% tab title='LC_195.sh' %}
+
+```sh
+awk 'NR == 10' file.txt
+```
+
+{% endtab %}
+{% endtabs %}

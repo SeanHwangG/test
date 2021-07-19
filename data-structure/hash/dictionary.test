@@ -1,1 +1,17 @@
 [Dictionary](https://docs.google.com/forms/d/1KUGnlx0pG4nUksDXLK00ZZZATBUBQfGVUZw2SxLTP_U/edit)
+
+```py
+d1 = {'a':1, 'b':2, 'c':3}
+d2 = dict(a = 10, b = 20, c = 30)
+
+print(d1['a'])  # 1
+print(d2['c'])  # 30
+print(d1['a'] + d2['c'])  # 31
+print(d1['c'] + d2['a'])  # 13
+print('a' in d1)          # True
+print('d' in d2)          # False
+print(d2['b'] * d1['b'])  # 40
+print(d1 + d2)            # ERROR
+print(d2['d'])            # ERROR
+print(list(d2.values()))  # [10, 20, 30]
+```

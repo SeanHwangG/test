@@ -1,1 +1,16 @@
 [Graph](https://docs.google.com/forms/d/1E8HkTLzD7yVQ3Vqr9RhAYax10HYzW8S8tRadvmUaZbo/edit)
+
+![graph test](images/20210717_170647.png)
+
+```py
+What is indegree of 2?  # 2
+Is cycle in graph? (T/F)  # F
+Is graph directed? (T/F)  # F
+Shortest Path from 0 to 5 # 14
+How many edges are there? # 9
+What is indegree of 5?    # 1
+How many vertices are there?  # 6
+What is the biggest edge in the graph?  # 7
+What is the smallest cycle sum?  # 8
+What is the outdegree of 0?  # 2
+```

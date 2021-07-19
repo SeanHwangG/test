@@ -1,1 +1,16 @@
 [math (round, floor, ceil)](https://docs.google.com/forms/d/19Hzj2ohcfL9cT4QnrDVvd89YTPj_a8z53KNOM-55ZlE/edit)
+
+```py
+import math
+n = 3.141592
+print(round(n))     # 3
+print(round(n, 2))  # 3.14
+print(round(n, 5))  # 3.14159
+print(math.ceil(n)) # 4
+print(round(n,1) + round(n, 3))  # 6.242
+print(math.ceil(n) * round(n))  # 12
+print(math.floor(n))  # 3
+print(math.floor(n) // math.ceil(n))  # 0
+print(math.ceil(n * 10))  # 32
+print(round(n * 5))  # 16
+```

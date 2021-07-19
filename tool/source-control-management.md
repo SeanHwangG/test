@@ -290,8 +290,6 @@ exec git diff-index --check --cached $against --
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](
   https://github.com/pre-commit/pre-commit)
 
-## SCM Setup
-
 > Install
 
 * Powershell
@@ -335,7 +333,7 @@ git add -A
 git commit -m "First commit"
 git push --set-upstream origin main
 
-# 3. Useful shortcuts
+# 1. Useful shortcuts
 git config --global alias.ls "log --stat --color --decorate --all --oneline"
 git config --global alias.lg "log --abbrev-commit --name-status --color --graph --pretty=format:'%Cred%h%Creset \
  -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"

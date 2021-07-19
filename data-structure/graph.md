@@ -197,17 +197,18 @@
 * Doesn't work for negative edge weight
 * Complexity: O(V \* O(deletemin) + E \* O(decreasekey))
 
-> Proof of Dijkstra
-
-* Claim: After Dijkstra’s is done, dist(v) is the length of the shortest path from s to v
-* (→) After every iteration, dist(v) is the length of some path from s to v
-* (←) After Dijkstra’s is done, dist(v) is the length of the shortest path from s to v for all vertices v ∈ V
-
 | Type        | Array                               | Heap                               |
 | ----------- | ----------------------------------- | ---------------------------------- |
 | Approach    | indexed by vertex, giving key value | each key value is less than parent |
 | deletemin   | O(V)                                | O(log(V))                          |
 | decreasekey | O(1)                                | O(log(V))                          |
+
+> Question
+
+* Proof of Dijkstra
+  * Claim: After Dijkstra’s is done, dist(v) is the length of the shortest path from s to v
+  * (→) After every iteration, dist(v) is the length of some path from s to v
+  * (←) After Dijkstra’s is done, dist(v) is the length of the shortest path from s to v for all vertices v ∈ V
 
 {% include '.dijkstra.prob' %}
 

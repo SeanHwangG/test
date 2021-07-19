@@ -96,6 +96,15 @@ $$
 * How many different rearrangements are there of the letters in the word BUBBLE?
   * 6! | 3!
 
+{% tabs %}
+{% tab title='shell' %}
+
+* shuf: generate random permutations
+  * -n: number of lines
+
+{% endtab %}
+{% endtabs %}
+
 {% include '.permutation.prob' %}
 
 ### Fibonacci
@@ -292,6 +301,18 @@ $$ =p(1)+(1-p)(1+E(X)) $$
 
 * Bernoulli: a performance of an experiment with two possible outcomes
   * [ex] Record how many coins land heads up and how many land tails up
+* Uniform
+  ![uniform distribution](images/20210305_201105.png)
+
+{% tabs %}
+{% tab title='python' %}
+
+* np.random
+  * geometric(`p`, [size]): Draw samples from the geometric distribution
+  * uniform(`lo`, `hi`, [size]): [ex] (3, 5, (2, 2)): array([[4.45674274, 3.33339518], [4.34067332, 4.60336929]])
+
+{% endtab %}
+{% endtabs %}
 
 ### Binomial
 
@@ -322,39 +343,49 @@ $$ \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha, \beta)} $$
 
 ![Beta](images/20210305_201004.png)
 
+{% tabs %}
+{% tab title='python' %}
+
+* numpy.random.beta(`a`, `b`, [size]): Draw samples from a Beta distribution
+
+{% endtab %}
+{% endtabs %}
+
 ### Gaussian
 
 ![Guassian distribution](images/20210316_160345.png)
 
-* kExpect most of the measurements to be close to mean and symmetrical
+* type of continuous probability distribution for a real-valued random variable
+* Expect most of the measurements to be close to mean and symmetrical
 * mean: μ
 * PDF
-  $$ \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{(x-u)^{2}}{2 \sigma^{2}}} $$
+  $$ \frac{1}{\sqrt{2 π \sigma^{2}}} e^{-\frac{(x-u)^{2}}{2 \sigma^{2}}} $$
 
-> Gamma
+* Gamma
+  * k: shape parameter
+  * θ: scale parameter
+  * PDF
+  $$ \frac{1}{\Gamma(k) \theta^{k}} x^{k-1} e^{-x / \theta} $$
 
-* k: shape parameter
-* θ: scale parameter
-* PDF
+* Poisson: Events occur independently
+  * Approximation is good if p ≤ 0.1 and λ = np ≤ 5
+  * lambda = n*p: mean
+  * n: number of times an event occurs in an interval
+  ![Poisson CDF, PMF](images/20210314_010214.png)
 
-$$ \frac{1}{\Gamma(k) \theta^{k}} x^{k-1} e^{-x / \theta} $$
-
-> Poisson
-
-* Events occur independently
-* Approximation is good if p ≤ 0.1 and λ = np ≤ 5
-* lambda = n*p: mean
-* n: number of times an event occurs in an interval
-
-![Poisson CDF, PMF](images/20210314_010214.png)
-
-* There are an average of 20 calls per hour. What is the probability that there are exactly 18 calls in 1 hour?
+> There are an average of 20 calls per hour.
+  What is the probability that there are exactly 18 calls in 1 hour?
 
 $$ \frac{20^{18} \cdot e^{-20}}{18 !} $$
 
-> Uniform
+{% tabs %}
+{% tab title='python' %}
 
-![uniform distribution](images/20210305_201105.png)
+* numpy.random
+  * noraml(`local`, `scale`, `size`): (3, 3, (2,2)): array([[5.00687005, 6.0482864 ], [4.77496526, 5.86039373]])
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.gaussian.prob' %}
 

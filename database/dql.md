@@ -90,29 +90,7 @@ con.setAutoCommit(true);
 ```
 
 {% endtab %}
-{% tab title='python' %}
-
-> psycopg2
-
-* pip install psycopg2-binary (for mac)
-* import psycopg
-
-```py
-# Connect to your postgres DB
-conn = psycopg.connect("dbname=test user=postgres")
-# Open a cursor to perform database operations
-cur = conn.cursor()
-# Execute a query
-cur.execute("SELECT * FROM my_data")
-# Retrieve query results
-records = cur.fetchall()
-```
-
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title='sequelize' %}
+{% tab title='javascript' %}
 
 ```js
 // 1. replacement from string
@@ -143,6 +121,25 @@ console.log(JSON.stringify(records[0], null, 2)); {
 }
 
 const [results, metadata] = await sequelize.query("UPDATE users SET y = 42 WHERE x = 12");
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+> psycopg2
+
+* pip install psycopg2-binary (for mac)
+* import psycopg
+
+```py
+# Connect to your postgres DB
+conn = psycopg.connect("dbname=test user=postgres")
+# Open a cursor to perform database operations
+cur = conn.cursor()
+# Execute a query
+cur.execute("SELECT * FROM my_data")
+# Retrieve query results
+records = cur.fetchall()
 ```
 
 {% endtab %}
@@ -201,6 +198,8 @@ SELECT COUNT(distinct(l.type)) FROM bank.loan l -- Count number of type from loa
 {% endtab %}
 {% endtabs %}
 
+## Query Select
+
 {% include '.select.prob' %}
 
 ## Aggregate
@@ -209,14 +208,7 @@ SELECT COUNT(distinct(l.type)) FROM bank.loan l -- Count number of type from loa
   * AVG, COUNT, MAX, MIN, SUM
 
 {% tabs %}
-{% tab title='django' %}
-
-```py
-len(DistributorRole.objects.all())
-```
-
-{% endtab %}
-{% tab title='sequelize' %}
+{% tab title='javascript' %}
 
 ```js
 // Let's assume 3 person objects with an attribute age. 10, 5 40
@@ -227,6 +219,13 @@ Project.sum('age').then(sum => {
 Project.sum('age', { where: { age: { [Op.gt]: 5 } } }).then(sum => {
   // will be 50
 })
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+```py
+len(DistributorRole.objects.all())
 ```
 
 {% endtab %}
@@ -382,36 +381,9 @@ SELECT date, source.medium, COUNT(DISTINCT(visiterId)) AS visits FROM table, GRO
 * Outer: null pad when there is no matching pair
 
 {% tabs %}
-{% tab title='sequelize' %}
+{% tab title='javascript' %}
 
 ```js
-// 1. Eager Loading
-const awesomeCaptain = await Captain.findOne({
-  where: {
-    name: "Jack Sparrow"
-  },
-  include: Ship
-});
-//// Now the ship comes with it
-console.log('Name:', awesomeCaptain.name);
-console.log('Skill Level:', awesomeCaptain.skillLevel);
-console.log('Ship Name:', awesomeCaptain.ship.name);
-console.log('Amount of Sails:', awesomeCaptain.ship.amountOfSails);
-
-// 2. Lazy Loading
-const awesomeCaptain = await Captain.findOne({
-  where: {
-    name: "Jack Sparrow"
-  }
-});
-/* Do stuff with the fetched captain */
-console.log('Name:', awesomeCaptain.name);
-console.log('Skill Level:', awesomeCaptain.skillLevel);
-/* Now we want information about his ship! */
-const hisShip = await awesomeCaptain.getShip();
-console.log('Ship Name:', hisShip.name);
-console.log('Amount of Sails:', hisShip.amountOfSails);
-
 // 3. SELECT board.id, COUNT(board_comments.id) AS commentCount FROM board
 //    JOIN board_comments ON board.id = board_comments.boardID
 BoardModel.findAndCountAll({
@@ -475,6 +447,30 @@ SELECT Orders.OrderID, Employees.LastName, Employees.FirstName FROM Orders
 * Queries involving no negation can be unnested
 
 {% tabs %}
+{% tab title='javascript' %}
+
+```js
+// 1. Nested: Sequelize help the main (larger query) but you will still have to write that sub-query by yourself
+/* SELECT *, (SELECT COUNT(*) FROM reactions AS reaction
+              WHERE reaction.postId = post.id AND reaction.type = "Laugh") AS laughReactionsCount
+   FROM posts AS post */
+Post.findAll({
+  attributes: {
+    include: [[ sequelize.literal(`( SELECT COUNT(*) FROM reactions AS reaction
+                                     WHERE reaction.postId = post.id AND reaction.type = "Laugh")`),
+                                     'laughReactionsCount']]
+  }
+});
+
+/* SELECT * FROM characteristic
+    WHERE characteristic_id = 1 and characteristic_id in (
+    select characteristic_id from characteristic_variant_val where rel_type = 'variant') */
+characteristic_id : {
+  $in: [clout.sequelize.literal('select characteristic_id from characteristic_variant_val'))]
+}
+```
+
+{% endtab %}
 {% tab title='sql' %}
 
 ```sql
@@ -587,9 +583,43 @@ SELECT name FROM Teams
 ## Limit
 
 {% tabs %}
-{% tab title='django' %}
+{% tab title='python' %}
 
 * objects.first(): Get first
+
+{% endtab %}
+{% endtabs %}
+
+## Transaction
+
+{% tabs %}
+{% tab title='javascript' %}
+
+```js
+// 1. Transaction
+const t = await sequelize.transaction();
+
+try {
+  // Then, we do some calls passing this transaction as an option:
+  const user = await User.create({
+    firstName: 'Bart',
+    lastName: 'Simpson'
+  }, { transaction: t });
+
+  await user.addSibling({
+    firstName: 'Lisa',
+    lastName: 'Simpson'
+  }, { transaction: t });
+
+  // If the execution reaches this line, no errors were thrown. We commit the transaction.
+  await t.commit();
+
+} catch (error) {
+
+  // If the execution reaches this line, an error was thrown. We rollback the transaction.
+  await t.rollback();
+}
+```
 
 {% endtab %}
 {% endtabs %}

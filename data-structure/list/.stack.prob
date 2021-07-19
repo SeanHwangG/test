@@ -1,5 +1,45 @@
 > baekjoon
 
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_9935.md/)
+
+{% tabs %}
+{% tab title='BJ_9935.md' %}
+
+> Question
+
+* Keep remove bomb string, if none left print FRULA
+
+```txt
+Input:
+mirkovC4nizCC44
+C4
+
+Output: mirkovniz
+
+Input:
+12ab112ab2ab
+12ab
+
+Ouput: FRULA
+```
+
+{% endtab %}
+{% tab title='BJ_9935.py' %}
+
+```py
+word, bomb = input(), list(input())
+res = []
+for char in word:
+  res.append(char)
+  if res[-len(bomb):] == bomb:
+    res[-len(bomb):] = []
+print(''.join(res) if res else "FRULA")
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 7 : 제로](https://www.acmicpc.net/problem/10773)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/stack/BJ_10773.md/)
 

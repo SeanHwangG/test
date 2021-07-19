@@ -103,7 +103,7 @@ $$
 
 $$
 c=\frac{x \cdot v}{v \cdot v}=\frac{x \cdot v}{\|v\|^{2}} \\
-(\lambda-c v) \cdot v=0
+(λ-c v) \cdot v=0
 $$
 
 $$ \operatorname{Proj}_{L}(a+b)=\operatorname{Proj}_{L}(a)+\operatorname{Proj}_{L}(b) $$
@@ -332,7 +332,7 @@ def gaussian2d(filter_size=7, sig=1.0):
 | C                 | Camera Matrix              | World -> Pixel                                                      |
 | E                 | Essential Matrix           |                                                                     |
 | F                 | Fundametal Matrix          |                                                                     |
-| $$\Pi$$           | Projection matrix          | Camera -> Firm                                                      |
+| π                 | Projection matrix          | Camera -> Firm                                                      |
 | K                 | Intrinsic matrix           | Camera -> Pixel (3, 3)                                              |
 | $${ }_{a}^{b} R$$ | Rotation Matrix            | wrt camera b                                                        |
 | $${ }_{c}^{w} T$$ | Extrinsic parameter        | World → Camera                                                      |

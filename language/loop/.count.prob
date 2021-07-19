@@ -85,7 +85,7 @@ print(li.count(a))
 * [Level 2 : Identifying tea](https://www.acmicpc.net/problem/11549)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_11549.md/)
 
-[//]: # (BJ_10797)
+[Duplicate](./BJ_10797.md)
 
 * [Level 2 : 공백 없는 A+B](https://www.acmicpc.net/problem/15873)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/BJ_15873.md/)
@@ -633,7 +633,7 @@ print(count)
 * [Level 1.5 : Aaah!](https://open.kattis.com/problems/aaah)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/count/KT_aaah.md/)
 
-[//]: # (BJ_4999)
+[Duplicate](./BJ_4999.md)
 
 > leetcode
 

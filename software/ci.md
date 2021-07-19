@@ -448,7 +448,7 @@ jobs:
 {% endtab %}
 {% endtabs %}
 
-## Python
+## CI Python
 
 {% tabs %}
 {% tab title='github' %}
@@ -547,6 +547,14 @@ jobs:
 * Unstopable Release
 
 ![PM2](images/20210301_194253.png)
+
+{% endtab %}
+{% tab title='shell' %}
+
+```sh
+# /etc/hosts  $(hostname)
+external
+```
 
 {% endtab %}
 {% tab title='kube' %}

@@ -1,0 +1,59 @@
+> hackerrank
+
+* [Level Easy : 'Tr' Command #1](https://www.hackerrank.com/challenges/text-processing-tr-1/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/tr/HR_text-processing-tr-1.md/)
+
+{% tabs %}
+{% tab title='text-processing-tr-1.md' %}
+
+* replace all parentheses with box brackets
+
+{% endtab %}
+{% tab title='text-processing-tr-1.sh' %}
+
+```sh
+tr "()" "[]"
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : 'Tr' Command #2](https://www.hackerrank.com/challenges/text-processing-tr-2/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/tr/HR_text-processing-tr-2.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-tr-2.md' %}
+
+* delete all the lowercase characters
+
+{% endtab %}
+{% tab title='HR_text-processing-tr-2.sh' %}
+
+```sh
+# tr -d [:lower:]
+tr -d a-z
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Easy : 'Tr' Command #3](https://www.hackerrank.com/challenges/text-processing-tr-3/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/tr/HR_text-processing-tr-3.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-tr-3.md' %}
+
+* Replace all sequences of multiple spaces with just one space
+
+{% endtab %}
+{% tab title='HR_text-processing-tr-3.sh' %}
+
+```sh
+# -s, --squeeze-repeats
+# replace each input sequence of a repeated character that is listed in SET1 with a single occurrence of that character
+
+tr -s " "
+```
+
+{% endtab %}
+{% endtabs %}

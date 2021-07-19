@@ -90,6 +90,30 @@ endif
   * -n: string not empty
 
 {% endtab %}
+{% tab title='vim' %}
+
+```sh
+# 1. Conditional
+if name ==# 'John'    # case-sensitive
+if name ==? 'John'    # case-insensitive
+if name == 'John'     # depends on :set ignorecase
+"hello" =~ '/x/'      # regex match
+"hello" !~ '/x/'
+&&    # and
+||    # or
+if
+
+let char = getchar()
+if char == "\<LeftMouse>"
+  # …
+elseif char == "\<RightMouse>"
+  # …
+else
+  # …
+endif
+```
+
+{% endtab %}
 {% endtabs %}
 
 ## If

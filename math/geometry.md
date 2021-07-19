@@ -12,12 +12,13 @@
 
 * Convex Set: Given any collection of convex sets (finite, countable or uncountable), their intersection is a convex set
 * Homeomorphism: a continuous function between topological spaces that has a continuous inverse function
-* Inscribed square problem
-  * Does every plane simple closed curve contain all four vertices of some square?
+* Inscribed square problem: Does every plane simple closed curve contain all four vertices of some square?
 
-* Homeomorphism: a continuous function between topological spaces that has a continuous inverse function
-* Inscribed square problem
-  * Does every plane simple closed curve contain all four vertices of some square?
+* Polyhedron: three-dimensional shape with flat polygonal faces, straight edges and sharp corners or vertices
+  * [ex] cube, triangle pyramid: smallest polyhedron, 4 triangular faces, 6 edges, and 4 vertices
+
+* Platonic solid: regular, convex polyhedron
+  ![Platonic solid](images/20210718_181307.png)
 
 > Proof Convex set
 
@@ -30,13 +31,13 @@
 
 ```py
 # 1. Polygon Collision
-### Point inside polygon
+""" Point inside polygon """
 for i in range(2, n):
   if dot(line(p[i], q), line(p[i-1], p[i]) >= 0:
     return true
 return false
 
-### Polygon vs Polygon intersect
+""" Polygon vs Polygon intersect """
 def polygon_intersection_algorithm
   if (any vertex of P1 belongs to P2) OR (any vertex of P2 belongs to P1)
     return collision
@@ -188,39 +189,19 @@ def isPolygonIntersect(P1, P2):
 
 ## Pythagorean
 
-{% include '.pythagorean.prob' %}
-
-## Polygon
-
-> Triangle
-
-* SSS
-
-$$ \sqrt{p(p-a)(p-b)(p-c)} $$
-
-* SAS
-
-$$ \frac{a \cdot b \cdot \sin (\theta)}{2} $$
-
-* Pythagorean Theorem
-
 ![Pythagoream Theorem](images/20210218_231601.png)
 
-$$
-\text { hypotenuse }^{2}=\text { base }^{2}+\text { perpendicular }^{2}
-$$
+$$ \text { hypotenuse }^{2}=\text { base }^{2}+\text { perpendicular }^{2} $$
 
-> Quadrillateral
+![Proof](images/20210718_195705.png)
 
-![Type of Quadrillateral](images/20210218_231529.png)
+{% include '.pythagorean.prob' %}
 
-* Area
+> Reference
 
-$$
-when s=\frac{a+b+c+d}{2}
+<https://www.youtube.com/watch?v=VjI4LtotC2o>
 
-S=\sqrt{(s-a)(s-b)(s-c)(s-d)}
-$$
+## Polygon
 
 > Polygon area
 
@@ -240,9 +221,25 @@ $$
 
 ### Triangle
 
+* SSS Area
+  $$ \sqrt{p(p-a)(p-b)(p-c)} $$
+
+* SAS Area
+  $$ \frac{a \cdot b \cdot \sin (\theta)}{2} $$
+
 {% include '.triangle.prob' %}
 
 ### Quadrilateral
+
+![Type of Quadrillateral](images/20210218_231529.png)
+
+* Area
+
+$$
+when s=\frac{a+b+c+d}{2}
+
+S=\sqrt{(s-a)(s-b)(s-c)(s-d)}
+$$
 
 {% include '.quadrilateral.prob' %}
 
@@ -306,14 +303,12 @@ plt.show()
 
 ## Trigonometry
 
-{% include 'trigonometry.test' %}
-
 ![trigonometry](images/20210206_210016.png)
 
 * Radian degree conversion
 
-$$ b(d e g)=180 \cdot a(r a d) \mid \pi $$
-
-$$ a(r a d)=\pi \cdot b(d e g) \mid 180 $$
+$$ b(d e g)=180 \cdot a(r a d) \mid π $$
+$$ a(r a d)=π \cdot b(d e g) \mid 180 $$
 
 {% include '.trigonometry.prob' %}
+{% include 'trigonometry.test' %}

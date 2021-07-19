@@ -1,1 +1,18 @@
 [Counter](https://docs.google.com/forms/d/1m1F3h8PzaSuVO6rqFZko9amMXTo_-NNj1UdfiD5ihGU/edit)
+
+```py
+from collections import Counter
+a = Counter([1, 2, 3, 4, 5, 5])
+b = Counter([-1, 2, 3, 4, 4, 5])
+
+print(a[3]) # 1
+print(b[4]) # 2
+print(a[-2]) # 0
+print(b[-1]) # 1
+print((a+b)[4]) # 3
+print((a+b)[-1]) # 1
+print((a-b)[5])  # 1
+print((b-a)[5])  # 0
+print((a+a)[4])  # 2
+print((b+b)[4])  # 4
+```

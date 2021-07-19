@@ -37,7 +37,7 @@ while True:
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : +B - 5](https://www.acmicpc.net/problem/10952)
+* [Level 3 : A+B - 5](https://www.acmicpc.net/problem/10952)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/while-break/BJ_10952.md/)
 
 {% tabs %}

@@ -163,11 +163,6 @@ while True:
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : Contemporary Art](https://www.acmicpc.net/problem/16600)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/BJ_16600.md/)
-
-[//]: # (BJ_15610)
-
 * [Level 3 : 욱제는 건축왕이야!!](https://www.acmicpc.net/problem/15923)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/BJ_15923.md/)
 
@@ -291,7 +286,7 @@ print(abs(sum([(l[i-1][0]-l[i][0])*(l[i-1][1]+l[i][1]) for i in range(n)])/2))
 * [Level 1.5 : Kornislav](https://open.kattis.com/problems/kornislav)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/KT_kornislav.md/)
 
-[//]: # (BJ_2959)
+[Duplicate](./BJ_2959.md)
 
 * [Level 1.5 : Sibice](https://open.kattis.com/problems/sibice)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/polygon/KT_sibice.md/)

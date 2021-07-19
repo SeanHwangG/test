@@ -1,1 +1,14 @@
 [math (combination)](https://docs.google.com/forms/d/1AeV7i1ky3EHT0ap8SStwHDkQiBmrlG8w2hXDEOQrh_c/edit)
+
+```py
+print(math.factorial(3))  # 6
+print(math.factorial(0))  # 1
+print(math.factorial(-1)) # ERROR
+print(math.comb(5, 3))    # 10
+print(math.comb(1, 5))    # 0
+print(math.comb(6, 2))    # 15
+print(math.comb(6, 0.5))  # ERROR
+print(math.perm(4, 3))    # 24
+print(math.perm(4, 2))    # 12
+print(math.perm(1, 5))    # 0
+```

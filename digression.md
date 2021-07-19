@@ -28,7 +28,6 @@ Any comments, contributions are welcome.
 
 * These are groups into the same \{\% tabs %}
   * Language: C, cmake, C++, html (jinja), java, javascript, python, shell, sql, sv, vim
-  * Module: flask, django, spring, react
   * Database: postgres, mongodb, sqlite, bigquery
   * Site: baekjoon, codechef, codeforce, hackerrank, kattis, leetcode
   * Problem: BJ_*, CC_*, CF_*, HR_*, KT_*, LC_*
@@ -37,7 +36,7 @@ Any comments, contributions are welcome.
 ## Blog
 
 {% tabs %}
-{% tab title='react' %}
+{% tab title='javascript' %}
 
 ```sh
 yarn add gatsby react react-dom react-helmet gatsby-plugin-mdx @mdx-js/mdx @mdj-js/react gatsby-source-filesystem
@@ -45,6 +44,25 @@ yarn add gatsby react react-dom react-helmet gatsby-plugin-mdx @mdx-js/mdx @mdj-
 
 {% endtab %}
 {% endtabs %}
+
+### CMS
+
+* Content management system
+* [+] Intuitive indexing, retrieval: search functions and allow users to search ([ex] publication dates, keywords or author)
+* [+] Format management facilitates turning scanned paper documents and legacy electronic documents into HTML or PDF documents
+* [+] Revision features allow content to be updated and edited after initial publication
+  * Revision control also tracks any changes made to files by individuals
+* [+] SEO-friendly URLs, Integrated and online help, including discussion boards
+* [ex] wordpress
+
+> Term
+
+* ECM: Enterprise Content Management supports multi-users in collaborative environment
+  * by integrating document management, digital asset management, and record retention
+* WCM: Web Content Management
+* Headless: writers produce content while providing developers with structured data
+  * that can be displayed using a separate system on the frontend of a website or app
+  * [ex] WordPress API, Contentful, Cockpit
 
 ### Gitbook
 
@@ -86,20 +104,17 @@ https://github.com/GitbookIO/gitbook/tree/master/docs
 
 ### Legacy Gitbook
 
-> Legacy version
-
 ![Example](images/20210602_071025.png)
 
 * [Example](https://gitbookio.gitbooks.io/documentation/content/index.html)
 * [+] Flexibilty with extensions
 * [-] Difficult for non-developer
 
-> CLI
-
-* ls: Show version installed
-* serve: Run locally
-* update: Update version
-* install: Install required plugins
+* cli
+  * ls: Show version installed
+  * serve: Run locally
+  * update: Update version
+  * install: Install required plugins
 
 * demo / document: [https://gitbookio.gitbooks.io/documentation/content/](https://gitbookio.gitbooks.io/documentation/content/)
 

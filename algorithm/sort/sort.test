@@ -1,1 +1,14 @@
 [Sort](https://docs.google.com/forms/d/1N8vskW2-pWB9XH1I2QEF8HqDXwo72BSavbt_ch9eTRU/edit)
+
+```py
+print(''.join(sorted(('5','3','2'))))  # 235
+print(''.join(sorted('hello')))        # ehllo
+print(''.join(sorted(('-2', '-1', '-9'))))  # -1-2-9
+print(''.join(sorted(('axrme'))))           # aemrx
+print(''.join(sorted(['am','was','be','been'])))  # ambebeenwas
+print(''.join(sorted(('3','9','6'), reverse=True)))  # 963
+print(''.join(sorted(('-3','5', '-1','0'), reverse=False)))  # -1-305
+print(''.join(sorted(('oihwe'),reverse=True)))  # woihe
+print(''.join(sorted(('dxkio'), reverse=False)))  # dikox
+print(''.join(sorted(reversed('ruhjs'))))   # hjrsu
+```

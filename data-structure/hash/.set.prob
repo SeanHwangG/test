@@ -495,7 +495,7 @@ for _ in range(N):
 * [Level 1.4 : Modulo](https://open.kattis.com/problems/modulo)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_modulo.md/)
 
-[//]: # (BJ_3052)
+[Duplicate](./BJ_3052.md)
 
 * [Level 1.9 : Booking a Room](https://open.kattis.com/problems/bookingaroom)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/KT_bookingaroom.md/)

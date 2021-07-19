@@ -109,7 +109,7 @@ $$ \frac{1}{k} \sum_{i=1}^{k} P_{i}=\frac{1}{k} \sum_{r=1}^{k} r e l_{r} \log \f
 
 * Objective
 
-$$ \arg \min _{α, β} \sum_{i, u}(α+β_{i}+β_{u}-R_{u, i})^{2}+\lambda[\sum_{i} β_{i}^{2}+\sum_{u} β_{u}^{2}] $$
+$$ \arg \min _{α, β} \sum_{i, u}(α+β_{i}+β_{u}-R_{u, i})^{2}+λ[\sum_{i} β_{i}^{2}+\sum_{u} β_{u}^{2}] $$
 
 > Item-item
 

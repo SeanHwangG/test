@@ -7,14 +7,75 @@
 {% tabs %}
 {% tab title='python' %}
 
-> mathplot
+* mathplot
+  * 0 is black 1 is white
+  * Matplotlib only supports PNG images
+  * float32 and uint8 (only float32 greyscale)
+  * axis('off'): Remove axis
+  * imshow(img, cmap) → None        # Display Image ('gray')
+  * fig.colorbar(im, ax=ax)
 
-* 0 is black 1 is white
-* Matplotlib only supports PNG images
-* float32 and uint8 (only float32 greyscale)
-* axis('off'): Remove axis
-* imshow(img, cmap) → None        # Display Image ('gray')
-* fig.colorbar(im, ax=ax)
+![colorbar](images/20210309_003050.png)
+![color types](images/20210309_010526.png)
+
+```py
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+fig, axs = plt.subplots(2, 3)
+axs[0, 0].set_title('1 : scatter')
+axs[0, 0].plot([1, 2, 3, 4], [1, 4, 9, 16], 'ro')
+
+axs[0, 1].set_title('2 : line')
+axs[0, 1].plot([1, 2, 3, 4], [1, 4, 9, 16])
+
+axs[0, 2].set_title('3 : heatmap')
+axs[0, 2].imshow(np.random.random((16, 16)), cmap='hot', interpolation='nearest')
+
+axs[1, 0].set_title('4 : bar')
+axs[1, 0].bar(['A', 'B', 'C'], [1, 5, 3])
+
+axs[1, 1].set_title('5 : curve')
+axs[1, 1].plot(np.linspace(0, 2 * np.pi, 400), np.sin(np.linspace(0, 2 * np.pi, 400) ** 2))
+
+X, Y = np.meshgrid(np.arange(-5,6,1), np.arange(-5,6,1))
+u, v = X|5, -Y|5
+axs[1, 2].quiver(X,Y,u,v)
+
+plt.show()
+
+for ax in axs.flat:
+  ax.set(xlabel='x-label', ylabel='y-label')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+for ax in axs.flat:
+  ax.label_outer()
+
+# Color types
+from cv2 import cv2
+import matplotlib.pyplot as plt
+
+fig, axs = plt.subplots(1, 5)
+
+dog_np = cv2.cvtColor(cv2.imread('data/dog.jpg'), cv2.COLOR_BGR2RGB)
+axs[0].imshow(dog_np)
+axs[0].axis('off')
+
+axs[1].imshow(cv2.imread('data/dog.jpg', cv2.IMREAD_GRAYSCALE))
+axs[1].axis('off')
+
+axs[2].imshow(cv2.resize(dog_np,(300, 600)))
+axs[2].axis('off')
+
+axs[3].imshow(cv2.resize(dog_np, (0,0), dog_np, 1, 0.5))
+axs[3].axis('off')
+
+axs[4].imshow(cv2.flip(dog_np, -1))
+axs[4].axis('off')
+
+cv2.imwrite("data/dog_np.jpg", dog_np)
+```
 
 {% endtab %}
 {% endtabs %}

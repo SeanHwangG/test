@@ -1,0 +1,236 @@
+> baekjoon
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_10823.md/)
+
+{% tabs %}
+{% tab title='BJ_10823.md' %}
+
+> Question
+
+* Write a program to find the sum of the natural numbers included in S
+
+```txt
+Input:
+10,20,
+3
+0,50
+,1
+00
+
+Output: 210
+```
+
+{% endtab %}
+{% tab title='BJ_10823.py' %}
+
+```py
+import sys
+print(sum(eval(sys.stdin.read().replace("\n",""))))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_13420.md/)
+
+{% tabs %}
+{% tab title='BJ_13420.md' %}
+
+> Question
+
+* If the given formula is correct, output "correction" and "wrong answer" if incorrect
+
+```txt
+Input:
+4
+3 * 2 = 6
+11 + 11 = 11
+7 - 9 = -2
+3 * 0 = 0
+
+Output:
+correct
+wrong answer
+correct
+correct
+```
+
+{% endtab %}
+{% tab title='BJ_13420.py' %}
+
+```py
+for _ in range(int(input())):
+  eq, ans = input().split('=')
+  print("correct" if eval(eq) == int(ans) else "wrong answer")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_15818.md/)
+
+{% tabs %}
+{% tab title='BJ_15818.md' %}
+
+> Question
+
+* Outputs the remainder of the product of N integers per line divided by M
+
+```txt
+Input:
+10 9999
+100 100 100 100 100 100 100 100 100 100
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_15818.py' %}
+
+```py
+d = input().split()[1]
+print(eval(input().replace(" ","*")) % int(d))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_2935.md/)
+
+{% tabs %}
+{% tab title='BJ_2935.md' %}
+
+> Question
+
+* The result is either A+B or A*B, which is determined by the operator given in the input
+* Two inputs are both power of 10
+
+```txt
+Input:
+1000
+*
+100
+
+Output: 100000
+```
+
+{% endtab %}
+{% tab title='BJ_2935.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+  string a, b;
+  char o; cin >> a >> o >> b;
+  if (a.size() < b.size()) swap(a, b);
+  if (o == '*') a += b.substr(1, b.size()-1);
+  else a[a.size() - b.size()]++;
+  cout << a;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_2935.py' %}
+
+```py
+print(eval(input() + input() + input()))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_5613.md/)
+
+{% tabs %}
+{% tab title='BJ_5613.md' %}
+
+```txt
+Input:
+1
++
+1
+=
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_5613.cpp' %}
+
+```cpp
+#include <iostream>
+using namespace std;
+
+char op;
+int ans, x;
+int main() {
+  cin >> ans >> op;
+  while (1) {
+    cin >> x;
+    if (op == '+')ans += x;
+    else if (op == '-') ans -= x;
+    else if (op == '*') ans *= x;
+    else if (op == '/') ans /= x;
+    cin >> op;
+    if (op == '=') break;
+  }
+  cout << ans;
+}
+```
+
+{% endtab %}
+{% tab title='BJ_5613.py' %}
+
+```py
+c = input()
+while 1:
+  line = input()
+  if line == '=':
+    print(c)
+    break
+  b = input()
+  c = int(eval(str(c) + line + b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/KT_tri.md/)
+
+{% tabs %}
+{% tab title='KT_tri.md' %}
+
+> Question
+
+* a, b, c 가 주어질 때 사칙연산으로 a ? b = c가 되거나 a = b ? c가 되는 경우중 한가지를 출력하라
+
+```txt
+Input: 5 3 8
+Output: 5+3=8
+```
+
+{% endtab %}
+{% tab title='KT_tri.py' %}
+
+```py
+a, b, c = input().split()
+for op in ['+', '-', '*', '/']:
+  if eval(a + op + b) == int(c):
+    print(a + op + b + '=' + c)
+    break
+  if int(a) == eval(b + op + c):
+    print(a + '=' + b + op + c)
+    break
+```
+
+{% endtab %}
+{% endtabs %}

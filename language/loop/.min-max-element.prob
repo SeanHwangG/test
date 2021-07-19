@@ -1,6 +1,62 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
+* [Level 2 : 金平糖 (Konpeito)](https://www.acmicpc.net/problem/22015)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_22015.md/)
+
+{% tabs %}
+{% tab title='BJ_22015.md' %}
+
+> Question
+
+* Given A, B, C, print biggest element * 3 - sum of all elements
+
+```txt
+Input: 4 6 9
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_22015.py' %}
+
+```py
+A, B, C = map(int, input().split())
+print(3 * max(A, B, C) - A - B - C)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 시험 점수](https://www.acmicpc.net/problem/5596)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_5596.md/)
+
+{% tabs %}
+{% tab title='BJ_5596.md' %}
+
+> Question
+
+* Print maximum sum of two lists
+
+```txt
+Input:
+100 80 70 60
+80 70 80 90
+
+Output: 320
+```
+
+{% endtab %}
+{% tab title='BJ_5596.py' %}
+
+```py
+a, b, c, d = map(int, input().split())
+e, f, g, h = map(int, input().split())
+print(max(a + b + c + d, e + f + g + h))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 최소, 최대](https://www.acmicpc.net/problem/10818)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_10818.md/)
 
 {% tabs %}
@@ -27,7 +83,169 @@ print(min(li), max(li))
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level 3 : 최소, 최대 2](https://www.acmicpc.net/problem/20053)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_20053.md/)
+
+{% tabs %}
+{% tab title='BJ_20053.md' %}
+
+> Question
+
+* N integers are given, find the minimum and maximum values
+
+```txt
+Input:
+3
+5
+20 28 22 25 21
+5
+30 21 17 25 29
+5
+20 10 35 30 7
+
+Output:
+20 28
+17 30
+7 35
+```
+
+{% endtab %}
+{% tab title='BJ_20053.cpp' %}
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  int N; cin >> N;
+  while (N--) {
+    int n; cin >> n;
+    vector<int> v(n);
+    for (auto& i : v) cin >> i;
+    cout << *min_element(v.begin(), v.end()) << ' ' << *max_element(v.begin(), v.end()) << '\n';
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_20053.py' %}
+
+```py
+for _ in range(int(input())):
+  input()
+  li = list(map(int, input().split()))
+  print(min(li), max(li))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 행복](https://www.acmicpc.net/problem/15969)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_15969.md/)
+
+{% tabs %}
+{% tab title='BJ_15969.md' %}
+
+> Question
+
+* Print difference between maximum and minimum
+
+```txt
+Input:
+8
+85 42 79 95 37 11 72 32
+
+Output: 84
+```
+
+{% endtab %}
+{% tab title='BJ_15969.js' %}
+
+```js
+process.stdin.on('data', (chunk) => {
+  const data = chunk.toString().trim().split('\n')[1].split(' ').map(x=>+x);
+  console.log(Math.max(...data) - Math.min(...data));
+});
+```
+
+{% endtab %}
+{% tab title='BJ_15969.py' %}
+
+```py
+input()
+li = list(map(int,input().split()))
+print(max(li) - min(li))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : Sort 마스터 배지훈](https://www.acmicpc.net/problem/17263)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_17263.md/)
+
+{% tabs %}
+{% tab title='BJ_17263.md' %}
+
+> Question
+
+* Print maximum from given list
+
+```txt
+Input:
+3
+3 2 1
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_17263.py' %}
+
+```py
+input()
+print(max(map(int,input().split())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 주차의 신](https://www.acmicpc.net/problem/5054)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_5054.md/)
+
+{% tabs %}
+{% tab title='BJ_5054.md' %}
+
+> Question
+
+* Print largest - smallest multiplied by 2
+
+```txt
+Input:
+2
+4
+24 13 89 37
+6
+7 30 41 14 39 42
+
+Output:
+152
+70
+```
+
+{% endtab %}
+{% tab title='BJ_5054.py' %}
+
+```py
+for _ in range(int(input())):
+  input()
+  l = list(map(int, input().split()))
+  print((max(l) - min(l)) * 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 5 : 첼시를 도와줘!](https://www.acmicpc.net/problem/11098)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_11098.md/)
 
 {% tabs %}
@@ -112,227 +330,9 @@ for _ in range(int(input())):
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_15969.md/)
-
-{% tabs %}
-{% tab title='BJ_15969.md' %}
-
-> Question
-
-* Print difference between maximum and minimum
-
-```txt
-Input:
-8
-85 42 79 95 37 11 72 32
-
-Output: 84
-```
-
-{% endtab %}
-{% tab title='BJ_15969.js' %}
-
-```js
-process.stdin.on('data', (chunk) => {
-  const data = chunk.toString().trim().split('\n')[1].split(' ').map(x=>+x);
-  console.log(Math.max(...data) - Math.min(...data));
-});
-```
-
-{% endtab %}
-{% tab title='BJ_15969.py' %}
-
-```py
-input()
-li = list(map(int,input().split()))
-print(max(li) - min(li))
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_17263.md/)
-
-{% tabs %}
-{% tab title='BJ_17263.md' %}
-
-> Question
-
-* Print maximum from given list
-
-```txt
-Input:
-3
-3 2 1
-
-Output: 3
-```
-
-{% endtab %}
-{% tab title='BJ_17263.py' %}
-
-```py
-input()
-print(max(map(int,input().split())))
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_20053.md/)
-
-{% tabs %}
-{% tab title='BJ_20053.md' %}
-
-> Question
-
-* N integers are given, find the minimum and maximum values
-
-```txt
-Input:
-3
-5
-20 28 22 25 21
-5
-30 21 17 25 29
-5
-20 10 35 30 7
-
-Output:
-20 28
-17 30
-7 35
-```
-
-{% endtab %}
-{% tab title='BJ_20053.cpp' %}
-
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
-
-int main() {
-  int N; cin >> N;
-  while (N--) {
-    int n; cin >> n;
-    vector<int> v(n);
-    for (auto& i : v) cin >> i;
-    cout << *min_element(v.begin(), v.end()) << ' ' << *max_element(v.begin(), v.end()) << '\n';
-  }
-}
-```
-
-{% endtab %}
-{% tab title='BJ_20053.py' %}
-
-```py
-for _ in range(int(input())):
-  input()
-  li = list(map(int, input().split()))
-  print(min(li), max(li))
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_22015.md/)
-
-{% tabs %}
-{% tab title='BJ_22015.md' %}
-
-> Question
-
-* Given A, B, C, print biggest element * 3 - sum of all elements
-
-```txt
-Input: 4 6 9
-Output: 8
-```
-
-{% endtab %}
-{% tab title='BJ_22015.py' %}
-
-```py
-A, B, C = map(int, input().split())
-print(3 * max(A, B, C) - A - B - C)
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_5054.md/)
-
-{% tabs %}
-{% tab title='BJ_5054.md' %}
-
-> Question
-
-* Print largest - smallest multiplied by 2
-
-```txt
-Input:
-2
-4
-24 13 89 37
-6
-7 30 41 14 39 42
-
-Output:
-152
-70
-```
-
-{% endtab %}
-{% tab title='BJ_5054.py' %}
-
-```py
-for _ in range(int(input())):
-  input()
-  l = list(map(int, input().split()))
-  print((max(l) - min(l)) * 2)
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/BJ_5596.md/)
-
-{% tabs %}
-{% tab title='BJ_5596.md' %}
-
-> Question
-
-* Print maximum sum of two lists
-
-```txt
-Input:
-100 80 70 60
-80 70 80 90
-
-Output: 320
-```
-
-{% endtab %}
-{% tab title='BJ_5596.py' %}
-
-```py
-a, b, c, d = map(int, input().split())
-e, f, g, h = map(int, input().split())
-print(max(a + b + c + d, e + f + g + h))
-```
-
-{% endtab %}
-{% endtabs %}
-
 > leetcode
 
-* [Level  : UNKNOWN]()
+* [Level 2 : Partitioning Into Minimum Number Of Deci-Binary Numbers](https://leetcode.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/min-max-element/LC_1689.md/)
 
 {% tabs %}

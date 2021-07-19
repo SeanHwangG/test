@@ -222,7 +222,7 @@ for _ in range(int(input())):
 * [Level 5 : 수 정렬하기](https://www.acmicpc.net/problem/2750)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_2750.md/)
 
-[//]: # (BJ_2751)
+[Duplicate](./BJ_2751.md)
 
 * [Level 5 : 애너그램](https://www.acmicpc.net/problem/6996)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort/BJ_6996.md/)

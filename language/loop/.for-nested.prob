@@ -46,7 +46,7 @@ for _ in range(int(input())):
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : egative People in Da House](https://www.acmicpc.net/problem/11161)
+* [Level 3 : Negative People in Da House](https://www.acmicpc.net/problem/11161)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-nested/BJ_11161.md/)
 
 {% tabs %}

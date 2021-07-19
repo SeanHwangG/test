@@ -1,6 +1,6 @@
 > baekjoon
 
-* [Level 3 : dding Reversed Numbers](https://www.acmicpc.net/problem/3486)
+* [Level 3 : Adding Reversed Numbers](https://www.acmicpc.net/problem/3486)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_3486.md/)
 
 {% tabs %}
@@ -354,7 +354,7 @@ while True:
 * [Level 1.2 : Filip](https://open.kattis.com/problems/filip)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/KT_filip.md/)
 
-[//]: # (BJ_2908)
+[Duplicate](./BJ_2908.md)
 
 * [Level 1.6 : Mirror Images](https://open.kattis.com/problems/mirror)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/KT_mirror.md/)

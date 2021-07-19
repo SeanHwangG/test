@@ -135,7 +135,7 @@ $$ L_{i}=\sum_{j \neq y_{i}} \max \left(0, s_{j}-s_{y_{i}}+1\right) $$
   $$min_{φ} \frac{1}{N} \sum_{j=K+1}^{M} φ_{j}(X-\bar{X})(X-\bar{X})^{T} φ_{j}^{T}$$
 
 * Lagrange multiplier
-  $$min_{φ} \frac{1}{N} \sum_{j=K+1}^{M} φ_{j} \operatorname{Cov}(X) φ_{j}^{T}-\lambda_{j}\left(φ_{j} φ_{j}^{T}-1\right)$$
+  $$min_{φ} \frac{1}{N} \sum_{j=K+1}^{M} φ_{j} \operatorname{Cov}(X) φ_{j}^{T}-λ_{j}\left(φ_{j} φ_{j}^{T}-1\right)$$
 
 * discovers latent feature
 * Ranked in order of their explained variance
@@ -196,6 +196,9 @@ $$A^{T} A=\left(V \Sigma^{T} U^{T}\right) U \Sigma V^{T}=V\left(\Sigma^{T} \Sigm
 | $$\frac{FN}{FN+TP}$$                | False negative rate (miss rate)                                        |
 | $$\frac{T P}{T P+F P}$$             | Precision                                                              |
 
+{% tabs %}
+{% tab title='python' %}
+
 ```py
 TP, FP, TN, FN = [0 for i in range(202)], [0 for i in range(202)], [0 for i in range(202)], [0 for i in range(202)]
 classes = []
@@ -222,7 +225,8 @@ for tp, fp, tn, fn in zip(TP, FP, TN, FN):
   classes.append({"Class": i, "Precision": precision, "Accuracy": accuracy, "Recall": recall, "BCR": bcr})
 ```
 
-{% include '.classification.prob' %}
+{% endtab %}
+{% endtabs %}
 
 ### Classification Metric
 
@@ -383,7 +387,7 @@ distance.pdist(b, 'euclidean')  # [1. 1.41421356 1.]
 $$ L(A, P, N)=\max \left(\|f(A)-f(P)\|^{2}-\|f(A)-f(N)\|^{2}+\alpha, 0\right) $$
 $$ \frac{\|f(A)-f(p)\|^{2}}{d(A, P)}-\frac{\|f(A)-f(N)\|^{2}}{d(A, N)}+\alpha \leq 0 $$
 
-### Tree
+### Tree Model
 
 ![Random Forest vs Boosting](images/20210222_225347.png)
 
@@ -394,20 +398,18 @@ $$ \frac{\|f(A)-f(p)\|^{2}}{d(A, P)}-\frac{\|f(A)-f(N)\|^{2}}{d(A, N)}+\alpha \l
 
 * each decision tree gets a random sample | columns of the training data to be sent to each tree
   * [+] does not increase generalization error when more trees are added to the model
-  * [-] don’t train well on smaller datasets
-  * [-] problem of interpretability with random forest
-  * [-] Random forests do not handle large numbers of irrelevant features
+  * [-] don’t train well on smaller datasets, don't handle large numbers of irrelevant features
+  * [-] bad interpretability
   * [-] models requires O(NK) memory storage, (N - # of base, K - # of trees)
 
 ## Regression
 
 * Discrete
+  ![Regession](images/20210314_005741.png)
 
-![Regession](images/20210314_005741.png)
-
-> Logistic Regression
-
-* logistic regression is based on statistical approaches
+* Logistic regression: based on statistical approaches
+  * [+] Dependent variables does not need to be normally distributed, Effective interpretation of results
+  * [-] Requires more data to achieve stability, effective mostly on linearly separable
 
 | Term           | Value                              | Meaning                                       |
 | -------------- | ---------------------------------- | --------------------------------------------- |
@@ -417,38 +419,30 @@ $$ \frac{\|f(A)-f(p)\|^{2}}{d(A, P)}-\frac{\|f(A)-f(N)\|^{2}}{d(A, N)}+\alpha \l
 
 ### Regression Metric
 
-> Mean absolute error
+* Mean absolute error
+  $$\frac{\sum_{i=1}^{n}\left|y_{i}-x_{i}\right|}{n}$$
 
-$$\frac{\sum_{i=1}^{n}\left|y_{i}-x_{i}\right|}{n}$$
+* Mean biased error
+  $$\frac{\sum_{i=1}^{n} y_{i}-x_{i}}{n}$$
 
-> Mean biased error
-
-$$\frac{\sum_{i=1}^{n} y_{i}-x_{i}}{n}$$
-
-> Mean squared error
+* Mean squared error: Based on the assumption that error is normally distributed
+  * If we predict mean value, that is variance
+  * coefficient of determination
 
 | Equation                        | Meaning                                          |
 | ------------------------------- | ------------------------------------------------ |
 | $$\frac{M S E(f)}{V A R(y)}$$   | Fraction of Variance (1 means perfect predictor) |
 | $$1-\frac{M S E(f)}{V A R(y)}$$ | Coefficient of determination                     |
 
-* Based on the assumption that error is normally distributed
-* If we predict mean value, that is variance
-* coefficient of determination
+* RMSE (Root Means Sequared Error)
+  * more useful when large errors are particularly undesirable
+  * expects that the all sample data is measured exactly, or observed without error
+  * Metric used for netflix prize
+  $$ \sqrt{\frac{\sum_{i=1}^{n}\left(y_{i}-\hat{y}_{i}\right)^{2}}{n}} $$
 
-> RMSE (Root Means Sequared Error)
-
-* more useful when large errors are particularly undesirable
-* expects that the all sample data is measured exactly, or observed without error
-* Metric used for netflix prize
-
-$$ \sqrt{\frac{\sum_{i=1}^{n}\left(y_{i}-\hat{y}_{i}\right)^{2}}{n}} $$
-
-> Total Least Square
-
-![Total Least Square](images/20210324_145214.png)
-
-$$ \frac{1}{2 n} \sum_{x}\|y(x)-\hat{y}(x)\|^{2} $$
+* Total Least Square
+  ![Total Least Square](images/20210324_145214.png)
+  $$ \frac{1}{2 n} \sum_{x}\|y(x)-\hat{y}(x)\|^{2} $$
 
 ### Linear
 
@@ -460,12 +454,10 @@ $$ \frac{1}{2 n} \sum_{x}\|y(x)-\hat{y}(x)\|^{2} $$
   ![Support vector machine](images/20210305_201646.png)
 
 * Optimization function
-
-$$ \arg \min _{θ, α} \frac{1}{2}\|θ\|_{2}^{2} \text { s.t. } \forall_{i} y_{i}(θ \cdot X_{i}-α) \geq 1 $$
+  $$ \arg \min _{θ, α} \frac{1}{2}\|θ\|_{2}^{2} \text { s.t. } \forall_{i} y_{i}(θ \cdot X_{i}-α) \geq 1 $$
 
 * Decision rule
-
-$$ w \cdot u+b \geq 0, \text { then }+ $$
+  $$ w \cdot u+b \geq 0, \text { then }+ $$
 
 * KNN (K nearest neighbors): transformed into a fast indexing structure such as a Ball Tree or KD Tree
 
@@ -511,37 +503,26 @@ theta, residuals, rank, s = np.linalg.lstsq(X, y)
 
 * Four types of clustering methods are 1) Exclusive 2) Agglomerative 3) Overlapping 4) Probabilistic
 
-> Hierarchical Clustering
+* Hierarchical Clustering: Iteratively merge closest points which constructs dendrogram
+  * Useful for geographic location
+  ![Hierarchical Clustering](images/20210324_000002.png)
 
-* Iteratively merge closest points which constructs dendrogram
-* Useful for geographic location
-
-![Hierarchical Clustering](images/20210324_000002.png)
-
-> K-mean
+### K-mean
 
 * Soft K-means
   * replace hard memberships to each cluster by a proportional membership to each cluster
+  $$C_{k}=\frac{\sum_{i} \delta\left(y_{i}=k\right) X_{i}}{\sum_{i} \delta\left(y_{i}=k\right)}$$
 
-$$C_{k}=\frac{\sum_{i} \delta\left(y_{i}=k\right) X_{i}}{\sum_{i} \delta\left(y_{i}=k\right)}$$
+* K-median: replace mean with median to minimize 1-norm distance
+  $$ y_{i}=\min_{C, y} \sum_{i}\left\|X_{i}-C_{y i}\right\|_{2}^{2} $$
 
-> K-median
+* Normalized cut
+  ![Normalized Cut](images/20210324_143607.png)
+  $$\frac{1}{|C|} \sum_{c \in C} \frac{\operatorname{cut}(c, \bar{c})}{d e g r e e s \operatorname{in} c}$$
 
-* replace mean with median to minimize 1-norm distance
-
-$$ y_{i}=\min_{C, y} \sum_{i}\left\|X_{i}-C_{y i}\right\|_{2}^{2} $$
-
-> Normalized cut
-
-![Normalized Cut](images/20210324_143607.png)
-
-$$\frac{1}{|C|} \sum_{c \in C} \frac{\operatorname{cut}(c, \bar{c})}{d e g r e e s \operatorname{in} c}$$
-
-> Ratio Cut
-
-![Ratio Cut](images/20210324_143644.png)
-
-$$\frac{1}{|C|} \sum_{c \in C} \frac{\operatorname{cut}(c, \bar{c})}{|c|}$$
+* Ratio Cut
+  ![Ratio Cut](images/20210324_143644.png)
+  $$\frac{1}{|C|} \sum_{c \in C} \frac{\operatorname{cut}(c, \bar{c})}{|c|}$$
 
 ## Ensemble
 
@@ -551,14 +532,11 @@ $$\frac{1}{|C|} \sum_{c \in C} \frac{\operatorname{cut}(c, \bar{c})}{|c|}$$
 
 * technique that creates multiple models and then combines them to produce better results
 
-* Bagging
-  * combine them using some model averaging techniques (e.g. weighted average, majority vote)
-  * Random Forest models
+* Bagging: combine them using some model averaging techniques (e.g. weighted average, majority vote)
+  * [ex] Random Forest models
 
-* Boosting
-  * takes less time|iterations to reach close to actual predictions
-  * Adaptive Gradient Boosting
-    * machine learning meta-algorithm formulated by Yoav Freund and Robert Schapire
+* Boosting: takes less time|iterations to reach close to actual predictions
+  * [ex] Adaptive Gradient Boosting: machine learning meta-algorithm formulated by Yoav Freund and Robert Schapire
 
 * Cascading: reject if any of the classifier doesn’t match
 
@@ -577,3 +555,22 @@ $$\frac{1}{|C|} \sum_{c \in C} \frac{\operatorname{cut}(c, \bar{c})}{|c|}$$
   * max_depth (7), subsample, colsample_bytree, colsample_bylevel, eta, num_rounds
 * Under fit
   * min_child_weight (0, 5, 15, 500), lambda alpha
+
+## Regularization
+
+* adding information in order to solve an ill-posed problem or to prevent overfitting
+
+> Term
+
+* Ridge regression: estimating coefficients of multiple-regression models where independent variables are highly correlated
+  * large alpha = smaller slope = less sensitive to training data, usually found with cross validation
+  * [+] When there are more parameter than data points
+  * [+] Prevents over fitting, Trades variance for bias (with co-linearity)
+  * [-] Hyperparameter alpha, low model interpretability, increase bias
+  $$ ∑_{i=1}^{M}(y_{i}-\hat{y}_{i})^{2}=∑_{i=1}^{M}(y_{i}-∑_{j=0}^{p} w_{j} \times x_{i j})^{2}+λ ∑_{j=0}^{p} w_{j}^{2} $$
+
+* LASSO regression: regularization technique, variable selection + regularization to enhance accuracy, interpretability
+  * [+] Select features, by shrinking co-efficient towards zero, Avoids over fitting
+  * [-] Prediction performance is worse than Ridge regression
+  * [-] Selected features will be highly biased, for different boot strapped data, the feature selected can be very different
+  $$ \operatorname{cost}(w)=1 /(2 * n) \sum_{i=1}^{i=n}(y_{i}-\hat{y}_{i})^{2}+∑ \sum_{j=1}^{j=D}|w_{j}| $$

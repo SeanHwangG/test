@@ -114,7 +114,7 @@ while not file_location:
 ## Component
 
 {% tabs %}
-{% tab title='react' %}
+{% tab title='javascript' %}
 
 ![Lifecycle](images/20210715_173414.png)
 
@@ -352,6 +352,96 @@ cv2.destroyAllWindows()
 {% endtab %}
 {% endtabs %}
 
+## Input Field
+
+{% tabs %}
+{% tab title='javascript' %}
+
+* input
+  * `<input([type=])>`: an input control (text, password, number)
+  * onfocus / onfocusout    // add handler function when user click / unclick form
+
+* form
+  * an HTML form for user input
+  * outline: none;: hide blue outline for text input
+
+* textarea: a multiline input control (text area)
+* button
+* optgroup: a group of related options in a drop-down list
+* fieldset: related elements in a form
+* legend: a caption for a fieldset element
+* output: the result of a calculation
+* datalist: a list of pre-defined options for input controls
+
+* select: a drop-down list
+* option: an option in a drop-down list
+
+* media
+  * alt
+    * Specifies an alternate text for an image
+  * src
+    * Source file path
+  * area
+  * map
+
+```jsx
+// 1. area
+<area shape="rect" coords="0,0,82,126" alt="Sun" href="sun.htm">
+<area shape="circle" coords="90,58,3" alt="Mercury" href="mercur.htm">
+
+// 2. Map
+<img src="planets.gif" width="145" height="126" alt="Planets" usemap="#planetmap">
+<map name="planetmap">
+<area shape="rect" coords="0,0,82,126" alt="Sun" href="sun.htm">
+</map>
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+* flask_wtf
+  * LoginManager
+  * current_user
+  * login_required
+  * login_user
+  * logout_user
+  * flask_debugtoolbar
+  * app.config['SECRET_KEY'] = '\<replace with a secret key>'
+  * toolbar = DebugToolbarExtension(app)
+
+* django
+  * GenericForeinKey
+
+* django-crispy-forms
+  * pip install django-crispy-forms
+* django.forms
+  * disabled: disabled HTML attribute so that it won’t be editable by users
+  * has_changed(): determine if the field value has changed from the initial value
+
+```py
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
+# 1. django
+class FlexCategory(models.Model):
+  name = models.SlugField()
+  content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+  object_id = models.PositiveIntegerField()
+  content_object = GenericForeignKey('content_type', 'object_id')
+
+
+class Hero(models.Model):
+  name = models.CharField(max_length=100)
+  flex_category = GenericRelation(FlexCategory, related_query_name='flex_category')
+
+class Villain(models.Model):
+  name = models.CharField(max_length=100)
+  flex_category = GenericRelation(FlexCategory, related_query_name='flex_category')
+```
+
+{% endtab %}
+{% endtabs %}
+
 ## Select
 
 {% tabs %}
@@ -411,7 +501,7 @@ cv2.destroyAllWindows()
 ### Slider
 
 {% tabs %}
-{% tab title='django' %}
+{% tab title='python' %}
 
 > admin-numeric-filter
 

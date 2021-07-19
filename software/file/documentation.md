@@ -3,7 +3,8 @@
 * descriptive-style rather than imperative-style
   * [ex] ("""Fetches rows from a Bigtable.""") -> ("""Fetch rows from a Bigtable."""),
 
-## sphinx
+{% tabs %}
+{% tab title='sphinx' %}
 
 * tool for automatic generation of Sphinx sources that, using the autodoc extension
 * document a whole package in the style of other automatic API documentation tools
@@ -124,3 +125,71 @@ class MyPublicClass(object):
     """
     return baz
 ```
+
+{% endtab %}
+{% endtabs %}
+
+## Doc Function
+
+* Should have docstring unless: not externally visible, very short, obvious
+* Describe function's syntax, semantics not implemenation detail
+* Descriptive rather than imperative ([ex] Returns the Bigtable path. -> The Bigtable path.)
+
+> Reference
+
+<https://google.github.io/styleguide/pyguide.html#383-functions-and-methods>
+
+## Manual
+
+{% tabs %}
+{% tab title='shell' %}
+
+* man: format and display the on-line manual pages
+  * 1 `printf`: printf in user commands
+  * -k man `'^printf'`: search for sections in man page
+
+* whatis `command`: search the whatis database for complete words
+
+| Section | contents                                |
+| ------- | --------------------------------------- |
+| 1       | User Commands                           |
+| 2       | System Calls                            |
+| 3       | C Library Functions                     |
+| 3n      | network functions                       |
+| 4       | Devices and Special Files               |
+| 5       | File Formats and Conventions            |
+| 6       | Games et. al.                           |
+| 7       | Miscellanea                             |
+| 8       | System Administration tools and Daemons |
+| 9       | Kernel routines                         |
+
+```sh
+import png:- | xclip -selection clipboard -t image/png  # screenshot goes to clipboard
+```
+
+{% endtab %}
+{% tab title='vim' %}
+
+* :help key-notation: man page
+
+{% endtab %}
+{% endtabs %}
+
+## Reference
+
+{% tabs %}
+{% tab title='markdown' %}
+
+```md
+<!-- 1. Separate references from contents -->
+[StackOverflow][1]
+
+[1]: http://stackoverflow.com
+
+<!-- 2. Beak long reference -->
+[StackOverflow](
+  http://stackoverflow.com)
+```
+
+{% endtab %}
+{% endtabs %}

@@ -19,70 +19,8 @@
 
 * Initial block: is not synthesizable and cannot be converted into a hardware schematic with digital elements
 
-## Assignment
-
-* =: blocking assignment, used in combinational logic
-  ![= assignment](images/20210505_004647.png)
-
-* <=: assign using temp, used in sequential logic
-
-* always_comb (assign): continuously evaluating
-* always / always_ff: only changes when variable in @, changes
-  * always use <=
-
 {% tabs %}
 {% tab title='sv' %}
-
-```v
-// 1. synchronous_reset_d-ff.v
-module dff_sync_reset (
-  input wire data, clk, reset,
-  output reg q
-);
-
-always_ff @ (posedge clk)
-if (~reset)
-  q <= 1*b0;
-else
-  q <= data;
-end module
-
-// 2. shift using <=
-module shift_reg(input clk, reset, a, output logic d):
-
-logic b, c;
-always_ff @(posedge clk)
-  if (reset) begin
-    b <= 0;
-    c <= 0;
-    d <= 0;
-  end
-  else begin
-    b <= a;
-    c <= b;
-    d <= c;
-end
-
-end module
-```
-
-{% endtab %}
-{% tab title='sv' %}
-
-![assignment](images/20210413_150409.png)
-
-![Non-blocking](images/20210413_150558.png)
-
-```v
-// Blocking vs non blocking assignment
-module assignments(input i, input clk, output reg o);
-  reg temp;
-  always @ (posedge clk) begin
-    temp = i; // <=
-    o = temp; // <=
-  end
-end module
-```
 
 ![Flow diagram](images/20210413_150755.png)
 
@@ -180,7 +118,7 @@ endmodule
 
 ![Verilog Operation Precedence](images/20210406_222500.png)
 
-> arithmetic
+* arithmetic
 
 | symbol | description                            |
 | ------ | -------------------------------------- |
@@ -193,13 +131,6 @@ endmodule
 | &&     | and                                    |
 | \|\|   | or                                     |
 | {}     | concatenate binary or replicate        |
-
-> bitwise
-
-| symbol | description      |
-| ------ | ---------------- |
-| ~      | bitwise negation |
-| &      | bitwise and      |
 
 {% tabs %}
 {% tab title='sv' %}
@@ -361,16 +292,13 @@ assign {Cout, S} = a + b;
 {% endtab %}
 {% endtabs %}
 
-> Buffers
+* Buffers
+  * buffer_type[instance_name](output, ..., output, input);
+  * buf()
+  * not(`x`, `a`): negate `a` and stores in `x`
 
-* buffer_type[instance_name](output, ..., output, input);
-
-* buf()
-* not(`x`, `a`): negate `a` and stores in `x`
-
-> Tristate
-
-* bufif1 [instance_name](output, input, enable)
+* Tristate
+  * bufif1 [instance_name](output, input, enable)
 
 ## Data
 

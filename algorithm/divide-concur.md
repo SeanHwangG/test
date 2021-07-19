@@ -26,30 +26,28 @@ def multiply (x: int, y: int) -> int:
 ## Master theorem
 
 * Calculates Complexity for divide and conquer algorithm
+  $$
+  T(n)=a T\left(\frac{n}{b}\right)+O\left(n^{d}\right)
+  $$
 
-$$
-T(n)=a T\left(\frac{n}{b}\right)+O\left(n^{d}\right)
-$$
+  $$
+  T(n) \epsilon\left\{\begin{array}{ll}
+  O\left(n^{d}\right) & \text { top heavy: } a<b^d \\
+  O\left(n^{d} \log n\right) & \text { steady : } a=b^{d} \\
+  O\left(n^{\log _{b} a}\right) & \text { bottom heavy: } a>b^{d}
+  \end{array}\right.
+  $$
 
-$$
-T(n) \epsilon\left\{\begin{array}{ll}
-O\left(n^{d}\right) & \text { top heavy: } a<b^d \\
-O\left(n^{d} \log n\right) & \text { steady : } a=b^{d} \\
-O\left(n^{\log _{b} a}\right) & \text { bottom heavy: } a>b^{d}
-\end{array}\right.
-$$
+* Cook Toom: multiplication algorithm for large integers
+  * Run Time $$ Θ(n^{1.46}) $$
 
-* Proof: After k levels, there are $$a^k$$ subproblems, each of size $$\frac{n}{b^k}$$
+> Question: Master Theorem Proof
+
+* After k levels, there are $$a^k$$ subproblems, each of size $$\frac{n}{b^k}$$
 * So, during the kth level of recursion, the time complexity
-
 $$
 O\left(\left(\frac{n}{b^{k}}\right)^{d}\right) a^{k}=O\left(a^{k}\left(\frac{n}{b^{k}}\right)^{d}\right)=O\left(n^{d}\left(\frac{a}{b^{d}}\right)^{k}\right)
 $$
-
-> Cook Toom
-
-* multiplication algorithm for large integers
-* Run Time $$ Θ(n^{1.46}) $$
 
 ## Binary Search
 

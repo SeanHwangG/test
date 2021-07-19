@@ -22,6 +22,7 @@
   * What do you intend to do before the next stand up?
 
 * Milestone: Project get paid after milestone
+* OTA: Over the air programming
 
 * Task: risk addressed (unseen technical requirements and risks)
   * inaccurate estimates, no division of labor
@@ -33,28 +34,24 @@
   * Planning poker to decide estimates
   * In BDD, disambiguating user stories using sequence and special cases (multiple scenarios per story)
   * BDD is covered by matching automated story test
-
-> Scenario 1: Favorite a New Route
-
-* Given that the user is on the Save Route screen
-* And they are saving a route named “RouteA”
-* When the user presses the “Favorite” button
-* And then they press the “Save” button
-* Then the app should go to the Routes page
-* And “RouteA” should be shown as a favorite
-
-* As a person who like to walk
-  * Who will benefit from the feature?
-* I want to have an accurate measure of the distance I traveled
-  * Not a system capability (task)
-* So that I can see how far I walk every day
-  * Benefit in the world
+  * [ex]
+    As a person who like to walk: Who will benefit from the feature?
+    I want to have an accurate measure of the distance I traveled: Not a system capability (task)
+    So that I can see how far I walk every day: Benefit in the world
 
 > Break following user story into two
 
-* As a user I want to message a nearby buddy so that we can meet up.  →
-* As an initiator I want to send invitation to a nearby buddy so that we can meet up
-* As a user I want to receive messages so that we can meet up
+* Scenario 1: Favorite a New Route
+  * Given that the user is on the Save Route screen
+  * And they are saving a route named “RouteA”
+  * When the user presses the “Favorite” button
+  * And then they press the “Save” button
+  * Then the app should go to the Routes page
+  * And “RouteA” should be shown as a favorite
+* Good
+  * As a user I want to message a nearby buddy so that we can meet up.  →
+  * As an initiator I want to send invitation to a nearby buddy so that we can meet up
+  * As a user I want to receive messages so that we can meet up
 
 ## Tools
 
@@ -94,28 +91,16 @@
 
 * X Window System: xAuthority file is in ~, stores credentials in cookies used by xauth for authentication of X sessions
 
-## Code Review
-
-* should avoid API discussion: should happend before code is written
-* Automated as possible: Linter and CI
-* Readability: Type, function and variable name
-  * complex code should be commented
-  * Important actions should be logged
-* Side effect: Function should be as pure as possible
-* Limits
-  * Null, singular case
-  * Unexpected / Large input from user
-
 ## Configure
 
 {% tabs %}
-{% tab title='django' %}
+{% tab title='python' %}
 
-* django.conf.global_settings.py: default values for settings
-
-* urls
-  * url(r"regex", where_to_send_requests)
-* settings: use variable defined in settings.py
+* django
+  * django.conf.global_settings.py: default values for settings
+  * urls
+    * url(r"regex", where_to_send_requests)
+  * settings: use variable defined in settings.py
 
 ```py
 from django.conf import settings
@@ -271,36 +256,24 @@ var min = versions.sort(semver.compare)[0]
   * WPA2 uses 256 bits for keys
   * Encryption technology that provides a very low level of privacy
 
-### Proxy
-
-* server that acts on behalf of a client in order to access another service
-* Not implementation → exist in many layers
-* intermediary for requests from clients seeking resources from servers that provide those resources
-
-![proxy](images/20210220_233349.png)
-
-* Web proxy: Reduce web traffic by caching web data / Deny malign websites → old technologies
-
-* reverse proxy: appear to be a single server to external clients, but actually represents many servers living behind it
-* load balancing / decryption
-
-![Reverse proxy](images/20210220_233442.png)
-
-* VPN: Allow for the extension of a private or local network to hosts that might not be on that local network
-  * transport payload section to carry encrypted payload that actually contains an entire second set of packets
-  * requires strict authentication procedures to ensure they connected to by authorized users
-
-![vpn](images/20210220_233545.png)
-
 ## Setup
 
 {% tabs %}
-{% tab title='django' %}
+{% tab title='python' %}
 
-* export DJANGO_SETTINGS_MODULE=mysite.settings
+* sudo apt-get install python3-opencv
+* pip install opencv-python
+* django
+  * export DJANGO_SETTINGS_MODULE=mysite.settings
 
-```py
+```sh
 # 1. Setup
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.9
+
+# 2. Setup
 pip install django
 django-admin startproject mysite
 # mysite/
@@ -326,16 +299,357 @@ django-admin startapp polls
 #     tests.py
 #     views.py
 
-# 2. Environment
+# 3. Environment
 # postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
 export DATABASE_URL="postgresql://localhost:5432"
 export DJANGO_SETTINGS_MODULE="config.settings.local"
 ```
 
 {% endtab %}
+{% tab title='shell' %}
+
+* /lib/systemd/system
+
+| Run level | Mode       |
+| --------- | ---------- |
+| 0         | Power off  |
+| 1         | Rescue     |
+| 2         | Multi-User |
+| 3         | Multi-User |
+| 4         | Multi-User |
+| 5         | Graphical  |
+| 6         | Reboot     |
+
+* .profile: run when bash is invoked as an interactive login shell, or as non-interactive shell with the --login option
+  * Anything that should be available only to login shells should be here
+  * Looks for /etc/profile -> ~/.bash_profile -> ~/.bash_login -> ~/.profile
+  * Can ignore --noprofile option
+  * ~/.bash_profile: should be super-simple and just load .profile and .bashrc
+  * ~/.profile: stuff NOT specifically related to bash, such as environment variables (PATH and friends)
+
+* .rc: Shorthand of run commands
+  * ~/.bashrc: anything want at an interactive CLI (Command prompt, EDITOR variable, bash aliases)
+  * Can ignore --norc option
+  * Login shell: can use logout commandlien
+
+```sh
+# 1. Check
+if [ -f .env ]; then export $(cat .env | sed 's/#.*//g' | xargs) fi
+
+# 2. ~/.bashrc
+case $- in # Only ofr interactive Shell
+  *i*) ;;
+    *) return;;
+esac
+
+HISTCONTROL=ignoreboth
+shopt -s histappend # append to history file, don't overwrite it
+HISTSIZE=1000       # set history size
+HISTFILESIZE=1000   # set history file size
+
+cdl() {
+  cd"$@";
+  ls -al;
+}
+mkcdir () {
+  mkdir -p -- "$1" && cd -P -- "$1"
+}
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\u@\h \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "   # show branch in shell
+export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+export VISUAL=vim
+export EDITOR="$VISUAL"
+alias ..='cd ..'
+alias so="source ~/.bashrc"
+alias fn="find . -name "
+alias fr="find . -regex "
+alias ipe='ipconfig getifaddr en0'
+alias ipi='curl ipinfo.io/ip'
+alias ll="ls -la"
+alias mount='mount |column -t'
+alias ports='netstat -tulanp'  # TCP / UDP
+alias sshhosts="sed -n 's/^\s*Host\s+(.*)\s*/\1/ip' ~/.ssh/config"
+alias speed='speedtest-cli --server 2406 --simple'
+alias untar='tar -zxvf '
+alias psm='ps aux | sort -nr -k 4 | head -3'
+alias psm10='ps aux | sort -nr -k 4 | head -10'
+alias psc='ps aux | sort -nr -k 3 | head -3'
+alias psc10='ps aux | sort -nr -k 3 | head -10'
+alias du1="du -hs * | sort -h"
+alias du2="du -h -d 2 | sort -h"
+alias g="git "
+alias d="docker "
+alias dc="docker compose"
+alias ag="ag --hidden -U"
+
+### C
+source ~/github/opencv/build/setup_vars.sh
+# CXXFLAGS += -c -Wall $(shell pkg-config --cflags opencv4) LDFLAGS += $(shell pkg-config --libs --static opencv4)
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
+export CMAKE_PREFIX_PATH=~/github/opencv/build    # PATH searched by CMake FIND_XXX()
+export CPPFLAGS="-I/usr/local/opt/libffi/include"
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
+```
+
+{% endtab %}
+{% tab title='mac' %}
+
+```sh
+alias ldd="otool -L"
+alias xclip="pbcopy"
+alias xargs="gxargs"
+```
+
+{% endtab %}
+{% tab title='sql' %}
+
+* Mac Postgres
+  * brew install postgres
+  * brew services start postgresql
+  * launchd: system wide and per-suer daemon/agent manager
+  * launchctl: Interfaces with launchd
+
+{% endtab %}
 {% endtabs %}
 
-## Compiler
+### Install
+
+{% tabs %}
+{% tab title='shell' %}
+
+* Install ubuntu
+  1. Install Linux ubunutu ISO file
+  1. [Set up USB using rufus](https://rufus.ie/)
+  1. Try Ubuntu without Installing
+  1. ![Install ubunu](images/20210615_171024.png)
+
+* curl: providing a library and command-line tool for transferring data using various network protocols
+  * -L: (HTTP) If requested page has moved to a different location use that
+  * -P, --ftp-port address: (FTP) Reverses default listener roles when connecting with FTP
+  * -q / -s / -i: Quite /Silent (no progress, error) / Include the HTTP-header in output
+  * -m --max-time: maximum time in seconds
+  * -o file / -O: Write output to file / local file named like the remote file we get
+  * -X `type`: request `type` ([ex] POST)
+  * -H `header`: header ([ex] 'Content-Type: app/json')
+  * -d `data`: [ex] '{"id": "tom", "age": "7"}'
+
+* rqm (Redhat Package Manager): manipulates specifically packages it is asked to manipulate
+  * needs to know the exact location of .rqm package
+
+* ant: Java installer
+
+* dpkg: used to install, remove, and provide information about .deb
+  * --ad-architecture: package can be installed without using --force-architecture
+  * -s `package`: report status of `package`
+
+* wget
+  * -P: /path/to/folder
+  * --spider: behave as a Web spider, just check that website are there
+  * --ask-password: secure safe
+  * --http-user / http-passwd: Specify username user and password on an HTTP (not safe)
+
+* update-alternatives
+  * maintain symbolic links determining default commands
+  * --config: name
+  * --install /usr/bin/python3 python3 /usr/bin/python3.8 2: set python3.8 with priority 2
+
+```sh
+# 1. curl
+curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
+error() {
+  print_error $@
+  exit 1
+}
+
+curl -m 2 www.google.com &> /dev/null || error "Failed to access external"
+
+# 2. Install multiple files
+PKGS=(
+  libusbx-devel
+  gtk2
+  gstreamer1
+)
+yum install -y ${PKGS[@]}
+
+# 3. Mac install packages
+# brew install binutils   # readelf equivalent 'export PATH="/usr/local/opt/binutils/bin:$PATH"' >> ~/.zshrc
+defaults write -g ApplePressAndHoldEnabled -bool false  # disable accentuate
+defaults write com.google.chrome IncognitoModeAvailability -integer 1z  # disable incognito mode
+defaults write com.apple.finder AppleShowAllFiles TRUE : Show hidden folder on Mac
+
+# 4. Ubuntu
+sudo apt-get update && sudo apt-get install -y vim git docker python3.7 wget # Password / install
+passwd
+kill -HIP $PPID
+dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"  # switch caps-lock esc
+dconf reset -f /                             # set up to default
+sudo apt-get install bluez*                  # bluetooth
+sudo apt-get install gnome-session-fallback  # toggle sidebar (settings -> dock -> auto-hide the dock)
+```
+
+> Reference
+
+* [Korean Settings](https://gabii.tistory.com/entry/Ubuntu-1804-LTS-%ED%95%9C%EA%B8%80-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)
+* [Reference](https://neoprogrammer.tistory.com/6)
+
+{% endtab %}
+{% endtabs %}
+
+### Shortcut
+
+{% tabs %}
+{% tab title='shell' %}
+
+* Terminal
+  * CTRL+A/E: move to beginning end of line
+  * CTRL+B: moves backward one character
+  * CTRL+C: halts the current command
+  * CTRL+D: deletes one character backward or logs out of current session, similar to exit
+  * CTRL+F: moves forward one character
+  * CTRL+G: aborts the current editing command and ring the terminal bell
+  * CTRL+H: deletes one character under cursor (same as DELETE)
+  * CTRL+J: same as RETURN
+  * CTRL+L: clears screen and redisplay the line
+  * CTRL+M: same as RETURN
+  * CTRL+N: next line in command history
+  * CTRL+O: same as RETURN, then displays next line in history file
+  * CTRL+P: previous line in command history
+  * CTRL+R: searches backward
+  * CTRL+S: searches forward
+  * CTRL+T: transposes two characters
+  * CTRL+UK: kills forward / backward from point to the beginning of line
+  * CTRL+V: makes the next character typed verbatim
+  * CTRL+W: kills the word behind the cursor
+  * CTRL+X: lists the possible filename completions of the current word
+  * CTRL+Y: retrieves (yank) last item killed
+  * CTRL+Z: stops the current command, resume with fg in the foreground or bg in the background
+  * ALT+BF: moves backward / forward one word (opt <-> mac)
+  * ALT+D: deletes next word
+  * ALT+H: deletes one character backward
+  * ALT+T: transposes two words
+  * ALT+.: pastes last word from the last command. Pressing it repeatedly traverses through command history
+  * ALT+U: capitalizes every character from the current cursor position to the end of the word
+  * ALT+L: uncapitalizes every character from the current cursor position to the end of the word
+  * ALT+C: capitalizes the letter under the cursor. The cursor then moves to the end of the word
+  * ALT+R: reverts any changes to a command you’ve pulled from your history if you’ve edited it
+  * command + t: Create new tab
+  * command + (shift) + d: Split terminal
+  * ctrl + (shift) + tab: Navigate tabs
+
+* Event designators
+  * !n: n th command
+  * !! !-n: previous command / nth previous command
+  * ^old^new: change old from previous command to new (only one)
+  * !#:n / $: nth / last word in current command
+  * !!:gs/string1/string2: change old from previous command to new (multiple)
+
+* Ubuntu
+  * Settings -> Device -> Keyboard
+  * Alt+Prt Scrn: take a screenshot of a window.
+  * Shift+Prt Scrn: take a screenshot of an area you select
+  * Alt + `: switch between same app
+  * fn + window + arrow: next screen
+
+* Mac
+  * Control + Command + Q: Lock screen
+
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title='vscode' %}
+
+* Go to symbol in Editor/workspace
+
+* Edit
+  * ⌘ d: edit multiple variables
+  * option up / down: move current code up / down
+  * ⌃ Space: trigger IntelliSense Suggestions
+  * ⇧ ⌥ a: toggle comment
+
+* File
+  * Open...
+
+* Navigation
+  * ⌘ shift f / h: find / replace words in all files
+  * ⌘ shift o: find symbol / move to method (with corresponding language extension)
+  * ⌘ shift .: See all methods
+  * ⌘ option click: Open Side
+  * ⌘ click: Replace / Click again to go back
+  * ⌃ (⇧) -: Navigate back (forward)
+
+* Git
+  * Reveal Commit in Side Bar
+  * Open Changes with Previous / Next Revision
+
+* References
+  * Find All References
+
+* Select
+  * Multi-line cursor
+  * Multi-line cursor
+  * expand / shrink select
+
+* Screen
+  * ⌘ E: Find given word
+  * Move Editor into Next / previous Group
+  * ⌘ B: Toggle Sidebar
+  * ⌘ k: zenmode
+  * ctrl 1: Focus on editor
+  * ⌘ K ⌘ /: Fold all block comments
+  * ⌘ shift B: Build and debug
+  * shift ⌘ M: jump to errors and warnings in the project
+  * option ⌘ [: Code folding
+  * ⌘ k ⌘ 0 / j: Fold / unfold all codes
+
+* Search
+  * Find in Files
+  * Replace in Files: Regex Capture group can be referenced using $1…
+
+* Terminal
+  * Create New Integrated Terminal
+  * Focus on terminal View
+  * Focus Previous/Next Pane
+  * New terminal
+  * Split Terminal
+  * Toggle Terminal
+
+* View
+  * Focus Next Editor Group
+  * Move Editor into Next/Previous Group
+  * Toggle Side Bar Visibility
+
+{% endtab %}
+{% endtabs %}
+
+### Update
+
+{% tabs %}
+{% tab title='bash' %}
+
+* apt update
+
+{% endtab %}
+{% endtabs %}
+
+## Compile
+
+* translates the text file hello.i into the text file hello.s like below
+  * provides a common output language for different compilers for different high-level languages
+
+```assembly
+main:
+  subq  $8,     %rsp
+  movl  $.LC0,  %edi
+  call  puts
+  movl  $0,     %eax
+  addq  $8,     %rsp
+  ret
+```
+
+> Term
 
 * cross compiler: when the host and target are different
   * [+] Speed - Target platforms are much slower than hosts,
@@ -361,6 +675,29 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE string "clang++ compiler" FORCE)
 
 {% endtab %}
 {% tab title='cpp' %}
+
+* GCC
+  * .cpp [<.o>]: compile / link files (gcc -xc++ -lstdc++ -shared-libgcc)
+  * -c: Compile / assemble the source files, but do not link (create .o)
+  * -g: enable gdb
+  * -H: Show header includes and nesting depth
+  * -I `dir`: Search `dir` for include (headers)
+  * -l: link libraries
+  * -L: /path contains library files, .a, .so
+  * -MD: Create dependency
+  * -o `out`: preprocessed C source: stdout
+  * -rpath=dir: -Wl,-rpath aaa bbb -> gcc -Wl,aaa -Wl,bbb
+    * Add a directory to the runtime library search path
+    * used when linking an ELF executable with shared objects (dynamic linker can find the libraries)
+    * -rpath arguments are concatenated, passed to runtime linker, which uses them to locate shared objects at runtime
+  * -std: [ex] =c++11: 11 version
+  * -v: Verbose Mode
+  * -Wall / extra: enable all warning / extra warnings
+  * -Wfatal-errors: causes compiler to abort compilation on the first error occurred
+  * -Wpedantic / unused: warnings demanded by strict ISO C and C++ / unused type definitions
+  * /W4: all reasonable warnings
+  * -Wl,aaa,bbb: list of tokens as a space-separated list of arguments to the linker (ld aaa bbb)
+  * -x: Specify the language of the following input files
 
 > Undefined behavior: the result of F() is a dangling reference
 

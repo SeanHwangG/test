@@ -60,7 +60,7 @@ else: print("Emma")
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : +B - 4](https://www.acmicpc.net/problem/10951)
+* [Level 3 : A+B - 4](https://www.acmicpc.net/problem/10951)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_10951.md/)
 
 {% tabs %}
@@ -250,7 +250,7 @@ print(a - b if a >= b else a)
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : ivvying Up](https://www.acmicpc.net/problem/20332)
+* [Level 3 : Divvying Up](https://www.acmicpc.net/problem/20332)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/sum/BJ_20332.md/)
 
 {% tabs %}

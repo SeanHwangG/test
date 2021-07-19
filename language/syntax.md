@@ -170,6 +170,7 @@ else:    # else executes after the loop completes normally
 ## Comment
 
 * Best comment in no comment, self documenting code with better structure
+* comment about editing other files: [ex] Edit with path/to/another.cpp
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -591,6 +592,10 @@ int ConcatName(a, b) = 3;
 
 ## Function
 
+* Should be self documenting: [ex] Use highlevel language feature
+
+> Term
+
 * Pure Function: Don't attempt to change inputs, same outputs for same input
 * Impure function: modify contents of argument
 
@@ -811,6 +816,31 @@ CREATE TEMP FUNCTION DATE_FORMAT(x STRING) AS (CAST(CONCAT(SUBSTR(x, 0, 4), '-',
 * fdisplay(`filename`, `str`): write `str` to `filename` with new line
 
 {% endtab %}
+{% tab title='vim' %}
+
+* Vimscript functions must start with a capital letter if they are unscoped
+
+```sh
+let temp = @@
+let @@ = temp  : prevent overwriting current register
+
+function Varg(...)
+a:000    # a list containing all the extra arguments that were passed
+a:0      # number of argument
+a:1      # first argument
+
+# 2. CPrototype
+func! CPrototypeFunction()
+let temp = @@
+  exe "normal! mayy"
+  exe "normal! /Prototypes\<CR>"
+  exe "normal! )kpA;\<ESC>"
+  exe "normal@ 'a"
+let @@ = temp
+endfunc
+```
+
+{% endtab %}
 {% endtabs %}
 
 {% include '.function.prob' %}
@@ -921,6 +951,9 @@ lambda *args: None
 {% endtabs %}
 
 ### Parameter
+
+* Accept abstract: [ex] Don't get path_name
+  * [+] Loose coupling, easy to test, more usefule routine
 
 {% tabs %}
 {% tab title='python' %}
@@ -1318,7 +1351,7 @@ line2""")
 
 {% include '.multiline.prob' %}
 
-### Format
+### Print Format
 
 {% include 'format.test' %}
 

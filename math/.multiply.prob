@@ -1,6 +1,6 @@
 > baekjoon
 
-* [Level 1 : ×B](https://www.acmicpc.net/problem/10998)
+* [Level 1 : A×B](https://www.acmicpc.net/problem/10998)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_10998.md/)
 
 {% tabs %}
@@ -94,7 +94,7 @@ print((a+b)*(a-b))
 {% endtab %}
 {% endtabs %}
 
-* [Level 1 : ats](https://www.acmicpc.net/problem/18301)
+* [Level 1 : Rats](https://www.acmicpc.net/problem/18301)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_18301.md/)
 
 {% tabs %}
@@ -120,7 +120,7 @@ print((a + 1) * (b + 1) // (c + 1) - 1)
 {% endtab %}
 {% endtabs %}
 
-* [Level 1 : ite Score](https://www.acmicpc.net/problem/20254)
+* [Level 1 : Site Score](https://www.acmicpc.net/problem/20254)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_20254.md/)
 
 {% tabs %}
@@ -212,7 +212,7 @@ print(a - r, b - r, c - r, d - r, e - r)
 {% endtab %}
 {% endtabs %}
 
-* [Level 1 : 2](https://www.acmicpc.net/problem/3046)
+* [Level 1 : R2](https://www.acmicpc.net/problem/3046)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_3046.md/)
 
 {% tabs %}
@@ -334,4 +334,4 @@ print((b - 1) * a + 1)
 * [Level 1.6 : R2](https://open.kattis.com/problems/r2)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/KT_r2.md/)
 
-[//]: # (BJ_3046)
+[Duplicate](./BJ_3046.md)

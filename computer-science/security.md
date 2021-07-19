@@ -35,16 +35,14 @@
 {% tabs %}
 {% tab title='linux' %}
 
-* ufw (Uncomplicated firewall)
+* ufw: Uncomplicated firewall for linux ([ex] default)
   * status
-  * allow `port`: [ex] 22
+  * allow/deny: [ex] port 22, outgoing, incoming
   * disable: disable firewall
   * enable: enable firewall
 
-{% endtab %}
-{% tab title='mac' %}
-
-![Settings](images/20210628_174309.png)
+* Mac
+  ![Settings](images/20210628_174309.png)
 
 {% endtab %}
 {% endtabs %}
@@ -99,15 +97,14 @@
 * HMAC: Hashing for Message Authentication code
   ![HMAC](images/20210628_204915.png)
 
-> Payload
-
-* iss: identifies principal that issued JWT
-* sub: identifies principal that is subject of JWT
-* aud: identifies recipients that JWT is intended for
-* exp: identifies expiration time at or after which JWT MUST NOT be accepted for processing
-* nbf: identifies time before which JWT MUST NOT be accepted for processing
-* iat: identifies time at which JWT was issued
-* jti: The JWT ID is a unique identifier for the JWT
+* Payload
+  * iss: identifies principal that issued JWT
+  * sub: identifies principal that is subject of JWT
+  * aud: identifies recipients that JWT is intended for
+  * exp: identifies expiration time at or after which JWT MUST NOT be accepted for processing
+  * nbf: identifies time before which JWT MUST NOT be accepted for processing
+  * iat: identifies time at which JWT was issued
+  * jti: The JWT ID is a unique identifier for the JWT
 
 ## Oauth
 

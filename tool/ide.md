@@ -40,21 +40,6 @@
 
 * VScode by default only lint openned files, so replace ; -> ; will force lint all files
 
-## Setup
-
-```sh
-# 1. without password
-ssh-keygen -t rsa -b 4096
-
-export USER_AT_HOST="your-user-name-on-host@hostname"
-export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
-ssh-copy-id -i "$PUBKEYPATH" "$USER_AT_HOST"  # Linux host
-ssh $USER_AT_HOST "powershell New-Item -Force -ItemType Directory -Path \"\$HOME\\.ssh\"; Add-Content -Force \
-  -Path \"\$HOME\\.ssh\\authorized_keys\" -Value '$(tr -d '\n\r' < "$PUBKEYPATH")'"  # window host
-```
-
-### Error
-
 > Formatting doesn't work
 
 ![Show debug output](images/20210430_044249.png)
@@ -70,73 +55,12 @@ ssh $USER_AT_HOST "powershell New-Item -Force -ItemType Directory -Path \"\$HOME
 
 * "terminal.integrated.fontSize": 13
 
-### Shortcut
-
-> Edit
-
-* ⌘ d: edit multiple variables
-* option up / down: move current code up / down
-* ⌃ Space: trigger IntelliSense Suggestions
-* ⇧ ⌥ a: toggle comment
-
-> Navigation
-
-* ⌘ o: Open file or folder
-* ⌘ t: jumping to symbol
-* ⌘ shift f / h: find / replace words in all files
-* ⌘ shift o: find symbol / move to method (with corresponding language extension)
-* ⌘ shift .: See all methods
-* ⌘ option click: Open Side
-* ⌘ click: Replace / Click again to go back
-* ⌃ (⇧) -: Navigate back (forward)
-
-> Replace
-
-* uses () and refernce with $1 for capture group
-
-> Select
-
-* ⌘ click: Multi-line cursor
-* ⇧ ⌥ drag: Multi-line cursor
-* ⌃⇧⌘←/→: expand / shrink select
-
-> Screen
-
-* ⌘ E: Find given word
-* ⌘ B: Toggle Sidebar
-* ⌘ k: zenmode
-* ctrl 1: Focus on editor
-* ⌘ K ⌘ /: Fold all block comments
-* ⌘ shift B: Build and debug
-* shift ⌘ M: jump to errors and warnings in the project
-* option ⌘ [: Code folding
-* ⌘ k ⌘ 0 / j: Fold / unfold all codes
-
-> Terminal
-
-* ⌃ `: Focus on terminal
-* ⌃ shift `: New terminal
-* ⌘ ⌥ ← / → / ↑ / ↓: Toggle between pane / terminal
-
-## VSCode File
-
-* ${env:`PATH`}: get `PATH` from environment
-* ${workspaceFolder}: workspace forder path
-* ${default}: default value
-* ${file}: current opened file (ex: /home/your-username/your-project/folder/file.ext)
-* ${fileBasename} - file.ext
-* ${fileBasenameNoExtension} - file
-* ${fileDirname}: /home/your-username/your-project/folder
-* ${relativeFile}: folder/file.ext
-* ${workspaceFolderBasename}: your-project
-* ${pathSeparator}: / on macOS or linux, \\ on Windows
-
-### Settings.json
+## Settings.json
 
 ![Do not include git ignored files](images/20210612_124808.png)
 
-* workspace: overwrite user level settings, located in .vscode/settings.json
 * user level: located in ~/.vscode/settings.json
+* workspace: overwrite user level settings, located in .vscode/settings.json
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -245,9 +169,8 @@ ssh $USER_AT_HOST "powershell New-Item -Force -ItemType Directory -Path \"\$HOME
 }
 ```
 
-> java extension package
-
-* java.home: set Java IDK location
+* java extension package
+  * java.home: set Java IDK location
 
 ```json
 "java.home" : "/software/CSE/oracle-java-se-14/jdk-14.0.2"
@@ -277,8 +200,6 @@ ssh $USER_AT_HOST "powershell New-Item -Force -ItemType Directory -Path \"\$HOME
 
 * used to configure the debugger in Visual Studio Code
 
-> Field
-
 * args: when debugging the program
 * externalConsole: Used only when launching the debuggee
 * port: port when attaching to a running process
@@ -293,13 +214,11 @@ ssh $USER_AT_HOST "powershell New-Item -Force -ItemType Directory -Path \"\$HOME
 * stopAtEntry=`false`: whether to stop at the entry point
 * sudo=`false`: console must be externalTerminal
 
-> type : cppdbg
+* type : cppdbg
+  * MIMMode: [ex]: gdb, lldb
 
-* MIMMode: (ex: gdb, lldb)
-
-> type : java
-
-* mainClass: ${file}
+* type : java
+  * mainClass: ${file}
 
 ```json
 // launch.json
@@ -380,15 +299,17 @@ ssh $USER_AT_HOST "powershell New-Item -Force -ItemType Directory -Path \"\$HOME
 
 {% include 'keybinding.json' %}
 
-> Install
+> Question
 
-* Lagging -> Renderer Type dom
+* Install
+  * Window
+    * docs.microsoft.com/en-us/windows/wsl/install-win10
+  * Mac
+    * $HOME/Library/Application Support/Code/User/settings.json
 
-* Window
-  * docs.microsoft.com/en-us/windows/wsl/install-win10
+> Error
 
-* Mac
-  * $HOME/Library/Application Support/Code/User/settings.json
+* Lagging: Renderer Type dom
 
 ## Extension
 

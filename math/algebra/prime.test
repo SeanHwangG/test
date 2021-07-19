@@ -1,1 +1,14 @@
 [Prime](https://docs.google.com/forms/d/1-IziMX_y-CI5tHumG3OIhRhsdDLLQtkTb8DCzSTSEOI/edit)
+
+```py
+is 2 prime?    # Yes
+is 11 prime?   # Yes
+is 111 prime?  # Yes
+12 36 GCD      # 12
+15 48 LCM      # 240
+9 17 GCD       # 1
+108 18 LCM     # 108
+24 111 GCD     # 3
+13 93 LCM      # 1209
+36 88 GCD      # 4
+```

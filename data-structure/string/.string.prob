@@ -493,7 +493,7 @@ print(count if count != 0 else "I must watch Star Wars with my daughter")
 * [Level 1.6 : Quick Brown Fox](https://open.kattis.com/problems/quickbrownfox)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/KT_quickbrownfox.md/)
 
-[//]: # (BJ_11091)
+[Duplicate](./BJ_11091.md)
 
 * [Level 1.8 : Death Knight Hero](https://open.kattis.com/problems/deathknight)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/KT_deathknight.md/)

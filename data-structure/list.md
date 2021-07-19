@@ -213,10 +213,24 @@ print(L.index('c',4,7)) # within search bound
 {% endtab %}
 {% tab title='shell' %}
 
+* ${array[i]}: displays array's value for this index. If no index is supplied, array element 0 is assumed
+* ${#array[i]}: to find out the length of any element in the array
+* ${#array[@]}: to find out how many values there are in the array
+
 * a=($(cat))
 * echo ${a[@]}
 * echo {10..1..2}: similar to range
 * echo two{apple,banana}s: prefix suffix
+
+{% endtab %}
+{% tab title='vim' %}
+
+```sh
+let longlist = mylist + [5, 6]
+let mylist += [7, 8]
+mylist[2:]
+let alist = add(mylist, 4)
+```
 
 {% endtab %}
 {% endtabs %}
@@ -289,6 +303,19 @@ Arrays.toString(map.entrySet().toArray())
 
 ![2D array](images/20210221_182928.png)
 
+{% tabs %}
+{% tab title='python' %}
+
+{% include '2d.test' %}
+
+```py
+# 1. maximum in 2d array
+print(max(max(dp, key=max)))
+```
+
+{% endtab %}
+{% endtabs %}
+
 {% include '.dimension-2.prob' %}
 
 ## LinkedList
@@ -304,21 +331,20 @@ Arrays.toString(map.entrySet().toArray())
 {% tabs %}
 {% tab title='cpp' %}
 
-> list
-
-* assign()
-* clear()
-* emplace()
-* emplace_front() / emplace_back()
-* erase()
-* insert()
-* merge()
-* methods()
-* pop_front() / pop_back(): pop element from front / back
-* push_front() / push_back(): add element to front / back
-* size()
-* swap()
-* resize()
+* list
+  * assign()
+  * clear()
+  * emplace()
+  * emplace_front() / emplace_back()
+  * erase()
+  * insert()
+  * merge()
+  * methods()
+  * pop_front() / pop_back(): pop element from front / back
+  * push_front() / push_back(): add element to front / back
+  * size()
+  * swap()
+  * resize()
 
 {% endtab %}
 {% tab title='java' %}
@@ -374,9 +400,8 @@ myNumbers.assign( istream_iterator<int>( is ), istream_iterator<int>() );
 {% endtab %}
 {% tab title='java' %}
 
-> Iterator
-
-* remove(): Removes from the underlying collection the last element returned by this iterator
+* Iterator
+  * remove(): Removes from the underlying collection the last element returned by this iterator
 
 * ListIterator
   * `List`.listIterator(): Create list iterator
@@ -515,12 +540,11 @@ def tail(filename, n=10):
 {% tabs %}
 {% tab title='cpp' %}
 
-> queue
-
-* size() / empty()
-* front()
-* pop()
-* push()
+* queue
+  * size() / empty()
+  * front()
+  * pop()
+  * push()
 
 {% endtab %}
 {% endtabs %}
@@ -532,11 +556,10 @@ def tail(filename, n=10):
 {% tabs %}
 {% tab title='cpp' %}
 
-> priority_queue
-
-* top()
-* push()
-* pop()
+* priority_queue
+  * top()
+  * push()
+  * pop()
 
 ```cpp
 // own comparator

@@ -18,21 +18,18 @@
 * number of iterator building blocks inspired by constructs from APL, Haskell, SML
 * Each has been recast in a form suitable for Python
 
-* accumulate(iterable, func, *, initial): accumulate([1,2,3,4,5]) → 1 3 6 10 15
-* chain(*iterables): chain('ABC', 'DEF') → A B C D E F
-* combinations(iterable, r): combinations('ABCD', 2) → AB AC AD BC BD CD
-* compress(data, selectors)
-  * compress('ABCDEF', [1,0,1,0,1,1]) → A C E F
-* count(start=0, step=1)
-  * count(2.5, 0.5): 2.5 3.0 3.5 ..
-* cycle(iterable): ('ABCD') → A B C D A B C
+* accumulate(`iter`, func, *, initial): [ex] ([1,2,3,4,5]) → 1 3 6 10 15
+* chain(*`iter`): [ex] chain('ABC', 'DEF') → A B C D E F
+* combinations(`iter`, r): [ex] ('ABCD', 2) → AB AC AD BC BD CD
+* compress(data, selectors) [ex] ('ABCDEF', [1,0,1,0,1,1]) → A C E F
+* count(`start`=0, `step`=1): [ex] (2.5, 0.5): 2.5 3.0 3.5 ..
+* cycle(`iter`): [ex] ('ABCD') → A B C D A B C
 * dropwhile(predicate, iterable)
   * dropwhile(lambda x: x<5, [1,4,6,4,1]) → 6 4 1
-* islice(iterable, start, stop, [step]): ('ABCDEFG', 2, None) → C D E F G
-* groupby(iterable, key=None): [(k, g) for k, g in groupby('AAABB')] → (A, AAA), (B, BB)
-* permutations(iterable): permutations(range(3)) → 012 021 102 120 201 210
-* product(*iterables, repeat=1)
-  * product('ABCD', 'xy') → Ax Ay Bx By Cx Cy Dx Dy
+* islice(`iter`, `start`, `stop`, [step]): ('ABCDEFG', 2, None) → C D E F G
+* groupby(`iter`, key=None): [ex] [(k, g) for k, g in groupby('AAABB')] → (A, AAA), (B, BB)
+* permutations(`iter`): [ex] (range(3)) → 012 021 102 120 201 210
+* product(`*iter`, repeat=1): [ex] ('ABCD', 'xy') → Ax Ay Bx By Cx Cy Dx Dy
 * repeat(object[, times])
   * repeat(10, 3) → 10 10 10
 
@@ -139,6 +136,43 @@ print(list(recursive_items(a)))
 
 ## Filter
 
+{% tabs %}
+{% tab title='shell' %}
+
+* uniq: report or filter out repeated lines in a file
+  * -c: show counting
+  * -d: only print duplicate files
+  * -u: Only print uniq line
+
+* tee: read from standard input and write to standard output and files
+  * -a: Append output to files rather than overwriting
+  ![tee](images/20210209_173837.png)
+
+* cut: cut out selected portions of each line
+  * -d: use as separater (-f1) to grep index
+  * -c n-: remove first n - 1 chatacter
+  * -d -f1 /etc/passwd: Get all user I can use
+
+* tr
+  * -d: search and delete any character or string from a text
+  * -s: compress same adjacent character output to single token
+  * `a-z` `A-Z`: prints in capital letters
+
+```sh
+# 1. Cut example
+rev | cut -c -5 | rev # Grep last 5 charcter
+cut -f -1 -d "/"  # remove filename
+
+# 2. tr
+tr ':' '\n' <<< $PATH  # Print path in one line
+```
+
+{% endtab %}
+{% endtabs %}
+
+{% include '.cut.prob' %}
+{% include '.tr.prob' %}
+{% include '.uniq.prob' %}
 {% include '.filter.prob' %}
 
 ## Sum
@@ -286,7 +320,6 @@ foo: ; @for i in a b c d; do $(info $$i); done  # WRONG
 {% endtab %}
 {% tab title='python' %}
 
-{% include '2d.test' %}
 {% include 'for.test' %}
 
 > Comprehension
@@ -337,6 +370,17 @@ done
 for file in Picture*.jpg; do
   mv "$file" "vacation-$file"
 done
+```
+
+{% endtab %}
+{% tab title='vim' %}
+
+```sh
+for s in list
+  echo s
+  continue  " jump to start of loop
+  break     " breaks out of a loop
+endfor
 ```
 
 {% endtab %}
@@ -556,6 +600,14 @@ until postgres_ready; do
   sleep 1
 done
 >&2 echo 'PostgreSQL is available'
+```
+
+{% endtab %}
+{% tab title='vim' %}
+
+```sh
+while x < 5
+endwhile
 ```
 
 {% endtab %}

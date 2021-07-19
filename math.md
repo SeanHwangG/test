@@ -17,8 +17,8 @@
 * [Order of operation 2](https://www.youtube.com/watch?v=ClYdw4d4OmA)
 * [Order of operation 2](https://www.youtube.com/watch?v=GiSpzFKI5_w)
 
-{% include 'multiply.test' }
-{% include 'multiply_2.test' }
+{% include 'multiply.test' %}
+{% include 'multiply_2.test' %}
 
 {% include '.multiply.prob' %}
 

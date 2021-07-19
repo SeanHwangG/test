@@ -1,0 +1,178 @@
+> baekjoon
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/science/robotic/collision/BJ_10255.md/)
+
+{% tabs %}
+{% tab title='BJ_10255.md' %}
+
+> Question
+
+* Print number of intersection between rectangle and segment
+
+```txt
+Input:
+16
+0 0 8 4
+2 6 -2 3
+0 0 8 4
+0 4 9 4
+0 0 8 4
+3 5 6 6
+0 0 8 4
+-2 5 10 -1
+0 0 8 4
+0 5 8 5
+0 0 8 4
+4 3 4 1
+0 0 8 4
+-2 3 2 5
+0 0 8 4
+2 4 6 4
+0 0 8 4
+0 4 4 7
+0 0 8 4
+4 2 4 4
+0 0 8 4
+4 2 8 4
+0 0 8 4
+0 2 3 4
+0 0 8 4
+-4 0 12 4
+0 0 8 4
+4 8 4 -1
+0 0 8 4
+0 -2 0 6
+0 0 8 4
+3 4 10 4
+
+Output:
+0
+4
+0
+2
+0
+0
+1
+4
+1
+1
+1
+2
+2
+2
+4
+4
+```
+
+{% endtab %}
+{% tab title='BJ_10255.py' %}
+
+```py
+def f(x1,y1,x2,y2,a,b):
+  if y1*y2>0:
+    return 0
+  if y1 == y2:
+    if max(x1,x2)<a or min(x1,x2)>b:return 0
+    if max(x1,x2)==a or min(x1,x2)==b:return 1
+    return 8
+  x=x1-y1*(x1-x2)/(y1-y2)
+  if a<x<b:return 2
+  if x in(a,b):return 1
+  return 0
+def count(xmin,ymin,xmax,ymax,x1,y1,x2,y2):
+  return min(8,f(x1,y1-ymin,x2,y2-ymin,xmin,xmax)\
+        + f(x1, y1-ymax,x2,y2-ymax,xmin,xmax)\
+        + f(y1, x1-xmin,y2,x2-xmin,ymin,ymax)\
+        + f(y1, x1-xmax,y2,x2-xmax,ymin,ymax))//2
+for i in range(int(input())):
+  print(count(*map(int,input().split()+input().split())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/science/robotic/collision/BJ_17387.md/)
+
+{% tabs %}
+{% tab title='BJ_17387.md' %}
+
+> Question
+
+* Check if two lines are intersecting
+
+```txt
+Input:
+1 1 5 5
+5 5 1 1
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_17387.py' %}
+
+```py
+def ccw(x1, y1, x2, y2, x3, y3):
+  total = (x2-x1) * (y3-y1) - (y2-y1) * (x3-x1)
+  return (total > 0) - (total < 0)
+x1, y1, x2, y2 = map(int, input().split())
+x3, y3, x4, y4 = map(int, input().split())
+D1, D2 = ccw(x1, y1, x2, y2, x3, y3), ccw(x1, y1, x2, y2, x4, y4)
+D3, D4 = ccw(x3, y3, x4, y4, x1, y1), ccw(x3, y3, x4, y4, x2, y2)
+if D1 == D2 == 0:
+  lo, hi = min((x1, y1), (x2, y2)), max((x1, y1), (x2, y2))
+  if lo <= min((x3, y3), (x4, y4)) <= hi:
+    print(1)
+  else:
+    print(0)
+elif D1 * D2 <= 0 and D3 * D4 <= 0:
+  print(1)
+else:
+  print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/science/robotic/collision/LC_335.md/)
+
+{% tabs %}
+{% tab title='LC_335.md' %}
+
+> Question
+
+* Check if line is self crossing
+
+{% endtab %}
+{% tab title='LC_335.py' %}
+
+```py
+def isSelfCrossing(self, x):
+  """ Two cases
+                    b                              b
+   +----------------+             +----------------+
+   |                |             |                |
+   |                |             |                | a
+ c |                |           c |                |
+   |                | a           |                |    f
+   +----------->    |             |                | <----+
+            d       |             |                |      | e
+                    |             |                       |
+                                  +-----------------------+
+                                               d
+  """
+  b = c = d = e = 0
+  for a in x:
+    if d >= b > 0 and (a >= c or a >= c - e >= 0 and b + f >= d):
+      return True
+    b, c, d, e, f = a, b, c, d, e
+  return False
+```
+
+{% endtab %}
+{% endtabs %}

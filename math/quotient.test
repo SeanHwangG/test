@@ -1,1 +1,14 @@
 [quotient](https://docs.google.com/forms/d/1aUwp8EZpKeSLwDnXXM5QJQD4FIyqCi5MYWwfBhZV8FQ/edit)
+
+```py
+x - 4 = 9    # 13
+x * 3 = 18   # 6
+x // 7 = 14  # 98
+x + 15 = -9  # -24
+x * (-2) = -6    # 3
+x // 4 - 6 = 13  # 76
+x * 9 +13 = -5   # -2
+99 - x * 3 = 42  # 19
+78 + x // 4 = 54 # -96
+100 + x * (6 - 9) = 1  # 33
+```

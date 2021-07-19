@@ -102,7 +102,7 @@ for i, c in enumerate(st):
 * [Level 1.3 : Cryptographer's Conundrum](https://open.kattis.com/problems/conundrum)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/enumerate/KT_conundrum.md/)
 
-[//]: # (BJ_11269)
+[Duplicate](./BJ_11269.md)
 
 * [Level 1.6 : Autori](https://open.kattis.com/problems/autori)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/enumerate/KT_autori.md/)

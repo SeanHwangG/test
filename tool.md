@@ -26,40 +26,32 @@
   * &tbs=qdr:X: n h d w m y
   * past 6 month: `http://www.google.com/search?q=local+seo&tbs=qdr:m6`
 
-### Drive
+* Drive: Free storage
+  * Version Control
+  * Shareable link with different permission
+  * drive API for automation (fetching, writing)
+  * [Backup and sync for computer](https://www.google.com/intl/en/drive/download/)
+  * Shortcut
+    * ⌃ ⌥ f: File
+    * ⌃ ⌥ e: Edit
+    * ⌥ /: Search menu
+    * ⌘ /: Search shortcut
 
-* Free storage
-* Version Control
-* Shareable link with different permission
-* drive API for automation (fetching, writing)
-* [Backup and sync for computer](https://www.google.com/intl/en/drive/download/)
+* Docs
+  * [Equation](http://www.notuom.com/google-docs-equation-shortcuts.html)
+  * Shortcut
+    * ⌥ ⌘ x: Spell check
+    * ⇧ ⌘ c: page info
+    * ⌘ ⌥ 1~6: Heading
+    * ⌘ ⌥ c / v: style copy / paste
 
-* Shortcut
-  * ⌃ ⌥ f: File
-  * ⌃ ⌥ e: Edit
-  * ⌥ /: Search menu
-  * ⌘ /: Search shortcut
+* Form: make quiz -> put answer
 
-### Docs
+* Sheet
+  * Shortcut
+    * option ↑ ↓: Change sheet
 
-* [Equation](http://www.notuom.com/google-docs-equation-shortcuts.html)
-
-* Shortcut
-  * ⌥ ⌘ x: Spell check
-  * ⇧ ⌘ c: page info
-  * ⌘ ⌥ 1~6: Heading
-  * ⌘ ⌥ c / v: style copy / paste
-
-### Form
-
-* make quiz -> put answer
-
-### Sheet
-
-* Shortcut
-  * option ↑ ↓: Change sheet
-
-### Chrome
+## Chrome
 
 * Shortcut
   * ⌘  d: bookmark

@@ -1,5 +1,49 @@
 > baekjoon
 
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_12851.md/)
+
+{% tabs %}
+{% tab title='BJ_12851.md' %}
+
+> Question
+
+* Given two positions X and Y, and after 1 second, X can move to positions X-1, X+1, and 2*X
+* how many seconds does it take to go Y, and how many shortest ways are there
+
+```txt
+Input: 5 17
+Output:
+4
+2
+```
+
+{% endtab %}
+{% tab title='BJ_12851.py' %}
+
+```py
+from collections import defaultdict
+
+n, k = map(int, input().split())
+T = 100001
+q, v, c = {n: 1}, [1e9] * T, 0
+while q:
+  dq = defaultdict(int)
+  for n in dq:
+    if n == k:
+      print(c, q[k])
+      exit()
+    for i in [n - 1, n + 1, n * 2]:
+      if 0 <= i < T and c <= v[i]:
+        v[i] = c
+        dq[i] += q[n]
+  q = dq
+  c += 1
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 8 : 바이러스](https://www.acmicpc.net/problem/2606)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_2606.md/)
 
@@ -187,8 +231,8 @@ while 1:
 
 > Question
 
-* After 1 second, you can move to positions X-1, X+1, and 2*X
-* how many seconds after the earliest time you can find your brother
+* Given two positions X and Y, and after 1 second, X can move to positions X-1, X+1, and 2*X
+* how many seconds does it take to go Y
 
 ```txt
 Input: 5 17
@@ -474,9 +518,8 @@ for __ in range(int(input())):
 
 > Question
 
-* If you walk when the position is X, you will move to X-1 or X+1 after one second
-* In case of teleportation, it is moved to a position of 2*X after 1 second
-* Find the fastest time you can find your brother in seconds
+* Given current position X and goal Y, you can move to X - 1 or X + 1, 2 * X in 1 second
+* Find the fastest time to reach Y
 
 ```txt
 Input: 5 17

@@ -675,7 +675,7 @@ print(ans)
 {% endtab %}
 {% endtabs %}
 
-* [Level 10 : → B](https://www.acmicpc.net/problem/16953)
+* [Level 10 : A → B](https://www.acmicpc.net/problem/16953)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/BJ_16953.md/)
 
 {% tabs %}
@@ -845,7 +845,7 @@ while True:
 * [Level 1.5 : Soda Slurper](https://open.kattis.com/problems/sodaslurper)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/implementation/KT_sodaslurper.md/)
 
-[//]: # (BJ_5032)
+[Duplicate](./BJ_5032.md)
 
 > leetcode
 

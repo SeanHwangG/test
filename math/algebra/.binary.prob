@@ -198,7 +198,7 @@ while True:
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : umber Game](https://www.acmicpc.net/problem/1975)
+* [Level 3 : Number Game](https://www.acmicpc.net/problem/1975)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/binary/BJ_1975.md/)
 
 {% tabs %}

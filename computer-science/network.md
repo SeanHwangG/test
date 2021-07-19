@@ -162,53 +162,41 @@
   * Reliability: Keep a long-term log of reliability of different routes
   * Throughput: amount of data that can pass through a link in a specific amount of time
 
-> How to Internet Troubleshoot
+> Question
 
-* Failure → Check other website
-* check other computer
-* check DHCP
+* How to Internet Troubleshoot
+  * Failure → Check other website
+  * check other computer
+  * check DHCP
 
 {% tabs %}
 {% tab title='shell' %}
 
-> nc
+* nc
+  * -p: source_port
+  * google.com 80: try to establish a connection on port 80 to google.com
 
-* -p: source_port
-* google.com 80: try to establish a connection on port 80 to google.com
+* local
+  * -azvh file backup: save file in backup
 
-> local
+* sftp: FTP protocol over ssh port, encrypted
+  * put / before every command to see local files
+  * bye: exit sftp
 
-* -azvh file backup: save file in backup
+* ufw
+  * app list: list the ufw application profiles
 
-> sftp
+* ipconfig: Internet Protocol Configuration used in Microsoft Windows operating system
+  * view all the current TCP/IP network configurations values of the computer
 
-* FTP protocol over ssh port, encrypted
-* put / before every command to see local files
-* bye: exit sftp
+* iptables: administration tool for IPv4/IPv6 packet filtering and NAT
+  * displaying the route and measuring transit delays of packets across an Internet Protocol network
 
-> ufw
+* gpg: OpenPGP encryption and signing tool
+  * --keyserver hkp://keys.gnupg.net --recv BCE9D9A42D51784F
+  * --verify ecs-cli.asc /usr/local/bin/ecs-cli
 
-* app list: list the ufw application profiles
-
-> ipconfig
-
-* Internet Protocol Configuration used in Microsoft Windows operating system
-* view all the current TCP/IP network configurations values of the computer
-
-> iptables
-
-* administration tool for IPv4/IPv6 packet filtering and NAT
-* displaying the route and measuring transit delays of packets across an Internet Protocol network
-
-> gpg
-
-* OpenPGP encryption and signing tool
-* --keyserver hkp://keys.gnupg.net --recv BCE9D9A42D51784F
-* --verify ecs-cli.asc /usr/local/bin/ecs-cli
-
-> traceroute
-
-* `google.com`
+* traceroute: [ex] `google.com`
 
 * tracepath: traces path to a network host discovering MTU along this path
 
@@ -487,13 +475,12 @@ nc localhost 23457
 * Cables -> Routers -> ISP
 * [ex] World Wide Web, email, file transfer protocol, VoIP, streaming video, gaming, etc
 
-> History
-
-* 60-70s: ARPA (Advanced Research Projects Agency) NET connecting UCLA, Stanford, MIT, and University of Utah
-  * standardized protocol called Transmission Control Protocol was invented
-* 80s: ARPANET was fully migrated to TCP/IP
-* 90s: Tim Berners-Lee introduced his World Wide Web project to store and retrieve these inter-connected documents
-  * browsers such as Mosaic and Netscape allowed combining graphics with web navigation
+* History
+  * 60-70s: ARPA (Advanced Research Projects Agency) NET connecting UCLA, Stanford, MIT, and University of Utah
+    * standardized protocol called Transmission Control Protocol was invented
+  * 80s: ARPANET was fully migrated to TCP/IP
+  * 90s: Tim Berners-Lee introduced his World Wide Web project to store and retrieve these inter-connected documents
+    * browsers such as Mosaic and Netscape allowed combining graphics with web navigation
 
 > Term
 

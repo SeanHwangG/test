@@ -42,6 +42,83 @@ MY_VAR := $(shell echo whatever)
 {% endtab %}
 {% endtabs %}
 
+## Assignment
+
+{% tabs %}
+{% tab title='python' %}
+
+```py
+a = [1,2]
+b = copy.copy(a) # equivalent to [e for e in a], a[:]
+
+# deepcopy()     preserve the graphical structure of the original compound data
+a = [1,2]
+b = [a,a]        # there's only 1 object a
+c = copy.deepcopy(b)
+
+c[0] is a        # return False, a new object a' is created
+c[0] is c[1]     # return True, c is [a',a'] not [a',a'module.md']
+```
+
+{% endtab %}
+{% tab title='sv' %}
+
+* =: blocking assignment, used in combinational logic
+  ![= assignment](images/20210505_004647.png)
+  ![Assignment](images/20210413_150409.png)
+
+* <=: assign using temp, used in sequential logic
+  ![Non-blocking](images/20210413_150558.png)
+
+* always_comb (assign): continuously evaluating
+* always / always_ff: only changes when variable in @, changes
+  * always use <=
+
+```v
+// 1. synchronous_reset_d-ff.v
+module dff_sync_reset (
+  input wire data, clk, reset,
+  output reg q
+);
+
+always_ff @ (posedge clk)
+if (~reset)
+  q <= 1*b0;
+else
+  q <= data;
+end module
+
+// 2. shift using <=
+module shift_reg(input clk, reset, a, output logic d):
+
+logic b, c;
+always_ff @(posedge clk)
+  if (reset) begin
+    b <= 0;
+    c <= 0;
+    d <= 0;
+  end
+  else begin
+    b <= a;
+    c <= b;
+    d <= c;
+end
+
+end module
+
+// Blocking vs non blocking assignment
+module assignments(input i, input clk, output reg o);
+  reg temp;
+  always @ (posedge clk) begin
+    temp = i; // <=
+    o = temp; // <=
+  end
+end module
+```
+
+{% endtab %}
+{% endtabs %}
+
 ## Concat
 
 {% tabs %}
@@ -61,10 +138,6 @@ assign c = { 2{a}, 1'b0 } // c = 01010 i.e. a is repeated two times i.e. 01-01
 {% endtabs %}
 
 {% include '.concat.prob' %}
-
-## Decimal
-
-{% include '.decimal.prob' %}
 
 ## Eval
 

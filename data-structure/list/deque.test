@@ -1,1 +1,17 @@
 [deque](https://docs.google.com/forms/d/12yDxm3jPOLbyR8Fc9dJ-6yOGz9arfs-iVIiA1s_mTlM/edit)
+
+```py
+from collections import deque
+dq = deque([1,3,5])
+
+dq.append(1); print(dq.popleft())  # 1
+dq.append(9); print(dq.pop())      # 9
+print(sum(dq))                     # 9
+dq.appendleft(7); print(list(dq))  # [7, 3, 5, 1]
+dq.appendleft(15); print(dq.pop()) # 1
+dq.reverse(); print(dq.pop())      # 15
+dq.insert(0,11); print(dq.popleft())  # 11
+dq.remove(3); print(list(dq))   # [5, 7]
+print(len(dq))                  # 2
+dq.extend([7, 8, 9]); print(dq.popleft())  # 5
+```

@@ -71,7 +71,7 @@ for _ in range(int(input())):
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : +B - 3](https://www.acmicpc.net/problem/10950)
+* [Level 3 : A+B - 3](https://www.acmicpc.net/problem/10950)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_10950.md/)
 
 {% tabs %}
@@ -183,7 +183,7 @@ for _ in range(n_test):
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : ime to Decompress](https://www.acmicpc.net/problem/17010)
+* [Level 3 : Time to Decompress](https://www.acmicpc.net/problem/17010)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_17010.md/)
 
 {% tabs %}
@@ -478,7 +478,7 @@ for _ in range(int(input())):
 {% endtab %}
 {% endtabs %}
 
-* [Level 4 : +B - 6](https://www.acmicpc.net/problem/10953)
+* [Level 4 : A+B - 6](https://www.acmicpc.net/problem/10953)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_10953.md/)
 
 {% tabs %}
@@ -512,7 +512,7 @@ for _ in range(N):
 {% endtab %}
 {% endtabs %}
 
-* [Level 4 : eport Card Time](https://www.acmicpc.net/problem/11367)
+* [Level 4 : Report Card Time](https://www.acmicpc.net/problem/11367)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-input/BJ_11367.md/)
 
 {% tabs %}

@@ -81,7 +81,7 @@ print(b)
 * [Level 2 : 2 番目に大きい整数 (The Second Largest Integer)](https://www.acmicpc.net/problem/20976)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_20976.md/)
 
-[//]: # (BJ_18414)
+[Duplicate](./BJ_18414.md)
 
 * [Level 2 : 세수정렬](https://www.acmicpc.net/problem/2752)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sorted/BJ_2752.md/)

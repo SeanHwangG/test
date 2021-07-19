@@ -336,7 +336,7 @@ for _ in range(int(input())):
 {% endtab %}
 {% endtabs %}
 
-* [Level 6 : ](https://www.acmicpc.net/problem/1969)
+* [Level 6 : DNA](https://www.acmicpc.net/problem/1969)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_1969.md/)
 
 {% tabs %}

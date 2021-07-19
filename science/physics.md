@@ -7,7 +7,7 @@
 | Term      | Equation                                                                                       |
 | --------- | ---------------------------------------------------------------------------------------------- |
 | Joules    | $$ W=Fd $$                                                                                     |
-| Steradian | $$ \Omega=\frac{A}{r^{2}} \mathrm{sr}=\frac{2 \pi h}{r} \mathrm{sr} $$                         |
+| Steradian | $$ \Omega=\frac{A}{r^{2}} \mathrm{sr}=\frac{2 π h}{r} \mathrm{sr} $$                           |
 | watt      | $$ 1 W=1 \frac{J}{s}=1 \frac{\mathrm{N} \cdot \mathrm{m}}{s}=1 \frac{kg \cdot m^{2}}{s^{3}} $$ |
 
 ![Steradian](images/20210329_202832.png)

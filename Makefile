@@ -1,6 +1,6 @@
 .PHONY: fix_image
 fix_include:
-	python3 -m include_file -u seanhwangg -p ~/github/blog -t README.md -y SUMMARY.md --relocate
+	python3 -m include_file -u seanhwangg -p ~/github/blog -toc table_of_contents.md -y SUMMARY.md --relocate --stem
 
 sync:
 	$(foreach PUBLIC, $(PUBLICS), $(shell echo $(PUBLIC)))
@@ -12,4 +12,7 @@ remove_empty:
 	find . -type d -delete
 
 print_empty:
-	find . -empty -print | grep -Ev '__init__|site-packages'
+	find . -empty -print | grep -Ev '__init__|site-packages|private|node_modules'
+
+delete_empty:
+	make print_empty | xargs -I {} rm {}

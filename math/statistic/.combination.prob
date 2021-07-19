@@ -547,7 +547,7 @@ for c in combinations(li, n):
 * [Level 1.6 : Patuljci](https://open.kattis.com/problems/patuljci)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/combination/KT_patuljci.md/)
 
-[//]: # (BJ_2309)
+[Duplicate](./BJ_2309.md)
 
 > leetcode
 

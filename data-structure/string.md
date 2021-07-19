@@ -329,12 +329,15 @@ $(( 0xff ))      # expand hex
 {% endtab %}
 {% tab title='vim' %}
 
-```vim
+```sh
 # 1. String
 len(str)
 split("one.two.three", '.')    # ['one', 'two', 'three']
 tolower('Hello')
 'hello ' . name
+
+str2float("2.3")
+str2nr("3")
 ```
 
 {% endtab %}
@@ -354,15 +357,14 @@ tolower('Hello')
 * python2 encoding ‘ascii’ encoding
 * Unicode → ASCII, code point is < 128, value of the code point, error otherwise
 
-> unicodedata
-
-* unicodedata.name('/'): SOLIDUS
-* unicodedata.decimal('9'): 9
-* unicodedata.category(): [ex] 'A': Lu
-* unicodedata.bidirectional(): [ex] '한': L
-* unicodedata.lookup(): [ex] 'LEFT CURLY BRACKET' {
-* unicodedata.normalize('NFD', u'\u00C7'): decompose: convert Ç to "C + ̧"
-* unicodedata.normalize('NFC', u'C\u0327'): compose: convert "C + ̧" to Ç
+* unicodedata
+  * unicodedata.name('/'): SOLIDUS
+  * unicodedata.decimal('9'): 9
+  * unicodedata.category(): [ex] 'A': Lu
+  * unicodedata.bidirectional(): [ex] '한': L
+  * unicodedata.lookup(): [ex] 'LEFT CURLY BRACKET' {
+  * unicodedata.normalize('NFD', u'\u00C7'): decompose: convert Ç to "C + ̧"
+  * unicodedata.normalize('NFC', u'C\u0327'): compose: convert "C + ̧" to Ç
 
 ```py
 '한'.encode('UTF-8'))            # b'\xed\x95\x9c (bytes)

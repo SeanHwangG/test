@@ -125,6 +125,32 @@ def renderBanner(self):
 {% endtab %}
 {% endtabs %}
 
+{% tabs %}
+{% tab title='postgres' %}
+
+* pg_database
+  * database
+  * current_catalog
+  * information_schema.tables: All table
+  * pg_stat_activity: History
+
+{% endtab %}
+{% tab title='vscode' %}
+
+* ${env:`PATH`}: get `PATH` from environment
+* ${workspaceFolder}: workspace forder path
+* ${default}: default value
+* ${file}: current opened file (ex: /home/your-username/your-project/folder/file.ext)
+* ${fileBasename} - file.ext
+* ${fileBasenameNoExtension} - file
+* ${fileDirname}: /home/your-username/your-project/folder
+* ${relativeFile}: folder/file.ext
+* ${workspaceFolderBasename}: your-project
+* ${pathSeparator}: / on macOS or linux, \\ on Windows
+
+{% endtab %}
+{% endtabs %}
+
 ## Type
 
 {% tabs %}
@@ -242,6 +268,52 @@ return 0;
 * declare: specifies a type to an already existing variable, not declaring a new one
 * // @ts-nocheck: file level ignore on top of the file
 * // @ts-ignore: single line next to line
+* Sequelize
+  * STRING: VARCHAR(255)
+  * STRING(1234): VARCHAR(1234)
+  * STRING.BINARY: VARCHAR BINARY
+  * TEXT: TEXT
+  * TEXT('tiny'): TINYTEXT
+  * CITEXT: CITEXT      PostgreSQL and SQLite only
+  * INTEGER: INTEGER
+  * BIGINT: BIGINT
+  * BIGINT(11): BIGINT(11)
+  * FLOAT: FLOAT
+  * FLOAT(11): FLOAT(11)
+  * FLOAT(11,: FLOAT(11,10)
+  * REAL: REAL        PostgreSQL only
+  * REAL(11): REAL(11)    PostgreSQL only
+  * REAL(11,: REAL(11,12) PostgreSQL only
+  * DOUBLE: DOUBLE
+  * DOUBLE(11): DOUBLE(11)
+  * DOUBLE(11,: DOUBLE(11,10)
+  * DECIMAL: DECIMAL
+  * DECIMAL(10,: DECIMAL(10,2)
+  * DATE: DATETIME for mysql / sqlite, TIMESTAMP WITH TIME ZONE for postgres
+  * DATE(6): DATETIME(6) for mysql 5.6.4+. Fractional seconds support with up to 6 digits of precision
+  * DATEONLY: DATE without time
+  * BOOLEAN: TINYINT(1)
+  * ENUM('value: An ENUM with allowed values value 1 and value 2')
+  * ARRAY(Sequelize.TEXT): Defines an array. PostgreSQL only
+  * ARRAY(Sequelize.ENUM): Defines an array of ENUM. PostgreSQL only
+  * JSON: JSON column. PostgreSQL, SQLite and MySQL only
+  * JSONB: JSONB column. PostgreSQL only
+  * BLOB: BLOB (bytea for PostgreSQL)
+  * BLOB('tiny'): TINYBLOB (bytea for PostgreSQL. Other options are medium and long)
+  * UUID: UUID datatype for PostgreSQL and SQLite, CHAR(36) BINARY for MySQL
+    ultValue: Sequelize.UUIDV1 or Sequelize.UUIDV4 to make sequelize generate the ids automatically
+  * CIDR: CIDR datatype for PostgreSQL
+  * INET: INET datatype for PostgreSQL
+  * MACADDR: MACADDR datatype for PostgreSQL
+  * RANGE(Sequelize.INTEGER): Defines int4range range. PostgreSQL only
+  * RANGE(Sequelize.BIGINT): Defined int8range range. PostgreSQL only
+  * RANGE(Sequelize.DATE): Defines tstzrange range. PostgreSQL only
+  * RANGE(Sequelize.DATEONLY): Defines daterange range. PostgreSQL only
+  * RANGE(Sequelize.DECIMAL): Defines numrange range. PostgreSQL only
+  * ARRAY(Sequelize.RANGE(Sequelize.DATE))  Defines array of tstzrange ranges. PostgreSQL only
+  * GEOMETRY: Spatial column.  PostgreSQL (with PostGIS), MySQL only
+  * GEOMETRY('POINT'): Spatial column with geometry type. PostgreSQL (with PostGIS), MySQL only
+  * GEOMETRY('POINT',: Spatial column with geometry type + SRID. PostgreSQL (with PostGIS), MySQL only
 
 ```js
 // 1. Caveat
@@ -305,12 +377,23 @@ function sum({ a, b, c }: ABC)
 
 * builtin types (int, float, bool, str, bytes, list, set)
 
-> typing
+* graphene
+  * Boolean()
+    * name: [ex] 'is_staff': to use camelcase
+  * String()
+  * DateTime()
 
-* Type[CustomClass]: class CustomClass itself (or a subtype)
-* Dict[str, int]
-* List
-* Set
+* typing
+  * Type[CustomClass]: class CustomClass itself (or a subtype)
+  * Dict[str, int]
+  * List
+  * Set
+
+* django
+  * BooleanField()
+  * IntegerField(): blank is equivalent to 0
+  * DecimalField()
+  * DateTimeField()
 
 ```py
 import itertools
@@ -428,69 +511,6 @@ class ProductHolder(PositionObj):
 ```
 
 {% endtab %}
-{% tab title='sequelize' %}
-
-* Sequelize.STRING: VARCHAR(255)
-* Sequelize.STRING(1234): VARCHAR(1234)
-* Sequelize.STRING.BINARY: VARCHAR BINARY
-* Sequelize.TEXT: TEXT
-* Sequelize.TEXT('tiny'): TINYTEXT
-* Sequelize.CITEXT: CITEXT      PostgreSQL and SQLite only
-
-* Sequelize.INTEGER: INTEGER
-* Sequelize.BIGINT: BIGINT
-* Sequelize.BIGINT(11): BIGINT(11)
-
-* Sequelize.FLOAT: FLOAT
-* Sequelize.FLOAT(11): FLOAT(11)
-* Sequelize.FLOAT(11,: FLOAT(11,10)
-
-* Sequelize.REAL: REAL        PostgreSQL only
-* Sequelize.REAL(11): REAL(11)    PostgreSQL only
-* Sequelize.REAL(11,: REAL(11,12) PostgreSQL only
-
-* Sequelize.DOUBLE: DOUBLE
-* Sequelize.DOUBLE(11): DOUBLE(11)
-* Sequelize.DOUBLE(11,: DOUBLE(11,10)
-
-* Sequelize.DECIMAL: DECIMAL
-* Sequelize.DECIMAL(10,: DECIMAL(10,2)
-
-* Sequelize.DATE: DATETIME for mysql / sqlite, TIMESTAMP WITH TIME ZONE for postgres
-* Sequelize.DATE(6): DATETIME(6) for mysql 5.6.4+. Fractional seconds support with up to 6 digits of precision
-* Sequelize.DATEONLY: DATE without time
-* Sequelize.BOOLEAN: TINYINT(1)
-
-* Sequelize.ENUM('value: An ENUM with allowed values value 1 and value 2')
-* Sequelize.ARRAY(Sequelize.TEXT): Defines an array. PostgreSQL only
-* Sequelize.ARRAY(Sequelize.ENUM): Defines an array of ENUM. PostgreSQL only
-
-* Sequelize.JSON: JSON column. PostgreSQL, SQLite and MySQL only
-* Sequelize.JSONB: JSONB column. PostgreSQL only
-
-* Sequelize.BLOB: BLOB (bytea for PostgreSQL)
-* Sequelize.BLOB('tiny'): TINYBLOB (bytea for PostgreSQL. Other options are medium and long)
-
-* Sequelize.UUID: UUID datatype for PostgreSQL and SQLite, CHAR(36) BINARY for MySQL
-  * use defaultValue: Sequelize.UUIDV1 or Sequelize.UUIDV4 to make sequelize generate the ids automatically
-
-* Sequelize.CIDR: CIDR datatype for PostgreSQL
-* Sequelize.INET: INET datatype for PostgreSQL
-* Sequelize.MACADDR: MACADDR datatype for PostgreSQL
-
-* Sequelize.RANGE(Sequelize.INTEGER): Defines int4range range. PostgreSQL only
-* Sequelize.RANGE(Sequelize.BIGINT): Defined int8range range. PostgreSQL only
-* Sequelize.RANGE(Sequelize.DATE): Defines tstzrange range. PostgreSQL only
-* Sequelize.RANGE(Sequelize.DATEONLY): Defines daterange range. PostgreSQL only
-* Sequelize.RANGE(Sequelize.DECIMAL): Defines numrange range. PostgreSQL only
-
-* Sequelize.ARRAY(Sequelize.RANGE(Sequelize.DATE))  Defines array of tstzrange ranges. PostgreSQL only
-
-* Sequelize.GEOMETRY: Spatial column.  PostgreSQL (with PostGIS), MySQL only
-* Sequelize.GEOMETRY('POINT'): Spatial column with geometry type. PostgreSQL (with PostGIS), MySQL only
-* Sequelize.GEOMETRY('POINT',: Spatial column with geometry type + SRID. PostgreSQL (with PostGIS), MySQL only
-
-{% endtab %}
 {% tab title='shell' %}
 
 * doesn’t have data types → used as string in string operation / int in int operation
@@ -513,6 +533,14 @@ let x = foo?.bar.baz() /* BETTER */
 // 2. Ensures boolean
 temp != null ? true: false  /* BAD */
 !!temp  /* BETTER */
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+```py
+# 1. Optional ForeignKey
+blank=True, null=True
 ```
 
 {% endtab %}

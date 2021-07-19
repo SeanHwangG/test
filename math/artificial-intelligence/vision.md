@@ -96,12 +96,10 @@ $$
   * Short Term: Can I change my lane to lane right? Can I pass this intersection and join the left road?
   * Immediate: Accelerate, brake
 
-## Features
+## Visual Feature
 
 * Harris: large difference with nearby pixel
-
 * Good Features to Track: sorted by value, suppress non-max
-
 * FAST: use nearby 16 pixels, fast than above two
 
 * Feature Pyramid

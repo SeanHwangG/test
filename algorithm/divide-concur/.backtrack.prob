@@ -102,7 +102,7 @@ backtrack([], N, M)
 {% endtab %}
 {% endtabs %}
 
-* [Level 11 : -Queen](https://www.acmicpc.net/problem/9663)
+* [Level 11 : N-Queen](https://www.acmicpc.net/problem/9663)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/backtrack/BJ_9663.md/)
 
 {% tabs %}

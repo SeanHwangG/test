@@ -1797,26 +1797,26 @@ def par_matrix_multiply(M1, M2):
   C_1D = mp.RawArray('d', n1 * m2)  # flat version of matrix C
   workers = []
   for w in range(num_workers):
-  row_start_C = min(w * chunk_size, n1)
-  row_end_C = min((w + 1) * chunk_size, n1)
-  workers.append(mp.Process(target=_par_worker, args=(M1, M2, C_1D, row_start_C, row_end_C)))
+    row_start_C = min(w * chunk_size, n1)
+    row_end_C = min((w + 1) * chunk_size, n1)
+    workers.append(mp.Process(target=_par_worker, args=(M1, M2, C_1D, row_start_C, row_end_C)))
   for w in workers:
-  w.start()
+    w.start()
   for w in workers:
-  w.join()
+    w.join()
 
   C_2D = [[0] * m2 for i in range(n1)]
   for i in range(n1):
-  for j in range(m2):
-    C_2D[i][j] = C_1D[i*m2 + j]
+    for j in range(m2):
+      C_2D[i][j] = C_1D[i*m2 + j]
   return C_2D
 
 
 def _par_worker(M1, M2, C_1D, row_start_C, row_end_C):
   for i in range(row_start_C, row_end_C):  # subset of rows in M1
-  for j in range(len(M2[0])):
-    for k in range(len(M1[0])):
-    C_1D[i*len(M2[0]) + j] += M1[i][k] * M2[k][j]
+    for j in range(len(M2[0])):
+      for k in range(len(M1[0])):
+        C_1D[i*len(M2[0]) + j] += M1[i][k] * M2[k][j]
 
 
 if __name__ == '__main__':

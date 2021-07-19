@@ -7,43 +7,35 @@
 * root vertex r is at level 0
 * Binary tree is a rooted tree in which every (internal) vertex has no more than two children
 
-> Huffman encoding
+* Huffman encoding: Tree must be full tree
+  * Exists an optimal tree where two lowest frequent symbols must be siblings at the two lowest level
+  * The two longest codewords have the same length
+  * Entropy of tree
+  $$ \sum_{i} p_{i} \log _{2} \frac{1}{p_{i}} $$
+  ![Huffman encoding](images/20210218_232413.png)
 
-* Tree must be full tree
-* Exists an optimal tree where two lowest frequent symbols must be siblings at the two lowest level
-* The two longest codewords have the same length
-* Entropy of tree
+* RB Tree: Each node is either red or black
+  * Red node only contains black children
+  * Root is black
+  * Black height is same for every descendent
+  * Insertion
+    * X: the node you are inserting
+    * P: parent of the node
+    * G: grandparent of the node
+    * Traverse down the tree to find the appropriate spot to insert
+    * As we traverse the tree, at each node we encounter, check whether any node has two red children
+    * if so, color parent as red and both children as black
+    * if any violation occurs(if grandparent is also red), perform appropriate rotation
+    * After we find the spot, P is black → done
+    * P is red, P is left|right child of G, X is left|right child of P → single rotation
+    * P is red, P is left|right child of G, X is right|left child of P → double rotation
 
-$$
-\sum_{i} p_{i} \log _{2} \frac{1}{p_{i}}
-$$
+> Proof that height of RB Tree is log(n)
 
-![Huffman encoding](images/20210218_232413.png)
-
-> RB Tree
-
-* Each node is either red or black
-* Red node only contains black children
-* Root is black
-* Black height is same for every descendent
-
-* Proof that the height is log(n)
-  * compress every red child into parent → create 2-3-4 trees
-  * height of compressed is at most half of the original
-  * height of compressed is log2(N)
-  * the number of leaves is between 2h'< n < 4h'
-
-* Insertion
-  * X: the node you are inserting
-  * P: parent of the node
-  * G: grandparent of the node
-  * Traverse down the tree to find the appropriate spot to insert
-  * As we traverse the tree, at each node we encounter, check whether any node has two red children
-  * if so, color parent as red and both children as black
-  * if any violation occurs(if grandparent is also red), perform appropriate rotation
-  * After we find the spot, P is black → done
-  * P is red, P is left|right child of G, X is left|right child of P → single rotation
-  * P is red, P is left|right child of G, X is right|left child of P → double rotation
+* compress every red child into parent → create 2-3-4 trees
+* height of compressed is at most half of the original
+* height of compressed is log2(N)
+* the number of leaves is between 2h'< n < 4h'
 
 ## Binary Tree
 
@@ -55,9 +47,11 @@ $$
 
 ## Tree Nary
 
-> N-ary to binary
+{% tabs %}
+{% tab title='python' %}
 
 ```py
+# 1. N-ary to binary
 def convert_n_ary_to_binary(root,isLeft = 1):
   if root == None:
     return
@@ -120,15 +114,17 @@ print("\nConverted n-ary tree")
 tnode1.display_level_order()
 ```
 
+{% endtab %}
+{% endtabs %}
+
 {% include '.tree-nary.prob' %}
 
 ### KD tree
 
-* K dimension tree
-* Organizing some number of points in a space with k dimensions
-* Pick median to balance KDTree
-* Can start with either X or Y
-* Right child is greater and equal
+* K dimension tree: Organizing some number of points in a space with k dimensions
+  * Pick median to balance KDTree
+  * Can start with either X or Y
+  * Right child is greater and equal
 
 * Single rotation
   ![Single Rotation](images/20210305_194256.png)
@@ -140,6 +136,9 @@ tnode1.display_level_order()
 
 * Search / Insertion: O(key_length)
 * memory: O(ALPHABET_SIZE * key_length * N
+
+{% tabs %}
+{% tab title='python' %}
 
 ```py
 class Node:
@@ -176,6 +175,9 @@ class Trie:
     return cur.is_leaf
 ```
 
+{% endtab %}
+{% endtabs %}
+
 {% include '.trie.prob' %}
 
 ## Traversal
@@ -183,6 +185,10 @@ class Trie:
 ![Traversal](images/20210218_232541.png)
 
 {% include '.traversal.prob' %}
+
+> Reference
+
+<http://melonicedlatte.com/algorithm/2018/02/04/145104.html>
 
 ## LCA
 
@@ -212,6 +218,9 @@ class Trie:
 
 ![Segment Tree](images/20210218_233059.png)
 
+{% tabs %}
+{% tab title='python' %}
+
 ```py
 """
 [10, 6, -7, -8, 0, 0, 0, 0, 0]
@@ -240,6 +249,9 @@ def query(l, r, ST):
   j = math.log2rR - l + 1)
   return min(ST[L][j], ST[R - (1 << j) + 1][j])
 ```
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.sparse-table.prob' %}
 

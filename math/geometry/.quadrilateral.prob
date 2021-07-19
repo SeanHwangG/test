@@ -1,6 +1,6 @@
 > baekjoon
 
-* [Level 2 : lex Origami Squares](https://www.acmicpc.net/problem/11466)
+* [Level 2 : Alex Origami Squares](https://www.acmicpc.net/problem/11466)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_11466.md/)
 
 {% tabs %}
@@ -32,7 +32,7 @@ print(max(min(a, b / 3), min(a / 2, b / 2))
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : quare Pasture](https://www.acmicpc.net/problem/14173)
+* [Level 2 : Square Pasture](https://www.acmicpc.net/problem/14173)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_14173.md/)
 
 {% tabs %}
@@ -64,7 +64,7 @@ print(x ** 2)
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : bbey Courtyard](https://www.acmicpc.net/problem/15610)
+* [Level 2 : Abbey Courtyard](https://www.acmicpc.net/problem/15610)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_15610.md/)
 
 {% tabs %}
@@ -88,6 +88,11 @@ print(int(input()) ** 0.5 * 4)
 
 {% endtab %}
 {% endtabs %}
+
+* [Level 2 : Contemporary Art](https://www.acmicpc.net/problem/16600)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_16600.md/)
+
+[Duplciate](./BJ_15610.md)
 
 * [Level 2 : Cutting Corners](https://www.acmicpc.net/problem/20215)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_20215.md/)
@@ -115,7 +120,7 @@ print(a + b - (a * a + b * b) ** .5)
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : trium](https://www.acmicpc.net/problem/20353)
+* [Level 2 : Atrium](https://www.acmicpc.net/problem/20353)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/BJ_20353.md/)
 
 {% tabs %}
@@ -274,4 +279,4 @@ print(len(x))
 * [Level 1.4 : A Real Challenge](https://open.kattis.com/problems/areal)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/quadrilateral/KT_areal.md/)
 
-[//]: # (BJ_15610)
+[Duplicate](./BJ_15610.md)

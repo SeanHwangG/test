@@ -20,8 +20,7 @@
 
 * TDD: Kent Beck in 1990's part of Extreme programming software development process (created Sunit, Junit)
   * unit tests are written before production code
-
-![TDD Cycle](images/20210209_183747.png)
+  ![TDD Cycle](images/20210209_183747.png)
 
 * Test fixture, context
 * fixed environment in which tests are run so that results are repeatable
@@ -40,27 +39,24 @@
 * [-] increased maintenance on the tests themselves during system evolution (refactoring)
 
 {% tabs %}
-{% tab title='django' %}
+{% tab title='python' %}
 
-* placed in app/tests
-* app/fixtures/fixture.json
+* django
+  * placed in app/tests
+  * app/fixtures/fixture.json
+* pylint-django
+  * pip install pylint-django
 
-> pylint-django
+* test
+  * assertNumQueries(`num`): check if `num` query has called
+  * TestCase
+    * assertEqual / True / In
+    * assertTemplateUsed
 
-* pip install pylint-django
-
-> test
-
-* assertNumQueries(`num`): check if `num` query has called
-* TestCase
-  * assertEqual / True / In
-  * assertTemplateUsed
-
-> pytest CLI
-
-* --ds=DS: Set DJANGO_SETTINGS_MODULE.
-* --no-migrations: Disable Django migrations on test setup
-* --migrations: Enable Django migrations on test setup
+* pytest CLI
+  * --ds=DS: Set DJANGO_SETTINGS_MODULE.
+  * --no-migrations: Disable Django migrations on test setup
+  * --migrations: Enable Django migrations on test setup
 
 ```py
 # 1. Test call command
@@ -73,15 +69,15 @@ class SmokeTest(TestCase):
     found = resolve('/')
     self.assertEqual(found.func, home_page)
 
-    # 2. Assert not raises
-    args = []
-    opts = {}
-    out = StringIO()
-    try:
-      call_command('update_md', {"directory": "cs", "suffix": ".delete"}, stdout=out)
-      self.assertContains(out.getvalue(), "SUCCESS")
-    except ExceptionType:
-      self.fail("myFunc() raised ExceptionType unexpectedly!")
+# 2. Assert not raises
+args = []
+opts = {}
+out = StringIO()
+try:
+  call_command('update_md', {"directory": "cs", "suffix": ".delete"}, stdout=out)
+  self.assertContains(out.getvalue(), "SUCCESS")
+except ExceptionType:
+  self.fail("myFunc() raised ExceptionType unexpectedly!")
 ```
 
 {% endtab %}
@@ -91,23 +87,6 @@ class SmokeTest(TestCase):
 
 * For a portion of code to work correctly, certain conditions or values must be true
 * Exception is better when classified need to be handled
-
-{% tabs %}
-{% tab title='python' %}
-
-* python -O: ignore all assert
-
-```py
-def getExpenseLimit(self):
-  # Should have either expense limit or a primary project.
-  assert (self.expenseLimit != NULL_EXPENSE) or (self.primaryProject != None)
-
-  return self.expenseLimit if (self.expenseLimit != NULL_EXPENSE) else \
-    self.primaryProject.getMemberExpenseLimit()
-```
-
-{% endtab %}
-{% endtabs %}
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -130,6 +109,21 @@ int main() {
 
   return 0;
 }
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+* python -O: ignore all assert
+
+```py
+# 1. Custom exception
+def getExpenseLimit(self):
+  # Should have either expense limit or a primary project.
+  assert (self.expenseLimit != NULL_EXPENSE) or (self.primaryProject != None)
+
+  return self.expenseLimit if (self.expenseLimit != NULL_EXPENSE) else \
+    self.primaryProject.getMemberExpenseLimit()
 ```
 
 {% endtab %}
@@ -167,7 +161,19 @@ autopep8.fix_code('print( 123 )\n', options={'ignore': ['E']})
 # 1. Install ubuntu / mac
 apt-get install shellcheck
 brew install shellcheck
+
+# 2. yapf Trailing comma
+golomb3 = [0, 1, 3]    """ Without Comma """
+golomb3 = [            """ With Comma """
+  0,
+  1,
+  3,
+]
 ```
+
+> Reference
+
+<https://google.github.io/styleguide/pyguide.html#341-trailing-commas-in-sequences-of-items>
 
 {% endtab %}
 {% endtabs %}

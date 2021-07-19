@@ -71,7 +71,7 @@ for _ in range(int(input())):
 * [Level 13 : LC](https://www.acmicpc.net/problem/11437)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_11437.md/)
 
-[//]: # (BJ_11438)
+[Duplicate](./BJ_11438.md)
 
 * [Level 16 : LCA 2](https://www.acmicpc.net/problem/11438)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/lca/BJ_11438.md/)

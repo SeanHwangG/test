@@ -1,1 +1,14 @@
 [Variable](https://docs.google.com/forms/d/1Mue_sBppqzcez70ukrU_N66nqM3WJPh1T5x3Q66YjZM/edit)
+
+```py
+x+5=23  # 18
+x-5=12  # 17
+6+x=92     # 86
+-5+x=40    # 45
+x+4=10     # 6
+x-14=-4    # 10
+x-(-11)=15 # 4
+x+24=45    # 21
+x-54=123   # 177
+2+x=10+2x  # -8
+```

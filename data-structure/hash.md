@@ -8,17 +8,13 @@
 | Communtative Law | $A \cup B =B \cup A$                    |
 | Associative Law  | $(A \cup B) \cup C = A \cup (B \cup C)$ |
 
-> Bloom Filter (Burton Howard Bloom, 1970)
+* Bloom Filter (Burton Howard Bloom, 1970)
+  * space-efficient probabilistic data structure used to test whether an element is a member of a set
+  * False positive matches are possible, but false negatives are not
 
-* space-efficient probabilistic data structure used to test whether an element is a member of a set
-* False positive matches are possible, but false negatives are not
-
-> Cuckoo hashing
-
-* Use two hash functions
-* O(1): worst case insert / lookup
-
-![cuckoo hasing](images/20210218_232251.png)
+* Cuckoo hashing: Use two hash functions
+  * [+] O(1): worst case insert / lookup
+  ![cuckoo hasing](images/20210218_232251.png)
 
 {% tabs %}
 {% tab title='python' %}
@@ -418,6 +414,39 @@ thisdict = dict.fromkeys(x)    # {'key1': None, 'key2': None, 'key3': None}
 
 # 2. Get keys as a list
 key_list = [*dic]
+```
+
+{% endtab %}
+{% tab title='vim' %}
+
+```sh
+# 1. Dictionary
+count(dict, 'x')
+empty(dict)
+get(dict, "apple")
+has_key(dict, 'foo')
+keys(dict)
+len(dict)
+max(dict)
+min(dict)
+remove(dict, "apple")
+let longlist = mylist + [5, 6]
+let mylist += [7, 8]
+mylist[2:]
+let alist = add(mylist, 4)
+
+""" Construct """
+let colors = {
+\ "apple": "red",
+\ "banana": "yellow"
+}
+
+""" Access """
+echo colors["a"]
+
+for key in keys(dict)
+  echo key . ': ' . dict(key)
+endfor
 ```
 
 {% endtab %}

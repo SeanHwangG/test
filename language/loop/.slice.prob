@@ -151,7 +151,7 @@ for i in range(len(st) // 10 + 1):
 {% endtab %}
 {% endtabs %}
 
-* [Level 4 : ](https://www.acmicpc.net/problem/11944)
+* [Level 4 : NN](https://www.acmicpc.net/problem/11944)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/BJ_11944.md/)
 
 {% tabs %}
@@ -542,7 +542,7 @@ print(sum(number_list[A-1:B]))
 * [Level 1.4 : Datum](https://open.kattis.com/problems/datum)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/KT_datum.md/)
 
-[//]: # (BJ_2948)
+[Duplicate](./BJ_2948.md)
 
 * [Level 1.4 : Simon Says](https://open.kattis.com/problems/simonsays)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/slice/KT_simonsays.md/)

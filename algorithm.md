@@ -1,5 +1,7 @@
 # Algorithm
 
+![Why study Algorithm](images/20210719_184627.png)
+
 > Terms
 
 * Vacuous Truth: conditional that is only true because antecedent cannot be satisfied
@@ -63,10 +65,9 @@
 * [+] Contains SQL, concurrency question
 * [+] Actual interview problems from interviewees / See by company tags
 
-> Contest
-
-* Weekly: 11:30 AM - 1:00 PM (KST)
-* Biweekly: 11:30 PM - 1:00 AM (KST)
+* Contest
+  * Weekly: 11:30 AM - 1:00 PM (KST)
+  * Biweekly: 11:30 PM - 1:00 AM (KST)
 
 > How-to : use online Debugger
 
@@ -304,9 +305,7 @@ $$ P=\prod_{i=1}^{n} P_{i} + 1$$
 
 ## Random
 
-> Reservior sampling
-
-* Applicable when sample size is unknown
+* Reservior sampling: Applicable when sample size is unknown
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -343,17 +342,14 @@ cout << '\n';
 * randrange(0, 10): random integer between
 * uniform(0, 10): random float between
 
-> numpy
-
-* rand(d0, d1, …, dn): Random values in a given shape
-* randn(d0, d1, …, dn): Standard normal distribution
-* randint(low[, high, size, dtype]): Random integers from [low, high)
-* shuffle(x): Modify sequence in-place by shuffling its contents
-* seed([seed]): Seed the generator
-* beta(a, b[, size]): Draw samples from a Beta distribution
-* geometric(p[, size]): Draw samples from the geometric distribution
-* uniform(-1,0,1000): Generate 1000 uniform number
-* randint(2, size=10): array([1, 0, 0, 0, 1, 1, 0, 0, 1, 0])
+* numpy.random
+  * choices(`opts`, `size`, `prop`): [ex] range(3), size=(2, 2), p=[0.8, 0.19, 0.01]: array([[0, 1], [0, 0]])
+  * rand(d0, d1, …, dn): Random values in a given shape
+  * randn(d0, d1, …, dn): Standard normal distribution
+  * randint(low[, high, size, dtype]): Random integers from [low, high)
+  * shuffle(`x`): Modify sequence in-place by shuffling its contents
+  * seed([seed]): Seed the generator
+  * randint(2, size=10): array([1, 0, 0, 0, 1, 1, 0, 0, 1, 0])
 
 {% endtab %}
 {% endtabs %}

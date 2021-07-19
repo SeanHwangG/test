@@ -1,1 +1,14 @@
 [Type](https://docs.google.com/forms/d/1LdvIke1OI0rPIMZpoUnOB3BC00dAiwxwPGIUDbWxLvc/edit)
+
+```py
+print(type(123))      # int
+print(type("abcde"))  # str
+print(type(12.3))     # float
+print(type("12345"))  # string
+print(type(123.0))    # float
+print(type([1,2,3]))  # list
+print(type(True))     # bool
+print(type(['a', 'b', 'c']))  # list
+print(type(12 + 12.3))        # float
+print(type("abcde" * 2))      # str
+```

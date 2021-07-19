@@ -736,49 +736,7 @@ Beverage bev = new Condiment(new CoffeeDrink("Espresso", 1.00), "Foam", 0.3); //
 ```
 
 {% endtab %}
-{% tab title='python' %}
-
-```py
-# 1. Nested decorator, func = dec2(dec1(func))
-@dec2
-@dec1
-def func(arg1, arg2, ...):
-  pass
-
-# 2. Multiple args, same as func = decomaker(argA, argB, ...)(func)
-@decomaker(argA, argB, ...)
-def func(arg1, arg2, ...):
-  pass
-
-# 3. Getter, Setter, Deleter
-@property
-def fullname(self):
-  return f'{self.first} {self.last}'
-
-@fullname.setter
-def fullname(self, name):
-  first, last = name.split(‘ ‘)
-  self.first = first
-  self.last = last
-
-# Deleter
-@fullname.deleter
-def fullname(self):
-  self.first = None
-  self.last = None
-
-class classmethod(object):    # classmethod
-  def __init__(self, method):
-    self.method = method
-  def __get__(self, instance, cls):
-    return lambda *args, **kw: self.method(cls, *args, **kw)
-```
-
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title='react' %}
+{% tab title='javascript' %}
 
 * HOC: higher-order component is a function that takes a component and returns a new component
   * replacement of mixin as it introduces implicit dependencies and cause name clashes, complexity
@@ -816,6 +774,45 @@ function withSubscription(WrappedComponent, selectData) {  // This function take
     }
   };
 }
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+```py
+# 1. Nested decorator, func = dec2(dec1(func))
+@dec2
+@dec1
+def func(arg1, arg2, ...):
+  pass
+
+# 2. Multiple args, same as func = decomaker(argA, argB, ...)(func)
+@decomaker(argA, argB, ...)
+def func(arg1, arg2, ...):
+  pass
+
+# 3. Getter, Setter, Deleter
+@property
+def fullname(self):
+  return f'{self.first} {self.last}'
+
+@fullname.setter
+def fullname(self, name):
+  first, last = name.split(‘ ‘)
+  self.first = first
+  self.last = last
+
+# Deleter
+@fullname.deleter
+def fullname(self):
+  self.first = None
+  self.last = None
+
+class classmethod(object):    # classmethod
+  def __init__(self, method):
+    self.method = method
+  def __get__(self, instance, cls):
+    return lambda *args, **kw: self.method(cls, *args, **kw)
 ```
 
 {% endtab %}
@@ -1181,10 +1178,33 @@ void main() {
 
 ### Proxy
 
-* a class functioning as an interface to something else
+![proxy](images/20210220_233349.png)
+
+* server that acts on behalf of a client in order to access another service
+* Not implementation → exist in many layers
+* intermediary for requests from clients seeking resources from servers that provide those resources
+
+* Web proxy: Reduce web traffic by caching web data / Deny malign websites → old technologies
+
+* reverse proxy: appear to be a single server to external clients, but actually represents many servers living behind it
+  * load balancing / decryption
+  ![Reverse proxy](images/20210220_233442.png)
+
+* VPN: Allow for the extension of a private or local network to hosts that might not be on that local network
+  * transport payload section to carry encrypted payload that actually contains an entire second set of packets
+  * requires strict authentication procedures to ensure they connected to by authorized users
+  ![vpn](images/20210220_233545.png)
+
+* [+] caching (the cache can be public or private, like the browser cache)
+* [+] filtering (like an antivirus scan or parental controls)
+* [+] load balancing (to allow multiple servers to serve the different requests)
+* [+] authentication (to control access to different resources)
+* [+] logging (allowing the storage of historical information)
 
 {% tabs %}
 {% tab title='python' %}
+
+* class functioning as an interface to something else
 
 ```py
 class Image:

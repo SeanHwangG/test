@@ -3,6 +3,8 @@
 * determine arch or uname -m command
 * 64-bit extension of arm
 
+[Abstraction](images/20210402_184739.png)
+
 | Type         | ARM                            | x86                            |
 | ------------ | ------------------------------ | ------------------------------ |
 | CPU          | Reduced Instruction Set (RISC) | Complex Instruction Set (CISC) |
@@ -80,14 +82,46 @@ $$
 * Yocto project
   * OpenEmbedded Core (oe-core) contains base layer of recipes, classes and files
 
-> Layers
-
 * Digital circuits: restrict the voltages to discrete ranges 0 and 1
 * Microarchitecture: combining logic elements to execute instructions defined by the architecture
 * Architecture: computer from the programmer’s perspective
   * intel x87
 
-ion](images/20210402_184739.png)
+* Cooling: Heat sink fan majority
+  * Thermal compound for cpu fill in the gap
+  * Water vs air cool
+  * Pump housing
+  * More quiet expensive
+
+* Firmware: programs stored in ROM devices
+
+![Memory](images/20210316_154527.png)
+
+* Motherboard: Heart of computer, where every part sits on or connected to it
+  * Cpu memory bus(extra) sata connection m.2
+  * North bridge south bridge platform controller chip
+  * Network interface chip, integrated sound card
+  * Atx
+  ![Mother board](images/20210405_191651.png)
+
+* Optical Drive
+  ![Optical Drive](images/20210405_192545.png)
+
+* Paging: OS retrieves data from secondary storage in same-size blocks to the main memory
+  * convert virtual frame number into the physical frame number
+  * table lookaside buffer gets flushed in context switch
+
+* Power supply: supplys power that computer needs
+  ![Power supply](images/20210405_192309.png)
+
+* Video Card: connects to mother board using video card slots
+  * create images that appears on monitor accpet either AGP or PCI
+  * more than one video cards for single machine
+
+![AGP, PCI](images/20210405_192024.png)
+
+* Register: Memory in cpu (16 registers / each store 64 bit for 64-bit cpu)
+  * Register instruction pointer (intel 64)
 
 | Subject             | Building Blocks                  | Theory                       |
 | ------------------- | -------------------------------- | ---------------------------- |
@@ -101,17 +135,14 @@ ion](images/20210402_184739.png)
 ![Control subsystem](images/20210404_022800.png)
 
 * OS functionality depends on hardware
+  ![Hardware organization](images/20210301_173906.png)
 
-![Hardware organization](images/20210301_173906.png)
+## Processor
 
-> Component
+* processing unit is digital circuit which performs operations on some external data source, memory or other data stream
+* takes form of a microprocessor, which can be implemented on a single metal–oxide–semiconductor integrated circuit chip
 
-* Cooling
-  * Heat sink fan majority
-  * Thermal compound for cpu fill in the gap
-  * Water vs air cool
-  * Pump housing
-  * More quiet expensive
+> Term
 
 * CPU (Central processing unit): Brain of the computer, interprets / executes instructions stored in main memory
   * its core is a word-size storage device (or register) called the program counter (PC)
@@ -120,76 +151,29 @@ ion](images/20210402_184739.png)
   * Store: Copy a byte or a word from a register to a location in main memory, overwriting previous contents of that location
   * Operate: Copy contents of two registers to ALU, do operation on overwrite result in a register
   * Jump: Extract a word from instruction and copy that word into program counter (PC), overwriting previous value of PC
-
-* Firmware
-  * programs stored in ROM devices
-
 * GPU (Graphic processing unit): specialized for graphics
-
-* HDD (Hard disk drive): holds information even powers off
-  * Every program has different pagemap (memory map) / page sizes is around 4 KB
-  * Destory drive as some software cana undelete
-
-![Memory](images/20210316_154527.png)
-
-* Motherboard: Heart of computer, where every part sits on or connected to it
-  * Cpu memory bus(extra) sata connection m.2
-  * North bridge south bridge platform controller chip
-  * Network interface chip, integrated sound card
-  * Atx
-
-![Mother board](images/20210405_191651.png)
-
-* MMU (Memory management hardware): provides memory protection mechanisms
-  * manipulating MMU is previledged instruction
-
-* Optical Drive
-  ![Optical Drive](images/20210405_192545.png)
-
-* Paging
-  * OS retrieves data from secondary storage in same-size blocks to the main memory
-  * convert virtual frame number into the physical frame number
-  * table lookaside buffer gets flushed in context switch
-
-* Power supply: supplys power that computer needs
-  ![Power supply](images/20210405_192309.png)
-
-* RAM (Random Access Memory)
-
-| -           | Hard drive                 | Solid State Drive   |
-| ----------- | -------------------------- | ------------------- |
-| Performance | Slow                       | Fast                |
-| Price       | Cheap (x 16 price per gig) | Expensive           |
-| Reliability | read / write wears HDD     | only write wear SSD |
-
 * VPU (Vision processing unit): specialized for visions
-
-* Video Card: connects to mother board using video card slots
-  * create images that appears on monitor accpet either AGP or PCI
-  * more than one video cards for single machine
-
-![AGP, PCI](images/20210405_192024.png)
-
-* Register: Memory in cpu (16 registers / each store 64 bit for 64-bit cpu)
-  * Register instruction pointer (intel 64)
 
 ## Memory
 
 ![Memory Hiearchy](images/20210210_101401.png)
+![Memory types](images/20210220_232622.png)
 
 * storage at one level serves as a cache for storage at the next lower level
 
 > Terms
 
-* byte = 8 bits
-* kilobyte (K / Kb) = 210 bytes = 1,024 bytes
-* megabyte (M / MB) = 220 bytes = 1,048,576 bytes
-* gigabyte (G / GB) = 230 bytes = 1,073,741,824 bytes
-* terabyte (T / TB) = 240 bytes = 1,099,511,627,776 bytes
-* petabyte (P / PB) = 250 bytes = 1,125,899,906,842,624 bytes
-* exabyte (E / EB) = 260 bytes = 1,152,921,504,606,846,976 bytes
+* MMU (Memory management hardware): provides memory protection mechanisms
+  * manipulating MMU is previledged instruction
 
-![Memory types](images/20210220_232622.png)
+* Units
+  * byte = 8 bits
+  * kilobyte (K / Kb) = 210 bytes = 1,024 bytes
+  * megabyte (M / MB) = 220 bytes = 1,048,576 bytes
+  * gigabyte (G / GB) = 230 bytes = 1,073,741,824 bytes
+  * terabyte (T / TB) = 240 bytes = 1,099,511,627,776 bytes
+  * petabyte (P / PB) = 250 bytes = 1,125,899,906,842,624 bytes
+  * exabyte (E / EB) = 260 bytes = 1,152,921,504,606,846,976 bytes
 
 * Main Memory: temporary storage device that holds both a program and data it manipulates while processor is executing program
   * fast, random access, temporary
@@ -218,11 +202,20 @@ ion](images/20210402_184739.png)
 | Speed       | Fast               | Slow               |
 | Cost        | Low                | High               |
 
-| -          | CD     | DVD    | Blue ray Disc |
-| ---------- | ------ | ------ | ------------- |
-| Size       | 700 MB | 5-10GB | 50GB          |
-| Speed (/s) | 1200KB | 10.5MB | 36MD          |
-| Cost       | Low    | Low    | Hight         |
+### Auxilary Storage
+
+| -           | Hard drive               | Solid State Drive   | CD     | DVD    | Blue ray Disc |
+| ----------- | ------------------------ | ------------------- | ------ | ------ | ------------- |
+| Performance | Slow                     | Fast                | 1200KB | 10.5MB | 36MD          |
+| Price       | Low (x 16 price per gig) | High                | Low    | Low    | High          |
+| Reliability | read / write wears HDD   | only write wear SSD |        |        |               |
+| Size        |                          |                     | 700 MB | 5-10GB | 50GB          |
+
+> Term
+
+* HDD (Hard disk drive): holds information even powers off
+  * Every program has different pagemap (memory map) / page sizes is around 4 KB
+  * Destory drive as some software cana undelete
 
 ## Combinational Logic
 
@@ -470,23 +463,21 @@ $$
 
 ![Essential primes](images/20210418_175715.png)
 
-> Procedure for finding minimal function
+> Question
 
-1. Truth table -> kmap
-1. Find product terms p: p covers at least one $$ m_i \in F $$ but no intersection with R (Implicants)
-1. Expand implicant p to its limit (Prime Implicants)
-1. Select prime implicants p that covers and $$ m_i \in F $$ but $$ m_i $$ is not contained in any other prime implicants
-1. Use essential primes and a minimal set of other primes to cover F
+* Procedure for finding minimal function
+  1. Truth table -> kmap
+  1. Find product terms p: p covers at least one $$ m_i \in F $$ but no intersection with R (Implicants)
+  1. Expand implicant p to its limit (Prime Implicants)
+  1. Select prime implicants p that covers and $$ m_i \in F $$ but $$ m_i $$ is not contained in any other prime implicants
+  1. Use essential primes and a minimal set of other primes to cover F
+  ![Prime implicants example](images/20210426_151101.png)
 
-![Prime implicants example](images/20210426_151101.png)
+* Minmial sum products of $$ f(a, b, c) = \Sigma m(2, 6, 7) + \Sigma d(1, 4) $$
+  ![Minmial sum products](images/20210426_165501.png)
 
-> Minmial sum products of $$ f(a, b, c) = \Sigma m(2, 6, 7) + \Sigma d(1, 4) $$
-
-![Minmial sum products](images/20210426_165501.png)
-
-> Product of sums Expansion of $$ f(a, b, c, d) =∑m(1,4,5,9,13,14) +∑d(3,6,11,12,15) $$
-
-![Maximal product sums](images/20210426_171723.png)
+* Product of sums Expansion of $$ f(a, b, c, d) =∑m(1,4,5,9,13,14) +∑d(3,6,11,12,15) $$
+  ![Maximal product sums](images/20210426_171723.png)
 
 ### Universal set
 
@@ -503,21 +494,20 @@ $$
 | Property 1 | $$ x \oplus x' = 0 $$ |
 | Property 2 | $$ x \oplus x = 1 $$  |
 
-> f(x, y, z) = x + y + z' is universal
+> Question
 
-* NOT gate on z: x = y = 0
-* OR gate on x, y: z = 0
-* AND gate on x, y: not (not x or not y)
+* f(x, y, z) = x + y + z' is universal
+  * NOT gate on z: x = y = 0
+  * OR gate on x, y: z = 0
+  * AND gate on x, y: not (not x or not y)
 
-> If $$ ab= 0 $$, then $$ a \oplus b = a + b $$
-
-* If $$ ab = 0 $$ then
-  * $$ a = a (b + b') = ab + ab' = ab' $$
-  * $$ b = b(a + a') = ba + ba' = a'b $$
-  * Therefore, $$ a + b = ab' + a'b = a \oplus b$$
-
-* Thus $$ c_{out} = ab + bc + ac = ab + c(a + b) $$
-  * $$ c_{out} = ab + c(a \oplus b) $$
+* If $$ ab= 0 $$, then $$ a \oplus b = a + b $$
+  * If $$ ab = 0 $$ then
+    * $$ a = a (b + b') = ab + ab' = ab' $$
+    * $$ b = b(a + a') = ba + ba' = a'b $$
+    * Therefore, $$ a + b = ab' + a'b = a \oplus b$$
+  * Thus $$ c_{out} = ab + bc + ac = ab + c(a + b) $$
+    * $$ c_{out} = ab + c(a \oplus b) $$
 
 ## Sequential Logic
 
@@ -593,20 +583,16 @@ $$
 * Store one bit
 * Level sensitive
 
-> SR Latches
+* SR Latches
+  ![SR Latch](images/20210508_043822.png)
+  ![State diagram](images/20210513_025130.png)
+  * S = 1, R = 0: Q = 1 and $$ \overline{Q} $$ = 0
+  * S = 0, R = 1: Q = 0 and $$ \overline{Q} $$ = 1
+  * S = 0, R = 0: Q stays
+  * S = 1, R = 1: Q = 0 and $$ \overline{Q} $$ = 0 (Don't care)
 
-![SR Latch](images/20210508_043822.png)
-
-![State diagram](images/20210513_025130.png)
-
-* S = 1, R = 0: Q = 1 and $$ \overline{Q} $$ = 0
-* S = 0, R = 1: Q = 0 and $$ \overline{Q} $$ = 1
-* S = 0, R = 0: Q stays
-* S = 1, R = 1: Q = 0 and $$ \overline{Q} $$ = 0 (Don't care)
-
-> D Latches
-
-![D Latch](images/20210509_023108.png)
+* D Latches
+  ![D Latch](images/20210509_023108.png)
 
 ### Flip-Flop
 
@@ -616,13 +602,10 @@ $$
 
 ![D Flip-Flop](images/20210509_023435.png)
 
-> Shift register
-
-![Shift Register](images/20210510_070613.png)
-
-![Mod 4 Counter](images/20210510_070724.png)
-
-![001 Pattern Recognizer](images/20210510_070932.png)
+* Shift register
+  ![Shift Register](images/20210510_070613.png)
+  ![Mod 4 Counter](images/20210510_070724.png)
+  ![001 Pattern Recognizer](images/20210510_070932.png)
 
 ### Mealy & Moore
 
@@ -631,12 +614,12 @@ $$
 
 ![Mealy & Moore](images/20210518_151430.png)
 
-> Conversion from Mealy to Moore
+> Question
 
-* Find distinct NS, y
-* Add new states to represent distinct NS, y
-
-![Mealy to moore](images/20210518_152404.png)
+* Conversion from Mealy to Moore
+  * Find distinct NS, y
+  * Add new states to represent distinct NS, y
+  ![Mealy to moore](images/20210518_152404.png)
 
 ### Timing
 
@@ -646,14 +629,14 @@ $$
 
 ![Timing](images/20210518_150955.png)
 
-> Gates
+* Gates
 
 | Term         | Meaning                                                                                              |
 | ------------ | ---------------------------------------------------------------------------------------------------- |
 | $$ t_{cd} $$ | contamination delay (shortest), Min time from input changes to output start to change                |
 | $$ t_{pd} $$ | Propagation delay (longest), Max time from when input changes until circuit output reach final value |
 
-> FlipFlop
+* FlipFlop
 
 | Term            | Meaning                                              |
 | --------------- | ---------------------------------------------------- |
@@ -662,8 +645,6 @@ $$
 | $$ t_{setup} $$ | setup time before rising edge of clock (C -> CLK2)   |
 | T               | clock period (clk1 -> clk2)                          |
 
-> Calculate set, hold time constraint
-
-![Without buffer](images/20210518_161051.png)
-
-![With buffer](images/20210518_181900.png)
+* Calculate set, hold time constraint
+  ![Without buffer](images/20210518_161051.png)
+  ![With buffer](images/20210518_181900.png)
