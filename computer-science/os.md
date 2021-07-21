@@ -1589,7 +1589,8 @@ export default App;
 * django
 
 ```py
-# settings.py
+# 2. Cache in Django
+""" settings.py """
 CACHES = {
   'default': {
     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -1600,11 +1601,8 @@ CACHES = {
     }
   }
 }
-```
 
-* view.html
-
-```html
+""" view.html """
 {% load cache %}
 {% cache 600 sidebar %}
   .. sidebar ..

@@ -143,16 +143,6 @@ Environment="HTTP_PROXY=http://proxy.example.com:80/"
 su sean
 ```
 
-## File
-
-{% tabs %}
-{% tab title='.dockerignore' %}
-
-* used to build better Docker images. avoid uploading unnecessary files reducing build time /image size
-
-{% endtab %}
-{% endtabs %}
-
 ## Env
 
 {% tabs %}
@@ -181,6 +171,9 @@ su sean
 * recommended way to persist data, `/var/lib/docker/volumnes/`
   *:z: Shared across container
   *:Z: Private
+
+* Dockerfile
+  * VOLUME: avoid defining shared folders in Dockerfiles
 
 {% tabs %}
 {% tab title='docker' %}
@@ -256,7 +249,7 @@ volumes:
 * Each line takes image from previous and make another image → append changes at the end
 * process you start on one line will not be running next line → use ENV
 
-> Command (Bold are required)
+> Command
 
 * ADD: Copy file, if compressed, decompress automatically (depends on OS)
   * `local_path` `docker_path`: copy local_path to docker_path
@@ -302,8 +295,6 @@ volumes:
 
 * USER
   * `user`: set user (default root)
-
-* VOLUME: avoid defining shared folders in Dockerfiles
 
 * workdir
   * cd before all other command

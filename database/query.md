@@ -140,17 +140,6 @@ SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state in ('idle', '
 {% endtab %}
 {% endtabs %}
 
-## Files
-
-{% tabs %}
-{% tab title='sqlite' %}
-
-* sqliterc: put in home directory
-  * .sqliterc
-
-{% endtab %}
-{% endtabs %}
-
 ### SQLite Python
 
 * connect(`db_path`): connect to file_db path

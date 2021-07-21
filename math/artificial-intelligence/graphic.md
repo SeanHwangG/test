@@ -51,7 +51,9 @@
 * BRDF (Bidirectional reflectance distribution function)
   * Given light direction, viewing direction, how much light is reflected to viewers
 * Global Illumination: Multiple bounces of light / Computationally expensive
+  * Slow but realistic
 * Local Illumination: Only one bounce of light between light source and viewer
+  * Fast, but inaccurate
 * Per-Triangle shading: Evaluate shading once per triangle, based on normal vector / Faceted appearance
 * Gouraud shading: Interpolates vertex colors across triangles
 * Per Pixel shading  Phong Interpolation: Rasterizer interpolates normals across triangles and evaluated at each pixel
@@ -61,4 +63,14 @@
 * Physically-based simulation of light, camera Shadows, global illumination, multiple bounces of light
 * Slow, used in movies, animation
 
-## Motion
+## Culling
+
+> Term
+
+* Painter Algorihm: Paint from back to front, Need to sort geometry according to depth
+  * May need to split triangles if they intersect. Intuitive, but slow, still used today to render translucent geometry
+* Z-buffer
+  1. Create a z-buffer with as many entries as pixels in the render window
+  1. Initialize z-buffer with farthest z value
+  1. During rasterization, compare stored value to new value
+  1. Update pixel only if new value is smaller

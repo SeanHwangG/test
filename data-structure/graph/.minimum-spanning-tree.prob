@@ -1,5 +1,69 @@
 > baekjoon
 
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/minimum-spanning-tree/BJ_1647.md/)
+
+{% tabs %}
+{% tab title='BJ_1647.md' %}
+
+> Question
+
+* Find minimum spanning tree where graph can be splitted into two
+
+```txt
+Input:
+7 12
+1 2 3
+1 3 2
+3 2 1
+2 5 2
+3 4 4
+7 3 6
+5 1 5
+1 6 2
+6 4 1
+6 5 3
+4 5 3
+6 7 4
+
+Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_1647.py' %}
+
+```py
+def find(x):
+  if P[x] != x:
+    P[x] = find(P[x])
+  return P[x]
+
+
+def union(a, b):
+  a, b = find(a), find(b)
+  if a != b:
+    P[b] = a
+    return 0
+  return 1
+
+
+N, M = map(int, input().split())
+Q, cnt, R = [list(map(int, input().split())) for _ in range(M)], 0, 0
+Q.sort(key=lambda t: t[2])
+P = list(range(N))
+for m in Q:
+  if cnt == N - 2:
+    break
+  a, b, c = m
+  if not union(a - 1, b - 1):
+    cnt += 1
+    R += c
+print(R)
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 12 : 최소 스패닝 트리](https://www.acmicpc.net/problem/1197)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/minimum-spanning-tree/BJ_1197.md/)
 

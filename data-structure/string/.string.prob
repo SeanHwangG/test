@@ -78,147 +78,14 @@ print(*s, sep='')
 * [Level 4 : 컵홀더](https://www.acmicpc.net/problem/2810)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2810.md/)
 
-{% tabs %}
-{% tab title='BJ_2810.md' %}
-
-> Question
-
-* determines the maximum number of people that can fit a cup into the cupholder
-
-```txt
-Input:
-9
-SLLLLSSLL
-
-Output: 7
-```
-
-{% endtab %}
-{% tab title='BJ_2810.py' %}
-
-```py
-input()
-s = input()
-if 'L' not in s:
-  print(len(s))
-else:
-  print(len(s.replace("LL", "S")) + 1)
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 4 : 5와 6의 차이](https://www.acmicpc.net/problem/2864)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2864.md/)
-
-{% tabs %}
-{% tab title='BJ_2864.md' %}
-
-> Question
-
-* if 5, 6 can be written interchangably, find min, max
-
-```txt
-Input: 1430 4862
-Output: 6282 6292
-```
-
-{% endtab %}
-{% tab title='BJ_2864.py' %}
-
-```py
-a, b = input().split()
-mx = int(a.replace('5', '6')) + int(b.replace('5', '6'))
-mn = int(a.replace('6', '5')) + int(b.replace('6', '5'))
-print(mn, mx)
-```
-
-{% endtab %}
-{% endtabs %}
 
 * [Level 4 : KMP는 왜 KMP일까?](https://www.acmicpc.net/problem/2902)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2902.md/)
 
-{% tabs %}
-{% tab title='BJ_2902.md' %}
-
-> Question
-
-* Print only upper characters
-
-```txt
-Input: Knuth-Morris-Pratt
-Output: KMP
-```
-
-{% endtab %}
-{% tab title='BJ_2902.py' %}
-
-```py
-for i in input():
-  if i.isupper():
-    print(i, end='')
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 4 : 첫 글자를 대문자로](https://www.acmicpc.net/problem/4458)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_4458.md/)
-
-{% tabs %}
-{% tab title='BJ_4458.md' %}
-
-> Question
-
-* Capitalize first letter
-
-```txt
-Input:
-5
-powdered Toast Man
-skeletor
-Electra Woman and Dyna Girl
-she-Ra Princess of Power
-darth Vader
-
-Output:
-Powdered Toast Man
-Skeletor
-Electra Woman and Dyna Girl
-She-Ra Princess of Power
-Darth Vader
-```
-
-{% endtab %}
-{% tab title='BJ_4458.cpp' %}
-
-```cpp
-#include<cstdio>
-#include<cctype>
-
-int n;
-char s[31];
-int main() {
-  scanf("%d", &n);
-  while (n--) {
-    scanf(" %[^\n]s", s);
-    printf("%c%s\n", toupper(s[0]), s + 1);
-  }
-}
-```
-
-{% endtab %}
-{% tab title='BJ_4458.py' %}
-
-```py
-for i in range(int(input())):
-  j = input()
-  print(j[0].upper() + j[1:])
-```
-
-{% endtab %}
-{% endtabs %}
 
 * [Level 5 : 알파벳 전부 쓰기](https://www.acmicpc.net/problem/11091)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_11091.md/)
@@ -301,34 +168,6 @@ else:
 
 * [Level 6 : 폴리오미노](https://www.acmicpc.net/problem/1343)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_1343.md/)
-
-{% tabs %}
-{% tab title='BJ_1343.md' %}
-
-> Question
-
-* Now given a board consisting of '.' and 'X', cover all 'X' with polyomino without overlap
-* '.' should not be covered with polyomino
-* Print -1 if it cannot be done
-
-```txt
-Input: XX.XX
-Output: BB.BB
-```
-
-{% endtab %}
-{% tab title='BJ_1343.py' %}
-
-```py
-a=input().replace('XXXX','AAAA').replace('XX','BB')
-print(-1 if 'X' in a else a)
-s = input()
-k = input()
-print(int(k in s))
-```
-
-{% endtab %}
-{% endtabs %}
 
 * [Level 12 : 별 찍기 - 11](https://www.acmicpc.net/problem/2448)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2448.md/)
@@ -426,7 +265,7 @@ for s in star:
 
 > Question
 
-* heey 에서 e 가 들어온 만큼 추가해서 출력하라
+* Replace e to ee
 
 ```txt
 Input: heeeeey
@@ -451,8 +290,7 @@ print(input().replace("e", "ee"))
 
 > Question
 
-* 첫줄엔 N 이 그 다음 N 줄엔 문자가 주어진다
-* 이 때 rose나 pink를 포함한 문자의 수를 구하라. (단 대문자 / 소문자는 무시한다.)
+* Count number of lines with rose or pink (Ignore case)
 
 ```txt
 Input:

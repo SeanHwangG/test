@@ -147,6 +147,20 @@ def getExpenseLimit(self):
 * isort: import sorting
   * .: sort current directory
 
+* yapf: works even if the original code didn't violate the style guide (similar to clang-format, gofmt)
+  * python -m pip install yapf
+  * python -m site --user-base
+  * Specified on the command line
+  * In `.style.yapf` `[style]` > `setup.cfg` `[yapf]` > `pyproject.toml` `[tool.yapf]]` in cwd or parent directories
+  * In `style` section of a `~/.config/yapf/style` file in home, If none found, default style is used (PEP8)
+  * -d: print the diff for the fixed source
+  * -e `pat`: exclude `pat` while formatting
+  * -i `glob`: change in-place
+  * -r: run recursively over directories
+  * --vv: print out file names while processsing
+  * --no-local-style: don't search for local style definition
+  * --style: [ex] google
+
 ```py
 # 1. inside code
 import autopep8
@@ -197,6 +211,26 @@ UseTab: Never
 IndentWidth: 4
 CompactNamespaces: true   # doesn't indent after namespace {
 ColumnLimit: 100          # break line after 100 char
+```
+
+{% endtab %}
+{% tab title='markdown' %}
+
+* [Lint rules](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)
+* [Markdownlint](https://github.com/markdownlint/markdownlint)
+
+```sh
+# 1. setup
+gem install mld
+mdl README.md
+```
+
+```json
+// .markdownlint.json
+{
+  "default": true,
+  "MD007": { "indent": 2 }
+}
 ```
 
 {% endtab %}

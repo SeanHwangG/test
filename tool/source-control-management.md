@@ -24,6 +24,34 @@
 * squash: technique that helps you to take a series of commits and condense it to a few commits
 * Issue: "fix \#33" commit messages closes issue
 
+{% tabs %}
+{% tab title='javascript' %}
+
+* npm install --save gatsby-source-git
+
+{% endtab %}
+{% tab title='python' %}
+
+> github
+
+* pip install PyGithub
+
+```py
+# 1. List all repository
+
+from github import Github
+g = Github("access_token") # using an access token
+
+# Github Enterprise with custom hostname
+g = Github(base_url="https://{hostname}/api/v3", login_or_token="access_token")
+
+for repo in g.get_user().get_repos():
+  print(repo.name)
+```
+
+{% endtab %}
+{% endtabs %}
+
 ## Message
 
 {% tabs %}
@@ -37,8 +65,6 @@
 
 {% endtab %}
 {% endtabs %}
-
-## Error
 
 > error: cannot lock ref 'refs/remotes/origin/working/sample': 'refs/remotes/origin/working' exists; cannot create 'refs/remotes/origin/working/sample'
   From [https://github.com/sample/repo](https://github.com/sample/repo)
@@ -352,10 +378,26 @@ git config --unset-all core.ignorecase && git config --system core.ignorecase fa
 {% repo 'git' %}
 
 {% tabs %}
-{% tab title='.git' %}
+{% tab title='sql' %}
 
-* cat .git/HEAD: see head
-* rm -rf .git: Delete git repository
+* sqliterc: put in home directory
+  * .sqliterc
+
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title='git' %}
+
+* .git
+  * cat .git/HEAD: see head
+  * rm -rf .git: Delete git repository
+
+{% endtab %}
+{% tab title='docker' %}
+
+* .dockerignore
+  * used to build better Docker images. avoid uploading unnecessary files reducing build time /image size
 
 {% endtab %}
 {% endtabs %}
@@ -546,9 +588,22 @@ git log --graph --decorate --pretty=oneline --abbrev-commit --all : git lola
 ```
 
 {% endtab %}
+{% tab title='vscode' %}
+
+* git
+  * Given featrue branch rebase from master
+  ![Rebase](images/20210303_215312.png)
+
+* gitlens
+  * File diff
+  ![file Diff](images/20210220_013415.png)
+  * Branch diff
+  ![Branch Diff](images/20210429_173420.png)
+
+{% endtab %}
 {% endtabs %}
 
-### branch
+## branch
 
 {% tabs %}
 {% tab title='git' %}
@@ -614,60 +669,60 @@ git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d # d
 ```
 
 {% endtab %}
+{% tab title='javascript' %}
+
+```js
+// 1. Javascript
+{
+  resolve: 'gatsby-source-git',
+  options: [
+    {
+      name: 'blog',
+      branch: `deploy`,
+      remote: `https://github.com/seanhwangg/blog.git`,
+      patterns: '**/*',
+    },
+  ],
+},
+```
+
+{% endtab %}
 {% endtabs %}
 
-### remote
+### Merge
+
+* Mergetrain: queued list of merge requests, each waiting to be merged into the target branch
+
+{% tabs %}
+{% tab title='gitlab' %}
+
+* merge train can run a maximum of twenty pipelines in parallel
+* GitLab Runner 11.9 or later
+
+{% endtab %}
+{% endtabs %}
+
+## remote
 
 {% tabs %}
 {% tab title='git' %}
 
-> CLI
-
-* clone `url`
-  * --bare: clone bare repository
-  * `folder`: get a local copy of an existing repository (default cwd) (. for current directory)
-  * --depth 1: shallow clone
-  * -b: clone branch
-  * -j n: number of submodules fetched at the same time
-  * --recurse-submodules: initialize, update each submodule in repository
-  * git://host.xz[:port]/path/to/repo.git/: does no authentication
-  * ssh://[user@]host.xz[:port]/path/to/repo.git/
-  * http[s]://host.xz[:port]/path/to/repo.git/
-  * native transport (i.e. git:// URL) and should be used with caution on unsecured networks
-  ![clone](images/20210218_015026.png)
-
-* fetch: downloads commits that remote has but missing from local repository and updates remote branches point
-  * does not change anything about your local state
-  * Before Fetch (left: Local, right: Remote with new bugFix)
-  * --unshallow: fetch all older commits from shallow clone
-  * --all && git reset --hard origin/master: Download from remote and discard all
-  ![Before fetch](images/20210206_120406.png)
-  ![After Fetch](images/20210206_120442.png)
-
-* pull
-  * `repo` `ref`: fetch + merge
-  * --allow-unrelated-histories: merge different git repository
-  * origin `branch`: update local copy with commits in `branch` from remote repo
-  * -C git-working-directory pull `git_remote`: pull in other directory
-  ![Before pull](images/20210206_120545.png)
-  ![After pull](images/20210206_120616.png)
-
-* push
-  * `repo` `ref`: first push
-  * -u every successfully pushed, add upstream
-  * remote `local_br`:`remote_br`: (omit `remote_br` if identical)
-  * origin `branch`: push only one specific `branch`
-  * origin --delete `branch`: delete `branch`
-  * -f origin `commit:banch`: ([ex] HEAD:master: push detached head)
-  ![push](images/20210218_015049.png)
-
-* remote: Find current repository
-  * -r: List remote branches
-  * -v: List all currently configured remotes
-  * add `name` `url`: Adds a remote `name` for repository at `url` / add origin for new
-  * rm origin: remove existing origin
-  * get-url:
-  * set-url `name` `new_url`: Changes URL remote points to
+* git
+  * push
+    * `repo` `ref`: first push
+    * -u every successfully pushed, add upstream
+    * remote `local_br`:`remote_br`: (omit `remote_br` if identical)
+    * origin `branch`: push only one specific `branch`
+    * origin --delete `branch`: delete `branch`
+    * -f origin `commit:banch`: ([ex] HEAD:master: push detached head)
+    ![push](images/20210218_015049.png)
+  * remote: Find current repository
+    * -r: List remote branches
+    * -v: List all currently configured remotes
+    * add `name` `url`: Adds a remote `name` for repository at `url` / add origin for new
+    * rm origin: remove existing origin
+    * get-url:
+    * set-url `name` `new_url`: Changes URL remote points to
 
 ```sh
 # 1. Undoing a push (revert is preferred)
@@ -697,7 +752,45 @@ git add .
 {% endtab %}
 {% endtabs %}
 
-### Tag
+### Fetch
+
+{% tabs %}
+{% tab title='git' %}
+
+* git
+  * clone `url`
+    * --bare: clone bare repository
+    * `folder`: get a local copy of an existing repository (default cwd) (. for current directory)
+    * --depth: [ex] 1: shallow clone
+    * -b: clone branch
+    * -j: number of submodules fetched at the same time ([ex] 5)
+    * --recurse-submodules: initialize, update each submodule in repository
+    * git://host.xz[:port]/path/to/repo.git/: does no authentication
+    * ssh://[user@]host.xz[:port]/path/to/repo.git/
+    * http[s]://host.xz[:port]/path/to/repo.git/
+    * native transport (i.e. git:// URL) and should be used with caution on unsecured networks
+    ![clone](images/20210218_015026.png)
+  * fetch: downloads commits that remote has but missing from local repository and updates remote branches point
+    * does not change anything about your local state
+    * Before Fetch (left: Local, right: Remote with new bugFix)
+    * --unshallow: fetch all older commits from shallow clone
+    * --all && git reset --hard origin/master: Download from remote and discard all
+    ![Before fetch](images/20210206_120406.png)
+    ![After Fetch](images/20210206_120442.png)
+  * pull
+    * `repo` `ref`: fetch + merge
+    * --allow-unrelated-histories: merge different git repository
+    * origin `branch`: update local copy with commits in `branch` from remote repo
+    * -C git-working-directory pull `git_remote`: pull in other directory
+    ![Before pull](images/20210206_120545.png)
+    ![After pull](images/20210206_120616.png)
+* gh repo
+  * clone
+
+{% endtab %}
+{% endtabs %}
+
+## Tag
 
 {% tabs %}
 {% tab title='git' %}
@@ -772,33 +865,6 @@ git add .
   * --remote: go into your submodules and fetch and update
 
 {% include '.gitmodules' %}
-
-## Github
-
-* github.com/settings/tokens: create github token
-
-{% tabs %}
-{% tab title='python' %}
-
-> github
-
-* pip install PyGithub
-
-```py
-# 1. List all repository
-
-from github import Github
-g = Github("access_token") # using an access token
-
-# Github Enterprise with custom hostname
-g = Github(base_url="https://{hostname}/api/v3", login_or_token="access_token")
-
-for repo in g.get_user().get_repos():
-  print(repo.name)
-```
-
-{% endtab %}
-{% endtabs %}
 
 ### Snippet
 
@@ -878,12 +944,3 @@ def clone_all(username='seanhwangg', clone_path):
 
 {% endtab %}
 {% endtabs %}
-
-## Gitlab
-
-```sh
-# 1. setup ssh
-ssh-keygen -t ed25519 -c "comment"
-vim ~/.ssh/id_ed25519.pub  # Copy public key
-# Go to gitlab preference (top right) -> ssh -> add public key
-```

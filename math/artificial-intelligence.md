@@ -417,10 +417,23 @@ $$ \frac{\|f(A)-f(p)\|^{2}}{d(A, P)}-\frac{\|f(A)-f(N)\|^{2}}{d(A, N)}+\alpha \l
 | logit          | $$\ln \left(\frac{p}{1-p}\right)$$ |                                               |
 | $$logit^{-1}$$ | $$\frac{1}{1+e^{-x}}$$             | probability of being in the event occur group |
 
+> Question
+
+* Logistic regression
+  $$ S(x)=\frac{1}{1+e^{-x}} $$
+
+  * Likelihood
+    $$ L_{θ}(y \mid X)=\prod_{y_{i}=1} p_{θ}(y_{i} \mid X_{i}) \prod_{y_{i}=0}(1-p_{θ}(y_{i} \mid X_{i})) $$
+  * Log Likelihood
+    $$ \log (L_{θ}(y \mid X))=∑_{y_{i}=1} \log σ(x_{i} \cdot θ)+∑_{y_{i}=0} \log (1-σ(x_{i} \cdot θ)) $$
+    $$ ∑_{y_{i}}-\log (1+e^{-x_{i} \cdot θ})+∑_{y_{i}=0}-x_{i} \cdot θ-λ\|θ\|_{2}^{2} $$
+  * Derivative of log likelihood
+    $$ \frac{\delta l}{\delta θ_{k}}=∑_{i} X_{i k}(1-σ(X_{i} \cdot θ))+∑_{y_{i}=0}-X_{i k}-2 λ θ_{k} $$
+
 ### Regression Metric
 
 * Mean absolute error
-  $$\frac{\sum_{i=1}^{n}\left|y_{i}-x_{i}\right|}{n}$$
+  $$\frac{\sum_{i=1}^{n}|y_{i}-x_{i}|}{n}$$
 
 * Mean biased error
   $$\frac{\sum_{i=1}^{n} y_{i}-x_{i}}{n}$$
@@ -502,6 +515,11 @@ theta, residuals, rank, s = np.linalg.lstsq(X, y)
 | cut(c, c) | number of edges that separate c from the rest of the network |
 
 * Four types of clustering methods are 1) Exclusive 2) Agglomerative 3) Overlapping 4) Probabilistic
+
+* KNN
+  * [+] No assumptions about the distribution or shape of different classes
+  * [+] Effective with large training set
+  * [-] Time consuming, No insight into the domain, dependent highly on the distance measure used
 
 * Hierarchical Clustering: Iteratively merge closest points which constructs dendrogram
   * Useful for geographic location

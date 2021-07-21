@@ -499,15 +499,22 @@ typedef enum logic[1:0] {red, yello, green} colors;
 
 ## Error
 
+1. Standard exception
+    * [-] exceptions can bubble up unexpectedly
+1. Use sentinal value
+    * [-] not possible when every value can be returned, hard to add additional info
+1. Global error flag
+    * [-] Multiprogramming
+1. Return error, data: [ex] Go
+
 {% tabs %}
 {% tab title='javascript' %}
 
-> strict mode
-
-* 'use strict';
-* eliminates some JavaScript silent errors by changing them to throw errors
-* attempting to assigning a value to an undeclared variable throws an error
-* Prevents accidental globals
+* strict mode
+  * 'use strict';
+  * eliminates some JavaScript silent errors by changing them to throw errors
+  * attempting to assigning a value to an undeclared variable throws an error
+  * Prevents accidental globals
 
 ```js
 // 1. use strict

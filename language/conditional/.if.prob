@@ -47,20 +47,6 @@ Output: <
 ```
 
 {% endtab %}
-{% tab title='BJ_1330.sh' %}
-
-```sh
-read a b
-if [ $a -eq $b ]; then
-  echo '=='
-elif [ $a -gt $b ]; then
-  echo '>'
-else
-  echo '<'
-fi
-```
-
-{% endtab %}
 {% tab title='BJ_1330.py' %}
 
 ```py
@@ -76,6 +62,20 @@ x=scan("stdin")
 a=x[1]
 b=x[2]
 cat(ifelse(a>b, ">", ifelse(a < b, "<", ifelse(a==b, "=="))))
+```
+
+{% endtab %}
+{% tab title='BJ_1330.sh' %}
+
+```sh
+read a b
+if [ $a -eq $b ]; then
+  echo '=='
+elif [ $a -gt $b ]; then
+  echo '>'
+else
+  echo '<'
+fi
 ```
 
 {% endtab %}
@@ -121,102 +121,89 @@ print('YES' if int(st[0]) + int(st[2]) == int(st[4]) else 'NO')
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : 연세대학교](https://www.acmicpc.net/problem/15680)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15680.md/)
+* [Level 2 : Hard choice](https://www.acmicpc.net/problem/15059)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15059.md/)
 
 {% tabs %}
-{% tab title='BJ_15680.md' %}
+{% tab title='BJ_15059.md' %}
 
 > Question
 
-* Print YONSEI if 0 or "Leading the Way to the Future"
+* 위아래 3개의 수가 주어진다
+* 아래 수 - 위의 수의 합을 구하라, 단 아래수가 더 작은 경우 무시하라
 
 ```txt
-Input: 0
-Output: YONSEI
+Input:
+80 20 40
+45 23 48
+
+Output: 11
 ```
 
 {% endtab %}
-{% tab title='BJ_15680.py' %}
+{% tab title='BJ_15059.py' %}
 
 ```py
-a = int(input())
-print('YONSEI' if input() == '0' else 'Leading the Way to the Future')
-```
-
-{% endtab %}
-{% tab title='BJ_15680.v' %}
-
-```v
-module main;
-  integer a, b;
-  initial begin
-      b = $fscanf(32'h8000_0000, "%d", a);
-      $display("%0s", a? "Leading the Way to the Future": "YONSEI");
-  end
-endmodule
+a, b, c = map(int,input().split())
+a1, b1, c1 = map(int,input().split())
+cnt=0
+if a1 > a:
+  cnt += a1 - a
+if b1 > b:
+  cnt += b1 - b
+if c1 > c:
+  cnt += c1 - c
+print(cnt)
 ```
 
 {% endtab %}
 {% endtabs %}
+
+* [Level 2 : 연세대학교](https://www.acmicpc.net/problem/15680)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15680.md/)
 
 * [Level 2 : 수찬은 마린보이야!!](https://www.acmicpc.net/problem/15921)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15921.md/)
 
-{% tabs %}
-{% tab title='BJ_15921.md' %}
-
-> Question
-
-* a가 0이면 divide by zero, 아니면 1.00을 출력하라
-
-```txt
-Input:
-5
-5 10 10 15 20
-
-Output: 1.00
-```
-
-{% endtab %}
-{% tab title='BJ_15921.py' %}
-
-```py
-print("divide by zero" if input() == "0" else '1.00')
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 2 : CASIO](https://www.acmicpc.net/problem/15963)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15963.md/)
 
+* [Level 2 : 나이 계산하기](https://www.acmicpc.net/problem/16199)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_16199.md/)
+
 {% tabs %}
-{% tab title='BJ_9498.md' %}
+{% tab title='BJ_16199.md' %}
 
 > Question
 
-* print 1 if two integers are same else 0
+* print age, Korean age, year age
 
 ```txt
-Input: 1 1
-Output: 1
+Input:
+2003 3 5
+2003 4 5
+
+Output:
+0
+1
+0
 ```
 
 {% endtab %}
-{% tab title='BJ_9498.sh' %}
-
-```sh
-read a b
-echo $((a == b))
-```
-
-{% endtab %}
-{% tab title='BJ_9498.py' %}
+{% tab title='BJ_16199.py' %}
 
 ```py
-a, b = map(int, input().split())
-print(1 if a == b else 0)
+y1, m1, d1 = map(int, input().split())
+y2, m2, d2 = map(int, input().split())
+
+k_age = y2 - y1 + 1
+if (m1, d1) > (m2, d2):
+  age = k_age - 2
+else:
+  age = k_age - 1
+print(age)
+print(k_age)
+print(k_age - 1)
 ```
 
 {% endtab %}
@@ -225,62 +212,8 @@ print(1 if a == b else 0)
 * [Level 2 : Counting Clauses](https://www.acmicpc.net/problem/17903)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_17903.md/)
 
-{% tabs %}
-{% tab title='BJ_17903.md' %}
-
-> Question
-
-* a, b 가 주어진다
-* a 가 8 보다 크거나 같으면 satisfactory 아니면 unsatisfactory 를 출력하라
-
-```txt
-Input:
-5 3
--1 2 3
--1 -2 3
-1 -2 3
-1 -2 -3
-1 2 -3
-
-Output: unsatisfactory
-```
-
-{% endtab %}
-{% tab title='BJ_17903.py' %}
-
-```py
-a, b= map(int, input().split())
-print("satisfactory" if a >= 8 else "unsatisfactory")
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 2 : 3 つの整数 (Three Integers)](https://www.acmicpc.net/problem/18408)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_18408.md/)
-
-{% tabs %}
-{% tab title='BJ_18408.md' %}
-
-> Question
-
-* 세 수의 합이 4보다 작거나 같으면 1, 아니면 2를 출력
-
-```txt
-Input: 1 1 0
-Output: 1
-```
-
-{% endtab %}
-{% tab title='BJ_18408.py' %}
-
-```py
-a, b, c = map(int,input().split())
-print(1 if a + b + c <= 4 else 2)
-```
-
-{% endtab %}
-{% endtabs %}
 
 * [Level 2 : Dog Treats](https://www.acmicpc.net/problem/19602)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_19602.md/)
@@ -368,6 +301,19 @@ cat(ifelse(x[1] %% 4 == 0 & x[1] %% 100 != 0 | x[1] %% 400 == 0, 1, 0))
 ```
 
 {% endtab %}
+{% tab title='BJ_2753.sh' %}
+
+```sh
+read year
+
+if [[ $((year%4)) -eq 0 && $((year%100)) -ne 0 || $((year%400)) -eq 0 ]]; then
+  echo 1
+else
+  echo 0
+fi
+```
+
+{% endtab %}
 {% endtabs %}
 
 * [Level 3 : 멀티탭 충분하니?](https://www.acmicpc.net/problem/15780)
@@ -400,100 +346,46 @@ print('YES' if sum([(n + 1) // 2 for n in map(int, input().split())]) >= n else 
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : Automated Telephone Exchange](https://www.acmicpc.net/problem/3507)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_3507.md/)
+* [Level 3 : 양념 반 후라이드 반](https://www.acmicpc.net/problem/16917)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_16917.md/)
 
 {% tabs %}
-{% tab title='BJ_3507.md' %}
+{% tab title='BJ_16917.md' %}
 
 > Question
 
-* print 199 - n, if n > 199 print 0
+* price of one seasoned chicken is A won, price of one fried chicken is B won, and the price of one half chicken is C won
+* Print minimum cost to buy X seasoned, Y fried chicken
 
 ```txt
-Input: 201
-Output: 0
+Input: 1500 2000 1600 3 2
+Output: 7900
 ```
 
 {% endtab %}
-{% tab title='BJ_3507.py' %}
+{% tab title='BJ_16917.py' %}
 
 ```py
-n = int(input())
-print(0 if 199 < n else 199 - ate)
+a, b, c, x, y = map(int, input().split())
+v = 0
+if x > y:
+  v = 2 * c * y + a * (x - y)
+else:
+  v = 2 * c * x + b * (y - x)
+print(min(a * x + b * y, 2 * c * max(x, y), v))
 ```
 
 {% endtab %}
 {% endtabs %}
+
+* [Level 3 : Automated Telephone Exchange](https://www.acmicpc.net/problem/3507)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_3507.md/)
 
 * [Level 4 : 아!](https://www.acmicpc.net/problem/4999)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_4999.md/)
 
-{% tabs %}
-{% tab title='BJ_4999.md' %}
-
-> Question
-
-* print "no" if second line is longer else "go"
-
-```txt
-Input:
-aaah
-ah
-
-Output: go
-```
-
-{% endtab %}
-{% tab title='BJ_4999.py' %}
-
-```py
-a = input()
-b = input()
-print("no" if len(b) > len(a) else "go")
-```
-
-{% endtab %}
-{% tab title='BJ_4999.sh' %}
-
-```sh
-read a
-read b
-if [ ${#b} -gt ${#a} ]; then
-  echo 'no'
-else
-  echo 'go'
-fi
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 7 : 돌 게임 2](https://www.acmicpc.net/problem/9656)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_9656.md/)
-
-{% tabs %}
-{% tab title='BJ_9656.md' %}
-
-> Question
-
-* print CY if odd else SK
-
-```txt
-Input: 4
-Output: SK
-```
-
-{% endtab %}
-{% tab title='BJ_9656.py' %}
-
-```py
-n = int(input())
-print('CY' if n % 2 == 1 else 'SK')
-```
-
-{% endtab %}
-{% endtabs %}
 
 > kattis
 

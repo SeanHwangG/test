@@ -1,5 +1,58 @@
 > baekjoon
 
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/combination/BJ_1007.md/)
+
+{% tabs %}
+{% tab title='BJ_1007.md' %}
+
+> Question
+
+* Given points (< 20) print minimum vector sum
+
+```txt
+Input:
+2
+4
+5 5
+5 -5
+-5 5
+-5 -5
+2
+-100000 -100000
+100000 100000
+
+Output:
+0.000000000000
+282842.712474619038
+```
+
+{% endtab %}
+{% tab title='BJ_1007.py' %}
+
+```py
+from itertools import combinations
+from math import sqrt, inf
+
+for i in range(int(input())):
+  n = int(input())
+  cords = []
+  ans, xSum, ySum = inf, 0, 0
+  for j in range(n):
+    x, y = map(int, input().split())
+    xSum, ySum = xSum + x, ySum + y
+    cords.append([x, y])
+  for c in (combinations(cords, int(n / 2))):
+    tx = ty = 0
+    for mx, my in c:
+      tx, ty = tx + mx, ty + my
+    ans = min(ans, sqrt((xSum - 2 * tx)**2 + (ySum - 2 * ty)**2))
+  print(ans)
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 4 : 일곱 난쟁이](https://www.acmicpc.net/problem/2309)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/combination/BJ_2309.md/)
 

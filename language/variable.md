@@ -544,6 +544,11 @@ blank=True, null=True
 ```
 
 {% endtab %}
+{% tab title='sql' %}
+
+* NULL = NULL: evaluates to NULL ([ex] Given you don't know age of A, B, how do you know if they are the same age?)
+
+{% endtab %}
 {% endtabs %}
 
 ## Cast

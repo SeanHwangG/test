@@ -12,15 +12,11 @@
 
 > Terms
 
+* Calibration: With P1, ..., Pn with known 3D position and pixel coordinates q1, ..., qn, find K and $$ { }_{w}^{c} T $$
+
 * Throughput: count / second
 * Non maximal suppression
-
-![Non Maximal Suppresion](images/20210213_232105.png)
-
-```text
-while select bounding box with some threshold
-  discard any remaining box with IoU >= 0.5 with the box output in previous step
-```
+  ![Non Maximal Suppresion](images/20210213_232105.png)
 
 * background substitution: subtract from previous frame
 
@@ -45,31 +41,36 @@ v^{\prime} \\
 \end{array}\right]=0
 $$
 
-* Perspective
-  * distant objects appear smaller than nearer objects
+* Perspective: distant objects appear smaller than nearer objects
   * lines parallel in nature meet at the point at infinity
   * Most realistic because it’s the same way as photographic lenses and the human eye works
   * 1/2/3-point, based on the orientation of the projection plane towards the axes of the depicted object
 
 ![strong, weak perspective](images/20210322_214730.png)
 
-* Projective geometry
-  * provides an elegant means for handling these different situations in a unified way
+* Projective geometry: provides an elegant means for handling these different situations in a unified way
 
-* Point at Infinity
-  * Where w is 0, with homogeneous coordinates
+* Point at Infinity: Where w is 0, with homogeneous coordinates
 
 * Projective plane
   * = Euclidean plane ∪ Line at Infinity
 
-> Autmonomous vehicle
+{% tabs %}
+{% tab title='python' %}
 
-* Driving task
-  * Perceiving the environment
-  * Planning how to reach from point A to B
-* Controlling the vehicle
-  * Operational Design Domain / Environmental
-  * Time of day
+```py
+# 1. Non maximal supression
+while select bounding box with some threshold
+  discard any remaining box with IoU >= 0.5 with the box output in previous step
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Autmonomous vehicle
+
+* Driving task: Perceiving the environment, Planning how to reach from point A to B
+* Controlling the vehicle: Operational Design Domain / Environmental, Time of day
 
 * Lateral Control steering
 * Longitudinal control braking accelerating
@@ -101,6 +102,11 @@ $$
 * Harris: large difference with nearby pixel
 * Good Features to Track: sorted by value, suppress non-max
 * FAST: use nearby 16 pixels, fast than above two
+* SIFT: Shi-Tomasi Corner Detector takes (Gaussian std, window size, threshold)
+  * [+] Translation, scale, rotation-invariant
+  * [-] strong illumination changes, Large out-of-plane rotations
+  * [-] non-rigid deformations or articulations semantic correspondence
+  * [ex] Panorama, stitching, 3D reconstruct, motion track, object recognition, DB indexing retrieval, robot navigation
 
 * Feature Pyramid
   ![Feature Pyramid](images/20210213_232138.png)
@@ -133,16 +139,13 @@ $$
   * [+] Real time: For practical applications at least 2 frames per second must be processed
   * Face detection only (not recognition) - The goal is to distinguish faces from non-faces
 
-```text
-Haar Feature Selection (eye, nose)
-Creating an Integral Image
-Adaboost Training
-Cascading Classifiers
-```
-
 * haar-like features (Rapid Object Detection using a Boosted Cascade of Simple Features, 2001)
   * edge features, line features, four-rectangle features
   * uses integral of image and adaboost (Cascade of Classifiers) for faster computation
+  1. Haar Feature Selection (eye, nose)
+  1. Creating an Integral Image
+  1. Adaboost Training
+  1. Cascading Classifiers
 
 * integral: integral image enables you to rapidly calculate summations over image subregions
   ![Integral](images/20210213_231506.png)
@@ -197,6 +200,49 @@ int main(int argc, char* argv[]) {
   } while (cap.read(in_frame) && cv::waitKey(30) < 0);
   return 0;
 }
+```
+
+{% endtab %}
+{% endtabs %}
+
+### Coresspondence
+
+> Question
+
+* ambiguity (2-1 matching), multiple interpretation
+* Half occluded image
+  ![Half occluded image](images/20210721_132752.png)
+* Window shape
+  ![Window Shape](images/20210721_132729.png)
+
+* What does random dot stereogram tell us about the human visual system
+  * Human visual feature doesn't do traditional feature based matching but dense area matching to identify objects
+* Rank, census, Sum of Absolute difference, zero mean SAD
+
+> Term
+
+* Feature-based: process each image monocularly to detect image features (corners or SIFT)
+* Area-based: Directly compare image regions between the two images
+* Normalized cross correlation
+  * $$ \overline{W_{i}}=\frac{1}{n} ∑_{x, y} W_{i} $$
+  * $$ \quad \sigma_{W_{i}}=\sqrt{\frac{1}{n} ∑_{x, y}(W_{i}-\overline{W_{i}})^{2}} $$
+  * $$ \frac{\sum_{x, y}(W_{1}(x, y)-\bar{W}_{1})(W_{2}(x, y)-\bar{W}_{2})}{δW_{1} \cdot δW_{2}} $$
+* Sum of squared distance
+  * $$ \sum_{x=y}|W_{1}(x, y)-W_{2}(x, y)|^{2} $$
+
+{% tabs %}
+{% tab title='python' %}
+
+```py
+# O(nrows, * ncols * disparities * winx * winy)
+for i in range(1, nrows):
+  for j in range(1, ncols):
+    best(i, j) = -1
+    for k in range(min_disparity, max_disparity):
+      c = Match_Metric(I1, (i, j), I2(i, j + k), winsize)
+      if c > best(i, j):
+        best(i, j) = c
+        disparities(i, j) = k
 ```
 
 {% endtab %}
@@ -263,6 +309,34 @@ int main(int argc, char* argv[]) {
 | many                   | few             |
 | one                    | three(color)    |
 | low resolution         | high resolution |
+
+## Motion
+
+| Term                       | Meaning                 |
+| -------------------------- | ----------------------- |
+| p                          | $$ (x, y, z)^{T} $$     |
+| T                          | Velocity vector         |
+| w                          | Angular velocity vector |
+| $$ \hat{p}=T+w \times p $$ | General Motion          |
+| $$ ({u}, {v}) $$           | image point coordinate  |
+| $$ (\hat{u}, \hat{v}) $$   | image point velocity    |
+| f                          | focal length            |
+| d                          | depth                   |
+
+$$ \dot{u}=\frac{T_{z} u-T_{x} f}{z}-\omega_{y} f+\omega_{z} v+\frac{\omega_{x} u v}{f}-\frac{\omega_{y} u^{2}}{f} $$
+$$ \dot{v}=\frac{T_{z} v-T_{y} f}{z}+\omega_{x} f-\omega_{z} u-\frac{\omega_{y} u v}{f}-\frac{\omega_{x} v^{2}}{f} $$
+
+> Term
+
+* Bundle adjustment: sum of errors between the measured pixel coordinates uij and the re-projected pixel coordinates
+  * optimized with non-linear least squares algorithm
+  * w_{ij}: 1 if point i is visible in image j, and 0 otherwise
+  $$
+  g( P , R , T )=\sum_{i=1}^{M} \sum_{j=1}^{N} w_{i j}\|P(P_{i}, R_{j}, t_{j})-[\begin{array}{l}
+  u_{i, j} \\
+  v_{i, j}
+  \end{array}]\|^{2}
+  $$
 
 ## Recognition
 
@@ -512,6 +586,9 @@ while True:
 
 ## Processing
 
+* Gaussian Smoothing
+  $$ G_{\sigma}=\frac{1}{2 \pi \sigma^{2}} e^{-\frac{\left(x^{2}+y^{2}\right)}{2 \sigma^{2}}} $$
+
 ### Filtering
 
 ![Filter](images/20210309_010213.png)
@@ -533,10 +610,11 @@ while True:
 * CNN: Convolutional Neural Networks Weights of the CNN are learned
   * Can be extended to RGB, Volumetric data such as MRI, CT
 
-> Question: Smoothing an image with an average filter and then convolving with a derivative filter will give better results
-  than first convolving with a derivative filter and then smoothing with an average filter
+> Question
 
-* False. Convolution is commutative, so it will give the same result
+* Smoothing an image with an average filter and then convolving with a derivative filter will give better results
+  than first convolving with a derivative filter and then smoothing with an average filter
+  * False. Convolution is commutative, so it will give the same result
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -651,6 +729,8 @@ cv2.destroyAllWindows()
 
 * tessellation: aka tiling of flat surface is covering of plane using 1+ tiles, with no overlaps and no gaps
   ![Tessellation](images/20210716_170218.png)
+* Voroni Diagram: partition of a plane into regions close to each of a given set of objects
+  ![20 points voronoi cells](images/20210716_170029.png)
 
 > Solution
 
@@ -666,20 +746,16 @@ cv2.destroyAllWindows()
   * 74.3mAP, 59FPS
   * 49 objects / Relatively high localization error
 
-* v2
-  * Classification and prediction in a single framework
-  * Batch Normalization
+* v2: Classification and prediction in a single framework
+  * Batch Normalization, Multi-scale training
   * classiﬁer network at 224×224, Increase in image size 448*448
   * divides into 13 * 13 grid cells → finegrand feature
-  * Multi-scale training
   * Anchor boxes
 
 * Yolo v3 (J Redmon, 2018)
   * 0 normalized 416 (320, 608) RGB input → [(507, 85), (2028, 85), (8112, 85)]
 
-> mask-RCNN (Mask R-CNN, He 2017)
-
-* Faster R-CNN + FCN
+* mask-RCNN (Mask R-CNN, He 2017): Faster R-CNN + FCN
 
 ![Segmentation](images/20210210_190110.png)
 
@@ -724,11 +800,30 @@ exec(cv::gin(in_frame), cv::gout(out_frame, ints));
 {% endtab %}
 {% endtabs %}
 
-### Voroni Diagram
+## Stereo
 
-* partition of a plane into regions close to each of a given set of objects
+* extraction of 3D information from digital images, such as those obtained by a CCD camera
 
-![20 points voronoi cells](images/20210716_170029.png)
+> Term
+
+* 1-D Epipolar Search: Arbitrary images of same scene may be rectified based on epipolar geometry
+  * s.t. stereo matches lie along one-dimensional scanlines
+  * This reduces computational complexity and also reduces the likelihood of false matches
+
+* Monotonic Ordering: Points along an epipolar scanline appear in the same order in both stereo images
+  * assuming that all objects in the scene are approximately the same distance from the cameras
+
+* Image Brightness Constancy: Assuming Lambertian surfaces, brightness of corresponding points in stereo images are same
+
+* Match Uniqueness: For every point in one stereo image, there is at most one corresponding point in the other image
+* Disparity Continuity: Disparities vary smoothly (disparity gradient is small) over most of the image
+  * This assumption is violated at object boundaries
+* Disparity Limit: search space may be reduced significantly by limiting the disparity range
+  * reducing both computational complexity and the likelihood of false matches
+* Fronto-Parallel Surfaces: implicit assumption made by area-based matching is that objects have front-parallel surfaces
+  * depth is constant within the region of local support). This assumption is violated by sloping and creased surfaces
+* Feature Similarity: Corresponding features must be similar (edges must have roughly the same length and orientation)
+* Structural Grouping: Corresponding feature groupings and their connectivity must be consistent
 
 ## Streaming
 
@@ -745,239 +840,3 @@ exec(cv::gin(in_frame), cv::gout(out_frame, ints));
 ## Upsampling
 
 {% include '.upsampling.prob' %}
-
-## Reinforcement Learning
-
-> Terms
-
-* Tasks
-
-```sh
-Episodic Tasks    # Interaction breaks into episodes, which end with a terminal state.
-Continuing Tasks  # Interaction goes on continually without terminal state.
-```
-
-* Policy
-  * Target: One we are learning
-  * Behavior: One we are choosing action from
-
-* Generalized policy iteration (GPI)
-  * interaction between policy-evaluation and policy improvement
-
-* Planning
-  * any process that takes input model, and improves a policy
-
-* Backup Diagram
-
-| Notation  | Term                                                                         |
-| --------- | ---------------------------------------------------------------------------- |
-| K         | Number of actions                                                            |
-| t         | Discrete time step                                                           |
-| qk(a)     | Expected value of action a                                                   |
-| Qt(a)     | Estimate at time t of q*(a)                                                  |
-| πt(a)     | Probability of selecting action a at time t                                  |
-| ρt        | importance sampling ratio for time t                                         |
-| δt        | TD Error at time t Rt+1 γV(St+1) - V(St)                                     |
-| d         | dimensionality—the number of components of w                                 |
-| v̂(s, w)   | approximate value of state s given weight vector w (Σwixi(s), or neural net) |
-| b(a \| s) | Behavior policy used to select actions while learning about target policy π  |
-
-![Backup Diagram](images/20210301_193635.png)
-
-### RL Model
-
-![Models](images/20210222_225900.png)
-
-* Actor critic
-
-```text
-Input:
-  Differentiable policy parameterization π(a | s, θ)
-  Differentiable state-value function parameterization v̂(s, w)
-Initialize:
-  R̄ ∈ R to 0
-  State-value weights w ∈ Rd and policy parameter θ ∈ Rd (e.g. to 0)
-  Algorithm parameters: αw > 0, αθ > 0, αR̄ > 0
-  S ∈ S
-Loop:
-  A ~ π( · | S, θ)
-  Take action A, observe S’, R
-  δ ← R - R̄ + v̂(S’, w) - v̂(S, w)
-  R̄ ← R̄ + αR̄δ
-  w ← w + αw δ ∇ v̂(S, w)
-  θ ← θ + αθ δ ∇ln π(A | S, θ)
-  S ← S’
-```
-
-* Dyna
-
-```text
-# Q+
-Initialize:
-  Q(s, a) and Model(s, a) for all s 2 S and a 2 A(s)
-Loop forever:
-  S ← current (nonterminal) state
-  A ← e-greedy(S, Q)
-  Take action A: observe resultant reward, R, and state, S'
-  Q(S, A) ← Q(S, A) + α [R + γ maxaQ(S', a) - Q(S, A)]
-  Model(S, A) ← R, S'
-  Loop repeat n times:
-    S ← random previously observed state
-    A ← random action previously taken in S
-    R, S' ← Model(S, A)
-    Q(S, A) ← Q(S, A) + α[(R + κτ0.5) + R + γ maxaQ(S', a) - Q(S, A)]
-```
-
-* Monte Carlo
-
-```text
-# e-soft
-Input : a policy π to be evaluated, ε > 0
-Initialize:
-  π ← an arbitrary ε-soft policy
-  Q(s, a) ∈ R (arbitrarily) for all s ∈ S, a ∈ A(s)
-  Returns(s, a) ← an empty list, for all s ∈ S, a ∈ A(s).
-Loop:
-  Generate an episode from S0, A0, following π : S0, A0, R1, …, ST-1, AT-1, RT
-  G ← 0
-  Loop for each step of episode, t = T - 1, T - 2, ..., 0:
-    G ← γG + Rt+1
-    Append G to Returns(St, At)
-    Q(St, At) ← average(Returns(St, At))
-    A* ← argmaxa Q(St, a)
-    For all a ∈ A(St):
-
-
-# Exploring start
-Initialize:
-  π(s) ∈ A(s)  (arbitrarily), for all s ∈ S.
-  Q(s, a) ∈ R (arbitrarily), for all s ∈ S, a ∈ A(s).
-  Returns(s, a) ← an empty list, for all s ∈ S, a ∈ A(s).
-Loop:
-  Choose S0 ∈ S, A0 ∈ A(S0) randomly s.t. all pairs have probability > 0
-  Generate an episode from S0, A0, following π : S0, A0, R1, …, ST-1, AT-1, RT
-    G ← return that follows the first occurence of s, a
-    Append G to Returns(s, a)
-    Q(s, a) ← average(Returns(s, a))
-    For each s in the episode:
-      π(s) ← argmaxa Q(s, a)
-
-# Off-policy
-Input:
-  an arbitrary target policy π
-Initialize, for all s ∈ S, a ∈ A(s):
-  Q(s, a) ← arbitrary
-  C(s, a) ← 0
-Repeat:
-  b ← any policy with coverage of π
-  Generate an episode using b:
-  S0, A0, R1, …, ST - 1, AT - 1, RT, ST
-  G ← 0
-  W ← 1
-  For t = T - 1, T - 2, … down to 0:
-    G ← γG + Rt+1
-    C(St, At) ← C(St, At) + W
-    Q(St, At) ← Q(St, At) + W | C(St, At) [G - Q(St, At)]
-    W ← W π(At|St) | b(At|St)
-    If W = 0 then exit For loop
-
-# Prediction
-Initialize:
-  π ← policy to be evaluated
-  V ← an arbitrary state-value function
-  Returns(s) ← an empty list, for all s ∈ S
-Repeat forever:
-  Generate an episode using π
-  For each state s appearing in the episode:
-    G ← the return that follows the first occurrence of s
-    Append G to Returns(s)
-    V (s) ← average(Returns(s))
-```
-
-* Value Iteration
-
-![Value Iteration](images/20210301_193519.png)
-
-* Policy Iteration
-
-![Policy Iteration](images/20210301_193452.png)
-
-* SARSA
-
-```text
-# Differential Semi-G
-Initialize state S, and action A
-Loop for each step:
-  Take action A, observe R, S’
-  Choose A’ as a function of q̂(S’, ·, w) (e.g. ε-greedy)
-  δ ← R - R̄+ q̂(S’, A’, w) - q̂(S, A, w)
-  R̄ ← R̄ + β δ
-  w ← w + αδ ∇q̂(S, A, w)
-  S ← S’
-  A ← A’
-
-# Expected
-Loop for each episode:
-  Initialize S
-  Choose A from S using policy derived from Q (e.g. ε-greedy)
-  Loop for each step of episode:
-    Take action A, observe R, S’
-    Choose A’ from S’ using policy derived Q (e.g. ε-greedy)
-    Q(S, A) ← Q(S, A) + α[R + γQ(S’, A’) - Q(S, A)]
-    Q(S, A) ← Q(S, A) + α[R + γΣaπ(a | St+1)Q(St+1, a) - Q(St, At)]
-    S ← S’; A ← A’;
-  until S is terminal
-```
-
-* Q Learning
-
-```text
-Initialize:
-  Q(s, a) = random, for all s ∈ S, a ∈ A(s)
-  Q(terminal, *) = 0
-Loop:
-  Initialize S
-  Loop for each step of episode:
-    Choose A from S using policy derived from Q (e.g. e-greedy)
-    Take action A, observe R, S'
-    Q(S, A) ← Q(S, A) + α [R + γ maxa Q(S', a) - Q(S, A)]
-    S ← S'
-  until S is terminal
-```
-
-* Q planning
-
-```text
-Loop:
-  Select a state, S ∈ S, and an action, a ∈ A(s) at random
-  Send s, a to a sample model, and obtain a sample next reward, R, and a sample next state, S'
-  Apply one-step tabular Q-learning to S, A, R, S'
-    Q(S, A) ← Q(S, A) + α[ R + γmaxaQ(S', a) - Q(S, A)]
-```
-
-* TD0
-
-```text
-Input:
-  policy π to be evaluated, step size α
-Initialize:
-  V(s), for all s ∈ S+, arbitrarily except that V(terminal) = 0
-Loop for each episode:
-  Initialize S
-  Loop for each step of episode:
-    A ← action given by π for S
-    Take action A, observer R, S'
-    V(S) ← V(S) + α[R + γV(s') - V(S)]
-    S ← S'
-  until S is terminal
-
-# Semi-Gradient
-Loop for each episode:
-  Initialize S
-  Loop for each step of episode:
-    Choose A ~ π(*|S)
-    Take action A, observe R, S'
-    w ← w + α[R + γ v̂(S', w) - v̂(S, w)] Δv̂(S, w)
-    S ← S'
-until S is terminal
-```

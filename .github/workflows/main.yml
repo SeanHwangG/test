@@ -8,18 +8,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: pre-commit/action@v2.0.3
-      - uses: actions/setup-python@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Run Linter
+        uses: pre-commit/action@v2.0.3
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
           python-version: "3.9"
-      - run: |
+      - name: Install python dependency
+        run: |
           python -m pip install --upgrade pip
           pip install include_file
-      - run: |
+      - name: Include Files
+        run: |
           python -m include_file -u $GITHUB_ACTOR -y SUMMARY.md -d deploy -toc table_of_contents.md --stem
 
-      - uses: EndBug/add-and-commit@v7
+      - name: Push changes to deploy branch
+        uses: EndBug/add-and-commit@v7
         with:
           message: "Committed by seanhwangg/include_file"
           pull_strategy: NO-PULL

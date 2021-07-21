@@ -73,6 +73,13 @@ $$ n_{1} \sin \theta_{1}=n_{2} \sin \theta_{2} $$
 
 ![Lens](images/20210527_165503.png)
 
+> Term
+
+* Field of view: $$ 2 \tan ^{-1} \frac{s}{2 f} $$
+* Telephoto lens: small field of view
+* Wide angle lense: large field of view
+* Zoom lens: variable f using compound lens
+
 ### Aberration
 
 > Astigmatism

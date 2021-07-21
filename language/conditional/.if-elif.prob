@@ -62,82 +62,6 @@ else:
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : Hard choice](https://www.acmicpc.net/problem/15059)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_15059.md/)
-
-{% tabs %}
-{% tab title='BJ_15059.md' %}
-
-> Question
-
-* 위아래 3개의 수가 주어진다
-* 아래 수 - 위의 수의 합을 구하라, 단 아래수가 더 작은 경우 무시하라
-
-```txt
-Input:
-80 20 40
-45 23 48
-
-Output: 11
-```
-
-{% endtab %}
-{% tab title='BJ_15059.py' %}
-
-```py
-a, b, c = map(int,input().split())
-a1, b1, c1 = map(int,input().split())
-cnt=0
-if a1>a: cnt += a1-a
-if b1>b: cnt += b1-b
-if c1>c: cnt += c1-c
-print(cnt)
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 2 : 나이 계산하기](https://www.acmicpc.net/problem/16199)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_16199.md/)
-
-{% tabs %}
-{% tab title='BJ_16199.md' %}
-
-> Question
-
-* print age, Korean age, year age
-
-```txt
-Input:
-2003 3 5
-2003 4 5
-
-Output:
-0
-1
-0
-```
-
-{% endtab %}
-{% tab title='BJ_16199.py' %}
-
-```py
-y1, m1, d1 = map(int, input().split())
-y2, m2, d2 = map(int, input().split())
-
-k_age = y2 - y1 + 1
-if (m1, d1) > (m2, d2):
-  age = k_age - 2
-else:
-  age = k_age - 1
-print(age)
-print(k_age)
-print(k_age - 1)
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 2 : Winning Score](https://www.acmicpc.net/problem/17009)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_17009.md/)
 
@@ -185,37 +109,6 @@ else:
 
 * [Level 2 : 와글와글 숭고한](https://www.acmicpc.net/problem/17388)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_17388.md/)
-
-{% tabs %}
-{% tab title='BJ_17388.md' %}
-
-> Question
-
-* Print OK if sum of three universities' participation is more than 100
-* if it is less than 100, print out club of university with lowest participation
-
-```txt
-Input: 31 41 59
-Output: OK
-```
-
-{% endtab %}
-{% tab title='BJ_17388.py' %}
-
-```py
-a, b, c = map(int, input().split())
-if a + b + c >= 100:
-  print("OK")
-elif a < b and a < c:
-  print("Soongsil")
-elif b < a and b < c:
-  print("Korea")
-else:
-  print("Hanyang")
-```
-
-{% endtab %}
-{% endtabs %}
 
 * [Level 2 : Even or Odd?](https://www.acmicpc.net/problem/18005)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_18005.md/)
@@ -396,11 +289,11 @@ Output: lika
 {% tab title='BJ_21354.py' %}
 
 ```py
-a,b=map(int,input().split())
+a, b = map(int, input().split())
 a, b = a * 7, b * 13
-if a>b:print('Axel')
-elif a<b:print('Petra')
-elif a==b:print('lika')
+if a > b:    print('Axel')
+elif a < b:  print('Petra')
+elif a == b: print('lika')
 ```
 
 {% endtab %}
@@ -553,38 +446,6 @@ if 7 * b <= a: print(b * 7000)
 elif 3.5 * b <= a: print(3500 * b)
 elif 1.75 * b <= a: print(1750 * b)
 else: print(0)
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 3 : 양념 반 후라이드 반](https://www.acmicpc.net/problem/16917)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_16917.md/)
-
-{% tabs %}
-{% tab title='BJ_16917.md' %}
-
-> Question
-
-* price of one seasoned chicken is A won, price of one fried chicken is B won, and the price of one half chicken is C won
-* Print minimum cost to buy X seasoned, Y fried chicken
-
-```txt
-Input: 1500 2000 1600 3 2
-Output: 7900
-```
-
-{% endtab %}
-{% tab title='BJ_16917.py' %}
-
-```py
-a, b, c, x, y = map(int, input().split())
-v = 0
-if x > y:
-  v = 2 * c * y + a * (x - y)
-else:
-  v = 2 * c * x + b * (y - x)
-print(min(a * x + b * y, 2 * c * max(x, y), v))
 ```
 
 {% endtab %}

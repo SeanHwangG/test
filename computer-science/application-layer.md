@@ -506,11 +506,11 @@ ssh localhost
 
 ### SSH Client
 
-{% tabs %}
-{% tab title='~/.ssh/config' %}
-
-* User: [ex] user
-* Port: [ex] **22**
+* ~/.ssh/config
+  * User: [ex] user
+  * Port: [ex] **22**
+* ~/.ssh/id_rsa: private key for client
+* ~/.ssh/id_rsa.pub: Public key which goes into server's `authorized_keys` file
 
 ```sh
 # 1. ssh using private key
@@ -538,20 +538,13 @@ Host any_name
   User host-user
   PreferredAuthentications publickey
   IdentityFile "$HOME/.ssh/id_rsa"
+
+# 3. Enable SSH on System
+sudo apt-get install ssh
+sudo systemctl ssh start
+sudo systemctl ssh enable
+service ssh status
 ```
-
-{% endtab %}
-{% tab title='~/.ssh/id_rsa' %}
-
-* private key for client
-
-{% endtab %}
-{% tab title='~/.ssh/id_rsa.pub' %}
-
-* Public key which goes into server's `authorized_keys` file
-
-{% endtab %}
-{% endtabs %}
 
 ### SSH Server
 
@@ -559,42 +552,30 @@ Host any_name
 * starts when system boots, master server that listens to incoming connections
 * -T: Extended test mode.  Check the validity of the configuration file
 
-{% tabs %}
-{% tab title='/etc/ssh/sshd_config' %}
-
-* AllowUsers: [ex] user1
-* AllowGroups: [ex] group1
-* DenyUsers: [ex] user1
-* DenyGroups: [ex] group1
-* LogLevel: [ex] DEBUG321, DEBUG, VERBOSE, **INFO**, ERROR, FATAL, QUITE
-* LoginGraceTime: minutes to complete the connection with exact credentials [ex] 2m
-* MaxAuthTries: max # authentication attempts permitted per connection, Once reaches half, failures logged ([ex] **6**)
-* MaxSessions: Specifies the maximum number of open sessions permitted per network connection. ([ex] **10**)
+* ~/.ssh/authorized_keys: IP encryption_type public_key ([ex] gist.github.com ssh-rsa yZIXA8VJiS5ap43JXiUFFA/...)
+* /etc/ssh/sshd_config
+  * AllowUsers: [ex] user1
+  * AllowGroups: [ex] group1
+  * DenyUsers: [ex] user1
+  * DenyGroups: [ex] group1
+  * LogLevel: [ex] DEBUG321, DEBUG, VERBOSE, **INFO**, ERROR, FATAL, QUITE
+  * LoginGraceTime: minutes to complete the connection with exact credentials [ex] 2m
+  * MaxAuthTries: max # authentication attempts permitted per connection, if reaches half, failures logged ([ex] **6**)
+  * MaxSessions: Specifies the maximum number of open sessions permitted per network connection. ([ex] **10**)
 * PermitRootLogin: [ex] **yes**, no
 * PermitTunnel: Specifies whether tun device forwarding is allowed ([ex] **no**)
+* Port 22
 * PasswordAuthentication: Specifies whether password authentication is allowed ([ex] **yes**)
 * ServerAliveInterval: [ex] **0**
 * ServerAliveCountMax: [ex] **3**
 
-```sh
-# 1. Reset sshd
-sudo cp /private/etc/ssh/sshd_config ~/.ssh/config
-```
-
-```txt
-Port 22
-```
-
-{% endtab %}
-{% tab title='~/.ssh/authorized_keys' %}
-
-* IP encryption_type public_key ([ex] gist.github.com ssh-rsa yZIXA8VJiS5ap43JXiUFFA/...)
-
-{% endtab %}
-{% endtabs %}
-
 {% tabs %}
-{% tab title='linux' %}
+{% tab title='bash' %}
+
+* Mac
+  * [Official](https://support.apple.com/guide/mac-help/allow-a-remote-computer-to-access-your-mac-mchlp1066/mac)
+  * Settings -> Sharing
+  ![Sharing](images/20210627_112052.png)
 
 ```sh
 # 1. restart the service use load after unload on Linux, Mac
@@ -605,14 +586,10 @@ sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 
 ssh localhost  # Check if ssh is ope
 service sshd status
+
+# 2. Reset sshd
+sudo cp /private/etc/ssh/sshd_config ~/.ssh/config
 ```
-
-{% endtab %}
-{% tab title='macos' %}
-
-* [Official](https://support.apple.com/guide/mac-help/allow-a-remote-computer-to-access-your-mac-mchlp1066/mac)
-* Settings -> Sharing
-  ![Sharing](images/20210627_112052.png)
 
 {% endtab %}
 {% endtabs %}

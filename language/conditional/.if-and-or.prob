@@ -19,6 +19,22 @@ Output: 1
 ```
 
 {% endtab %}
+{% tab title='BJ_14681.py' %}
+
+```py
+a = int(input())
+b = int(input())
+if a > 0 and b > 0:
+  print(1)
+elif a < 0 and b > 0:
+  print(2)
+elif a < 0 and b < 0:
+  print(3)
+else:
+  print(4)
+```
+
+{% endtab %}
 {% tab title='BJ_14681.sh' %}
 
 ```sh
@@ -34,22 +50,6 @@ elif [ $x -lt 0 ] && [ $y -lt 0 ]; then
 else
   echo 4
 fi
-```
-
-{% endtab %}
-{% tab title='BJ_14681.py' %}
-
-```py
-a = int(input())
-b = int(input())
-if a > 0 and b > 0:
-  print(1)
-elif a < 0 and b > 0:
-  print(2)
-elif a < 0 and b < 0:
-  print(3)
-else:
-  print(4)
 ```
 
 {% endtab %}
@@ -81,6 +81,40 @@ Output: ignore
 ```py
 a, b, c, d = int(input()), int(input()), int(input()), int(input())
 print('ignore' if a > 7 < d and b == c else 'answer')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 와글와글 숭고한](https://www.acmicpc.net/problem/17388)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-and-or/BJ_17388.md/)
+
+{% tabs %}
+{% tab title='BJ_17388.md' %}
+
+> Question
+
+* Print OK if sum of three universities' participation is more than 100
+* if it is less than 100, print out club of university with lowest participation
+
+```txt
+Input: 31 41 59
+Output: OK
+```
+
+{% endtab %}
+{% tab title='BJ_17388.py' %}
+
+```py
+a, b, c = map(int, input().split())
+if a + b + c >= 100:
+  print("OK")
+elif a < b and a < c:
+  print("Soongsil")
+elif b < a and b < c:
+  print("Korea")
+else:
+  print("Hanyang")
 ```
 
 {% endtab %}
@@ -377,7 +411,7 @@ Output: NO
 
 ```py
 a, b, c, d = map(int, input().split())
-print("NO" if if a == 0 or b == 0 or c == 0 or a + b + c < d or d < 3 else "YES)
+print("NO" if a == 0 or b == 0 or c == 0 or a + b + c < d or d < 3 else "YES)
 ```
 
 {% endtab %}

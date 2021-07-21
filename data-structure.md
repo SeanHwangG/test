@@ -10,9 +10,8 @@
 {% tabs %}
 {% tab title="cpp" %}
 
-> chrono
-
-* this_thread::sleep_for(milliseconds(x)): Pause
+* chrono
+  * this_thread::sleep_for(milliseconds(x)): Pause
 
 ```cpp
 #include <iostream>
@@ -86,17 +85,16 @@ complex()       # Took 0.111s
 {% endtab %}
 {% tab title='shell' %}
 
-> time
-
-* -v: change verbosity, more statistics with Linux kernel v2.6
-* user: time CPU spent executing application code on behalf of program
-* Swaps: num times the process was swapped to disk
-* system: time CPU spent executing system or kernel code on behalf of application
-* Exit status: exit status of the application
-* real / elapsed: time between when the program started and finished execution
-* Page size (bytes): page size of the system
-* Major (I/O) page faults: num major page faults that required to be read from disk
-* In / Voluntary context switch: num times the process yielded / taken from CPU
+* time
+  * -v: change verbosity, more statistics with Linux kernel v2.6
+  * user: time CPU spent executing application code on behalf of program
+  * Swaps: num times the process was swapped to disk
+  * system: time CPU spent executing system or kernel code on behalf of application
+  * Exit status: exit status of the application
+  * real / elapsed: time between when the program started and finished execution
+  * Page size (bytes): page size of the system
+  * Major (I/O) page faults: num major page faults that required to be read from disk
+  * In / Voluntary context switch: num times the process yielded / taken from CPU
 
 {% endtab %}
 {% endtabs %}

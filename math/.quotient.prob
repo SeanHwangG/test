@@ -1,0 +1,210 @@
+> baekjoon
+
+* [Level 1 : 조별과제를 하려는데 조장이 사라졌다](https://www.acmicpc.net/problem/15727)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/quotient/BJ_15727.md/)
+
+{% tabs %}
+{% tab title='BJ_15727.md' %}
+
+> Question
+
+* can travel a distance of 1 to 5 per minute
+* Given the distance from the voice actor's house to house, print how many minutes you can find him
+
+```txt
+Input: 12
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_15727.sh' %}
+
+```sh
+read a
+echo $(((a + 4)/5))
+```
+
+{% endtab %}
+{% tab title='BJ_15727.py' %}
+
+```py
+a = int(input())
+print((a + 4) // 5)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 달달함이 넘쳐흘러](https://www.acmicpc.net/problem/17256)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/quotient/BJ_17256.md/)
+
+{% tabs %}
+{% tab title='BJ_17256.md' %}
+
+> Question
+
+* A x B = (a.z + b.x, a.y × b.y, a.x + b.z)
+* Given A, C where A x B = C, find B
+
+```txt
+Input:
+15 16 17
+19 32 90
+
+Output: 2 2 75
+```
+
+{% endtab %}
+{% tab title='BJ_17256.py' %}
+
+```py
+ax, ay, az = map(int, input().split())
+cx, cy, cz = map(int, input().split())
+print(cx - az, cy // ay, cz - ax)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : 스타후르츠](https://www.acmicpc.net/problem/17496)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/quotient/BJ_17496.md/)
+
+{% tabs %}
+{% tab title='BJ_17496.md' %}
+
+> Question
+
+* N days of summer, number of days for Starhurtz to grow T, Number of compartments C, and P of price per Starhurtz
+* Find possible income
+
+```txt
+Input: 7 3 2 750
+Output: 3000
+```
+
+{% endtab %}
+{% tab title='BJ_17496.py' %}
+
+```py
+n, t, c, p=map(int,input().split())
+print((n - 1) // t * c * p)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Julka](https://www.acmicpc.net/problem/8437)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/quotient/BJ_8437.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* Given a, b print average and difference divided by 2
+
+```txt
+Input: 5 2
+
+Output:
+3
+1
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a = int(input())
+b = int(input())
+print((a + b) // 2)
+print((a - b) // 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 체스판 조각](https://www.acmicpc.net/problem/3004)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/quotient/BJ_3004.md/)
+
+{% tabs %}
+{% tab title='BJ_3004.md' %}
+
+> Question
+
+* find out how many pieces you can make at most N cut from chessboard
+
+```txt
+Input: 3
+Output: 6
+```
+
+{% endtab %}
+{% tab title='BJ_3004.py' %}
+
+```py
+n = int(input())
+print((n // 2 + 1) * (n - n // 2 + 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 6 : 소수](https://www.acmicpc.net/problem/1312)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/quotient/BJ_1312.md/)
+
+{% tabs %}
+{% tab title='BJ_1312.md' %}
+
+> Question
+
+* Given A / B, print Nth decimal
+
+```txt
+Input: 25 7 5
+Output: 2
+```
+
+{% endtab %}
+{% tab title='BJ_1312.py' %}
+
+```py
+A, B, N = map(int, input().split())
+A %= B
+for i in range(N - 1):
+  A = (A * 10) % B
+print((A * 10) // B)
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.7 : Saving For Retirement](https://open.kattis.com/problems/savingforretirement)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/quotient/KT_savingforretirement.md/)
+
+{% tabs %}
+{% tab title='KT_savingforretirement.md' %}
+
+> Question
+
+* Alice 는 은퇴 후에 Bob 보다 돈이 많았으면 좋겠다
+* 첫줄에 Bob이 일의 시작 나이, 은퇴 나이, 연봉, Alice가 일을 시작하는 나이, Alice의 연봉이 주어진다
+* 이 때 Alice가 은퇴를 해야되는 나이를 출력하라
+
+```txt
+Input: 20 25 5 20 10
+Output: 23
+```
+
+{% endtab %}
+{% tab title='KT_savingforretirement.py' %}
+
+```py
+a, b, c, d, e = map(int, input().split())
+print(d + (b - a) * c // e + 1)
+```
+
+{% endtab %}
+{% endtabs %}

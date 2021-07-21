@@ -313,38 +313,13 @@
 
 ## Extension
 
-### Git
+* vim: Well integrated with vscode (:vs)
+  * vim.active
+  * vim.mode != : [ex]'Insert'
 
-> git
+* docker: show all images and containers
 
-* Given featrue branch rebase from master
-
-![Rebase](images/20210303_215312.png)
-
-> gitlens
-
-* File diff
-
-![file Diff](images/20210220_013415.png)
-
-* Branch diff
-
-![Branch Diff](images/20210429_173420.png)
-
-### Vim
-
-> vim
-
-* Well integrated with vscode (:vs)
-
-* vim.active
-* vim.mode != : [ex]'Insert'
-
-> docker
-
-* show all images and containers
-
-> Remote - Containers
+* Remote - Containers
 
 ```sh
 export PATH="$PATH:$HOME/.vscode-server/bin/<directory with a hash-like name>/bin/"
@@ -359,7 +334,7 @@ export PATH="$PATH:$HOME/.vscode-server/bin/<directory with a hash-like name>/bi
 }
 ```
 
-> Prettier
+* Prettier
 
 ```json
 // 1. settings.json
@@ -377,20 +352,5 @@ export PATH="$PATH:$HOME/.vscode-server/bin/<directory with a hash-like name>/bi
   "printWidth": 80,
   "tabWidth": 4,
   "arrowParens": "avoid"
-}
-```
-
-### Files
-
-* Install Mactex www.tug.org/mactex/mactex-download.html
-* sudo tlmgr update --self
-* sudo tlmgr install latexmk
-
-> Markdown-preview-enhanced
-
-```json
-// settings.json
-{
-  "markdown-preview-enhanced.mathInlineDelimiters": [[ "$$", "$$" ]]
 }
 ```

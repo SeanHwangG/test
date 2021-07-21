@@ -320,8 +320,6 @@ foo: ; @for i in a b c d; do $(info $$i); done  # WRONG
 {% endtab %}
 {% tab title='python' %}
 
-{% include 'for.test' %}
-
 > Comprehension
 
 * constructs that allow sequences to be built from other sequence
@@ -340,6 +338,8 @@ dic = {'a': 10, 'b': 34, 'A': 7, 'Z': 3}    # Dict Comprehension
 print(f"{a}=5" if a == 5 else f"{a}!=5 ")
 print(f"{a}=={b}" if a == b else f"{a} != {b}")
 ```
+
+{% include 'for.test' %}
 
 {% endtab %}
 {% tab title='shell' %}

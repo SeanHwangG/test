@@ -77,6 +77,15 @@
   * stage,qa,build,deploy
 
 {% endtab %}
+{% tab title='jenkins' %}
+
+* folder: group things together containing jobs views and other folders
+  * provides separate namespace, deleting folder delete all contents
+* view: display jobs that meet a criteria, like a filter
+* workspace: dedicated directory on the Jenkins server where each job is given and store generated files
+* build steps: define the actions that Jenkins will take during a build
+
+{% endtab %}
 {% endtabs %}
 
 ## CI CLI
@@ -379,45 +388,6 @@ t1 >> [t2, t3]
 * Automate delivery: continuous delivery
 * "Archive the artifacts" option in "Post Build Actions" section is specify exact files to archive for build
 
-> Terms
-
-* folder
-  * group things together containing jobs views and other folders
-  * provides separate namespace, deleting folder delete all contents
-
-* view
-  * display jobs that meet a criteria, like a filter
-
-* workspace
-  * dedicated directory on the Jenkins server where each job is given and store generated files
-
-* build steps
-  * define the actions that Jenkins will take during a build
-
-{% tabs %}
-{% tab title='jenkins' %}
-
-```js
-pipeline {
-  agent any
-  stages {
-    stage('Hello') {
-      steps {
-        echo 'Hello World'
-      }
-    }
-    stage('Bye') {
-      steps {
-        echo 'Bye World'
-      }
-    }
-  }
-}
-```
-
-{% endtab %}
-{% endtabs %}
-
 ## Artifact
 
 {% tabs %}
@@ -509,6 +479,34 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Pipeline
+
+* Set of instructions defines entire build process, which consists of different stages for building, testing, delivering
+
+{% tabs %}
+{% tab title='jenkins' %}
+
+```js
+pipeline {
+  agent any
+  stages {
+    stage('Hello') {
+      steps {
+        echo 'Hello World'
+      }
+    }
+    stage('Bye') {
+      steps {
+        echo 'Bye World'
+      }
+    }
+  }
+}
 ```
 
 {% endtab %}

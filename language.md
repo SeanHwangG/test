@@ -159,6 +159,16 @@ int main() { cout << FLAGS_debug; }
   * parse_args()
   * parse_known_args(): Only parse predefined options
 
+* django-admin
+  * show_urls: Show available urls
+  * validate_templates
+  * shell_plus: Autoloads model classes
+  * runserver_plus
+  * graph_models `models`: Create model diagram
+    * -a: include all models
+    * -o `path.png`: create result in `path.png`
+    * -g: group by models
+
 ```py
 import fire
 import argparse
@@ -411,7 +421,7 @@ tuple(int(num) for num in nums)
 {% endtab %}
 {% endtabs %}
 
-### Directory
+### Convention Directory
 
 {% tabs %}
 {% tab title='python' %}
@@ -1023,6 +1033,31 @@ for i in tqdm.tqdm(range(10000)):
 
 * Ipython
   * ipython3 -i file_name.py
+
+{% endtab %}
+{% tab title='shell' %}
+
+* mac
+  * brew install bash
+
+```sh
+# 1. vscode
+"configurations": [
+  {
+    "type": "bashdb",
+    "request": "launch",
+    "name": "Bash-Debug (hardcoded script name)",
+    "cwd": "${workspaceFolder}",
+    "program": "${file}",
+    "args": [
+      "<",
+      "${fileBasenameNoExtension}.in"
+    ]
+  }
+]
+```
+
+> Reference
 
 {% endtab %}
 {% endtabs %}
@@ -2393,125 +2428,9 @@ with contextlib.suppress(Exception):
   * O(N) due to insert
   * bisect.insort(a, x, lo=0, hi=len(a))
 
-> defaultdict
-
-* subclass of dict
-* vs setdefault: When look up a missing key, do you want an empty list, or a KeyError
-
-> namedtuple
-
-{% tabs %}
-{% tab title='python' %}
-
-```py
-NamedTupleCard = namedtuple('NamedTupleCard', ['rank', 'suit'])
-Person = namedtuple('Person', ['first_initial', 'last_name']
-ace_of_spades = NamedTupleCard('A', 'Spades')
-ace_of_spades == Person('A', 'Spades')    # True
-```
-
-{% endtab %}
-{% endtabs %}
-
-> pickle
-
-* dump(obj, file)
-* load(file)
-
-## OS
-
-{% tabs %}
-{% tab title='python' %}
-
-> os
-
-* python3 -c 'import sys; print(64 if sys.maxsize > 2 ** 32 else 32)')
-
-* close(fd): Close file descriptor fd
-* ctermid(): filename corresponding to the controlling terminal of the process
-* chdir(path): change directory
-* execv(`path`, `argv`): execute an executable path with arguments, replacing current process
-* execl(`file`, `*args`): execute the executable file with argument list args, replacing the current process
-* getlogin(): name of the user logged in on the controlling terminal of the process
-* rename(`old`, `new`): rename
-* system(command): Execute the command (a string) in a subshell
-* times(): current global process times
-* rmdir(path, *, dir_fd=None): Remove directory path
-* mkdir(path, mode=0o777, exists_ok=True): Create a directory named path
-* os.path.exists('/usr/local/bin/'): check if path exists
-
-* os.path
-  * basename: data/item.csv → item.csv
-  * isabs(): check if absolute path
-  * abspath(path): Get absolute path
-  * isfile(fn) / isdir(dn): Check file / directory exists
-
-* os.sys
-  * argv: List of command line arguments passed to a Python script
-  * builtin_module_names: names of all modules that are compiled into this Python interpreter
-  * byteorder: big vs little endian
-  * executable: absolute path of the executable binary for the Python interpreter
-  * flags
-  * path: All path that is being search by python
-  * version_info: assert sys.version_info[0]==3 and assert sys.version_info[1] >= 5
-  * exit([arg])
-  * cd()
-
-> sys
-
-* provides access to some variables used or maintained by interpreter and to functions that interact strongly with interpreter
-
-* platform: show platform information
-* setswitchinterval(): set time slice
-* read(): sys.stdin Read all input at once
-* write(): sys.stderr
-* getsitepackages(): see sitepackages
-* ps1 / ps2: used for interactive mode string
-
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title='python' %}
-
-* urllib
-  * Request
-    * urllib2.Request("www.example.com")
-    * add_header('Referer', 'http://www.python.org/')
-    * urlopen(url): string / Request object.  For HTTP, returns http.client.HTTPResponse object
-  * parse
-    * unquote(str): decode urlencoded bytes
-  * HTTPResponse
-    * content = resp.read()
-
-```py
-# 1. Download Coco dataset
-import sys, getopt
-import fire
-import json
-import requests
-
-def download_factory(all = False, *, coco2014 = None, coco2017 = None):
-  if all or coco2014:
-    url = "http://images.cocodataset.org/annotations/annotations_trainval2014.zip"
-    download(url)
-
-  if all or coco2017:
-    url = "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
-    download(url)
-
-def download(url):
-  response = requests.get(url, stream=True)
-  total_bytes = int(response.headers.get('content-length', 0))
-  with open('test.dat', 'wb') as file:
-    with tqdm(total=total_bytes / (32*1024.0), unit='B', unit_scale=True, unit_divisor=1024) as pbar:
-      for data in response.iter_content(1024):
-        pbar.update(len(data))
-        file.write(data)
-```
-
-{% endtab %}
-{% endtabs %}
+* defaultdict
+  * subclass of dict
+  * vs setdefault: When look up a missing key, do you want an empty list, or a KeyError
 
 * requests
   * json(): convert back to
@@ -2523,15 +2442,6 @@ def download(url):
     * init: Create new application
 
 * cgi: dynamically generating web pages that respond to user input
-
-* algolia
-  * full-text search
-  * client
-    * SearchClient.create('key', 'cred'): create client
-  * index
-    * client.init_index('page'): create index
-    * clear_objects(): remove all objects
-    * save_objects()
 
 ### jinja
 

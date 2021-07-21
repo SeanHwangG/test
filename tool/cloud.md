@@ -834,10 +834,6 @@ container_commands:
 {% endtab %}
 {% endtabs %}
 
-## Big Query
-
-* ls
-
 ## VPC Network
 
 {% tabs %}

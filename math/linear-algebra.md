@@ -97,45 +97,43 @@ $$
 
 ## Vector
 
-> Projection
+* Projection
+  ![Projection](images/20210316_155416.png)
+  $$
+  c=\frac{x \cdot v}{v \cdot v}=\frac{x \cdot v}{\|v\|^{2}} \\
+  (λ-c v) \cdot v=0
+  $$
+  $$ \operatorname{Proj}_{L}(a+b)=\operatorname{Proj}_{L}(a)+\operatorname{Proj}_{L}(b) $$
 
-![Projection](images/20210316_155416.png)
+* Dot product: Less than 90 degrees ⇒ positive
+  $$ a \cdot b=\sum a_{i} b_{i}=|a \| b| \cos \theta $$
 
-$$
-c=\frac{x \cdot v}{v \cdot v}=\frac{x \cdot v}{\|v\|^{2}} \\
-(λ-c v) \cdot v=0
-$$
+* Cross Product
+  $$ a \times b=\sum a_{i} b_{i}=|a \| b| \sin \theta $$
+  * Area of parallelogram ab
+  * Right Hand Rule
+  * 0 if parallel
+  * angle between two vector
+  $$ \theta=\cos ^{-1}\left(\frac{\mathbf{a} \cdot \mathbf{b}}{|\mathbf{a}||\mathbf{b}|}\right) $$
 
-$$ \operatorname{Proj}_{L}(a+b)=\operatorname{Proj}_{L}(a)+\operatorname{Proj}_{L}(b) $$
-
-> Dot product
-
-* Less than 90 degrees ⇒ positive
-
-$$ a \cdot b=\sum a_{i} b_{i}=|a \| b| \cos \theta $$
-
-> Cross Product
-
-$$ a \times b=\sum a_{i} b_{i}=|a \| b| \sin \theta $$
-
-* Area of parallelogram ab
-* Right Hand Rule
-* 0 if parallel
-* angle between two vector
-
-$$ \theta=\cos ^{-1}\left(\frac{\mathbf{a} \cdot \mathbf{b}}{|\mathbf{a}||\mathbf{b}|}\right) $$
-
-* Unit vector
-
-$$ \frac{v}{\|v\|} $$
+* Unit vector: [ex] (1, 1, 1)
+  $$ \frac{v}{\|v\|} $$
 
 * Transformation
   * To transform v by E == E * v
 
-### Matrix
+## Matrix
 
 > Terms
 
+* Camera: Mapping from a point in homogenous world coordinates $${}^wp$$ to homogenous pixel coordinates q
+* Fundamental: relates corresponding points in stereo images
+  * [+] Do not require to calibrate the camera (intrinsic parameter)
+  * epipole eL in homogeneous coord is Eigenvector of FT corresponding to zero eigenvalue
+  * epipole eR in homogeneous coord is Eigenvector of F corresponding to zero eigenvalue
+  $$ x ^{\prime \top} F x =0 $$
+  ![Fundamental](images/20210721_130941.png)
+* Intrinsic parameter: written as `k` ([ex] focal length and lens distortion)
 * Singular
   * a square (n × n) matrix that meets any / all of these conditions
   * columns are linearly dependent
@@ -144,85 +142,71 @@ $$ \frac{v}{\|v\|} $$
   * matrix is not invertible
   * matrix is not full rank (i.e., rank < n)
 
+> Question
+
+* Derivation of fundamental matrix
+
+$$
+\begin{array}{l}
+X_{L}^{T} E X_{R}=0 \\
+\rightarrow\left(K_{1}^{-1} q\right)^{T} E\left(K_{2}^{-1} q^{\prime}\right) \\
+\rightarrow q^{T}\left(\left(K_{1}^{-1}\right)^{T} E K_{2}^{-1}\right) q^{\prime} \\
+\rightarrow q^{T} F q^{\prime}
+\end{array}
+$$
+
 {% tabs %}
 {% tab title='python' %}
 
-> numpy Array Create
+* numpy
+  * arange(): same to range
+  * empty_like(`mat`): same dimension empty array
+  * full((3,3), True, dtype=bool): 3*3 true
+  * linspace(1, 2, 5): (5, 1) [1, 1.25, 1.5, 1.75, 2]
+  * ones()
+    * ([2, 3]): 2x3 array of zeros
+  * repeat(a, n, axis): Repeat a, n times (same shape as a, except along given axis)
+  * zeros()
+  ![Access](images/20210316_153208.png)
+  * array2string(x, precision=2, separator=',', suppress_small=True): [0.  ,1.24,2.  ]
+  * array2string(x, formatter={'float_kind':lambda x: "%.2f" % x}): [0.00 1.24 2.00]
+  * a.dot(b): cannot use scalars. matrices are broadcast together as if matrices were elements
+  * a.multiply(b): Element-wise multiplication
+  * invert(x)
+  * lexsort((b,a))                     # Sort by a, then by b → array([2, 0, 4, 6, 5, 3, 1])
+  * log(): elementwise log
+  * logical_not(x)
+  * logical_and|or|xor(x1, x2)
+  * mean(a): sum of all array elements
+  * np.flip(temp, axis = 1): flip horizontally
+  * power(): elementwise power
+  * round(): round matrix
+  * split(ary, sections): Split an array into n+1 sections (if sections is int, equal size)
+  * sum(a): sum of all array elements
+    * axis=0: for each column
+    * axis=1: for each row
+  * unravel_index()
+  * where(a < 3, a, 10*a): array([0, 1, 2, 3, 4, 5]) -> array([ 0,  1,  2, 30, 40])
+  ![addition](images/20210316_153045.png)
+  * arraysplit()
+    ![array_split](images/20210316_153106.png)
+  * meshgrid()
+    ![meshgrid](images/20210316_151654.png)
 
-* arange(): same to range
-* empty_like(`mat`): same dimension empty array
-* full((3,3), True, dtype=bool): 3*3 true
-* linspace(1, 2, 5): (5, 1) [1, 1.25, 1.5, 1.75, 2]
-* ones()
-  * ([2, 3]): 2x3 array of zeros
-* repeat(a, n, axis): Repeat a, n times (same shape as a, except along given axis)
-* zeros()
+* numpy
+  * load('data.npy')
+  * loadtxt("file_name", dtype=np.float32)
+  * save('data.npy', num_arr)
 
-> Array Operation
-
-![Access](images/20210316_153208.png)
-
-* \* n: scalar multiplication
-* \/ n: scalar division
-* a @ b: Equivalent to a.matmul(b)
-* a + b: element wise sum
-* a - b: element wise difference
-* a * b: element wise product
-* a / b: element wise division
-* array2string(x, precision=2, separator=',', suppress_small=True): [0.  ,1.24,2.  ]
-* array2string(x, formatter={'float_kind':lambda x: "%.2f" % x}): [0.00 1.24 2.00]
-* a.dot(b): cannot use scalars. matrices are broadcast together as if matrices were elements
-* a.multiply(b): Element-wise multiplication
-* invert(x)
-* lexsort((b,a))                     # Sort by a, then by b → array([2, 0, 4, 6, 5, 3, 1])
-* log(): elementwise log
-* logical_not(x)
-* logical_and|or|xor(x1, x2)
-* mean(a): sum of all array elements
-* np.flip(temp, axis = 1): flip horizontally
-* power(): elementwise power
-* round(): round matrix
-* split(ary, sections): Split an array into n+1 sections (if sections is int, equal size)
-* sum(a): sum of all array elements
-  * axis=0: for each column
-  * axis=1: for each row
-* unravel_index()
-* where(a < 3, a, 10*a): array([0, 1, 2, 3, 4, 5]) -> array([ 0,  1,  2, 30, 40])
-
-![addition](images/20210316_153045.png)
-
-* arraysplit()
-  ![array_split](images/20210316_153106.png)
-
-* meshgrid()
-  ![meshgrid](images/20210316_151654.png)
-
-> Stack a and b are both (3, 2)
-
-* np.stack((a, b)): (2, 3, 2)
-* np.array((a, b))
-* np.vstack((a, b)): (6, 2)
-* np.hstack((a, b)): (3, 4)
-* np.dstack((a, b)): (3, 2, 2) = np.concatenate(a[..., None], b[..., None]), axis=2)
-
-![stack](images/20210301_194725.png)
-
-> File
-
-* load('data.npy')
-* loadtxt("file_name", dtype=np.float32)
-* save('data.npy', num_arr)
-
-> sort
-
-* a[a[:,1].argsort()]: Sort array by first column
-* np.argpartition(`a`, -4)[-4:]: get unsorted top 4 from `a`
-* arr[(-arr).argsort()[:4]]: get sorted top 4
-* z = np.maximum(0, z): Relu using numpy
-* dot(a, b): if both scalars, 1D arrays then a scalar is returned; otherwise an array is returned
-* eig(np.diag((1, 2, 3))): get eigenvalue
-* lstsq(a, b): a = (M, N), b= (M,) or (M, K), returns x, sum residuals, rank, singular
-* norm(a)
+* numpy
+  * a[a[:,1].argsort()]: Sort array by first column
+  * np.argpartition(`a`, -4)[-4:]: get unsorted top 4 from `a`
+  * arr[(-arr).argsort()[:4]]: get sorted top 4
+  * z = np.maximum(0, z): Relu using numpy
+  * dot(a, b): if both scalars, 1D arrays then a scalar is returned; otherwise an array is returned
+  * eig(np.diag((1, 2, 3))): get eigenvalue
+  * lstsq(a, b): a = (M, N), b= (M,) or (M, K), returns x, sum residuals, rank, singular
+  * norm(a)
 
 ```py
 # 1. Shape
@@ -247,10 +231,45 @@ def gaussian2d(filter_size=7, sig=1.0):
   * ([[1], [2]]): 2d arry
 * eye(): n * n identity matrix
 
+> Question
+
+![stack](images/20210301_194725.png)
+
+* Stack a and b are both (3, 2)
+  * np.stack((a, b)): (2, 3, 2)
+  * np.array((a, b))
+  * np.vstack((a, b)): (6, 2)
+  * np.hstack((a, b)): (3, 4)
+  * np.dstack((a, b)): (3, 2, 2) = np.concatenate(a[..., None], b[..., None]), axis=2)
+
 {% endtab %}
 {% endtabs %}
 
 {% include '.matrix.prob' %}
+
+### Matrix Operations
+
+* Not commutative, associative, Distributive, Identity property
+
+> Term
+
+* Inverse: if any row is linear combination of others, it is not invertible
+  $$ (M P Q)^{-1}=Q^{-1} P^{-1} M^{-1} $$
+
+{% tabs %}
+{% tab title='python' %}
+
+* numpy
+  * \* n: scalar multiplication
+  * \/ n: scalar division
+  * a @ b: Equivalent to a.matmul(b)
+  * a + b: element wise sum
+  * a - b: element wise difference
+  * a * b: element wise product
+  * a / b: element wise division
+
+{% endtab %}
+{% endtabs %}
 
 ### Sparse
 
@@ -307,19 +326,29 @@ def gaussian2d(filter_size=7, sig=1.0):
 * Similarity $[s R \mid t]_{2 \times 3}$
   * 4 Degree of freedom
 
-* Translation
-
-![Translation](images/20210314_004655.png)
+* Translation: [ex] $$ { }^{ a } t _{ b } $$: translation of the a origin wrt camera b
+  ![Translation](images/20210314_004655.png)
 
 * Rotation
   * Counterclockwise
   * RTR = I
   * det(R) = 1
   * 2D: SO2 / 3D: SO3
+  ![Rotation in 2D](images/20210314_004635.png)
+  ![Rotation in 3D](images/20210314_004543.png)
 
-![Rotation in 2D](images/20210314_004635.png)
+> Question
 
-![Rotation in 3D](images/20210314_004543.png)
+* Translate 4x4 matrices by (3, -1, 4)
+
+$$
+\left(\begin{array}{lllc}
+1 & 0 & 0 & 3 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & 1 & 4 \\
+0 & 0 & 0 & 0
+\end{array}\right)
+$$
 
 ## Coordinate System
 

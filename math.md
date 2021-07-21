@@ -1,10 +1,49 @@
 # Math
 
+{% tabs %}
+{% tab title='vscode' %}
+
+* Install Mactex www.tug.org/mactex/mactex-download.html
+* sudo tlmgr update --self
+* sudo tlmgr install latexmk
+
+* Markdown-preview-enhanced
+
+```json
+// settings.json
+{
+  "markdown-preview-enhanced.mathInlineDelimiters": [[ "$$", "$$" ]]
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
 ## Add
+
+* +: Add two numbers
+
+{% tabs %}
+{% tab title='python' %}
+
+{% include 'add.test' %}
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.add.prob' %}
 
 ## Subtract
+
+* -: subtract two numbers
+
+{% tabs %}
+{% tab title='python' %}
+
+{% include 'subtract.test' %}
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.subtract.prob' %}
 
@@ -21,6 +60,29 @@
 {% include 'multiply_2.test' %}
 
 {% include '.multiply.prob' %}
+
+## Quotient
+
+{% tabs %}
+{% tab title='python' %}
+
+* //: integer division
+
+{% endtab %}
+{% tab title='shell' %}
+
+* /: integer division
+
+```sh
+read a b
+echo $((a/b)).$((a%b*1000000000/b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+{% include 'quotient.test' %}
+{% include '.quotient.prob' %}
 
 ## Division
 
@@ -51,7 +113,6 @@ print(a / b)
 {% endtabs %}
 
 {% include 'division.test' %}
-{% include 'quotient.test' %}
 
 {% include '.division.prob' %}
 
@@ -68,7 +129,7 @@ print(a / b)
 
 {% include '.log.prob' %}
 
-## Modulo
+j## Modulo
 
 | Property     | Example                                        |
 | ------------ | ---------------------------------------------- |
@@ -80,8 +141,13 @@ print(a / b)
 {% tabs %}
 {% tab title='python' %}
 
-* divmod() -> Tuple(int, int)
-  * Return (quotient, remainder)
+* %: modulo (remainder)
+* divmod() -> Tuple(quotient: int, remainder: int)
+
+{% endtab %}
+{% tab title='shell' %}
+
+* %: modulo (remainder)
 
 {% endtab %}
 {% endtabs %}

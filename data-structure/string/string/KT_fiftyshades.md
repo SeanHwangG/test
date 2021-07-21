@@ -3,8 +3,7 @@
 
 > Question
 
-* 첫줄엔 N 이 그 다음 N 줄엔 문자가 주어진다
-* 이 때 rose나 pink를 포함한 문자의 수를 구하라. (단 대문자 / 소문자는 무시한다.)
+* Count number of lines with rose or pink (Ignore case)
 
 ```txt
 Input:

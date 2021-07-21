@@ -80,7 +80,7 @@
   * A full query language
   * A flexible semi-structured data model
 
-> Sample questions
+> Question
 
 * 6V of Big data
   * Volumes: brings cost, scalability, and performance related to their storage access and processing
@@ -116,13 +116,36 @@
 * Things to take account
   * Frequency of updates | Consolidation rule → linking, missing data, dirty data (negative age)
 
+{% tabs %}
+{% tab title='javascript' %}
+
+* Algolia
+  * Simple text search
+  * index.clearObjects()
+
+* TypeDI
+
+```js
+import Container from "typedi"
+Container.get(TypeService);
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+* django
+  * django.setup(): Setup django outside of django module
+  * get_version(): Show version
+
+{% endtab %}
+{% endtabs %}
+
 ## Data Science
 
 > Terms
 
 * Transaction: a single logical operation on the data → must provide ACID
 * Lake: vast pool of raw data, the purpose for which is not yet defined
-* Warehouse:* repository for structured, filtered data that has already been processed for a specific purpose
 * Silo: Data produced from an organization that is spread out
   * Bad unsynchronized and invisible data
   ![Silo](images/20210304_233808.png)
@@ -139,6 +162,33 @@
 * Dashboard: promotes trasnparency, accountability
   * automatic data pipelines: dashboard
   * purpose, scope, layout + flow, consistent naming structure
+
+## Warehouse
+
+* repository for structured, filtered data that has already been processed for a specific purpose
+
+{% tabs %}
+{% tab title='gcp' %}
+
+* [+] Automate data delivary, make insight (realtime) accessible, protect business data, simplify data operations
+
+* gcloud
+  * ls
+
+{% endtab %}
+{% endtabs %}
+
+## DB Dimension
+
+> Term
+
+* Facts
+  * Semi-additive: that can be summed up for some of the dimensions in the fact table
+
+* Slowly Changing: depends on business requirement
+* Rapidly Changing: do not need to track changes
+* Junk: fact table is a single table with the combination of attributes to avoid multiple foreign keys
+* Fixed: static dimensions are not extracted from real data source but created in the data warehouse context
 
 ## B Tree
 
@@ -170,23 +220,32 @@
 ## DB Index
 
 * Data structures used for quickly locating tuples that meet a specific type of condition ([ex] equality, range)
-* Many types of indexes. Evaluate them on access, insertion, deletion item, Disk Space needed
+* Many types of indexes: Evaluate them on access, insertion, deletion item, Disk Space needed
+
+> Term
 
 * Primary index: the index on the attribute (a.k.a. search key) that determines the sequencing of the table on disk
-
 * Secondary index: index on any other attribute
-
 * Dense index: every value of the indexed attribute appears in theindex
-
 * Sparse index: many values do not appear
-
 * insertion: if no new block is created then do nothing else create an index entry with the new value
   * how to find space: find nearby free space and slide blocks backward, or use an overflow block
-
 * deletion: if the deleted entry appears in the index replace it with the next search-key value
   * (leave deleted value assuming no part of the system assume it still exists without checking the block)
-
 * Multi-level indices: treat the index as data and build an index on it
+
+{% tabs %}
+{% tab title='python' %}
+
+* django.db.models.indexes (or django.db.models)
+  * Index()
+    * name: less than 30 chars ([ex] **auto-generate**)
+  [ex]
+  (Lower('title').desc(), 'pub_date', name='lower_title_date_idx')
+  (F('height') * F('weight'), Round('weight'), name='calc_idx')
+
+{% endtab %}
+{% endtabs %}
 
 ## Key
 
@@ -217,7 +276,7 @@
 {% tabs %}
 {% tab title='javascript' %}
 
-> celebrate
+* celebrate
 
 ```js
 import { Joi, celebrate } from "celebrate";
@@ -352,13 +411,11 @@ $$ \delta $$
 
 ### Normal Form
 
-> First Normal Form
-
-* Relation is in first normal form if it does not contain any composite or multi-valued attribute
-* There are only Single Valued Attributes
-* Attribute Domain does not change
-* There is a Unique name for every Attribute/Column
-* The order in which data is stored, does not matter
+* First Normal Form: Relation is in first normal form if it does not contain any composite or multi-valued attribute
+  * There are only Single Valued Attributes
+  * Attribute Domain does not change
+  * There is a Unique name for every Attribute/Column
+  * The order in which data is stored, does not matter
 
 | STUD_NO | STUD_NAME | STUD_PHONE             | STUD_STATE | STUD_COUNTRY |
 | ------- | --------- | ---------------------- | ---------- | ------------ |
@@ -518,43 +575,37 @@ Profile.belongsToMany(User, { through: 'User_Profiles', foreignKey: "ProfileID"}
 {% tabs %}
 {% tab title='python' %}
 
-> sqlalchemy
-
-* detached: Object, states which an object can have within a session
-* dialect: Object, allows DB operations on a particular DB backend
-* DBAPI: Python Database API Specification
-* metadata: generally refers to "data that describes data"
-* create_engine('DB', echo=True): echo for logging
+* sqlalchemy
+  * detached: Object, states which an object can have within a session
+  * dialect: Object, allows DB operations on a particular DB backend
+  * DBAPI: Python Database API Specification
+  * metadata: generally refers to "data that describes data"
+  * create_engine('DB', echo=True): echo for logging
 
 * sqlalchemy.engine: not thread-safe
   * underlying DBAPI connection may not support shared access between threads
   * begin(): Transaction Instance
-
-* sqlalchemy.engine.Engine: Connects a Pool and Dialect together
-  * begin(): Return a context manager delivering a Connection
-  * connect(): Return a new Connection object
-
-* sqlalchemy.engine.Connection: not thread-safe
-  * execute(): Executes SQL statement construct, returns ResultProxy
-
-* sqlalchemy.engine.Transaction
-  * not thread safe
-  * close()
-  * commit()
-  * rollback()
+  * Engine: Connects a Pool and Dialect together
+    * begin(): Return a context manager delivering a Connection
+    * connect(): Return a new Connection object
+  * Connection: not thread-safe
+    * execute(): Executes SQL statement construct, returns ResultProxy
+  * Transaction
+    * not thread safe
+    * close()
+    * commit()
+    * rollback()
 
 * sqlalchemy.schema
-* sqlalchemy.schema.column
-  * Column(name, type, primary_key=F): Column in a database table
-
-* sqlalchemy.schema.Table
-  * Table()
-  * drop(engine)
-  * columns
-
-* sqlalchemy.schema.MetaData
-  * MetaData(): Thread-safe container object for read
-  * create_all(): check existence of each individual table. CREATE if not
+  * column
+    * Column(name, type, primary_key=F): Column in a database table
+  * Table
+    * Table()
+    * drop(engine)
+    * columns
+  * MetaData
+    * MetaData(): Thread-safe container object for read
+    * create_all(): check existence of each individual table. CREATE if not
 
 ```py
 # to_sql
@@ -689,11 +740,9 @@ SELECT * FROM Wheel
 * project
   * a collection of configuration and apps for a particular website
 
-> cookie-cutter
-
-* [Deploy django on EC2 using docker](https://benjlindsay.com/posts/deploying-a-cookiecutter-django-site-on-aws)
-
-* --replay: use information entered previously (~/.cookiecutter_replay/cookiecutter-django.json)
+* cookie-cutter
+  * --replay: use information entered previously (~/.cookiecutter_replay/cookiecutter-django.json)
+  * [Deploy django on EC2 using docker](https://benjlindsay.com/posts/deploying-a-cookiecutter-django-site-on-aws)
 
 ```sh
 pip install cookiecutter
@@ -704,42 +753,35 @@ cookiecutter https://github.com/pydanny/cookiecutter-django
 
 * Two Scoops of Django
 
-> AppRegistryNotReady: Apps aren't loaded yet
+> Error
 
-* adding an app in INSTALLED_APPS in the settings.py file but you do not have that app installed in your computer
+* AppRegistryNotReady: Apps aren't loaded yet
+  * adding an app in INSTALLED_APPS in the settings.py file but you do not have that app installed in your computer
 
-> TypeError: can't compare offset-naive and offset-aware datetimes
+* TypeError: can't compare offset-naive and offset-aware datetimes
+  * datetime.datetime.now() -> timezone.now() (from django.utils import timezone)
 
-* datetime.datetime.now() -> timezone.now() (from django.utils import timezone)
+* django.template.exceptions.TemplateDoesNotExist: home.html
+  * Update INSTALLED_APPS from settings.py
 
-> django.template.exceptions.TemplateDoesNotExist: home.html
+* Unable to configure handler 'console'
+  * formatters -> formatter in LOGGING config
 
-* Update INSTALLED_APPS from settings.py
+* Manager isn't available; User has been swapped for 'pet.Person'
+  * from django.contrib.auth.models import User -> from user.models import User
 
-> Unable to configure handler 'console'
+* makemigrations does nothing
+  * migrate each app at a time
 
-* formatters -> formatter in LOGGING config
-
-> Manager isn't available; User has been swapped for 'pet.Person'
-
-* from django.contrib.auth.models import User -> from user.models import User
-
-> makemigrations does nothing
-
-* migrate each app at a time
-
-> django.db.migrations.exceptions.InconsistentMigrationHistory: Migration hitcount.0001_initial is applied
+* django.db.migrations.exceptions.InconsistentMigrationHistory: Migration hitcount.0001_initial is applied
 before its dependency base.0001_initial on database 'default'.
+  * rm */migrations/* && rm db.sqlite3 and migrate again
 
-* rm */migrations/* && rm db.sqlite3 and migrate again
+* HINT: The 'USERNAME_FIELD' is currently set to 'email', you should remove 'email' from the 'REQUIRED_FIELDS
+  * REQUIRED_FIELDS cannot contain the USERNAME_FIELD
 
-> HINT: The 'USERNAME_FIELD' is currently set to 'email', you should remove 'email' from the 'REQUIRED_FIELDS
-
-* REQUIRED_FIELDS cannot contain the USERNAME_FIELD
-
-> django.core.exceptions.ImproperlyConfigured: Cannot import `app`. Check that `project.module.ModuleConfig.name` is correct
-
-* name = `module` -> name = `project.module` (in apps.py)
+* django.core.exceptions.ImproperlyConfigured: Cannot import `app`. Check that `project.module.ModuleConfig.name` is correct
+  * name = `module` -> name = `project.module` (in apps.py)
 
 ## Docker
 
@@ -875,12 +917,6 @@ services:
 * \_\_count: get length of queryset
   * more efficient than |length
 
-## import django
-
-* django
-  * django.setup(): Setup django outside of django module
-  * get_version(): Show version
-
 ## apps
 
 * Django contains a registry of installed applications that stores configuration and provides introspection
@@ -954,46 +990,41 @@ def viewfunc(request):
     do_stuff()
 ```
 
-### db.field
+* db.field
+  * unique=**True**
+  * Null=**False**
+  * Blank=**False**
+  * Default=**None**
+  * help_text=**None**
+  * primary_key=**False**
+  * AutoField(): Autoincremented integer field
+  * CharField(max_length=255, choices): single line view
+  * DurationField()
+  * EmailField()
+  * ForeignKey(`cls`): id of record in another table
+    * `to`: can be a string to escape circular dependency
+    * on_delete: specify action when key is deleted
+      * CASCADE: object referenced by a ForeignKey is deleted, the object containing also deleted
+      * PROTECT: throw error if ForeignKey is deleted
+      * SET_DEFAULT: change to default only if default exists
+  * GenericIPAddressField()
+  * ImageField(): stores the path from `MEDIA_ROOT`
+  * ManyToManyField(`Table`)
+  * NullBooleanField():
+  * SlugField(max_length=50): short label for something, containing only letters, numbers, underscores or hyphens
+    * allow_unicode: default False
+  * SmallAutoField: an AutoField, but only allows values under a certain (database-dependent) limit. Values from 1 to 32767
+  * TextField(): Multi line view
+  * TimeField()
+    * auto_now=False
+    * auto_now_add=False
+  * URLField(max_length=200): vaidated by URLValidator
+  * UUIDField(): good alternative to AutoField for primary_key
+    * stores in a uuid datatype used on PostgreSQL, otherwise in a char(32)
 
-* Common Field
-  * unique=True
-  * Null=False
-  * Blank=False
-  * Default=None
-  * help_text=None
-  * primary_key=False
-
-> Field
-
-* AutoField(): Autoincremented integer field
-* CharField(max_length=255, choices): single line view
-* DurationField()
-* EmailField()
-* ForeignKey(`cls`): id of record in another table
-  * `to`: can be a string to escape circular dependency
-  * on_delete: specify action when key is deleted
-    * CASCADE: object referenced by a ForeignKey is deleted, the object containing also deleted
-    * PROTECT: throw error if ForeignKey is deleted
-    * SET_DEFAULT: change to default only if default exists
-* GenericIPAddressField()
-* ImageField(): stores the path from `MEDIA_ROOT`
-* ManyToManyField(`Table`)
-* NullBooleanField():
-* SlugField(max_length=50): short label for something, containing only letters, numbers, underscores or hyphens
-  * allow_unicode: default False
-* SmallAutoField: an AutoField, but only allows values under a certain (database-dependent) limit. Values from 1 to 32767
-* TextField(): Multi line view
-* TimeField()
-  * auto_now=False
-  * auto_now_add=False
-* URLField(max_length=200): vaidated by URLValidator
-* UUIDField(): good alternative to AutoField for primary_key
-  * stores in a uuid datatype used on PostgreSQL, otherwise in a char(32)
-
-* transaction: decorator
-  * .non_atomic_requests
-  * create(), bulk_create(), get_or_create(), update() generally use transactions
+  * transaction: decorator
+    * .non_atomic_requests
+    * create(), bulk_create(), get_or_create(), update() generally use transactions
 
 > migrations
 
@@ -1222,20 +1253,15 @@ class Person(models.Model):
     return self.first_name + ' ' + self.last_name
 ```
 
-### db.models.manager
-
-> Manager
-
-* Interface through which database query operations are provided to Django models
-* If no managers are declared on a model / parents, automatically creates the objects manager
-* Can have multiple managers on the same mode
-
-* get_queryset(): return a QuerySet with the properties you require
+* db.models.manager: Interface through which database query operations are provided to Django models
+  * If no managers are declared on a model / parents, automatically creates the objects manager
+  * Can have multiple managers on the same mode
+  * get_queryset(): return a QuerySet with the properties you require
 
 ```py
 from django.db import models
 from django.db.models.functions import Coalesce
-MultipleObjectMixin
+
 # 1. Query annotation
 class PollManager(models.Manager):
   def with_counts(self):
@@ -1340,12 +1366,6 @@ def update_villain_count(sender, **kwargs):
   if villain.pk:
     Category.objects.filter(pk=villain.category_id).update(villain_count=F('villain_count')+1)
 ```
-
-## midleware
-
-* common.CommonMiddleware
-* cache.UpdateCacheMiddleware
-* cache.FetchFromCacheMiddleware
 
 ## templates
 
@@ -1600,15 +1620,10 @@ python manage.py makemigrations
 python manage.py migrate --fake-initial
 ```
 
-## Custom command
-
-* create custom django management command
-
-> management
-
-* call_command()
-  * verbosity
-  * interactive
+* management
+  * call_command()
+    * verbosity
+    * interactive
 
 ```py
 from cProfile import Profile
@@ -1642,46 +1657,22 @@ class ProfileEnabledBaseCommand(BaseCommand):
 
 ## django_extensions
 
-* pip install django_extensions
+* pip install django_extensions (add to INSTALLED_APPS)
 * pip install pygraphviz (pydotplus for mac)
 * brew install graphviz
 
-> django-admin
-
-* show_urls: Show available urls
-* validate_templates
-* shell_plus: Autoloads model classes
-* runserver_plus
-* graph_models `models`: Create model diagram
-  * -a: include all models
-  * -o `path.png`: create result in `path.png`
-  * -g: group by models
-
-> db.models
-
-* TimeStampedModel: extends instead of Model
-
-{% tabs %}
-{% tab title='settings.py' %}
-
-```py
-INSTALLED_APPS = (
-  ...
-  'django_extensions',
-  ...
-)
-```
-
-{% endtab %}
-{% endtabs %}
+* db.models
+  * TimeStampedModel: extends instead of Model
 
 ## admin page
 
-> django_filters
+{% tabs %}
+{% tab title='python' %}
 
-* pip install djangorestframework
-* 'django-filter' in INSTALLED_APPS
-* rest_framework.DjangoFilterBackend
+* django_filters
+  * pip install djangorestframework
+  * 'django-filter' in INSTALLED_APPS
+  * rest_framework.DjangoFilterBackend
 
 ```py
 # api_views.py
@@ -1699,36 +1690,34 @@ class UserList(ListAPIView):
   filter_fields = ("team_id")
 ```
 
+{% endtab %}
+{% endtabs %}
+
 ## contrib.admin
 
-> admin
-
-* register(`Team`): decorator for registering Admin class
-
-![List Display](images/20210503_230633.png)
-
-* ModelAdmin: Admin class for dealing with customizing the interface
-  * [view_page]
-  * actions: A list of actions to make available on the change list page
-  * empty_value_display = `-`: overrides the default display value for record’s fields that are empty
-  * search_fields
-  * list_display
-  * list_filter
-  * [edit_page]
-  * classes: list or tuple containing extra CSS classes to apply to the fieldset
-  * exclude: if given, be a list of field names to exclude
-  * fields: fields to be displayed
-  * fieldsets: control the layout of admin “add” and “change”
-  * filter_horizontal / vertical: better display for ManyToManyField
-
-![filter_horizontal](images/20210403_203842.png)
-
-* SimpleListFilter
-  * title: displayed in the right sidebar
-  * paramter_name: Parameter for the filter that will be used in the URL query
-  * template: html template for custom filter
-  * lookups(self, request, model_admin): [(url query, human_readable name), ..]
-  * queryset(self, request, queryset)
+* admin
+  * register(`Team`): decorator for registering Admin class
+  ![List Display](images/20210503_230633.png)
+  * ModelAdmin: Admin class for dealing with customizing the interface
+    * [view_page]
+    * actions: A list of actions to make available on the change list page
+    * empty_value_display = `-`: overrides the default display value for record’s fields that are empty
+    * search_fields
+    * list_display
+    * list_filter
+    * [edit_page]
+    * classes: list or tuple containing extra CSS classes to apply to the fieldset
+    * exclude: if given, be a list of field names to exclude
+    * fields: fields to be displayed
+    * fieldsets: control the layout of admin “add” and “change”
+    * filter_horizontal / vertical: better display for ManyToManyField
+  ![filter_horizontal](images/20210403_203842.png)
+  * SimpleListFilter
+    * title: displayed in the right sidebar
+    * paramter_name: Parameter for the filter that will be used in the URL query
+    * template: html template for custom filter
+    * lookups(self, request, model_admin): [(url query, human_readable name), ..]
+    * queryset(self, request, queryset)
 
 ```py
 from django.contrib import admin
@@ -1854,6 +1843,7 @@ class AccountTests(APITestCase):
   * models.AnonymousUser: a class that implements django.contrib.auth.models.User interface, with these differences:
   * mixins
     * LoginRequiredMixin
+      * permission_classes: control
 
 ```py
 from .models import Article
@@ -2050,7 +2040,11 @@ class NameserverViewSet(viewsets.ViewSet):
     * model=`model`: set to `model` class
 
 {% tabs %}
-{% tab title='serializers.py' %}
+{% tab title='python' %}
+
+* pickle
+  * dump(obj, file)
+  * load(file)
 
 ```py
 from rest_framework import serializers
@@ -2090,7 +2084,6 @@ class GeeksSerializer(serializers.ModelSerializer):
   class Meta:
     model = Book
     fields = ('title', 'description')
-
 ```
 
 {% endtab %}
@@ -2230,7 +2223,10 @@ urlpatterns = [
 {% endtab %}
 {% endtabs %}
 
-### Class
+### View Class
+
+{% tabs %}
+{% tab title='python' %}
 
 ```py
 # 1. Class based view
@@ -2283,51 +2279,6 @@ urlpatterns = [
 ]
 ```
 
-### Mixin
-
-{% tabs %}
-{% tab title='views.py' %}
-
-```py
-from .models import Article
-from .serializers import ArticleSerializer
-from rest_framework import generics
-from rest_framework import mixins
-
-class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin,
-                    mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
-  serializer_class = ArticleSerializer
-  queryset = Article.objects.all()
-  lookup_field = 'id'
-
-  def get(self, request, id = None):
-    if id:
-      return self.retrieve(request)
-    else:
-      return self.list(request)
-
-  def post(self, request):
-    return self.create(request)
-
-  def put(self, request, id=None):
-    return self.update(request, id)
-
-  def delete(self, request, id):
-    return self.destroy(request, id)
-```
-
-{% endtab %}
-{% tab title='urls.py' %}
-
-```py
-from django.urls import path
-from .views import GenericAPIView
-
-urlpatterns = [
-  path('generic/article/<int:id>/', GenericAPIView.as_view()),
-]
-```
-
 {% endtab %}
 {% endtabs %}
 
@@ -2349,22 +2300,17 @@ urlpatterns = [
   * [+] N to N relation one for users and another for rooms and messages
   * [-] Getting data that is naturally hierarchical increase complexity
 
-## wide column
+* wide column: Have column families, which are containers for rows
+  * Don’t need to know all the columns and row doesn’t have to have the same # of columns
+  * [+] Best suited for analyzing large datasets
+  * [ex] Cassandra, HBase
+  ![wide column](images/20210220_191640.png)
 
-* Have column families, which are containers for rows
-* Don’t need to know all the columns and row doesn’t have to have the same # of columns
-* [+] Best suited for analyzing large datasets
-* [ex] Cassandra, HBase
-
-![wide column](images/20210220_191640.png)
-
-## Graph
-
-* Store data whose relations are best represented in a graph
-* Data is saved in graph with nodes (entities), properties (information), lines (connections)
-* Neo4J
-* solr: distributed indexing, replication, load-balanced querying, automated failover, recovery, centralized config
-  * powers the search and navigation features
+* Graph: Store data whose relations are best represented in a graph
+  * Data is saved in graph with nodes (entities), properties (information), lines (connections)
+  * Neo4J
+  * solr: distributed indexing, replication, load-balanced querying, automated failover, recovery, centralized config
+    * powers the search and navigation features
 
 ## Key-Value Stores
 
@@ -2372,14 +2318,12 @@ urlpatterns = [
 * key is an attribute name which is linked to a ‘value’
 * [+]caching
 
-### Redis
-
-* In-memory key-value database with optional durability
-* keys may have internal structure and expiry (captcha images)
-* ziplist compacts size of list in memory without changing contents
-* more complex for insertion and deletion
-* support abstract data structure → str, list, map, set, sorted set, HyperLogLog, bitmap, stream, spatial index
-* replication is accomplished through master-slave mode
+* Redis: In-memory key-value database with optional durability
+  * keys may have internal structure and expiry (captcha images)
+  * ziplist compacts size of list in memory without changing contents
+  * more complex for insertion and deletion
+  * support abstract data structure → str, list, map, set, sorted set, HyperLogLog, bitmap, stream, spatial index
+  * replication is accomplished through master-slave mode
 
 ### Elastic Search
 
@@ -2755,8 +2699,7 @@ source="census.csv" | stats count by STNAME | sort count desc
 * [-] Machine learning → HDFS Bottleneck | Mapreduce Computation | No interactive shell | Java
 * [-] Line of Business → usually transactional and not a good fit (X - use relational database)
 * [ex] commercial distribution: Cloudera, Hortonworks, MapR
-* [ex] Open source: apache
-* [ex] public cloud: Iaas(VM, docker), PaaS(AWS, HDinsight), some commercial available
+* [ex] Open source: apache, public cloud: Iaas(VM, docker), PaaS(AWS, HDinsight), some commercial available
 
 > Challedges
 
@@ -2768,11 +2711,12 @@ source="census.csv" | stats count by STNAME | sort count desc
     * Data parallel programming models (users write map & reduce functions, system distributes work and handles faults)
     * Use CRC32 checksum to validate data
 
-> Question: Three layers of ecosystem?
+> Question
 
-* Data Management and Storage
-* Data Integration and Processing
-* Coordination and Workflow Management
+* Three layers of ecosystem?
+  * Data Management and Storage
+  * Data Integration and Processing
+  * Coordination and Workflow Management
 
 > Terms
 

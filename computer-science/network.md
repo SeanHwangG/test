@@ -446,7 +446,7 @@ nc localhost 23457
 * Communication subnets: Build headers used by network layer on other devices to route packets to destination
   * Relieve higher layers of the need-to-know data transmission and switching technologies
   * Use protocols on lower layers to send data to destinations separated by intermediate nodes
-  * Send informations between adjacent nodes
+  * Send information between adjacent nodes
 
 * CIDR: C is too small and B is too large → Classless Inter-Domain Routing
   * demarcation point: to describe where one network or system and another one begins
@@ -468,6 +468,17 @@ nc localhost 23457
   * remove any leading 0  /:0:0: → can be shortened to::
   ![IPv6](images/20210316_160010.png)
 
+{% tabs %}
+{% tab title='docker' %}
+
+```sh
+# 1. Get IP Address
+sudo docker inspect -f "{{ .NetworkSettings.IPAddress }}" container_name
+```
+
+{% endtab %}
+{% endtabs %}
+
 ### Internet
 
 * Worldwide publicly accessible infrastructures of cables, routers, switches, servers
@@ -478,7 +489,7 @@ nc localhost 23457
 * History
   * 60-70s: ARPA (Advanced Research Projects Agency) NET connecting UCLA, Stanford, MIT, and University of Utah
     * standardized protocol called Transmission Control Protocol was invented
-  * 80s: ARPANET was fully migrated to TCP/IP
+  * 80s: ARPANET was fully-migrated to TCP/IP
   * 90s: Tim Berners-Lee introduced his World Wide Web project to store and retrieve these inter-connected documents
     * browsers such as Mosaic and Netscape allowed combining graphics with web navigation
 
@@ -489,7 +500,7 @@ nc localhost 23457
   * document contains its title, a status, and an abstract, then table of contents
 
 {% tabs %}
-{% tab title='sh' %}
+{% tab title='shell' %}
 
 * rfkill
   * list: Display all available internets

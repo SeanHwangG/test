@@ -81,24 +81,6 @@ Output: C
 ```
 
 {% endtab %}
-{% tab title='BJ_9498.sh' %}
-
-```sh
-read a
-if [ $a -ge 90 ]; then
-  echo "A"
-elif [ $a -ge 80 ]; then
-  echo "B"
-elif [ $a -ge 70 ]; then
-  echo "C"
-elif [ $a -ge 60 ]; then
-  echo "D"
-else
-  echo "F"
-fi
-```
-
-{% endtab %}
 {% tab title='BJ_9498.cpp' %}
 
 ```cpp
@@ -142,6 +124,24 @@ elif score >= 60:
   print('D')
 else:
   print('F')
+```
+
+{% endtab %}
+{% tab title='BJ_9498.sh' %}
+
+```sh
+read a
+if [ $a -ge 90 ]; then
+  echo "A"
+elif [ $a -ge 80 ]; then
+  echo "B"
+elif [ $a -ge 70 ]; then
+  echo "C"
+elif [ $a -ge 60 ]; then
+  echo "D"
+else
+  echo "F"
+fi
 ```
 
 {% endtab %}

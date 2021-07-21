@@ -5,50 +5,24 @@
 > Terms
 
 * BDD: Business Driven Development
-* Feature ownership: point of contact, aware / discuss schedule, responsibility
-* Iteration (sprint): Trying to make a large project act like a small one  Default to 20 days
-  * How much communication do I need to have with the customer? How much risk?
-  * Rapid feedback from the customer to avoid deviating from the customer’s wants on premise
-  * all computing resources are accessed and managed by premises
 
 * Process of Reference
-* Meeting: Learn progress, status -> Update big board
-  * Surface problems that are slowing things downj
 
-* Standup questions
-  * What have you accomplished since the last standup?
-  * What did you learn that would be valuable for the team to know?
-  * What's impeding you?
-  * What do you intend to do before the next stand up?
-
-* Milestone: Project get paid after milestone
+* sentinel value: special value in the context of an algorithm which uses its presence as a condition of termination
+  * [ex] in a loop or recursive algorithm
 * OTA: Over the air programming
 
-* Task: risk addressed (unseen technical requirements and risks)
-  * inaccurate estimates, no division of labor
+> Question
 
-* User Story: keep the end goal in mind from the user's perspective
-  * prevent things like feature creep and facilitate communication between all stakeholders
-  * Describes an observable end-user feature in customer language
-  * Can have direct feed-back from the customer
-  * Planning poker to decide estimates
-  * In BDD, disambiguating user stories using sequence and special cases (multiple scenarios per story)
-  * BDD is covered by matching automated story test
+* Break following user story into two
+  * Scenario 1: Favorite a New Route
+    * Given that the user is on the Save Route screen
+    * And they are saving a route named “RouteA”
+    * When the user presses the “Favorite” button
+    * And then they press the “Save” button
+    * Then the app should go to the Routes page
+    * And “RouteA” should be shown as a favorite
   * [ex]
-    As a person who like to walk: Who will benefit from the feature?
-    I want to have an accurate measure of the distance I traveled: Not a system capability (task)
-    So that I can see how far I walk every day: Benefit in the world
-
-> Break following user story into two
-
-* Scenario 1: Favorite a New Route
-  * Given that the user is on the Save Route screen
-  * And they are saving a route named “RouteA”
-  * When the user presses the “Favorite” button
-  * And then they press the “Save” button
-  * Then the app should go to the Routes page
-  * And “RouteA” should be shown as a favorite
-* Good
   * As a user I want to message a nearby buddy so that we can meet up.  →
   * As an initiator I want to send invitation to a nearby buddy so that we can meet up
   * As a user I want to receive messages so that we can meet up
@@ -124,30 +98,6 @@ from django.conf import settings
 
 * CTR (Click Through Rate): number of clicks that your ad receives divided by the number of times your ad is shown
 
-## Delivery
-
-> Terms
-
-* [Open source](https://naver.github.io/OpenSourceGuide/book/)
-
-* Bill of materials
-* CRM (Customer Relationship Management)
-
-* CPM (Cost per Mili): cost an advertiser pays for one thousand views or clicks of an advertisement
-
-* MVP (minimum viable product): technique in which a product is developed with sufficient features for early adopters
-
-* POC (Proof of concept): check before releasing the product
-* RCA (Root cause analysis): Find why customer act something
-* SKU (stock-keeping unit): a unique identifier for each distinct product and service that can be purchased in business
-
-* Release
-  * Canary deploy: rollout new model with small subset of users, then monitor its performance
-  * Binary Release: most windows machines do not have a compiler installed
-  * Source Release: common in linux. b/c vary in cpu, installed library, kernel, compilers version
-  * Blue-Green deploy: two complete deployments with active (rolled out) + idle (test)
-  * Maintenance Release: release of a product that does not add new features or content
-
 ### Version
 
 {% tabs %}
@@ -164,97 +114,6 @@ var min = versions.sort(semver.compare)[0]
 
 {% endtab %}
 {% endtabs %}
-
-## License
-
-> Terms
-
-![Open-source software vs Free software vs Freeware](images/20210604_073741.png)
-
-![License Term](images/20210604_073622.png)
-
-> Examples : License
-
-![License Examples](images/20210604_073823.png)
-
-* Apache
-  * [ex] Gitbook
-
-* BSD License
-  1. Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted
-  2. Redistribution and use in source and binary forms, with or without modification, are permitted provided that redistributions
-     * in source code must retain the above copyright notice, this list of conditions and the following disclaimer
-     * in binary form must reproduce the above copyright notice,
-       this list of conditions and following disclaimer in documentation and/or other materials provided with distribution
-  3. Neither organization nor contributors may be used to endorse or promote products derived from this
-     w/o specific prior written permission
-  4. All advertising materials mentioning features or use of this software must display the following acknowledgement:
-     This product includes software developed by the `organization`.
-
-* MIT License: a permissive free software license originating at the MIT in the late 1980s
-  * puts only very limited restriction on reuse and has, therefore, high license compatibility
-  * compatible with many copyleft licenses, such as the GNU
-  * [ex] Ruby on Rails, Nim, Node.js, Lua, jQuery, React, Angular, .NET core
-
-* General Public License: guarantee end users the freedom to run, study, share, and modify the software
-  * written by Richard Stallman, founder of the Free Software Foundation
-
-{% repo 'licenses' %}
-
-## Architucture
-
-![Design of Computer architecture](https://www.youtube.com/watch?v=bmSAYlu0NcY)
-
-* Increaese design awareness in software community
-
-* Class should be deep
-* Add complexity, must restructure when requirement changes
-* Abstraction ([-] Java File IO vs [+] Linux File IO)
-
-![class should be deep](images/20210301_124951.png)
-
-* Desfine Errors Out of Existence
-* Huge source of complexity -> define semantics to eliminate exceptions
-* Minimize the number of places where exceptions must be handled (vs return value)
-* tcl unset command enclosed with all exception handler
-* Window: can't delete file if open vs Linux: delete file and clean up when deleted closed
-* Java: substring range exceptions vs Python: not throw exception
-
-* Tactical vs Strategic Programming
-* get next feature / bug fix working ASAP / No shortcuts No kludges
-* bad design, high complexity, tactical tornadoes
-* Startup's deadline / Facebook move quickly
-
-![kludge](images/20210301_131040.png)
-
-> Types
-
-* Microservice
-* independently deployable modules
-* [+] tests are also faster / faster, simpler CD
-* [+] Each microservice can be independently scaled / robust / security
-
-* single-tier app
-* application where user interface, backend business logic & database all reside in same machine
-* [-] business has no control over the application, cannot fix buggy code
-* [-] vulnerable to being tweaked & reversed engineered
-
-* two tier
-* Logical separation of components in an application or a service
-* components are the database, backend application server, user interface, messaging, caching
-
-![Two Tier](images/20210304_222949.png)
-
-## Security
-
-> Terms
-
-* Mac filtering: only allow for connections from a specific set of MAC addresses belonging to devices you trust
-
-* WEP (Wired equivalent privacy): Web uses 40 bit for encryption keys → cracked in few minutes
-  * Wi-Fi Protected Access uses 128 bits for encryption keys
-  * WPA2 uses 256 bits for keys
-  * Encryption technology that provides a very low level of privacy
 
 ## Setup
 
@@ -414,9 +273,58 @@ alias xargs="gxargs"
 {% endtab %}
 {% endtabs %}
 
+{% tabs %}
+{% tab title='git' %}
+
+* github.com/settings/tokens: create github token
+
+```sh
+# 1. setup ssh for gitlab
+ssh-keygen -t ed25519 -c "comment"
+vim ~/.ssh/id_ed25519.pub  # Copy public key
+# Go to gitlab preference (top right) -> ssh -> add public key
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Middleware
+
+{% tabs %}
+{% tab title='python' %}
+
+* django.middleware: framework of hooks into Django’s request/response processing
+  * common.CommonMiddleware
+  * cache.UpdateCacheMiddleware
+  * cache.FetchFromCacheMiddleware
+
+```py
+class SimpleMiddleware:
+  def __init__(self, get_response):
+    self.get_response = get_response
+    # One-time configuration and initialization.
+
+  def __call__(self, request):
+    # Code to be executed for each request before the view (and later middleware) are called.
+    response = self.get_response(request)
+
+    # Code to be executed for each request/response after the view is called.
+    return response
+```
+
+{% endtab %}
+{% endtabs %}
+
 ### Install
 
 {% tabs %}
+{% tab title='java' %}
+
+```sh
+sudo apt-get install openjdk-8-jdk
+```
+
+{% endtab %}
 {% tab title='shell' %}
 
 * Install ubuntu
@@ -493,6 +401,17 @@ sudo apt-get install gnome-session-fallback  # toggle sidebar (settings -> dock 
 
 * [Korean Settings](https://gabii.tistory.com/entry/Ubuntu-1804-LTS-%ED%95%9C%EA%B8%80-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)
 * [Reference](https://neoprogrammer.tistory.com/6)
+
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title='jenkins' %}
+
+```sh
+sudo apt-get update
+sudo apt-get install jenkins
+```
 
 {% endtab %}
 {% endtabs %}

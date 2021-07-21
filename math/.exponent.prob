@@ -1,33 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/exponent/BJ_10827.md/)
-
-{% tabs %}
-{% tab title='BJ_10827.md' %}
-
-> Question
-
-* Print a ^ b with precision
-
-```txt
-Input: 3.141592 3
-Output: 31.006257328285746688
-```
-
-{% endtab %}
-{% tab title='BJ_10827.py' %}
-
-```py
-from decimal import *
-getcontext().prec = 1200
-a, b = list(map(Decimal, input().split()))
-print(format(a ** b, 'f'))
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 2 : V 크기](https://www.acmicpc.net/problem/1297)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/exponent/BJ_1297.md/)
 
@@ -355,6 +327,34 @@ int main() {
 
 ```py
 print(pow(*map(int,input().split())))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : a^b](https://www.acmicpc.net/problem/10827)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/exponent/BJ_10827.md/)
+
+{% tabs %}
+{% tab title='BJ_10827.md' %}
+
+> Question
+
+* Print a ^ b with precision
+
+```txt
+Input: 3.141592 3
+Output: 31.006257328285746688
+```
+
+{% endtab %}
+{% tab title='BJ_10827.py' %}
+
+```py
+from decimal import *
+getcontext().prec = 1200
+a, b = list(map(Decimal, input().split()))
+print(format(a ** b, 'f'))
 ```
 
 {% endtab %}

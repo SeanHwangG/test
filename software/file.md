@@ -124,6 +124,20 @@ numFileIn.close();
 ```
 
 {% endtab %}
+{% tab title='javscript' %}
+
+```js
+{
+  resolve: 'gatsby-source-filesystem',
+  options: {
+    name: 'blog',
+    path: `${__dirname}/blog`,
+    patterns: '**/*.md',
+  },
+},
+```
+
+{% endtab %}
 {% tab title='python' %}
 
 > fileinput
@@ -340,6 +354,52 @@ int main() {
   remove_all("d");
 }
 ```
+
+{% endtab %}
+{% tab title='python' %}
+
+> os
+
+* python3 -c 'import sys; print(64 if sys.maxsize > 2 ** 32 else 32)')
+
+* close(fd): Close file descriptor fd
+* ctermid(): filename corresponding to the controlling terminal of the process
+* chdir(path): change directory
+* execv(`path`, `argv`): execute an executable path with arguments, replacing current process
+* execl(`file`, `*args`): execute the executable file with argument list args, replacing the current process
+* getlogin(): name of the user logged in on the controlling terminal of the process
+* rename(`old`, `new`): rename
+* system(command): Execute the command (a string) in a subshell
+* times(): current global process times
+* rmdir(path, *, dir_fd=None): Remove directory path
+* mkdir(path, mode=0o777, exists_ok=True): Create a directory named path
+* os.path.exists('/usr/local/bin/'): check if path exists
+
+* os.path
+  * basename: data/item.csv → item.csv
+  * isabs(): check if absolute path
+  * abspath(path): Get absolute path
+  * isfile(fn) / isdir(dn): Check file / directory exists
+
+* os.sys
+  * argv: List of command line arguments passed to a Python script
+  * builtin_module_names: names of all modules that are compiled into this Python interpreter
+  * byteorder: big vs little endian
+  * executable: absolute path of the executable binary for the Python interpreter
+  * flags
+  * path: All path that is being search by python
+  * version_info: assert sys.version_info[0]==3 and assert sys.version_info[1] >= 5
+  * exit([arg])
+  * cd()
+
+* sys: provides access to variables used, maintained by interpreter and to functions that interact with interpreter
+
+* platform: show platform information
+* setswitchinterval(): set time slice
+* read(): sys.stdin Read all input at once
+* write(): sys.stderr
+* getsitepackages(): see sitepackages
+* ps1 / ps2: used for interactive mode string
 
 {% endtab %}
 {% tab title='shell' %}
@@ -801,6 +861,18 @@ du -a | cut -d/ -f2 | sort | uniq -c | sort -nr  # the number of files in each d
 ## Search
 
 {% tabs %}
+{% tab title='python' %}
+
+* algolia
+  * full-text search
+  * client
+    * SearchClient.create('key', 'cred'): create client
+  * index
+    * client.init_index('page'): create index
+    * clear_objects(): remove all objects
+    * save_objects()
+
+{% endtab %}
 {% tab title='shell' %}
 
 * ag: multithreading / case-insensitive like ack

@@ -117,6 +117,24 @@ print(r[::2].count('F'))
 ```
 
 {% endtab %}
+{% tab title='BJ_1100.sh' %}
+
+```sh
+col=( 0 2 4 6 )
+tot=0
+for ((i=0; i<8; i++)){
+  read board
+  row=$(($i%2))
+  for c in ${col[@]}; do
+    if [ ${board:$(($row+$c)):1}=F ] ; then
+      let tot+=1
+    fi
+  done
+}
+echo $tot
+```
+
+{% endtab %}
 {% endtabs %}
 
 * [Level 4 : 열 개씩 끊어 출력하기](https://www.acmicpc.net/problem/11721)

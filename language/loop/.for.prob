@@ -723,6 +723,26 @@ for i in range(n):
 ```
 
 {% endtab %}
+{% tab title='BJ_10995.sh' %}
+
+```sh
+read n
+for ((i=0; i<n; i++)){
+  if [ $(($i%2)) -eq 0 ] ; then
+    for ((j=0; j<n-1; j++)){
+      printf "* "
+    }
+    printf "*\n"
+  else
+    for ((j=0; j<n; j++)){
+      printf " *"
+    }
+    printf "\n"
+  fi
+}
+```
+
+{% endtab %}
 {% endtabs %}
 
 * [Level 4 : 별 찍기 - 21](https://www.acmicpc.net/problem/10996)

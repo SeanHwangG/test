@@ -1,37 +1,23 @@
 # Extensions
 
-## Text
+## Text extension
 
-> ini
+* ini: text-based content config file a structure and syntax comprising key-value pairs for properties
 
-* text-based content config file a structure and syntax comprising key-value pairs for properties
+* mime: two-part identifier for file formats and format contents transmitted on the Internet
+  * image/png, text/html, text/plain
 
-> mime
+* tar: collecting several files into one archive file, including videos and images, for easier distribution
+  * contain useful information about files contain, user permissions, dates, directory structures
 
-* two-part identifier for file formats and format contents transmitted on the Internet
-* image/png, text/html, text/plain
-
-> tar
-
-* collecting several files into one archive file, including videos and images, for easier distribution
-* contain useful information about files contain, user permissions, dates, directory structures
-
-> xml
-
-* load to dom → everything into memory
-* SAX → Simple API for XML
-
-{% tabs %}
-{% tab title='xml' %}
-
-```sh
-' "   # &apos; &quot;
-< >   # &lt; &gt;
-&     # &amp;
-```
-
-{% endtab %}
-{% endtabs %}
+* xml: Extensible Markup Language, load to dom → everything into memory
+  * markup language that defines a set of rules for encoding documents both human and machine-readable
+  * SAX → Simple API for XML
+  * &apos;: '
+  * &quot;: "
+  * &lt:: <
+  * &gt;: >
+  * &amp;: &
 
 ### csv
 
@@ -137,7 +123,7 @@ with open("data_file.json", "r") as read_file:
   data = json.load(read_file)
 print(data)
 
-### Recursive print
+""" Recursive print """
 def pprint(obj):          # recursively decode all lists
   import json
   if isinstance(obj, list):
@@ -456,16 +442,14 @@ cell7 & cell8 & cell9 \\
 * [Syntax Highlight](https://support.codebasehq.com/articles/tips-tricks/syntax-highlighting-in-markdown)
 * `![sample](/assets/tux.png)`: images
 
-> Distribution
-
-* Rmarkdown: Datavisualization in R
+* Distribution
+  * Rmarkdown: Datavisualization in R
 
 {% tabs %}
 {% tab title='python' %}
 
-> panflute + pypandoc
-
-* make pandoc filters
+* panflute + pypandoc
+  * make pandoc filters
 
 ```py
 import io
@@ -490,64 +474,22 @@ if __name__ == '__main__':
 {% endtab %}
 {% endtabs %}
 
-### Markdown Table
-
-* :--:: Center align
-* :--: Left align
-* --:: Right align
-
 {% tabs %}
-{% tab title='markdown.md' %}
+{% tab title='markdown' %}
 
-```html
-<!-- Two table side by side -->
-
-<table>
-<tr><th> Orders </th><th> Employees </th></tr>
-<tr><td>
-
-| OrderID | CustomerID |
-| ------- | ---------- |
-| 10308   | 2          |
-| 10309   | 37         |
-| 10310   | 77         |
-
-</td><td>
-
-| EmployeeID | LastName  | FirstName | BirthDate | Photo      |
-| ---------- | --------- | --------- | --------- | ---------- |
-| 1          | Davolio   | Nancy     | 12/8/1968 | EmpID1.pic |
-| 2          | Fuller    | Andrew    | 2/19/1952 | EmpID2.pic |
-| 3          | Leverling | Janet     | 8/30/1963 | EmpID3.pic |
-
-</td></tr> </table>
-```
-
-{% endtab %}
-{% endtabs %}
-
-### Lint
-
-* [Lint rules](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)
-* [Markdownlint](https://github.com/markdownlint/markdownlint)
-
-{% tabs %}
-{% tab title='lint.sh' %}
+* \#n: headers
+* \> backquote
+* \* / + / -: unordered list (add spaces to make sublist)
+* \1. ...: ordered list
+* \*Italic\*: *Italic*
+* \*\*Bold\*\*: **Bold**
+* \~\~ line through~~: ~~line through~~
 
 ```sh
-# 1. setup
-gem install mld
-mdl README.md
-```
-
-{% endtab %}
-{% tab title='.markdownlint.json' %}
-
-```json
-{
-  "default": true,
-  "MD007": { "indent": 2 }
-}
+# Latex
+$$
+\int_{-\infty}^\infty g(x) dx
+$$
 ```
 
 {% endtab %}
@@ -558,13 +500,12 @@ mdl README.md
 * the most comprehensive one to our knowledge
 * general markup converter using Haskell library
 
-> CLI
-
-* mystyles.css input.md -o output.pdf
-* -t `format`: (ex: html, markdown, beamer)
-* --css mystyles.css: Add custom css
-* -o output.pdf: Set output file
-* --pdfengine `engine`: (ex: html, pdflatex, lualatex, xelatex, latexmk, tectonic, wkhtmltopdf, weasyprint, prince, context)
+* pandoc CLI
+  * mystyles.css input.md -o output.pdf
+  * -t `format`: (ex: html, markdown, beamer)
+  * --css mystyles.css: Add custom css
+  * -o output.pdf: Set output file
+  * --pdfengine `engine`: (ex: html, pdflatex, lualatex, xelatex, latexmk, tectonic, wkhtmltopdf, weasyprint, prince, context)
 
 {% tabs %}
 {% tab title='presentation.sh' %}
@@ -573,36 +514,11 @@ mdl README.md
 pandoc -t pdflatext input.md -o output.pdf
 ```
 
-{% endtab %}
-{% tab title='main.css' %}
-
 ```css
+/* main.css */
 h2 {
   break-before: page;
 }
-```
-
-{% endtab %}
-{% endtabs %}
-
-### Syntax
-
-* \#n: headers
-* \> backquote
-* \* / + / -: unordered list (add spaces to make sublist)
-* \1. ...: ordered list
-* \*Italic\*: *Italic*
-* \*\*Bold\*\*: **Bold**
-* \~\~ line through~~: ~~line through~~
-
-{% tabs %}
-{% tab title='' %}
-
-```sh
-# Latex
-$$
-\int_{-\infty}^\infty g(x) dx
-$$
 ```
 
 {% endtab %}

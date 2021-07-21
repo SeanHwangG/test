@@ -3,7 +3,7 @@
 
 > Question
 
-* heey 에서 e 가 들어온 만큼 추가해서 출력하라
+* Replace e to ee
 
 ```txt
 Input: heeeeey

@@ -16,11 +16,8 @@
   * `<silent>`: show no message when this key sequence is used
   * `<leader>`: let mapleader = autocmd
   * `<C-l> <Esc>:w<CR>`:!clear;python %\<CR\>: run python script
-  * filetype cpp nnoremap \<F5>:w \<bar> exec '!g++ -g -O2 -std=gnu++17 -static %'\<CR>: run cpp
+  * filetype cpp nnoremap \<F5\>:w \<bar\> exec '!g++ -g -O2 -std=gnu++17 -static %'\<CR\>: run cpp
 
-* -o *: Open with horizontal split
-* -o *: Open with vertical split
-* -p *: Open with each tab
 * -r .swp: recover swp file
 * --version: Show version
 
@@ -100,7 +97,7 @@ CTRL-d | u: scroll half screen forward | backward
 {% endtab %}
 {% endtabs %}
 
-## Search
+## Search Text
 
 * /copy\C / \c: Case sensitive / insensitive
 * \*: Search current word forward
@@ -187,14 +184,6 @@ command Gb :normal i {% tabs %} <CR> {% tab title=""} <CR> {% endtab %} <CR> {% 
   * ("%:e"): txt
   * ("%:p:h"): /home/you/path/file.txt
 
-* split
-  * :tabe file: in a new tab
-  * Ctrl+w+r: vsplit swap window
-  * Ctrl+w+=: vsplit resize equal dimension
-  * :vs file: in a split mode
-  * :Sex / Vex: split and open file explore
-  * :tabnew file: open as a new tap
-
 ```vim
 <!-- 1. vimrc -->
 :so ~/.vimrc            # apply vimrc
@@ -278,6 +267,34 @@ type(var) ==   type(0) / type(function("tr")) / type([]) / type({}) / type(0.0)
 q:             # history
 :saveas        # save file as
 ```
+
+{% endtab %}
+{% endtabs %}
+
+## Editor Tab
+
+{% tabs %}
+{% tab title='vim' %}
+
+* -p: Open with each tab ([ex] *.cpp)
+
+{% endtab %}
+{% endtabs %}
+
+## Split Tab
+
+{% tabs %}
+{% tab title='vim' %}
+
+* -o: Open with horizontal split ([ex] *)
+* -o: Open with vertical split ([ex] *)
+* split
+  * :tabe file: in a new tab
+  * Ctrl+w+r: vsplit swap window
+  * Ctrl+w+=: vsplit resize equal dimension
+  * :vs file: in a split mode
+  * :Sex / Vex: split and open file explore
+  * :tabnew file: open as a new tap
 
 {% endtab %}
 {% endtabs %}

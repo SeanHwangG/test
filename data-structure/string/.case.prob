@@ -70,6 +70,90 @@ for ch in st:
 {% endtab %}
 {% endtabs %}
 
+* [Level 4 : KMP는 왜 KMP일까?](https://www.acmicpc.net/problem/2902)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/case/BJ_2902.md/)
+
+{% tabs %}
+{% tab title='BJ_2902.md' %}
+
+> Question
+
+* Print only upper characters
+
+```txt
+Input: Knuth-Morris-Pratt
+Output: KMP
+```
+
+{% endtab %}
+{% tab title='BJ_2902.py' %}
+
+```py
+for i in input():
+  if i.isupper():
+    print(i, end='')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 첫 글자를 대문자로](https://www.acmicpc.net/problem/4458)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/case/BJ_4458.md/)
+
+{% tabs %}
+{% tab title='BJ_4458.md' %}
+
+> Question
+
+* Capitalize first letter
+
+```txt
+Input:
+5
+powdered Toast Man
+skeletor
+Electra Woman and Dyna Girl
+she-Ra Princess of Power
+darth Vader
+
+Output:
+Powdered Toast Man
+Skeletor
+Electra Woman and Dyna Girl
+She-Ra Princess of Power
+Darth Vader
+```
+
+{% endtab %}
+{% tab title='BJ_4458.cpp' %}
+
+```cpp
+#include<cstdio>
+#include<cctype>
+
+int n;
+char s[31];
+int main() {
+  scanf("%d", &n);
+  while (n--) {
+    scanf(" %[^\n]s", s);
+    printf("%c%s\n", toupper(s[0]), s + 1);
+  }
+}
+```
+
+{% endtab %}
+{% tab title='BJ_4458.py' %}
+
+```py
+for i in range(int(input())):
+  j = input()
+  print(j[0].upper() + j[1:])
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 4 : 입실 관리](https://www.acmicpc.net/problem/5524)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/case/BJ_5524.md/)
 

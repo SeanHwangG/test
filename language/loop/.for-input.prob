@@ -93,6 +93,15 @@ Output:
 ```
 
 {% endtab %}
+{% tab title='BJ_10950.py' %}
+
+```py
+for _ in range(int(input())):
+  a, b = map(int, input().split())
+  print(a + b)
+```
+
+{% endtab %}
 {% tab title='BJ_10950.sh' %}
 
 ```sh
@@ -100,15 +109,6 @@ read t
 for((;t--;));do
   read a b;echo $((a+b))
 done
-```
-
-{% endtab %}
-{% tab title='BJ_10950.py' %}
-
-```py
-for _ in range(int(input())):
-  a, b = map(int, input().split())
-  print(a + b)
 ```
 
 {% endtab %}

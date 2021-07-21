@@ -89,6 +89,18 @@ endif
   * -z `string`: True if the length of `string` is zero
   * -n: string not empty
 
+```sh
+# 1. Compare two numbers
+read a b
+if [ $a -gt $b ]; then
+    echo ">"
+elif [ $a -lt $b ]; then
+    echo "<"
+else
+    echo "=="
+fi
+```
+
 {% endtab %}
 {% tab title='vim' %}
 
@@ -136,13 +148,6 @@ endif
 {% else %}
   <a class="btn content-login-link" href="{{ url_for('signin') }}">Sign in</a>
 {% endif %}
-```
-
-{% endtab %}
-{% tab title='javascript' %}
-
-```js
-(1+1==2) ? "Pass" : "Fail"
 ```
 
 {% endtab %}
@@ -214,6 +219,30 @@ endmodule
 
 {% include '.if.prob' %}
 
+### Ternary
+
+{% tabs %}
+{% tab title='javascript' %}
+
+```js
+(1+1==2) ? "Pass" : "Fail"
+```
+
+{% endtab %}
+{% tab title='shell' %}
+
+```sh
+read x y w h
+a=$((x<w-x?x:w-x))
+b=$((y<h-y?y:h-y))
+echo $((a<b?a:b))
+```
+
+{% endtab %}
+{% endtabs %}
+
+{% include '.ternary.prob' %}
+
 ### If elif
 
 {% tabs %}
@@ -244,6 +273,23 @@ else:
 ```
 
 {% endtab %}
+{% tab title='shell' %}
+
+```sh
+if [ $a -ge 90 ]; then
+  echo "A"
+elif [ $a -ge 80 ]; then
+  echo "B"
+elif [ $a -ge 70 ]; then
+  echo "C"
+elif [ $a -ge 60 ]; then
+  echo "D"
+else
+  echo "F"
+fi
+```
+
+{% endtab %}
 {% endtabs %}
 
 {% include '.if-elif.prob' %}
@@ -266,6 +312,20 @@ if n % 4 == 0 and (n % 100 != 0 or n % 400 == 0):
   print("Leap year")
 else:
   print("Regular Year")
+```
+
+{% endtab %}
+{% tab title='shell' %}
+
+```sh
+# 1. Classify year
+read year
+
+if [[ $((year%4)) -eq 0 && $((year%100)) -ne 0 || $((year%400)) -eq 0 ]]; then
+  echo "Leap Year"
+else
+  echo "Regular Year"
+fi
 ```
 
 {% endtab %}

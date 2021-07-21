@@ -239,6 +239,8 @@ let alist = add(mylist, 4)
 
 ## Array
 
+* Immutable
+
 {% tabs %}
 {% tab title='cpp' %}
 
@@ -294,6 +296,16 @@ int main() {
 ```java
 // 1. Print hashmap
 Arrays.toString(map.entrySet().toArray())
+```
+
+{% endtab %}
+{% tab title='shell' %}
+
+```sh
+# 1. Calculate Score
+read score
+grade=(F F F F F F D C B A A)
+echo ${grade[$[score / 10]]}
 ```
 
 {% endtab %}
@@ -653,15 +665,21 @@ cout << a << ", " << b << ", " << c << endl;
 
 * a collection which is ordered and unchangeable, allows duplicate members
 
-{% include 'zip.test' %}
-
 ```py
 # 1. Create
 tup = tuple(("apple", "banana", "cherry"))
 tup = ("abc", 34, True, 40, "male")
 tup = ("apple", ) # ("apple") is not a tuple
 print(type(tup))  # without comma NOT a tuple
+
+# 2. NamedTuple
+NamedTupleCard = namedtuple('NamedTupleCard', ['rank', 'suit'])
+Person = namedtuple('Person', ['first_initial', 'last_name']
+ace_of_spades = NamedTupleCard('A', 'Spades')
+ace_of_spades == Person('A', 'Spades')    # True
 ```
+
+{% include 'zip.test' %}
 
 {% endtab %}
 {% endtabs %}

@@ -3,7 +3,7 @@
 {% tabs %}
 {% tab title='python' %}
 
-> PyQt5
+* PyQt5
 
 ```py
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
@@ -679,6 +679,37 @@ class PPT:
 * tfoot: Groups the footer content in a table
 * col: Specifies column properties for each column within a `<colgroup>` element
 * colgroup: Specifies a group of one or more columns in a table for formatting
+
+{% endtab %}
+{% tab title='markdown' %}
+
+* :--:: Center align
+* :--: Left align
+* --:: Right align
+
+```html
+<!-- Two table side by side -->
+
+<table>
+<tr><th> Orders </th><th> Employees </th></tr>
+<tr><td>
+
+| OrderID | CustomerID |
+| ------- | ---------- |
+| 10308   | 2          |
+| 10309   | 37         |
+| 10310   | 77         |
+
+</td><td>
+
+| EmployeeID | LastName  | FirstName | BirthDate | Photo      |
+| ---------- | --------- | --------- | --------- | ---------- |
+| 1          | Davolio   | Nancy     | 12/8/1968 | EmpID1.pic |
+| 2          | Fuller    | Andrew    | 2/19/1952 | EmpID2.pic |
+| 3          | Leverling | Janet     | 8/30/1963 | EmpID3.pic |
+
+</td></tr> </table>
+```
 
 {% endtab %}
 {% endtabs %}

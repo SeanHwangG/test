@@ -65,15 +65,6 @@ Output:
 ```
 
 {% endtab %}
-{% tab title='BJ_10952.sh' %}
-
-```sh
-while read a b; do
-  echo $((a+b))
-done
-```
-
-{% endtab %}
 {% tab title='BJ_10952.py' %}
 
 ```py
@@ -83,6 +74,15 @@ while True:
     break
   else:
     print(a + b)
+```
+
+{% endtab %}
+{% tab title='BJ_10952.sh' %}
+
+```sh
+while read a b; do
+  echo $((a+b))
+done
 ```
 
 {% endtab %}
@@ -663,6 +663,26 @@ while True:
   if m == n:
     print(i)
     break
+```
+
+{% endtab %}
+{% tab title='BJ_1110.sh' %}
+
+```sh
+read init
+
+temp=init
+count=0
+
+while [ $temp -ne $init ]; do
+  let front=$((temp%10))
+  let rear=$((temp%10+temp/10))
+  rear=$((rear%10))
+  temp=$((front*10+rear))
+  count=$((count+1))
+done
+
+echo "$count"
 ```
 
 {% endtab %}

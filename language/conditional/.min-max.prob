@@ -477,6 +477,14 @@ Output: 1
 ```
 
 {% endtab %}
+{% tab title='BJ_1085.py' %}
+
+```py
+x, y, w, h = map(int,input().split())
+print(min(x, y, w - x, h -  y))
+```
+
+{% endtab %}
 {% tab title='BJ_1085.sh' %}
 
 ```sh
@@ -484,14 +492,6 @@ read x y w h
 a=$((x<w-x?x:w-x))
 b=$((y<h-y?y:h-y))
 echo $((a<b?a:b))
-```
-
-{% endtab %}
-{% tab title='BJ_1085.py' %}
-
-```py
-x, y, w, h = map(int,input().split())
-print(min(x, y, w - x, h -  y))
 ```
 
 {% endtab %}

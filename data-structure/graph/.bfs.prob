@@ -1,49 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_12851.md/)
-
-{% tabs %}
-{% tab title='BJ_12851.md' %}
-
-> Question
-
-* Given two positions X and Y, and after 1 second, X can move to positions X-1, X+1, and 2*X
-* how many seconds does it take to go Y, and how many shortest ways are there
-
-```txt
-Input: 5 17
-Output:
-4
-2
-```
-
-{% endtab %}
-{% tab title='BJ_12851.py' %}
-
-```py
-from collections import defaultdict
-
-n, k = map(int, input().split())
-T = 100001
-q, v, c = {n: 1}, [1e9] * T, 0
-while q:
-  dq = defaultdict(int)
-  for n in dq:
-    if n == k:
-      print(c, q[k])
-      exit()
-    for i in [n - 1, n + 1, n * 2]:
-      if 0 <= i < T and c <= v[i]:
-        v[i] = c
-        dq[i] += q[n]
-  q = dq
-  c += 1
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 8 : 바이러스](https://www.acmicpc.net/problem/2606)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_2606.md/)
 
@@ -409,6 +365,50 @@ while dq:
       dq.append(e)
 m = max(V)
 print(V.index(m), m - 1, V.count(m))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 11 : 숨바꼭질 2](https://www.acmicpc.net/problem/12851)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs/BJ_12851.md/)
+
+{% tabs %}
+{% tab title='BJ_12851.md' %}
+
+> Question
+
+* Given two positions X and Y, and after 1 second, X can move to positions X-1, X+1, and 2*X
+* how many seconds does it take to go Y, and how many shortest ways are there
+
+```txt
+Input: 5 17
+Output:
+4
+2
+```
+
+{% endtab %}
+{% tab title='BJ_12851.py' %}
+
+```py
+from collections import defaultdict
+
+n, k = map(int, input().split())
+T = 100001
+q, v, c = {n: 1}, [1e9] * T, 0
+while q:
+  dq = defaultdict(int)
+  for n in dq:
+    if n == k:
+      print(c, q[k])
+      exit()
+    for i in [n - 1, n + 1, n * 2]:
+      if 0 <= i < T and c <= v[i]:
+        v[i] = c
+        dq[i] += q[n]
+  q = dq
+  c += 1
 ```
 
 {% endtab %}

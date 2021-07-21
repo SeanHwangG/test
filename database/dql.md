@@ -309,6 +309,75 @@ CREATE VIEW standings(name, points) AS
 
 ## WHERE
 
+{% tabs %}
+{% tab title='javascript' %}
+
+```js
+// 1. SELECT * FROM post WHERE authorId = 2
+Post.findAll({
+  where: { authorId: 2 }  // [Op.eq]: 2
+});
+
+// 2. SELECT * FROM post WHERE authorId = 12 AND status = 'active';
+Post.findAll({
+  where: { authorId: 12, status: 'active' }
+});
+
+// 3. SELECT file_id FROM table WHERE datediff(curdate(), create_date) > 5;
+where: sequelize.where(sequelize.fn('datediff', sequelize.fn("NOW") , sequelize.col('create_date')), {
+  [Op.gt] : 5
+})
+
+// 4. Operators
+const { Op } = require("sequelize");
+Post.findAll({
+  where: {
+    [Op.and]: [{ a: 5 }, { b: 6 }],            // (a = 5) AND (b = 6)
+    [Op.or]: [{ a: 5 }, { b: 6 }],             // (a = 5) OR (b = 6)
+    someAttribute: {
+      [Op.eq]: 3,                     // = 3
+      [Op.ne]: 20,                    // != 20
+      [Op.gt]: 6,                     // > 6
+      [Op.gte]: 6,                    // >= 6
+      [Op.lt]: 10,                    // < 10
+      [Op.lte]: 10,                   // <= 10
+      [Op.between]: [6, 10],          // BETWEEN 6 AND 10
+      [Op.notBetween]: [11, 15],      // NOT BETWEEN 11 AND 15
+
+      // Using dialect specific column identifiers (PG in the following example):
+      [Op.col]: 'user.organization_id',        // = "user"."organization_id"
+
+      [Op.is]: null,                  // IS NULL
+      [Op.in]: [1, 2],                // IN [1, 2]
+      id: [1,2,3]                     // Same as using `id: { [Op.in]: [1,2,3] }`
+      [Op.all]: sequelize.literal('SELECT 1'), // > ALL (SELECT 1)
+      [Op.not]: true,                 // IS NOT TRUE
+      [Op.notIn]: [1, 2],             // NOT IN [1, 2]
+      [Op.or]: [5, 6],                // (someAttribute = 5) OR (someAttribute = 6)
+
+      [Op.like]: '%hat',              // LIKE '%hat'
+      [Op.notLike]: '%hat',           // NOT LIKE '%hat'
+      [Op.startsWith]: 'hat',         // LIKE 'hat%'
+      [Op.endsWith]: 'hat',           // LIKE '%hat'
+      [Op.substring]: 'hat',          // LIKE '%hat%'
+      [Op.iLike]: '%hat',             // ILIKE '%hat' (case insensitive) (PG only)
+      [Op.notILike]: '%hat',          // NOT ILIKE '%hat'  (PG only)
+      [Op.regexp]: '^[h|a|t]',        // REGEXP/~ '^[h|a|t]' (MySQL/PG only)
+      [Op.notRegexp]: '^[h|a|t]',     // NOT REGEXP/!~ '^[h|a|t]' (MySQL/PG only)
+      [Op.iRegexp]: '^[h|a|t]',       // ~* '^[h|a|t]' (PG only)
+      [Op.notIRegexp]: '^[h|a|t]',    // !~* '^[h|a|t]' (PG only)
+      [Op.any]: [2, 3],               // ANY ARRAY[2, 3]::INTEGER (PG only)
+
+      // In Postgres, Op.like/Op.iLike/Op.notLike can be combined to Op.any:
+      [Op.like]: { [Op.any]: ['cat', 'hat'] }  // LIKE ANY ARRAY['cat', 'hat']
+    }
+  }
+});
+```
+
+{% endtab %}
+{% tab title='sql' %}
+
 * LIKE: % any string, _ any character
 * WHERE A and B: where A in (where B)
 * EXIST `query`: Check the result of `query` is non-empty
@@ -332,6 +401,9 @@ SELECT SUM(1 + GREATEST( datediff( LEAST(Book.endDate, finishDate), GREATEST(Boo
 -- Find (customer, loan) pairs that no longer satisfies minimum credit required by loan (name, no).
 SELECT c.name as name, l.no as no FROM bank.customer c, bank.loan l WHERE c.credit < l."minCredit";
 ```
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.where.prob' %}
 
@@ -384,6 +456,36 @@ SELECT date, source.medium, COUNT(DISTINCT(visiterId)) AS visits FROM table, GRO
 {% tab title='javascript' %}
 
 ```js
+// 1. Inner
+/*
+SELECT `user`.`id`, `user`.`name`, `Instruments`.`id` AS `Inst.id`, `Instruments`.`name` \
+  AS `Inst.name`, `Instruments`.`size` AS `Instr.size`, `Instruments`.`userId` AS `Inst.userId` FROM `users` AS `user`
+  INNER JOIN `tools` AS `Inst` ON `user`.`id` = `Inst`.`userId` AND `Inst`.`size` != 'small';
+*/
+User.findAll({
+  include: {
+    model: Tool,
+    as: 'Instruments'
+    where: {
+      size: { [Op.ne]: 'small' }
+    }
+  }
+});
+
+// 2. Left Outer
+/*
+SELECT [...] FROM `users` AS `user`
+LEFT OUTER JOIN `tools` AS `Instruments` ON `user`.`id` = `Instruments`.`userId` AND `Instruments`.`size` != 'small';
+*/
+await User.findAll({
+  include: {
+    model: Tool,
+    as: 'Instruments',
+    where: { size: { [Op.ne]: 'small' } },
+    required: false
+  }
+});
+
 // 3. SELECT board.id, COUNT(board_comments.id) AS commentCount FROM board
 //    JOIN board_comments ON board.id = board_comments.boardID
 BoardModel.findAndCountAll({
@@ -410,6 +512,22 @@ SELECT director FROM movie
 
 ### Left Join
 
+{% tabs %}
+{% tab title='javascript' %}
+
+* LEFT OUTER JOIN: only includes records from the parent table
+
+```js
+// SELECT parent.id, parend.name, child.id, child.name FROM parent
+//   LEFT OUTER JOIN child ON child..parent = parent.id;
+Parent.findAll({
+  include: [ { model: Child } ]
+});
+```
+
+{% endtab %}
+{% tab title='sql' %}
+
 * returns all records from the left table, and the matched records from the right table
   * result is NULL from the left side, if there is no match
 
@@ -425,6 +543,9 @@ SELECT c.name as name, COUNT(b.cname) as loanCount FROM bank.customer c
   GROUP BY c.name;
 ```
 
+{% endtab %}
+{% endtabs %}
+
 {% include '.left-join.prob' %}
 
 ### Right Join
@@ -432,12 +553,23 @@ SELECT c.name as name, COUNT(b.cname) as loanCount FROM bank.customer c
 * returns all records from the right table, and the matched records from the left table
   * result is NULL from the right side, if there is no match
 
+{% tabs %}
+{% tab title='javascript' %}
+
+* right: true
+
+{% endtab %}
+{% tab title='sql' %}
+
 ```sql
 -- 1. LIST FirstNmae LastName OrderID, leave OrderID blank if not found
 SELECT Orders.OrderID, Employees.LastName, Employees.FirstName FROM Orders
   RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
   ORDER BY Orders.OrderID;
 ```
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.right-join.prob' %}
 

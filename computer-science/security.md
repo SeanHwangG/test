@@ -1,5 +1,14 @@
 # Security
 
+> Terms
+
+* Mac filtering: only allow for connections from a specific set of MAC addresses belonging to devices you trust
+
+* WEP (Wired equivalent privacy): Web uses 40 bit for encryption keys → cracked in few minutes
+  * Wi-Fi Protected Access uses 128 bits for encryption keys
+  * WPA2 uses 256 bits for keys
+  * Encryption technology that provides a very low level of privacy
+
 {% tabs %}
 {% tab title='aws' %}
 

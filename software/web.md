@@ -16,9 +16,18 @@
 * Library: pre-written JavaScript which allows for easier development of JavaScript-based applications
 * Websocket: two way communication between the clients and the servers
   * Four main events: Open / Close / Error / Message
-* xml: Extensible Markup Language
-  * markup language that defines a set of rules for encoding documents both human and machine-readable
 * Same Origin Policy: When using XMLHttpRequest or Fetch API → local files origin is null
+* SPA: Single Page Application ([ex] React, Vue)
+  * [+] Only single server request mode for initial HTML page, everything else is handled by SPA
+  * [-] SEO friendly
+* Server Side Rendered: pages rendered on the server after every request, sources data & uses templates
+  * [+] SEO, easy to update
+  * [-] Slow, Fresh request needs to be made for every page
+* Static website: Uses static HTML, js, css
+  * [+] SEO
+  * [-] Fresh request to server for every page, hard to maintain
+* Static site generator: build HTML combining Templates, Component, Data during build time ([ex] nextjs, gatsby)
+  * [+] SEO, easy to update, speed
 * URI (Uniform Resource Identifier): string designed for identification of resources and extensibility via URI scheme
 * xss (Cross Site Scripting): users executed malicious scripts (payloads) unintentionally by clicking on untrusted links
   * these scripts pass cookies information to attackers
@@ -121,42 +130,72 @@ const todoItems = todos.map((todo, index) =>
 {% tabs %}
 {% tab title='python' %}
 
-> bs4
+* bs4
+  * name: tagname
+  * text, attrs: inside text, attribute object
+  * next / previous_elements: next / previous tags generator
+  * next / previous_siblings: next sibling tags generator
+  * original_encoding
+  * bs4.element.Tag
+    * string
+    * text
+    * clear(): removes the contents of a tag:
+    * decompose(): remove tag
+    * extract(): hide element
+    * find_all(tag, href=None, limit=None) → [Tags]: find all matching tags
+    * find("span"): find tags inside
+    * get_text():
+    * insert(pos, tag): insert tag to position
+    * insert_before() / after(): immediately before
+    * prettify()
+    * wrap(soup.new_tag("b")): wrap around new tags
+    * new_button = soup.new_tag('a')
+    * new_button.attrs["onclick"] = "toggle()"
+    * new_button.append('This is a new button!')
 
-* from bs4 import BeautifulSoup
-
-* name: tagname
-* text, attrs: inside text, attribute object
-* next / previous_elements: next / previous tags generator
-* next / previous_siblings: next sibling tags generator
-* original_encoding
-
-* bs4.element.Tag
-  * string
-  * text
-  * clear(): removes the contents of a tag:
-  * decompose(): remove tag
-  * extract(): hide element
-  * find_all(tag, href=None, limit=None) → [Tags]: find all matching tags
-  * find("span"): find tags inside
-  * get_text():
-  * insert(pos, tag): insert tag to position
-  * insert_before() / after(): immediately before
-  * prettify()
-  * wrap(soup.new_tag("b")): wrap around new tags
-  * new_button = soup.new_tag('a')
-  * new_button.attrs["onclick"] = "toggle()"
-  * new_button.append('This is a new button!')
-
-> selenium
-
-* WebElement
+* selenium.WebElement
   * tag_name
   * text
   * parent
   * find_element_by_css_selector()
     * .id,.name: get multiple selctor
   * get_property(`property`): get property of tag (ex: href)
+
+* urllib
+  * Request
+    * urllib2.Request("www.example.com")
+    * add_header('Referer', 'http://www.python.org/')
+    * urlopen(url): string / Request object.  For HTTP, returns http.client.HTTPResponse object
+  * parse
+    * unquote(str): decode urlencoded bytes
+  * HTTPResponse
+    * content = resp.read()
+
+```py
+# 1. Download Coco dataset
+import sys, getopt
+import fire
+import json
+import requests
+
+def download_factory(all = False, *, coco2014 = None, coco2017 = None):
+  if all or coco2014:
+    url = "http://images.cocodataset.org/annotations/annotations_trainval2014.zip"
+    download(url)
+
+  if all or coco2017:
+    url = "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
+    download(url)
+
+def download(url):
+  response = requests.get(url, stream=True)
+  total_bytes = int(response.headers.get('content-length', 0))
+  with open('test.dat', 'wb') as file:
+    with tqdm(total=total_bytes / (32*1024.0), unit='B', unit_scale=True, unit_divisor=1024) as pbar:
+      for data in response.iter_content(1024):
+        pbar.update(len(data))
+        file.write(data)
+```
 
 > Error DevToolsActivePort file doesn't exist
 
@@ -485,6 +524,9 @@ margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
 
 ## Text
 
+{% tabs %}
+{% tab title='javascript' %}
+
 * css
   * enter:Centers the text
   * ustify:Stretches lines so that each line has equal width (ex. newspapers, magazines)
@@ -523,19 +565,6 @@ margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
   * u:text that should be stylistically different from normal text
   * var: a variable
 
-* overflow: specifies what should happen if content overflows an element's box
-  * auto: clipped, a scroll-bar is added when content doesn’t fit
-  * hidden: clipped, rest of content will be invisible
-  * scroll: clipped, scroll will always show scrollbar even if content fits
-  * initial / inherit: default / inherit from parent
-  * overflow: visible|hidden|scroll|auto|initial|inherit;
-  * visible (default): is not clipped. It renders outside the element's box
-
-![overflow](images/20210219_221044.png)
-
-{% tabs %}
-{% tab title='css' %}
-
 ```js
 // 1. align text
 <style>
@@ -553,9 +582,35 @@ margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
 ```
 
 {% endtab %}
+{% tab title='markdown' %}
+
+* \~\~: ~~strikethrough~~
+
+{% endtab %}
+{% endtabs %}
+
+### Text Scroll
+
+{% tabs %}
+{% tab title='javascript' %}
+
+* overflow: specifies what should happen if content overflows an element's box
+  * auto: clipped, a scroll-bar is added when content doesn’t fit
+  * hidden: clipped, rest of content will be invisible
+  * scroll: clipped, scroll will always show scrollbar even if content fits
+  * initial / inherit: default / inherit from parent
+  * overflow: visible|hidden|scroll|auto|initial|inherit;
+  * visible (default): is not clipped. It renders outside the element's box
+
+![overflow](images/20210219_221044.png)
+
+{% endtab %}
 {% endtabs %}
 
 ### Link
+
+{% tabs %}
+{% tab title='javascript' %}
 
 * a:link: a normal, unvisited link
 * a:visited: a link the user has visited
@@ -584,6 +639,9 @@ margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
   * referrerpolicy     // Specifies which referrer information to send when fetching a script
   * src URL            // Specifies the URL of an external script file
   * type scripttype    // Specifies the media type of the script
+
+{% endtab %}
+{% endtabs %}
 
 ## Node
 
@@ -662,7 +720,7 @@ axios({
 }
 ```
 
-> Cluster
+* Cluster
 
 ```js
 var cluster = require('cluster'),
@@ -691,7 +749,7 @@ if (cluster.isMaster) {
 }
 ```
 
-> config
+* config
 
 ```js
 // default.json
@@ -699,7 +757,7 @@ const require(‘config’);
 const db = config.get("mongoURI")
 ```
 
-> Events
+* Events
 
 ```js
 const EventEmitter = require('events');
@@ -734,69 +792,46 @@ pedro.emit('name');
 christina.emit('name');
 ```
 
-> Nodemon
+* Nodemon
 
 * constantly update UI
 
 ### Test
 
-> markdownlint-cli2
+* markdownlint-cli2
+  * markdownlint-cli2 "**/*.md"
 
-* markdownlint-cli2 "**/*.md"
+* elastic beanstalk
+  * eb init --platform node.js --region us-east-2
 
-> elastic beanstalk
-
-* eb init --platform node.js --region us-east-2
-
-> Input Type
-
+* Input Type
 * Request body: almost any kind of HTTP request
   * body editor is divided into 4 areas and has different controls depending on the body type
-
 * form-data: simulates filling a form on a website
   * can attach files to a key as well
-
 * urlencoded (default)
 * key/value pairs and Postman will encode the keys and values properly
-
 * raw: doesn't touch string entered in raw editor except replacing environment variables
-
 * binary: allows you to send things which you can not enter in Postman
   * image, audio or video files, text files
 
-> paypal
+* paypal
 
 ![Paypal](images/20210207_161157.png)
 
-> Error: write EPROTO 140421695491864:error:100000f7:SSL routines:OPENSSL_internal:WRONG_VERSION_NUMBER:../../third_party/boringssl/src/ssl/tls_record.cc:242:
+> Error
 
-* Use http instead https because SSL is not set up
+* write EPROTO 140421695491864:error:100000f7:SSL routines:OPENSSL_internal:WRONG_VERSION_NUMBER:../../third_party/boringssl/src/ssl/tls_record.cc:242:
+  * Use http instead https because SSL is not set up
 
-> cheerio
-
-* Cheerio parses markup and provides an API for traversing/manipulating the resulting data structure
-* It does not interpret the result as a web browser does
-* Specifically, it does not produce a visual rendering, apply CSS, load external resources, or execute JavaScript
-
-## Javascript Database
-
-> lodb
-
-{% repo 'lodb' %}
-
-> Algolia
-
-* Simple text search
-* index.clearObjects()
-
-> TypeDI
-
-```js
-import Container from "typedi"
-Container.get(TypeService);
-```
+* cheerio: parses markup and provides an API for traversing/manipulating the resulting data structure
+  * It does not interpret the result as a web browser does
+  * Specifically, it does not produce a visual rendering, apply CSS, load external resources, or execute JavaScript
 
 ## Sequelize
+
+{% tabs %}
+{% tab title='sequelize' %}
 
 * Request from sequelize
 * SQL Driver -> SQL Query -> DB
@@ -812,24 +847,19 @@ Container.get(TypeService);
 
 * The defaults for the associations is SET NULL for ON DELETE and CASCADE for
 
-> Sync Options
-
-* User.sync(): creates the table if it doesn't exist (and does nothing if it already exists)
-* User.sync({ force: true }): creates the table, dropping it first if it already existed
-* User.sync({ alter: true }): checks columns, data type, then performs necessary changes
+* Sync Options
+  * User.sync(): creates the table if it doesn't exist (and does nothing if it already exists)
+  * User.sync({ force: true }): creates the table, dropping it first if it already existed
+  * User.sync({ alter: true }): checks columns, data type, then performs necessary changes
 
 > Terms
 
 * dialect: 'mysql'|'sqlite'|'postgres'|'mssql',
 
-> Raw query
-
-* query()
-  * logging:: logging your queries will get called for every SQL query that gets sent to the server
-  * plain:: If plain is true, then sequelize will only return first record of the result set. otherwise, return all records
-
-{% tabs %}
-{% tab title='logging.js' %}
+* Raw query
+  * query()
+    * logging:: logging your queries will get called for every SQL query that gets sent to the server
+    * plain:: If plain is true, then sequelize will only return first record of the result set. otherwise, return all records
 
 ```js
 sequelize.sync({ logging: console.log }) // view the table creation queries
@@ -954,94 +984,6 @@ const [user, created] = await User.findOrCreate({
 {% endtab %}
 {% endtabs %}
 
-> Where
-
-{% tabs %}
-{% tab title='where.js' %}
-
-```js
-// SELECT * FROM post WHERE authorId = 2
-Post.findAll({
-  where: {
-    authorId: 2   // [Op.eq]: 2
-  }
-});
-
-// SELECT * FROM post WHERE authorId = 12 AND status = 'active';
-Post.findAll({
-  where: {
-    authorId: 12
-    status: 'active'
-  }
-});
-
-// mysql
-// SELECT file_id FROM table WHERE datediff(curdate(), create_date) > 5;
-{
-  where: sequelize.where(sequelize.fn('datediff', sequelize.fn("NOW") , sequelize.col('create_date')), {
-    [Op.gt] : 5
-  })
-}
-```
-
-{% endtab %}
-{% endtabs %}
-
-> Operator
-
-{% tabs %}
-{% tab title='operator.js' %}
-
-```js
-const { Op } = require("sequelize");
-Post.findAll({
-  where: {
-    [Op.and]: [{ a: 5 }, { b: 6 }],            // (a = 5) AND (b = 6)
-    [Op.or]: [{ a: 5 }, { b: 6 }],             // (a = 5) OR (b = 6)
-    someAttribute: {
-      [Op.eq]: 3,                     // = 3
-      [Op.ne]: 20,                    // != 20
-      [Op.gt]: 6,                     // > 6
-      [Op.gte]: 6,                    // >= 6
-      [Op.lt]: 10,                    // < 10
-      [Op.lte]: 10,                   // <= 10
-      [Op.between]: [6, 10],          // BETWEEN 6 AND 10
-      [Op.notBetween]: [11, 15],      // NOT BETWEEN 11 AND 15
-
-      // Using dialect specific column identifiers (PG in the following example):
-      [Op.col]: 'user.organization_id',        // = "user"."organization_id"
-
-      [Op.is]: null,                  // IS NULL
-      [Op.in]: [1, 2],                // IN [1, 2]
-      id: [1,2,3]                     // Same as using `id: { [Op.in]: [1,2,3] }`
-      [Op.all]: sequelize.literal('SELECT 1'), // > ALL (SELECT 1)
-      [Op.not]: true,                 // IS NOT TRUE
-      [Op.notIn]: [1, 2],             // NOT IN [1, 2]
-      [Op.or]: [5, 6],                // (someAttribute = 5) OR (someAttribute = 6)
-
-      [Op.like]: '%hat',              // LIKE '%hat'
-      [Op.notLike]: '%hat',           // NOT LIKE '%hat'
-      [Op.startsWith]: 'hat',         // LIKE 'hat%'
-      [Op.endsWith]: 'hat',           // LIKE '%hat'
-      [Op.substring]: 'hat',          // LIKE '%hat%'
-      [Op.iLike]: '%hat',             // ILIKE '%hat' (case insensitive) (PG only)
-      [Op.notILike]: '%hat',          // NOT ILIKE '%hat'  (PG only)
-      [Op.regexp]: '^[h|a|t]',        // REGEXP/~ '^[h|a|t]' (MySQL/PG only)
-      [Op.notRegexp]: '^[h|a|t]',     // NOT REGEXP/!~ '^[h|a|t]' (MySQL/PG only)
-      [Op.iRegexp]: '^[h|a|t]',       // ~* '^[h|a|t]' (PG only)
-      [Op.notIRegexp]: '^[h|a|t]',    // !~* '^[h|a|t]' (PG only)
-      [Op.any]: [2, 3],               // ANY ARRAY[2, 3]::INTEGER (PG only)
-
-      // In Postgres, Op.like/Op.iLike/Op.notLike can be combined to Op.any:
-      [Op.like]: { [Op.any]: ['cat', 'hat'] }  // LIKE ANY ARRAY['cat', 'hat']
-    }
-  }
-});
-```
-
-{% endtab %}
-{% endtabs %}
-
 * Grouping
 
 ```js
@@ -1123,19 +1065,6 @@ Post.findAll({
 });
 ```
 
-> LEFT OUTER JOIN
-
-* (default)
-* only includes records from the parent table
-
-```js
-// SELECT parent.id, parend.name, child.id, child.name FROM parent
-//   LEFT OUTER JOIN child ON child..parent = parent.id;
-Parent.findAll({
-  include: [ { model: Child } ]
-});
-```
-
 * where
 
 ```js
@@ -1169,46 +1098,8 @@ Project.findAll({
 })
 ```
 
-* RIGHT OUTER JOIN
-  * right: true
-
 * LEFT OUTER JOIN
   * required: false
-
-{% endtab %}
-{% tab title='javascript' %}
-
-```js
-// 1. Inner
-/*
-SELECT `user`.`id`, `user`.`name`, `Instruments`.`id` AS `Inst.id`, `Instruments`.`name` \
-  AS `Inst.name`, `Instruments`.`size` AS `Instr.size`, `Instruments`.`userId` AS `Inst.userId` FROM `users` AS `user`
-  INNER JOIN `tools` AS `Inst` ON `user`.`id` = `Inst`.`userId` AND `Inst`.`size` != 'small';
-*/
-User.findAll({
-  include: {
-    model: Tool,
-    as: 'Instruments'
-    where: {
-      size: { [Op.ne]: 'small' }
-    }
-  }
-});
-
-// 2. Left Outer
-/*
-SELECT [...] FROM `users` AS `user`
-LEFT OUTER JOIN `tools` AS `Instruments` ON `user`.`id` = `Instruments`.`userId` AND `Instruments`.`size` != 'small';
-*/
-await User.findAll({
-  include: {
-    model: Tool,
-    as: 'Instruments',
-    where: { size: { [Op.ne]: 'small' } },
-    required: false
-  }
-});
-```
 
 {% endtab %}
 {% endtabs %}
@@ -1348,7 +1239,9 @@ app.listen(3000, () => {
 });
 ```
 
-> (16,8): error TS2322: Type '{ children: Element; }' is not assignable to type 'IntrinsicAttributes & ...
+> Error
+
+* (16,8): error TS2322: Type '{ children: Element; }' is not assignable to type 'IntrinsicAttributes & ...
   Type '{ children: Element; }' is not assignable to type 'Readonly\<RouterProps\>'.
   Property 'history' is missing in type '{ children: Element; }'.
 

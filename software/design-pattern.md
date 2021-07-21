@@ -1567,6 +1567,11 @@ class NiceWidget extends Tracer(Widget) { drawingNicely() { this.trace(); } }
 {% tab title='python' %}
 
 ```py
+from .models import Article
+from .serializers import ArticleSerializer
+from rest_framework import generics
+from rest_framework import mixins
+
 # 1. Combine Counter and ordered dict
 class OrderedCounter(Counter, OrderedDict):
   """Counter that remembers the order elements are first encountered"""
@@ -1575,6 +1580,35 @@ class OrderedCounter(Counter, OrderedDict):
 
   def __reduce__(self):
     return self.__class__, (OrderedDict(self),)
+
+# 2. Add multiple mixin for django
+class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin,
+                    mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+  serializer_class = ArticleSerializer
+  queryset = Article.objects.all()
+  lookup_field = 'id'
+
+  def get(self, request, id = None):
+    if id:
+      return self.retrieve(request)
+    else:
+      return self.list(request)
+
+  def post(self, request):
+    return self.create(request)
+
+  def put(self, request, id=None):
+    return self.update(request, id)
+
+  def delete(self, request, id):
+    return self.destroy(request, id)
+""" views.py """
+from django.urls import path
+from .views import GenericAPIView
+
+urlpatterns = [
+  path('generic/article/<int:id>/', GenericAPIView.as_view()),
+]
 ```
 
 {% endtab %}

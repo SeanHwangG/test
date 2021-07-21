@@ -38,6 +38,8 @@ print(int(a * 0.78), int(a * 0.8 + a * 0.2 * 0.78))
 {% tabs %}
 {% tab title='BJ_2475.md' %}
 
+> Question
+
 * Check if sum of squares of each number if divisible by 10
 
 {% endtab %}
@@ -46,6 +48,18 @@ print(int(a * 0.78), int(a * 0.8 + a * 0.2 * 0.78))
 ```py
 a, b, c, d, e = map(int, input().split())
 print((a ** 2 + b ** 2 + c ** 2 + d ** 2 + e ** 2) % 10)
+```
+
+{% endtab %}
+{% tab title='BJ_2475.sh' %}
+
+```sh
+read a b c d e
+for i in a b c d e; do
+  let sum=$sum+$(($i*$i))
+done
+let res=$sum%10
+echo ${res}
 ```
 
 {% endtab %}

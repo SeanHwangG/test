@@ -262,7 +262,7 @@ m[cur].erase(m[cur].lower_bound(next));
 {% tabs %}
 {% tab title='cpp' %}
 
-> unordered_map
+* unordered_map
 
 ```cpp
 #include <iostream>
@@ -367,20 +367,19 @@ console.log(first);
 
 * values in dictionary items can be of any data type
 
-> Member function
-
-* [key]: item of d with key key. Raises a KeyError if key is not in the map
-* clear(): remove all items from the dictionary
-* fromkeys()
-* iter(d): an iterator over the keys
-* items(): iter((key, value))
-* keys(): iter(key)
-* list(d): a list of all the keys
-* len(d): the number of items
-* pop(key[, default]): If key in d, remove it and return, else return default (error if no default)
-* setdefault(key, val): returns the value of the item, if doesn’t exist, insert val
-* update([other]): Update `dict` with the key|value pairs from other, overwriting existing keys
-* values() -> views(): returns views of `dict` value
+* dict
+  * [key]: item of d with key key. Raises a KeyError if key is not in the map
+  * clear(): remove all items from the dictionary
+  * fromkeys()
+  * iter(d): an iterator over the keys
+  * items(): iter((key, value))
+  * keys(): iter(key)
+  * list(d): a list of all the keys
+  * len(d): the number of items
+  * pop(`key`[, default]): If `key` in d, remove it and return, else return default (error if no default)
+  * setdefault(`key`, `val`): returns the value of item, if doesn’t exist, insert `val`
+  * update([other]): Update `dict` with the key|value pairs from other, overwriting existing keys
+  * values() -> views(): returns views of `dict` value
 
 ```py
 # 1. CRUD
@@ -437,8 +436,8 @@ let alist = add(mylist, 4)
 
 """ Construct """
 let colors = {
-\ "apple": "red",
-\ "banana": "yellow"
+  \ "apple": "red",
+  \ "banana": "yellow"
 }
 
 """ Access """
@@ -510,68 +509,63 @@ print(list(c.values())) # [1, 4, 2]
 {% tabs %}
 {% tab title="cpp" %}
 
-> map
+* map
 
 ```cpp
 #include <iostream>
 #include <map>
 using namespace std;
 
-int main () {
-  map<char, int> mymap;
+map<char, int> mymap;
 
-  // first insert function version (single parameter):
-  mymap.insert ( pair<char,int>('a',100) );
-  mymap.insert ( pair<char,int>('z',200) );
+// 1. first insert function version (single parameter):
+mymap.insert ( pair<char,int>('a',100) );
+mymap.insert ( pair<char,int>('z',200) );
 
-  pair<map<char,int>::iterator,bool> ret;
-  ret = mymap.insert ( pair<char,int>('z',500) );
-  if (ret.second==false) {
-    cout << "element 'z' already existed";
-    cout << " with a value of " << ret.first->second << '\n';
-  }
-
-  map<char,int>::iterator it = mymap.begin();
-  mymap.insert (it, pair<char,int>('b',300));  // max efficiency inserting
-  mymap.insert (it, pair<char,int>('c',400));  // no max efficiency inserting
-
-  // third insert function version (range insertion):
-  map<char, int> anothermap;
-  anothermap.insert(mymap.begin(),mymap.find('c'));
-
-  for (it=mymap.begin(); it!=mymap.end(); ++it)
-    cout << it->first << " => " << it->second << '\n';
-
-  for (it=anothermap.begin(); it!=anothermap.end(); ++it)
-    cout << it->first << " => " << it->second << '\n';
-
-  // using range of pair
-  map<string, int> m(wordMap.begin(), wordMap.end());k
-
-  auto cmp = [](int a, int b) { return a < b;};
-  map<int, int, decltype(cmp)> m(cmp);
-
-  map<int, int> n2m{{1, 2}};
-  n2m[5]++;
-
-  // iterate
-  for (auto it : n2m)
-    cout << it.first << " " << it.second << endl;
-
-  mp.insert({ 2, 30 });
-  mp.find(2);
-
-  return 0;
+pair<map<char,int>::iterator,bool> ret;
+ret = mymap.insert ( pair<char,int>('z',500) );
+if (ret.second==false) {
+  cout << "element 'z' already existed";
+  cout << " with a value of " << ret.first->second << '\n';
 }
+
+map<char,int>::iterator it = mymap.begin();
+mymap.insert (it, pair<char,int>('b',300));  // max efficiency inserting
+mymap.insert (it, pair<char,int>('c',400));  // no max efficiency inserting
+
+// 2. third insert function version (range insertion):
+map<char, int> anothermap;
+anothermap.insert(mymap.begin(),mymap.find('c'));
+
+for (it=mymap.begin(); it!=mymap.end(); ++it)
+  cout << it->first << " => " << it->second << '\n';
+
+for (it=anothermap.begin(); it!=anothermap.end(); ++it)
+  cout << it->first << " => " << it->second << '\n';
+
+// 3. using range of pair
+map<string, int> m(wordMap.begin(), wordMap.end());k
+
+auto cmp = [](int a, int b) { return a < b;};
+map<int, int, decltype(cmp)> m(cmp);
+
+map<int, int> n2m{{1, 2}};
+n2m[5]++;
+
+// 4. iterate
+for (auto it : n2m)
+  cout << it.first << " " << it.second << endl;
+
+mp.insert({ 2, 30 });
+mp.find(2);
 ```
 
 {% endtab %}
 {% tab title='python' %}
 
-> ordereddict
-
-* popitem(last=True)
-* move_to_end(key, last=True)
+* collections.OrderedDict
+  * popitem(last=True)
+  * move_to_end(key, last=True)
 
 ```py
 OrderedDict(sorted(dictitems(), key=lambda t: t[0]))  # LRU

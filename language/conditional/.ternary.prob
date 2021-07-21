@@ -1,0 +1,257 @@
+> baekjoon
+
+* [Level 2 : 연세대학교](https://www.acmicpc.net/problem/15680)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/ternary/BJ_15680.md/)
+
+{% tabs %}
+{% tab title='BJ_15680.md' %}
+
+> Question
+
+* Print YONSEI if 0 or "Leading the Way to the Future"
+
+```txt
+Input: 0
+Output: YONSEI
+```
+
+{% endtab %}
+{% tab title='BJ_15680.py' %}
+
+```py
+a = int(input())
+print('YONSEI' if input() == '0' else 'Leading the Way to the Future')
+```
+
+{% endtab %}
+{% tab title='BJ_15680.v' %}
+
+```v
+module main;
+  integer a, b;
+  initial begin
+    b = $fscanf(32'h8000_0000, "%d", a);
+    $display("%0s", a? "Leading the Way to the Future": "YONSEI");
+  end
+endmodule
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 수찬은 마린보이야!!](https://www.acmicpc.net/problem/15921)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/ternary/BJ_15921.md/)
+
+{% tabs %}
+{% tab title='BJ_15921.md' %}
+
+> Question
+
+* if a is 0 print divide by zero, else 1.00
+
+```txt
+Input:
+5
+5 10 10 15 20
+
+Output: 1.00
+```
+
+{% endtab %}
+{% tab title='BJ_15921.py' %}
+
+```py
+print("divide by zero" if input() == "0" else '1.00')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : CASIO](https://www.acmicpc.net/problem/15963)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/ternary/BJ_15963.md/)
+
+{% tabs %}
+{% tab title='BJ_9498.md' %}
+
+> Question
+
+* print 1 if two integers are same else 0
+
+```txt
+Input: 1 1
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_9498.sh' %}
+
+```sh
+read a b
+echo $((a == b))
+```
+
+{% endtab %}
+{% tab title='BJ_9498.py' %}
+
+```py
+a, b = map(int, input().split())
+print(1 if a == b else 0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Counting Clauses](https://www.acmicpc.net/problem/17903)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/ternary/BJ_17903.md/)
+
+{% tabs %}
+{% tab title='BJ_17903.md' %}
+
+> Question
+
+* Given a, b
+* if a is greater than 8 print satisfactory else print unsatisfactory
+
+```txt
+Input:
+5 3
+-1 2 3
+-1 -2 3
+1 -2 3
+1 -2 -3
+1 2 -3
+
+Output: unsatisfactory
+```
+
+{% endtab %}
+{% tab title='BJ_17903.py' %}
+
+```py
+a, b= map(int, input().split())
+print("satisfactory" if a >= 8 else "unsatisfactory")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : 3 つの整数 (Three Integers)](https://www.acmicpc.net/problem/18408)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/ternary/BJ_18408.md/)
+
+{% tabs %}
+{% tab title='BJ_18408.md' %}
+
+> Question
+
+* print 1 if sum of three are less than 4, else 2
+
+```txt
+Input: 1 1 0
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_18408.py' %}
+
+```py
+a, b, c = map(int,input().split())
+print(1 if a + b + c <= 4 else 2)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Automated Telephone Exchange](https://www.acmicpc.net/problem/3507)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/ternary/BJ_3507.md/)
+
+{% tabs %}
+{% tab title='BJ_3507.md' %}
+
+> Question
+
+* print 199 - n, if n > 199 print 0
+
+```txt
+Input: 201
+Output: 0
+```
+
+{% endtab %}
+{% tab title='BJ_3507.py' %}
+
+```py
+n = int(input())
+print(0 if 199 < n else 199 - ate)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 아!](https://www.acmicpc.net/problem/4999)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/ternary/BJ_4999.md/)
+
+{% tabs %}
+{% tab title='BJ_4999.md' %}
+
+> Question
+
+* print "no" if second line is longer else "go"
+
+```txt
+Input:
+aaah
+ah
+
+Output: go
+```
+
+{% endtab %}
+{% tab title='BJ_4999.py' %}
+
+```py
+a = input()
+b = input()
+print("no" if len(b) > len(a) else "go")
+```
+
+{% endtab %}
+{% tab title='BJ_4999.sh' %}
+
+```sh
+read a
+read b
+if [ ${#b} -gt ${#a} ]; then
+  echo 'no'
+else
+  echo 'go'
+fi
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 돌 게임 2](https://www.acmicpc.net/problem/9656)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/ternary/BJ_9656.md/)
+
+{% tabs %}
+{% tab title='BJ_9656.md' %}
+
+> Question
+
+* print CY if odd else SK
+
+```txt
+Input: 4
+Output: SK
+```
+
+{% endtab %}
+{% tab title='BJ_9656.py' %}
+
+```py
+n = int(input())
+print('CY' if n % 2 == 1 else 'SK')
+```
+
+{% endtab %}
+{% endtabs %}
