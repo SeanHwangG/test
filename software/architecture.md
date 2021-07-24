@@ -2,25 +2,24 @@
 
 * Increaese design awareness in software community
 
-* Class should be deep
-* Add complexity, must restructure when requirement changes
-* Abstraction ([-] Java File IO vs [+] Linux File IO)
+* Class should be deep: Add complexity, must restructure when requirement changes
+  * Abstraction
+  [ex]
+  [-] Java File IO
+  [+] Linux File IO)
+  ![class should be deep](images/20210301_124951.png)
 
-![class should be deep](images/20210301_124951.png)
+* Desfine Errors Out of Existence: Huge source of complexity -> define semantics to eliminate exceptions
+  * Minimize the number of places where exceptions must be handled (vs return value)
+  * tcl unset command enclosed with all exception handler
+  * [ex]
+  Window: can't delete file if open vs Linux: delete file and clean up when deleted closed
+  Java: substring range exceptions vs Python: not throw exception
 
-* Desfine Errors Out of Existence
-* Huge source of complexity -> define semantics to eliminate exceptions
-* Minimize the number of places where exceptions must be handled (vs return value)
-* tcl unset command enclosed with all exception handler
-* Window: can't delete file if open vs Linux: delete file and clean up when deleted closed
-* Java: substring range exceptions vs Python: not throw exception
-
-* Tactical vs Strategic Programming
-* get next feature / bug fix working ASAP / No shortcuts No kludges
-* bad design, high complexity, tactical tornadoes
-* Startup's deadline / Facebook move quickly
-
-![kludge](images/20210301_131040.png)
+* Tactical vs Strategic Programming: get next feature / bug fix working ASAP / No shortcuts No kludges
+  * bad design, high complexity, tactical tornadoes
+  * Startup's deadline / Facebook move quickly
+  ![kludge](images/20210301_131040.png)
 
 > Types
 
@@ -37,19 +36,35 @@
   ![Two Tier](images/20210304_222949.png)
 
 {% tabs %}
-{% tab title='gcp' %}
+{% tab title='python' %}
+
+* Django: Model-view-controller
+  ![Django](images/20210213_015930.png)
+  * URL patterns to decide which view to pass the request to for handling
+  * project can contain multiple apps
+  * automatically reloads Python code for each request as needed
+
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title='google' %}
 
 ![Big Query](images/20210721_143100.png)
 
 * Storage and compute is independantly scaleable
 * Rmote memory shuffle
   * [+] Faster performance for complex queries, join and aggregate more data, better scalability
+  * [+] Secure: Data is splitted into data blocks which is compressed, encrypted with different keys
   ![Remote memory shuffle](images/20210721_151152.png)
 
-* Managed Storage
-  * Tables are stored in optimized columnar format
+* Managed Storage: Tables are stored in optimized columnar format
   * Each table is compressed and encrypted on disk
+  * avro -> parquet / orc -> csv -> json -> csv (compressed) -> json (compressed) (gzip data are not splittable)
+  * [+] No limit on data injestion
   ![Managed Storage](images/20210721_151358.png)
+
+![End to End](images/20210721_163700.png)
 
 {% endtab %}
 {% tab title='jenkins' %}

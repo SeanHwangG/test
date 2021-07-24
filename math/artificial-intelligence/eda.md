@@ -614,6 +614,15 @@ def capture_video():
 {% endtab %}
 {% endtabs %}
 
+{% tabs %}
+{% tab title='google' %}
+
+* [Speed Control](
+  https://chrome.google.com/webstore/detail/video-speed-controller/nffaoalbilbmmfgbnbgppjihopabppdk/related?hl=en)
+
+{% endtab %}
+{% endtabs %}
+
 ### Audio
 
 {% tabs %}

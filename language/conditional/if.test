@@ -1,1 +1,17 @@
 [If](https://docs.google.com/forms/d/1t0c4Q6POa8BmpOYU2efDHGHDGZB7DsHatMGo9rVoHcE/edit)
+
+```py
+a = 5
+b = 3
+
+print(1 if a == b else 2)  # 2
+print(1 if a > b else 2)
+print(1 if a == 4 and b == 3 else 2)
+print(1 if a >= 0 or b < -1 else 2)
+print(1 if all([a > 5, b < 5]) else 2)
+print(1 if a > 10 else 2 if b < 10 else 3)
+print(1 if len(a) == 1 else 2)
+print(10 if a // b == 1 else 20)
+print(1 if a % 2 == 0 else 2 if b % 2 ==0 else 3)
+print(1 if ord('a') > a else 2 if ord('b') < b else 3)
+```

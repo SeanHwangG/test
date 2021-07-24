@@ -35,6 +35,21 @@
     I want to have an accurate measure of the distance I traveled: Not a system capability (task)
     So that I can see how far I walk every day: Benefit in the world
 
+> Question
+
+* Break following user story into two
+  * Scenario 1: Favorite a New Route
+    * Given that the user is on the Save Route screen
+    * And they are saving a route named “RouteA”
+    * When the user presses the “Favorite” button
+    * And then they press the “Save” button
+    * Then the app should go to the Routes page
+    * And “RouteA” should be shown as a favorite
+  * [ex]
+    As a user I want to message a nearby buddy so that we can meet up.  →
+    As an initiator I want to send invitation to a nearby buddy so that we can meet up
+    As a user I want to receive messages so that we can meet up
+
 ## Code Review
 
 * should avoid API discussion: should happend before code is written
@@ -140,3 +155,19 @@
   * written by Richard Stallman, founder of the Free Software Foundation
 
 {% repo 'licenses' %}
+
+## Refactor
+
+> Term
+
+* Blob: procedural-style design leads to one object with a lion’s share of the responsibilities
+* Dead End: reached by modifying reusable component if modified component is no longer maintained, supported by supplier
+* Lava Flow: dead code and forgotten design information is frozen in an ever-changing design
+* Spaghetti Code: Ad hoc software structure makes it difficult to extend and optimize code
+  * Problem
+  No mentoring in place, ineffective code review, developers working in isolation
+  Minimal relationships exist between objects
+  The flow of execution is dictated by object implementation, not by the clients of the objects
+  * Solution
+  create domain model, extract commonality between domain objects to abstract, clarify objects, relationships in system
+  requirements and design are specified in advance of the implementation, instead of occurring concurrently

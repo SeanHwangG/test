@@ -68,15 +68,14 @@ lower_bound(v.begin(), v.end(), 10); // 0
 {% endtab %}
 {% tab title='python' %}
 
-> bisect
-
-* bisect_left(`nums`, `x`): first insert point for x in `nums` to maintain sorted order
-* bisect_right(`nums`, `x`): last insert point for x in `nums` to maintain sorted order
-  * lo=0, hi=len(a): set where to start, end in array
-* bisect.insort_left(a, x, lo=0, hi=len(a)): insert x in a in sorted order
-  * a.insert(bisect.bisect_left(a, x, lo, hi), x) (a is sorted)
-  * O(log n) search is dominated by the slow O(n) insertion step
-* bisect.insort(a, x, lo=0, hi=len(a)): inserting x in a after any existing entries of x
+* bisect
+  * bisect_left(`nums`, `x`): first insert point for x in `nums` to maintain sorted order
+  * bisect_right(`nums`, `x`): last insert point for x in `nums` to maintain sorted order
+    * lo=0, hi=len(a): set where to start, end in array
+  * insort_left(`a`, `x`, lo=**0**, hi=**len(a)**): insert `x` in `a` in sorted order
+    * a.insert(bisect_left(a, x, lo, hi), x): a must be sorted
+    * O(log n) search is dominated by the slow O(n) insertion step
+  * insort(a, x, lo=0, hi=len(a)): inserting x in a after any existing entries of x
 
 ```py
 # 1. Search on sorted list
@@ -186,14 +185,15 @@ WHERE t1.drinker2 = f1.drinker AND f1.bar = f2.bar)
   * Constraints: What properties must a solution have?
   * Objective function: What makes a solution have?
 
-> 8 Queen
+> Question
 
-* Put 8 queens on a chessboard such that no two are attacking
-* Brute force: Put all possible arrangements of 8 queens on the chess board
-  * Instance: An empty 8 x 8 chess board
-  * Solution format: A placement of 8 queens
-  * Constraint: No two queens are attacking
-  * Object: Find a solution with the constraint
-* Consider one row at a time, eliminating possible non-solution board positions early in their construction
+* 8 Queen
+  * Put 8 queens on a chessboard such that no two are attacking
+  * Brute force: Put all possible arrangements of 8 queens on the chess board
+    * Instance: An empty 8 x 8 chess board
+    * Solution format: A placement of 8 queens
+    * Constraint: No two queens are attacking
+    * Object: Find a solution with the constraint
+  * Consider one row at a time, eliminating possible non-solution board positions early in their construction
 
 {% include '.backtrack.prob' %}

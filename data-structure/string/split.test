@@ -1,1 +1,18 @@
 [Split](https://docs.google.com/forms/d/1cSrstATAUQt7WNtsoUzL1eATQsCw65FlxD5qL5HnmKA/edit)
+
+```py
+a = '5 10 15 20'
+b = 'p/y/t/h/o/n/p'
+c = 'h!e!l!l!o'
+
+print(a.split())
+print(a.split('0'))
+print(b.split('/'))
+print(b.split('p'))
+print(c.split('!'))
+print(c.split('l'))
+print(a.split(' ',1))
+print(b.split('/', 2))
+print(c.split('!', 3))
+print(b.split(sep='/', maxsplit=5))
+```

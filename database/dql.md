@@ -200,6 +200,60 @@ SELECT COUNT(distinct(l.type)) FROM bank.loan l -- Count number of type from loa
 
 ## Query Select
 
+{% tabs %}
+{% tab title='python' %}
+
+```py
+# 1. Big query
+from google.cloud import bigquery
+
+bqclient = bigquery.Client()
+
+# Download query results.
+query_string = """
+SELECT
+CONCAT(
+  'https://stackoverflow.com/questions/',
+  CAST(id as STRING)) as url,
+view_count
+FROM `bigquery-public-data.stackoverflow.posts_questions`
+WHERE tags like '%google-bigquery%'
+ORDER BY view_count DESC
+"""
+
+dataframe = (
+  bqclient.query(query_string)
+  .result()
+  .to_dataframe(
+      # Optionally, explicitly request to use the BigQuery Storage API.
+      # As of google-cloud-bigquery version 1.26.0 and above, the BigQuery Storage API is used by default.
+      create_bqstorage_client=True,
+  )
+)
+print(dataframe.head())
+
+bqclient = bigquery.Client()
+
+# Download a table.
+table = bigquery.TableReference.from_string(
+  "bigquery-public-data.utility_us.country_code_iso"
+)
+rows = bqclient.list_rows(
+  table,
+  selected_fields=[
+    bigquery.SchemaField("country_name", "STRING"),
+    bigquery.SchemaField("fips_code", "STRING"),
+  ],
+)
+dataframe = rows.to_dataframe(
+  create_bqstorage_client=True,
+)
+print(dataframe.head())
+```
+
+{% endtab %}
+{% endtabs %}
+
 {% include '.select.prob' %}
 
 ## Aggregate
@@ -284,6 +338,11 @@ SELECT convert(datetime, '20:10:44', 108) -- hh:mm:ss
 {% tabs %}
 {% tab title='sql' %}
 
+* bigquery
+  * UNION
+    * ALL: Combine twos
+    * DISTINCT: Only distinct
+
 ```sql
 -- 1. For each team, return its name and total number of points. (name and points)
 CREATE VIEW standings(name, points) AS
@@ -295,10 +354,10 @@ CREATE VIEW standings(name, points) AS
   SELECT name, 0 AS points FROM Teams)
   GROUP BY name
 
--- 1. Find all actors or directors
+-- 2. Find all actors or directors
 (SELECT actor AS name FROM movie) UNION (SELECT director AS name FROM movie)
 
--- 1. Find all actors who are not directors
+-- 3. Find all actors who are not directors
 (SELECT actor AS name FROM movie) EXCEPT( SELECT director AS name FROM movie)
 ```
 
@@ -414,6 +473,12 @@ SELECT c.name as name, l.no as no FROM bank.customer c, bank.loan l WHERE c.cred
   * Null group-by attributes are treated like any other value
 
 {% tabs %}
+{% tab title='python' %}
+
+* itertools
+  * groupby(`iter`, key=**None**): [ex] [(k, g) for k, g in groupby('AAABB')] → (A, AAA), (B, BB)
+
+{% endtab %}
 {% tab title='sql' %}
 
 ```sql

@@ -1,1 +1,16 @@
 [Logical](https://docs.google.com/forms/d/19qlt2Br_eGbxlK5Q34e7NvDNVfmXW5MTOcqLDpWpjRo/edit)
+
+```py
+a = 10
+
+print(True and False)
+print(True or False)
+print( a % 2 == 0 )
+print( a // 2 != 0 and a * 3 == 9 )
+print( a == 9 or a == 10 )
+print(all([True, False, False, True]))
+print(any([True, False, False, True]))
+print(all([True, True, True, False]))
+print(all([True, any([False, True])]))
+print( a * 10 != 100)
+```

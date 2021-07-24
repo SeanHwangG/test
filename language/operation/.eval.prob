@@ -1,6 +1,35 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
+* [Level 3 : 오버플로우와 모듈러](https://www.acmicpc.net/problem/15818)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_15818.md/)
+
+{% tabs %}
+{% tab title='BJ_15818.md' %}
+
+> Question
+
+* Outputs the remainder of the product of N integers per line divided by M
+
+```txt
+Input:
+10 9999
+100 100 100 100 100 100 100 100 100 100
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_15818.py' %}
+
+```py
+d = input().split()[1]
+print(eval(input().replace(" ","*")) % int(d))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : 소음](https://www.acmicpc.net/problem/2935)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_2935.md/)
 
 {% tabs %}
@@ -66,7 +95,7 @@ print(eval(input() + input() + input()))
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level 3 : 계산기 프로그램](https://www.acmicpc.net/problem/5613)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_5613.md/)
 
 {% tabs %}
@@ -118,35 +147,6 @@ while 1:
     break
   b = input()
   c = int(eval(str(c) + line + b))
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 3 : 오버플로우와 모듈러](https://www.acmicpc.net/problem/15818)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/BJ_15818.md/)
-
-{% tabs %}
-{% tab title='BJ_15818.md' %}
-
-> Question
-
-* Outputs the remainder of the product of N integers per line divided by M
-
-```txt
-Input:
-10 9999
-100 100 100 100 100 100 100 100 100 100
-
-Output: 1
-```
-
-{% endtab %}
-{% tab title='BJ_15818.py' %}
-
-```py
-d = input().split()[1]
-print(eval(input().replace(" ","*")) % int(d))
 ```
 
 {% endtab %}
@@ -223,7 +223,7 @@ for _ in range(int(input())):
 
 > kattis
 
-* [Level  : UNKNOWN]()
+* [Level 1.6 : Tri](https://open.kattis.com/problems/tri)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/operation/eval/KT_tri.md/)
 
 {% tabs %}

@@ -1,0 +1,17 @@
+[List-1](https://docs.google.com/forms/d/1OjjwrnTEIrhmoP7e7bzcU81yK9B7fKGViyWFRQJ_uNY/edit)
+
+```py
+a = [1, 2, 3, 4, 5]
+b = [4, 5, 6, 7, 8]
+
+a.append(99); print(a[-1])
+b.remove(8); print(b[-1])
+print(a.pop())
+print(a[1])
+b.pop(); print(len(b))
+a.append('xz'); print(a[-1])
+b.append(10); print(b[-1])
+a[3] = 77; print(a[3])
+print(a[0], b[-1])
+print(b[4], a[-5])
+```

@@ -1,0 +1,14 @@
+[print-2](https://docs.google.com/forms/d/1JAjBDA_XoJtT_T60hF2G0Rn5Wc8-ub-ZdIRk2C1tgP0/edit)
+
+```py
+print("*")
+print(" ' ")
+print(" " ")
+print(" \" ")
+print(" \'\" ")
+print("\")
+print("\\")
+print("line "1" ")
+print(' ' ')
+print(' \' ')
+```

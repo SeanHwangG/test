@@ -159,15 +159,6 @@ print(cnt)
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : 연세대학교](https://www.acmicpc.net/problem/15680)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15680.md/)
-
-* [Level 2 : 수찬은 마린보이야!!](https://www.acmicpc.net/problem/15921)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15921.md/)
-
-* [Level 2 : CASIO](https://www.acmicpc.net/problem/15963)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_15963.md/)
-
 * [Level 2 : 나이 계산하기](https://www.acmicpc.net/problem/16199)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_16199.md/)
 
@@ -208,12 +199,6 @@ print(k_age - 1)
 
 {% endtab %}
 {% endtabs %}
-
-* [Level 2 : Counting Clauses](https://www.acmicpc.net/problem/17903)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_17903.md/)
-
-* [Level 2 : 3 つの整数 (Three Integers)](https://www.acmicpc.net/problem/18408)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_18408.md/)
 
 * [Level 2 : Dog Treats](https://www.acmicpc.net/problem/19602)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_19602.md/)
@@ -377,15 +362,6 @@ print(min(a * x + b * y, 2 * c * max(x, y), v))
 
 {% endtab %}
 {% endtabs %}
-
-* [Level 3 : Automated Telephone Exchange](https://www.acmicpc.net/problem/3507)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_3507.md/)
-
-* [Level 4 : 아!](https://www.acmicpc.net/problem/4999)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_4999.md/)
-
-* [Level 7 : 돌 게임 2](https://www.acmicpc.net/problem/9656)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if/BJ_9656.md/)
 
 > kattis
 

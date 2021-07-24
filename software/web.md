@@ -440,7 +440,7 @@ a.abc, a.xyz {     /* apply to multiple css */
 
 ![flex](images/20210219_220045.png)
 
-> parent
+* parent
 
 ```css
 display: flex;
@@ -491,18 +491,6 @@ flex-direction: row;
   * hidden: hidden (but still takes up space)
   * collapse: Only for `<tr>`, `<tbody>`, `<col>`, `<colgroup>`. removes a row or column
 
-{% tabs %}
-{% tab title='javascript' %}
-
-```js
-// 1. Check hidden
-child.offsetWidth > 0 && child.offsetHeight > 0 // also check if parent is hidden
-object.style['display'] != 'none'               // only checks the element
-```
-
-{% endtab %}
-{% endtabs %}
-
 > Position
 
 ![position](images/20210219_221142.png)
@@ -521,6 +509,65 @@ object.style['display'] != 'none'               // only checks the element
 default 0
 margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
 ```
+
+{% tabs %}
+{% tab title='javascript' %}
+
+```js
+// 1. Check hidden
+child.offsetWidth > 0 && child.offsetHeight > 0 // also check if parent is hidden
+object.style['display'] != 'none'               // only checks the element
+```
+
+{% endtab %}
+{% tab title='google' %}
+
+* stylish: Customize css for any website
+
+```css
+/* 1. Stylish for gitbook */
+/* Increase Center */
+.reset-3c756112--pageContainer-544d6e9c {
+  max-width: 1800px;
+}
+
+/* Hide left navigation */
+.reset-3c756112--body-324a5898 {
+  margin: 0;
+}
+
+.reset-3c756112--contentNavigation-dd3370a4 {
+  min-width: 0px;
+}
+
+/* Hide except edit on github */
+.reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageSideMenuItem-22949732:
+not(:first-child) {
+  display: none;
+}
+
+/* reduce right navigation */
+.reset-3c756112--contentNavigation-dd3370a4 {
+  padding-left: 0;
+  width: calc((100% - 1448px) / 5);
+}
+
+.reset-3c756112--pageSide-ad9fed26 {
+  width: 180px;
+}
+
+/* Hide admin option */
+.reset-3c756112--sidebarNav-1270f224 {
+  display: none;
+}
+
+.reset-3c756112--body-324a5898 {
+  width: 100%;
+}
+```
+
+{% endtab %}
+{% endtabs %}
 
 ## Text
 
@@ -607,7 +654,7 @@ margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
 {% endtab %}
 {% endtabs %}
 
-### Link
+### Web Link
 
 {% tabs %}
 {% tab title='javascript' %}

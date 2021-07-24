@@ -1,1 +1,17 @@
 [Set](https://docs.google.com/forms/d/1YFC2YHaTgsQxkSEtDufCzpiKTz43Nr8Iw5Hn7grw2oA/edit)
+
+```py
+a = set(['a', 'b', 'b'])
+b = set(['b', 'c', 'd'])
+
+print('d' in a)
+print('d' in a | b)
+print(" ".join(sorted(a)))
+print(" ".join(sorted(a & b)))
+a.remove('a'); print(" ".join(a))
+print(" ".join(sorted(a | b)))
+print(" ".join(sorted(a | {'z'})))
+a.add('f'); print(" ".join(a))
+print(" ".join(sorted(a - b)))
+print(" ".join({'1', '1'}))
+```

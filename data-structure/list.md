@@ -5,9 +5,8 @@
 {% tabs %}
 {% tab title='cpp' %}
 
-> vector
-
-* iterator insert (const_iterator position, const value_type& val);
+* vector
+  * iterator insert (const_iterator position, const value_type& val);
 
 ```cpp
 #include <iostream>
@@ -177,16 +176,17 @@ var mergedObj = { ...obj1, ...obj2 };    // merge objects
 {% endtab %}
 {% tab title='python' %}
 
-* append(`elem`): Adds an `elem` at the end of the list
-* clear(): Removes all the elements from the list
-* copy(): Returns a copy of the list
-* count(`object`): Returns the number of `object`
-* extend(`iterable`): Add all iterable, to the end of the current list
-* insert(`index`, `object`): Add an object to index
-* index(`value`, `start`=0, `stop`=inf) -> int: Returns the first index of the `value`, error if not found
-* pop(`index`=-1): Removes the element at the `index`
-* remove(`value`): Removes the first index of `value`
-* reverse() -> None: Reverses the order of the list in-place
+* list
+  * append(`elem`): Adds an `elem` at the end of the list
+  * clear(): Removes all the elements from the list
+  * copy(): Returns a copy of the list
+  * count(`object`): Returns the number of `object`
+  * extend(`iterable`): Add all iterable, to the end of the current list
+  * insert(`index`, `object`): Add an object to index
+  * index(`value`, `start`=0, `stop`=inf) -> int: Returns the first index of the `value`, error if not found
+  * pop(`index`=-1): Removes the element at the `index`
+  * remove(`value`): Removes the first index of `value`
+  * reverse() -> None: Reverses the order of the list in-place
 
 ```py
 # 1. Create
@@ -209,6 +209,9 @@ print(L.index('x'))     # Triggers ValueError: 'x' is not in list
 L = ['a','b','c','d','e','f','a','b','c','d','e','f']
 print(L.index('c',4,7)) # within search bound
 ```
+
+{% include 'list-1.test' %}
+{% include 'list-2.test' %}
 
 {% endtab %}
 {% tab title='shell' %}
@@ -318,12 +321,12 @@ echo ${grade[$[score / 10]]}
 {% tabs %}
 {% tab title='python' %}
 
-{% include '2d.test' %}
-
 ```py
 # 1. maximum in 2d array
 print(max(max(dp, key=max)))
 ```
+
+{% include 'dimension-2.test' %}
 
 {% endtab %}
 {% endtabs %}
@@ -538,9 +541,11 @@ def tail(filename, n=10):
 {% tabs %}
 {% tab title='cpp' %}
 
-> stack
+* stack
 
-* stack\<int> s ({1, 2, 3});
+```cpp
+stack\<int> s ({1, 2, 3});
+```
 
 {% endtab %}
 {% endtabs %}
@@ -548,6 +553,11 @@ def tail(filename, n=10):
 {% include '.stack.prob' %}
 
 ### Queue
+
+> Term
+
+* Persist queue: feature that you configure to take data that is in input queue and store it to files on disk
+  * [+] prevent data loss if the forwarder or indexer has too much data to process at one time
 
 {% tabs %}
 {% tab title='cpp' %}

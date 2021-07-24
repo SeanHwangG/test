@@ -77,6 +77,15 @@ $$
 
 ### Combination
 
+{% tabs %}
+{% tab title='python' %}
+
+* itertools
+  * combinations(`iter`, r): [ex] ('ABCD', 2) → AB AC AD BC BD CD
+
+{% endtab %}
+{% endtabs %}
+
 {% include 'combination.test' %}
 
 {% include '.combination.prob' %}
@@ -97,6 +106,12 @@ $$
   * 6! | 3!
 
 {% tabs %}
+{% tab title='python' %}
+
+* itertools
+  * permutations(`iter`): [ex] (range(3)) → 012 021 102 120 201 210
+
+{% endtab %}
 {% tab title='shell' %}
 
 * shuf: generate random permutations

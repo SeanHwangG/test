@@ -8,8 +8,7 @@
   * Automates the configuration process of hosts on a network
   * Configure IP addresses for client devices to ensures devices can obtain an IP address when needed
   * Assign the same IP to the same machine each time, if possible
-  * discovery
-    * Process a client configured to used DHCP attempts to get network configuration information
+  * discovery: Process a client configured to used DHCP attempts to get network configuration information
     * DHCPOFFER has the field that specifies the MAC address of the client
   ![DHCP](images/20210316_154349.png)
 
@@ -30,12 +29,13 @@
 * Fully qualified domain name (FQDN) combines host, domain, top level domain with dot
 * DNS support up to 127 characters / 127 levels of domain in total for a single FQDN
 * subdomain is a domain that is part of a larger domain
-* Top level domain(TLD) → top of the hierarchical DNS name resolution system (.com .net)
 * www.linkedin.com => 108.174.10.10: forward lookup
 
-![web hiarchy](images/20210227_184214.png)
+> Term
 
-> Terms
+* TLD: Top level domain is top of the hierarchical DNS name resolution system (.com .net)
+
+![web hiarchy](images/20210227_184214.png)
 
 * CNAME: redirect traffic from one domain to another → naver.com to www.naver.com
   * only need to change on A-record
@@ -56,45 +56,55 @@
 * TLD name servers
 * Authoritative name servers → weather.com
 
-* Public DNS: name servers specifically set up so that anyone can use them for free
+> Term
+
+* Public: name servers specifically set up so that anyone can use them for free
   * Google operates public name servers on the IPs 8.8.8.8 and 8.8.4.4
   * public DNS servers also respond to ICMP echo requests → test general internet connectivity using ping
 
-* Domain Name System Security Extensions (DNSSEC)
-  * suite of IETF specifications for securing certain kinds of info provided by DNS as used on IP networks
-
-{% tabs %}
-{% tab title='/etc/hosts' %}
+* DNSSEC: Domain Name System Security Extensions: suite of IETF specifications for securing certain kinds of info
+  * provided by DNS as used on IP networks
 
 * Static table lookup for hostnames
-* window: \system32\drivers\etc\hosts
+  * Ubuntu: /etc/hosts
+  * window: \system32\drivers\etc\hosts
 
-```sh
-127.0.0.1
-```
+{% tabs %}
+{% tab title='shell' %}
+
+* dig: performs DNS lookups and displays the answers that are returned from the name servers
+
+* nslookup: administration CLI tool to obtain domain names, IP address mapping, or other DNS records
+  * interactive mode
+  * type=MX: resource record type
+  * set debug: to display the full response packets
+  * server 8.8.8.8: change the DNS server you're using
 
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
-{% tab title='shell' %}
+{% tab title='google' %}
 
-> dig
-
-* performs DNS lookups and displays the answers that are returned from the name servers
-
-> nslookup
-
-* administration command-line tool to obtain domain names, IP address mapping, or other DNS records
-* interactive mode
-* type=MX: resource record type
-* set debug: to display the full response packets
-* server 8.8.8.8: change the DNS server you're using
+* gcloud dns
+  * --project=seanhwangg
+  * record-sets
+    * transaction start
+      * --zone=MANAGED_ZONE
+  * managed-zones
+    * create `zone`: create `zone`
+      * --description=""
+      * --dns-name=`url`: [ex] classroom.icu
+      * --visibility="public"
+      * --dnssec-state="off"
+    * list: show all managed zones
 
 {% endtab %}
 {% endtabs %}
 
 ### SEO
+
+> Term
 
 * sitemap.xml: Informs search engines of the site structures
   * provides some meta information about individual pages
@@ -256,6 +266,9 @@ def show_age(request, age):
 * load balancing traffic
 * terminate SSL encryption and serve static files
 
+{% tabs %}
+{% tab title='shell' %}
+
 * nginx
   * -s reload: update nignx
   * -t: Check syntax
@@ -266,6 +279,9 @@ def show_age(request, age):
   * stop nginx: Stop nginx
   * reload nginx: Reload nginx
   * restart nginx: Restart nginx
+
+{% endtab %}
+{% endtabs %}
 
 {% repo 'nginx-conf' %}
 {% repo 'lemp' %}
@@ -323,7 +339,6 @@ app.listen(PORT, () => {
 // 2. graphql Client
 const client = new client("https://myapi.com/graphql");
 
-
 /* Now, send your query as a string (Note that ` is used to create a multi-line string in javascript).
 
 client.query(`
@@ -340,9 +355,14 @@ client.query(`
 
 * Schema()
   * auto_camelcase: [ex] **True**, False
+* gcloud.bigQuery
+  * Client()
+    * project: project id
+    * credentials: if not passed from environmnet
 
 ```py
 import graphine
+import os
 
 # 1. graphql
 
@@ -362,6 +382,10 @@ result = schema.execute(
   '''
 )
 print(dict(result.data.items()))  # {'isStaff': True}
+
+# 2. big query
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/gcloud-credential.json'
+client = bigquery.Client()
 ```
 
 {% endtab %}
@@ -369,13 +393,7 @@ print(dict(result.data.items()))  # {'isStaff': True}
 
 ### Server
 
-{% tabs %}
-{% tab title='graphql' %}
-
-* API server then makes calls to a database or other services to fetch the data that the client requested
-
-{% endtab %}
-{% endtabs %}
+* graphql: API server then makes calls to a database or other services to fetch the data that the client requested
 
 ## Telnet
 
@@ -474,7 +492,7 @@ ssh localhost
 {% endtabs %}
 
 {% tabs %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 > gcloud compute CLI
 

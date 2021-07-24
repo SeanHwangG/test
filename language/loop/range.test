@@ -1,1 +1,14 @@
 [Range](https://docs.google.com/forms/d/1dz9jZFRHZ-o8WkX8YMZOGZHQNHc2Y0IP1pr1i0u4bPw/edit)
+
+```py
+print(range(10)[2])        # 2
+print(range(-10)[2])       # ERROR
+print(range(30)[30])
+print(range(10,100)[2])
+print(range(-10,-100)[2])
+print(range(10, 2)[1])
+print(range(3,5,2)[1])
+print(range(0,100,3)[10])
+print(range(100,0,-10)[5])
+print(range(0,-1000,10)[10])
+```

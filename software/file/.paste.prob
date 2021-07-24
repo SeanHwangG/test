@@ -1,6 +1,6 @@
 > hackerrank
 
-* [Level  : UNKNOWN]()
+* [Level Medium : Paste - 1](https://www.hackerrank.com/challenges/paste-1/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/paste/HR_paste-1.md/)
 
 {% tabs %}
@@ -22,7 +22,7 @@ paste -sd ';'
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Medium : Paste - 2](https://www.hackerrank.com/challenges/paste-2/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/paste/HR_paste-2.md/)
 
 {% tabs %}
@@ -40,7 +40,7 @@ paste - - - -d ';'
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Medium : Paste - 3](https://www.hackerrank.com/challenges/paste-3/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/paste/HR_paste-3.md/)
 
 {% tabs %}
@@ -58,7 +58,7 @@ paste -s
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Medium : Paste - 4](https://www.hackerrank.com/challenges/paste-4/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/paste/HR_paste-4.md/)
 
 {% tabs %}

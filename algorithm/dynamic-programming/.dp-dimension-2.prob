@@ -1,41 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_1509.md/)
-
-{% tabs %}
-{% tab title='BJ_1509.md' %}
-
-> Question
-
-* Given string, find minimum number of palindromes to be splitted
-
-```txt
-Input: BBCDDECAECBDABADDCEBACCCBDCAABDBADD
-Output: 22
-```
-
-{% endtab %}
-{% tab title='BJ_1509.py' %}
-
-```py
-string = input()
-length = res = len(string)
-dp = list(range(length + 1))
-if string == string[::-1]:
-  print(1)
-  exit()
-for i in range(length):
-  for j in range(i + 1, length + 1):
-    tmp = string[i:j]
-    if tmp == tmp[::-1]:
-      dp[j] = min(dp[j], dp[i] + 1)
-print(dp[-1])
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 0 : Fast Food](https://www.acmicpc.net/problem/6309)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_6309.md/)
 
@@ -367,6 +331,42 @@ for x, y, val in sorted(li, key=lambda x: -x[2]):
         dp[x][y] = max(dp[x][y], dp[nx][ny] + 1)
 
 print(max(max(dp, key=max)))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 15 : 팰린드롬 분할](https://www.acmicpc.net/problem/1509)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/BJ_1509.md/)
+
+{% tabs %}
+{% tab title='BJ_1509.md' %}
+
+> Question
+
+* Given string, find minimum number of palindromes to be splitted
+
+```txt
+Input: BBCDDECAECBDABADDCEBACCCBDCAABDBADD
+Output: 22
+```
+
+{% endtab %}
+{% tab title='BJ_1509.py' %}
+
+```py
+string = input()
+length = res = len(string)
+dp = list(range(length + 1))
+if string == string[::-1]:
+  print(1)
+  exit()
+for i in range(length):
+  for j in range(i + 1, length + 1):
+    tmp = string[i:j]
+    if tmp == tmp[::-1]:
+      dp[j] = min(dp[j], dp[i] + 1)
+print(dp[-1])
 ```
 
 {% endtab %}

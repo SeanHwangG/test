@@ -1,1 +1,14 @@
 [Tree](https://docs.google.com/forms/d/1_ofN6F79XzQAos7-Xl3ZKjcz-N4kMF4EUGlPX3yenpg/edit)
+
+```py
+What is the root?
+What is the parent of 6?
+How many leaves are there?
+What is the depth of 10?
+How many children does node 7 have?
+How many edges are there?
+What is the depth of the tree?
+How many vertices have 2 children?
+How many children does node 9 have?
+How many vertices are there?
+```

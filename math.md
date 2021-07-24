@@ -24,6 +24,22 @@
 * +: Add two numbers
 
 {% tabs %}
+{% tab title='nasm' %}
+
+* mov `a` `b`: move `b` to `a`
+* add `a` 1: add 1 to `a`
+  * Only valid for register
+* incl `a`: increment `a` by 1
+
+```nasm
+# counter += 1
+mov rax, qword ptr [rbp - 8]
+mov ecx, dword ptr [rax]
+add ecx, 1
+mov dword ptr [rax], ecx
+```
+
+{% endtab %}
 {% tab title='python' %}
 
 {% include 'add.test' %}
@@ -57,7 +73,7 @@
 * [Order of operation 2](https://www.youtube.com/watch?v=GiSpzFKI5_w)
 
 {% include 'multiply.test' %}
-{% include 'multiply_2.test' %}
+{% include 'multiply-2.test' %}
 
 {% include '.multiply.prob' %}
 
@@ -129,7 +145,7 @@ print(a / b)
 
 {% include '.log.prob' %}
 
-j## Modulo
+## Modulo
 
 | Property     | Example                                        |
 | ------------ | ---------------------------------------------- |

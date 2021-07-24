@@ -13,42 +13,28 @@
 
 * Data parallelism: parallelization across multiple processors focusing on distributing data across different nodes
   * can be applied on regular data structures like arrays and matrices by working on each element in parallel
-
-* ETL (Extraction, Translation, Loading)
+* ETL: Extraction, Translation, Loading
   ![ETL](images/20210304_233925.png)
-
 * Execution model: Batch vs Streaming
-
 * integration: combining data from different sources into a single, unified view
   * Reduce data complexity | Adds value to data | Increase collaboration, availability | Unify data system
-
 * Lambda Architecture
   * data-processing architecture designed to handle massive quantities of data both batch, stream processing
-
 * Latency
   * Low: Game, Traffic
   * High: Search engine indexing
-
 * ORM (Object Relation Mapping): Remove dependency: Doesn't depends on speicific database (MySQL, MongoDB)
   * Reduce error, automatically detect changes
-
 * Schema on read: creates the schema only when reading the data → NoSql
-
 * Schema on write: defined as creating a schema for data before writing into the database → SQL
-
 * smart: Connect with other devices and have knowledge of the environment
-
 * in situ: Bringing the computation to the location of the data
-
 * rollback: process that reverts writes operations to ensure the consistency of all replica set members
-
-* CAP
-  * Can only achieve two of following
+* CAP: Can only achieve two of following
   * Consistency: Every read receives the most recent write or an error
   * Availability: Every request receives response, without guarantee that it contains the most recent write
   * Partition: Continues to operate despite any number of messages dropped by network between nodes
-
-![CAP Theory](images/20210304_233840.png)
+  ![CAP Theory](images/20210304_233840.png)
 
 * ACID
   * Atomicity: all changes that we need to do for these promotions must happen altogether
@@ -56,26 +42,19 @@
   * Isolation: context of concurrency, multiple people updating a database simultaneously
   * Durability: once a transaction has been committed, it will remain so
 
-* BASE
-  * Basic Availability, Soft state, Eventual Consistency
+* BASE: Basic Availability, Soft state, Eventual Consistency
 
-* Fault Tolerance
-  * enables a system to continue operating properly in the event of the failure of some of its components
+* Fault Tolerance: enables a system to continue operating properly in the event of the failure of some of its components
   * Commodity cluster \(redundant data storage\)
 
-* IaaS
-  * User must install and maintain an operating system, and other applications
+* IaaS: User must install and maintain an operating system, and other applications
   * virtual machines, servers, storage, load balancers, network
   * Amazon EC2 cloud
-* PaaS
-  * Provided with entire computing platform
+* PaaS: Provided with entire computing platform
   * Execution runtime, database, web server, development tools
   * Google App engine, Microsoft Azure
-* SaaS
-  * cloud service provides hardware, software environment \(operating system, application software\)
-  * Dropbox
-* BDMS
-  * Continuous data ingestion
+* SaaS: cloud service provides hardware, software environment \(operating system, application software\) * Dropbox
+* BDMS: Continuous data ingestion
   * Support for common “Big Data” data types
   * A full query language
   * A flexible semi-structured data model
@@ -156,8 +135,7 @@ Container.get(TypeService);
   * Data Architecture, Database maintenance \(Schema\), quality and pipelines
 
 * Data Science
-
-![Data Science](images/20210304_233946.png)
+  ![Data Science](images/20210304_233946.png)
 
 * Dashboard: promotes trasnparency, accountability
   * automatic data pipelines: dashboard
@@ -168,12 +146,23 @@ Container.get(TypeService);
 * repository for structured, filtered data that has already been processed for a specific purpose
 
 {% tabs %}
-{% tab title='gcp' %}
+{% tab title='java' %}
+
+![Java](images/20210722_152711.png)
+
+{% endtab %}
+{% tab title='google' %}
 
 * [+] Automate data delivary, make insight (realtime) accessible, protect business data, simplify data operations
 
 * gcloud
-  * ls
+  * bq
+    * --help: Show help
+    * head: show first ten row
+    * ls: List dataset
+    * show: show project info
+      * `dataset`: [ex] bigquery-public-data:samples.wikipedia
+      * dataset
 
 {% endtab %}
 {% endtabs %}
@@ -233,6 +222,7 @@ Container.get(TypeService);
 * deletion: if the deleted entry appears in the index replace it with the next search-key value
   * (leave deleted value assuming no part of the system assume it still exists without checking the block)
 * Multi-level indices: treat the index as data and build an index on it
+* Roll up: periodic task that aggregates data from indices specified by index pattern, then rolls it into new index
 
 {% tabs %}
 {% tab title='python' %}
@@ -243,6 +233,20 @@ Container.get(TypeService);
   [ex]
   (Lower('title').desc(), 'pub_date', name='lower_title_date_idx')
   (F('height') * F('weight'), Round('weight'), name='calc_idx')
+
+{% endtab %}
+{% tab title='sql' %}
+
+```sql
+SELECT
+  EXTRACT (HOUR FROM time) AS hour, ad_id, website_id -- Dimensions
+  COUNTIF(event = "start")                            -- Metrics
+  COUNTIF(event = "complete")
+FROM
+  batches.batch_1234
+GROUP BY
+  hour, ad_id, website_id
+```
 
 {% endtab %}
 {% endtabs %}
@@ -267,6 +271,16 @@ Container.get(TypeService);
 * Natural Key
   * if column has some meaning for the entity, (ex. phone number) no extra column is needed for the surrogate key
   * table of shoes referencing colors would need to do a join if you wanted to get the color name
+
+{% tabs %}
+{% tab title='gcp' %}
+
+* Big Query
+  * Clustering: Frequently accessed table
+  * Surrogate key: prefer UUID(), use hash derived from business key
+
+{% endtab %}
+{% endtabs %}
 
 ### UUID
 
@@ -724,13 +738,6 @@ SELECT * FROM Wheel
 
 ## Django
 
-![Django](images/20210213_015930.png)
-
-* Model-view-controller
-* URL patterns to decide which view to pass the request to for handling
-* project can contain multiple apps
-* automatically reloads Python code for each request as needed
-
 > Terms
 
 * app
@@ -1025,11 +1032,6 @@ def viewfunc(request):
   * transaction: decorator
     * .non_atomic_requests
     * create(), bulk_create(), get_or_create(), update() generally use transactions
-
-> migrations
-
-* CreateModel
-* AddField
 
 > Q
 
@@ -1467,16 +1469,15 @@ class FruityFlavorView(FreshFruitMixin, TemplateView):
 * timezone
   * now(): return current time
 
-> html
-
-* format_html(): print html tag as is
-* list_per_page = `int`: set number of rows to display
-* list_display: column list
-* list_editable: editable dropdown
-  * must be present in list_display
-* list_filter: filter on right
-* ordering: default ordering
-* search_fields: search field on top
+* html
+  * format_html(): print html tag as is
+  * list_per_page = `int`: set number of rows to display
+  * list_display: column list
+  * list_editable: editable dropdown
+    * must be present in list_display
+  * list_filter: filter on right
+  * ordering: default ordering
+  * search_fields: search field on top
 
 ```py
 from django.utils.html import format_html
@@ -1490,9 +1491,8 @@ class LawyerAdmin(admin.ModelAdmin):
   show_firm_url.short_description = "Firm URL"
 ```
 
-> text
-
-* slugify: make readable url for readability and SEO
+* text
+  * slugify: make readable url for readability and SEO
 
 ```py
 from django.utils.text import slugify
@@ -1664,36 +1664,10 @@ class ProfileEnabledBaseCommand(BaseCommand):
 * db.models
   * TimeStampedModel: extends instead of Model
 
-## admin page
+## Admin page
 
 {% tabs %}
 {% tab title='python' %}
-
-* django_filters
-  * pip install djangorestframework
-  * 'django-filter' in INSTALLED_APPS
-  * rest_framework.DjangoFilterBackend
-
-```py
-# api_views.py
-from rest_framework.generics import ListAPIView
-from django_filters.rest_framework import DjangoFilterBackend
-
-from user.serializers import UserSerializer
-from user.models import User
-
-
-class UserList(ListAPIView):
-  queryset = User.objects.all()
-  serializer_class = UserSerializer
-  filter_backends = (DjangoFilterBackend,)
-  filter_fields = ("team_id")
-```
-
-{% endtab %}
-{% endtabs %}
-
-## contrib.admin
 
 * admin
   * register(`Team`): decorator for registering Admin class
@@ -1719,10 +1693,22 @@ class UserList(ListAPIView):
     * lookups(self, request, model_admin): [(url query, human_readable name), ..]
     * queryset(self, request, queryset)
 
+* django_filters
+  * pip install djangorestframework
+  * 'django-filter' in INSTALLED_APPS
+  * rest_framework.DjangoFilterBackend
+
 ```py
 from django.contrib import admin
 from .models import Author
 from django.contrib.admin import SimpleListFilter
+
+from rest_framework.generics import ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend
+
+from user.serializers import UserSerializer
+from user.models import User
+
 
 # 1. Simple admin
 @admin.register(IceCreamBar)
@@ -1753,70 +1739,14 @@ class CountryFilter(SimpleListFilter):
 
 class CityAdmin(ModelAdmin):
   list_filter = (CountryFilter,)
-```
 
-## rest_framework
-
-* Authentication policies include packages for OAuth1 and OAuth2
-* Great Serialization supports both ORM and non-ORM data sources
-* pip install djangorestframework
-
-```py
-# 1. Settings.py
-INSTALLED_APPS = [
-  ...
-  'rest_framework',
-  ...
-]
-
-REST_FRAMEWORK = {
-  'DEFAULT_PERMISSION_CLASSES': [
-    'rest_framework.permissions.AllowAny',
-  ]
-}
-```
-
-```py
-from rest_framework import serializers
-from rest_framework import JSONRender
-
-from .models import Hero
-
-# 1. Serializer
-class HeroSerializer(serializers.HyperlinkedModelSerializer):
-  class Meta:
-    model = Hero
-    fields = ('name', 'alias') # "__all__"
-    # exclude = []
-
-# 2. pagenation
-class ProductsPagination(LimitOffsetPagination):
-  default_limit = 10
-  max_limit = 100
-class ProductList(ListAPIView):
-  pagination_class = ProductsPagination
-```
-
-```py
-# 1. Test.py
-from rest_framework.test import APIRequestFactory
-factory = APIRequestFactory()
-request = factory.post('/notes/', {'title': 'new idea'})
-
-from django.urls import reverse
-from rest_framework import status
-from rest_framework.test import APITestCase
-from myproject.apps.core.models import Account
-
-class AccountTests(APITestCase):
-  def test_create_account(self):
-    """ Ensure we can create a new account object. """
-    url = reverse('account-list')
-    data = {'name': 'DabApps'}
-    response = self.client.post(url, data, format='json')
-    self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    self.assertEqual(Account.objects.count(), 1)
-    self.assertEqual(Account.objects.get().name, 'DabApps')
+# 3. Admin View
+""" api_views.py """
+class UserList(ListAPIView):
+  queryset = User.objects.all()
+  serializer_class = UserSerializer
+  filter_backends = (DjangoFilterBackend,)
+  filter_fields = ("team_id")
 ```
 
 {% endtab %}
@@ -2803,9 +2733,8 @@ source="census.csv" | stats count by STNAME | sort count desc
 * [ex] Index construction G search, Article clustering for G News, Machine translation, FB Spam detection
 * [ex] Log processing, web search indexing, ad-hoc queries
 
-> Design pattern
-
-* wc, cat \*, grep, sort, unique, cat > file, input, map, shuffle, reduce, output
+* Design pattern
+  * wc, cat \*, grep, sort, unique, cat > file, input, map, shuffle, reduce, output
 
 ```py
 def mapper(line):
@@ -2815,3 +2744,15 @@ def mapper(line):
 def reducer(key, values):
   output(key, sum(values))
 ```
+
+### Migration
+
+{% tabs %}
+{% tab title='python' %}
+
+* django.migrations
+  * CreateModel
+  * AddField
+
+{% endtab %}
+{% endtabs %}

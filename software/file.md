@@ -943,15 +943,11 @@ find * . -not -iwholename '.git' -type f -exec sed -i '' 's/ *$//' '{}' ';' # re
   * Spelling correction and approximate completion: will fix minor mistake typing a directory name
   * Plugin and theme support: ZSH includes many different plugin frameworks
 
-> Distribution
-
 * Linux
   * Developed originally by Bell Laboratorie
   * Kernel interacts with computer hardwares to allow software / hardware to exchange information
   * Tries to make the distribution more user-friendly with more convenient features
   * Four categories based on original distribution - Arch, Debian, Red Hat, and Slackware
-
-* WSL: compatibility layer for running Linux binary executables natively on Windows 10
 
 * Red Hat: CentOS, Fedora, and Red Hat Enterprise Linux are derived
 
@@ -960,15 +956,27 @@ find * . -not -iwholename '.git' -type f -exec sed -i '' 's/ *$//' '{}' ';' # re
 
 * Ubuntu: Desktop based Linux distribution
 
-* window
-  * Win+R shell:startup \(current user\) shell:common \(all user\)
-  * systeminfo: checks 32, 64 bitness
-  * new-alias vi notepad: use vi to replace notepad
-
 * type: like cat in linux
 
 {% tabs %}
-{% tab title='type.sh' %}
+{% tab title='sql' %}
+
+* sqlite
+  * .headers on: turn on headers
+  * .tables: list all tables
+    * 'a%': list variables starts with a
+
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title='window' %}
+
+* WSL: compatibility layer for running Linux binary executables natively on Windows 10
+
+* Win+R shell:startup \(current user\) shell:common \(all user\)
+* systeminfo: checks 32, 64 bitness
+* new-alias vi notepad: use vi to replace notepad
 
 ```text
 C:\>echo hi > a.txt

@@ -1,6 +1,27 @@
 > hackerrank
 
-* [Level  : UNKNOWN]()
+* [Level Easy : 'Sed' command #3](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-3/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_text-processing-in-linux-the-sed-command-3.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-sed-3.md' %}
+
+> Question
+
+* highlight all the occurrences of 'thy' by wrapping them up in brace brackets
+
+{% endtab %}
+{% tab title='HR_text-processing-sed-3.sh' %}
+
+```sh
+# & is captured group
+sed -e 's/thy/{&}/gi'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Medium : Remove the First Capital Letter from Each Element](https://www.hackerrank.com/challenges/bash-tutorials-remove-the-first-capital-letter-from-each-array-element/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_bash-tutorials-remove-the-first-capital-letter-from-each-array-element.md/)
 
 {% tabs %}
@@ -36,48 +57,7 @@ sed 's/^[A-Z]/./' | tr '\n' ' '
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_sed-command-4.md/)
-
-{% tabs %}
-{% tab title='HR_text-processing-sed-4.md' %}
-
-> Question
-
-* Each line contains a credit card number in the form dddd dddd dddd dddd
-* mask first 12 character
-
-{% endtab %}
-{% tab title='HR_text-processing-sed-4.sh' %}
-
-```sh
-sed 's/[0-9]\+ /**** /g'
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_sed-command-5.md/)
-
-{% tabs %}
-{% tab title='HR_text-processing-sed-5.md' %}
-
-> Question
-
-* reverse the ordering of segments in each credit card number
-
-{% endtab %}
-{% tab title='HR_text-processing-sed-5.sh' %}
-
-```sh
-sed -r 's/(.... )(.... )(.... )(....)/\4 \3\2\1/'
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level  : UNKNOWN]()
+* [Level Medium : 'Sed' command #1](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-1/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_text-processing-in-linux-the-sed-command-1.md/)
 
 {% tabs %}
@@ -99,7 +79,7 @@ sed -e 's/\<the\>/this/'
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Medium : 'Sed' command #2](https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-2/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_text-processing-in-linux-the-sed-command-2.md/)
 
 {% tabs %}
@@ -121,22 +101,42 @@ sed 's/thy/your/ig'
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_text-processing-in-linux-the-sed-command-3.md/)
+* [Level Hard : 'Sed' command #4](https://www.hackerrank.com/challenges/sed-command-4/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_sed-command-4.md/)
 
 {% tabs %}
-{% tab title='HR_text-processing-sed-3.md' %}
+{% tab title='HR_text-processing-sed-4.md' %}
 
 > Question
 
-* highlight all the occurrences of 'thy' by wrapping them up in brace brackets
+* Each line contains a credit card number in the form dddd dddd dddd dddd
+* mask first 12 character
 
 {% endtab %}
-{% tab title='HR_text-processing-sed-3.sh' %}
+{% tab title='HR_text-processing-sed-4.sh' %}
 
 ```sh
-# & is captured group
-sed -e 's/thy/{&}/gi'
+sed 's/[0-9]\+ /**** /g'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level Hard : 'Sed' command #5](https://www.hackerrank.com/challenges/sed-command-5/problem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/sed/HR_sed-command-5.md/)
+
+{% tabs %}
+{% tab title='HR_text-processing-sed-5.md' %}
+
+> Question
+
+* reverse the ordering of segments in each credit card number
+
+{% endtab %}
+{% tab title='HR_text-processing-sed-5.sh' %}
+
+```sh
+sed -r 's/(.... )(.... )(.... )(....)/\4 \3\2\1/'
 ```
 
 {% endtab %}

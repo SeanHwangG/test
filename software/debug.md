@@ -85,17 +85,16 @@ readline.parse_and_bind("tab: complete")
 {% tabs %}
 {% tab title='python' %}
 
-> pdb
-
-* set_trace()
-* Breakpoint()
+* pdb: 3.7 <
+  * set_trace()
+* breakpoint(): <= 3.7
 
 ```py
 import ipdb, pdb
 
 # 1. pdb
-pdb.set_trace()
-python -m pdb
+""" pdb.set_trace() """
+breakpoint()
 
 # 2. ipdb
 ipdb.set_trace()
@@ -105,6 +104,10 @@ ipdb.set_trace()
 {% endtabs %}
 
 ## Logging
+
+* never concerns itself with routing or storage of its output stream, use stdout
+* Use Open-source log routers are available for production ([ex] Logplex, Fluentd)
+* Stream can be sent to a log indexing and analysis system ([ex] Splunk), general-purpose warehouse ([ex] Hadoop, Hive)
 
 {% tabs %}
 {% tab title='java' %}
@@ -128,7 +131,7 @@ public static void debug(String message) {
 {% endtab %}
 {% tab title='javascript' %}
 
-> winston
+* winston
 
 ```js
 // 1. log_object
@@ -247,21 +250,22 @@ function getStackInfo(stackIndex) {
   * relativeCreated: relative time
 
 ```py
+import logging
+import logging.config
+
 # NOTSET | 0 < DEBUG | 10 < INFOR | 20 < WARNING | 30 < ERROR | 40 < CRITICAL | 50
 basicConfig(filename="newfile.log", level=logging.DEBUG)
 log(level, msg, *args, **kwargs)  # Logs a message with integer level level on this logger
 logging.getLogger("imported_module").setLevel(logging.WARNING)    # disable imported logger
 (format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s', datefmt='%Y-%m-%d:%H:%M:%S')
 
-# Simple logging
+# 1. Simple logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s, %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s')
 
-# Disable unexpected logging in python interactive
+# 2. Disable unexpected logging in python interactive
 logging.getLogger('parso.python.diff').disabled = True
 
-# logger class
-import logging
-import logging.config
+# 3. logger class
 
 def get_logger(name, level=logging.DEBUG):
   # ignore warning from other module
@@ -281,7 +285,6 @@ def get_logger(name, level=logging.DEBUG):
   sh.setFormatter(logging.Formatter('%(asctime)s, %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s'))
   logger.addHandler(sh)
   logger.setLevel(level)
-
 
   return logger
 

@@ -261,6 +261,33 @@ echo ${machine}
 ```
 
 {% endtab %}
+{% tab title='sql' %}
+
+* mysql
+  * -u user -p
+  * -e `cmd`: [ex] show databases;
+
+* psql
+  * --help
+  * -c `cmd`: to execute the given command
+  * -d `dbname`: the name of the database to connect to
+  * -h `hostname`: the host name of the machine on which the server is running
+  * -U `postgres`
+  * --version: output version information
+  * createdb
+    * -u `user`: set `user`
+
+* sqlite
+  * -header
+
+```sh
+# 1. see GUI
+sudo apt update
+sudo apt install mysql-workbench
+mysql-workbench
+```
+
+{% endtab %}
 {% endtabs %}
 
 ## Clipboard
@@ -322,7 +349,7 @@ cat a | xclip / pbcopy  # copy to clipboard
 {% tab title='python' %}
 
 * Import: a blank line group import
-  * Standard library | third party | Local application/library specific
+  * Standard library -> third party -> Local application/library specific
 
 * Variable Naming
   * _single_leading: from M import * doesn’t import these objects
@@ -335,35 +362,27 @@ cat a | xclip / pbcopy  # copy to clipboard
   * cls for the first argument to class methods used for constructor overloading
   * staticmethod can have no parameters at all
 
-> django
-
-* docs.djangoproject.com/en/1.11/internals/contributing/writing-code/coding-style/
-* admin.py: admin file defines admin interface see / edit
-* app.py: controls settings specific to this app
-* migration/
-  * holds files to migrate DB when schema changes
-
-* models.py: python objects, providing data layer to construct DB schema and queries
-
-* Path converter
-  * str: Matches any non-empty string, excluding the path separator, '/'
-  * int: Matches zero or any positive integer
-  * slug: Matches any slug string consisting of ASCII letters or numbers, plus the hyphen and underscore characters
-  * uuid: Matches a formatted UUID
-  * path: Matches any non-empty string, including '/', allows to match against a complete URL path, as with str
-* tests.py
-  * writing unit tests for the functionality of this app
-
-* views.py
-  * request handler, which handles HTTP requests and response defines logic, control flow
-
-* urls.py: url routing specific to this app
-  * path(path, view, template): first patching → no match 404
-
-* General python related
-  * stlib import -> django import -> third-party -> own apps
-  * Use relative imports (from app.models -> from .models)
-  * Use underscores over dashes in url pattern name
+* django
+  * docs.djangoproject.com/en/1.11/internals/contributing/writing-code/coding-style/
+  * admin.py: admin file defines admin interface see / edit
+  * app.py: controls settings specific to this app
+  * migration/
+    * holds files to migrate DB when schema changes
+  * models.py: python objects, providing data layer to construct DB schema and queries
+  * Path converter
+    * str: Matches any non-empty string, excluding the path separator, '/'
+    * int: Matches zero or any positive integer
+    * slug: Matches any slug string consisting of ASCII letters or numbers, plus the hyphen and underscore characters
+    * uuid: Matches a formatted UUID
+    * path: Matches any non-empty string, including '/', allows to match against a complete URL path, as with str
+  * tests.py: writing unit tests for the functionality of this app
+  * views.py: request handler, which handles HTTP requests and response defines logic, control flow
+  * urls.py: url routing specific to this app
+    * path(path, view, template): first patching → no match 404
+  * General python related
+    * stlib import -> django import -> third-party -> own apps
+    * Use relative imports (from app.models -> from .models)
+    * Use underscores over dashes in url pattern name
 
 | Code                             | Type              | Usage                                                         |
 | -------------------------------- | ----------------- | ------------------------------------------------------------- |
@@ -391,6 +410,7 @@ cat a | xclip / pbcopy  # copy to clipboard
   * Before deployment, check that you can rollback migrations
 
 ```py
+# 1. Pep
 if foo is not None:     # Wrong: if not foo is None:
 def f(x): return 2*x    # Wrong: f = lambda x: 2*x
 if greeting:            # Wrong: if greeting == True:
@@ -406,7 +426,18 @@ VAR
 # Consider using a generator instead
 ### tuple([int(num) for num in nums]
 tuple(int(num) for num in nums)
+
+# 2. Multiple imports
+- from long.module import (something1,
+-                          something2)
+
++ from long.module import (something1,
++                          something2)
 ```
+
+> Resource
+
+<https://google.github.io/styleguide/pyguide.html>
 
 {% endtab %}
 {% endtabs %}
@@ -419,9 +450,30 @@ tuple(int(num) for num in nums)
 * Always combine RUN apt-get update with apt-get install
 
 {% endtab %}
+{% tab title='google' %}
+
+* Big query
+  * Prefer ELT over ETL
+  * Leverage federated queries to GCS to load and transform data in a single-step
+  * Load data into raw and staging tables before publishing to reporting tables
+  * Utilize Dataflow or Data Fusion for streaming pipelines and to speed up large complex batch jobs
+  * Streaming using Google Datafrlow Templates and modify open-source pipeline for complex needs
+  * Denormalize: leveraging nested and repeated fields ([ex] Combine Order line, Orders / Sessions, Events / Country)
+  * Partition: Partition based on date keep cost down ([ex] require partition filter)
+  * Big query reservations: Reserve more important by assigning more slots
+  * Segment users based on roles
+  * Export access log to big query: Organization or folder level to view data access across projects
+  * Visualize audit log using data studio
+  ![Big Query](images/20210721_163947.png)
+
+> Reference
+
+<https://www.youtube.com/watch?v=ZVgt1-LfWW4>
+
+{% endtab %}
 {% endtabs %}
 
-### Convention Directory
+### Directory Hierarchy
 
 {% tabs %}
 {% tab title='python' %}
@@ -552,11 +604,9 @@ fi
 {% tabs %}
 {% tab title='javascript' %}
 
-> npm
-
-* install everything in package.json
-* npx: CLI tool whose purpose is to make it easy to install and manage dependencies hosted in the npm registry
-* brew install npm
+* npm: install everything in package.json
+  * npx: CLI tool whose purpose is to make it easy to install and manage dependencies hosted in the npm registry
+  * brew install npm
 * npx
   * create-react-app `name`: don’t have to download create-react-app
 * npm
@@ -568,12 +618,8 @@ fi
   * install
     * -D: install for dev dependency
 
-> Yarn
-
-* package manager that doubles down as project manager
-* stores dependencies locally, and fetches from the disk during a yarn add
-
-* yarn
+* Yarn: package manager that doubles down as project manager
+  * stores dependencies locally, and fetches from the disk during a yarn add
   * install
     * --force: refetches all packages, even ones that were previously installed
     * --network-timeout `ms`: [ex] 1000: 1s
@@ -594,53 +640,47 @@ yarn eject  # eject the project with below command
 {% endtab %}
 {% tab title='python' %}
 
-> conda
+* conda
+  * [Cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)
+  * -V: show conda version
+  * env list: get all environments (* is activated)
+  * list: show installed packages
+  * list --revision: history of each change to current environment
+  * info: get all the current environment details
+  * search PACKAGE_NAME: use conda to search for a package
+  * create --clone py35 name py35-2: make copy of an environment
+  * source /Users/sean/anaconda3/bin/activate: Activate conda
+  * rm -rf ~/.condarc ~/.conda ~/.continuum: Uninstall conda
+  * create --name py35 python=3.5: Create new environment py35 install Python 3.5
+  * create --clone py35 --name py35-2: Make exact copy of an environment
+  * source activate py35: activate environment
+  * deactivate: Exit from conda
+  * update conda: update version
+  * install -y -c `anaconda` bsddb: Install (change `owner` from anaconda.org)
 
-* [Cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)
-* -V: show conda version
-* env list: get all environments (* is activated)
-* list: show installed packages
-* list --revision: history of each change to current environment
-* info: get all the current environment details
-* search PACKAGE_NAME: use conda to search for a package
-* create --clone py35 name py35-2: make copy of an environment
-* source /Users/sean/anaconda3/bin/activate: Activate conda
-* rm -rf ~/.condarc ~/.conda ~/.continuum: Uninstall conda
-* create --name py35 python=3.5: Create new environment py35 install Python 3.5
-* create --clone py35 --name py35-2: Make exact copy of an environment
-* source activate py35: activate environment
-* deactivate: Exit from conda
-* update conda: update version
-* install -y -c `anaconda` bsddb: Install (change `owner` from anaconda.org)
+* venv (recommended)
+  * If repository name is changes change VIRTUAL_ENV in bin/activate
+  * Prefered as it is official
 
-> venv (recommended)
+* pip
+  * config [debug, edit, get, list, set, unset]
+  * --version: print version of the pip
+  * install
+    * -e `path/url`: Install project in editable mode ([ex] setuptools "develop mode") from local path or a VCS url
 
-* If repository name is changes change VIRTUAL_ENV in bin/activate
-* Prefered as it is official
-
-> pip
-
-* config [debug, edit, get, list, set, unset]
-* --version: print version of the pip
-* install
-  * -e `path/url`: Install project in editable mode ([ex] setuptools "develop mode") from local path or a VCS url
-
-> pipreqs
-
-* Auto generate requirements.txt file for any project based on imports
-
-* --use-local: Use ONLY local package info instead of querying PyPI
-* --pypi-server `url`   Use custom PyPi server
-* --proxy `url`: Use Proxy, parameter will be passed to requests library. or environments parameter in your terminal:
-* --debug: Print debug information
-* --ignore `dirs`: Ignore extra directories
-* --encoding `charset`  Use encoding parameter for file open
-* --savepath `file`: Save the list of requirements in the given file
-* --print: Output the list of requirements in the standard output
-* --force: Overwrite existing requirements.txt
-* --diff `file`: Compare modules in requirements.txt to project imports.
-* --clean `file`: Clean up requirements.txt by removing modules that are not imported in project.
-* --no-pin: Omit version of output packages.
+* pipreqs: Auto generate requirements.txt file for any project based on imports
+  * --use-local: Use ONLY local package info instead of querying PyPI
+  * --pypi-server `url`   Use custom PyPi server
+  * --proxy `url`: Use Proxy, parameter will be passed to requests library. or environments parameter in your terminal:
+  * --debug: Print debug information
+  * --ignore `dirs`: Ignore extra directories
+  * --encoding `charset`  Use encoding parameter for file open
+  * --savepath `file`: Save the list of requirements in the given file
+  * --print: Output the list of requirements in the standard output
+  * --force: Overwrite existing requirements.txt
+  * --diff `file`: Compare modules in requirements.txt to project imports.
+  * --clean `file`: Clean up requirements.txt by removing modules that are not imported in project.
+  * --no-pin: Omit version of output packages.
 
 ```sh
 # 1. Setup
@@ -1128,65 +1168,19 @@ for i in tqdm.tqdm(range(10000)):
 
 ### Preprocess
 
+{% tabs %}
+{% tab title='c' %}
+
 * `#include <stdio.h>` read stdio.h and insert directyl to program text -> creates `.i` file
 * copy constructor / assignment operator / destructor / default constructor (when no other constructor)
 
-### Compile
-
-* Preprossess: Include header, expand Macro (default source.suffix.gch)
-* Compilation: assembly code (default source.s;)
-* Assemble: generate machine code (default source.o;)
-* Linking: .o / .obj (+ .lib / .a / static library) → .exe (default a.out)
-
-* ELF (Executable and linkable file)
-  * use objdump and nm in terminal
-  * Headers tells which (shared lib, exe, *.o file) and give location of the section / program headers
-  ![ELF file](images/20210214_022453.png)
+{% endtab %}
+{% endtabs %}
 
 ### Assemble
 
 * assembler translates hello.s into machine language instructions
 * packages them in a form aka relocatable object program, and stores the result in the object file hello.o
-
-### Link
-
-* A more complete description is available in the GCC
-* create executable that is ready to be loaded into memory and executed by the system
-
-* added by the linking process
-* starts with lib followed by name
-
-* Library
-  ![Libary](images/20210214_022603.png)
-
-* static library: set of routines, external functions and variables which are resolved in a caller at compile-time
-  * copied into a target application by a compiler, linker, or binder
-  * produce an object file and a stand-alone executable
-
-```cpp
-// g++ -shared -o librandom.so random.cpp
-// g++ main.cpp -lrandom -L.
-// ./a.out
-
-// main.cpp
-#include <iostream>
-#include "random.h"
-
-int main() { std::cout << get_random_number(); }
-
-// random.cpp
-#include "random.h"
-int get_random_number(void) { return 4; }
-
-// random.h
-int get_random_number();
-```
-
-* Dynamic Linrary: Linking postponed until execution time → useful for libraries
-  * stub replaces itself with address of routine, and executes routine
-  * Window → .dll, Apple → dylib (Framework), Unix → so
-
-![Static vs Dynamic linking](images/20210214_023228.png)
 
 ## Util
 
@@ -2249,6 +2243,9 @@ target_compile_definitions(hello_test PUBLIC MODE=4)     # PUBLIC - all targets,
 
 ### Packaging
 
+{% tabs %}
+{% tab title='python' %}
+
 * PYTHONPATH: env variable which to add additional directories where python will look for modules and packages
 * Namespace: mapping from names to objects → most are currently implemented as Python dictionaries
 
@@ -2295,7 +2292,7 @@ import a
 python b.py             # prints 1
 ```
 
-> contextlib
+* contextlib
 
 ```py
 import contextlib
@@ -2329,7 +2326,6 @@ build-backend = "setuptools.build_meta"
 * compile(source, fn, mod)
 * enumerate(it, start=0): for i, (k, v) in enumerate({1:'a', 2:'b'}.items())
 * isinstance(obj, class): if object is instance | subclass of classinfo class
-
 * iter(object, sentinel)
   * iterator object for the given object
   * iteritems are deprecated
@@ -2344,52 +2340,47 @@ build-backend = "setuptools.build_meta"
 * `iterable`.sort(): Sorts iterable in place
 * zip(*it): aggregates multiple it in a tuple
 
-{% tabs %}
-{% endtabs %}
+* platform
+  * processor(): (real) processor name, e.g. 'amdk6'
+  * python_implementation(): Get one of 'thon’, ‘Irothon’, ‘Jython’, Py’
+  * python_version(): python version as string 'major.minor.patchlevel
+  * system(): system/OS name, such as 'Linux', 'Darwin', 'Java', 'Windows'
 
-> zsh: command not found: pipreqs
+* functool
+  * reduce(lambda a,b: a if a > b else b, [1,5,3]): get maximum
+  * lru_cache(maxsize=32): decorator
+    * Cannot be used with generator
+  * cache_clear() / cache_info(): clear / print cache info for decorated function
 
-* When running a module as cli
-* export `PATH="/Users/<my-username>/Library/Python/<python-edition>/bin:$PATH"`
+* operator
+  * lt / le / eq / ne / ge / gt(a, b): comparators
+  * itemgetter
 
-> python command not found
+* textwrap
+  * dedent(multiline_string): start with correct indentation in the source
 
-* `/usr/local/opt/python@3.8/bin:$PATH`
+* typing
+  * Type[CustomClass]: class CustomClass itself (or a subtype)
+  * Dict[str, int]
+  * List
+  * Set
 
-> platform
+* sysconfig
+  * get_paths(): dictionary of key-paths
+  * get_config_var()
 
-* processor(): (real) processor name, e.g. 'amdk6'
-* python_implementation(): Get one of 'thon’, ‘Irothon’, ‘Jython’, Py’
-* python_version(): python version as string 'major.minor.patchlevel
-* system(): system/OS name, such as 'Linux', 'Darwin', 'Java', 'Windows'
+* importlib
+  * reload(module): previously imported module
+  * find_loader(name, path=None): sys.modules[name].__loader__ is returned
+  * import_module(name, package=None)
 
-> functool
+* io
+  * StringIO()
 
-* reduce(lambda a,b: a if a > b else b, [1,5,3]): get maximum
-* lru_cache(maxsize=32): decorator
-  * Cannot be used with generator
-* cache_clear() / cache_info(): clear / print cache info for decorated function
-
-> operator
-
-* lt / le / eq / ne / ge / gt(a, b): comparators
-* itemgetter
-
-> textwrap
-
-* dedent(multiline_string): start with correct indentation in the source
-
-> typing
-
-* Type[CustomClass]: class CustomClass itself (or a subtype)
-* Dict[str, int]
-* List
-* Set
-
-> contextlib
-
-{% tabs %}
-{% tab title='python' %}
+* math
+  * ceil(x): smallest integer greater than or equal to x, If x is not float, use x.__ceil__(), which should return int
+  * comb(n, k): number of ways to choose k items from n items without repetition and without order
+  * radians(`degree`): convert degree to radian
 
 ```py
 import contextlib
@@ -2398,29 +2389,17 @@ with contextlib.suppress(Exception):
   raise RuntimeError('Bad stuff happened.')
 ```
 
+> Error
+
+* zsh: command not found: pipreqs
+  * When running a module as cli
+  * export `PATH="/Users/<my-username>/Library/Python/<python-edition>/bin:$PATH"`
+
+* python command not found
+  * `/usr/local/opt/python@3.8/bin:$PATH`
+
 {% endtab %}
 {% endtabs %}
-
-> sysconfig
-
-* get_paths(): dictionary of key-paths
-* get_config_var()
-
-> importlib
-
-* reload(module): previously imported module
-* find_loader(name, path=None): sys.modules[name].__loader__ is returned
-* import_module(name, package=None)
-
-> io
-
-* StringIO()
-
-> math
-
-* ceil(x): smallest integer greater than or equal to x, If x is not float, use x.__ceil__(), which should return int
-* comb(n, k): number of ways to choose k items from n items without repetition and without order
-* radians(`degree`): convert degree to radian
 
 ### Collections
 

@@ -262,35 +262,6 @@ for _ in range(int(input())):
 * [Level 8 : 대칭 차집합](https://www.acmicpc.net/problem/1269)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_1269.md/)
 
-{% tabs %}
-{% tab title='BJ_1269.md' %}
-
-> Question
-
-* Print number of unique element that doesn't exist in other list
-
-```txt
-Input:
-3 5
-1 2 4
-2 3 4 5 6
-
-Output: 4
-```
-
-{% endtab %}
-{% tab title='BJ_1269.py' %}
-
-```py
-input()
-a = set(map(int, input().split()))
-b = set(map(int, input().split()))
-print(len(a - b) + len(b - a))
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 8 : 문자열 집합](https://www.acmicpc.net/problem/14425)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_14425.md/)
 

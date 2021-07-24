@@ -1,1 +1,14 @@
 [Conditional](https://docs.google.com/forms/d/1rkJPN_TXCsETwXcGvyBvYQj1UiaW3jb9gNqY0ug69F8/edit)
+
+```py
+print(2 > 3)
+print(-7 >= -6)
+print(-15 < -13)
+print("AAA" == "AAAA")
+print(43 != 431)
+print("a" < "b")
+print("abcd" < "zyxw")
+print("ab" <= "bc")
+print("9999" > "10000")
+print("2a5a" <= "2b5a")
+```

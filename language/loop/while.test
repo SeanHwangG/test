@@ -1,1 +1,17 @@
-[While test](https://docs.google.com/forms/d/18QwLLbameGJBtyrTsBI046VqHAIhMpxYD5KjK4bFcIM/edit)
+[While](https://docs.google.com/forms/d/18QwLLbameGJBtyrTsBI046VqHAIhMpxYD5KjK4bFcIM/edit)
+
+```py
+i = 1
+n = 10
+
+while i < 5:    print(i, end = ' '); i += 1
+while i < 5:    print(i * 5, end = ' '); i += 1
+while i < 5:    print(i, end = ' '); i *= 2
+while n > 0:    print(n, end = ' '); n//=2
+while n != 0:    print(n, end = ' '); n-= 2
+while n % 2 == 0 and n > 0:    print(n, end = ' '); n -= 1
+while n > 0 and i < 10:    print(i*n, end = ' '); i += 2; n -= 2
+while n > 0 and i < 10:    print(i*n, end = ' '); i += 2; n -= 2
+while i != n:    print(i);     i -= 1
+while n > i:    print(n, end = ' ');    n -= i
+```

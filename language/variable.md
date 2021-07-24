@@ -20,11 +20,6 @@
 * %.o: wildcard
 * x = dude: declare variablruns / ignore set if exists
 
-> Builtin
-
-* CMAKE_BUILD_TYPE
-  * Debug, RelWithDebInfo
-
 ```sh
 # unset(VAR)
 
@@ -75,6 +70,13 @@ def renderBanner(self):
     # do something
 ```
 
+{% include 'variable.test' %}
+
+{% endtab %}
+{% tab title='nasm' %}
+
+* qword: 8 byte
+
 {% endtab %}
 {% tab title='shell' %}
 
@@ -88,6 +90,11 @@ def renderBanner(self):
 ## Variable Builtin
 
 {% tabs %}
+{% tab title='cmake' %}
+
+* CMAKE_BUILD_TYPE: [ex] Debug, RelWithDebInfo
+
+{% endtab %}
 {% tab title='shell' %}
 
 * Special parameter
@@ -123,16 +130,59 @@ def renderBanner(self):
   * Backtick: ([ex] echo `time`: escape command)
 
 {% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title='postgres' %}
+{% tab title='sql' %}
 
 * pg_database
   * database
   * current_catalog
   * information_schema.tables: All table
   * pg_stat_activity: History
+
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title='github' %}
+
+* $VARIABLE_NAME
+* $Env:VARIABLE_NAME
+  * variable is read from the shell
+* ${{ env.VARIABLE_NAME }}
+  * variable is read from the workflow (can be used for other flow configuration)
+  * cannot use environment defined in same step
+
+* GITHUB_ACTION: The unique identifier of the action
+* GITHUB_ACTOR: [ex] seanhwangg
+* GITHUB_EVENT_PATH: Path to a file that contains event payload
+* GITHUB_REPOSITORY: repository owner and repo name ([ex] seanhwangg/hello_world)
+* GITHUB_RUN_ID: unique number for each run within a repository, which doesn't change when re-run workflow
+* GITHUB_SHA: commit SHA that triggered the workflow ([ex] ffac537e6cbbf934b08745a378932722df287a5d3)
+  * SHA12: ${GITHUB_SHA::12}
+* GITHUB_WORKSPACE
+* GITHUB_TOKEN: automatically creates a secret to use in your workflow
+  * You can use the GITHUB_TOKEN to authenticate in a workflow run
+* RUNNER_OS: [ex] Linux, Windows, macOS
+
+* github
+  * repository: owner and repository name ([ex] seanhwangg/hello_world)
+  * repository_owner: repository owner's name ([ex] seanhwangg)
+
+```yml
+jobs:
+  example-jobs:
+    steps:
+      - name: PSQL
+        run: node client.js
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
+```
+
+{% endtab %}
+{% tab title='gitlab' %}
+
+* CI_PROJECT_NAME: name of repository
+* CI_COMMIT_REF_NAME: name of branch
 
 {% endtab %}
 {% tab title='vscode' %}

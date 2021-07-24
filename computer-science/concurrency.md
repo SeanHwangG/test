@@ -34,9 +34,13 @@
 * Weak scaling: Variable number of processors with fixed problem size per processor
   * finish more work in the same time
 
+> Reference
+
+<https://www.linkedin.com/learning/python-parallel-and-concurrent-programming-part-1/>
+
 ## Concurrent Metric
 
-* Amdahls’s Law
+* Amdahls’s Law: theoretical speedup in execution at fixed workload expected of system whose resources are improved
   ![Amdahls's Law](images/20210221_221220.png)
 
 * Bandwidth: Amount to data communication per seconds (GB/s)
@@ -47,12 +51,14 @@
 * latency: time / task
 * mapping: Only for distributed system → not Single-core processors / automated task scheduling
 * overhead: Compute time / resources spent on communication
-* speedup: sequential execution time / parallel execution time with N workersk
+* speedup: sequential execution time / parallel execution time with N workers
   * $$ 1 / (1 - P  + P/S) $$
   * P (Portion of program that's parallelizable)
   * S (Speedup of the parallelized portion)
 * span: length of the longest series of operations (critical path) to be performed sequentially due to dependencies
 * throughput: tasks / time
+
+![VTune](images/20210722_004629.png)
 
 ### Concurrent Design
 
@@ -64,10 +70,10 @@
     assigned to exactly one process
 
 * Communication
-  * Point to point communication: sender → receiver
-  * collective communication: broadcast, scalability
-  * Synchronous blocking communication: tasks wait until entire communication is complete can't do other work while in progress
-  * Asynchronous non blocking communication: tasks do not wait for communication to complete
+  * Point to point: sender → receiver
+  * collective: broadcast, scalability
+  * Synchronous blocking: tasks wait until entire communication is complete can't do other work while in progress
+  * Asynchronous non blocking: tasks do not wait for communication to complete
 
 * Agglomeration
 
@@ -85,17 +91,17 @@
   * Prioritize locks to acquire in same relative order
 
 * Nessary and sufficient condition
-  1. Mutual Exclusion : exclusive control of the resources they require
-  1. Hold and Wait : hold resources already allocated to them while waiting for additional resources
-  1. No preemption : resources cannot be removed from the processes holding them until used to completion
-  1. Circular wait : circular chain of processes exists where each holds 1+ resources requested by next process in chain
+  1. Mutual Exclusion: exclusive control of the resources they require
+  1. Hold and Wait: hold resources already allocated to them while waiting for additional resources
+  1. No preemption: resources cannot be removed from the processes holding them until used to completion
+  1. Circular wait: circular chain of processes exists where each holds 1+ resources requested by next process in chain
 
-* Ostrich algorithm: Don't do anything simply restart the system
+### Deadlock prevention
+
+* Ostrich algorithm: Don't do anything simply restart the system ([ex] Bluescreen)
 * Bankers algorithm: Use avoidance
 * RAG (resource allocation graph): explained to us what is the state of the system in terms of processes and resources
   ![Resource allocation Graph, wait-for-graph](images/20210505_213528.png)
-
-> Prevention
 
 * Havender's Algorithm
   1. Avoid assigning a resource when it's not necessary
@@ -107,73 +113,10 @@
   1. process tries to lock all records it needs, one at a time, if needed record found locked, start over
   1. performing updates, releasing locks
 
-> By ordering all resources and forcing all requests to follow the ordering
+> Question
 
-* There cannot be circular wait
-
-### Event driven
-
-* general-purpose scheduler that works well in all cases for all workloads
-
-* [-] multiple CPUs: usual synchronization problems arise again
-* [-] Code management: exact semantics of various routines change
-* [-] Hard to integrate with a network I/O
-
-{% tabs %}
-{% tab title='cpp' %}
-
-> Methods
-
-* struct aiocb()
-  * int aio_fildes: File descriptor
-  * off_t aio_offset: File offset
-  * volatile void *aio_buf: Location of buffer
-  * size_t aio_nbytes: Length of transfer
-
-* int select(): Select events from event queue
-  * int nfds
-  * fd_set *restrict readfds,
-  * fd_set *restrict writefds,
-  * fd_set *restrict errorfds,
-  * struct timeval *restrict timeout
-* int poll()
-
-```cpp
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-int main(void) {
-// open and set up a bunch of sockets (not shown)
-// main loop
-while (1) {
-  // initialize the fd_set to all zero fd_set readFDs;
-  fd_set readFDs;
-  FD_ZERO(&readFDs);
-
-  // now set the bits for the descriptors
-  // this server is interested in
-  // (for simplicity, all of them from min to max)
-  int fd;
-  for (fd = minFD; fd < maxFD; fd++)
-    FD_SET(fd, &readFDs);
-
-  // do the select
-  int rc = select(maxFD+1, &readFDs, NULL, NULL, NULL);
-
-  // check which actually have data using FD_ISSET()
-  int fd;
-  for (fd = minFD; fd < maxFD; fd++)
-    if (FD_ISSET(fd, &readFDs))
-      processFD(fd);
-  }
-}
-```
-
-{% endtab %}
-{% endtabs %}
+* By ordering all resources and forcing all requests to follow the ordering
+  * There cannot be circular wait
 
 ## Primitives
 
@@ -218,6 +161,8 @@ int main() { count_n_million(); }
 * Can only be acquired/released by the same thread
 * can be released by different thread than was used to acquire it
   * Releasing a lock before lock will cause problem
+
+> Term
 
 * Abandoned lock: Unexpectedly exit after acquiring thread
   * Put codes try / finally or with
@@ -705,6 +650,67 @@ for f in asyncio.as_completed([x(i) for i in range(10)]):
 {% endtab %}
 {% endtabs %}
 
+### Event driven
+
+* general-purpose scheduler that works well in all cases for all workloads
+
+* [-] multiple CPUs: usual synchronization problems arise again
+* [-] Code management: exact semantics of various routines change
+* [-] Hard to integrate with a network I/O
+
+{% tabs %}
+{% tab title='cpp' %}
+
+* struct aiocb()
+  * int aio_fildes: File descriptor
+  * off_t aio_offset: File offset
+  * volatile void *aio_buf: Location of buffer
+  * size_t aio_nbytes: Length of transfer
+
+* int select(): Select events from event queue
+  * int nfds
+  * fd_set *restrict readfds,
+  * fd_set *restrict writefds,
+  * fd_set *restrict errorfds,
+  * struct timeval *restrict timeout
+* int poll()
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main(void) {
+// open and set up a bunch of sockets (not shown)
+// main loop
+while (1) {
+  // initialize the fd_set to all zero fd_set readFDs;
+  fd_set readFDs;
+  FD_ZERO(&readFDs);
+
+  // now set the bits for the descriptors this server is interested in
+  // (for simplicity, all of them from min to max)
+  int fd;
+  for (fd = minFD; fd < maxFD; fd++)
+    FD_SET(fd, &readFDs);
+
+  // do the select
+  int rc = select(maxFD+1, &readFDs, NULL, NULL, NULL);
+
+  // check which actually have data using FD_ISSET()
+  int fd;
+  for (fd = minFD; fd < maxFD; fd++)
+    if (FD_ISSET(fd, &readFDs))
+      processFD(fd);
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
 ### Promise
 
 * Placeholder for a result that will be available later
@@ -828,12 +834,6 @@ init();
 ```
 
 {% endtab %}
-{% tab title='python' %}
-
-```py
-```
-
-{% endtab %}
 {% endtabs %}
 
 {% include '.future.prob' %}
@@ -844,20 +844,20 @@ init();
 * Can be used by multiple threads at the same time
 * Includes a counter to track availability
 * Can be acquired/released by different threads
-* Types
-  * binary: mutex, better then lock when critical section is long (building-block of counting)
-  * counting: represents a resources with many units available
-
-> Problems
-
-1. Starvation : writer do not get a chance in reader_writer problem only using mutex
-    * It's because reader comes later than writer cut in line -> Use same line
-2. Deadlock : nested lock producer consumer problem
-
-> Methods
 
 * P / try(): if counter is positive, decrement counter, otherwise wait until available
 * V / increment(): increment the counter's value and signal another thread waiting to acquire the semaphore
+
+> Term
+
+* binary: mutex, better then lock when critical section is long (building-block of counting)
+* counting: represents a resources with many units available
+
+> Problem
+
+1. Starvation: writer do not get a chance in reader_writer problem only using mutex
+    * It's because reader comes later than writer cut in line -> Use same line
+2. Deadlock: nested lock producer consumer problem
 
 {% tabs %}
 {% tab title='java' %}
@@ -994,12 +994,11 @@ void* reader(void* read) {
 {% endtab %}
 {% tab title='python' %}
 
-> readerwriterlock
-
-* RLock
-  * RWLockFair: fair priority for readers|writers
-  * RWLockRead: readers get priority
-  * RWLockWrite: writers get priority
+* readerwriterlock
+  * RLock
+    * RWLockFair: fair priority for readers|writers
+    * RWLockRead: readers get priority
+    * RWLockWrite: writers get priority
 
 ```py
 import threading
@@ -1071,6 +1070,16 @@ if __name__ == '__main__':
 * Spin for wating child taks a long time
 * Use while around wait
 
+* wait(`condition`, `lock`): release monitor lock for C/V to be signaled
+  * go to sleep and enter waiting queue → reacquire lock when woken up
+* signal / notify(`condition`): Wake one thread from condition variable queue → only one thread doesn’t matter which one
+  * if no thread in the queue, nothing happen
+  * usually safe to wake up threads waiting on CVs at any time
+* broadcast / notifyAll(`condition`): Wake up all thread from condition variable queue
+* Programming language consturct that controls access to shared data, guarantees mutual exclusion
+  * @synchronize in java
+* consists of a mutx and conditional variable
+
 > Types
 
 * Hoare monitors (original): leave less to chance
@@ -1082,18 +1091,6 @@ if __name__ == '__main__':
   * while (counter == 0) wait(condition);
   * signal(`condition`) places a waiter on the ready queue, but signaler continues inside monitor
   * condition is not necessarily true when waiter runs again
-
-> Methods
-
-* wait(`condition`, `lock`): release monitor lock for C/V to be signaled
-  * go to sleep and enter waiting queue → reacquire lock when woken up
-* signal / notify(`condition`): Wake one thread from condition variable queue → only one thread doesn’t matter which one
-  * if no thread in the queue, nothing happen
-  * usually safe to wake up threads waiting on CVs at any time
-* broadcast / notifyAll(`condition`): Wake up all thread from condition variable queue
-* Programming language consturct that controls access to shared data, guarantees mutual exclusion
-  * @synchronize in java
-* consists of a mutx and conditional variable
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -1323,9 +1320,7 @@ Monitor RW {
 {% endtab %}
 {% tab title='python' %}
 
-> Threading.Condition
-
-* Condition(lock=None)
+* Threading.Condition(lock=None)
   * acquire(*args)
   * release(): calls the corresponding method on the underlying lock; there is no return value
   * wait(timeout=None)

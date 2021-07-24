@@ -67,6 +67,8 @@ else:
 {% tabs %}
 {% tab title='LC_332.md' %}
 
+> Question
+
 * Given a list of airline tickets where tickets[i] = [fromi, toi] represent departure and arrival airports of one flight
 * Reconstruct itinerary in order and return it
 

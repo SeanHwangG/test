@@ -1,1 +1,17 @@
 [Index Test](https://docs.google.com/forms/d/1U_VWE-a4XXsrV81rmktAdtdeF5GoF3A3eSQiqa15d4E/edit)
+
+```py
+a = "abcde"
+b = "zxyb"
+
+print(a[0])
+print(b[5])
+print(a[2] + b[1])
+print(b[0]*3)
+print(b[0]*3)
+print(a[3], b[1])
+print(a[:4])
+print(b[2:])
+print(b[-4])
+print(a[:-3]+b[-2:])
+```

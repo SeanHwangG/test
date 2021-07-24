@@ -201,6 +201,16 @@ line */
 ```
 
 {% endtab %}
+{% tab title='sql' %}
+
+```sql
+-- 1. Single line comment
+/*
+2. Multiline comment
+*/
+```
+
+{% endtab %}
 {% tab title='verilog' %}
 
 ```sv
@@ -1098,37 +1108,28 @@ len(Math.random() > 0.5 ? "hello" : [0]);
 {% tabs %}
 {% tab title='java' %}
 
-> System
+* System: standard input / output, error output streams, utility method for copying a portion of an array
+  * access to externally defined properties and environment variables, a means of loading files and libraries
+  * void arraycopy(): copies `srcPos` to `length` an `src` array, to `destPos` of `dest` array
+    * Object `src`, int `srcPos`, Object `dest`, int `destPos`, int `length`
+  * void exit(int status): terminates the currently running Java Virtual Machine
+  * void gc(): runs the garbage collector
+  * static String getProperty(String key): gets the system property indicated by the specified key
+  * void setProperties(Properties props): sets the system properties to the Properties argument
+  ![util](images/20210504_195803.png)
 
-* standard input / output, error output streams, utility method for copying a portion of an array
-* access to externally defined properties and environment variables, a means of loading files and libraries
+* Scanner
+  * Scanner​(`source`): can be File, InputStream, Readable, String, Path
+  * boolean hasNext(): Returns true if this scanner has another token in its input
+    * String / Pattern = `pattern`: matches the pattern constructed from the specified string
+  * String next(): Finds and returns the next complete token from this scanner
+  * nextInt() / nextLong() / nextShort() / nextBoolean() / nextBigInteger()
+    * int radix: with optional radix
+  * void close(): Closes this scanner
+  * Pattern delimiter(): Returns the Pattern this Scanner is currently using to match delimiters
 
-* void arraycopy(): copies `srcPos` to `length` an `src` array, to `destPos` of `dest` array
-  * Object `src`, int `srcPos`, Object `dest`, int `destPos`, int `length`
-* void exit(int status): terminates the currently running Java Virtual Machine
-* void gc(): runs the garbage collector
-* static String getProperty(String key): gets the system property indicated by the specified key
-* void setProperties(Properties props): sets the system properties to the Properties argument
-
-![util](images/20210504_195803.png)
-
-> Scanner
-
-* Scanner​(`source`): can be File, InputStream, Readable, String, Path
-
-* boolean hasNext(): Returns true if this scanner has another token in its input
-  * String / Pattern = `pattern`: matches the pattern constructed from the specified string
-* String next(): Finds and returns the next complete token from this scanner
-* nextInt() / nextLong() / nextShort() / nextBoolean() / nextBigInteger()
-  * int radix: with optional radix
-* void close(): Closes this scanner
-* Pattern delimiter(): Returns the Pattern this Scanner is currently using to match delimiters
-
-> se
-
-* Define the API of the Java SE platform (since version 9)
-
-![Module Graph](images/20210505_232207.png)
+* se: Define the API of the Java SE platform (since version 9)
+  ![Module Graph](images/20210505_232207.png)
 
 {% endtab %}
 {% tab title='python' %}
@@ -1180,6 +1181,8 @@ files = sys.stdin.read()
 for line in files.split("\n"):
   print(line)
 ```
+
+{% include 'input.test' %}
 
 {% endtab %}
 {% tab title='java' %}
@@ -1321,6 +1324,9 @@ print('Hello')        # will be ignored
 sys.stdout = sys.__stdout__
 ```
 
+{% include 'print-1.test' %}
+{% include 'print-2.test' %}
+
 {% endtab %}
 {% tab title='shell' %}
 
@@ -1360,7 +1366,7 @@ line2""")
 
 ### Print Format
 
-{% include 'format.test' %}
+{% include 'print-format.test' %}
 
 {% tabs %}
 {% tab title='c' %}
@@ -1496,21 +1502,7 @@ name = “sean”
 {% endtab %}
 {% tab title='python' %}
 
-```py
-# 1. color print
-class bcolors:
-  HEADER = '\033[95m'
-  OKBLUE = '\033[94m'
-  OKCYAN = '\033[96m'
-  OKGREEN = '\033[92m'
-  WARNING = '\033[93m'
-  FAIL = '\033[91m'
-  ENDC = '\033[0m'
-  BOLD = '\033[1m'
-  UNDERLINE = '\033[4m'
-
-print(f"{bcolors.WARNING}Warning: No active frommets remain. Continue?{bcolors.ENDC}")
-```
+{% include 'print-format.test' %}
 
 {% endtab %}
 {% tab title='shell' %}
@@ -1531,7 +1523,7 @@ print(f"{bcolors.WARNING}Warning: No active frommets remain. Continue?{bcolors.E
 
 {% include '.format.prob' %}
 
-### Format Number
+### Print Decimal
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -1545,11 +1537,16 @@ printf ("Some different radices: %d %x %o %#x %#o \n", 100, 100, 100, 100, 100);
 ```
 
 {% endtab %}
+{% tab title='python' %}
+
+{% include 'print-decimal.test' %}
+
+{% endtab %}
 {% endtabs %}
 
 {% include '.format-number.prob' %}
 
-### Color
+### Print Color
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -1591,6 +1588,25 @@ int main() {
   cout << "This ->" << red << "word" << def << "<- is red." << endl;
 }
 
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+```py
+# 1. color print
+class bcolors:
+  HEADER = '\033[95m'
+  OKBLUE = '\033[94m'
+  OKCYAN = '\033[96m'
+  OKGREEN = '\033[92m'
+  WARNING = '\033[93m'
+  FAIL = '\033[91m'
+  ENDC = '\033[0m'
+  BOLD = '\033[1m'
+  UNDERLINE = '\033[4m'
+
+print(f"{bcolors.WARNING}Warning: No active frommets remain. Continue?{bcolors.ENDC}")
 ```
 
 {% endtab %}

@@ -514,14 +514,17 @@ pipeline {
 
 ## Deploy
 
-* Deploy is a running instance of the app all should share same codebase ([ex] dev, staging, production)
-* Do not debug in production settings ([ex] match local with production)
-  * Add logging history for production server
+* running instance of the app all should share same codebase ([ex] dev, staging, production)
+* Do not debug in production settings, add logging history for production server
 * Horizontal scaling: stateless and share nothing
   * Any data that needs to persist must be stored in a stateful backing, typically a database
-* Deployment tools offer release management tools, e.g. the ability to roll back to a previous release ([ex] Capistrano)
+* Deployment tools offer release management tools, the ability to roll back to a previous release ([ex] Capistrano)
 * Every release should always have a immutable, unique release ID
 * Minimize run stage steps to minimize app crash cost
+* Minimize following gaps
+  * time gap: Devs may work on code that takes weeks, months to go into production
+  * personnel gap: Devs write code, ops engineers deploy it ([ex] CD)
+  * tools gap: Devs use stack like Nginx, SQLite, and OS X, while production deploy uses LAMP ([ex] docker)
 
 {% tabs %}
 {% tab title='javascript' %}
@@ -540,9 +543,7 @@ pipeline {
   * Now
   * Heroku
 
-> pm2
-
-* Unstopable Release
+* pm2: Unstopable Release
 
 ![PM2](images/20210301_194253.png)
 
@@ -573,8 +574,6 @@ external
 
 {% endtab %}
 {% endtabs %}
-
-> CI
 
 {% tabs %}
 {% tab title='github' %}
@@ -624,50 +623,6 @@ jobs:
 {% endtab %}
 {% endtabs %}
 
-## Variable
+> Reference
 
-{% tabs %}
-{% tab title='github' %}
-
-* $VARIABLE_NAME
-* $Env:VARIABLE_NAME
-  * variable is read from the shell
-* ${{ env.VARIABLE_NAME }}
-  * variable is read from the workflow (can be used for other flow configuration)
-  * cannot use environment defined in same step
-
-* GITHUB_ACTION: The unique identifier of the action
-* GITHUB_ACTOR: [ex] seanhwangg
-* GITHUB_EVENT_PATH: Path to a file that contains event payload
-* GITHUB_REPOSITORY: repository owner and repo name ([ex] seanhwangg/hello_world)
-* GITHUB_RUN_ID: unique number for each run within a repository, which doesn't change when re-run workflow
-* GITHUB_SHA: commit SHA that triggered the workflow ([ex] ffac537e6cbbf934b08745a378932722df287a5d3)
-  * SHA12: ${GITHUB_SHA::12}
-* GITHUB_WORKSPACE
-* GITHUB_TOKEN: automatically creates a secret to use in your workflow
-  * You can use the GITHUB_TOKEN to authenticate in a workflow run
-* RUNNER_OS: [ex] Linux, Windows, macOS
-
-* github
-  * repository: owner and repository name ([ex] seanhwangg/hello_world)
-  * repository_owner: repository owner's name ([ex] seanhwangg)
-
-```yml
-jobs:
-  example-jobs:
-    steps:
-      - name: PSQL
-        run: node client.js
-        env:
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
-```
-
-{% endtab %}
-{% tab title='gitlab' %}
-
-* CI_PROJECT_NAME: name of repository
-* CI_COMMIT_REF_NAME: name of branch
-
-{% endtab %}
-{% endtabs %}
+<https://12factor.net/dev-prod-parity>

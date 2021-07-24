@@ -9,12 +9,11 @@
 > Term
 
 * Datastores: [ex] mysql, couchDB
-* Messaging / Queing system: [ex] RabbitMQ, Beanstalkd
 * SMTP: [ex] Postfix
 * Caching system: [ex] Memcahced
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * Strogra at 15cent / GB / month
 
@@ -142,6 +141,8 @@ console.log(employees2.toString())
 
 ## Message Queue
 
+* Messaging / Queing system: [ex] RabbitMQ, Beanstalkd
+
 ### Pub Sub
 
 ![Pub sub](images/20210629_204827.png)
@@ -157,26 +158,90 @@ console.log(employees2.toString())
 * consumer can understand and interact with remote service with a minimal amount of implementation logic
 * brew install openapi-generator (mac)
 
-> openapi-generator CLI
-
-* help: show help message
-* -i `json`: `json` file from swagger open ([ex] /swagger/?format=openapi)
-* -o `folder`: save generated api in `folder`
-* -g: ([ex] typescript-axios)
+* openapi-generator CLI
+  * help: show help message
+  * -i `json`: `json` file from swagger open ([ex] /swagger/?format=openapi)
+  * -o `folder`: save generated api in `folder`
+  * -g: ([ex] typescript-axios)
 
 ## REST
 
 * Representational State Transfer: architectural style for developing web service which exploit ubiquity HTTP protocol
 * uses HTTP method to define actions
-
-> Design principle
-
 * client-server, stateless, cache, uniform interface, layered system, code on demand
 * Resources
+
+> Terms
+
 * methods: When API functionality naturally maps to one of standard methods, that method should be used in API design
   * List, Get, Create, Update, Delete
-* Method name should not include prepositions
-  * Indicate that a new method is being used where a field should instead be added to an existing method
+  * name should not include prepositions
+  * Indicate that new method is being used where field should instead be added to an existing method
+
+{% tabs %}
+{% tab title='python' %}
+
+* django-reset-framework
+  * Authentication policies include packages for OAuth1 and OAuth2
+  * Great Serialization supports both ORM and non-ORM data sources
+  * pip install djangorestframework
+
+```py
+from rest_framework.test import APIRequestFactory
+from rest_framework import serializers
+from rest_framework import JSONRender
+
+from .models import Hero
+
+# 1. Settings.py
+INSTALLED_APPS = [
+  ...
+  'rest_framework',
+  ...
+]
+
+REST_FRAMEWORK = {
+  'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.AllowAny',
+  ]
+}
+
+# 2. Serializer
+class HeroSerializer(serializers.HyperlinkedModelSerializer):
+  class Meta:
+    model = Hero
+    fields = ('name', 'alias') # "__all__"
+    # exclude = []
+
+# 3. pagenation
+class ProductsPagination(LimitOffsetPagination):
+  default_limit = 10
+  max_limit = 100
+class ProductList(ListAPIView):
+  pagination_class = ProductsPagination
+
+# 4. Test
+factory = APIRequestFactory()
+request = factory.post('/notes/', {'title': 'new idea'})
+
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+from myproject.apps.core.models import Account
+
+class AccountTests(APITestCase):
+  def test_create_account(self):
+    """ Ensure we can create a new account object. """
+    url = reverse('account-list')
+    data = {'name': 'DabApps'}
+    response = self.client.post(url, data, format='json')
+    self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    self.assertEqual(Account.objects.count(), 1)
+    self.assertEqual(Account.objects.get().name, 'DabApps')
+```
+
+{% endtab %}
+{% endtabs %}
 
 ### Methods
 

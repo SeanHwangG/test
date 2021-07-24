@@ -1,0 +1,14 @@
+[Input](https://docs.google.com/forms/d/1XbP26o8UTj2VRJoXW6-CrTSAobDQOfLEDd9Xj39Hqts/edit)
+
+```py
+print(type(input()))    # input : abc
+print(type(float(input())))    # input : 25.5
+a = input().split(); print(type(a))    # input : 2 3
+a, b, c = input().split(); print(type(b))    # input : 1 2 3
+h, i  = input().split(); print(type(h))    # input : ab cd
+j, k = map(float, input().split()); print(type(k))    # input : 1.2 3.3
+print(type(int(input())))    # input : 1234
+print(type(input()))    # input : hello
+print(type(float(input())))    # input : 1234.5
+o, p = map(int, input()); print(type(o))    # 12
+```

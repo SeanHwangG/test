@@ -54,7 +54,7 @@
 * Public Cloud: large cluster of machines run by another company
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 ![Sample architecture](images/20210403_015028.png)
 [Show instances](https://us-west-2.console.aws.amazon.com/ec2/v2/home?)
@@ -89,7 +89,7 @@ aws_secret_access_key=EkuLZB1/EpqGDnnpn08gqBwDesmCOECrcZ1xSJug
 ```
 
 {% endtab %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 ![Google](images/20210214_175023.png)
 
@@ -285,7 +285,7 @@ python manage.py migrate
 ## Cloud Setup
 
 {% tabs %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 * gcloud components update
 
@@ -310,7 +310,7 @@ python -m SimpleHTTPServer 8080
 ## Notification Service
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 > SES
 
@@ -324,32 +324,10 @@ python -m SimpleHTTPServer 8080
 {% endtab %}
 {% endtabs %}
 
-## DNS
-
-{% tabs %}
-{% tab title='gcp' %}
-
-> gcloud dns CLI
-
-* --project=seanhwangg
-* record-sets
-  * transaction start
-    * --zone=MANAGED_ZONE
-* managed-zones
-  * create `zone`: create `zone`
-    * --description=""
-    * --dns-name=`url`: [ex] classroom.icu
-    * --visibility="public"
-    * --dnssec-state="off"
-  * list: show all managed zones
-
-{% endtab %}
-{% endtabs %}
-
 ## IAM
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * [Get root](https://console.aws.amazon.com/iam/home#/security_credentials)
 
@@ -358,7 +336,7 @@ python -m SimpleHTTPServer 8080
 * [IAM](https://console.aws.amazon.com/iam/home)
 
 {% endtab %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 * OS Login: simplifies SSH access management by linking your Linux user account to your Google identity
 * Service account: can try to recover the account within 30 days
@@ -391,7 +369,7 @@ python -m SimpleHTTPServer 8080
 ## Serverless
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 > Lambda
 
@@ -405,7 +383,7 @@ python -m SimpleHTTPServer 8080
 * Layer:  additional code or content can be provided for Lambda
 
 {% endtab %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 ![web application](images/20210322_230844.png)
 ![mobile](images/20210322_230832.png)
@@ -454,7 +432,7 @@ runtime: nodejs10
 ## SQL
 
 {% tabs %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 * Last updated 2021 (approx)
 * Cheaper for longer commitment
@@ -506,7 +484,7 @@ docker run -d \
 ## VM
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * public ip address can be lost if you stop and start the instance
 * Virtual machine at 10cent / hour,  billed hourly
@@ -528,7 +506,7 @@ docker run -d \
   * --instance-ids
 
 {% endtab %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 * Shared-core: use context-switching to share a physical core between vCPUs for the purpose of multitasking
 * E2 (General purpose): [ex] Web serving, app serving, small-medium databases
@@ -603,7 +581,7 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 ## Streaming
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * fully managed non-persistent application and desktop streaming service
 
@@ -644,14 +622,14 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 ## Cloud Monitor
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * CloudWatch: monitoring and observability service built for DevOps engineers, developers, SRE
 * cloudtrail
   ![Cloud Trail](images/20210504_182714.png)
 
 {% endtab %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 * Google Analytics 4: UA tracking ID starts with G-
 
@@ -665,7 +643,7 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 ## Orchestration
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * elastic beanstalk
 
@@ -748,12 +726,12 @@ container_commands:
 ## Cloud Storage
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * Elastic Block Store
 
 {% endtab %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 * Goolge Cloud storage
 
@@ -775,7 +753,7 @@ container_commands:
 ## Container service
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * Elastic Container Service simplifies building, releasing, and operating production-ready containerized applications
 * on ECS from a local development environment
@@ -801,7 +779,7 @@ container_commands:
   * --subnets YOUR_SUBNET_ID_1, YOUR_SUBNET_ID_2
 
 {% endtab %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 * container
   * get-credentials api
@@ -821,13 +799,13 @@ container_commands:
 ## Load Balance
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 * Elastic Load Balancing
 * Application load balancer supports lambda as a target
 
 {% endtab %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 * Cloud load balancing
 
@@ -837,7 +815,7 @@ container_commands:
 ## VPC Network
 
 {% tabs %}
-{% tab title='gcp' %}
+{% tab title='google' %}
 
 ![To Static](images/20210514_152832.png)
 

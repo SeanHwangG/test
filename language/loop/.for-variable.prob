@@ -1,56 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_1065.md/)
-
-{% tabs %}
-{% tab title='BJ_1065.md' %}
-
-> Question
-
-* Print number of integers where difference of each consequent digit are equal
-
-```txt
-Input: 110
-Output: 99
-```
-
-{% endtab %}
-{% tab title='BJ_1065.py' %}
-
-```py
-N = int(input())
-print(sum(x // 100 + x % 10 == x // 10 % 10 * 2 or x < 100 for x in range(1, N + 1)))
-```
-
-{% endtab %}
-{% tab title='BJ_1065.sh' %}
-
-```sh
-read num
-cnt=0
-
-for ((i=1; i<=$num; i++)); do
-  if [ $i -lt 100 ]; then
-    ((cnt++))
-  else
-    a=${i:0:1}
-    b=${i:1:1}
-    c=${i:2:1}
-
-    if [ $(($a - $b)) -eq $(($b - $c)) ]; then
-      ((cnt++))
-    fi
-
-  fi
-done
-
-echo $cnt
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 3 : 주사위 게임](https://www.acmicpc.net/problem/10103)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_10103.md/)
 
@@ -509,6 +458,57 @@ for i in map(int, input().split()):
     n = i
   l = i
 print(m)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 한수](https://www.acmicpc.net/problem/1065)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-variable/BJ_1065.md/)
+
+{% tabs %}
+{% tab title='BJ_1065.md' %}
+
+> Question
+
+* Print number of integers where difference of each consequent digit are equal
+
+```txt
+Input: 110
+Output: 99
+```
+
+{% endtab %}
+{% tab title='BJ_1065.py' %}
+
+```py
+N = int(input())
+print(sum(x // 100 + x % 10 == x // 10 % 10 * 2 or x < 100 for x in range(1, N + 1)))
+```
+
+{% endtab %}
+{% tab title='BJ_1065.sh' %}
+
+```sh
+read num
+cnt=0
+
+for ((i=1; i<=$num; i++)); do
+  if [ $i -lt 100 ]; then
+    ((cnt++))
+  else
+    a=${i:0:1}
+    b=${i:1:1}
+    c=${i:2:1}
+
+    if [ $(($a - $b)) -eq $(($b - $c)) ]; then
+      ((cnt++))
+    fi
+
+  fi
+done
+
+echo $cnt
 ```
 
 {% endtab %}

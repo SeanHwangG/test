@@ -1,0 +1,14 @@
+* [Multiply 2](https://docs.google.com/forms/d/17LPbxQwGBN4UTgP3uzWK77kcc2iSjTG4K-TGnZ84ljA/edit)
+
+```py
+5*7        # 35
+0*2        # 0
+231*3      # 693
+5 + 5 * 5  # 30
+23*4    # 92
+9*5     # 45
+-2*-2   # 4
+7*3     # 21
+3*9     # 27
+2*2*4   # 16
+```

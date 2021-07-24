@@ -1,6 +1,6 @@
 > hackerrank
 
-* [Level  : UNKNOWN]()
+* [Level Easy : Looping and Skipping](https://www.hackerrank.com/challenges/bash-tutorials---looping-and-skipping/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/seq/HR_bash-tutorials---looping-and-skipping.md/)
 
 {% tabs %}
@@ -20,7 +20,7 @@ seq 1 2 99
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Easy : Looping with Numbers](https://www.hackerrank.com/challenges/bash-tutorials---looping-with-numbers/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/file/seq/HR_bash-tutorials---looping-with-numbers.md/)
 
 {% tabs %}

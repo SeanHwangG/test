@@ -442,7 +442,7 @@ class Villain(models.Model):
 {% endtab %}
 {% endtabs %}
 
-## Select
+## Gui Select
 
 {% tabs %}
 {% tab title='javascript' %}

@@ -33,8 +33,6 @@
   * Circuit: Vertices may repeat. Edges cannot repeat (Closed)
   * Path: Vertices cannot repeat. Edges cannot repeat (Open)
   * Cycle: Vertices cannot repeat. Edges cannot repeat (Closed)
-  * Hamiltonian: Visits every vertex in the graph
-  * Eulerian: Visits every edge in the graph
 
 * Independent Set: Given graph G and a number k, does G contain a set of at least k independent vertices?
 * Vertex Cover: Given a graph G and a number k, does G contain a vertex cover of size at most k
@@ -148,7 +146,15 @@
 
 {% include '.dfs.prob' %}
 
+### Hamiltonian
+
+* Visits every vertex in the graph
+
+{% include '.hamiltonian.prob' %}
+
 ### Eulerian
+
+* Visits every edge in the graph
 
 {% include '.eulerian.prob' %}
 

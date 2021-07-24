@@ -1,0 +1,17 @@
+[list-2](https://docs.google.com/forms/d/1JOb7wz4EX5AVQ5JjGPFercOH7VgmozrD9d8r4p7NdnQ/edit)
+
+```py
+a = [1, 1, 1, 10, 20, 30]
+b = ['aaa', 'w', 'x', 'xyz']
+
+print(a.index(30))
+print(b.index('aaa'))
+print(sum(a))
+print(b.count('x'))
+print(b[1].count('a'))
+print(a.count(1))
+a.insert(-2, 53); print(a[4])
+b.insert(4, 'th'); print(b[-1])
+print(len(a + b))
+print(list('abcd')[1])
+```

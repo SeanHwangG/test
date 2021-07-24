@@ -1,0 +1,17 @@
+[String-1](https://docs.google.com/forms/d/1OcKS_YdzQKEySMmq_Xas6bJDND0sId_4H-g7Q4WAl8A/edit)
+
+```py
+a = "abcdefaa"
+b = "bcd"
+
+print(a.count(a))
+print(a.count('a'))
+print(a.count('abc'))
+print(a.count(b))
+print(b.count(a))
+print(b.replace('b','llll'))
+print((a + b).replace('b', 'llll'))
+print(b.replace(a, b))
+print(a.replace(b, a))
+print(a.replace(b, b + b))
+```

@@ -1,0 +1,14 @@
+[Binary](https://docs.google.com/forms/d/1q-TTG8LYhtCI1a1o9c2fgHKecOrrP5bXHxxIZXb2FK8/edit)
+
+```py
+print(1 ^ 4)    # 5
+print(4 ^ 6)    # 2
+print(2 | 5)    # 7
+print(3 |  6)   # 7
+print(4 & 5)    # 4
+print(8 & 3)    # 0
+print(11 | 13)  # 15
+print(7 & 5)    # 5
+print(12 & 14)  # 12
+print(13 ^ 10)  # 7
+```

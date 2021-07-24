@@ -1,46 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/division/BJ_4774.md/)
-
-{% tabs %}
-{% tab title='BJ_4774.md' %}
-
-> Question
-
-* print average of 12 float in exact
-
-```txt
-Input:
-100.00
-489.12
-12454.12
-1234.10
-823.05
-109.20
-5.27
-1542.25
-839.18
-83.99
-1295.01
-1.75
-
-Output: $1581.42
-```
-
-{% endtab %}
-{% tab title='BJ_4774.py' %}
-
-```py
-import decimal
-
-balance = sum(decimal.Decimal(input()) for _ in range(12))
-print(f"${(balance / 12).quantize(decimal.Decimal('0.01'), rounding=decimal.ROUND_HALF_UP)}")
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 2 : A/B](https://www.acmicpc.net/problem/3783)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/division/BJ_1008.md/)
 
@@ -283,9 +242,50 @@ print(a / b)
 {% endtab %}
 {% endtabs %}
 
+* [Level 7 : Financial Management](https://www.acmicpc.net/problem/4774)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/division/BJ_4774.md/)
+
+{% tabs %}
+{% tab title='BJ_4774.md' %}
+
+> Question
+
+* print average of 12 float in exact
+
+```txt
+Input:
+100.00
+489.12
+12454.12
+1234.10
+823.05
+109.20
+5.27
+1542.25
+839.18
+83.99
+1295.01
+1.75
+
+Output: $1581.42
+```
+
+{% endtab %}
+{% tab title='BJ_4774.py' %}
+
+```py
+import decimal
+
+balance = sum(decimal.Decimal(input()) for _ in range(12))
+print(f"${(balance / 12).quantize(decimal.Decimal('0.01'), rounding=decimal.ROUND_HALF_UP)}")
+```
+
+{% endtab %}
+{% endtabs %}
+
 > kattis
 
-* [Level  : UNKNOWN]()
+* [Level 1.3 : Heart Rate](https://open.kattis.com/problems/heartrate)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/division/KT_heartrate.md/)
 
 {% tabs %}
@@ -320,7 +320,7 @@ for _ in range(n_test):
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level 1.4 : Roaming Romans](https://open.kattis.com/problems/romans)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/division/KT_romans.md/)
 
 {% tabs %}

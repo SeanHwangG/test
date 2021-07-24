@@ -5,23 +5,14 @@
 {% tabs %}
 {% tab title='Makefile' %}
 
-| Symbols | Meaning                        |
-| ------- | ------------------------------ |
-| :=      | Expanded when they are defined |
-| =       | Expanded when they are used    |
-| @       | Not echoed as it executed      |
-
-```make
-MY_VAR := $(shell echo whatever)
-```
+| Symbols | Meaning                   |
+| ------- | ------------------------- |
+| @       | Not echoed as it executed |
 
 {% endtab %}
 {% tab title='python' %}
 
 ![Operation](images/20210213_030253.png)
-
-{% include 'operation_1.test' %}
-{% include 'operation_2.test' %}
 
 | Operator | Meaning        | Example                                                                              |
 | -------- | -------------- | ------------------------------------------------------------------------------------ |
@@ -32,6 +23,8 @@ MY_VAR := $(shell echo whatever)
 | /        | division       | 3 / 2 = 1.5                                                                          |
 | //       | floor division | 8 // 3 = 2                                                                           |
 | \        | modular        | 7 % 3 = 1, 5.1 % 1 = 0.1                                                             |
+
+{% include 'operation-1.test' %}
 
 {% endtab %}
 {% tab title='verilog' %}
@@ -45,6 +38,16 @@ MY_VAR := $(shell echo whatever)
 ## Assignment
 
 {% tabs %}
+{% tab title='makefile' %}
+
+* :=: Expanded when they are defined
+* =: Expanded when they are used
+
+```make
+MY_VAR := $(shell echo whatever)
+```
+
+{% endtab %}
 {% tab title='python' %}
 
 ```py

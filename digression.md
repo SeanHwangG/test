@@ -31,7 +31,7 @@ Any comments, contributions are welcome.
   * Database: postgres, mongodb, sqlite, bigquery
   * Site: baekjoon, codechef, codeforce, hackerrank, kattis, leetcode
   * Problem: BJ_*, CC_*, CF_*, HR_*, KT_*, LC_*
-  * Tool: git, vscode, mac, linux, window, jenkins, docker, dockercompose, github, gitlab
+  * Tool: git, vscode, mac, linux, window, jenkins, docker, dockercompose, github, gitlab, google, amazon
 
 ## Blog
 

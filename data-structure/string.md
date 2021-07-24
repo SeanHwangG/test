@@ -253,11 +253,6 @@ var splits = [s.slice(0, i) + s.slice(i + 1)]
 
 * Sequence of unicode Character
 
-{% include 'string_1.test' %}
-{% include 'string_2.test' %}
-{% include 'split.test' %}
-{% include 'join.test' %}
-
 * ascii_letters: ascii_lowercase + ascii_uppercase
 * digits, punctuation
 
@@ -291,6 +286,11 @@ var splits = [s.slice(0, i) + s.slice(i + 1)]
 tb = 'ab'.maketrans({'a': '1', 'b': '4'}) # create dictionary
 'ab'.translate(tb)  # 14
 ```
+
+{% include 'string-1.test' %}
+{% include 'string-2.test' %}
+{% include 'split.test' %}
+{% include 'join.test' %}
 
 {% endtab %}
 {% tab title='shell' %}

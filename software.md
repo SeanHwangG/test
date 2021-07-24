@@ -5,32 +5,18 @@
 > Terms
 
 * BDD: Business Driven Development
-
 * Process of Reference
-
 * sentinel value: special value in the context of an algorithm which uses its presence as a condition of termination
   * [ex] in a loop or recursive algorithm
 * OTA: Over the air programming
 
-> Question
+> Reference
 
-* Break following user story into two
-  * Scenario 1: Favorite a New Route
-    * Given that the user is on the Save Route screen
-    * And they are saving a route named “RouteA”
-    * When the user presses the “Favorite” button
-    * And then they press the “Save” button
-    * Then the app should go to the Routes page
-    * And “RouteA” should be shown as a favorite
-  * [ex]
-  * As a user I want to message a nearby buddy so that we can meet up.  →
-  * As an initiator I want to send invitation to a nearby buddy so that we can meet up
-  * As a user I want to receive messages so that we can meet up
+<https://12factor.net/>
 
 ## Tools
 
 * wiki?curid=10015: wiki based
-* [compare different stacks](https://stackshare.io/)
 
 > Terms
 
@@ -43,7 +29,7 @@
 * Library / Frameworks: predefined set of classes that does similar things
 
 * Time
-  * Universal time coordinate: Compromise between english and french abbreviation
+  * UTC: Universal time coordinate, Compromise between english and french abbreviation
   * GMT: Greenwich Mean Time, time zone at UTC + 0.0
 
 * Posix (Portable Operating System Interface)
@@ -58,14 +44,15 @@
 * standalone (freestanding program)
   * no external module, library, program designed to boot with bootstrap procedure of target processor
 
-* Windows Driver Model (wdm)
-  * framework for device drivers that was introduced with Windows 98 and Windows 2000 to replace VxD (Windows 95, 3.1)
+* WDM: Windows Driver Model is: framework for device drivers introduced with Windows 98, 2000 to replace VxD (95, 3.1)
 
 * Von Neumann model of computing: Fetch, decode, execute
 
 * X Window System: xAuthority file is in ~, stores credentials in cookies used by xauth for authentication of X sessions
 
 ## Configure
+
+* ansible: software provisioning, configuration management, application-deployment tool enabling infrastructure as code
 
 {% tabs %}
 {% tab title='python' %}
@@ -259,6 +246,9 @@ export LDFLAGS="-L/usr/local/opt/libffi/lib"
 alias ldd="otool -L"
 alias xclip="pbcopy"
 alias xargs="gxargs"
+
+# disable accented key for long press
+defaults write -g ApplePressAndHoldEnabled -bool false
 ```
 
 {% endtab %}
@@ -315,7 +305,7 @@ class SimpleMiddleware:
 {% endtab %}
 {% endtabs %}
 
-### Install
+## Install
 
 {% tabs %}
 {% tab title='java' %}
@@ -478,6 +468,32 @@ sudo apt-get install jenkins
 {% endtabs %}
 
 {% tabs %}
+{% tab title='google' %}
+
+* Chrome
+  * ⌘  d: bookmark
+  * ⌘  l: search tab
+  * ⌘  `: change window
+  * ⌘  ⇧  t: reopen closed tab
+  * ⌘  ⇧  c: page inspection
+
+{% endtab %}
+{% tab title='mac' %}
+
+* ⌘ ⇧ 3 / 4: captures a screenshot of your entire screen / drag to select a portion of your screen
+* ⌘ ⇧ 6: captures number pad
+* (⌃) ⌘ shift 4 / 5: Screen shot (saved to clipboard)
+
+* ⌘ ⇧ /: Help
+* ⌘ space: Search files
+* ⌥ ⌘ v: Ctrl x for files
+* ⇧ ⌘ .: See Hidden files
+* ⌃ ⌘ space: See special characters
+* ⌘ ⇧ G: Go to specific file path
+* ⌘ ⌃ f: Full screen
+* System Preferences -> Sharing -> Computer Name:
+
+{% endtab %}
 {% tab title='vscode' %}
 
 * Go to symbol in Editor/workspace
@@ -573,8 +589,20 @@ main:
 * cross compiler: when the host and target are different
   * [+] Speed - Target platforms are much slower than hosts,
   * [+] Capability - target platform doesn't have gigabytes of memory and hundreds of gigabytes of disk space
+* ELF (Executable and linkable file)
+  * use objdump and nm in terminal
+  * Headers tells which (shared lib, exe, *.o file) and give location of the section / program headers
+  ![ELF file](images/20210214_022453.png)
 
 {% tabs %}
+{% tab title='c' %}
+
+* Preprossess: Include header, expand Macro (default source.suffix.gch)
+* Compilation: assembly code (default source.s;)
+* Assemble: generate machine code (default source.o;)
+* Linking: .o / .obj (+ .lib / .a / static library) → .exe (default a.out)
+
+{% endtab %}
 {% tab title='cmake' %}
 
 ```sh
@@ -712,9 +740,15 @@ int main() {
 * By understanding
 * Understand language scoping rules
 * Exploit shared libraries
+![Static vs Dynamic linking](images/20210214_023228.png)
 
 > Terms
 
+* static library: set of routines, external functions and variables which are resolved in a caller at compile-time
+  * copied into a target application by a compiler, linker, or binder
+  * produce an object file and a stand-alone executable
+* Library
+  ![Libary](images/20210214_022603.png)
 * Strong symbol: functions and initialized global variables
   * multiple strong symbols with the same name are not allowed
 * Weak symbol: uninitialized global variables
@@ -725,7 +759,7 @@ int main() {
 * Relocation: Compilers and assemblers generate code and data sections that start at address 0
   * Linker relocates these sections by associating a memory location with each symbol definition
   * then modifying all of the references to those symbols so that they point to this memory location
-  * blindly performs these relocations using detailed instructions, generated by the assembler, called relocation entries
+  * blindly performs these relocations using detailed instructions, generated by assembler, called relocation entries
 
 {% tabs %}
 {% tab title='c' %}
@@ -751,6 +785,11 @@ int x;
 {% endtab %}
 {% tab title='cpp' %}
 
+* A more complete description is available in the GCC
+* create executable that is ready to be loaded into memory and executed by the system
+* added by the linking process
+* starts with lib followed by name
+
 * \#include \<fn\> preprocessor searches directories pre-designated by the compiler/IDE (std library)
 * \#include "fn" preprocessor searches first in the same directory then search path (programmer-defined)
 * /usr/lib
@@ -758,21 +797,39 @@ int x;
 * Link Error starts with L
 * Error when combine object files to create executable
 
-> duplicate symbols found
+```cpp
+// g++ -shared -o librandom.so random.cpp
+// g++ main.cpp -lrandom -L.
+// ./a.out
 
-* Same function declared in multiple files (#once)
-* include same header multiple times (Check inline, static, #ifdef)
+// main.cpp
+#include <iostream>
+#include "random.h"
 
-> unresolved external symbol
+int main() { std::cout << get_random_number(); }
 
-* Can’t find function declaration, header include
+// random.cpp
+#include "random.h"
+int get_random_number(void) { return 4; }
 
-> Use of deleted function 'std::atomic\<int\>::atomic(const std::atomic\<int\>&)
+// random.h
+int get_random_number();
+```
 
-* Can't assign atomic from int
-* Can't directly print atomic, use .load
+> Error
 
-> ld: symbol(s) not found for architecture x86_64
+* duplicate symbols found
+  * Same function declared in multiple files (#once)
+  * include same header multiple times (Check inline, static, #ifdef)
+
+* unresolved external symbol
+  * Can’t find function declaration, header include
+
+* Use of deleted function 'std::atomic\<int\>::atomic(const std::atomic\<int\>&)
+  * Can't assign atomic from int
+  * Can't directly print atomic, use .load
+
+* ld: symbol(s) not found for architecture x86_64
 
 ```cpp
 int man () {
@@ -792,6 +849,10 @@ int man () {
 * Bigger binary size, library can be erased
 
 ### Dynamic linking
+
+* Linking postponed until execution time → useful for libraries
+* stub replaces itself with address of routine, and executes routine
+* Window → .dll, Apple → dylib (Framework), Unix → so
 
 {% tabs %}
 {% tab title='cpp' %}

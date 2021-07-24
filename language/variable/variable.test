@@ -1,0 +1,17 @@
+[variable](https://docs.google.com/forms/d/1WqtkeaNlVPNL4Q56uLiseUAVoRHRQxFwjje5VOb4tjA/edit)
+[variable](https://docs.google.com/forms/d/1WqtkeaNlVPNL4Q56uLiseUAVoRHRQxFwjje5VOb4tjA/edit)
+
+```py
+a = 0
+
+a += 2; print(a)        # 2
+print(a + 5)            # 7
+a -= 3; print(a)        # -1
+print(a + 3)            # 2
+a -= 3; print(a)        # -4
+print(a * 5)            # -20
+a = 3 + a * 2; print(a) # -5
+a -= 3 + a; print(a) # -3
+print(a - 2)         # -5
+a *= 3; print(a)     # -9
+```

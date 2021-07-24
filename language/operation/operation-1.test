@@ -1,0 +1,16 @@
+[operation-1](https://docs.google.com/forms/d/1eMj8uxZUxZuKpr2gFX8MLqv3XN8p4EddX3i_gaLHPlY/edit)
+
+```py
+a = 0
+
+a += 2; print(a)
+print(a + 5)
+a -= 3; print(a)
+print(a + 3)
+a -= 3; print(a)
+print(a * 5)
+a = 3 + a * 2; print(a)
+a -= 3 + a; print(a)
+print(a - 2)
+a *= 3; print(a)
+```

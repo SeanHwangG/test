@@ -43,7 +43,7 @@ print(a * (a - 1))
 
 > Question
 
-* Count number of ways to choose 4 people from N
+* Count number of ways to choose 3 people from N
 
 ```txt
 Input: 4
@@ -60,7 +60,7 @@ using namespace std;
 int main() {
   int n;
   cin >> n;
-  cout <<(n-1)*(n-2)*(n-3)/6;
+  cout << (n - 1) * (n - 2) * (n - 3) / 6;
 }
 ```
 

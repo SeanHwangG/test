@@ -2,6 +2,15 @@
 
 ![Design Pattern](images/20210213_142102.png)
 
+> Term
+
+* God object: an object that knows too much or does too much
+  * [-] Changes made to object for benefit of one routine can have unintended effects on other unrelated routines
+  * [+] tight programming where performance increase and centralization of control are more important than maintaining
+  * [ex] microcontrollers
+* Lasagna: code with complicated layers, intertwined that making change in layer necessitate changes in other layers
+* Ravioli: comprises well-structured, easy classes in isolation, but difficult to understand as a whole
+
 > Reference
 
 * [Design Pattern](https://refactoring.guru/design-patterns/python)
@@ -104,7 +113,6 @@ public boolean isLeftHanded(); // O
 
 ![Creational](images/20210304_223908.png)
 
-* [+] Flexibility → Different subtypes of objects from same class at runtime
 * Used to create objects in a systematic way
 * Polymorphism is widely used
 * Creation classes can't be OCP but let other classes be OCP and SRP
@@ -113,6 +121,7 @@ public boolean isLeftHanded(); // O
 * Dependency inversion principle
 * Defines an interface for creating an object that defer instantiation to subclasses
 * User expectation yields multiple, related objects
+* [+] Flexibility → Different subtypes of objects from same class at runtime
 
 | Type     | Description                                                                            |
 | -------- | -------------------------------------------------------------------------------------- |
@@ -209,9 +218,23 @@ class Builder {
 
 ### Factory
 
-* Abstract factory pattern is used for factory of factories → UI Theme / Car
+* Provides an interface for creating object in a superclass, but allows subclasses to alter the type of objects
+* If all product classes implement a common interface, pass their objects to client code without breaking it
+* Follow Single Repsonsibility, Open/Closed Principle
+* [ex] Adding Ship logic in Truck delivery app
+* [+] when you don’t know beforehand exact types and dependencies of objects
+* [+] provide users of your library or framework with a way to extend its internal components ([ex] customize button)
+* [+] save system resources by reusing existing objects instead of rebuilding ([ex] database connections, file system)
+* [-] more complicated since you need to introduce a lot of new subclasses to implement the pattern
 
-![Factory](images/20210304_223526.png)
+![Factory](images/20210721_225727.png)
+
+> Term
+
+* Creator: declares the factory method that returns new product objects
+  * Product creation is not the primary responsibility of the creator ([ex] large company can have training department)
+  * Also has some core business logic related to products
+* Product: Objects returned by a factory method
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -222,47 +245,47 @@ class Builder {
 
 using namespace std;
 
+// 1. Coffee Factory
 class Coffee {
   protected:
-  string _type;
+    string _type;
 
   public:
-  Coffee(string type) : _type(type) {}
-  string getType() { return _type; }
+    Coffee(string type) : _type(type) {}
+    string getType() { return _type; }
 };
 
 class Espresso : public Coffee {
   public:
-  Espresso() : Coffee("Espresso") { cout << endl << "Making a cup of espresso" << endl; }
+    Espresso() : Coffee("Espresso") { cout << endl << "Making a cup of espresso" << endl; }
 };
 
 class Cappuccino : public Coffee {
   public:
-  Cappuccino() : Coffee("Cappuccino") { cout << endl << "Making a cup of cappuccino." << endl; }
+    Cappuccino() : Coffee("Cappuccino") { cout << endl << "Making a cup of cappuccino." << endl; }
 };
 
 class CoffeeMakerFactory {
   private:
-  Coffee* _coffee;
-
+    Coffee* _coffee;
   public:
-  Coffee* GetCoffee() {
-    int choice;
+    Coffee* GetCoffee() {
+      int choice;
 
-    cout << "Select type of coffee to make: " << endl;
-    cout << "1: Espresso" << endl;
-    cout << "2: Cappuccino" << endl;
-    cout << "Selection: " << endl;
-    cin >> choice;
+      cout << "Select type of coffee to make: " << endl;
+      cout << "1: Espresso" << endl;
+      cout << "2: Cappuccino" << endl;
+      cout << "Selection: " << endl;
+      cin >> choice;
 
-    switch (choice) {
-      case 1: return new Espresso;
-      case 2: return new Cappuccino;
-      default:
-        cout << "Invalid Selection" << endl;
-        return NULL;
+      switch (choice) {
+        case 1: return new Espresso;
+        case 2: return new Cappuccino;
+        default:
+          cout << "Invalid Selection" << endl;
+          return NULL;
+      }
     }
-  }
 };
 
 int main() {
@@ -286,15 +309,15 @@ Event event = factory.createEvent(FLOWERS);   // BEST
 {% tab title='python' %}
 
 ```py
+import json
+import xml.etree.ElementTree as et
+
 # 1. Simple factory
 def get_pet(pet):
   pets=dict(dog=Dog("Bosom"), cat=Cat("Neo"))
   return gets[pet]
 
 # 2. Serializer
-import json
-import xml.etree.ElementTree as et
-
 class SerializerFactory:
   def __init__(self):
     self._creators = {}
@@ -321,12 +344,10 @@ class JsonSerializer:
     self._current_object = None
 
   def start_object(self, object_name, object_id):
-    self._current_object = {
-      'id': object_id
-    }
+    self._current_object = { 'id': object_id }
 
   def add_property(self, name, value):
-  self._current_object[name] = value
+    self._current_object[name] = value
 
   def to_str(self):
     return json.dumps(self._current_object)
@@ -358,7 +379,6 @@ class Song:
     serializer.add_property('title', self.title)
     serializer.add_property('artist', self.artist)
 
-
 if __name__ == "__main__":
   factory = SerializerFactory()
   factory.register_format('JSON', JsonSerializer)
@@ -377,6 +397,10 @@ if __name__ == "__main__":
 {% endtabs %}
 
 ### Abstract Factory
+
+* used for factory of factories → UI Theme / Car
+
+![Factory](images/20210304_223526.png)
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -688,11 +712,11 @@ iface.show_content('file.txt')
 
 ### Decorator
 
-* adhering to the Single Responsibility Principle
-* allows functionality to be divided between classes with unique areas of concern
-* allows behavior to be added to an individual object, dynamically
-* doesn't affect behavior of other objects from the same class
-* useful for adhering to the Single Responsibility Principle
+* SRP, allows functionality to be divided between classes with unique areas of concern
+* [+] assign extra behaviors to objects at runtime without breaking the code that uses these objects
+* [+] awkward or impossible to extend an object’s behavior using inheritance
+* [-] hard to implement a decorator in such a way that its behavior doesn’t depend on the order in decorators stack
+* [-] initial configuration code of layers might look pretty ugly, hard to remove a specific wrapper from wrappers stack
 
 ![decorator](images/20210213_182657.png)
 ![decorator method](images/20210213_182713.png)
@@ -802,7 +826,6 @@ def fullname(self, name):
   self.first = first
   self.last = last
 
-# Deleter
 @fullname.deleter
 def fullname(self):
   self.first = None
@@ -848,7 +871,8 @@ class Window(Rectangle bounds) {
 
 ### Facade
 
-* Facade object serves as a interface masking more complex underlying or structural code
+* [+] interface masking more complex underlying or structural code
+* [-] facade can become a god object coupled to all classes of an app
 
 ![Facade](images/20210514_025116.png)
 
@@ -889,6 +913,80 @@ int main() {
   ComputerFacade computer;
   computer.Start();
 }
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+```py
+from __future__ import annotations
+
+
+class Facade:
+  """ The Facade class provides a simple interface to the complex logic of one or several subsystems.
+  The Facade delegates the client requests to the appropriate objects within the subsystem.
+  The Facade is also responsible for managing their lifecycle. All of this shields the client from the undesired
+  complexity of the subsystem.  """
+
+  def __init__(self, subsystem1: Subsystem1, subsystem2: Subsystem2) -> None:
+    """ Depending on your application's needs, you can provide the Facade with
+    existing subsystem objects or force the Facade to create them on its own. """
+    self._subsystem1 = subsystem1 or Subsystem1()
+    self._subsystem2 = subsystem2 or Subsystem2()
+
+  def operation(self) -> str:
+    """ The Facade's methods are convenient shortcuts to the sophisticated functionality of the subsystems.
+    However, clients get only to a fraction of a subsystem's capabilities. """
+
+    results = []
+    results.append("Facade initializes subsystems:")
+    results.append(self._subsystem1.operation1())
+    results.append(self._subsystem2.operation1())
+    results.append("Facade orders subsystems to perform the action:")
+    results.append(self._subsystem1.operation_n())
+    results.append(self._subsystem2.operation_z())
+    return "\n".join(results)
+
+
+class Subsystem1:
+  """ The Subsystem can accept requests either from the facade or client directly.
+  In any case, to the Subsystem, the Facade is yet another client, and it's not a part of the Subsystem.  """
+  def operation1(self) -> str:
+    return "Subsystem1: Ready!"
+
+  def operation_n(self) -> str:
+    return "Subsystem1: Go!"
+
+
+class Subsystem2:
+  """ Some facades can work with multiple subsystems at the same time.  """
+  def operation1(self) -> str:
+    return "Subsystem2: Get ready!"
+
+  def operation_z(self) -> str:
+    return "Subsystem2: Fire!"
+
+
+def client_code(facade: Facade) -> None:
+  """ The client code works with complex subsystems through a simple interface provided by the Facade.
+  When a facade manages the lifecycle of the subsystem, the client might not even know about existence of the subsystem.
+  This approach lets you keep the complexity under control.  """
+  print(facade.operation(), end="")
+
+
+if __name__ == "__main__":
+  # client code may have some of the subsystem's objects already created.
+  # In this case, it's worth to initialize Facade with these objects instead of letting Facade create new instances
+  facade = Facade(Subsystem1(), Subsystem2())
+  client_code(facade)
+
+""" Execution result
+Facade initializes subsystems:
+Subsystem1: Ready!
+Subsystem2: Get ready!
+Facade orders subsystems to perform the action:
+Subsystem1: Go!
+Subsystem2: Fire! """
 ```
 
 {% endtab %}
@@ -936,11 +1034,11 @@ if __name__ == '__main__':
 
 ### Mediator
 
-* Increase the reusability of the objects supported by the mediator by decoupling them from the system
 * Simplifies maintenance of the system by centralizing control logic
 * Commonly used to coordinate related GUI components
-* Without proper design, the mediator object itself can become overly complex
-* Graph Without graph class, it’s coupled and cannot be tested alone
+* [+] reduce coupling, SRP, OCP, reuse individual component easily
+* [+] Increase the reusability of the objects supported by the mediator by decoupling them from the system
+* [-] Over time a mediator can become overly complex and become a God Object
 
 ![Mediator](images/20210213_182922.png)
 
@@ -1351,10 +1449,16 @@ First
 
 ### Observer
 
-* subject (observable) maintains a dependents (observers)
 * subject notifies observers automatically of any state changes, usually by calling one of their methods
+* [+] object state change also change others, and set of objects is unknown beforehand or changes dynamically
+* [-] Subscribers are notified in random order
 
 ![Observer](images/20210213_184248.png)
+
+> Term
+
+* subject: aka observable, publisher, object that has some interesting state is often called subject
+* dependent: aka observer
 
 {% tabs %}
 {% tab title='java' %}
@@ -1436,6 +1540,10 @@ self.assertFalse(BankModel.attach(observable))
 
 {% endtab %}
 {% endtabs %}
+
+> Reference
+
+<https://refactoring.guru/design-patterns/observer>
 
 ### Strategy
 

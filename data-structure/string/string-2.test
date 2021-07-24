@@ -1,0 +1,17 @@
+[string-2](https://docs.google.com/forms/d/1snU0q32ZGaCc8Q-qOZ7XAUt51i28lZi3pPIiT12kN54/edit)
+
+```py
+a = "abcdefaa"
+b = "bcd"
+
+print(a.find(a))
+print(a.find('a'))
+print(a.find('aa'))
+print(a.find(b))
+print(b.find(a))
+print(b in a)
+print(b in b)
+print(b + b in a)
+print((b in b) == (a in a))
+print((a in b) == (b in a))
+```

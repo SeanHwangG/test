@@ -52,42 +52,36 @@ print(''.join(sorted('hello')))
 
 ## Sort Algorithm
 
-> Selction Sort
+* Quicksort: quick select can be used to find nth largest element in average of O(n) time
 
-```py
-def selection_sort(a1 … an):
-  for i in range(1, n - 1):
-    am = minimum(ai, ..., an)
-    swap ai and am
-```
+> Question
 
-* Loop invariant: After t loop, the first t elements are (1) sorted, (2) minimum
-* Base: It is true when t = 0, because there is no element
-* Inductive Hypothesis: For some t iterations, the first t elements are (1) sorted, (2) minimum
-
-* SIH: For k iteration where k = 1 … t, the k elements are (1) sorted, (2) minimum
-* WTS: For t + 1 iteration, the first t + 1 elements are (1) sorted, (2) minimum
-
-* During (t + 1)st iteration, algorithm finds am, minimum value of at+1, …, am and swap with at+1
-* So, after the (t + 1)st iteration, at+1 is the minimum value of at+1, ..., an
-
-* We have a1, ..., at are all less than at+1 and at+1 is minimum of at+1, ..., an ⇒  (1)
-* We have a1, …, at are in the sorted order and all less than at+1 ⇒ (2)
-
-* Therefore: for any 0 ≤ t ≤ n - 1, the loop invariant is true after t iterations
-
-* Since we execute loop exactly n times
-* loop invariant with t = n guarantees that all n elements of list will be in correct order at the end of algorithm
-
-> Quicksort
-
-* quick select can be used to find nth largest element in average of O(n) time
+* Selection Sort Proof
+  * Loop invariant: After t loop, the first t elements are (1) sorted, (2) minimum
+  * Base: It is true when t = 0, because there is no element
+  * Inductive Hypothesis: For some t iterations, the first t elements are (1) sorted, (2) minimum
+  * SIH: For k iteration where k = 1 … t, the k elements are (1) sorted, (2) minimum
+  * WTS: For t + 1 iteration, the first t + 1 elements are (1) sorted, (2) minimum
+  * During (t + 1)st iteration, algorithm finds am, minimum value of at+1, …, am and swap with at+1
+  * So, after the (t + 1)st iteration, at+1 is the minimum value of at+1, ..., an
+  * We have a1, ..., at are all less than at+1 and at+1 is minimum of at+1, ..., an ⇒  (1)
+  * We have a1, …, at are in the sorted order and all less than at+1 ⇒ (2)
+  * Therefore: for any 0 ≤ t ≤ n - 1, the loop invariant is true after t iterations
+  * Since we execute loop exactly n times
+  * loop invariant with t = n guarantees that all n elements of list will be in correct order at the end of algorithm
 
 {% tabs %}
 {% tab title='python' %}
 
 ```py
-quicksort(a[1...n])
+# 1. Selection_sort
+def selection_sort(a1 … an):
+  for i in range(1, n - 1):
+    am = minimum(ai, ..., an)
+    swap ai and am
+
+# 2. Quick sort
+def quicksort(a[1...n]):
   if n <= 1 : return a
   set v to be a random element in a.
   Partition a into SL, SV, SR

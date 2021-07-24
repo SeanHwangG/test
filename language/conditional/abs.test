@@ -1,1 +1,14 @@
-* [min, max, abs](https://docs.google.com/forms/d/18Y-LtjIQXnTucECDhzw7PGnc7PdZ_m9IwlMUkF4l8aw/edit)
+[abs](https://docs.google.com/forms/d/18Y-LtjIQXnTucECDhzw7PGnc7PdZ_m9IwlMUkF4l8aw/edit)
+
+```py
+a = -5
+b = 3
+
+print(abs(a))
+print(abs(a*b))
+print(min(1,2,3,4,5))
+print(max(1,2,3,4,5))
+print(min(-10, -5, 0, 5, 10))
+print(max(a,b))
+print(abs(min(a,b)))
+```

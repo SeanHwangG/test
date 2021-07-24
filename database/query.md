@@ -14,79 +14,31 @@
 ## User
 
 {% tabs %}
-{% tab title='postgres' %}
+{% tab title='sql' %}
 
 * createdb `user`: create db named `user`
 * ALTER
   * USER `librarian` WITH `SUPERUSER`
 
-> Error : psql: FATAL: database "root" does not exist
+> Error
 
-* psql assumes you want to access a database with the same name as your user name
-* psql postgres -> \du -> find a `name` -> psql -U `name`
+* psql: FATAL: database "root" does not exist
+  * psql assumes you want to access a database with the same name as your user name
+  * psql postgres -> \du -> find a `name` -> psql -U `name`
 
 {% endtab %}
 {% endtabs %}
 
 ### Role
 
-{% tabs %}
-{% tab title='postgres' %}
-
-* REASSIGN
-  * OWNED BY old_role TO new_role
-
-{% endtab %}
-{% endtabs %}
-
 * SHOW DATABASES / SCHEMAS;
 
-## Database CLI
-
 {% tabs %}
-{% tab title='mysql' %}
+{% tab title='sql' %}
 
-* mysql
-  * -u user -p
-  * -e `cmd`: [ex] show databases;
-
-```sh
-# 1. see GUI
-sudo apt update
-sudo apt install mysql-workbench
-mysql-workbench
-```
-
-{% endtab %}
-{% tab title='postgres' %}
-
-* psql
-  * --help
-  * -c `cmd`: to execute the given command
-  * -d `dbname`: the name of the database to connect to
-  * -h `hostname`: the host name of the machine on which the server is running
-  * -U `postgres`
-  * --version: output version information
-
-* createdb
-  * -u `user`: set `user`
-
-{% endtab %}
-{% tab title='sqlite' %}
-
-* -header
-
-{% endtab %}
-{% endtabs %}
-
-## Shell
-
-{% tabs %}
-{% tab title='sqlite' %}
-
-* .headers on: turn on headers
-* .tables: list all tables
-  * 'a%': list variables starts with a
+* postgres
+  * REASSIGN
+    * OWNED BY old_role TO new_role
 
 {% endtab %}
 {% endtabs %}
@@ -421,6 +373,10 @@ DELETE FROM movie WHERE title NOT IN (SELECT title FROM schedule)
 
 {% tabs %}
 {% tab title='sql' %}
+
+* Big query
+  * Column names are optional if the target table is not an ingestion-time partitioned table
+  * Duplicate names are not allowed in the list of target columns
 
 ```sql
 INSERT INTO loan (no, type, minCredit) VALUES

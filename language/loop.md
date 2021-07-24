@@ -13,25 +13,17 @@
 * `s` + `t`: the concatenation of s and t
 * s[i]: ith item of s, origin 0
 
-> itertools
-
-* number of iterator building blocks inspired by constructs from APL, Haskell, SML
-* Each has been recast in a form suitable for Python
-
-* accumulate(`iter`, func, *, initial): [ex] ([1,2,3,4,5]) → 1 3 6 10 15
-* chain(*`iter`): [ex] chain('ABC', 'DEF') → A B C D E F
-* combinations(`iter`, r): [ex] ('ABCD', 2) → AB AC AD BC BD CD
-* compress(data, selectors) [ex] ('ABCDEF', [1,0,1,0,1,1]) → A C E F
-* count(`start`=0, `step`=1): [ex] (2.5, 0.5): 2.5 3.0 3.5 ..
-* cycle(`iter`): [ex] ('ABCD') → A B C D A B C
-* dropwhile(predicate, iterable)
-  * dropwhile(lambda x: x<5, [1,4,6,4,1]) → 6 4 1
-* islice(`iter`, `start`, `stop`, [step]): ('ABCDEFG', 2, None) → C D E F G
-* groupby(`iter`, key=None): [ex] [(k, g) for k, g in groupby('AAABB')] → (A, AAA), (B, BB)
-* permutations(`iter`): [ex] (range(3)) → 012 021 102 120 201 210
-* product(`*iter`, repeat=1): [ex] ('ABCD', 'xy') → Ax Ay Bx By Cx Cy Dx Dy
-* repeat(object[, times])
-  * repeat(10, 3) → 10 10 10
+* itertools: iterator building blocks inspired by constructs in APL, Haskell, SML, with recast suitable for Python
+  * accumulate(`iter`, func, *, initial): [ex] ([1,2,3,4,5]) → 1 3 6 10 15
+  * chain(*`iter`): [ex] ('ABC', 'DEF') → A B C D E F
+  * compress(data, selectors) [ex] ('ABCDEF', [1,0,1,0,1,1]) → A C E F
+  * count(`start`=0, `step`=1): [ex] (2.5, 0.5): 2.5 3.0 3.5 ..
+  * cycle(`iter`): [ex] ('ABCD') → A B C D A B C
+  * dropwhile(`predicate`, `iterable`): [ex] (lambda x: x<5, [1,4,6,4,1]): 6, 4, 1
+  * takewile(`predicate`, `iterable`): [ex] (lamda x: x<5, [1,3,6,4,1]): 1, 3
+  * islice(`iter`, `start`, `stop`, [step]): [ex] ('ABCDEFG', 2, None): C D E F G
+  * product(`*iter`, repeat=**1**): [ex] ('ABCD', 'xy'): Ax Ay Bx By Cx Cy Dx Dy
+  * repeat(`object`[, times]): [ex] (10, 3) → 10 10 10
 
 {% endtab %}
 {% endtabs %}
@@ -111,7 +103,15 @@ print(list(recursive_items(a)))
 
 ## Len
 
+{% tabs %}
+{% tab title='python' %}
+
+* len(`iter`): length of iterable
+
 {% include 'len.test' %}
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.len.prob' %}
 
@@ -513,8 +513,6 @@ for i in range(1, 10):
 {% include '.for-nested.prob' %}
 
 ### For comprehension
-
-* Supported Language: python
 
 {% tabs %}
 {% tab title='javascript' %}

@@ -138,7 +138,7 @@ for i in range(int(input())):
 
 > leetcode
 
-* [Level  : UNKNOWN]()
+* [Level 3 : Self Crossing](https://leetcode.com/problems/self-crossing)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/science/robotic/collision/LC_335.md/)
 
 {% tabs %}

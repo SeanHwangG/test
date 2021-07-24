@@ -1,6 +1,6 @@
 > hackerrank
 
-* [Level  : UNKNOWN]()
+* [Level Medium : The Captcha Cracker](https://www.hackerrank.com/challenges/the-captcha-cracker/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/artificial-intelligence/vision/object-classification/HR_the-captcha-cracker.md/)
 
 {% tabs %}
@@ -87,7 +87,7 @@ print("".join(chr(targets_predict[0] + ord('A')) for i in range(5)))
 {% endtab %}
 {% endtabs %}
 
-* [Level  : UNKNOWN]()
+* [Level Advanced : The Rubix Cube: Is it solved?](https://www.hackerrank.com/challenges/the-rubix-cube/problem)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/artificial-intelligence/vision/object-classification/HR_the-rubix-cube.md/)
 
 {% tabs %}

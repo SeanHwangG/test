@@ -1,1 +1,14 @@
 [Join](https://docs.google.com/forms/d/1_tIWmaxMZktjNbkwjPmqEEeEbE4B9-Ap4JJXmg01Ed4/edit)
+
+```py
+print(' '.join(['1', '2', '3']))  # 1 2 3
+print('123'.join('123', "2"))     # ERROR
+print('+'.join(['1', '2', '3']))  # 1+2+3
+print('+'.join('1'))              # 1
+print('+'.join("ABC"))            # A+B+C
+print('-'.join(reversed(['a', '', 'a'])))   # a-a
+print('-'.join(reversed(['', '', 'a'])))    # a-
+print('-'.join(reversed([1, 2, 3])))        # ERROR
+print('zz'.join(reversed('abcd')))          # dzzczzbzza
+print('-'.join(reversed(['1', '2', '3'])))  # 3-2-1
+```

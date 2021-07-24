@@ -1,0 +1,14 @@
+[print-format](https://docs.google.com/forms/d/1ZomAHemQPEs5IanrFSivnB84DB8up2ohmHHtCha2UME/edit)
+
+```py
+print(5, 5, sep='-')                # 5-5
+print(1, end='+'); print(2)         # 1+2
+print(2, end='*'); print(3)         # 2*3
+print('a', 'z', sep='.')            # a.z
+print('b', 'd', sep='@')            # b@d
+print('a', 1, sep='^')              # a^1
+print(123, end="0"); print(123)     # 1230123
+print('ace', end="-"); print('bdf') # ace-bdf
+print('int', 'float', sep="bool")   # intboolfloat
+print(98,'zxw',sep="::", end="**")  # 98::zxw**
+```

@@ -2,7 +2,10 @@
 
 ## Text extension
 
+* Avro: row-oriented remote procedure call and data serialization framework developed within Apache's Hadoop project
+* Parquet: free and open-source column-oriented data storage format of the Apache Hadoop ecosystem
 * ini: text-based content config file a structure and syntax comprising key-value pairs for properties
+* ORC: Optimized Row Columnar file format provides a highly efficient way to store Hive data
 
 * mime: two-part identifier for file formats and format contents transmitted on the Internet
   * image/png, text/html, text/plain

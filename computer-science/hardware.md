@@ -217,6 +217,19 @@ $$
   * Every program has different pagemap (memory map) / page sizes is around 4 KB
   * Destory drive as some software cana undelete
 
+## Charge
+
+{% tabs %}
+{% tab title='apple' %}
+
+* Airpod
+  * Green: Fully charged
+  * Amber: Charging
+    * Flashing: Something wrong
+
+{% endtab %}
+{% endtabs %}
+
 ## Combinational Logic
 
 * Combinational circuit: Memory, time steps, with theory boolean algebra

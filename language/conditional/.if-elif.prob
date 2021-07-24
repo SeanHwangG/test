@@ -107,9 +107,6 @@ else:
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : 와글와글 숭고한](https://www.acmicpc.net/problem/17388)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_17388.md/)
-
 * [Level 2 : Even or Odd?](https://www.acmicpc.net/problem/18005)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/conditional/if-elif/BJ_18005.md/)
 

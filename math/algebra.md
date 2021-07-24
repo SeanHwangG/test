@@ -5,9 +5,8 @@
 * [Linear Equation 1](https://www.youtube.com/watch?v=_y_Q3_B2Vh8)
 * [Linear Equation 2](https://www.youtube.com/watch?v=AOxMJRtoR2A)
 
-{% include 'variable.test' %}
-
-{% include 'linear-equation.test' %}
+{% include 'linear-equation-1.test' %}
+{% include 'linear-equation-2.test' %}
 
 ## Simultaneous Equations
 
@@ -206,8 +205,6 @@ $$
 
 ![Bitwise Operator](images/20210206_123607.png)
 
-> Binary
-
 * [Binary](https://www.youtube.com/watch?v=ku4KOFQ-bB4)
 * [Decimal to Binary](https://www.youtube.com/watch?v=H4BstqvgBow)
 * [Adding in binary](https://www.youtube.com/watch?v=RgklPQ8rbkg)
@@ -239,8 +236,6 @@ cout << y << '\n';
 {% endtab %}
 {% tab title='python' %}
 
-{% include 'binary.test' %}
-
 * Negative shift counts are illegal and cause a ValueError to be raised
 * A left shift by n bits is equivalent to multiplication by pow(2, n)
 * A right shift by n bits is equivalent to floor division by pow(2, n)
@@ -266,6 +261,8 @@ for i in range(50):
   print(bin(i)[2:], '\t', i, '\t', hex(i)[2:])
 ```
 
+{% include 'binary.test' %}
+
 {% endtab %}
 {% tab title='shell' %}
 
@@ -282,6 +279,14 @@ for i in range(50):
 {% include '.nary.prob' %}
 
 ### And Or
+
+{% tabs %}
+{% tab title='python' %}
+
+{% include 'and-or.test' %}
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.and-or.prob' %}
 

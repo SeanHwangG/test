@@ -1,0 +1,14 @@
+[Permutation](https://docs.google.com/forms/d/1tfyPEdxzf6nYz6cF0ESlEz_Dh3OfZ-yXYq4ZVL3EWxA/edit)
+
+```py
+4C3  # 4
+5P2  # 20
+Ways to pick three number out of 10?  # 120
+3C1*4C2  # 36
+6P3 # 120
+4P2 # 12
+5!  # 120
+0!  # 1
+# ways to pick president and vice president among 6 people.  # 30
+# ways to pick two presidents among 6 people       # 15
+```

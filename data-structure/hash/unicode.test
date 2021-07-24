@@ -1,1 +1,14 @@
 [Unicode](https://docs.google.com/forms/d/1qQc3AO59rHViwuUL7bH3ICWN9pD_TeTNNWKGNxA5Tfs/edit)
+
+```py
+print(ord('B')-ord('A'))  # 1
+print(ord('z')-ord('A'))  # 57
+print(ord('z')-ord('a'))  # 25
+print(ord('v')-ord('e'))  # 17
+print(chr(ord('C')+32))   # c
+print(chr(ord('C')+32))   # k
+print(ord('x')-ord('X'))  # 32
+print(ord('R')-ord('q'))  # -31
+print(chr(65+40))         # i
+print(chr(122-20))        # f
+```

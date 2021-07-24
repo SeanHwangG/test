@@ -113,8 +113,8 @@ list(pandas.closure(hyper)
 * Perplexity: measurement of how well a probability model predicts a sample
   * often possible to achieve lower perplexity on more specialized corpora, as they are more predictable
 
-* Distributed representations (Hinton, 1986)
-  * one-hot vector
+* One-hot vector
+  * Distributed representations (Hinton, 1986)
   * [-] hotel and model are orthogonal
 
 * Producing high-dimensional semantic spaces from lexical co-occurrence (Lund, 96)
@@ -125,8 +125,8 @@ list(pandas.closure(hyper)
 * Improved Method for Deriving Word Meaning from Lexical Co-Occurrence (Rohde, 04)
   * [+] Add threshold, manual tuning for distant word
 
-* Efficient Estimation of Word Representations in Vector Space (Mikolov, 2013)
-  * word2vec(Continuous Bag of Words (CBOW)) predict center word from context words
+* word2vec(Continuous Bag of Words (CBOW)) predict center word from context words
+  * Efficient Estimation of Word Representations in Vector Space (Mikolov, 2013)
   * can be trained with a specific corpus to find pseudo-algebraic operations between words
   * mimics human logic, focusing on word senses and connections between real-world entities
   * [+] Generate improved performance, capture complex patterns
@@ -152,6 +152,25 @@ list(pandas.closure(hyper)
 
 * Distributed Representations of Words and Phrases and their Compositionality (Mikolov, 2013)
   * Skip-grams (SG) predict context words given center words
+
+* BERT
+  * [-] CLS is not semantically meaningful
+  * [-] Poly-encoder has too large computational overhead
+  * [-] Score function is not symmetric (a,b ↔  b,a)
+
+* GloVe
+  * Global Vectors for Word Representation (Pennington, 14)
+  * local statistics (local context information of words) + global statistics (word co-occurrence) for vector
+  * training only on the nonzero elements in a word-word co occurrence matrix
+  * [+] Fast training, scalable to huge corpora
+  * [+] good performance with small corpus and small vectors
+  * Derivation
+    * Log-bilinear model
+      $$w_{i} \cdot w_{j}=\log P(i \mid j)$$
+    * Vector difference
+      $$w_{x} \cdot(w_{a}-w_{b})=\log \frac{P(x \mid a)}{P(x \mid b)}$$
+    * Loss function
+      $$\sum_{i, j=1}^{V} f(X_{i j})(w_{i}^{T} \bar{w}_{j}+b_{i}+\bar{b}_{j}-\log X_{ij})^{2}$$
 
 {% tabs %}
 {% tab title='python' %}
@@ -211,8 +230,7 @@ print(pd.DataFrame(tfidf_dtm.toarray(), columns=tfidf_vect.get_feature_names()))
 
 ### Ngram
 
-> A mathematical theory of communication (Shannon, 1948)
-
+* A mathematical theory of communication (Shannon, 1948)
 * understand context within sentence → hang out
 * [-] a very large vector → meaning of each value in the vector is known
 * [-] disregarding grammar and even word order
@@ -220,26 +238,6 @@ print(pd.DataFrame(tfidf_dtm.toarray(), columns=tfidf_vect.get_feature_names()))
 ![ngram](images/20210314_004152.png)
 
 {% include '.ngram.prob' %}
-
-### BERT
-
-* [-] CLS is not semantically meaningful
-* [-] Poly-encoder has too large computational overhead
-* [-] Score function is not symmetric (a,b ↔  b,a)
-
-### GloVe
-
-* Global Vectors for Word Representation (Pennington, 14)
-* local statistics (local context information of words) + global statistics (word co-occurrence) for vector
-* training only on the nonzero elements in a word-word co occurrence matrix
-* [+] Fast training, scalable to huge corpora
-* [+] good performance with small corpus and small vectors
-
-| Equation                                                                                  | Meaning                |
-| ----------------------------------------------------------------------------------------- | ---------------------- |
-| $$w_{i} \cdot w_{j}=\log P(i \mid j)$$                                                    | Log-bilinear model     |
-| $$w_{x} \cdot(w_{a}-w_{b})=\log \frac{P(x \mid a)}{P(x \mid b)}$$                         | with vector difference |
-| $$\sum_{i, j=1}^{V} f(X_{i j})(w_{i}^{T} \bar{w}_{j}+b_{i}+\bar{b}_{j}-\log X_{ij})^{2}$$ | Loss Function          |
 
 ### TFIDF
 
@@ -254,8 +252,6 @@ print(pd.DataFrame(tfidf_dtm.toarray(), columns=tfidf_vect.get_feature_names()))
 | $$d f_{i}$$    | $ of documents containing i |
 
 $$ w_{i, j}=tf_{i . j} \times \log \left(\frac{N}{df_{i}}\right) $$
-
-### Binary
 
 {% link 'spam.ipynb' %}
 

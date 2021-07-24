@@ -1,1 +1,18 @@
-[Builtin](https://docs.google.com/forms/d/1h5ecgQP-LY4t2Ws2dIiKW_hIoNF4LdygvobNjGnQYik/edit)
+[Len](https://docs.google.com/forms/d/1h5ecgQP-LY4t2Ws2dIiKW_hIoNF4LdygvobNjGnQYik/edit)
+
+```py
+a = 'abc def ghi'
+b = '12 34 56'
+c = [1,2,3,4,5]
+
+print(len(a))          # 11
+print(len(a.split()))  # 3
+print(len(b))          # 8
+print(len(b.split()))  # 3
+print(sum(map(int, b.split())))  # 102
+print(sum(b.split()))   # ERROR
+print(len(a) > len(b))  # True
+print(len(a.split()) < len(b.split()))  # False
+print(sum(c))    # 15
+print(sum(c,2))  # 17
+```

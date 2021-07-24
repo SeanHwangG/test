@@ -75,18 +75,6 @@ print(*s, sep='')
 {% endtab %}
 {% endtabs %}
 
-* [Level 4 : 컵홀더](https://www.acmicpc.net/problem/2810)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2810.md/)
-
-* [Level 4 : 5와 6의 차이](https://www.acmicpc.net/problem/2864)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2864.md/)
-
-* [Level 4 : KMP는 왜 KMP일까?](https://www.acmicpc.net/problem/2902)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2902.md/)
-
-* [Level 4 : 첫 글자를 대문자로](https://www.acmicpc.net/problem/4458)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_4458.md/)
-
 * [Level 5 : 알파벳 전부 쓰기](https://www.acmicpc.net/problem/11091)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_11091.md/)
 
@@ -165,9 +153,6 @@ else:
 
 {% endtab %}
 {% endtabs %}
-
-* [Level 6 : 폴리오미노](https://www.acmicpc.net/problem/1343)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_1343.md/)
 
 * [Level 12 : 별 찍기 - 11](https://www.acmicpc.net/problem/2448)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/string/string/BJ_2448.md/)

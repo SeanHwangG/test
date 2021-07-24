@@ -8,9 +8,11 @@
   * Wi-Fi Protected Access uses 128 bits for encryption keys
   * WPA2 uses 256 bits for keys
   * Encryption technology that provides a very low level of privacy
+* OWASP: produces free articles, methodologies, documentation, tools, and technologies in web application security
+  * Open Web Application Security Project is an online community
 
 {% tabs %}
-{% tab title='aws' %}
+{% tab title='amazon' %}
 
 ![GuardDuty](images/20210504_183239.png)
 
