@@ -98,6 +98,8 @@
 
 ### Deadlock prevention
 
+> Term
+
 * Ostrich algorithm: Don't do anything simply restart the system ([ex] Bluescreen)
 * Bankers algorithm: Use avoidance
 * RAG (resource allocation graph): explained to us what is the state of the system in terms of processes and resources
@@ -113,7 +115,7 @@
   1. process tries to lock all records it needs, one at a time, if needed record found locked, start over
   1. performing updates, releasing locks
 
-> Question
+> Example
 
 * By ordering all resources and forcing all requests to follow the ordering
   * There cannot be circular wait

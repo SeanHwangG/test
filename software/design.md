@@ -135,15 +135,12 @@ class PizzaDelivery:
 * breaking complex system into discrete pieces, abstract out concepts of language or tech
 * communicate design decisions
 
-> Relation
+> Term
 
-![UML Symbol](images/20210415_005718.png)
-
-* Aggregation
-* Implies a relationship where the child can exist independently of the parent
-* ex) professor ↔ students
-
-![Aggregation](images/20210220_234605.png)
+* Aggregation: Implies a relationship where the child can exist independently of the parent
+  * [ex] professor ↔ students
+  ![UML Symbol](images/20210415_005718.png)
+  ![Aggregation](images/20210220_234605.png)
 
 * Association: Represents the ability of one instance to send a message to another instance
   * [ex] student ↔ seat
@@ -172,6 +169,17 @@ class PizzaDelivery:
 
 * Structural UML: Class, Object, Component, Composite structure, Profile diagram
   * Deployment, Package
+
+{% tabs %}
+{% tab title='python' %}
+
+* django_extensions
+  * pip install django_extensions (add to INSTALLED_APPS)
+  * pip install pygraphviz (pydotplus for mac)
+  * brew install graphviz
+
+{% endtab %}
+{% endtabs %}
 
 ### Moview Ticket
 

@@ -507,8 +507,6 @@ $$
 ![ROS](images/20210218_234217.png)
 ![ROS : Matser, Node](images/20210218_234226.png)
 
-> Command
-
 * roscd: takes you to the default ROS workspace
 * roscore: run master node
 * rosmsg list

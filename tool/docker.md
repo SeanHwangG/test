@@ -249,8 +249,6 @@ volumes:
 * Each line takes image from previous and make another image → append changes at the end
 * process you start on one line will not be running next line → use ENV
 
-> Command
-
 * ADD: Copy file, if compressed, decompress automatically (depends on OS)
   * `local_path` `docker_path`: copy local_path to docker_path
   * If file is from URL, use permission 600 and doesn’t decompress
@@ -344,8 +342,6 @@ docker images                 # google_size is only 5.57MB
   * gcloud auth activate-service-account --key-file=[키 파일]
   * gcloud auth configure-docker
 
-> CLI
-
 * Compose file provides document, configure application’s dependencies (db, queues, caches, web API)
 * Simple machine coordination → kubernetes for larger
 
@@ -427,7 +423,7 @@ export COMPOSE_FILE=local.yml
 {% endtab %}
 {% endtabs %}
 
-### docker-compose.yml
+### Docker-compose.yml
 
 * manage multiple Dockerfile
 
@@ -485,8 +481,6 @@ export COMPOSE_FILE=local.yml
 
 * when your Host OS does not support running Docker Engine natively
 * docker-machine env-default
-
-> CLI
 
 * env: Get environment variable
 * ip default: Get default IP

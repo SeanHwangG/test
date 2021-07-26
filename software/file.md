@@ -766,8 +766,6 @@ grep -how "images/.*.png" *.md | xargs -I{} mv "../theory/math/{}" images/ # mov
 * invalid command code
 * for OS use empty argument -i ''
 
-> CLI
-
 * s/: Replace
 * /p: print
 * -n: suppress line echoed to stdout after commands
@@ -794,7 +792,7 @@ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_
 
 {% include '.seq.prob' %}
 
-### comm
+### Comm
 
 {% tabs %}
 {% tab title='shell' %}
@@ -1054,8 +1052,6 @@ C:\>type c.txt
 * \#!/bin/bash -e: set which shell to run
 * /etc/skel/.bashrc: reset rc files to original
 
-> CLI
-
 * dconf
   * reset -f `path`
 
@@ -1154,8 +1150,6 @@ service --status-all | grep +
 * History from file
   * /var/log/secure: Red Hat
   * /var/log/auth.log: Debian
-
-> CLI
 
 * chmod: change mod
   * -R: change files and directories recursively
@@ -1334,7 +1328,7 @@ ps /proc/sys/kernel/threads-max         # Total possible thread
 ps ax -o pid,nlwp,cmd  | sort -nr -k2,2 # Ordered by number of threads
 ```
 
-### cron
+### Cron
 
 * [Check cron syntax](https://crontab.guru/)
 * sudo service cron reload: CentOS7
@@ -1644,8 +1638,6 @@ system_cpu=`uname -m`
   * /home: /Users
   * /root: /var/root
 
-> CLI
-
 * chattr
   * `+ / -`: Adds / removes attribute to existing attribute of files
   * =: Keep the existing attributes that the files have
@@ -1810,8 +1802,6 @@ apt install python3.7
 * Homebrew is a 3rd party addition – on both macOS and Ubuntu
 * cask is extension to brew that allows management of graphical applications through Cask project
 
-> CLI
-
 * casks
 * cleanup: run occasionally to avoid running out of disk
 * install adoptopenjdk8: 9, 10, 11
@@ -1828,7 +1818,7 @@ apt install python3.7
 {% endtab %}
 {% endtabs %}
 
-### yum
+### Yum
 
 * usually used with the RHEL family OS's and handles RPM software packages
 

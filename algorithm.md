@@ -1,7 +1,5 @@
 # Algorithm
 
-![Why study Algorithm](images/20210719_184627.png)
-
 > Terms
 
 * Vacuous Truth: conditional that is only true because antecedent cannot be satisfied
@@ -24,7 +22,7 @@
 
 * [+] Frequent contest, most popular
 
-> Problems
+* Problems
 
 | Group | Difficulty Range | Group Size |
 | ----- | ---------------- | ---------- |
@@ -41,9 +39,8 @@
 | K     | 2900-3000        | 190        |
 | L     | 3100-3500        | 172        |
 
-> Contest
-
-* Around 11:00 PM
+* Contest
+  * Around 11:00 PM
 
 | Contest     | Difficulty Range | Rating                        |
 | ----------- | ---------------- | ----------------------------- |
@@ -69,13 +66,14 @@
   * Weekly: 11:30 AM - 1:00 PM (KST)
   * Biweekly: 11:30 PM - 1:00 AM (KST)
 
-> How-to : use online Debugger
+> Example
 
-1. Select Language
-    ![Select Language](images/20210514_024633.png)
-1. Paste input
-1. Run code (command + ')
-    ![Paste input](images/20210514_024738.png)
+* use online Debugger
+  1. Select Language
+      ![Select Language](images/20210514_024633.png)
+  1. Paste input
+  1. Run code (command + ')
+      ![Paste input](images/20210514_024738.png)
 
 {% endtab %}
 {% tab title='hackerrank' %}
@@ -172,39 +170,34 @@ $$
 * Works by showing that result is true for some base
 * Then show if result holds for n = k then it also works for n = k + 1 for any (k >= base)
 
-> [ex] Domino falls over
+> Example
 
-* First domino falls over
-* If one dimno falls over, next domino will fall over
+* Domino falls over
+  * First domino falls over
+  * If one dimno falls over, next domino will fall over
 
-> [ex] Empty room example → No one passed the hallway
+* Empty room example → No one passed the hallway
+  * There was no person in a room
+  * I saw noone passing to the hallway -> n people in t + 1 will be same as t
 
-* There was no person in a room
-* I saw noone passing to the hallway -> n people in t + 1 will be same as t
+* Arithmetic Sum
+  * A(0) = 1, A(1) = 4, A(n) = 3A(n − 1) + 4A(n − 2) for n > 1
 
-> [ex] Arithmetic Sum
+  * Question
+  $$ \frac{n(n+1)}{2} $$
 
-* A(0) = 1, A(1) = 4, A(n) = 3A(n − 1) + 4A(n − 2) for n > 1
+  * Base
+  $$ 1=\frac{1(1+1)}{2} $$
 
-* Question
+  * Inductive hypothesis
+  $$ 1+2+\ldots+k=\frac{k(k+1)}{2} $$
 
-$$ \frac{n(n+1)}{2} $$
-
-* Base
-
-$$ 1=\frac{1(1+1)}{2} $$
-
-* Inductive hypothesis
-
-$$ 1+2+\ldots+k=\frac{k(k+1)}{2} $$
-
-* Proof
-
-$$ 1+2+\ldots+(k+1) $$
-$$ = [1+2+3+\ldots+k]+(k+1) $$
-$$ =\frac{k(k+1)}{2}+(k+1) $$
-$$ =\frac{k(k+1)+2(k+1)}{2} $$
-$$ =\frac{(k+1)+(k+2)}{2} $$
+  * Proof
+  $$ 1+2+\ldots+(k+1) $$
+  $$ = [1+2+3+\ldots+k]+(k+1) $$
+  $$ =\frac{k(k+1)}{2}+(k+1) $$
+  $$ =\frac{k(k+1)+2(k+1)}{2} $$
+  $$ =\frac{(k+1)+(k+2)}{2} $$
 
 ### Structural induction
 
@@ -227,15 +220,13 @@ $$ =\frac{(k+1)+(k+2)}{2} $$
 * Assume the result is not true, show that leads to a contradiction
 * Conclude that the original result is true
 
-> [ex] Euclid's theorem
+> Example
 
-* Towards contradiction, suppose there are finite number of primes $$ p_1, .., p_t $$
-
-* Consider the integer, which has no prime
-
-$$ P=\prod_{i=1}^{n} P_{i} + 1$$
-
-* There are an infinite number of primes
+* Euclid's theorem
+  * Towards contradiction, suppose there are finite number of primes $$ p_1, .., p_t $$
+  * Consider the integer, which has no prime
+  $$ P=\prod_{i=1}^{n} P_{i} + 1$$
+  * There are an infinite number of primes
 
 ### Contrapositive
 
@@ -243,13 +234,14 @@ $$ P=\prod_{i=1}^{n} P_{i} + 1$$
 
 * If $$ p \rightarrow q $$ then $$ \sim q \rightarrow \sim p $$
 
-> [ex] Equality of set
+> Example
 
-* A and b are equal
-* Show that $$ A \subseteq B $$
-  * then, $$ a \in A \rightarrow a \in B $$
-* similarily $$ B \subseteq A $$
-  * then, $$ a \in B \rightarrow b \in A $$
+* Equality of set
+  * A and b are equal
+  * Show that $$ A \subseteq B $$
+    * then, $$ a \in A \rightarrow a \in B $$
+  * similarily $$ B \subseteq A $$
+    * then, $$ a \in B \rightarrow b \in A $$
 
 ## Adhoc
 
@@ -310,9 +302,8 @@ $$ P=\prod_{i=1}^{n} P_{i} + 1$$
 {% tabs %}
 {% tab title='cpp' %}
 
-> random
-
-* uniform_int_distribution()
+* random
+  * uniform_int_distribution()
 
 ```cpp
 #include <random>

@@ -5,12 +5,8 @@
 
 * must be compiled using -g flags to see
 
-> CLI
-
 * --args: run with parameter
 * -tui: text based GUI
-
-> Help
 
 * apropos
 
@@ -294,6 +290,8 @@ log.info("hi")
 
 {% endtab %}
 {% tab title='shell' %}
+
+* LINENO: line number in script or shell function currently executing
 
 ```sh
 function err() {

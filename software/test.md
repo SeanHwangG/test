@@ -91,9 +91,8 @@ except ExceptionType:
 {% tabs %}
 {% tab title='cpp' %}
 
-> cassert (assert.h)
-
-* cassert are preferred same as assert.h except static_assert is not defined
+* cassert (assert.h)
+  * cassert are preferred same as assert.h except static_assert is not defined
 
 ```cpp
 #include <stdio.h>
@@ -387,7 +386,7 @@ def get_latency(ping=None):
 {% endtab %}
 {% endtabs %}
 
-### coverage
+### Coverage
 
 {% tabs %}
 {% tab title='python' %}

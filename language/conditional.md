@@ -552,6 +552,7 @@ exit(0)
 
 | Code  | Description                                                |
 | ----- | ---------------------------------------------------------- |
+| 0     | Success                                                    |
 | 1     | Catchall for general errors                                |
 | 2     | Misuse of shell builtins (according to Bash documentation) |
 | 126   | Command invoked cannot execute                             |
@@ -574,6 +575,10 @@ exit(0)
 diff -r test/global/before test/global/after || exit
 echo $?  # See last exit code
 ```
+
+> Reference
+
+<https://tldp.org/LDP/abs/html/exitcodes.html>
 
 {% endtab %}
 {% endtabs %}
@@ -707,8 +712,6 @@ with timeout(1):
 
 {% endtab %}
 {% tab title='shell' %}
-
-> Command
 
 * suspend: suspend the execution of this shell until it receives a SIGCONT signal
 

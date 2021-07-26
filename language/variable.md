@@ -116,7 +116,6 @@ def renderBanner(self):
   * LC_ALL: Takes precedence over all LC_*, LANG, LANGUAGE
   * LC_NUMERIC: Determines locale category for numeric formatting
   * LC_TIME: determines the locale category used for data and time formatting
-  * LINENO: line number in script or shell function currently executing
   * RANDOM: Each time referenced, expands to a random integer 0 ~ 32767
   * PS4: denotes the value is the prompt printed before the command line
 
@@ -912,7 +911,7 @@ int main() {
 {% endtab %}
 {% endtabs %}
 
-### pimple
+### Pimple
 
 * [+] Binary interface is independent of private fields. changes doesn’t break dependent code
 * [+] Compilation time drops because only the implementation file needs to be rebuilt

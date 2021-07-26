@@ -42,12 +42,15 @@ std::cout << duration_cast<milliseconds>(finish - start).count() << "ms\n";  // 
 {% endtab %}
 {% tab title="python" %}
 
-> time
+* time
+  * time.perf_counter\[_ns](): clock with highest available resolution to measure a short duration
+  * tm_zone: EDT, EST
+  * time() / time_ns() / ctime(): time in ms / nice format
+  * gmtime() / localtime(): 0 is struct_time(1970, 1, 1), and none is current time
 
-* time.perf_counter\[_ns](): clock with highest available resolution to measure a short duration
-* tm_zone: EDT, EST
-* time() / time_ns() / ctime(): time in ms / nice format
-* gmtime() / localtime(): 0 is struct_time(1970, 1, 1), and none is current time
+* django-extension
+  * db.models
+    * TimeStampedModel: extends instead of Model to have created at, modified at field
 
 ```py
 from datetime import date, datetime
@@ -103,8 +106,6 @@ complex()       # Took 0.111s
 
 {% tabs %}
 {% tab title='shell' %}
-
-> CLI
 
 * timedatectl: show current time zone
   * list-timzeons: Available time zone

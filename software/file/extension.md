@@ -22,7 +22,7 @@
   * &gt;: >
   * &amp;: &
 
-### csv
+### Csv
 
 * [+] easy import / export
 * [-] No type information / No standard / No unicode support
@@ -69,7 +69,7 @@ with open('data2d.csv') as csvFile:
 {% endtab %}
 {% endtabs %}
 
-### json
+### Json
 
 * Keys are unique Strings that cannot be null
 * Values can be anything from a String, Boolean, Number, list, or even null
@@ -184,7 +184,7 @@ local_db = JsonDB()
 {% endtab %}
 {% endtabs %}
 
-### yaml
+### Yaml
 
 * YAML is a superset of JSON, which means you can parse JSON with a YAML parser
 * suited for configuration, readable and editable by humans
@@ -235,7 +235,7 @@ with open(f"{options['gitbook_conf_dir']}/.gitbook.yaml", 'r') as stream:
 {% endtab %}
 {% endtabs %}
 
-### toml
+### Toml
 
 * parser is ~300 lines of pure Python code
 

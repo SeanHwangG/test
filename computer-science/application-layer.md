@@ -43,8 +43,6 @@
 * Collision Domain: A network segment where only one device can communicate at a time
   * If multiple systems send data at once, electrical pulses sent across cable can interfere with each other
 
-* SSL: Certified Authors: GlobalSign, Cloud Flare (Free), Comodo (Paid/Free), GeoTrust (Free Trial), DigiCert
-
 ### DNS
 
 ![DNS](images/20210322_190528.png)
@@ -145,31 +143,50 @@
 {% endtab %}
 {% endtabs %}
 
-## http
+## HTTP
 
 ![HTTP](images/20210719_163846.png)
 
-* Hypertext Transfer Protocol is application-layer protocol for transmitting hypermedia docs with port 80 ([ex] HTML)
+* Hypertext Transfer Protocol, application-layer protocol for transmit hypermedia docs (HTML) with port 80 using TCP/IP
 * [-] Stateless: no link between two requests being successively carried out on the same connection
 * [+] Authentication: [ex] WWW-Authenticate, or specific session using HTTP cookies
 * [+] Caching: server can instruct proxies and clients, about what to cache and for how long
 * [+] Proxy: hide their true IP address from other computers
 * [+] Relaxing origin constraint: allowing document to become a patchwork of information sourced from different domains
 * [+] Session: Cookies allow user to carry auth information
+* Steps
+  1. Direct browser to URL When browse web, can use many types of computers, with browser application installed
+  1. Browser looks up IP using DNS, typically type nice human-friendly URLs into browsers
+  1. Browser sends HTTP request, Host sends back HTTP response
+  1. The browser renders the response
 
 {% tabs %}
-{% tab title='shell' %}
+{% tab title='javascript' %}
 
-* gunicorn: based on the pre-fork worker model → a central master process that manages worker processes
-  * master never knows anything about individual clients
-  * All requests and responses are handled completely by worker processes
-  * Best practice: number of worker
-    * DO NOT scale the number of workers to the number of clients you expect to have
-    * should only need 4-12 worker processes to handle hundreds or thousands of requests per second
-    * recommend (2 x $num_cores) + 1 as the number of workers to start off with
-    * Too many processes start thrashing system resources decreasing throughput of entire system
-    * gunicorn --bind:8080 --workers 1 --threads 8 page.app:app
-  * --chdir
+* npm install axios
+* Promise based HTTP client for the browser and node.js
+
+```js
+// 1. Sample request
+axios({
+  method: 'post',
+  url: '/login',
+  data: {
+    firstName: 'Finn',
+    lastName: 'Williams'
+  }
+});
+
+// 2. Sample return
+{
+  data: {},    // response data from server
+  headers: {}, // `headers`
+  status: 200, // server status
+  statusText: 'OK', // `statusText`
+  config: {},
+  request: {} // Browser: XMLHttpRequest instance, Node.js: ClientRequest instance (redirect)
+}
+```
 
 {% endtab %}
 {% tab title='python' %}
@@ -200,6 +217,20 @@ def index(request):
 def show_age(request, age):
   return HttpResponse(f"I am {age} years old.")
 ```
+
+{% endtab %}
+{% tab title='shell' %}
+
+* gunicorn: based on the pre-fork worker model → a central master process that manages worker processes
+  * master never knows anything about individual clients
+  * All requests and responses are handled completely by worker processes
+  * Best practice: number of worker
+    * DO NOT scale the number of workers to the number of clients you expect to have
+    * should only need 4-12 worker processes to handle hundreds or thousands of requests per second
+    * recommend (2 x $num_cores) + 1 as the number of workers to start off with
+    * Too many processes start thrashing system resources decreasing throughput of entire system
+    * gunicorn --bind:8080 --workers 1 --threads 8 page.app:app
+  * --chdir
 
 {% endtab %}
 {% endtabs %}
@@ -259,7 +290,7 @@ def show_age(request, age):
 
 {% repo 'apache-files' %}
 
-### nginx
+### Nginx
 
 * Can couple as a reverse proxy server, host more than one site
 * Has async way (not rely on threads) of handling web requests -> higher performance while handling multiple request
@@ -285,36 +316,6 @@ def show_age(request, age):
 
 {% repo 'nginx-conf' %}
 {% repo 'lemp' %}
-
-## HTTPS
-
-* Use port 443 with SSL-encrypted message body
-* uses the private and public keys encryption method to encrypt the communication between website and server
-* [+] protected from man-in-the-middle attacks, including the session hijacking
-* [-] virtual hosts cannot be used with SSL ([ex] shared hosting or running multiple sites on the same server)
-* [-] Speed: require SSL handshakes to establish the connection -> subsequent connections are faster so not much issue
-
-> Terms
-
-* Certificate
-  * Domain validated: cheap (50$) but do not verify as much information as their counterparts ([ex] let's encrypt)
-  * Extended Validation: validate you as domain’s owner and verify identity and legitimacy of domain owner
-* /usr/bin/ssl/yourApp.key: RSA Key
-* /usr/bin/ssl/yourApp.csr: certificate signing request
-
-{% tabs %}
-{% tab title='shell' %}
-
-* openssl
-  * genrsa -out yourApp.key 1024
-  * req -new -key yourApp.key -out yourApp.csr
-
-{% endtab %}
-{% endtabs %}
-
-> Reference
-
-<https://letsencrypt.org/>
 
 ### Client
 
@@ -400,21 +401,17 @@ client = bigquery.Client()
 * client-server protocol, based on a reliable connection-oriented transport
 * Use port 23 using TCP protocol, NCP before TCP presents, not secure compared to ssh wo authentication and encryption
 
-> CLI
-
 * telnet: connect destination host:port via a telnet protocol
   * connection establishes means connectivity between two hosts is working fine
   * yum -y install telnet / brew install telnet
 
-## ssh
+## Ssh
 
 * Secure shell mostly used in terminal/command line to do something on remote computer with encrypted traffic
 * Protocol1 is less secure which can be changed in ssh/config
 
 {% tabs %}
 {% tab title='bash' %}
-
-> Command
 
 * ssh: Forwarding sends data in one port through a SSH and send it to a port on the remote
   * -c: ([ex] blowfish: to increase transfer speed)

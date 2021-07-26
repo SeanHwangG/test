@@ -19,9 +19,8 @@
 {% tabs %}
 {% tab title='python' %}
 
-> mmh3
-
-* mmh3.hash('aaaa', -1756908916): hash string based on value
+* mmh3
+  * mmh3.hash('aaaa', -1756908916): hash string based on value
 
 {% endtab %}
 {% endtabs %}
@@ -93,9 +92,7 @@ zip -r lab3.zip lab3
 {% tabs %}
 {% tab title='python' %}
 
-> hashlib
-
-* implements a common interface to many different secure hash and message digest algorithms
+* hashlib: implements a common interface to many different secure hash and message digest algorithms
 
 * sha224(str_.encode()).hexdigest()
 

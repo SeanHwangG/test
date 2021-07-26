@@ -124,7 +124,7 @@
 * Node
   * requires: kubelet running, physical machine / container tools (docker), kube-proxy process running, supervisord (minikube)
 
-## yml
+## Yml
 
 * **apiVersion**
 * **kind**: so that Kubernetes knows what we want to do (create a Pod) and which API version to use
@@ -229,7 +229,7 @@ cronjob cron --image=cron --schedule="*/5 * * * *" --dry-run=client -o yaml     
   * nodes / pods / jobs name: delete node
   * namespace `namespace`
 
-## kompose
+## Kompose
 
 * conversion tool to go from Docker Compose to Kubernetes
 * convert
@@ -309,8 +309,6 @@ annotations:
   example: A list of annotations keyed by name (optional).
 ```
 
-> CLI
-
 * history `chartname`: show history
 * install `chartname`
   * --values=my_values.yaml: value injection into template files
@@ -319,18 +317,11 @@ annotations:
 * search
 * upgrade `chartname`
 
-## kubectl
+## Kubectl
 
 * Kubernetes cluster manager
 
 ![kubectl](images/20210407_043356.png)
-
-> Error
-
-* The connection to the server 127.0.0.1:55001 was refused - did you specify the right host or port?
-  * minikube start
-
-> CLI
 
 * api-resources
 * apply
@@ -407,7 +398,12 @@ annotations:
 * version
   * --output=yaml
 
-## minikube
+> Error
+
+* The connection to the server 127.0.0.1:55001 was refused - did you specify the right host or port?
+  * minikube start
+
+## Minikube
 
 * lightweight kubernetes implementation that creates a VM on local machine
 * deploys a simple cluster containing only one node
@@ -415,11 +411,7 @@ annotations:
 
 ![Minikube](images/20210407_043211.png)
 
-> Install
-
 * brew install minikube
-
-> CLI
 
 * apply: Apply a configuration to a resource by filename or stdin
 

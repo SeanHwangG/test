@@ -126,6 +126,131 @@ num = func(num)
 ## CLI
 
 {% tabs %}
+{% tab title='python' %}
+
+* django
+  * Only allowing admin docs access via HTTPS
+  * Limiting admin docs access based on IP
+  * Equivalent to python manage.py
+
+* startproject `pollster`
+  * `conf` .: start project in current directory and move all seetings to `conf`
+* startapp `polls`
+* changepassword `username`: Allows changing a user’s password
+* check: Checks the entire django project for potential problems
+* clearsessions: Can be run as a cron job or directly to clean out expired sessions
+* collectstatic
+  * --noinput: Do NOT prompt the user for input of any kind
+* createcachetable: Creates the tables needed to use the SQL cache backend
+* createsuperuser: Create django admin user
+* dbshell: Run db shell (psql) to debug database
+* diffsetting: see changes from default settings
+* dumpdata `app`.`db`: print data creation file
+  * --indent=2: pretty print
+  * --natural-foreign: use natural_key() model method to serialize any foreign key and many-to-many relationship
+  * --natural-primary: Omits the primary key in the serialized data of this object since it can be calculated during deserialization
+* flush
+* list_model_info: Lists out all the fields and methods for models in installed apps
+* loaddata
+* makemigrations: Generate migration files for later use
+  * When update models.py
+* makemessages: Runs over the entire source tree of the current directory and pulls out all strings marked for translation
+* migrate: Sync DB with models (create, remove | field change)
+  * `app` zero: flush just one app
+  * --database=`users`: Set specific database
+  * --run-syncdb: create tables for apps without migrations (migrations framework is sometimes slow on with large models)
+  * --fake: to mark migrations as having been applied or unapplied, but w/o running SQL to change your database schema
+* reset_db: resets the database, undo migrations (DROP DATABASE and CREATE DATABASE)
+* sendtestemail: Sends a test email to the email addresses specified as arguments
+* showmigrations: Show if migrated
+* squashmigrations `appname` `squashfrom` `squashto`: merge multiple migration files
+* runserver
+  * port: starts server on internal IP at port
+  * 0:8080: Listen all public port
+* startapp `app`: create new `app`
+* shell: interactive mode
+* sqlflush: returns SQL statements to return all tables in the database to the state they were in just after they were installed
+* syncdata: similar to loaddata but also deletes
+* test: run all test
+  * --keepdb: save all db to speed up testing
+* version: display the current django version
+
+> Error
+
+* django.db.utils.IntegrityError: Problem installing fixture '/Users/sean/github/classroom/a.json':
+  Could not load contenttypes.ContentType(pk=1): UNIQUE constraint failed: django_content_type.app_label, django_content_type.model
+  * --natural-primary
+
+* no such table: allauth_emailaddress
+  * python manage.py migrate --run-syncdb
+
+```sh
+# 1. First app
+python3 -m venv env && source env/bin/activate
+export DJANGO_SETTINGS_MODULE="classroom.settings"
+pip install django
+alias da="django-admin"
+da startporject trade
+da startappp startapp user
+da createsuperuser sean
+da runserver
+nohup python manage.py runserver &  # run server on background
+
+# 2. Restart app from beginning
+rm -rf app/migrations
+python manage.py makemigrations app # dbshell
+python manage.py migrate app        # drop table gitbook_repository;
+
+# 3. Unapply migration
+python manage.py migrate app zero --fake  # for the first migration
+python manage.py migrate app prev_version
+
+# 4. migrate to postgres
+django-admin dumpdata --natural-primary --exclude allauth > a.json
+django-admin loaddata a.json
+
+# 5. Clean up migration files
+python manage.py makemigrations
+python manage.py showmigrations
+python manage.py migrate --fake app zero
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete  # remove all migrations
+python manage.py makemigrations
+python manage.py migrate --fake-initial
+```
+
+{% endtab %}
+{% tab title='sql' %}
+
+* mysql
+  * -u user -p
+  * -e `cmd`: [ex] show databases;
+
+* psql
+  * --help
+  * -c `cmd`: to execute the given command
+  * -d `dbname`: the name of the database to connect to
+  * -h `hostname`: the host name of the machine on which the server is running
+  * -U `postgres`
+  * --version: output version information
+  * createdb
+    * -u `user`: set `user`
+
+* sqlite
+  * -header
+
+```sh
+# 1. see GUI
+sudo apt update
+sudo apt install mysql-workbench
+mysql-workbench
+```
+
+{% endtab %}
+{% endtabs %}
+
+### Custom CLI
+
+{% tabs %}
 {% tab title='cpp' %}
 
 ```cpp
@@ -169,10 +294,18 @@ int main() { cout << FLAGS_debug; }
     * -o `path.png`: create result in `path.png`
     * -g: group by models
 
+* management
+  * call_command()
+    * verbosity
+    * interactive
+
 ```py
 import fire
 import argparse
 import pathlib
+from cProfile import Profile
+from django.core.management import call_command
+from django.core.management.base import BaseCommand
 
 # 1. Argparse
 args.myArg is not None # check argument
@@ -206,6 +339,30 @@ if __name__ == "__main__":
 
 # python fire_class.py add --x 1 --y 2
 # python fire_class.py add_list "[1,2,6,54]"
+
+# 3. Custom command
+parser.add_argument('poll_ids', nargs='+', type=int) # positional argument
+parser.add_argument('--delete', action='store_true') # Named (optional) arguments
+
+call_command('collectstatic', verbosity=3, interactive=False)
+call_command('custom', 12, karg="1", verbosity=3, interactive=False)
+
+# 4. profile / logging option
+class ProfileEnabledBaseCommand(BaseCommand):
+  """Enable profiling a command with --profile. Requires child class to define _handle instead of handle.
+     See also https://gist.github.com/tclancy/4236077 """
+  def add_arguments(self, parser):
+    parser.add_argument('--profile', action='store_true', default=False)
+    parser.add_argument('--profile', action='store_true', default=False)
+
+  def handle(self, *args, **options):
+    logging.getLogger().setLevel(args["log_level"])
+    if options.get('profile', False):
+      profiler = Profile()
+      profiler.runcall(self._handle, *args, **options)
+      profiler.print_stats()
+    else:
+      self._handle(*args, **options)
 ```
 
 {% endtab %}
@@ -258,33 +415,6 @@ case "$(uname -s)" in
   *)        machine="UNKNOWN:${unameOut}"
 esac
 echo ${machine}
-```
-
-{% endtab %}
-{% tab title='sql' %}
-
-* mysql
-  * -u user -p
-  * -e `cmd`: [ex] show databases;
-
-* psql
-  * --help
-  * -c `cmd`: to execute the given command
-  * -d `dbname`: the name of the database to connect to
-  * -h `hostname`: the host name of the machine on which the server is running
-  * -U `postgres`
-  * --version: output version information
-  * createdb
-    * -u `user`: set `user`
-
-* sqlite
-  * -header
-
-```sh
-# 1. see GUI
-sudo apt update
-sudo apt install mysql-workbench
-mysql-workbench
 ```
 
 {% endtab %}
@@ -420,7 +550,7 @@ if greeting:            # Wrong: if greeting == True:
 with open("some_file.txt", "r") as file_handle:
 
 # C0103: Constant name "return_code" doesn't conform to UPPER_CASE naming style (invalid-name)
-### var outside a function
+### Var outside a function
 VAR
 
 # Consider using a generator instead
@@ -1032,33 +1162,30 @@ for i in tqdm.tqdm(range(10000)):
 {% tabs %}
 {% tab title='cpp' %}
 
-> Question: Why learn this process?
+> Question
 
-* Optimizing program performance
-  * is a switch statement always more efficient than a sequence of if-else statements?
-  * How much overhead is incurred by a function call?
-  * Is a while loop more efficient than a for loop?
-  * Are pointer references more efficient than array indexes?
-  * Why does our loop run so much faster if we sum into a local variable instead of an argument that is passed by reference?
-  * How can a function run faster when we simply rearrange the parentheses in an arithmetic expression?
-
-* Understanding link-time errors
-  * what does it mean when the linker reports that it cannot resolve a reference?
-  * What is the difference between a static variable and a global variable?
-  * What happens if you define two global variables in different C files with the same name?
-  * What is the difference between a static library and a dynamic library?
-  * Why does it matter what order we list libraries on the command line?
-  * why do some linker-related errors not appear until run time?
-
-* Avoiding security holes
-  * Buffer overflow vulnerabilities have accounted for many of the security holes in network and Internet servers
-  * few programmers understand the need to carefully restrict the quantity and forms of data they accept from untrusted sources
-  * understand consequences of way data and control info are stored on program stack
+* Why learn this process?
+  * Optimizing program performance
+    * is a switch statement always more efficient than a sequence of if-else statements?
+    * How much overhead is incurred by a function call?
+    * Is a while loop more efficient than a for loop?
+    * Are pointer references more efficient than array indexes?
+    * Why does our loop run so much faster if we sum into local var instead of an argument that is passed by reference?
+    * How can a function run faster when we simply rearrange the parentheses in an arithmetic expression?
+  * Understanding link-time errors
+    * what does it mean when the linker reports that it cannot resolve a reference?
+    * What is the difference between a static variable and a global variable?
+    * What happens if you define two global variables in different C files with the same name?
+    * What is the difference between a static library and a dynamic library?
+    * Why does it matter what order we list libraries on the command line?
+    * why do some linker-related errors not appear until run time?
+  * Avoiding security holes
+    * Buffer overflow vulnerabilities have accounted for many of the security holes in network and Internet servers
+    * few programmers understand need to carefully restrict quantity and forms of data they accept from untrusted sources
+    * understand consequences of way data and control info are stored on program stack
 
 {% endtab %}
 {% tab title='python' %}
-
-> CLI
 
 * [Online Editor - leetcode](https://leetcode.com/playground/new/empty)
 * [Online Editor - codechef](https://leetcode.com/playground/new/empty)
@@ -1375,7 +1502,7 @@ int main() {
 * Keyboard
   * glfwGetKey( GLFW_KEY_RIGHT ) == GLFW_PRESS
 
-### gapi
+### Gapi
 
 ![gapi](images/20210301_192949.png)
 
@@ -1388,7 +1515,7 @@ int main() {
 * G_API_OP(Class, Function, Name)
 * G_TYPED_KERNEL
 
-## glm
+## Glm
 
 * OpenGL Mathematics
 * A header only C++ math library
@@ -1454,7 +1581,7 @@ glEnd();
 {% endtab %}
 {% endtabs %}
 
-### glfw
+### Glfw
 
 * Graphics Library Framework
 * C++ library that handles creating windows and interacting with the windows
@@ -1527,7 +1654,7 @@ glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, 
 {% endtab %}
 {% endtabs %}
 
-### sfml
+### Sfml
 
 * Consists system, window, graphics, network and audio
 * g++ a.cpp -o a -lsfml-graphics -lsfml-window -lsfml-system
@@ -1657,8 +1784,6 @@ if (event.type == sf::Event::MouseButtonPressed) {
   * gst-plugins-ugly: set of good-quality plug-ins that might pose distribution problems
   * gst-plugins-bad: set of plug-ins that need more quality
   * gst-libav: set of plug-ins that wrap libav for decoding and encoding
-
-> CLI
 
 * gst-inspect-1.0
   * plugin_name: inspect plugin_name
@@ -1892,8 +2017,6 @@ target … : prerequisites …
 * .PHONY: implicit rule search is skipped for .PHONY targets
 * .PRECIOUS: Don’t get deleted even if it is an intermediate file
 * .SILENT: make will not print recipe used to remake those files before executing them
-
-> CLI
 
 * <> c=hello: make with passing parameter which can be accessed $(c)
 * all: convention (put all at top of the file)
@@ -2422,7 +2545,7 @@ with contextlib.suppress(Exception):
 
 * cgi: dynamically generating web pages that respond to user input
 
-### jinja
+### Jinja
 
 * string
   * capfirst
@@ -2457,7 +2580,7 @@ with contextlib.suppress(Exception):
 [Iris_decision_tree.ipynb](https://gist.github.com/SeanHwangG/aa0514cab9d7c383d9e92fb5e673034d)
 [boost_titanic.ipynb](https://gist.github.com/SeanHwangG/f940014736119f5859109de0f16695bd)
 
-## opencv
+## OpenCV
 
 * height, width, channel, BGR color
 * OpenCV time: frame decoding + time to render the bounding boxes, labels, and to display the results

@@ -461,7 +461,9 @@ $$ \delta $$
 | 2       | RAM       | PUNJAB     | INDIA        | 19       |
 | 3       | SURESH    | PUNJAB     | INDIA        | 21       |
 
-> Question: Make following table into 2NF
+> Question
+
+* Make following table into 2NF
 
 | STUD_NO | COURSE_NO | COURSE_FEE |
 | ------- | --------- | ---------- |
@@ -690,6 +692,10 @@ user = User.objects.all()
 parent = user.prefetch_related('parent')
 ```
 
+> Reference
+
+<http://ses4j.github.io/2015/11/23/optimizing-slow-django-rest-framework-performance/>
+
 {% endtab %}
 {% endtabs %}
 
@@ -913,28 +919,16 @@ services:
   * route: string that contains a URL pattern
   * view, and two optional: kwargs, and name
 
-### Templates
-
-* Request context to pass variable in tempates
-
-> Function
-
-* | truncatewords:`num`: trunctate words
-
-* \_\_count: get length of queryset
-  * more efficient than |length
-
-## apps
+## Apps
 
 * Django contains a registry of installed applications that stores configuration and provides introspection
   * registry is called apps and it’s available in django.apps
 * maintains a list of available models.
 
-> apps
-
-* get_app_config(`model`)
-* get_model(`app_label`, `model_name`, `require_ready`=True): Returns Model with `app_label` and `model_name`
-  * Raises LookupError if no such application or model exists
+* apps
+  * get_app_config(`model`)
+  * get_model(`app_label`, `model_name`, `require_ready`=True): Returns Model with `app_label` and `model_name`
+    * Raises LookupError if no such application or model exists
 
 ```py
 from django.apps import apps
@@ -945,7 +939,7 @@ print(apps.get_app_config('admin').verbose_name)
 model = apps.get_model('app_name', 'ModelName')
 ```
 
-### messages
+### Messages
 
 * Display message on top of django websites
 
@@ -961,41 +955,14 @@ model = apps.get_model('app_name', 'ModelName')
 {% endif %}
 ```
 
-## db
+## Db
 
 * reset_queries(): reset saved queries
 * connection
   * queries: list of queries
 
-> transaction
-
-* non_atomic_requests(using=None)
-
-```py
-from pprint import pprint
-from django.db import connections
-from django.db import DatabaseError, transaction
-
-# 1. Print previous query
-pprint([e['sql'] for e in connections['default'].queries])
-print(connection.settings_dict['NAME'])
-
-# 2. Transaction
-try:
-  with transaction.atomic():
-    parent = Parent(name = "my name")
-    parent.save()
-
-    child = Child(number=3, parent=parent)
-    child.save()
-except DatabaseError:
-  # Handle the case where an error prevented the operation
-
-@transaction.atomic
-def viewfunc(request):
-    # This code executes inside a transaction.
-    do_stuff()
-```
+* transaction
+  * non_atomic_requests(using=None)
 
 * db.field
   * unique=**True**
@@ -1039,6 +1006,10 @@ def viewfunc(request):
 * Q(first_name__startswith='R')|Q(last_name__startswith='D'): or using Q
 
 ```py
+from pprint import pprint
+from django.db import connections
+from django.db import DatabaseError, transaction
+
 # 1. Q objects
 from django.db.models import Q
 from promos.models import Promo
@@ -1053,11 +1024,30 @@ def fun_function(name=None):
   results = results.exclude(status='melted')
   results = results.select_related('flavors')
   return results
+
+# 2. Print previous query
+pprint([e['sql'] for e in connections['default'].queries])
+print(connection.settings_dict['NAME'])
+
+# 3. Transaction
+try:
+  with transaction.atomic():
+    parent = Parent(name = "my name")
+    parent.save()
+
+    child = Child(number=3, parent=parent)
+    child.save()
+except DatabaseError:
+  # Handle the case where an error prevented the operation
+
+@transaction.atomic
+def viewfunc(request):
+    # This code executes inside a transaction.
+    do_stuff()
 ```
 
-### db.models
+### Db.models
 
-* TimeStampedModel: auto create created at, modified at
 * TextChoices
 
 * Model: superclass of every models
@@ -1235,7 +1225,7 @@ def from_db(cls, db, field_names, values):
   return instance
 ```
 
-### db.models.function
+### Db.models.function
 
 * Use functions provided by the underlying database as annotations, aggregations, or filters
 * Functions are also expressions, so they can be used and combined with other expressions like aggregate functions
@@ -1277,53 +1267,51 @@ class Response(models.Model):
   poll = models.ForeignKey(OpinionPoll, on_delete=models.CASCADE)
 ```
 
-### db.models.query
+### Db.models.query
 
 * avoid writing common queries all over our codebase and instead referring them using an easier to remember abstraction
 
-> QuerySet : (ex: user.objects.all() returns queryset)
+* QuerySet : (ex: user.objects.all() returns queryset)
+  * query: SQL equivalent
+  * annotate(): write to db
+  * bulk_create(`objs`): inserts the provided list of objects into the database in an efficient manner
+    * ignore_conflicts=True: database ignore failure to insert any rows that fail constraints ([ex] duplicate unique values)
+  * bulk_update(`objs`, `fields`): save the changes, so more efficient than iterating through list of models and save()
+    * model’s save() method will not be called
+  * count(): count number of element
+  * delete(): truncate all element
+  * exists(): Returns if the QuerySet contains any results
+  * union(): get union of two querysets
+  * values('title'): fetch only particular field
+  * values_list('title'): fetch only particular field as list
+    * flat=True: return without tuple
 
-* query: SQL equivalent
-* annotate(): write to db
-* bulk_create(`objs`): inserts the provided list of objects into the database in an efficient manner
-  * ignore_conflicts=True: database ignore failure to insert any rows that fail constraints ([ex] duplicate unique values)
-* bulk_update(`objs`, `fields`): save the changes, so more efficient than iterating through list of models and save()
-  * model’s save() method will not be called
-* count(): count number of element
-* delete(): truncate all element
-* exists(): Returns if the QuerySet contains any results
-* union(): get union of two querysets
-* values('title'): fetch only particular field
-* values_list('title'): fetch only particular field as list
-  * flat=True: return without tuple
-
-> FieldLookup : i- is case insensitive
-
-* exact / iexact
-* contains / icontains
-* in
-* gt / gte / lt / lte: compare values
-* startswith
-* istartswith
-* endswith
-* iendswith
-* range
-* date
-* year
-* iso_year
-* month
-* day
-* week
-* week_day
-* iso_week_day
-* quarter
-* time
-* hour
-* minute
-* second
-* isnull
-* regex
-* iregex
+* FieldLookup : i- is case insensitive
+  * exact / iexact
+  * contains / icontains
+  * in
+  * gt / gte / lt / lte: compare values
+  * startswith
+  * istartswith
+  * endswith
+  * iendswith
+  * range
+  * date
+  * year
+  * iso_year
+  * month
+  * day
+  * week
+  * week_day
+  * iso_week_day
+  * quarter
+  * time
+  * hour
+  * minute
+  * second
+  * isnull
+  * regex
+  * iregex
 
 ```py
 # 1. User.manager.doctors.with_specialization('Dermatology')
@@ -1348,7 +1336,7 @@ for problem in Problem.objects.filter():
     problem.delete()
 ```
 
-## dispatch
+## Dispatch
 
 * receiver
 
@@ -1369,11 +1357,19 @@ def update_villain_count(sender, **kwargs):
     Category.objects.filter(pk=villain.category_id).update(villain_count=F('villain_count')+1)
 ```
 
-## templates
+## Templates
 
-> defaultfilters
+{% tabs %}
+{% tab title='python' %}
 
-* stringfilter
+* Request context to pass variable in tempates
+
+* | truncatewords:`num`: trunctate words
+
+* \_\_count: get length of queryset
+  * more efficient than |length
+* defaultfilters
+  * stringfilter
 
 ```py
 from django import template
@@ -1390,7 +1386,10 @@ def markdown(value):
   return md.markdown(value, extensions=['markdown.extensions.fenced_code'])
 ```
 
-## view
+{% endtab %}
+{% endtabs %}
+
+## View
 
 ![views](images/20210503_225430.png)
 
@@ -1399,24 +1398,23 @@ def markdown(value):
 * A view function, or view for short, is simply a Python function that takes a Web request and returns a Web response
 * Each view function is responsible for returning an HttpResponse object
 
-> generic
-
-* View
-* CreateView
-  * form_valid(self, form): custom logic for valid form
-  * form_invalid(self, form): custom logic for invalid form
-* DeleteView
-* RedirectedView
-* UpdateView
-* ListView
-* TemplateView
-* base.ContextMixin
-  * allow_empty: specifying whether to display the page if no objects are available
-  * model: model that this view will display data for
-  * queryset: A QuerySet that represents the objects, If provided, the value of queryset supersedes value provided for model
-  * paginate_by: An integer specifying how many objects should be displayed per page
-  * get_queryset(): Get the list of items for this view
-  * get_ordering(): a string (or iterable of strings) that defines the ordering that will be applied to the queryset
+* generic
+  * View
+  * CreateView
+    * form_valid(self, form): custom logic for valid form
+    * form_invalid(self, form): custom logic for invalid form
+  * DeleteView
+  * RedirectedView
+  * UpdateView
+  * ListView
+  * TemplateView
+  * base.ContextMixin
+    * allow_empty: specifying whether to display the page if no objects are available
+    * model: model that this view will display data for
+    * queryset: A QuerySet that represents objects, If provided, the value of queryset supersedes value provided for model
+    * paginate_by: An integer specifying how many objects should be displayed per page
+    * get_queryset(): Get the list of items for this view
+    * get_ordering(): a string (or iterable of strings) that defines the ordering that will be applied to the queryset
 
 ```py
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -1464,7 +1462,7 @@ class FruityFlavorView(FreshFruitMixin, TemplateView):
   * name: [optional] "index"
 * resolve('/')
 
-## utils
+## Utils
 
 * timezone
   * now(): return current time
@@ -1514,7 +1512,7 @@ a1.slug # 'todays-market'
 """
 ```
 
-### functional
+### Functional
 
 * cached_property: decorator for caching
 
@@ -1525,144 +1523,6 @@ class Person(models.Model):
   @cached_property
   def friends(self):
 ```
-
-## Django admin
-
-* Only allowing admin docs access via HTTPS
-* Limiting admin docs access based on IP
-* Equivalent to python manage.py
-
-> CLI
-
-* startproject `pollster`
-  * `conf` .: start project in current directory and move all seetings to `conf`
-* startapp `polls`
-
-* changepassword `username`: Allows changing a user’s password
-* check: Checks the entire django project for potential problems
-* clearsessions: Can be run as a cron job or directly to clean out expired sessions
-* collectstatic
-  * --noinput: Do NOT prompt the user for input of any kind
-* createcachetable: Creates the tables needed to use the SQL cache backend
-* createsuperuser: Create django admin user
-* dbshell: Run db shell (psql) to debug database
-* diffsetting: see changes from default settings
-* dumpdata `app`.`db`: print data creation file
-  * --indent=2: pretty print
-  * --natural-foreign: use natural_key() model method to serialize any foreign key and many-to-many relationship
-  * --natural-primary: Omits the primary key in the serialized data of this object since it can be calculated during deserialization
-* flush
-* list_model_info: Lists out all the fields and methods for models in installed apps
-* loaddata
-* makemigrations: Generate migration files for later use
-  * When update models.py
-* makemessages: Runs over the entire source tree of the current directory and pulls out all strings marked for translation
-* migrate: Sync DB with models (create, remove | field change)
-  * `app` zero: flush just one app
-  * --database=`users`: Set specific database
-  * --run-syncdb: create tables for apps without migrations (migrations framework is sometimes slow on with large models)
-  * --fake: to mark migrations as having been applied or unapplied, but w/o running SQL to change your database schema
-* reset_db: resets the database, undo migrations (DROP DATABASE and CREATE DATABASE)
-* sendtestemail: Sends a test email to the email addresses specified as arguments
-* showmigrations: Show if migrated
-* squashmigrations `appname` `squashfrom` `squashto`: merge multiple migration files
-* runserver
-  * port: starts server on internal IP at port
-  * 0:8080: Listen all public port
-* startapp `app`: create new `app`
-* shell: interactive mode
-* sqlflush: returns SQL statements to return all tables in the database to the state they were in just after they were installed
-* syncdata: similar to loaddata but also deletes
-* test: run all test
-  * --keepdb: save all db to speed up testing
-* version: display the current django version
-
-> Error
-
-* django.db.utils.IntegrityError: Problem installing fixture '/Users/sean/github/classroom/a.json':
-  Could not load contenttypes.ContentType(pk=1): UNIQUE constraint failed: django_content_type.app_label, django_content_type.model
-  * --natural-primary
-
-* no such table: allauth_emailaddress
-  * python manage.py migrate --run-syncdb
-
-```sh
-# 1. First app
-python3 -m venv env && source env/bin/activate
-export DJANGO_SETTINGS_MODULE="classroom.settings"
-pip install django
-alias da="django-admin"
-da startporject trade
-da startappp startapp user
-da createsuperuser sean
-da runserver
-nohup python manage.py runserver &  # run server on background
-
-# 2. Restart app from beginning
-rm -rf app/migrations
-python manage.py makemigrations app # dbshell
-python manage.py migrate app        # drop table gitbook_repository;
-
-# 3. Unapply migration
-python manage.py migrate app zero --fake  # for the first migration
-python manage.py migrate app prev_version
-
-# 4. migrate to postgres
-django-admin dumpdata --natural-primary --exclude allauth > a.json
-django-admin loaddata a.json
-
-# 5. Clean up migration files
-python manage.py makemigrations
-python manage.py showmigrations
-python manage.py migrate --fake app zero
-find . -path "*/migrations/*.py" -not -name "__init__.py" -delete  # remove all migrations
-python manage.py makemigrations
-python manage.py migrate --fake-initial
-```
-
-* management
-  * call_command()
-    * verbosity
-    * interactive
-
-```py
-from cProfile import Profile
-from django.core.management import call_command
-from django.core.management.base import BaseCommand
-
-# 1. Custom command
-parser.add_argument('poll_ids', nargs='+', type=int) # positional argument
-parser.add_argument('--delete', action='store_true') # Named (optional) arguments
-
-call_command('collectstatic', verbosity=3, interactive=False)
-call_command('custom', 12, karg="1", verbosity=3, interactive=False)
-
-# 2. profile / logging option
-class ProfileEnabledBaseCommand(BaseCommand):
-  """Enable profiling a command with --profile. Requires child class to define _handle instead of handle.
-     See also https://gist.github.com/tclancy/4236077 """
-  def add_arguments(self, parser):
-    parser.add_argument('--profile', action='store_true', default=False)
-    parser.add_argument('--profile', action='store_true', default=False)
-
-  def handle(self, *args, **options):
-    logging.getLogger().setLevel(args["log_level"])
-    if options.get('profile', False):
-      profiler = Profile()
-      profiler.runcall(self._handle, *args, **options)
-      profiler.print_stats()
-    else:
-      self._handle(*args, **options)
-```
-
-## django_extensions
-
-* pip install django_extensions (add to INSTALLED_APPS)
-* pip install pygraphviz (pydotplus for mac)
-* brew install graphviz
-
-* db.models
-  * TimeStampedModel: extends instead of Model
 
 ## Admin page
 
@@ -1833,7 +1693,7 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
 {% endtab %}
 {% endtabs %}
 
-## generics
+## Generics
 
 * CreateAPIView
 * ListAPIView
@@ -1864,7 +1724,7 @@ urlpatterns = [
 ]
 ```
 
-## renderers
+## Renderers
 
 * JSONRenderer
   * render(`serializer`.data)
@@ -1937,7 +1797,7 @@ class NameserverViewSet(viewsets.ViewSet):
     return Response(serializer.data)
 ```
 
-## serializer
+## Serializer
 
 * Any database schema change may invalidate the serialized data
 
@@ -2019,7 +1879,7 @@ class GeeksSerializer(serializers.ModelSerializer):
 {% endtab %}
 {% endtabs %}
 
-## swagger
+## Swagger
 
 * pip install -U drf-yasg
 
@@ -2033,7 +1893,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-## parsers
+## Parsers
 
 * JSONParser
   * parse(`io_stream`): convery back to json
@@ -2045,7 +1905,7 @@ INSTALLED_APPS = [
   * responses
   * deprecated
 
-## views
+## Views
 
 * [Reference](https://www.youtube.com/watch?v=B38aDwUpcFc)
 * ModelViewSet: built-in implement basic actions as list, retrieve, create, update or destroy
@@ -2160,7 +2020,7 @@ urlpatterns = [
 
 ```py
 # 1. Class based view
-### views.py
+### Views.py
 class ArticleAPIView(APIView):
   def get(self, request):
     articles = Article.objects.all()
@@ -2199,7 +2059,7 @@ class ArticleDetails(APIView):
     article.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
-### urls.py
+### Urls.py
 from django.urls import path
 from .views import ArticleAPIView, ArticleDetails
 
@@ -2518,18 +2378,16 @@ systemctl status mongod  # show mongodb status
 * Batch and stream processing using disk or memory storage
 * SparkSQL, Spark streaming, MLlib, GraphX
 
-> Commands
+* Commands
+  * lazy evaluation → transformations are not executed until the action stage
+  * Narrow: processing logic depends only on data, residing in the partition → no data shuffling necessary
+  * Wide: transformation that requires data shuffling across node partitions
 
-* lazy evaluation → transformations are not executed until the action stage
-* Narrow: processing logic depends only on data, residing in the partition → no data shuffling necessary
-* Wide: transformation that requires data shuffling across node partitions
-
-> Function
-
-* collect(): copy all elements to the driver
-* take(n): copy first n elements
-* reduce(func): aggregate elements with func
-* saveAsTextFile(filename): Save to local file or HDFS
+* Function
+  * collect(): copy all elements to the driver
+  * take(n): copy first n elements
+  * reduce(func): aggregate elements with func
+  * saveAsTextFile(filename): Save to local file or HDFS
 
 * Narrow Transformation
   * coalesce(): reduce number of partitions
@@ -2631,23 +2489,6 @@ source="census.csv" | stats count by STNAME | sort count desc
 * [ex] commercial distribution: Cloudera, Hortonworks, MapR
 * [ex] Open source: apache, public cloud: Iaas(VM, docker), PaaS(AWS, HDinsight), some commercial available
 
-> Challedges
-
-1. Chaep nodes fails, especially if you have many
-    * Build fault tolerance into system
-1. Commodity network = low bandwidth
-    * Push computation to the data
-1. Programming distributed systems is hard
-    * Data parallel programming models (users write map & reduce functions, system distributes work and handles faults)
-    * Use CRC32 checksum to validate data
-
-> Question
-
-* Three layers of ecosystem?
-  * Data Management and Storage
-  * Data Integration and Processing
-  * Coordination and Workflow Management
-
 > Terms
 
 * Checkpointing: process of combining edit logs with FsImage, happens periodically (default: 1 hour)
@@ -2711,6 +2552,22 @@ source="census.csv" | stats count by STNAME | sort count desc
 
 * Hive: Hadoop subproject in SQL manner when files are insufficient, need tables, schemas, partitions, indices
   * Need a multi petabyte warehous for an open data format (RDBMS)
+
+> Question
+
+* Challenges
+  1. Chaep nodes fails, especially if you have many
+      * Build fault tolerance into system
+  1. Commodity network = low bandwidth
+      * Push computation to the data
+  1. Programming distributed systems is hard
+      * Data parallel programming models (users write map & reduce functions, system distributes work and handles faults)
+      * Use CRC32 checksum to validate data
+
+* Three layers of ecosystem?
+  * Data Management and Storage
+  * Data Integration and Processing
+  * Coordination and Workflow Management
 
 ### Mapreduce
 

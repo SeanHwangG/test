@@ -43,7 +43,7 @@
 {% endtab %}
 {% endtabs %}
 
-## postgres
+## Postgres
 
 * need semicolon, use single quote for string
 * yum install postgres-server

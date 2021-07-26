@@ -286,16 +286,15 @@ $$
 ![NOR](images/20210404_030148.png)
 
 * OR
+  ![OR (NOR + Inverter)](images/20210411_021949.png)
 
-![OR (NOR + Inverter)](images/20210411_021949.png)
+> Example
 
-> AB + A'B'
+* AB + A'B'
+  ![AB + A'B'](images/20210411_021034.png)
 
-![AB + A'B'](images/20210411_021034.png)
-
-> A'B'C + A'BC' + AB'C' + ABC
-
-![A'B'C + A'BC' + AB'C' + ABC](images/20210411_021535.png)
+* A'B'C + A'BC' + AB'C' + ABC
+  ![A'B'C + A'BC' + AB'C' + ABC](images/20210411_021535.png)
 
 ### Number system
 
@@ -422,7 +421,9 @@ printf("b  : %u \n", b);  // 4294967295
 
 ![De morgans Law](images/20210410_223127.png)
 
-> Proof of Consensus Theorem
+> Example
+
+* Proof of Consensus Theorem
 
 $$
 \mathrm{AB}+\mathrm{AC}+\mathrm{B}^{\prime} \mathrm{C} \\
@@ -433,7 +434,7 @@ $$
 =\mathrm{AB}+\mathrm{B}^{\prime} \mathrm{C}
 $$
 
-> Logic Gate $$ ad+b'd + a'bc' + a'b'c+ abc $$
+* Logic Gate $$ ad+b'd + a'bc' + a'b'c+ abc $$
 
 ![Logic Gate](images/20210411_035602.png)
 
@@ -578,10 +579,11 @@ $$
 * Data bits
 * Parity bits: set p value so that sum of following 4 are even (p1 = d1 d5 d7 / p2 = d3 d6 d7 / p4 = d5 d6 d7)
 
-> 1011 -> 1**0**10101 (but accidentally sent 1**1**10101
+> Question
 
-* p2, p4 should be 1, 1 but 0, 0 instead
-* We can correct to 1010101 because p2, p4 both checks for d6
+* 1011 -> 1**0**10101 (but accidentally sent 1**1**10101
+  * p2, p4 should be 1, 1 but 0, 0 instead
+  * We can correct to 1010101 because p2, p4 both checks for d6
 
 ### Latches
 

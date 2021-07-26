@@ -19,6 +19,7 @@ Any comments, contributions are welcome.
   * Error
   * Question
   * Solution
+  * Example
   * Terms
   * Reference: Enclosed with angular bracket
 

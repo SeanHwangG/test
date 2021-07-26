@@ -1205,26 +1205,22 @@ for line in files.split("\n"):
 {% tabs %}
 {% tab title='cpp' %}
 
-> ios
+* ios
+  * ios::sync_with_stdio(`bool`): whether to sync with stdio
+    * If false do not mix with printf
 
-* ios::sync_with_stdio(`bool`): whether to sync with stdio
-  * If false do not mix with printf
-
-> iostream
-
-* Increase type safety, reduce errors, allow extensibility
-* Inheritable: mechanism is built from real classes such as std::ostream
-
-* istream& getline(istream&& is, string& str, char delim): Get line
-* ignore(streamsize n = 1, int delim = EOF);: Discards from input sequence until n characters or delim
-* peek(): Peek next character
-* read(): Read block of data
-* readsome(): Read data available in buffer
-* putback(): Put character back
-* unget(): Unget character
-* \r: move cursor at the start of the line
-* \b: move cursor before last character
-* void prints() { cout << "ABC\n" << '\b' << "D" << endl; }
+* iostream: Increase type safety, reduce errors, allow extensibility
+  * Inheritable: mechanism is built from real classes such as std::ostream
+  * istream& getline(istream&& is, string& str, char delim): Get line
+  * ignore(streamsize n = 1, int delim = EOF);: Discards from input sequence until n characters or delim
+  * peek(): Peek next character
+  * read(): Read block of data
+  * readsome(): Read data available in buffer
+  * putback(): Put character back
+  * unget(): Unget character
+  * \r: move cursor at the start of the line
+  * \b: move cursor before last character
+  * void prints() { cout << "ABC\n" << '\b' << "D" << endl; }
 
 ```cpp
 // cout with only endl                     1461.310252 ms
@@ -1311,13 +1307,8 @@ print(12352, 1235, sep="")  # no space between comma
 # 2. Escape
 print("\" \' \\")    # Double Quote / single quote / backslash
 print("\n \r \t")    # New Line / Carriage Return / Tab
-```
 
-{% endtab %}
-{% tab title='python' %}
-
-```py
-# 1. suppress print
+# 3. suppress print
 import sys
 sys.stdout = open(os.devnull, 'w')
 print('Hello')        # will be ignored
@@ -1330,7 +1321,10 @@ sys.stdout = sys.__stdout__
 {% endtab %}
 {% tab title='shell' %}
 
-* echo `msg`: Print `msg` to stdout
+* echo: write arguments to the standard output
+  * `msg`: Print `msg` to stdout
+  * -n: Do not print the trailing newline character
+  * -e: Escape character (default in zsh)
 
 {% endtab %}
 {% endtabs %}
@@ -1340,6 +1334,16 @@ sys.stdout = sys.__stdout__
 ### Multiline
 
 {% tabs %}
+{% tab title='cpp' %}
+
+```cpp
+const char multiline[] = R"(
+multi line
+string
+)";
+```
+
+{% endtab %}
 {% tab title='shell' %}
 
 ```sh

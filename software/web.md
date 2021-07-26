@@ -740,33 +740,6 @@ import HomeComponent from "./components/HomeComponent";
 
 * models.sequelize.col('User.createdAt'))
 
-## axios
-
-* npm install axios
-* Promise based HTTP client for the browser and node.js
-
-```js
-// 1. Sample request
-axios({
-  method: 'post',
-  url: '/login',
-  data: {
-    firstName: 'Finn',
-    lastName: 'Williams'
-  }
-});
-
-// 2. Sample return
-{
-  data: {},    // response data from server
-  headers: {}, // `headers`
-  status: 200, // server status
-  statusText: 'OK', // `statusText`
-  config: {},
-  request: {} // Browser: XMLHttpRequest instance, Node.js: ClientRequest instance (redirect)
-}
-```
-
 * Cluster
 
 ```js

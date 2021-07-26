@@ -110,43 +110,42 @@ foo(new int[] { 10, 15, 20 });
 
 * Spread: ..., use to copy contents of objects
 
-> Array
-
-* length: Size of array
-* concat()
-* copyWithin()
-* entries()
-* every()
-* fill()
-* filter(): array.filter(value => value < 0);
-* find()
-* findIndex()
-* forEach(): arr.forEach((num, index) => { arr[index] = num * 2; });
-* from()
-* includes()
-* indexOf()
-* isArray()
-* join()
-* keys()
-* lastIndexOf()
-* map(): let doubled = arr.map(num => { return num * 2; });
-* pop()
-* prototype
-* push()
-* reduce(): [].reduce((a, b) => a + b);        // sum
-* reduceRight()
-* reverse(): loop backward
-* shift(): get first element = poll in queue
-* slice()
-* some()
-* sort(): items.sort((a, b) => { return a.value - b.value; });
-* splice(): items.splice(pos, num, newval);
-* toString()
-* unshift()
-* valueOf()
-* splice(index, delete);: remove elements
-* split(',').map(Number);: split as an integer
-* map(x=>x[0]);: first column of 2d array
+* Array
+  * length: Size of array
+  * concat()
+  * copyWithin()
+  * entries()
+  * every()
+  * fill()
+  * filter(): array.filter(value => value < 0);
+  * find()
+  * findIndex()
+  * forEach(): arr.forEach((num, index) => { arr[index] = num * 2; });
+  * from()
+  * includes()
+  * indexOf()
+  * isArray()
+  * join()
+  * keys()
+  * lastIndexOf()
+  * map(): let doubled = arr.map(num => { return num * 2; });
+  * pop()
+  * prototype
+  * push()
+  * reduce(): [].reduce((a, b) => a + b);        // sum
+  * reduceRight()
+  * reverse(): loop backward
+  * shift(): get first element = poll in queue
+  * slice()
+  * some()
+  * sort(): items.sort((a, b) => { return a.value - b.value; });
+  * splice(): items.splice(pos, num, newval);
+  * toString()
+  * unshift()
+  * valueOf()
+  * splice(index, delete);: remove elements
+  * split(',').map(Number);: split as an integer
+  * map(x=>x[0]);: first column of 2d array
 
 ```js
 new Array(len).fill(0);
@@ -466,13 +465,12 @@ print(next(iter(vowels)))  # prints 'a'
 {% tabs %}
 {% tab title='cpp' %}
 
-> deque
-
-* push_front()
-* push_back()
-* pop_front()
-* pop_back()
-* front() / back()
+* deque
+  * push_front()
+  * push_back()
+  * pop_front()
+  * pop_back()
+  * front() / back()
 
 ```cpp
 #include <iostream>
@@ -492,7 +490,6 @@ while (!mydeque.empty()) {
 }
 
 cout << "The elements of mydeque add up to " << sum << '\n';
-
 ```
 
 {% endtab %}
@@ -502,10 +499,6 @@ cout << "The elements of mydeque add up to " << sum << '\n';
 
 {% endtab %}
 {% tab title='python' %}
-
-> deque
-
-{% include 'deque.test' %}
 
 * deque([iterable[, maxlen]]): if deque is full and item added, item is discarded on other side
   * append(`x`): Add `x` to the right side of the deque
@@ -530,6 +523,8 @@ def tail(filename, n=10):
   with open(filename) as f:
     return deque(f, n)
 ```
+
+{% include 'deque.test' %}
 
 {% endtab %}
 {% endtabs %}

@@ -41,15 +41,19 @@ def multiply (x: int, y: int) -> int:
 * Cook Toom: multiplication algorithm for large integers
   * Run Time $$ Θ(n^{1.46}) $$
 
-> Question: Master Theorem Proof
+> Example
 
-* After k levels, there are $$a^k$$ subproblems, each of size $$\frac{n}{b^k}$$
-* So, during the kth level of recursion, the time complexity
-$$
-O\left(\left(\frac{n}{b^{k}}\right)^{d}\right) a^{k}=O\left(a^{k}\left(\frac{n}{b^{k}}\right)^{d}\right)=O\left(n^{d}\left(\frac{a}{b^{d}}\right)^{k}\right)
-$$
+* Master Theorem Proof
+  * After k levels, there are $$a^k$$ subproblems, each of size $$\frac{n}{b^k}$$
+  * So, during the kth level of recursion, the time complexity
+  $$
+  O\left(\left(\frac{n}{b^{k}}\right)^{d}\right) a^{k}=O\left(a^{k}\left(\frac{n}{b^{k}}\right)^{d}\right)=O\left(n^{d}\left(\frac{a}{b^{d}}\right)^{k}\right)
+  $$
 
 ## Binary Search
+
+* while (start <= end): if are returning the match from inside the loop
+* while (start < end): if want to exit out of the loop first, and then use result of start or end to return the match
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -170,7 +174,7 @@ WHERE t1.drinker2 = f1.drinker AND f1.bar = f2.bar)
 
 {% include '.recursion.prob' %}
 
-### backtrack
+### Backtrack
 
 * Bounding function: kill some live nodes without actually expanding them
 * generic method that can be applied to problems with large solution set, in search and optimization problems
@@ -185,10 +189,9 @@ WHERE t1.drinker2 = f1.drinker AND f1.bar = f2.bar)
   * Constraints: What properties must a solution have?
   * Objective function: What makes a solution have?
 
-> Question
+> Example
 
-* 8 Queen
-  * Put 8 queens on a chessboard such that no two are attacking
+* 8 Queen: Put 8 queens on a chessboard such that no two are attacking
   * Brute force: Put all possible arrangements of 8 queens on the chess board
     * Instance: An empty 8 x 8 chess board
     * Solution format: A placement of 8 queens

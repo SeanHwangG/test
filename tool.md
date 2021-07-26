@@ -47,7 +47,7 @@
   * Shortcut
     * option ↑ ↓: Change sheet
 
-## editorconfig
+## Editorconfig
 
 * charset = (ex: utf-8)
 * end_of_line = lf

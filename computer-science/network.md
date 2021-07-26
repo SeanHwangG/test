@@ -544,7 +544,7 @@ sudo docker inspect -f "{{ .NetworkSettings.IPAddress }}" container_name
 
 ![Link State protocol](images/20210316_160635.png)
 
-## 4: Trasport
+## 4: Transport
 
 ![Transport](images/20210314_003402.png)
 

@@ -105,25 +105,11 @@ def global_():
 {% tabs %}
 {% tab title='cpp' %}
 
-> bits/stdc++
-
-* Combined all useful modules in c++
-* for mac put [stdc++.h](https://gist.github.com/6d0c327ea983800a01d78365aded0566) in /usr/local/include/bits
+* bits/stdc++: Combined all useful modules in c++
+  * for mac put [stdc++.h](https://gist.github.com/6d0c327ea983800a01d78365aded0566) in /usr/local/include/bits
 
 {% endtab %}
 {% tab title='python' %}
-
-> Command '['/venv/bin/python3.7', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1
-
-* sudo apt-get install python3.9-venv
-
-> Cannot be found
-
-* python3 -c "import sys;print(sys.path)"
-* Add to PYTHONPATH
-
-> RuntimeWarning: 'module.api' found in sys.modules after import of package 'module',
-  but prior to execution of 'module.api'; this may result in unpredictable behaviour
 
 * python3 -m module.a
 
@@ -154,6 +140,18 @@ def function_c():
   print('function_c')
   return a.function_a()
 ```
+
+> Error
+
+* Command '['/venv/bin/python3.7', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1
+  * sudo apt-get install python3.9-venv
+
+* Cannot be found
+  * python3 -c "import sys;print(sys.path)"
+  * Add to PYTHONPATH
+
+* RuntimeWarning: 'module.api' found in sys.modules after import of package 'module',
+  but prior to execution of 'module.api'; this may result in unpredictable behaviour
 
 {% endtab %}
 {% tab title='javascript' %}

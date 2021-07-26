@@ -240,7 +240,7 @@ exec git diff-index --check --cached $against --
 {% endtab %}
 {% endtabs %}
 
-## precommit
+## Precommit
 
 * [Official Documentation](https://pre-commit.com/)
 * [Combination of useful precommit](https://github.com/trussworks/pre-commit-hooks)
@@ -316,14 +316,10 @@ exec git diff-index --check --cached $against --
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](
   https://github.com/pre-commit/pre-commit)
 
-> Install
-
 * Powershell
   * Install-Module posh-git -Scope CurrentUser -Force
   * Import-Module posh-git
   * Add-PoshGitToProfile -AllHosts​​​​​​​
-
-> CLI
 
 * git
   * -V / --version: Print git version
@@ -603,7 +599,7 @@ git log --graph --decorate --pretty=oneline --abbrev-commit --all : git lola
 {% endtab %}
 {% endtabs %}
 
-## branch
+## Branch
 
 {% tabs %}
 {% tab title='git' %}
@@ -702,7 +698,7 @@ git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d # d
 {% endtab %}
 {% endtabs %}
 
-## remote
+## Remote
 
 {% tabs %}
 {% tab title='git' %}
@@ -812,7 +808,7 @@ git add .
 {% endtab %}
 {% endtabs %}
 
-## lfs
+## Lfs
 
 {% tabs %}
 {% tab title='git' %}
@@ -835,7 +831,7 @@ git add .
 {% endtab %}
 {% endtabs %}
 
-## stash
+## Stash
 
 ![stash](images/20210220_021545.png)
 
@@ -849,7 +845,7 @@ git add .
 * git checkout stash -- .: overwrite current file
 * git checkout stash@{0} -- fn: stash pop certain files
 
-## submodule
+## Submodule
 
 * add
   * URL

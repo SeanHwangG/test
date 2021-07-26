@@ -143,8 +143,6 @@ aws_secret_access_key=EkuLZB1/EpqGDnnpn08gqBwDesmCOECrcZ1xSJug
 
 * doesn't run exec gunicorn
 
-> CLI
-
 * --version: show version
 * alpha / beta: combine with below commands to use new feature
 
@@ -498,12 +496,11 @@ docker run -d \
     A block device mapping that specifies the volumes to attach to the instance when it's launched
 * [ex] C5: continuously has a heavy CPU load
 
-> CLI (aws ec2)
-
-* reboot-instances
-* stop-instances
-* start-instances
-  * --instance-ids
+* aws
+  * reboot-instances
+  * stop-instances
+  * start-instances
+    * --instance-ids
 
 {% endtab %}
 {% tab title='google' %}
@@ -672,8 +669,6 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 * Failed to deploy application: During an aborted deployment, some instances may have deployed the new application version
   * Zip file name must be different
 
-> Install
-
 * [install](https://github.com/aws/aws-elastic-beanstalk-cli-setup)
 * brew install awsebcli (github is preferred)
 * pip install awsebcli
@@ -684,8 +679,6 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
   * RDS_DB_NAME
   * RDS_USERNMAE
   * RDS_PASSWORD
-
-> CLI
 
 * abort: Cancels an environment update or deployment
 * clone: Clones an environment
@@ -763,8 +756,6 @@ container_commands:
 * Cluster: the logical grouping of ECS resources
 * Service: resource that allows to run, maintain a specified # of instances of a task definition simultaneously, in ECS cluster
 * Task-Definition: a text file, in JSON format, that contains all the definitions and configurations of your containers
-
-> CLI
 
 * [Install CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html)
 * --version

@@ -417,21 +417,6 @@ def validate_tasty(value):
 * single CPU handles one process at a time (most systems, more processes wait to run than $ CPUs)
 * Traditional systems only execute one program at a time, while newer multicore processors can execute several programs simultaneously
 
-> How OS regain control of CPU
-
-* cooperative approach
-  * OS truts the process of the system to behave reasonably
-  * the OS regains control of the CPU by waiting for a system call or an illegal operation of some kind to take place
-  * [ex] early Mac, old Xerox Alto
-
-![LDE](images/20210406_013638.png)
-
-* Non-Cooperative approach
-  * A timer device raises an interrupt every so many milliseconds, pre-configured interrupt handler in the OS runs
-  * Sceduler: whether to continue running the currently-running process, or switch to a different one
-
-![LDE (timer approach)](images/20210406_015711.png)
-
 > Terms
 
 * Context switching: OS stores state of a process or thread, so later be restored and resume execution
@@ -440,8 +425,18 @@ def validate_tasty(value):
   1. Saves current register values (into the process structure of A)
   2. Restores the registers of Process B (from its process structure entry)
   3. Changes the stack pointer to use B’s kernel stack (and not A’s)
+  ![Context Switch](images/20210410_051519.png)
 
-![Context Switch](images/20210410_051519.png)
+* cooperative approach
+  * OS truts the process of the system to behave reasonably
+  * the OS regains control of the CPU by waiting for a system call or an illegal operation of some kind to take place
+  * [ex] early Mac, old Xerox Alto
+  ![LDE](images/20210406_013638.png)
+
+* Non-Cooperative approach
+  * A timer device raises an interrupt every so many milliseconds, pre-configured interrupt handler in the OS runs
+  * Sceduler: whether to continue running the currently-running process, or switch to a different one
+  ![LDE (timer approach)](images/20210406_015711.png)
 
 * Daemons: stay in the background
 
@@ -457,72 +452,66 @@ def validate_tasty(value):
 
 * Process Queue: stores all process
 
-> Component
+* Component
+  * Process State: new, ready, running, waiting, halted
+  * PC (Program Counter): address of the next instruction to be executed
+  * CPU Registers: index registers, stack pointers, general purpos registers
+  * CPU Scheduling information: process priority and pointer
+  * Memory Management Information: base/limit information, virtual -> physical mapping
+  * Accounting Information: time limits, process number; owner
+  * I/O Status information: list of I/O devices allocated to the process
+  ![Process](images/20210410_050926.png)
 
-![Process](images/20210410_050926.png)
-
-* Process State: new, ready, running, waiting, halted
-* PC (Program Counter): address of the next instruction to be executed
-* CPU Registers: index registers, stack pointers, general purpos registers
-* CPU Scheduling information: process priority and pointer
-* Memory Management Information: base/limit information, virtual -> physical mapping
-* Accounting Information: time limits, process number; owner
-* I/O Status information: list of I/O devices allocated to the process
-
-> Status
-
-![Process State Graph](images/20210410_045920.png)
-
-* New
-* Running: executing instructions on the cpu
-* Ready: waiting to be assigned to the cpu
-* Waiting: waiting for an envent: I/O completion
-* Halted
+* Status
+  * New
+  * Running: executing instructions on the cpu
+  * Ready: waiting to be assigned to the cpu
+  * Waiting: waiting for an envent: I/O completion
+  * Halted
+  ![Process State Graph](images/20210410_045920.png)
 
 {% tabs %}
 {% tab title='c' %}
 
-> unistd.h
+* unistd.h
+  * miscellaneous symbolic constants and types, and declares miscellaneous functions
+  * seperationg of fork() and exec() is essential in building a UNIX shell
+  * pid_t fork(): creates a new child process which is an exact copy of the calling process
+    * on success the PID of the child process is returned in to parent's thread and 0 for child's thread
+    * child has own unique PID, doesn't inherit parent's memory locks
+    * resource utilizations are set to 0
+    * child has no signals, zero cpu time
+    * errors: not enough memory, excep process limit (RLIMIT_NPROC)
+    ![Fork](images/20210410_053351.png)
+  * getppid(): gets the parent process-id
+  * getpid(): get child process-id
+  * int execl(): replace the current process image with a new process image
+    * const char *path, const char \*arg0
+  * int execv(const char \*path, const char *argv[])
+  * int execle(const char \*path, const char *arg0)
+  * int execve(const char \*path, const char *argv[])
+  * int execlp(const char \*file, const char *arg0);
+  * int execvp(const char \*file, const char *argv[]);
+    * stops the current process, loads the program 'prog' into the process' address space
+    * initializes hardware context and args for the new program
+    * places the PCB onto the ready queue (doesn't create new process)
+    * [error]
+    * EACCES: file or a script interpreter is not a regular file
+    * ENOMEM: Insufficient kernel memory was available
+    * EPERM: The file system is mounted nosuid, the user is not the superuser
 
-* miscellaneous symbolic constants and types, and declares miscellaneous functions
-* seperationg of fork() and exec() is essential in building a UNIX shell
+  * int unlink(const char *pathname): delete a name and possibly the file it refers to
+    * [error]
+    * EACCES: Write access to the directory containing pathname isn't allowed for the process's effective UID
+    * EBUSY: it is being used by the system
+    * ENOMEM: Insufficient kernel memory was available
+    * EPERM: system does not allow unlinking of directories, or lack privileges (root)
 
-* pid_t fork(): creates a new child process which is an exact copy of the calling process
-  * on success the PID of the child process is returned in to parent's thread and 0 for child's thread
-  * child has own unique PID, doesn't inherit parent's memory locks
-  * resource utilizations are set to 0
-  * child has no signals, zero cpu time
-  * errors: not enough memory, excep process limit (RLIMIT_NPROC)
-  ![Fork](images/20210410_053351.png)
-* getppid(): gets the parent process-id
-* getpid(): get child process-id
-* int execl(): replace the current process image with a new process image
-  * const char *path, const char \*arg0
-* int execv(const char \*path, const char *argv[])
-* int execle(const char \*path, const char *arg0)
-* int execve(const char \*path, const char *argv[])
-* int execlp(const char \*file, const char *arg0);
-* int execvp(const char \*file, const char *argv[]);
-  * stops the current process, loads the program 'prog' into the process' address space
-  * initializes hardware context and args for the new program
-  * places the PCB onto the ready queue (doesn't create new process)
-  * [error]
-  * EACCES: file or a script interpreter is not a regular file
-  * ENOMEM: Insufficient kernel memory was available
-  * EPERM: The file system is mounted nosuid, the user is not the superuser
-
-* int unlink(const char *pathname): delete a name and possibly the file it refers to
-  * [error]
-  * EACCES: Write access to the directory containing pathname isn't allowed for the process's effective UID
-  * EBUSY: it is being used by the system
-  * ENOMEM: Insufficient kernel memory was available
-  * EPERM: system does not allow unlinking of directories, or lack privileges (root)
-
-* ssize_t read(int fd, void *buf, size_t count);: read from a file descriptor
-  * EBADF: fd is not a valid file descriptor or is not open for reading
-  * EIO: when the process is in a background process group
-  * EINTR: call was interrupted by a signal before any data was read
-  * EISDIR: fd refers to a directory
+  * ssize_t read(int fd, void *buf, size_t count);: read from a file descriptor
+    * EBADF: fd is not a valid file descriptor or is not open for reading
+    * EIO: when the process is in a background process group
+    * EINTR: call was interrupted by a signal before any data was read
+    * EISDIR: fd refers to a directory
 
 ![2: Three Fork](images/20210414_214742.png)
 ![3: Fork in for](images/20210410_053914.png)
@@ -724,11 +713,10 @@ def cpu_usage():
 {% tabs %}
 {% tab title='cpp' %}
 
-> sys/mman.h
-
-* mmap: map files or devices into memory
-  * PROT_READ | PROT_WRITE
-* unmap
+* sys/mman.h
+  * mmap: map files or devices into memory
+    * PROT_READ | PROT_WRITE
+  * unmap
 
 ```cpp
 #include <sys/mman.h>
@@ -1229,14 +1217,13 @@ RetryInstruction()          # retry instruction
   * page frame number (20): determines physical page
   ![x86 PTE](images/20210512_015710.png)
 
-> Why multilevel page table is used?
+> Question
 
-* tables that are in-memory can be smaller than single level page table
-
-> Inverted page table has one entry for each physical page. How is this table stored and used?
-
-* stored as hash table with {(pid, VPN): PPN}
-* On TLB miss, searched with key to find matching PPN and entries are updated
+* Why multilevel page table is used?
+  * tables that are in-memory can be smaller than single level page table
+* Inverted page table has one entry for each physical page. How is this table stored and used?
+  * stored as hash table with {(pid, VPN): PPN}
+  * On TLB miss, searched with key to find matching PPN and entries are updated
 
 ### Segment
 
@@ -1290,9 +1277,10 @@ AddressOfPTE = Base[SN] + (VPN * sizeof(PTE))
 * **Access bits**: kernel and user
 * process tag, reference, modify, cacheable
 
-> TLBs are more beneficial with multi-level page tables than with linear (single-level) page tables
+> Question
 
-* True; if a TLB hit, able to avoid more memory lookups for page translation (higher cost of a miss).
+* TLBs are more beneficial with multi-level page tables than with linear (single-level) page tables
+  * True; if a TLB hit, able to avoid more memory lookups for page translation (higher cost of a miss).
 
 {% tabs %}
 {% tab title='python' %}
@@ -1367,16 +1355,17 @@ else:
   * Reading from cache makes a disk perform like a memory
   * Application exhibit locality for reading and writing
 
-> 22-bit address space, 512-byte cache, a cache block size of 64 bytes. Bits for index/tag?
+> Question
 
-* 3 / 13
-* 2j: associativity
-* 2k: cache entries (indices)
-* 2m: address
-* 2n: block size
-* line: of bits (aka, index)
-* tag: of lines required to uniquely identify a memory address block
-* word: least significant bits which uniquely identify a word on a line of cache
+* 22-bit address space, 512-byte cache, a cache block size of 64 bytes. Bits for index/tag?
+  * 3 / 13
+  * 2j: associativity
+  * 2k: cache entries (indices)
+  * 2m: address
+  * 2n: block size
+  * line: of bits (aka, index)
+  * tag: of lines required to uniquely identify a memory address block
+  * word: least significant bits which uniquely identify a word on a line of cache
 
 {% tabs %}
 {% tab title='amazon' %}
@@ -1498,25 +1487,22 @@ CACHES = {
 * On a write some application assume that data makes it through the buffer cache and onto the disk
 * So, write are often slow even with cache
 
-> Read Policy
+* Read Policy
+  * Read Ahead (prefetch): FS predicts that the process will request next block
+    * happen while the process is computing on previous block (overlap I/O with execution)
+    * [-] bad when file are scattered across the disk
 
-* Read Ahead (prefetch): FS predicts that the process will request next block
-  * happen while the process is computing on previous block (overlap I/O with execution)
-  * [-] bad when file are scattered across the disk
-
-> Write Policy
-
-* Write-through: when data hit / use the memory again soon
-  * [+] complete data consistency between cache and storage
-  * [+] nothing lost in crash, power failure
-  * [-] higher latency
-
-* Write-back: When data hit / doesn’t use the memory again
-* Write-allocate: When data misses / use the memory again soon
-* Write-behind: maintain a queue of uncommitted blocks
-  * periodically flush the queue to disk (30s)
-  * [-] unreliable, battery backed-up RAM is expensive and log-structure file system is complicated
-* No-write-allocate: When data misses / doesn’t use the memory again
+* Write Policy
+  * Write-through: when data hit / use the memory again soon
+    * [+] complete data consistency between cache and storage
+    * [+] nothing lost in crash, power failure
+    * [-] higher latency
+  * Write-back: When data hit / doesn’t use the memory again
+  * Write-allocate: When data misses / use the memory again soon
+  * Write-behind: maintain a queue of uncommitted blocks
+    * periodically flush the queue to disk (30s)
+    * [-] unreliable, battery backed-up RAM is expensive and log-structure file system is complicated
+  * No-write-allocate: When data misses / doesn’t use the memory again
 
 ### Replacement
 
@@ -1534,7 +1520,7 @@ CACHES = {
 * Belady algorithm: Replace page that will not be used again the farthest time in the future (Principle of optimality)
   * Use as a yard stick
 
-### redis
+### Redis
 
 {% repo 'redis' %}
 
@@ -1659,48 +1645,34 @@ CACHES = {
 * long-running thread will take over the CPU, until it calls yield, stop or exit to cause a context switch
 * Fewer context switch
 
-> FIFO (First In First Out)
+* FIFO (First In First Out): evicts first block accessed first without any regard to how often/many times accessed
+  * [-] Suffers from Belady's anomaly,  more page frames may increase (3: 3 hit / 4: 2 hit)
+  * Used in batch system
+  * [-] convoy effect: short consumers of a resource get queued behind a heavyweight resource consumer (Long avg wait)
 
-* evicts first block accessed first without any regard to how often/many times accessed
-* [-] Suffers from Belady's anomaly,  more page frames may increase (3: 3 hit / 4: 2 hit)
+* SJF (Shortest Job First): optimal when jobs all arriving at the same time (best average waiting time)
+  * Not optimal if arrival time is not same -> STCF / PSJF
 
-* Used in batch system
-* [-] convoy effect: short consumers of a resource get queued behind a heavyweight resource consumer (Long avg waiting time)
+* LIFO (Last In First Out): evicts block accessed most recently first w/o any regard to how often/many times accessed
 
-> SJF (Shortest Job First)
+* LRU (Least Recently Used): evicts the least recently used items first, assuming temporal locality
+  * Use time or revised stack to track recency
 
-* optimal when jobs all arriving at the same time (best average waiting time)
-* Not optimal if arrival time is not same -> STCF / PSJF
+* LFU (Least Frequently Used): Counts how often an item is needed. Those that are used least often are discarded first
 
-> LIFO (Last In First Out)
+* MRU (Most Recently Used): Discards, in contrast to LRU, the most recently used items first
 
-* evicts block accessed most recently first without any regard to how often/many times accessed
+* NRU (Not Recently Used): simple implementation, with additional reference bit and page with lowest number in LRU
+  * Value may not be unique -> FIFO to resolve conflicts
+  * Clock hand used to select LRU candidate -> if ref bit if off, it hasn't been used recently
+  * Can control clock speed -> moves quickly when pages are needed
 
-> LRU (Least Recently Used)
+* RR (Random Replacement)
+  * Randomly selects a candidate item and discards it to make space when necessary
 
-* evicts the least recently used items first, assuming temporal locality
-* Use time or revised stack to track recency
+> Question
 
-> LFU (Least Frequently Used)
-
-* Counts how often an item is needed. Those that are used least often are discarded first
-
-> MRU (Most Recently Used)
-
-* Discards, in contrast to LRU, the most recently used items first
-
-> NRU (Not Recently Used)
-
-* simple implementation, with additional reference bit and page with lowest number in LRU
-* Value may not be unique -> FIFO to resolve conflicts
-* Clock hand used to select LRU candidate -> if ref bit if off, it hasn't been used recently
-* Can control clock speed -> moves quickly when pages are needed
-
-> RR (Random Replacement)
-
-* Randomly selects a candidate item and discards it to make space when necessary
-
-> How many page faults would occur for the following replacement
+* How many page faults would occur for the following replacement
   1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3, 2, 1, 2, 3, 6.
 
 | Number of frames | LRU | FIFO | Optimal |

@@ -15,7 +15,7 @@ l.sort(key=..., reverse=...)    # Sort in place
 
 {% include '.sort.prob' %}
 
-## sort File
+## Sort File
 
 {% tabs %}
 {% tab title='shell' %}
@@ -54,7 +54,7 @@ print(''.join(sorted('hello')))
 
 * Quicksort: quick select can be used to find nth largest element in average of O(n) time
 
-> Question
+> Example
 
 * Selection Sort Proof
   * Loop invariant: After t loop, the first t elements are (1) sorted, (2) minimum

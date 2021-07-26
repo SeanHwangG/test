@@ -1606,7 +1606,7 @@ odd = list(filter(lambda n : n[0] % 2 == 1, l))   # [(1, 'a'), (3, 'c'), (5, 'e'
 {% endtab %}
 {% endtabs %}
 
-### functor
+### Functor
 
 * is a function that can be manipulated as an object, or an object representing a single, generic function
 * Functors support and encourage a number of powerful programming techniques including:

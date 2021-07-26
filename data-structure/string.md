@@ -3,55 +3,51 @@
 {% tabs %}
 {% tab title='c' %}
 
-> stdlib.h / cstdlib
+* stdlib.h / cstdlib: cstdlib contained in std::, so its preferred
+  * If ptr doesn’t point to a block of memory allocated with malloc, calloc, or realloc, undefined behavior
+  * free does not change the value of ptr itself, hence it still points to the same (now invalid) location
+  * atof(): string to double
+  * atoi(): string to integer
+  * atol(): string to long integer
+  * atoll(): string to long long integer
+  * strtod(): string to double
+  * sleep(`ms`): sleep for `ms` mili-seconds
+  * strtof(): string to float
+  * strtol(): string to long integer
+  * strtold: string to long double
+  * strtoll: string to long long integer
+  * strtoul: string to unsigned long integer
+  * strtoull: string to unsigned long long integer
+  * rand: Generate random number
+  * srand: Initialize random number generator
+  * calloc(): Allocate and zero-initialize array
+  * free(): Deallocate memory block
+  * malloc(): Allocate memory block
+    * sizeof(int): allocate int pointer
+  * realloc(): Reallocate memory block
+  * srand (time(NULL));: give new seed
+  * rand()%(max-min + 1) + min;: Generate number between a to b
 
-* cstdlib contained in std::, so its preferred
-* If ptr doesn’t point to a block of memory allocated with malloc, calloc, or realloc, undefined behavior
-* free does not change the value of ptr itself, hence it still points to the same (now invalid) location
-
-* atof(): string to double
-* atoi(): string to integer
-* atol(): string to long integer
-* atoll(): string to long long integer
-* strtod(): string to double
-* sleep(`ms`): sleep for `ms` mili-seconds
-* strtof(): string to float
-* strtol(): string to long integer
-* strtold: string to long double
-* strtoll: string to long long integer
-* strtoul: string to unsigned long integer
-* strtoull: string to unsigned long long integer
-* rand: Generate random number
-* srand: Initialize random number generator
-* calloc(): Allocate and zero-initialize array
-* free(): Deallocate memory block
-* malloc(): Allocate memory block
-  * sizeof(int): allocate int pointer
-* realloc(): Reallocate memory block
-* srand (time(NULL));: give new seed
-* rand()%(max-min + 1) + min;: Generate number between a to b
-
-> cstring
-
-* memcpy, memmove(): Copy Move block of memory
-* strcpy, strncpy(): Copy string / characters from string
-* strcat(): Concatenate strings
-* strncat(): Append characters from string
-* memcmp(): Compare two blocks of memory
-* strcmp: strncmp() // Compare two strings, Compare characters of two strings
-* strcoll(): Compare two strings using locale
-* strxfrm(): Transform string using locale
-* memchr(): Locate character in block of memory
-* strchr(): Locate first occurrence of character in string
-* strcspn(): Get span until character in string
-* strpbrk(): Locate characters in string
-* strrchr(): Locate last occurrence of character in string
-* strspn(): Get span of character set in string
-* strstr(): Locate substring
-* strtok(): Split string into token
-* memset(): Fill block of memory
-* strerror(): Get pointer to error message string
-* strlen(): Get string length
+* cstring
+  * memcpy, memmove(): Copy Move block of memory
+  * strcpy, strncpy(): Copy string / characters from string
+  * strcat(): Concatenate strings
+  * strncat(): Append characters from string
+  * memcmp(): Compare two blocks of memory
+  * strcmp: strncmp() // Compare two strings, Compare characters of two strings
+  * strcoll(): Compare two strings using locale
+  * strxfrm(): Transform string using locale
+  * memchr(): Locate character in block of memory
+  * strchr(): Locate first occurrence of character in string
+  * strcspn(): Get span until character in string
+  * strpbrk(): Locate characters in string
+  * strrchr(): Locate last occurrence of character in string
+  * strspn(): Get span of character set in string
+  * strstr(): Locate substring
+  * strtok(): Split string into token
+  * memset(): Fill block of memory
+  * strerror(): Get pointer to error message string
+  * strlen(): Get string length
 
 ```c
 // strlen vs sizeof

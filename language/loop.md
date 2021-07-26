@@ -104,6 +104,13 @@ print(list(recursive_items(a)))
 ## Len
 
 {% tabs %}
+{% tab title='cpp' %}
+
+```cpp
+sizeof(arr) / sizeof(arr[0]);
+```
+
+{% endtab %}
 {% tab title='python' %}
 
 * len(`iter`): length of iterable

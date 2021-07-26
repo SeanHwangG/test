@@ -131,6 +131,59 @@
   * aud - Client must validate that the token is meant for the client itself.
   * exp - Client must validate that the token is not expired
 
+## TLS
+
+* Transport layer security, successor of the now-deprecated Secure Sockets Layer (SSL)
+* also authenticate server, client and encrypts data
+
+### HTTPS
+
+* Use port 443 with SSL-encrypted message body
+* uses the private and public keys encryption method to encrypt the communication between website and server
+* [+] protected from man-in-the-middle attacks, including the session hijacking
+* [-] virtual hosts cannot be used with SSL ([ex] shared hosting or running multiple sites on the same server)
+* [-] Speed: require SSL handshakes to establish the connection -> subsequent connections are faster so not much issue
+
+> Terms
+
+* Certificate
+  * Domain validated: cheap (50$) but do not verify as much information as their counterparts ([ex] let's encrypt)
+  * Extended Validation: validate you as domain’s owner and verify identity and legitimacy of domain owner
+* /usr/bin/ssl/yourApp.key: RSA Key
+* /usr/bin/ssl/yourApp.csr: certificate signing request
+
+> Reference
+
+<https://letsencrypt.org/>
+
+### SSL
+
+* Certificate: used to authenticate the identity of a website
+* Certified Authors: GlobalSign, Cloud Flare (Free), Comodo (Paid/Free), GeoTrust (Free Trial), DigiCert
+* Openssl: Transport Layer Security
+  * uses systemwide default certificate store /etc/ssl/certs
+
+{% tabs %}
+{% tab title='shell' %}
+
+* openssl
+  * genrsa -out yourApp.key 1024
+  * req -new -key yourApp.key -out yourApp.csr
+  * -showcerts
+  * -verify
+  * connect: [ex] exampleserver.com:443
+
+```sh
+/private/etc/ssl/openssl.cnf
+```
+
+{% endtab %}
+{% endtabs %}
+
+> Reference
+
+<badssl.com>
+
 ## Wireless
 
 * WEP: wired equivalent privacy is earlieset wireless security protocol, 40 bit encryption key is easily hackable

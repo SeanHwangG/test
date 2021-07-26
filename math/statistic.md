@@ -100,7 +100,7 @@ $$
 P_{k}^{n}=\frac{n !}{(n-k) !}
 $$
 
-> Questions
+> Question
 
 * How many different rearrangements are there of the letters in the word BUBBLE?
   * 6! | 3!
@@ -296,7 +296,7 @@ $$ E(X)=\sum_{s \in S} P(s) X(s)=\sum_{r \in X(S)} P(X=r) r $$
 * Linearity
   $$ E\left(X_{1}+\ldots+X_{n}\right)=E\left(X_{1}\right)+\ldots+E\left(X_{n}\right) $$
 
-> Questions
+> Question
 
 * What is the expected value of the number of pips showing on a die after it is rolled once?
   $$ (1 + 2 + 3 + 4 + 5 + 6) ∗ \frac{1}{6} = 3.5 $$

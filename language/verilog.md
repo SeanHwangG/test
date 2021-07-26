@@ -71,7 +71,7 @@ assign d = a;               // 0000_1010 = 10 (Not recommended)
 {% endtab %}
 {% endtabs %}
 
-## module
+## Module
 
 {% tabs %}
 {% tab title='sv' %}
@@ -326,7 +326,7 @@ assign {Cout, S} = a + b;
   * synchronous or asynchronous, may be triggered by lavel (latch) or edge (register)
   * Several types: SR, D, JK, T
 
-## nets
+## Nets
 
 * wire: 1-bit input and output ports and signals
 * cannot uses always_comb

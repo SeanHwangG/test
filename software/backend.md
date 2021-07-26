@@ -22,8 +22,6 @@
 * Glacier: infrequently accessed but must be kept for a long time
 * One Zone-Infrequent Access: cloud backups can be accessible as fast as possible to reduce downtime during the recovery
 
-> CLI
-
 * ls: list s3 objects and common prefixes under a prefix or all S3 bucky
   * s3://`bucket_name`: List objects and common prefixes under a specified bucket and prefix
 * mb s3://`bucket_name`: Create a specific S3 bucket
@@ -243,7 +241,7 @@ class AccountTests(APITestCase):
 {% endtab %}
 {% endtabs %}
 
-### Methods
+### REST Methods
 
 * GET: fetch data from server
   * can be cached, bookmarked, only used to request data (not modify)
@@ -267,6 +265,26 @@ class AccountTests(APITestCase):
   * Like with PUT, send a request to myapi/drivers/{id} only send the fields you want to change in request body
 
 * OPTIONS: describes the communication options for the target resource
+
+{% tabs %}
+{% tab title='javascript' %}
+
+```js
+// 1. Response
+/* Send */
+GET /index.html HTTP/1.1
+Host: www.example.com
+
+/* Back */
+HTTP/1.1 200 OK
+
+/* Header */
+Content-Type: text/html; charset=UTF-8
+Content-Length: 208
+```
+
+{% endtab %}
+{% endtabs %}
 
 ### Status
 
