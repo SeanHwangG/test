@@ -338,7 +338,7 @@ $$ \dot{v}=\frac{T_{z} v-T_{y} f}{z}+\omega_{x} f-\omega_{z} u-\frac{\omega_{y} 
   \end{array}]\|^{2}
   $$
 
-## Recognition
+## Object Recognition
 
 * pose estimation / recognition / segmentation
 * feature extraction → classification
@@ -349,6 +349,18 @@ $$ \dot{v}=\frac{T_{z} v-T_{y} f}{z}+\omega_{x} f-\omega_{z} u-\frac{\omega_{y} 
 ![FNMR vs FMR](images/20210518_193319.png)
 
 * Photometric stereo: Multiple images, static scene, fixed viewpoint, multiple lighting conditions, correspondence trivial
+
+{% tabs %}
+{% tab title='amazon' %}
+
+![AWS Structure](images/20210727_232931.png)
+
+{% endtab %}
+{% endtabs %}
+
+> Reference
+
+<https://medium.com/zenofai/real-time-face-identification-on-live-camera-feed-using-amazon-rekognition-video-and-kinesis-video-52b0a59e8a9>
 
 ### Pattern matching
 
@@ -825,17 +837,34 @@ exec(cv::gin(in_frame), cv::gout(out_frame, ints));
 * Feature Similarity: Corresponding features must be similar (edges must have roughly the same length and orientation)
 * Structural Grouping: Corresponding feature groupings and their connectivity must be consistent
 
-## Streaming
+## Video Streaming
 
-> Lossy count algorithm
+* Lossy count algorithm: Identify elements in a data stream whose frequency count exceed a threshold (ranking)
+  * Step 1: Divide incoming data stream into buckets of width  w = 1 / e, where e is mentioned by user as error bound
+    * along with minimum support threshold = σ
+  * Step 2: Increment the frequency count of each item according to the new bucket values
+    * After each bucket, decrement all counters by 1
+  * Step 3: Repeat – Update counters and after each bucket, decrement all counters by 1
 
-* Identify elements in a data stream whose frequency count exceed a threshold (ranking)
+* Challenges
+  * Cumbersome to rewrite code for various devices and development environments
+  * Elastically scale to millions of devices
+  * Reliable support for cadence, latency, jitter on stream
+  * Secure streaming and storage
+  * Easy to use APIs to retriev, replace, and process video
 
-* Step 1: Divide incoming data stream into buckets of width  w = 1 / e, where e is mentioned by user as error bound
-  * along with minimum support threshold = σ
-* Step 2: Increment the frequency count of each item according to the new bucket values
-  * After each bucket, decrement all counters by 1
-* Step 3: Repeat – Update counters and after each bucket, decrement all counters by 1
+{% tabs %}
+{% tab title='amazon' %}
+
+* Kinesis Video Streaming
+  * Flexible SDK for integration with on-device hardware media pipelines with AWS Integration
+  * Handle streaming Put API to stream continuously in a reliable manner
+  * Add metadata to video fragments applied by the device directly
+
+![Kinesis Video Streaming](images/20210727_233303.png)
+
+{% endtab %}
+{% endtabs %}
 
 ## Upsampling
 

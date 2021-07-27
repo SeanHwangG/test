@@ -155,6 +155,16 @@ print(a / b)
 * [Remainder](https://www.youtube.com/watch?v=P1qyjdh_sIw)
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* mod on negative number will still get a negative number
+
+{% endtab %}
+{% tab title='java' %}
+
+* mod on negative number will still get a negative number
+
+{% endtab %}
 {% tab title='python' %}
 
 * %: modulo (remainder)

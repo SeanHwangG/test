@@ -2,9 +2,6 @@
 fix_include:
 	python3 -m include_file -u seanhwangg -p ~/github/blog -toc table_of_contents.md -y SUMMARY.md --relocate --stem
 
-sync:
-	$(foreach PUBLIC, $(PUBLICS), $(shell echo $(PUBLIC)))
-
 remove_prob:
 	rm **/.*.prob
 

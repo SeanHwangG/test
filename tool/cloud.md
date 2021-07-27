@@ -575,12 +575,16 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 {% endtab %}
 {% endtabs %}
 
-## Streaming
+## Application Streaming
+
+* Form of on-demand software distribution
+* Essential portions of an application's code need to be installed on the computer
+* While end user performs actions in application, necessary code and files are delivered over network as they needed
 
 {% tabs %}
 {% tab title='amazon' %}
 
-* fully managed non-persistent application and desktop streaming service
+* App stream
 
 ![app stream](images/20210412_214059.png)
 
@@ -612,6 +616,11 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 
 * File is deleted for new session
   * \\amznfsx7umcv4bw
+
+{% endtab %}
+{% tab title='google' %}
+
+* Google Play Instant Apps: in 2017, aka Google Instant Apps, allows to use an app or game without installing it
 
 {% endtab %}
 {% endtabs %}

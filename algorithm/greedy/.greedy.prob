@@ -61,8 +61,8 @@ Output: 1
 ```py
 S = input()
 count = 0
-for i in range(len(S)-1):
-  if S[i] != S[i+1]:
+for i in range(len(S) - 1):
+  if S[i] != S[i + 1]:
     count += 1
 print((count + 1) // 2)
 ```
@@ -96,9 +96,9 @@ Output: 18
 {% tab title='BJ_13305.py' %}
 
 ```py
-n=int(input())
-a=[int(i) for i in input().split()]
-b=[int(i) for i in input().split()]
+n = int(input())
+a = [int(i) for i in input().split()]
+b = [int(i) for i in input().split()]
 c, r = 0, 0
 for i in range(n-1):
   if b[i] < b[c]:
@@ -112,44 +112,6 @@ print(r)
 
 * [Level 8 : 수들의 합 2](https://www.acmicpc.net/problem/2003)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_2003.md/)
-
-{% tabs %}
-{% tab title='BJ_2003.md' %}
-
-> Question
-
-* Find number of ways where A[i] + A[i+1] + … + A[j-1] + A[j] == M
-
-```txt
-Input:
-10 5
-1 2 3 4 2 5 3 1 1 2
-
-Output: 3
-```
-
-{% endtab %}
-{% tab title='BJ_2003.py' %}
-
-```py
-N, M = map(int, input().split())
-nums = list(map(int, input().split()))
-accums = [0] * (N + 1)
-for i in range(1, N + 1):
-  accums[i] = accums[i - 1] + nums[i - 1]
-count = 0
-for l in range(N):
-  for r in range(l + 1, N + 1):
-    if accums[r] - accums[l] > M:
-      break
-    elif accums[r] - accums[l] == M:
-      count += 1
-      break
-print(count)
-```
-
-{% endtab %}
-{% endtabs %}
 
 * [Level 9 : 행렬](https://www.acmicpc.net/problem/1080)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_1080.md/)
@@ -180,17 +142,17 @@ Output: 2
 
 ```py
 N, M =map(int,input().split())
-A = [list(map(int,list(input()))) for _ in range(N)]
-B = [list(map(int,list(input()))) for _ in range(N)]
+A = [list(map(int, list(input()))) for _ in range(N)]
+B = [list(map(int, list(input()))) for _ in range(N)]
 def flip(G, x,y):
-  for i in range(x,x+3):
-    for j in range(y,y+3):
+  for i in range(x, x + 3):
+    for j in range(y, y + 3):
       G[i][j] = 1 - G[i][j]
 cnt = 0
-for i in range(0,N-2):
-  for j in range(0,M-2):
-    if A[i][j] !=B[i][j]:
-      flip(A, i,j)
+for i in range(0, N - 2):
+  for j in range(0, M - 2):
+    if A[i][j] != B[i][j]:
+      flip(A, i, j)
       cnt+=1
 for i in range(N):
   for j in range(M):
@@ -303,8 +265,7 @@ def change(A, B):
 
   return press if A == B else float('inf')
 n = int(input())
-A = list(map(int,input()))
-B = list(map(int,input()))
+A, B = list(map(int,input())), list(map(int,input()))
 f_A = A[:]
 f_A[0] ^= 1
 f_A[1] ^= 1
@@ -368,6 +329,44 @@ for _ in range(int(input())):
 {% endtabs %}
 
 > leetcode
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_517.md/)
+
+{% tabs %}
+{% tab title='LC_517.md' %}
+
+> Question
+
+* n super washing machines on a line. Initially, each washing machine has some dresses or is empty
+* For each move, choose any m (1 <= m <= n) washing machines, and pass a dress of each washing machine to its adjacent
+* Given an integer array machines representing # dresses in each washing machine from left to right on line
+* return minimum number of moves to make all washing machines have same number of dresses, -1 if impossible
+
+```txt
+Input: machines = [1,0,5]
+Output: 3
+
+Input: machines = [0,3,0]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_517.py' %}
+
+```py
+def findMinMoves(self, machines):
+  total, n = sum(machines), len(machines)
+  if total % n: return -1
+  target, res, toRight = total / n, 0, 0
+  for m in machines:
+    toRight = m + toRight - target
+    res = max(res, abs(toRight), m - target)
+  return res
+```
+
+{% endtab %}
+{% endtabs %}
 
 * [Level 1 : Maximum Ascending Subarray Sum](https://leetcode.com/problems/maximum-ascending-subarray-sum)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_1800.md/)
@@ -804,8 +803,7 @@ Output: [0,3]
 {% tab title='LC_927.py' %}
 
 ```py
-class Solution:
-  def threeEqualParts(self, A: List[int]) -> List[int]:
+def threeEqualParts(self, A: List[int]) -> List[int]:
   num_ones = sum(A)
   if num_ones == 0:
     return [0, 2]

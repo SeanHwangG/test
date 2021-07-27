@@ -50,15 +50,15 @@ print(ans)
 
 > Question
 
-* Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+* Given two strings s and p, return array of all the start indices of p's anagrams in s in any order
 
 ```txt
-Input:
-Output:
+Input: s = "cbaebabacd", p = "abc"
+Output: [0,6]
 ```
 
 {% endtab %}
-{% tab title='LC_438.py' %}
+{% tab title='LC_438.cpp' %}
 
 ```cpp
 vector<int> findAnagrams(string s, string p) {

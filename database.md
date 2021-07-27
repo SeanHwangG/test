@@ -284,8 +284,9 @@ GROUP BY
 
 ### UUID
 
-* no network connection between multiple databases
-* avoids attackers guessing url's to pages they shouldn't have access to
+* [+] When no network connection between multiple databases
+* [+] Avoids attackers guessing url's to pages they shouldn't have access to
+* [-] Hard for debugging, UI
 
 {% tabs %}
 {% tab title='javascript' %}
@@ -495,32 +496,33 @@ $$ \delta $$
 ## Relation
 
 {% tabs %}
-{% tab title='hasone.js' %}
+{% tab title='javascript' %}
 
-* A HasOne B association
-  * 1-1 relationship exists between A and B
-  * foreign key being defined target B
-* A HasMany B association
-  * 1-n relationship exists between A and B
-  * foreign key being defined in the target model (B)
-* A BelongsTo B association
-  * 1-1 relationship exists between A and B
-  * foreign keys being defined in the source model (A)
-  * should be added when we need an owner
-  * Book.belongsTo(models.User)
-* A BelongsToMany B association: n-n relationship exists between A and B, using table C as junction table
-  * Table C has the foreign keys (automatically create the two attributes userId and profileId)
-  * Sequelize will automatically create this model C (if not exists) and define appropriate foreign keys on it
-  * getBars()
-  * countBars()
-  * hasBar()
-  * hasBars()
-  * setBars()
-  * addBar()
-  * addBars()
-  * removeBar()
-  * removeBars()
-  * createBar()
+* sequelize
+  * A HasOne B association
+    * 1-1 relationship exists between A and B
+    * foreign key being defined target B
+  * A HasMany B association
+    * 1-n relationship exists between A and B
+    * foreign key being defined in the target model (B)
+  * A BelongsTo B association
+    * 1-1 relationship exists between A and B
+    * foreign keys being defined in the source model (A)
+    * should be added when we need an owner
+    * Book.belongsTo(models.User)
+  * A BelongsToMany B association: n-n relationship exists between A and B, using table C as junction table
+    * Table C has the foreign keys (automatically create the two attributes userId and profileId)
+    * Sequelize will automatically create this model C (if not exists) and define appropriate foreign keys on it
+    * getBars()
+    * countBars()
+    * hasBar()
+    * hasBars()
+    * setBars()
+    * addBar()
+    * addBars()
+    * removeBar()
+    * removeBars()
+    * createBar()
 
 ```js
 // 1. has One Many
@@ -575,20 +577,207 @@ Profile.belongsToMany(User, { through: 'User_Profiles', foreignKey: "ProfileID"}
 
 ## Relational algebra
 
-```txt
-# Find directors of current movies
+> Example
+
+* Find directors of current movies
+
 {t: title | $$ \exists $$ s $$ \in $$ schedule [s(title) = t(title)]}
 
-# Find the titles and the directors of all currently playing movies
+* Find the titles and the directors of all currently playing movies
+
 {t: title, director | ∃s ∈schedule ∃m ∈ movie [s(title) = m(title) ∧ t(title) = m(title) ∧ t(director) = m(director)]}
 
-# Find actors playing in every movie by Berto
-{ a : actor |  y  movie [a(actor) = y(actor) m movie [m(dir) = ”Berto” t movie(m(title) = t(title)  t(actor) = y(actor))]]}
-```
+* Find actors playing in every movie by Berto
+
+{ a : actor| y movie [a(actor) = y(actor) m movie [m(dir) = ”Berto” t movie(m(title) = t(title)  t(actor) = y(actor))]]}
 
 ## ORM
 
 {% tabs %}
+{% tab title='javascript' %}
+
+* Request from sequelize
+* SQL Driver -> SQL Query -> DB
+* Answer
+* SQL Driver -> Sequelize -> Javascript Object
+
+* Options
+  * RESTRICT
+  * CASCADE: defaults for ON UPDATE
+  * NO ACTION
+  * SET DEFAULT
+  * SET NULL: default for One-To-One
+
+* The defaults for the associations is SET NULL for ON DELETE and CASCADE for
+
+* Sync Options
+  * User.sync(): creates the table if it doesn't exist (and does nothing if it already exists)
+  * User.sync({ force: true }): creates the table, dropping it first if it already existed
+  * User.sync({ alter: true }): checks columns, data type, then performs necessary changes
+
+> Terms
+
+* dialect: 'mysql'|'sqlite'|'postgres'|'mssql',
+
+* Raw query
+  * query()
+    * logging:: logging your queries will get called for every SQL query that gets sent to the server
+    * plain:: If plain is true, then sequelize will only return first record of the result set. otherwise, return all records
+
+* literal()
+* Constraints
+  * allowNull
+    * an attempt is made to set null to a field that does not allow null
+    * ValidationError will be thrown without any SQL query being performed
+    * after sequelize.sync, column with "allowNull: false" will be defined with a NOT NULL SQL constraint
+    * So, direct SQL queries that attempt to set the value to null will also fail
+* find, findOrCreate
+* findByPk()
+* findOrCreate()
+* findAndCountAll()
+* findAll()
+* findAndCountAll()
+  * count: an integer - the total number records matching the query
+  * rows: an array of objects - the obtained records
+
+```js
+sequelize.sync({ logging: console.log }) // view the table creation queries
+User.find(1, { logging: console.log })   // View query
+
+// SELECT m.* FROM Movies m WHERE NOT EXISTS(
+//   SELECT NULL FROM Users_Movies sc WHERE sc.Id_Movies = m.id AND sc.Id_Users = 1)
+Movie.findAll({
+  where: sequelize.literal("users.id IS NULL"),
+  include: { model: Users, through: { attributes: [] } } })
+
+/* ... */ {
+  username: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    unique: true
+  },
+} /* ... */
+
+// SELECT foo, bar AS baz, qux FROM ...
+Model.findAll({
+  attributes: ['foo', ['bar', 'baz'], 'qux']
+});
+
+// SELECT foo, COUNT(hats) AS n_hats, bar FROM ...
+Model.findAll({
+  // equivalent, useful when many values
+  // { include: [ [sequelize.fn('COUNT', sequelize.col('hats')), 'n_hats'] ]
+  attributes: [ 'foo', [sequelize.fn('COUNT', sequelize.col('hats')), 'n_hats'], 'bar' ]
+});
+
+// SELECT id, foo, bar, qux FROM ... (Assuming all columns are 'id', 'foo', 'bar', 'baz' and 'qux')
+Model.findAll({
+  attributes: { exclude: ['baz'] }
+});
+
+CustomerAccount.findAll({
+  attributes: [
+    'uuid',
+    'account_name',
+    'account_number',
+    'emergency_pay',
+    [Sequelize.fn('SUM', Sequelize.col('customer_accounts_services.invoice_amount')), 'totalInvoiceAmount'],
+    [Sequelize.fn('SUM', Sequelize.col('customer_accounts_services.core_amount')), 'totalCoreAmount']
+  ],
+  include: [
+    {
+      model: CustomerAccountService,
+      attributes: []
+    }
+  ],
+  group: ['CustomerAccount.uuid']
+}).then(...);
+
+// 1. find and count all
+const { count, rows } = await Project.findAndCountAll({
+  where: {
+    title: { [Op.like]: 'foo%' }
+  },
+  offset: 10,
+  limit: 2
+});
+console.log(count);
+console.log(rows);
+
+// 2. Find by PK
+const project = await Project.findByPk(123);
+if (project === null) {
+  console.log('Not found!');
+} else {
+  console.log(project instanceof Project); // true
+}
+
+// 3. findOrCreate
+const [user, created] = await User.findOrCreate({
+  where: { username: 'sdepold' },
+  defaults: {
+    job: 'Technical Lead JavaScript'
+  }
+});
+```
+
+* Grouping
+
+```js
+Subtask.findAll({
+  order: [
+    ['title', 'DESC'],      // escape title and validate DESC against a list of valid direction parameters
+    sequelize.fn('max', sequelize.col('age')),            // order by max(age)
+    [sequelize.fn('max', sequelize.col('age')), 'DESC'],  // Will order by max(age) DESC
+
+    // Will order by  otherfunc(`col1`, 12, 'lalala') DESC
+    [sequelize.fn('otherfunc', sequelize.col('col1'), 12, 'lalala'), 'DESC'],
+
+    // order an associated model's createdAt using the model name as the association's name.
+    [Task, 'createdAt', 'DESC'],
+    ['Task', 'createdAt', 'DESC'], // order by an associated model's createdAt using the name of the association.
+
+    // order through an associated model's createdAt using the model names as the associations' names
+    [Task, Project, 'createdAt', 'DESC'],
+    ['Task', 'Project', 'createdAt', 'DESC'], // order by a nested associated model's createdAt using the names of the associations.
+
+    [{model: Task, as: 'Task'}, 'createdAt', 'DESC'],   // order by an associated model's createdAt using a association object.
+
+    // order by an associated model's createdAt using an association object. (preferred)
+    [Subtask.associations.Task, 'createdAt', 'DESC'],
+
+    // order by a nested associated model's createdAt association objects.
+    [{model: Task, as: 'Task'}, {model: Project, as: 'Project'}, 'createdAt', 'DESC']
+
+    // order by a nested associated model's createdAt using association objects. (preferred)
+    [Subtask.associations.Task, Task.associations.Project, 'createdAt', 'DESC'],
+  ],
+
+  order: sequelize.literal('max(age) DESC'),        // order by max age descending
+
+  // order by max age ascending assuming ascending is default order when direction is omitted
+  order: sequelize.fn('max', sequelize.col('age')),
+  order: sequelize.col('age'), // order by age ascending assuming ascending is default order when direction is omitted
+  order: sequelize.random()    // order randomly based on the dialect (instead of fn('RAND') or fn('RANDOM'))
+});
+
+Foo.findOne({
+  order: [
+    ['name'],               // will return `name`
+    ['username', 'DESC'],   // will return `username` DESC
+    sequelize.fn('max', sequelize.col('age')),            // return max(`age`)
+    [sequelize.fn('max', sequelize.col('age')), 'DESC'],  // return max(`age`) DESC
+
+    // will return otherfunction(`col1`, 12, 'lalala') DESC
+    [sequelize.fn('otherfunction', sequelize.col('col1'), 12, 'lalala'), 'DESC'],
+
+    // will return otherfunction(awesomefunction(`col`)) DESC, This nesting is potentially infinite!
+    [sequelize.fn('otherfunction', sequelize.fn('awesomefunction', sequelize.col('col'))), 'DESC']
+  ]
+});
+```
+
+{% endtab %}
 {% tab title='python' %}
 
 * sqlalchemy
@@ -744,6 +933,8 @@ SELECT * FROM Wheel
 
 ## Django
 
+* TODO(sean): Remove this header
+
 > Terms
 
 * app
@@ -762,173 +953,20 @@ pip install cookiecutter
 cookiecutter https://github.com/pydanny/cookiecutter-django
 ```
 
-> Reference
+* reset_queries(): reset saved queries
+* connection
+  * queries: list of queries
 
-* Two Scoops of Django
+* transaction
+  * non_atomic_requests(using=None)
 
-> Error
-
-* AppRegistryNotReady: Apps aren't loaded yet
-  * adding an app in INSTALLED_APPS in the settings.py file but you do not have that app installed in your computer
-
-* TypeError: can't compare offset-naive and offset-aware datetimes
-  * datetime.datetime.now() -> timezone.now() (from django.utils import timezone)
-
-* django.template.exceptions.TemplateDoesNotExist: home.html
-  * Update INSTALLED_APPS from settings.py
-
-* Unable to configure handler 'console'
-  * formatters -> formatter in LOGGING config
-
-* Manager isn't available; User has been swapped for 'pet.Person'
-  * from django.contrib.auth.models import User -> from user.models import User
-
-* makemigrations does nothing
-  * migrate each app at a time
-
-* django.db.migrations.exceptions.InconsistentMigrationHistory: Migration hitcount.0001_initial is applied
-before its dependency base.0001_initial on database 'default'.
-  * rm */migrations/* && rm db.sqlite3 and migrate again
-
-* HINT: The 'USERNAME_FIELD' is currently set to 'email', you should remove 'email' from the 'REQUIRED_FIELDS
-  * REQUIRED_FIELDS cannot contain the USERNAME_FIELD
-
-* django.core.exceptions.ImproperlyConfigured: Cannot import `app`. Check that `project.module.ModuleConfig.name` is correct
-  * name = `module` -> name = `project.module` (in apps.py)
-
-## Docker
-
-```yml
-# local.yml
-version: '3'
-
-volumes:
-  local_postgres_data: {}
-  local_postgres_data_backups: {}
-
-services:
-  django:
-    build:
-      context: .
-      dockerfile: ./compose/local/django/Dockerfile
-    image: classroom_local_django
-    container_name: django
-    depends_on:
-      - postgres
-    volumes:
-      - .:/app:z
-    env_file:
-      - ./.envs/.local/.django
-      - ./.envs/.local/.postgres
-    ports:
-      - "8000:8000"
-    command: /start
-
-  postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: classroom_production_postgres
-    container_name: postgres
-    volumes:
-      - local_postgres_data:/var/lib/postgresql/data:Z
-      - local_postgres_data_backups:/backups:z
-    env_file:
-      - ./.envs/.local/.postgres
-
-  docs:
-    image: classroom_local_docs
-    container_name: docs
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - ./.envs/.local/.django
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./classroom:/app/classroom:z
-    ports:
-      - "7000:7000"
-    command: /start-docs
-
-# deploy.yml
-version: '3'
-
-volumes:
-  production_postgres_data: {}
-  production_postgres_data_backups: {}
-  production_traefik: {}
-
-services:
-  django:
-    build:
-      context: .
-      dockerfile: ./compose/production/django/Dockerfile
-    image: classroom_production_django
-    depends_on:
-      - postgres
-      - redis
-    env_file:
-      - ./.envs/.production/.django
-      - ./.envs/.production/.postgres
-    command: /start
-
-  postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: classroom_production_postgres
-    volumes:
-      - production_postgres_data:/var/lib/postgresql/data:Z
-      - production_postgres_data_backups:/backups:z
-    env_file:
-      - ./.envs/.production/.postgres
-
-  traefik:
-    build:
-      context: .
-      dockerfile: ./compose/production/traefik/Dockerfile
-    image: classroom_production_traefik
-    depends_on:
-      - django
-    volumes:
-      - production_traefik:/etc/traefik/acme:z
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-
-  redis:
-    image: redis:5.0
-
-  awscli:
-    build:
-      context: .
-      dockerfile: ./compose/production/aws/Dockerfile
-    env_file:
-      - ./.envs/.production/.django
-    volumes:
-      - production_postgres_data_backups:/backups:z
-```
-
-* include()
-  * include other URL patterns
-  * admin.site.urls is the only exception to this
-
-* path()
-  * route: string that contains a URL pattern
-  * view, and two optional: kwargs, and name
-
-## Apps
-
-* Django contains a registry of installed applications that stores configuration and provides introspection
+* django.apps: Django contains a registry of installed applications that stores configuration and provides introspection
   * registry is called apps and it’s available in django.apps
-* maintains a list of available models.
-
-* apps
-  * get_app_config(`model`)
-  * get_model(`app_label`, `model_name`, `require_ready`=True): Returns Model with `app_label` and `model_name`
-    * Raises LookupError if no such application or model exists
+  * maintains a list of available models.
+  * apps
+    * get_app_config(`model`)
+    * get_model(`app_label`, `model_name`, `require_ready`=True): Returns Model with `app_label` and `model_name`
+      * Raises LookupError if no such application or model exists
 
 ```py
 from django.apps import apps
@@ -939,11 +977,8 @@ print(apps.get_app_config('admin').verbose_name)
 model = apps.get_model('app_name', 'ModelName')
 ```
 
-### Messages
-
-* Display message on top of django websites
-
-* success()
+* Messages: Display message on top of django websites
+  * success()
 
 ```html
 {% if messages %}
@@ -954,15 +989,6 @@ model = apps.get_model('app_name', 'ModelName')
   {% endfor %}
 {% endif %}
 ```
-
-## Db
-
-* reset_queries(): reset saved queries
-* connection
-  * queries: list of queries
-
-* transaction
-  * non_atomic_requests(using=None)
 
 * db.field
   * unique=**True**
@@ -1046,57 +1072,51 @@ def viewfunc(request):
     do_stuff()
 ```
 
-### Db.models
+* Db.models
+  * TextChoices
+  * Model: superclass of every models
+    * model methods should act on a particular model instance vs Manager methods are intended to do “table-wide” things
+    * save(): override to customize saving behavior
+      * auto-incremented value will be calculated and saved as an attribute on your object the first time
+      1. Emit a pre-save signal. The pre_save signal is sent, allowing any functions listening for that signal to do something
+      1. Preprocess the data. Each field’s pre_save() method is called to perform any required automated data modification
+          * [ex] the date/time fields override pre_save() to implement auto_now_add and auto_now
+      1. Prepare the data for the database
+          * Each field’s get_db_prep_save() is asked to provide its current value in a data type that can be written to database
+      1. Insert the data into the database : prepared data is composed into an SQL statement for insertion into the database
+      1. Emit a post-save signal. The post_save signal is sent, allowing any functions listening for that signal to do something
+    * Meta: subclass of Model
+      * abstract=`True`: make class as abtract
+      * db_table = `prefix`: set prefix for table name (ex: `prefix`_tablename)
+      * unique_together: composite key (deprecated in favor of UniqueConstraints)
+  * models.base.ModelBase
+    * all(): get all database
+      * Avg / Min / Max / Sum()
+    * create() -> object: creating an objectsand savie in one step
+    * exclude()
+    * filter(): filter by database
+      * `field`__range=(`min`, `max`): filter by range
+      * `model_name`__`column`: filter by forien key
+      * `first_name`__startwith: start with
+      * `user_id`__in=`Subquery()`: subqury
+    * full_clean(): Model.clean_fields(), Model.clean(), Model.validate_unique()
+    * clean_fields(): Raise ValidationError
+      * exclude=`field`: set `field` to exclude ([ex] **None**)
+    * validate_unique(): Raise ValidationError if not unique
+    * get(): get one from database
+    * get_or_create() -> Tuple(object, created): created object, boolean specifying whether a new object was created
+      * defaults: dictionary to update field (other is to find)
+    * order_by(`*args`): sort by `args`
+      * \- to reverse the order
+      * "?": for random
+      * first(): get first after order_by
+    * update_or_create() -> Tuple(object, created): created object, boolean specifying whether a new object was created
 
-* TextChoices
+  * functions
+    * Lower(): (ex: order_by(Lower('name')), annotate(l_name=Lower('name')).order_by('l_name').values_list('name', flat=True))
+      * `fieldname`
 
-* Model: superclass of every models
-  * Meta: subclass of Model
-    * abstract=`True`: make class as abtract
-    * db_table = `prefix`: set prefix for table name (ex: `prefix`_tablename)
-    * unique_together: composite key (deprecated in favor of UniqueConstraints)
-* models.base.ModelBase
-  * all(): get all database
-    * Avg / Min / Max / Sum()
-  * create() -> object: creating an objectsand savie in one step
-  * exclude()
-  * filter(): filter by database
-    * `field`__range=(`min`, `max`): filter by range
-    * `model_name`__`column`: filter by forien key
-    * `first_name`__startwith: start with
-    * `user_id`__in=`Subquery()`: subqury
-  * full_clean(): Model.clean_fields(), Model.clean(), Model.validate_unique()
-  * clean_fields(): Raise ValidationError
-    * exclude=`field`: set `field` to exclude ([ex] **None**)
-  * validate_unique(): Raise ValidationError if not unique
-  * get(): get one from database
-  * get_or_create() -> Tuple(object, created): created object, boolean specifying whether a new object was created
-    * defaults: dictionary to update field (other is to find)
-  * order_by(`*args`): sort by `args`
-    * \- to reverse the order
-    * "?": for random
-    * first(): get first after order_by
-  * update_or_create() -> Tuple(object, created): created object, boolean specifying whether a new object was created
-
-* functions
-  * Lower(): (ex: order_by(Lower('name')), annotate(l_name=Lower('name')).order_by('l_name').values_list('name', flat=True))
-    * `fieldname`
-
-* F(): represents the value of a model field or annotated column
-
-> Model methods
-
-* model methods should act on a particular model instance vs Manager methods are intended to do “table-wide” things
-
-* save(): override to customize saving behavior
-  * auto-incremented value will be calculated and saved as an attribute on your object the first time
-  1. Emit a pre-save signal. The pre_save signal is sent, allowing any functions listening for that signal to do something
-  1. Preprocess the data. Each field’s pre_save() method is called to perform any automated data modification that’s needed
-      * [ex] the date/time fields override pre_save() to implement auto_now_add and auto_now
-  1. Prepare the data for the database
-      * Each field’s get_db_prep_save() is asked to provide its current value in a data type that can be written to database
-  1. Insert the data into the database : prepared data is composed into an SQL statement for insertion into the database
-  1. Emit a post-save signal. The post_save signal is sent, allowing any functions listening for that signal to do something
+  * F(): represents the value of a model field or annotated column
 
 * \_\_str__(): string representation of any object in admin page
 * get_absolute_url(): Django how to calculate the URL for an object
@@ -1200,17 +1220,9 @@ class Model(model.Model):
       self.image_small=SimpleUploadedFile(name,small_pic)
     super(Model, self).save(*args, **kwargs)
 
-# 5. Singleton Object
-class Origin(models.Model):
-  name = models.CharField(max_length=100)
-  def save(self, *args, **kwargs):
-    if self.__class__.objects.count():
-      self.pk = self.__class__.objects.first().pk
-    super().save(*args, **kwargs)
-
 from django.db.models import DEFERRED
 
-# 6. Default implementation of from_db() (subject to change and could be replaced with super()).
+# 5. Default implementation of from_db() (subject to change and could be replaced with super()).
 @classmethod
 def from_db(cls, db, field_names, values):
   if len(values) != len(cls._meta.concrete_fields):
@@ -1225,10 +1237,9 @@ def from_db(cls, db, field_names, values):
   return instance
 ```
 
-### Db.models.function
-
-* Use functions provided by the underlying database as annotations, aggregations, or filters
-* Functions are also expressions, so they can be used and combined with other expressions like aggregate functions
+* Db.models.function
+  * Use functions provided by the underlying database as annotations, aggregations, or filters
+  * Functions are also expressions, so they can be used and combined with other expressions like aggregate functions
 
 ```py
 from django.db.models import Value
@@ -1245,46 +1256,21 @@ class Person(models.Model):
     return self.first_name + ' ' + self.last_name
 ```
 
-* db.models.manager: Interface through which database query operations are provided to Django models
-  * If no managers are declared on a model / parents, automatically creates the objects manager
-  * Can have multiple managers on the same mode
-  * get_queryset(): return a QuerySet with the properties you require
-
-```py
-from django.db import models
-from django.db.models.functions import Coalesce
-
-# 1. Query annotation
-class PollManager(models.Manager):
-  def with_counts(self):
-    return self.annotate(num_responses=Coalesce(models.Count("response"), 0))
-
-class OpinionPoll(models.Model):
-  question = models.CharField(max_length=200)
-  objects = PollManager()
-
-class Response(models.Model):
-  poll = models.ForeignKey(OpinionPoll, on_delete=models.CASCADE)
-```
-
-### Db.models.query
-
-* avoid writing common queries all over our codebase and instead referring them using an easier to remember abstraction
-
-* QuerySet : (ex: user.objects.all() returns queryset)
-  * query: SQL equivalent
-  * annotate(): write to db
-  * bulk_create(`objs`): inserts the provided list of objects into the database in an efficient manner
-    * ignore_conflicts=True: database ignore failure to insert any rows that fail constraints ([ex] duplicate unique values)
-  * bulk_update(`objs`, `fields`): save the changes, so more efficient than iterating through list of models and save()
-    * model’s save() method will not be called
-  * count(): count number of element
-  * delete(): truncate all element
-  * exists(): Returns if the QuerySet contains any results
-  * union(): get union of two querysets
-  * values('title'): fetch only particular field
-  * values_list('title'): fetch only particular field as list
-    * flat=True: return without tuple
+* db.models.query: avoid writing common queries, referring them using an easier to remember abstraction
+  * QuerySet : (ex: user.objects.all() returns queryset)
+    * query: SQL equivalent
+    * annotate(): write to db
+    * bulk_create(`objs`): inserts the provided list of objects into the database in an efficient manner
+      * ignore_conflicts=True: database ignore failure to insert any rows that fail constraints ([ex] duplicate unique values)
+    * bulk_update(`objs`, `fields`): save the changes, so more efficient than iterating through list of models and save()
+      * model’s save() method will not be called
+    * count(): count number of element
+    * delete(): truncate all element
+    * exists(): Returns if the QuerySet contains any results
+    * union(): get union of two querysets
+    * values('title'): fetch only particular field
+    * values_list('title'): fetch only particular field as list
+      * flat=True: return without tuple
 
 * FieldLookup : i- is case insensitive
   * exact / iexact
@@ -1336,9 +1322,8 @@ for problem in Problem.objects.filter():
     problem.delete()
 ```
 
-## Dispatch
-
-* receiver
+* django.dispatch
+  * receiver
 
 ```py
 from django.db.models.signals import pre_save
@@ -1357,7 +1342,7 @@ def update_villain_count(sender, **kwargs):
     Category.objects.filter(pk=villain.category_id).update(villain_count=F('villain_count')+1)
 ```
 
-## Templates
+* django.templates
 
 {% tabs %}
 {% tab title='python' %}
@@ -1389,32 +1374,29 @@ def markdown(value):
 {% endtab %}
 {% endtabs %}
 
-## View
-
-![views](images/20210503_225430.png)
-
-* Placed at PROJECT/urls.py
-* Should contain as little logic as possible, mostly just a pointer to each of your apps specific URLConf’s
-* A view function, or view for short, is simply a Python function that takes a Web request and returns a Web response
-* Each view function is responsible for returning an HttpResponse object
-
-* generic
-  * View
-  * CreateView
-    * form_valid(self, form): custom logic for valid form
-    * form_invalid(self, form): custom logic for invalid form
-  * DeleteView
-  * RedirectedView
-  * UpdateView
-  * ListView
-  * TemplateView
-  * base.ContextMixin
-    * allow_empty: specifying whether to display the page if no objects are available
-    * model: model that this view will display data for
-    * queryset: A QuerySet that represents objects, If provided, the value of queryset supersedes value provided for model
-    * paginate_by: An integer specifying how many objects should be displayed per page
-    * get_queryset(): Get the list of items for this view
-    * get_ordering(): a string (or iterable of strings) that defines the ordering that will be applied to the queryset
+* django.view
+  * Placed at PROJECT/urls.py
+  * Should contain as little logic as possible, mostly just a pointer to each of your apps specific URLConf’s
+  * A view function, or view for short, is simply a Python function that takes a Web request and returns a Web response
+  * Each view function is responsible for returning an HttpResponse object
+  ![views](images/20210503_225430.png)
+  * generic
+    * View
+    * CreateView
+      * form_valid(self, form): custom logic for valid form
+      * form_invalid(self, form): custom logic for invalid form
+    * DeleteView
+    * RedirectedView
+    * UpdateView
+    * ListView
+    * TemplateView
+    * base.ContextMixin
+      * allow_empty: specifying whether to display the page if no objects are available
+      * model: model that this view will display data for
+      * queryset: A QuerySet that represents objects, If provided, the value of queryset supersedes value provided for model
+      * paginate_by: An integer specifying how many objects should be displayed per page
+      * get_queryset(): Get the list of items for this view
+      * get_ordering(): a string (or iterable of strings) that defines the ordering that will be applied to the queryset
 
 ```py
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -1456,26 +1438,23 @@ class FruityFlavorView(FreshFruitMixin, TemplateView):
   template_name = "fruity_flavor.html"
 ```
 
-> urls
+* urls
+  * path("path", views.home)
+    * name: [optional] "index"
+  * resolve('/')
 
-* path("path", views.home)
-  * name: [optional] "index"
-* resolve('/')
-
-## Utils
-
-* timezone
-  * now(): return current time
-
-* html
-  * format_html(): print html tag as is
-  * list_per_page = `int`: set number of rows to display
-  * list_display: column list
-  * list_editable: editable dropdown
-    * must be present in list_display
-  * list_filter: filter on right
-  * ordering: default ordering
-  * search_fields: search field on top
+* django.utils
+  * timezone
+    * now(): return current time
+  * html
+    * format_html(): print html tag as is
+    * list_per_page = `int`: set number of rows to display
+    * list_display: column list
+    * list_editable: editable dropdown
+      * must be present in list_display
+    * list_filter: filter on right
+    * ordering: default ordering
+    * search_fields: search field on top
 
 ```py
 from django.utils.html import format_html
@@ -1512,9 +1491,8 @@ a1.slug # 'todays-market'
 """
 ```
 
-### Functional
-
-* cached_property: decorator for caching
+* django.functional
+  * cached_property: decorator for caching
 
 ```py
 from django.utils.functional import cached_property
@@ -1523,6 +1501,40 @@ class Person(models.Model):
   @cached_property
   def friends(self):
 ```
+
+> Error
+
+* AppRegistryNotReady: Apps aren't loaded yet
+  * adding an app in INSTALLED_APPS in the settings.py file but you do not have that app installed in your computer
+
+* TypeError: can't compare offset-naive and offset-aware datetimes
+  * datetime.datetime.now() -> timezone.now() (from django.utils import timezone)
+
+* django.template.exceptions.TemplateDoesNotExist: home.html
+  * Update INSTALLED_APPS from settings.py
+
+* Unable to configure handler 'console'
+  * formatters -> formatter in LOGGING config
+
+* Manager isn't available; User has been swapped for 'pet.Person'
+  * from django.contrib.auth.models import User -> from user.models import User
+
+* makemigrations does nothing
+  * migrate each app at a time
+
+* django.db.migrations.exceptions.InconsistentMigrationHistory: Migration hitcount.0001_initial is applied
+before its dependency base.0001_initial on database 'default'.
+  * rm */migrations/* && rm db.sqlite3 and migrate again
+
+* HINT: The 'USERNAME_FIELD' is currently set to 'email', you should remove 'email' from the 'REQUIRED_FIELDS
+  * REQUIRED_FIELDS cannot contain the USERNAME_FIELD
+
+* django.core.exceptions.ImproperlyConfigured: Cannot import `app`. Check that `project.module.ModuleConfig.name` is correct
+  * name = `module` -> name = `project.module` (in apps.py)
+
+> Reference
+
+* Two Scoops of Django
 
 ## Admin page
 
@@ -1568,7 +1580,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from user.serializers import UserSerializer
 from user.models import User
-
 
 # 1. Simple admin
 @admin.register(IceCreamBar)
@@ -1721,26 +1732,6 @@ class ListTask(generics.ListCreateAPIView):
 urlpatterns = [
   url(r"^project/(?P<project_id>[^/]+)/task/(?P<id>[^/]+)$",
       TaskUpdateView.as_view(), name="project-task-update",),
-]
-```
-
-## Renderers
-
-* JSONRenderer
-  * render(`serializer`.data)
-* LimitOffsetPagination
-
-```py
-# urls.py
-from django.urls import path, include
-from .views import ArticleViewSet
-from rest_framework.routers import DefaultRouter
-
-router = DefaultRouter()
-router.register('article', ArticleViewSet, basename='article')
-
-urlpatterns = [
-  path('viewset/', include(router.urls))
 ]
 ```
 
@@ -2613,3 +2604,23 @@ def reducer(key, values):
 
 {% endtab %}
 {% endtabs %}
+
+## Streaming Database
+
+{% tabs %}
+{% tab title='amazon' %}
+
+* fully managed non-persistent application and desktop streaming service
+* Kinesis
+  * Producer Library: Mediator between producer, stream API with retry, gather records
+  * Choices: Order vs Unordered
+  * Put: at most 500 entries (1mb for one, max 5 mb)
+
+![Kinesis](images/20210727_224901.png)
+
+{% endtab %}
+{% endtabs %}
+
+> Reference
+
+<https://www.youtube.com/watch?v=mrLsGq0HFVk>

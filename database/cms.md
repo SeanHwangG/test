@@ -1,52 +1,4 @@
-# Digression
-
-This repository is for transferring knowledge and save snippets with unified syntax
-
-Any comments, contributions are welcome.
-
-## Blog Convention
-
-1. Break if current tags are more than 1~20 ([ex] list (*) -> Angle bracket (>) -> h3 -> h2 -> file -> repo -> file)
-1. Use hyphen (-) for embed and file name (gitbook generates hypen when url encodes)
-1. Always follow linting rules with pre-commit
-1. Problem language is ordered alphabetically ([ex] c -> cpp -> java -> python -> shell)
-1. Using [include_file](https://github.com/SeanHwangG/include_file) syntax
-1. Put Reference in corresponding header so that others can also see additional contents
-
-### Block Quote
-
-* \>: only used for general tags
-  * Error
-  * Question
-  * Solution
-  * Example
-  * Terms
-  * Reference: Enclosed with angular bracket
-
-### Tags
-
-* Only following will be used in title \{\% tab title='' \%\}
-
-* These are groups into the same \{\% tabs %}
-  * Language: C, cmake, C++, html (jinja), java, javascript, python, shell, sql, sv, vim
-  * Database: postgres, mongodb, sqlite, bigquery
-  * Site: baekjoon, codechef, codeforce, hackerrank, kattis, leetcode
-  * Problem: BJ_*, CC_*, CF_*, HR_*, KT_*, LC_*
-  * Tool: git, vscode, mac, linux, window, jenkins, docker, dockercompose, github, gitlab, google, amazon
-
-## Blog
-
-{% tabs %}
-{% tab title='javascript' %}
-
-```sh
-yarn add gatsby react react-dom react-helmet gatsby-plugin-mdx @mdx-js/mdx @mdj-js/react gatsby-source-filesystem
-```
-
-{% endtab %}
-{% endtabs %}
-
-### CMS
+# CMS
 
 * Content management system
 * [+] Intuitive indexing, retrieval: search functions and allow users to search ([ex] publication dates, keywords or author)
@@ -64,6 +16,18 @@ yarn add gatsby react react-dom react-helmet gatsby-plugin-mdx @mdx-js/mdx @mdj-
 * Headless: writers produce content while providing developers with structured data
   * that can be displayed using a separate system on the frontend of a website or app
   * [ex] WordPress API, Contentful, Cockpit
+
+## Blog
+
+{% tabs %}
+{% tab title='javascript' %}
+
+```sh
+yarn add gatsby react react-dom react-helmet gatsby-plugin-mdx @mdx-js/mdx @mdj-js/react gatsby-source-filesystem
+```
+
+{% endtab %}
+{% endtabs %}
 
 ### Gitbook
 

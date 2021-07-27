@@ -364,6 +364,12 @@ return 0;
   * GEOMETRY('POINT'): Spatial column with geometry type. PostgreSQL (with PostGIS), MySQL only
   * GEOMETRY('POINT',: Spatial column with geometry type + SRID. PostgreSQL (with PostGIS), MySQL only
 
+* jquery: variable starts with $
+  * $('#id');
+  * $('.classname')
+  * $('element:hidden/visible'): Matches all elements that are hidden / visible
+  * $('#container').children(':visible');: Get visible children
+
 ```js
 // 1. Caveat
 /* Identical Types */

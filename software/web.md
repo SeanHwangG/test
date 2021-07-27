@@ -278,6 +278,21 @@ init();
 {% endtab %}
 {% endtabs %}
 
+### Page redirection
+
+{% tabs %}
+{% tab title='markdown' %}
+
+```md
+<!-- 1. .gitbook.yaml -->
+redirects:
+  help/contact: ./contact.md
+  help: ./support.md
+```
+
+{% endtab %}
+{% endtabs %}
+
 ## Structure
 
 {% tabs %}
@@ -353,50 +368,6 @@ class LoggingButton extends React.Component {
 
 {% endtab %}
 {% endtabs %}
-
-## Jquery
-
-* introduces css-like syntax and several visual and UI enhancements
-* simplifies the use of Javascript in websites
-* an abstraction of the core language
-
-> Variable
-
-* variable starts with $
-* $('#id');
-* $('.classname')
-* $('element:hidden/visible'): Matches all elements that are hidden / visible
-* $('#container').children(':visible');: Get visible children
-
-* each()
-
-> Error
-
-* Uncaught TypeError: Cannot read property 'call' of undefined
-  * each() requires a handler use on() instead
-
-> Terms
-
-* global atrribute
-  * data-*: Used to store custom data private to the page or application
-  * dir: text direction for the content in an element
-  * draggable: whether an element is draggable or not
-  * hidden: Specifies that an element is not yet, or is no longer, relevant
-  * id: Specifies a unique id for an element
-  * lang: Specifies the language of the element's content
-  * spellcheck: whether element is to have its spelling and grammar checked or not
-  * style: an inline CSS style for an element
-  * tabindex: tabbing order of an element
-  * title: extra information about an element
-  * translate: whether the content of an element should be translated or not
-  * class: one or more classnames for an element (refers to a class in a style sheet)
-  * accesskey: a shortcut key to activate/focus an element
-  * contenteditable: Specifies whether the content of an element is editable or not
-
-* &nbsp;: to add a single space
-* &ensp;: to add 2 spaces
-* &emsp;: to add 4 spaces
-* \<\!\-- -->: commnet
 
 ```html
 <!-- 1. Add script -->
@@ -812,12 +783,7 @@ pedro.emit('name');
 christina.emit('name');
 ```
 
-* Nodemon
-
-* constantly update UI
-
-### Test
-
+* Nodemon: constantly update UI
 * markdownlint-cli2
   * markdownlint-cli2 "**/*.md"
 
@@ -835,294 +801,11 @@ christina.emit('name');
 * binary: allows you to send things which you can not enter in Postman
   * image, audio or video files, text files
 
-* paypal
-
-![Paypal](images/20210207_161157.png)
-
-> Error
-
-* write EPROTO 140421695491864:error:100000f7:SSL routines:OPENSSL_internal:WRONG_VERSION_NUMBER:../../third_party/boringssl/src/ssl/tls_record.cc:242:
-  * Use http instead https because SSL is not set up
+* paypal: request, backend, create payment with id, transaction successful, capture ID
 
 * cheerio: parses markup and provides an API for traversing/manipulating the resulting data structure
   * It does not interpret the result as a web browser does
   * Specifically, it does not produce a visual rendering, apply CSS, load external resources, or execute JavaScript
-
-## Sequelize
-
-{% tabs %}
-{% tab title='sequelize' %}
-
-* Request from sequelize
-* SQL Driver -> SQL Query -> DB
-* Answer
-* SQL Driver -> Sequelize -> Javascript Object
-
-* Options
-  * RESTRICT
-  * CASCADE      # defaults for ON UPDATE
-  * NO ACTION
-  * SET DEFAULT
-  * SET NULL     # default for One-To-One
-
-* The defaults for the associations is SET NULL for ON DELETE and CASCADE for
-
-* Sync Options
-  * User.sync(): creates the table if it doesn't exist (and does nothing if it already exists)
-  * User.sync({ force: true }): creates the table, dropping it first if it already existed
-  * User.sync({ alter: true }): checks columns, data type, then performs necessary changes
-
-> Terms
-
-* dialect: 'mysql'|'sqlite'|'postgres'|'mssql',
-
-* Raw query
-  * query()
-    * logging:: logging your queries will get called for every SQL query that gets sent to the server
-    * plain:: If plain is true, then sequelize will only return first record of the result set. otherwise, return all records
-
-```js
-sequelize.sync({ logging: console.log }) // view the table creation queries
-User.find(1, { logging: console.log })   // View query
-```
-
-{% endtab %}
-{% endtabs %}
-
-* literal()
-
-{% tabs %}
-{% tab title='literal()' %}
-
-```js
-// SELECT m.* FROM Movies m WHERE NOT EXISTS(
-//   SELECT NULL FROM Users_Movies sc WHERE sc.Id_Movies = m.id AND sc.Id_Users = 1)
-Movie.findAll({
-  where: sequelize.literal("users.id IS NULL"),
-  include: { model: Users, through: { attributes: [] } } })
-```
-
-{% endtab %}
-{% endtabs %}
-
-> Constraints
-
-* allowNull
-  * an attempt is made to set null to a field that does not allow null
-  * ValidationError will be thrown without any SQL query being performed
-  * after sequelize.sync, column with "allowNull: false" will be defined with a NOT NULL SQL constraint
-  * So, direct SQL queries that attempt to set the value to null will also fail
-
-```js
-/* ... */ {
-  username: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-    unique: true
-  },
-} /* ... */
-```
-
-> sequelize functions
-
-* find, findOrCreate
-* findByPk()
-* findOrCreate()
-* findAndCountAll()
-* findAll()
-* findAndCountAll()
-  * count: an integer - the total number records matching the query
-  * rows: an array of objects - the obtained records
-
-{% tabs %}
-{% tab title='findAll.js' %}
-
-```js
-// SELECT foo, bar AS baz, qux FROM ...
-Model.findAll({
-  attributes: ['foo', ['bar', 'baz'], 'qux']
-});
-
-// SELECT foo, COUNT(hats) AS n_hats, bar FROM ...
-Model.findAll({
-  // equivalent, useful when many values
-  // { include: [ [sequelize.fn('COUNT', sequelize.col('hats')), 'n_hats'] ]
-  attributes: [ 'foo', [sequelize.fn('COUNT', sequelize.col('hats')), 'n_hats'], 'bar' ]
-});
-
-// SELECT id, foo, bar, qux FROM ... (Assuming all columns are 'id', 'foo', 'bar', 'baz' and 'qux')
-Model.findAll({
-  attributes: { exclude: ['baz'] }
-});
-
-CustomerAccount.findAll({
-  attributes: [
-    'uuid',
-    'account_name',
-    'account_number',
-    'emergency_pay',
-    [Sequelize.fn('SUM', Sequelize.col('customer_accounts_services.invoice_amount')), 'totalInvoiceAmount'],
-    [Sequelize.fn('SUM', Sequelize.col('customer_accounts_services.core_amount')), 'totalCoreAmount']
-  ],
-  include: [
-    {
-      model: CustomerAccountService,
-      attributes: []
-    }
-  ],
-  group: ['CustomerAccount.uuid']
-}).then(...);
-
-// 1. find and count all
-const { count, rows } = await Project.findAndCountAll({
-  where: {
-    title: { [Op.like]: 'foo%' }
-  },
-  offset: 10,
-  limit: 2
-});
-console.log(count);
-console.log(rows);
-
-// 2. Find by PK
-const project = await Project.findByPk(123);
-if (project === null) {
-  console.log('Not found!');
-} else {
-  console.log(project instanceof Project); // true
-}
-
-// 3. findOrCreate
-const [user, created] = await User.findOrCreate({
-  where: { username: 'sdepold' },
-  defaults: {
-    job: 'Technical Lead JavaScript'
-  }
-});
-```
-
-{% endtab %}
-{% endtabs %}
-
-* Grouping
-
-```js
-Subtask.findAll({
-  order: [
-    ['title', 'DESC'],      // escape title and validate DESC against a list of valid direction parameters
-    sequelize.fn('max', sequelize.col('age')),            // order by max(age)
-    [sequelize.fn('max', sequelize.col('age')), 'DESC'],  // Will order by max(age) DESC
-
-    // Will order by  otherfunc(`col1`, 12, 'lalala') DESC
-    [sequelize.fn('otherfunc', sequelize.col('col1'), 12, 'lalala'), 'DESC'],
-
-    // order an associated model's createdAt using the model name as the association's name.
-    [Task, 'createdAt', 'DESC'],
-    ['Task', 'createdAt', 'DESC'], // order by an associated model's createdAt using the name of the association.
-
-    // order through an associated model's createdAt using the model names as the associations' names
-    [Task, Project, 'createdAt', 'DESC'],
-    ['Task', 'Project', 'createdAt', 'DESC'], // order by a nested associated model's createdAt using the names of the associations.
-
-    [{model: Task, as: 'Task'}, 'createdAt', 'DESC'],   // order by an associated model's createdAt using a association object.
-
-    // order by an associated model's createdAt using an association object. (preferred)
-    [Subtask.associations.Task, 'createdAt', 'DESC'],
-
-    // order by a nested associated model's createdAt association objects.
-    [{model: Task, as: 'Task'}, {model: Project, as: 'Project'}, 'createdAt', 'DESC']
-
-    // order by a nested associated model's createdAt using association objects. (preferred)
-    [Subtask.associations.Task, Task.associations.Project, 'createdAt', 'DESC'],
-  ],
-
-  order: sequelize.literal('max(age) DESC'),        // order by max age descending
-
-  // order by max age ascending assuming ascending is default order when direction is omitted
-  order: sequelize.fn('max', sequelize.col('age')),
-  order: sequelize.col('age'), // order by age ascending assuming ascending is default order when direction is omitted
-  order: sequelize.random()    // order randomly based on the dialect (instead of fn('RAND') or fn('RANDOM'))
-});
-
-Foo.findOne({
-  order: [
-    ['name'],               // will return `name`
-    ['username', 'DESC'],   // will return `username` DESC
-    sequelize.fn('max', sequelize.col('age')),            // return max(`age`)
-    [sequelize.fn('max', sequelize.col('age')), 'DESC'],  // return max(`age`) DESC
-
-    // will return otherfunction(`col1`, 12, 'lalala') DESC
-    [sequelize.fn('otherfunction', sequelize.col('col1'), 12, 'lalala'), 'DESC'],
-
-    // will return otherfunction(awesomefunction(`col`)) DESC, This nesting is potentially infinite!
-    [sequelize.fn('otherfunction', sequelize.fn('awesomefunction', sequelize.col('col'))), 'DESC']
-  ]
-});
-```
-
-{% tabs %}
-{% tab title='javascript' %}
-
-* subQuery
-
-```js
-// SELECT *, ( SELECT COUNT(*) FROM reactions AS reaction
-//     WHERE reaction.postId = post.id AND reaction.type = "Laugh") AS laughReactionsCount
-//   FROM posts AS post
-Post.findAll({
-  attributes: {
-    include: [
-      [ // Note the wrapping parentheses in the call below!
-        sequelize.literal(`( SELECT COUNT(*) FROM reactions AS reaction \
-          WHERE reaction.postId = post.id AND reaction.type = "Laugh")`),
-        'laughReactionsCount'
-      ]
-    ]
-  },
-  order: [
-    [sequelize.literal('laughReactionsCount'), 'DESC']
-  ]
-});
-```
-
-* where
-
-```js
-Albums.findAll({
-  include: [{
-    model: Artists,
-    as: 'Singer',
-    where: { name: 'Al Green' }
-  }]
-})
-```
-
-* Referring to other columns
-  * [NOTE] if hasMany, put user plural model name
-
-```js
-// SELECT * FROM user JOIN task ON
-//   WHERE task.name = 'foobar'
-User.findAll({
-  include: [Task],
-  where: { '$task.name$': 'foobar' }
-});
-
-// SELECT * FROM project JOIN task ON
-//   WHERE task.state == project.state
-Project.findAll({
-  include: {
-    model: Task,
-    where: { state: Sequelize.col('project.state') }
-  }
-})
-```
-
-* LEFT OUTER JOIN
-  * required: false
-
-{% endtab %}
-{% endtabs %}
 
 ## Component
 
@@ -1242,7 +925,7 @@ export default class App extends Component {
 }
 ```
 
-### Router
+## Router
 
 {% tabs %}
 {% tab title='javascript' %}
@@ -1273,6 +956,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 {% endtab %}
 {% tab title='python' %}
 
+* rest_framework.renderers
+  * JSONRenderer
+    * render(`serializer`.data)
+  * LimitOffsetPagination
+
 ```py
 from .models import Article
 from .serializers import ArticleSerializer
@@ -1280,6 +968,10 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from django.urls import path, include
+from .views import ArticleViewSet
+from rest_framework.routers import DefaultRouter
+
 
 # 1. views.py
 class ArticleViewSet(viewsets.ViewSet):
@@ -1300,12 +992,20 @@ class ArticleViewSet(viewsets.ViewSet):
     article = get_object_or_404(queryset, pk=pk)
     serializer = ArticleSerializer(article)
     return Response(serializer.data)
+
+# 2. urls.py
+router = DefaultRouter()
+router.register('article', ArticleViewSet, basename='article')
+
+urlpatterns = [
+  path('viewset/', include(router.urls))
+]
 ```
 
 {% endtab %}
 {% endtabs %}
 
-## States
+## State
 
 {% tabs %}
 {% tab title='javascript' %}
@@ -1313,9 +1013,6 @@ class ArticleViewSet(viewsets.ViewSet):
 * Read-only
 * share state by moving to closest common ancestor of the components that need it → lifting state up
 * State is reserved only for interactivity, that is, data that changes over time
-
-> Method
-
 * [`state`, `setter`] useState(`initial`): create react state with setter
 
 ```js
@@ -1479,7 +1176,46 @@ export class UiState {
 
 {% repo 'button-counter' %}
 
-### Nav
+### State Management
+
+{% tabs %}
+{% tab title='javascript' %}
+
+![Mobx](images/20210615_211557.png)
+
+* [Mobx tutorial](https://mobxjs.github.io/mobx/getting-started.html)
+
+* Store: similar to controller in MVC pattern
+  * move logic and state out of components into testable unit
+* domain state: store the data your application is all about
+  * should be expressed using its own class or constructor function
+* UI state: often very specific for your application, but usually very simple without logic
+  * loosely coupled pieces of information about the UI
+  * [ex] Session information, how far your application loaded, data not stored in the backend, data affects the UI globally
+
+* Mobx react
+  * observe: intercept changes after they have been made
+  * intercept: detect and modify mutations before they are applied to the observable (validating, normalizing or cancelling)
+  * observer(): HoC automatically subscribes React components to any observables that are used during rendering
+  * useObserver(): Low level implementation used internally by observer HOC and Observer component
+    * allows you to use an observer like behaviour
+
+```ts
+import { observer } from "mobx-react-lite"
+
+const myTimer = new Timer() // See the Timer definition above.
+const TimerView = observer(({ timer }) => <span>Seconds passed: {timer.secondsPassed}</span>)
+
+// Pass myTimer as a prop.
+ReactDOM.render(<TimerView timer={myTimer} />, document.body)
+```
+
+{% endtab %}
+{% endtabs %}
+
+{% repo 'mobx-react' %}
+
+## Nav
 
 {% tabs %}
 {% tab title='javascript' %}
@@ -1557,63 +1293,6 @@ function Child() {
 
 {% endtab %}
 {% endtabs %}
-
-## Mobx
-
-![Mobx](images/20210615_211557.png)
-
-* [Mobx tutorial](https://mobxjs.github.io/mobx/getting-started.html)
-
-```ts
-import { observer } from "mobx-react-lite"
-
-const myTimer = new Timer() // See the Timer definition above.
-const TimerView = observer(({ timer }) => <span>Seconds passed: {timer.secondsPassed}</span>)
-
-// Pass myTimer as a prop.
-ReactDOM.render(<TimerView timer={myTimer} />, document.body)
-```
-
-* Store: similar to controller in MVC pattern
-  * move logic and state out of components into testable unit
-* domain state: store the data your application is all about
-  * should be expressed using its own class or constructor function
-* UI state: often very specific for your application, but usually very simple without logic
-  * loosely coupled pieces of information about the UI
-  * [ex] Session information, how far your application loaded, data not stored in the backend, data affects the UI globally
-
-* Mobx react
-  * observe: intercept changes after they have been made
-  * intercept: detect and modify mutations before they are applied to the observable (validating, normalizing or cancelling)
-  * observer(): HoC automatically subscribes React components to any observables that are used during rendering
-  * useObserver(): Low level implementation used internally by observer HOC and Observer component
-    * allows you to use an observer like behaviour
-
-{% repo 'mobx-react' %}
-
-### Expo
-
-> Lan
-
-* For this to work, on the same wifi network as your computer
-* Fastest, safest. The phone connects to your computer just through your router
-
-> Tunnel
-
-* Under tunnel setting, your computer will setup a tunnel to exp.direct,
-* a domain using the ngrok tunnel service
-* all traffic will go through a proxy in the cloud, but it can punch through most firewalls,
-* it will work under more conditions
-
-> download
-
-```sh
-npm install -g expo-cli
-expo init my-new-project
-cd my-new-project
-expo start
-npm run eject    # removes the app from the Expo framework
-```
 
 ## Login
 
@@ -1756,3 +1435,178 @@ margin         # space between border and surrounding content
 
 {% endtab %}
 {% endtabs %}
+
+### Media Devices
+
+{% tabs %}
+{% tab title='javascript' %}
+
+* navigator
+  * mediaDevices
+* MediaDevices
+  * getUserMedia(): trigger permissions request
+  * enumerateDevices(): return promise that resolves to MediaDevicesInfo[] that describe each known media device
+* MediaDevicesInfo
+* MediaStream
+
+```js
+// 1. open the default microphone and camera
+const constraints = {
+  'video': true,
+  'audio': true
+}
+navigator.mediaDevices.getUserMedia(constraints)
+  .then(stream => {
+    console.log('Got MediaStream:', stream);
+  })
+  .catch(error => {
+    console.error('Error accessing media devices.', error);
+  });
+
+// 2. Listen for device change
+/* Updates the select element with the provided set of cameras */
+function updateCameraList(cameras) {
+  const listElement = document.querySelector('select#availableCameras');
+  listElement.innerHTML = '';
+  cameras.map(camera => {
+      const cameraOption = document.createElement('option');
+      cameraOption.label = camera.label;
+      cameraOption.value = camera.deviceId;
+  }).forEach(cameraOption => listElement.add(cameraOption));
+}
+
+/* Fetch an array of devices of a certain type */
+async function getConnectedDevices(type) {
+  const devices = await navigator.mediaDevices.enumerateDevices();
+  return devices.filter(device => device.kind === type)
+}
+
+/* Get the initial set of cameras connected */
+const videoCameras = getConnectedDevices('videoinput');
+updateCameraList(videoCameras);
+
+/* Listen for changes to media devices and update the list accordingly */
+navigator.mediaDevices.addEventListener('devicechange', event => {
+  const newCameraList = getConnectedDevices('video');
+  updateCameraList(newCameraList);
+});
+
+async function getConnectedDevices(type) {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    return devices.filter(device => device.kind === type)
+}
+
+// 3. Media Constraint
+/* Open camera with at least minWidth and minHeight capabilities */
+async function openCamera(cameraId, minWidth, minHeight) {
+  const constraints = {
+    'audio': {'echoCancellation': true},
+    'video': {
+      'deviceId': cameraId,
+      'width': {'min': minWidth},
+      'height': {'min': minHeight}
+      }
+    }
+
+  return await navigator.mediaDevices.getUserMedia(constraints);
+}
+
+const cameras = getConnectedDevices('videoinput');
+if (cameras && cameras.length > 0) {
+  /* Open first available video camera with a resolution of 1280x720 pixels */
+  const stream = openCamera(cameras[0].deviceId, 1280, 720);
+}
+
+// 4. Local Playback
+async function playVideoFromCamera() {
+  try {
+    const constraints = {'video': true, 'audio': true};
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    const videoElement = document.querySelector('video#localVideo');
+    videoElement.srcObject = stream;
+  } catch(error) {
+    console.error('Error opening video camera.', error);
+  }
+}
+
+<html>
+<head><title>Local video playback</video></head>
+<body>
+    <video id="localVideo" autoplay playsinline controls="false"/>
+</body>
+</html>
+```
+
+{% endtab %}
+{% endtabs %}
+
+### Media Channel
+
+![Web RTC](images/20210726_235130.png)
+
+> Term
+
+* ICE: candidate Internet Connectivity Establishment configuration which may be used to establish an RTCPeerConnection
+* Signaling Server: server that manages the connections between devices ([ex] one user to find another in network)
+* STUN: Session Traversal of UDP Through NATs server allows NAT clients ([ex] IP Phones behind a firewall)
+  * to set up phone calls to a VoIP provider hosted outside of local network
+* TURN server: Traversal Using Relay NAT, is protocol for relaying network traffic
+  * most WebRTC apps to function, server that relays traffic between peers is required
+  * since a direct socket is often not possible between clients
+
+{% tabs %}
+{% tab title='javascript' %}
+
+* webrtc
+  * RTC PeerConnection: API for sending arbitrary data over
+    * createDataChannel()
+
+```js
+const messageBox = document.querySelector('#messageBox');
+const sendButton = document.querySelector('#sendButton');
+const peerConnection = new RTCPeerConnection(configuration);
+const dataChannel = peerConnection.createDataChannel();
+
+// 1. Open and close events
+/* Enable textarea and button when opened */
+dataChannel.addEventListener('open', event => {
+  messageBox.disabled = false;
+  messageBox.focus();
+  sendButton.disabled = false;
+});
+
+/* Disable input when closed */
+dataChannel.addEventListener('close', event => {
+  messageBox.disabled = false;
+  sendButton.disabled = false;
+});
+
+// 2. Messages
+const messageBox = document.querySelector('#messageBox');
+const sendButton = document.querySelector('#sendButton');
+
+/* Send a simple text message when we click the button */
+sendButton.addEventListener('click', event => {
+  const message = messageBox.textContent;
+  dataChannel.send(message);
+})
+
+const incomingMessages = document.querySelector('#incomingMessages');
+
+const peerConnection = new RTCPeerConnection(configuration);
+const dataChannel = peerConnection.createDataChannel();
+
+/* Append new messages to the box of incoming messages */
+dataChannel.addEventListener('message', event => {
+  const message = event.data;
+  incomingMessages.textContent += message + '\n';
+});
+```
+
+{% endtab %}
+{% endtabs %}
+
+> Reference
+
+<https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidate>
+<https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity>

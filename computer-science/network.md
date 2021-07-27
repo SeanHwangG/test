@@ -86,7 +86,61 @@
 
 ![DMZ](images/20210323_231057.png)
 
-> Connection
+> Question
+
+* How to Internet Troubleshoot
+  * Failure → Check other website
+  * check other computer
+  * check DHCP
+
+{% tabs %}
+{% tab title='shell' %}
+
+* nc
+  * -p: source_port
+  * google.com 80: try to establish a connection on port 80 to google.com
+
+* local
+  * -azvh file backup: save file in backup
+
+* sftp: FTP protocol over ssh port, encrypted
+  * put / before every command to see local files
+  * bye: exit sftp
+
+* ufw
+  * app list: list the ufw application profiles
+
+* ipconfig: Internet Protocol Configuration used in Microsoft Windows operating system
+  * view all the current TCP/IP network configurations values of the computer
+
+* iptables: administration tool for IPv4/IPv6 packet filtering and NAT
+  * displaying the route and measuring transit delays of packets across an Internet Protocol network
+
+* gpg: OpenPGP encryption and signing tool
+  * --keyserver hkp://keys.gnupg.net --recv BCE9D9A42D51784F
+  * --verify ecs-cli.asc /usr/local/bin/ecs-cli
+
+* traceroute: [ex] `google.com`
+
+* tracepath: traces path to a network host discovering MTU along this path
+
+```sh
+# 1. nc connect
+""" in terminal 1 """
+docker run -it -p 23456:23456 -p 23457:23457 --name server ubuntu:14.04 bash
+nc -lp 23456 | nc -lp 23457
+
+""" in terminal 2  (can talk to terminal 3) """
+nc localhost 23456
+
+""" in terminal 3"""
+nc localhost 23457
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Connection Type
 
 * Client-server network: All devices access resources through a central server and devices needing access are clients
   * network management is overseen by server
@@ -161,60 +215,6 @@
   * Hop: number of nodes a packet has to pass through in order to get to its destination
   * Reliability: Keep a long-term log of reliability of different routes
   * Throughput: amount of data that can pass through a link in a specific amount of time
-
-> Question
-
-* How to Internet Troubleshoot
-  * Failure → Check other website
-  * check other computer
-  * check DHCP
-
-{% tabs %}
-{% tab title='shell' %}
-
-* nc
-  * -p: source_port
-  * google.com 80: try to establish a connection on port 80 to google.com
-
-* local
-  * -azvh file backup: save file in backup
-
-* sftp: FTP protocol over ssh port, encrypted
-  * put / before every command to see local files
-  * bye: exit sftp
-
-* ufw
-  * app list: list the ufw application profiles
-
-* ipconfig: Internet Protocol Configuration used in Microsoft Windows operating system
-  * view all the current TCP/IP network configurations values of the computer
-
-* iptables: administration tool for IPv4/IPv6 packet filtering and NAT
-  * displaying the route and measuring transit delays of packets across an Internet Protocol network
-
-* gpg: OpenPGP encryption and signing tool
-  * --keyserver hkp://keys.gnupg.net --recv BCE9D9A42D51784F
-  * --verify ecs-cli.asc /usr/local/bin/ecs-cli
-
-* traceroute: [ex] `google.com`
-
-* tracepath: traces path to a network host discovering MTU along this path
-
-```sh
-# 1. nc connect
-""" in terminal 1 """
-docker run -it -p 23456:23456 -p 23457:23457 --name server ubuntu:14.04 bash
-nc -lp 23456 | nc -lp 23457
-
-""" in terminal 2  (can talk to terminal 3) """
-nc localhost 23456
-
-""" in terminal 3"""
-nc localhost 23457
-```
-
-{% endtab %}
-{% endtabs %}
 
 ## 1: Pysical
 
@@ -666,33 +666,26 @@ netstat -ano | grep :PORT_NUMBER
 {% endtab %}
 {% tab title='cpp' %}
 
-> sys/socket.h
-
-![TCP vs UDP](images/20210607_203455.png)
-
-* Internet Protocol family
-
-* SOCK_DGRAM: if only sending, no need to bind
-* SOCK_STREAM: destination determined during conn setup
-  * don't need to know port sending from
-
-* int accept(int socket, struct sockaddr \*address): blocking waits for connection before returning
-  * socklen_t \*address_len: value parameter must be set appropriately before call
-
-* int socket(): Create a socket
-  * int domain [PF_INET]: communication domain
-  * int type = [SOCKET_STREAM, SOCKET_DGRAM]: communication type
-  * int protocol: see files /etc/protocols usually 0
-
-* int bind()
-  * int socket: socket id
-  * const struct sockaddr *address: ip address and port of the machine
-  * socketlen_t address_len: size of the addrport structure
-
-* int connect(int socket, const struct sockaddr \*address, socklen_t address_len)
-* int listen(int socket, int backlog)
-* ssize_t send(int socket, const void \*message, size_t length, int flags);
-* ssize_t recv(int socket, void \*buffer, size_t length, int flags);
+* sys/socket.h
+  ![TCP vs UDP](images/20210607_203455.png)
+  * Internet Protocol family
+  * SOCK_DGRAM: if only sending, no need to bind
+  * SOCK_STREAM: destination determined during conn setup
+    * don't need to know port sending from
+  * int accept(int socket, struct sockaddr \*address): blocking waits for connection before returning
+    * socklen_t \*address_len: value parameter must be set appropriately before call
+  * int socket(): Create a socket
+    * int domain [PF_INET]: communication domain
+    * int type = [SOCKET_STREAM, SOCKET_DGRAM]: communication type
+    * int protocol: see files /etc/protocols usually 0
+  * int bind()
+    * int socket: socket id
+    * const struct sockaddr *address: ip address and port of the machine
+    * socketlen_t address_len: size of the addrport structure
+  * int connect(int socket, const struct sockaddr \*address, socklen_t address_len)
+  * int listen(int socket, int backlog)
+  * ssize_t send(int socket, const void \*message, size_t length, int flags);
+  * ssize_t recv(int socket, void \*buffer, size_t length, int flags);
 
 ```cpp
 // 1. Echo server
@@ -734,6 +727,78 @@ while (1) {
   puts(Server reply);
 }
 close(sock);
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+* socket
+  * socket(family, type, proto, fileno)
+    * family: [ex] AF_INET: IPV4, AF_INET6: IPV6, AF_UNIX: UDS
+    * Type: [ex] SOCK_DGRAM: UDP, SOCK_STREAM: TCP
+  * bind(self, IP_address, port)
+
+```py
+# 1. Create, bind a socket object
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+port = 3000
+hostname = '127.0.0.1'
+s.bind((hostname, port))
+
+# 2. TCP client
+host = '127.0.0.1'
+port = 5000
+
+def tcp_client():
+  s = socket.socket()
+  s.connect((host, port))
+
+  while (message := input("->").encode()) != 'q':
+  s.send(message)
+  data = s.recv(1024)
+  print(f"Recieved from server {data}")
+  s.close()
+
+def tcp_server():
+  s = socket.socket()
+  s.bind((host, port))
+
+  s.listen(1)
+  c, addr = s.accept()
+  print(f"Connection from {addr}")
+
+  while True:
+  data = c.recv(1024)
+  if not data:
+    break
+  print(f"message {data} recieved, sending back {data.upper()}")
+  c.send(data.upper())
+  c.close()
+
+# 3. UDP client
+host, port = '127.0.0.1', 5001
+server = ('127.0.0.1',5000)
+
+def udp_client():
+  s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  s.bind((host, port))
+
+  while (message := input("-> ").encode()) != 'q':
+    s.sendto(message, server)
+    data, addr = s.recvfrom(1024)
+    print(f'Received from server:{data}')
+  s.close()
+
+def udp_server():
+  s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  s.bind((host,port))
+
+  print("Server Started.")
+  while True:
+    data, addr = s.recvfrom(1024)
+    print(f"message {data} recieved from {addr}, sending back {data.upper()}")
+    s.sendto(data.upper(), addr)
+  c.close()
 ```
 
 {% endtab %}

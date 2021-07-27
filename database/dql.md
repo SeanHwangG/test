@@ -278,8 +278,30 @@ Project.sum('age', { where: { age: { [Op.gt]: 5 } } }).then(sum => {
 {% endtab %}
 {% tab title='python' %}
 
+* db.models.manager: Interface through which database query operations are provided to Django models
+  * If no managers are declared on a model / parents, automatically creates the objects manager
+  * Can have multiple managers on the same mode
+  * get_queryset(): return a QuerySet with the properties you require
+  * Coalesce(): Accepts a list of at least two field names or expressions and returns the first non-null value
+
 ```py
+from django.db import models
+from django.db.models.functions import Coalesce
+
+# 1. COUNT
 len(DistributorRole.objects.all())
+
+# 2. Query annotation
+class PollManager(models.Manager):
+  def with_counts(self):
+    return self.annotate(num_responses=Coalesce(models.Count("response"), 0))
+
+class OpinionPoll(models.Model):
+  question = models.CharField(max_length=200)
+  objects = PollManager()
+
+class Response(models.Model):
+  poll = models.ForeignKey(OpinionPoll, on_delete=models.CASCADE)
 ```
 
 {% endtab %}
@@ -372,22 +394,46 @@ CREATE VIEW standings(name, points) AS
 {% tab title='javascript' %}
 
 ```js
-// 1. SELECT * FROM post WHERE authorId = 2
+// 1. Simple WHERE
+/* SELECT * FROM post WHERE authorId = 2 */
 Post.findAll({
   where: { authorId: 2 }  // [Op.eq]: 2
 });
 
-// 2. SELECT * FROM post WHERE authorId = 12 AND status = 'active';
+/* SELECT * FROM post WHERE authorId = 12 AND status = 'active'; */
 Post.findAll({
   where: { authorId: 12, status: 'active' }
 });
 
-// 3. SELECT file_id FROM table WHERE datediff(curdate(), create_date) > 5;
+Albums.findAll({
+  include: [{
+    model: Artists,
+    as: 'Singer',
+    where: { name: 'Al Green' }
+  }]
+})
+
+/* SELECT file_id FROM table WHERE datediff(curdate(), create_date) > 5; */
 where: sequelize.where(sequelize.fn('datediff', sequelize.fn("NOW") , sequelize.col('create_date')), {
   [Op.gt] : 5
 })
 
-// 4. Operators
+// 2 Referring to other columns [NOTE] if hasMany, put user plural model name
+/* SELECT * FROM user JOIN task ON WHERE task.name = 'foobar' */
+User.findAll({
+  include: [Task],
+  where: { '$task.name$': 'foobar' }
+});
+
+/* SELECT * FROM project JOIN task ON WHERE task.state == project.state */
+Project.findAll({
+  include: {
+    model: Task,
+    where: { state: Sequelize.col('project.state') }
+  }
+})
+
+// 3. Operators
 const { Op } = require("sequelize");
 Post.findAll({
   where: {
@@ -432,6 +478,16 @@ Post.findAll({
     }
   }
 });
+```
+
+{% endtab %}
+{% tab title='python' %}
+
+* __contains
+* __icontains: Case insensitive
+
+```py
+result = table.objects.filter(string__contains='pattern')
 ```
 
 {% endtab %}
@@ -665,6 +721,24 @@ Post.findAll({
 characteristic_id : {
   $in: [clout.sequelize.literal('select characteristic_id from characteristic_variant_val'))]
 }
+
+/* SELECT *, ( SELECT COUNT(*) FROM reactions AS reaction
+     WHERE reaction.postId = post.id AND reaction.type = "Laugh") AS laughReactionsCount
+   FROM posts AS post */
+Post.findAll({
+  attributes: {
+    include: [
+      [ // Note the wrapping parentheses in the call below!
+        sequelize.literal(`( SELECT COUNT(*) FROM reactions AS reaction \
+          WHERE reaction.postId = post.id AND reaction.type = "Laugh")`),
+        'laughReactionsCount'
+      ]
+    ]
+  },
+  order: [
+    [sequelize.literal('laughReactionsCount'), 'DESC']
+  ]
+});
 ```
 
 {% endtab %}

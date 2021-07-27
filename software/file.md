@@ -1103,7 +1103,7 @@ C:\>type c.txt
 * /etc/default/grub: [ex] GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nouveau.modeset=0"
 
 {% tabs %}
-{% tab title='ubuntu' %}
+{% tab title='shell' %}
 
 * service: run a System V init script
 * systemctl: control systemd system and service manager
@@ -1118,7 +1118,7 @@ service --status-all | grep +
 ### Kernel
 
 {% tabs %}
-{% tab title='ubuntu' %}
+{% tab title='shell' %}
 
 * used to override default kernel parameter values, only a small number of parameters is predefined
 
@@ -1494,7 +1494,7 @@ pipeline {
   * -r .: Open current directory in most recently used window
   * -diff f1 f2: Open diff editor
 
-### Media
+### Media Extension
 
 * pdfseparate: brew install poppler
   * -f `int`: first page to extract (inclusive)
@@ -1675,7 +1675,7 @@ fi
 ```
 
 {% tabs %}
-{% tab title='mac' %}
+{% tab title='apple' %}
 
 ```sh
 brew install coreutils
@@ -1796,7 +1796,7 @@ apt install python3.7
 * Linux Mint, Ubuntu, Elementary OS, and Kali Linux
 
 {% endtab %}
-{% tab title='mac' %}
+{% tab title='apple' %}
 
 * packages compiled to version-specific subdirectories → multiple versions can be in machine
 * Homebrew is a 3rd party addition – on both macOS and Ubuntu

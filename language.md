@@ -66,6 +66,14 @@
 <https://modoocode.com/134>
 
 {% endtab %}
+{% tab title='javascript' %}
+
+* jquery
+  * introduces css-like syntax and several visual and UI enhancements
+  * simplifies the use of Javascript in websites
+  * an abstraction of the core language
+
+{% endtab %}
 {% tab title='python' %}
 
 * Created by Guido van Rossum

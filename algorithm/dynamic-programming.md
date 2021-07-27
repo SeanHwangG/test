@@ -6,6 +6,10 @@
 * Q. Given a target find minimum / maximum, cost / path / sum to reach the target
 * A. Choose min / max among all possible paths before current state, then add value for current state
 
+> Reference
+
+<https://www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews>
+
 ## DP Dimension 0
 
 {% include '.dp-dimension-0.prob' %}
@@ -65,6 +69,17 @@
 {% include '.longest-increasing-subsequence.prob' %}
 
 ## Knapsack
+
+* Given the weights and profits of ‘N’ items, asked to put these items in a knapsack that has a capacity ‘C’.
+* The goal is to get the maximum profit from the items in the knapsack
+* dp[idx][cap] = max(dp[idx - 1][cap], profit[idx] + dp[idx][cap - weight[idx]])
+
+![Knapsack](images/20210726_224742.png)
+
+> Term
+
+* 0/1: Repetition item is not allowed
+* Unbounded: Repetetition item is allowed
 
 {% include '.knapsack.prob' %}
 

@@ -365,21 +365,19 @@ plt.show()
 {% tabs %}
 {% tab title="python" %}
 
-> Images
-
-* copy() → np.ndarray
-* cvtColor(img, type)
-  * type: COLOR_BGR2RGB, COLOR_BGR2GRAY)
-* imread(filename, parames)     np.ndarray: (IMREAD_COLOR/GRAYSCALE/UNCHANGED (PNG)
-* imwrite(fn, img, params = N) → if Success: [IMWRITE_JPEG_QUALITY, 90] compression rate of 90
-* CV_8U / S: np.uint8 /  np.int8
-* CV_16U / S / F: np.uint16 / np.int16 /  np.float16
-* CV_8UC1 / CV_8UC3: np.uint8, shape (h, w) (Grey scale video) / (h, w, 3) (Color scale video)
-* rectangle(img,(38,0),(51,12),(0,255,0),3)
-  * image, top_left, bottom_right, color, thickness
-
-* sobel(src, ddepth, dx, dy, ksize): first, second, third, or mixed image derivatives
-* cv.blur(src, ksize, dst, anchor, borderType): blurs image using box filter
+* Images
+  * copy() → np.ndarray
+  * cvtColor(img, type)
+    * type: COLOR_BGR2RGB, COLOR_BGR2GRAY)
+  * imread(filename, parames)     np.ndarray: (IMREAD_COLOR/GRAYSCALE/UNCHANGED (PNG)
+  * imwrite(fn, img, params = N) → if Success: [IMWRITE_JPEG_QUALITY, 90] compression rate of 90
+  * CV_8U / S: np.uint8 /  np.int8
+  * CV_16U / S / F: np.uint16 / np.int16 /  np.float16
+  * CV_8UC1 / CV_8UC3: np.uint8, shape (h, w) (Grey scale video) / (h, w, 3) (Color scale video)
+  * rectangle(img,(38,0),(51,12),(0,255,0),3)
+    * image, top_left, bottom_right, color, thickness
+  * sobel(src, ddepth, dx, dy, ksize): first, second, third, or mixed image derivatives
+  * cv.blur(src, ksize, dst, anchor, borderType): blurs image using box filter
 
 ```py
 import cv2

@@ -156,6 +156,19 @@ Output: 6
 ```
 
 {% endtab %}
+{% tab title='BJ_1152.cpp' %}
+
+```cpp
+#include <iostream>
+int main() {
+  string s;
+  int c = 0;
+  while (cin >> s) c++;
+  cout << c;
+}
+```
+
+{% endtab %}
 {% tab title='BJ_1152.java' %}
 
 ```java
@@ -206,6 +219,18 @@ echo ${#s[@]}
 ```txt
 Input: pulljima
 Output: 8
+```
+
+{% endtab %}
+{% tab title='BJ_2743.c' %}
+
+```c
+#include <string.h>
+int main() {
+  char s[101];
+  scanf("%s", s);
+  printf("%d", strlen(s));
+}
 ```
 
 {% endtab %}

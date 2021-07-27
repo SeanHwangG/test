@@ -405,9 +405,3 @@ def isToeplitzMatrix(self, m):
 
 {% endtab %}
 {% endtabs %}
-
-* [Level 2 : Subsets](https://leetcode.com/problems/subsets)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/LC_78.md/)
-
-* [Level 2 : Subsets II](https://leetcode.com/problems/subsets-ii)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-comprehension/LC_90.md/)

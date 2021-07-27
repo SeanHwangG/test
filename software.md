@@ -240,7 +240,7 @@ export LDFLAGS="-L/usr/local/opt/libffi/lib"
 ```
 
 {% endtab %}
-{% tab title='mac' %}
+{% tab title='apple' %}
 
 ```sh
 alias ldd="otool -L"
@@ -478,7 +478,7 @@ sudo apt-get install jenkins
   * ⌘  ⇧  c: page inspection
 
 {% endtab %}
-{% tab title='mac' %}
+{% tab title='apple' %}
 
 * ⌘ ⇧ 3 / 4: captures a screenshot of your entire screen / drag to select a portion of your screen
 * ⌘ ⇧ 6: captures number pad

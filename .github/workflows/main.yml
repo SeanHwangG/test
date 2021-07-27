@@ -22,7 +22,7 @@ jobs:
           pip install include_file
       - name: Include Files
         run: |
-          python -m include_file -u $GITHUB_ACTOR -y SUMMARY.md -d deploy -toc table_of_contents.md --stem
+          python -m include_file -u $GITHUB_ACTOR -y SUMMARY.md -d deploy -toc README.md --stem
 
       - name: Push changes to deploy branch
         uses: EndBug/add-and-commit@v7

@@ -1,7 +1,5 @@
 # Sumamry
 
-* [Table of content](table_of_contents.md)
-  * [Digression](digression.md)
 * [Language](language.md)
   * [Syntax](language/syntax.md)
   * [Variable](language/variable.md)
@@ -22,6 +20,7 @@
 * [Database](database.md)
   * [SQL](database/query.md)
   * [DQL](database/dql.md)
+  * [CMS](database/cms.md)
 * [Math](math.md)
   * [Algebra](math/algebra.md)
   * [Calculus](math/calculus.md)

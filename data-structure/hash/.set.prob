@@ -259,9 +259,6 @@ for _ in range(int(input())):
 {% endtab %}
 {% endtabs %}
 
-* [Level 8 : 대칭 차집합](https://www.acmicpc.net/problem/1269)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_1269.md/)
-
 * [Level 8 : 문자열 집합](https://www.acmicpc.net/problem/14425)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/set/BJ_14425.md/)
 

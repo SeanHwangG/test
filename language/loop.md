@@ -101,6 +101,8 @@ print(list(recursive_items(a)))
 {% endtab %}
 {% endtabs %}
 
+{% include '.generator.prob' %}
+
 ## Len
 
 {% tabs %}

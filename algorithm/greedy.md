@@ -75,6 +75,8 @@ $$ |O S(I)| ≤ |O S^{\prime}(I)|=|\{g\} ∪ S(I^{\prime})| ≤ \left|\{g\} ∪ 
 
 ### Kadane
 
+* Maximum subarry problem: Finding a contiguous subarry with the largest sum
+
 {% include '.kadane.prob' %}
 
 ## BruteForce

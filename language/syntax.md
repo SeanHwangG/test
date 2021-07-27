@@ -190,6 +190,10 @@ line */
 line */
 ```
 
+```html
+<!-- Comment -->
+```
+
 {% endtab %}
 {% tab title='python' %}
 
@@ -1285,6 +1289,9 @@ int main() {
 * console
   * log
   * table: print in table format
+* &nbsp;: to add a single space
+* &ensp;: to add 2 spaces
+* &emsp;: to add 4 spaces
 
 ```js
 console.log();

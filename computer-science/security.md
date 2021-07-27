@@ -44,7 +44,7 @@
   * [+] Filtering is more efficient
 
 {% tabs %}
-{% tab title='linux' %}
+{% tab title='shell' %}
 
 * ufw: Uncomplicated firewall for linux ([ex] default)
   * status

@@ -398,9 +398,7 @@ git config --unset-all core.ignorecase && git config --system core.ignorecase fa
 {% endtab %}
 {% endtabs %}
 
-## Git CLI
-
-> Git CLI
+## Commit
 
 * add
   * `filename`: add files to staging area
@@ -441,8 +439,10 @@ git config --unset-all core.ignorecase && git config --system core.ignorecase fa
   * --signoff: certifies who is the author of the commit
   * --amend: change previous commit message
   * --no-edit: Do not prompt change commit message
+  * -t `tmp`: start commit with `tmp`
 
-* mv `src` `dest`: move `src` to `dest`
+* mv
+  * `src` `dest`: move `src` to `dest`
   * -t dest src1 scr2: move multiple item at once
   * -n: Do not overwrite an existing file
 
