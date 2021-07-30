@@ -123,6 +123,19 @@ alias untar='tar -zxvf '
 
 {% include '.decoding.prob' %}
 
+## Rolling Hash
+
+* Hash function where the input is hashed in a window that moves through the input, without rehashing the whole string
+* Rolling hash values are pairwise independent or strongly universal, cannot be 3-wise independent
+* [ex] Rabin–Karp string search algorithm, rsync
+
+> Example
+
+* Polynomial rolling hash
+  $$ c_{1} a^{k-1}+c_{2} a^{k-2}+c_{3} a^{k-3}+\ldots+c_{k} a^{0} $$
+
+{% include '.rolling-hash.prob' %}
+
 ## Set
 
 {% tabs %}

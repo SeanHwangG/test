@@ -113,12 +113,29 @@
 
 ![KMP](images/20210206_212347.png)
 
-* Knuth-Morris-Pratt searches for occurrences of a "word" W within a main "text string" S
-* observe that when a mismatch occurs, the word itself embodies information to determine where the next match begin
-* bypass re-examination of previously matched chars
+* Knuth-Morris-Pratt searches for occurrences of `word` within `text` without re-examination of previously matched chars
+* Observe that when a mismatch occurs, the word itself embodies information to determine where the next match begin
+* O(n) in worst case
+* [+] Easier to implement
+
+> Example
+
+* DNA pattern matching problem
 
 {% include '.kmp.prob' %}
 
 ### Suffix Array
+
+![Suffix Array](images/20210801_165935.png)
+
+* Time
+  * O(n^2 Logn): Build Suffix Array
+  * O(mlogn):
+* Space O(m+n): Suffix Array
+* [+] Find substring repetitions
+
+> Example
+
+* Pattern Searching, longest repeated substring, longest common substring, longest palindrome in a string
 
 {% include '.suffix-array.prob' %}

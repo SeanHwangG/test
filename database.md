@@ -188,6 +188,8 @@ Container.get(TypeService);
   * interior node: between half and all of the n+1 pointers are used
   * leaf node: rightmost pointer to the next leaf
 
+> Term
+
 * B+ Tree: Internal nodes contain only search keys (no data)
   * leaves have at least ⌈L | 2⌉ keys up to L keys
   * Balanced (equal length paths) trees for minimizing disk I|O

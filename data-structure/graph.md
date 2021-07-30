@@ -63,9 +63,7 @@
 
 {% include '.graph.prob' %}
 
-## Unweighted Graph
-
-### Articulation
+## Articulation
 
 > Example
 
@@ -79,7 +77,7 @@
 
 {% include '.articulation.prob' %}
 
-### BFS
+## BFS
 
 * [BFS vs DFS](https://www.youtube.com/watch?v=pcKY4hjDrxk)
 
@@ -124,11 +122,15 @@
 
 {% include '.bfs-01.prob' %}
 
+### BFS Bidirection
+
+{% include '.bfs-bidirection.prob' %}
+
 ### Floodfill
 
 {% include '.floodfill.prob' %}
 
-### DFS
+## DFS
 
 > Example
 
@@ -152,23 +154,23 @@
 
 {% include '.dfs.prob' %}
 
-### Hamiltonian
+## Hamiltonian
 
 * Visits every vertex in the graph
 
 {% include '.hamiltonian.prob' %}
 
-### Eulerian
+## Eulerian
 
 * Visits every edge in the graph
 
 {% include '.eulerian.prob' %}
 
-### SCC
+## SCC
 
 {% include '.scc.prob' %}
 
-### BCC
+## BCC
 
 * maximal biconnected subgraph
 * connected graph decomposes into a tree of biconnected components called the block-cut tree of the graph
@@ -194,9 +196,7 @@
 
 {% include '.disjoint-set.prob' %}
 
-## Weighted Graph
-
-### Bellman Ford
+## Bellman Ford
 
 * Single source shortest path in O(V x E)
 * Can be used to detect negative-weight cycles
@@ -205,7 +205,7 @@
 
 {% include '.bellman-ford.prob' %}
 
-### Dijkstra
+## Dijkstra
 
 * Doesn't work for negative edge weight
 * Complexity: O(V \* O(deletemin) + E \* O(decreasekey))
@@ -225,21 +225,21 @@
 
 {% include '.dijkstra.prob' %}
 
-### Floyd
+## Floyd
 
 * all pairs shortest pathSoftest path from every pair in O(V^3)
 
 {% include '.floyd.prob' %}
 
-### Ordering
+## Ordering
 
 {% include '.ordering.prob' %}
 
-### TSP
+## TSP
 
 {% include '.tsp.prob' %}
 
-### Minimum Spanning Tree
+## Minimum Spanning Tree
 
 * Prims Algorithm
   * Put all vertices in U
