@@ -1,47 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_2143.md/)
-
-{% tabs %}
-{% tab title='BJ_2143.md' %}
-
-> Question
-
-* Given two range print the number of slice that sum of to T
-
-```txt
-Input:
-5
-4
-1 3 1 2
-3
-1 3 2
-
-Output: 7  # 1, 1 2 / 1 2, 1 / 2, 3...
-```
-
-{% endtab %}
-{% tab title='BJ_2143.py' %}
-
-```py
-from collections import defaultdict
-t, n, a = int(input()), int(input()), list(map(int, input().split()))
-m, b = int(input()), list(map(int, input().split()))
-dic, ans = defaultdict(int), 0
-for i in range(n):
-  for j in range(i, n, 1):
-    dic[sum(a[i:j + 1])] += 1
-
-for i in range(m):
-  for j in range(i, m, 1):
-    ans += dic[t - sum(b[i:j + 1])]
-print(ans)
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 3 : Just A Minim](https://www.acmicpc.net/problem/15036)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_15036.md/)
 
@@ -723,6 +681,48 @@ for i in range(int(input())):
   di[x] = y
 
 print(a)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 두 배열의 합](https://www.acmicpc.net/problem/2143)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/map/BJ_2143.md/)
+
+{% tabs %}
+{% tab title='BJ_2143.md' %}
+
+> Question
+
+* Given two range print the number of slice that sum of to T
+
+```txt
+Input:
+5
+4
+1 3 1 2
+3
+1 3 2
+
+Output: 7  # 1, 1 2 / 1 2, 1 / 2, 3...
+```
+
+{% endtab %}
+{% tab title='BJ_2143.py' %}
+
+```py
+from collections import defaultdict
+t, n, a = int(input()), int(input()), list(map(int, input().split()))
+m, b = int(input()), list(map(int, input().split()))
+dic, ans = defaultdict(int), 0
+for i in range(n):
+  for j in range(i, n, 1):
+    dic[sum(a[i:j + 1])] += 1
+
+for i in range(m):
+  for j in range(i, m, 1):
+    ans += dic[t - sum(b[i:j + 1])]
+print(ans)
 ```
 
 {% endtab %}

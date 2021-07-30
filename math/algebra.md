@@ -18,6 +18,11 @@
 
 ## Prime
 
+* 25% of the numbers from 1 through 100 inclusive are prime
+* 21% of the numbers from 101 through 200 inclusive are prime
+* 14% of the numbers from 901 through 1,000 inclusive are prime
+* 9% of the numbers from 9,001 through 10,000 inclusive are prime
+
 {% include 'prime.test' %}
 
 * [Prime numbers](https://www.youtube.com/watch?v=mIStB5X4U8M)
@@ -38,14 +43,15 @@
  | Eratosthenes             | O(N log log N) | O(N)  |
  | Manipulated Eratosthenes | O(N)           | O(N)  |
 
-> Proof Fermat little theorem
+> Example
 
-* When p is prime and a is not multiple of p then
+* Proof Fermat little theorem
+  * When p is prime and a is not multiple of p then
 
-$$
-a^{p-1} \bmod p=1 \\
-↔ a^{p-1} \equiv 1(\bmod p)
-$$
+  $$
+  a^{p-1} \bmod p=1 \\
+  ↔ a^{p-1} \equiv 1(\bmod p)
+  $$
 
 {% include '.prime.prob' %}
 
@@ -277,6 +283,10 @@ for i in range(50):
 ### Nary
 
 {% include '.nary.prob' %}
+
+### Bit shift
+
+{% include '.bit-shift.prob' %}
 
 ### And Or
 

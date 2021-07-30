@@ -1,42 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-algorithm/BJ_1377.md/)
-
-{% tabs %}
-{% tab title='BJ_1377.md' %}
-
-> Question
-
-* Find the number of iteration for bubble sort
-
-```txt
-Input:
-5
-10
-1
-5
-2
-3
-
-Output: 3
-```
-
-{% endtab %}
-{% tab title='BJ_1377.py' %}
-
-```py
-L = [(int(input()), i) for i in range(int(input()))]
-L.sort()
-m = 0
-for i in range(len(L)):
-  m = max(L[i][1] - i, m)
-print(m + 1)
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 6 : 수 정렬하기 3](https://www.acmicpc.net/problem/10989)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-algorithm/BJ_10989.md/)
 
@@ -90,6 +53,43 @@ for _ in range(a):
 for n in sorted(dic.keys()):
   for _ in range(dic[n]):
     print(n)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 버블 소트](https://www.acmicpc.net/problem/1377)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-algorithm/BJ_1377.md/)
+
+{% tabs %}
+{% tab title='BJ_1377.md' %}
+
+> Question
+
+* Find the number of iteration for bubble sort
+
+```txt
+Input:
+5
+10
+1
+5
+2
+3
+
+Output: 3
+```
+
+{% endtab %}
+{% tab title='BJ_1377.py' %}
+
+```py
+L = [(int(input()), i) for i in range(int(input()))]
+L.sort()
+m = 0
+for i in range(len(L)):
+  m = max(L[i][1] - i, m)
+print(m + 1)
 ```
 
 {% endtab %}

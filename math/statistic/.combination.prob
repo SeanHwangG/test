@@ -321,44 +321,6 @@ backtrack([], N, M)
 {% endtab %}
 {% endtabs %}
 
-* [Level 9 : 과 M (12)](https://www.acmicpc.net/problem/15666)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/combination/BJ_15666.md/)
-
-{% tabs %}
-{% tab title='BJ_15666.md' %}
-
-> Question
-
-* Choose M from N integers
-* Print all combinations with decresing numbers where you can select same number multiple times
-
-```txt
-Input:
-4 2
-9 7 9 1
-
-Output:
-1 1
-1 7
-1 9
-7 7
-7 9
-9 9
-```
-
-{% endtab %}
-{% tab title='BJ_15666.py' %}
-
-```py
-from itertools import *
-N = int(input().split()[1])
-for p in combinations_with_replacement(sorted(set(map(int,input().split()))), N):
-  print(*p)
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 9 : 로또](https://www.acmicpc.net/problem/6603)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/combination/BJ_6603.md/)
 
@@ -427,6 +389,52 @@ while True:
   for comb in combinations(li, 6):
     print(" ".join(comb))
   print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 10 : 도영이가 만든 맛있는 음식](https://www.acmicpc.net/problem/2961)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/combination/BJ_2961.md/)
+
+{% tabs %}
+{% tab title='BJ_2961.md' %}
+
+> Question
+
+* Given N ingredients, we know its sourness S and bitterness B
+* When using 1+ ingredients, sourness is product of all ingredients, while bitterness is sum of all ingredients
+* Choose the ingredients so that the absolute difference between sourness and bitterness is the smallest
+
+```txt
+Input:
+1
+3 10
+
+Output: 7
+
+Input:
+2
+3 8
+5 8
+
+Output: 1
+```
+
+{% endtab %}
+{% tab title='BJ_2961.py' %}
+
+```py
+from itertools import combinations
+def f(i):
+  v, w = 1, 0
+  for x, y in i:
+    v *= x
+    w += y
+  return abs(v-w)
+n,r=int(input()),range
+l = [[*map(int,input().split())]for i in r(n)]
+print(min(f(j) for i in r(n) for j in combinations(l, i + 1)))
 ```
 
 {% endtab %}

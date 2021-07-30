@@ -204,7 +204,7 @@ print(oct(int(input(), 2))[2:])
 
 > leetcode
 
-* [Level  : UNKNOWN]()
+* [Level 3 : Delete Duplicate Folders in System](https://leetcode.com/problems/delete-duplicate-folders-in-system)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/algebra/nary/LC_1948.md/)
 
 {% tabs %}

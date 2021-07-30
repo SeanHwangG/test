@@ -8,10 +8,15 @@
 | Communtative Law | $A \cup B =B \cup A$                    |
 | Associative Law  | $(A \cup B) \cup C = A \cup (B \cup C)$ |
 
-* Bloom Filter (Burton Howard Bloom, 1970)
-  * space-efficient probabilistic data structure used to test whether an element is a member of a set
-  * False positive matches are possible, but false negatives are not
+> Term
 
+* Bloom Filter (Burton Howard Bloom, 1970): False positive matches are possible, but false negatives are not
+  * [+] space-efficient probabilistic data structure used to test whether an element is a member of a set
+  ![Bloom Filter](images/20210730_123036.png)
+
+* Consistent hashing
+  * [+] efficiently partitioning and replicating data, scale up, down, achieve high availability through data replication
+  * [ex] Amazon’s Dynamo, Apache Cassandra
 * Cuckoo hashing: Use two hash functions
   * [+] O(1): worst case insert / lookup
   ![cuckoo hasing](images/20210218_232251.png)
@@ -56,8 +61,10 @@
   * -r my_arch.zip my_folder
 
 ```sh
-# 1. zip entire directory
+""" 1. zip entire directory """
 zip -r lab3.zip lab3
+# Untar
+alias untar='tar -zxvf '
 ```
 
 {% endtab %}
@@ -415,29 +422,30 @@ key_list = [*dic]
 {% endtab %}
 {% tab title='vim' %}
 
+* count(`dic`, `key`)
+* empty(`dic`)
+* keys(`dic`)
+* len(`dic`)
+* max(`dic`)
+* min(`dic`)
+* has_key(`dic`, `key`)
+
 ```sh
-# 1. Dictionary
-count(dict, 'x')
-empty(dict)
+""" 1. Dictionary """
 get(dict, "apple")
-has_key(dict, 'foo')
-keys(dict)
-len(dict)
-max(dict)
-min(dict)
 remove(dict, "apple")
 let longlist = mylist + [5, 6]
 let mylist += [7, 8]
 mylist[2:]
 let alist = add(mylist, 4)
 
-""" Construct """
+# Construct
 let colors = {
   \ "apple": "red",
   \ "banana": "yellow"
 }
 
-""" Access """
+# Access
 echo colors["a"]
 
 for key in keys(dict)
@@ -565,12 +573,15 @@ mp.find(2);
   * move_to_end(key, last=True)
 
 ```py
+from collections import OrderedDict
+
+""" 1. LRU """
 OrderedDict(sorted(dictitems(), key=lambda t: t[0]))  # LRU
 
-from collections import OrderedDict
+""" 2. Create Ordered Dict """
 def align_with_list(dic, li):
   print(OrderedDict([(el, dic[el]) for el in li]))    # OrderedDict([('sandwich', 'C'), ('potato', 'A'), ('tomato', 'B')])
-align_with_list({'potato':'A', 'tomato':'B', 'sandwich':'C'}, ['sandwich', 'potato', 'tomato'])
+align_with_list({'potato': 'A', 'tomato': 'B', 'sandwich': 'C'}, ['sandwich', 'potato', 'tomato'])
 ```
 
 {% endtab %}

@@ -1,0 +1,417 @@
+> baekjoon
+
+* [Level 3 : 카드놀이](https://www.acmicpc.net/problem/2511)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/BJ_2511.md/)
+
+{% tabs %}
+{% tab title='BJ_2511.md' %}
+
+> Question
+
+![BJ_2511](for-zip/images/20210305_165058.png)
+
+* In the first row, print out the total points A and B received after the game, with the blanks between them in order
+* Print out the winner in the second row
+
+```txt
+Input:
+4 5 6 7 0 1 2 3 9 8
+1 2 3 4 5 6 7 8 9 0
+
+Output:
+16 13
+A
+```
+
+{% endtab %}
+{% tab title='BJ_2511.py' %}
+
+```py
+a_scores = list(map(int,input().split()))
+b_scores = list(map(int,input().split()))
+a_point = b_point = 0
+last = 'D'
+for a_score, b_score in zip(a_scores, b_scores):
+  if a_score > b_score:
+    last = 'A'
+    a_point += 3
+  elif a_score < b_score:
+    last = 'B'
+    b_point += 3
+  else:
+    a_point += 1
+    b_point += 1
+print(a_point, b_point)
+if a_point > b_point:
+  print("A")
+elif b_point < a_point:
+  print("B")
+else:
+  print(last)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 4 : 해밍 거리](https://www.acmicpc.net/problem/3449)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/BJ_3449.md/)
+
+{% tabs %}
+{% tab title='BJ_3449.md' %}
+
+> Question
+
+* Print hamming distance between two strings
+
+```txt
+Input:
+4
+0
+1
+000
+000
+1111111100000000
+0000000011111111
+101
+000
+
+Output:
+Hamming distance is 1.
+Hamming distance is 0.
+Hamming distance is 16.
+Hamming distance is 2.
+```
+
+{% endtab %}
+{% tab title='BJ_3449.py' %}
+
+```py
+for _ in range(int(input())):
+  A, B = input(), input()
+  s = 0
+  for a, b in zip(A, B):
+    if a != b:
+      s += 1
+  print(f"Hamming distance is {s}.")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 7 : 보물](https://www.acmicpc.net/problem/1026)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/BJ_1026.md/)
+
+{% tabs %}
+{% tab title='BJ_1026.md' %}
+
+> Question
+
+* rearrange list and minimize following equation
+
+$$ S = A[0]×B[0] + ... + A[N-1]×B[N-1] $$
+
+```txt
+Input:
+5
+1 1 1 6 0
+2 7 8 3 1
+
+Output: 18
+```
+
+{% endtab %}
+{% tab title='BJ_1026.py' %}
+
+```py
+n = int(input())
+li1 = sorted(map(int, input().split()))
+li2 = sorted(map(int, input().split()), reverse=True)
+ret = 0
+for n1, n2 in zip(li1, li2):
+  ret += n1 * n2
+print(ret)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 12 : 전화번호 목록](https://www.acmicpc.net/problem/5052)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/BJ_5052.md/)
+
+{% tabs %}
+{% tab title='BJ_5052.md' %}
+
+> Question
+
+* Print out if one number is sometimes a prefix for another number
+
+```txt
+Input:
+2
+3
+911
+97625999
+91125426
+5
+113
+12340
+123440
+12345
+98346
+
+Output:
+NO
+YES
+```
+
+{% endtab %}
+{% tab title='BJ_5052.py' %}
+
+```py
+for _ in range(int(input())):
+  n = int(input())
+  li = [input() for _ in range(n)]
+  li.sort()
+  for i, j in zip(li, li[1:]):
+    if i == j[:len(i)]:
+      print("NO")
+      break
+  else:
+    print("YES")
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.4 : Detailed Differences](https://open.kattis.com/problems/detaileddifferences)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/KT_detaileddifferences.md/)
+
+{% tabs %}
+{% tab title='KT_detaileddifferences.md' %}
+
+> Question
+
+* Print . if two character are same, else *
+
+```txt
+Input:
+3
+ATCCGCTTAGAGGGATT
+GTCCGTTTAGAAGGTTT
+abcdefghijklmnopqrstuvwxyz
+bcdefghijklmnopqrstuvwxyza
+abcdefghijklmnopqrstuvwxyz0123456789
+abcdefghijklmnopqrstuvwxyz0123456789
+
+Output:
+ATCCGCTTAGAGGGATT
+GTCCGTTTAGAAGGTTT
+*....*.....*..*..
+
+abcdefghijklmnopqrstuvwxyz
+bcdefghijklmnopqrstuvwxyza
+**************************
+
+abcdefghijklmnopqrstuvwxyz0123456789
+abcdefghijklmnopqrstuvwxyz0123456789
+....................................
+
+```
+
+{% endtab %}
+{% tab title='KT_detaileddifferences.py' %}
+
+```py
+N = int(input())
+for _ in range(N):
+  st1 = input()
+  st2 = input()
+  print(st1)
+  print(st2)
+  for c1, c2 in zip(st1, st2):
+    if c1 == c2:
+      print('.', end='')
+    else:
+      print('*', end='')
+  print()
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.5 : Speed Limit](https://open.kattis.com/problems/speedlimit)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/KT_speedlimit.md/)
+
+{% tabs %}
+{% tab title='KT_speedlimit.md' %}
+
+> Question
+
+* Given speed and time, find avergage velocity
+
+```txt
+Input:
+3
+20 2
+30 6
+10 7
+2
+60 1
+30 5
+4
+15 1
+25 2
+30 3
+10 5
+-1
+
+Output:
+170 miles
+180 miles
+90 miles
+```
+
+{% endtab %}
+{% tab title='KT_speedlimit.py' %}
+
+```py
+def total_miles(speeds, times):
+  total_miles = 0
+  prev_time = 0
+  for speed, time in zip(speeds, times):
+    total_miles += (time - prev_time) * speed
+    prev_time = time
+  return total_miles
+
+while n_line := int(input()) != -1:
+  speeds, times = [], []
+  for _ in range(n_line):
+    speed, time = map(int, input().split())
+    speeds.append(speed)
+    times.append(time)
+  print(f'{total_miles(speeds, times)} miles')
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.4 : Transit Woes](https://open.kattis.com/problems/transitwoes)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/KT_transitwoes.md/)
+
+{% tabs %}
+{% tab title='KT_transitwoes.md' %}
+
+> Question
+
+* Time to leave home s, class start time t, n이 주어진다
+* n+1 times that took to go next station by walk
+* n times that took for a bus to go
+* n kimes that took for a bus to move to station
+* Print if he can arrive at class in time
+
+```txt
+Input:
+0 20 2
+2 2 2
+5 5
+3 5
+
+Output: yes
+```
+
+{% endtab %}
+{% tab title='KT_transitwoes.py' %}
+
+```py
+cur, t, n = map(int, input().split())
+D = list(map(int, input().split()))
+B = list(map(int, input().split()))
+C = list(map(int, input().split()))
+for d, b, c in zip(D, B, C):
+  cur += d
+  cur += (cur % c)
+  cur += b
+if cur + D[-1] < t:
+  print("yes")
+else:
+  print("no")
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1.9 : Exam](https://open.kattis.com/problems/exam)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/KT_exam.md/)
+
+{% tabs %}
+{% tab title='KT_exam.md' %}
+
+> Question
+
+* First line number of correct from friend, and answer sheets from mine and my friend are given
+* Print maximum number of questions that I could have gotten right
+
+```txt
+Input:
+3
+FTFFF
+TFTTT
+
+Output: 2
+```
+
+{% endtab %}
+{% tab title='KT_exam.py' %}
+
+```py
+correct = int(input())
+my = input()
+fr = input()
+total = len(my)
+same = 0
+for m, f in zip(my, fr):
+  if m == f:
+    same += 1
+
+if same > correct:
+  print(correct + (total - same))
+else:
+  print(same + (total - correct))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Minimum Time Difference](https://leetcode.com/problems/minimum-time-difference)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/for-zip/LC_539.md/)
+
+{% tabs %}
+{% tab title='LC_539.md' %}
+
+> Question
+
+* Given a list of 24-hour clock time points in "HH:MM" format, return min minutes difference between any two time-points
+
+```txt
+Input: timePoints = ["23:59","00:00"]
+Output: 1
+
+Input: timePoints = ["00:00","23:59","00:00"]
+Output: 0
+```
+
+{% endtab %}
+{% tab title='LC_539.py' %}
+
+```py
+def findMinDifference(self, timePoints: List[str]) -> int:
+  minutes = sorted(list(map(lambda x: int(x[:2]) * 60 + int(x[3:]), timePoints)))
+  return min((y - x) % (24 * 60) for x, y in zip(minutes, minutes[1:] + minutes[:1]))
+```
+
+{% endtab %}
+{% endtabs %}

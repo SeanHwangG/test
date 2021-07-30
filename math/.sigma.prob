@@ -1,0 +1,74 @@
+> baekjoon
+
+* [Level 1 : 합](https://www.acmicpc.net/problem/8393)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/sigma/BJ_8393.md/)
+
+{% tabs %}
+{% tab title='BJ_8393.md' %}
+
+> Question
+
+* Find sum of 1 ... N
+
+{% endtab %}
+{% tab title='BJ_8393.py' %}
+
+```py
+n = int(input())
+print(n * (n + 1) // 2)
+```
+
+{% endtab %}
+{% tab title='BJ_8393.sh' %}
+
+```sh
+read n
+echo $(($n*($n+1)/2))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Sum Kind of Problem](https://www.acmicpc.net/problem/11522)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/sigma/BJ_11522.md/)
+
+{% tabs %}
+{% tab title='BJ_11522.md' %}
+
+> Question
+
+* For N line,
+* Given k, m, print k and sum of first m natural, odd, even number
+
+```txt
+Input:
+3
+1 1
+2 10
+3 1001
+
+Output:
+1 1 1 2
+2 55 100 110
+3 501501 1002001 1003002
+```
+
+{% endtab %}
+{% tab title='BJ_11522.py' %}
+
+```py
+n = int(input())
+for i in range(n):
+  k, n = map(int, input().split())
+  print(k, n * (n + 1) // 2, n * (n + 1) - n, n * (n + 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> kattis
+
+* [Level 1.5 : Sum Kind of Problem](https://open.kattis.com/problems/sumkindofproblem)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/sigma/KT_sumkindofproblem.md/)
+
+[Duplicate](./BJ_11522.md)

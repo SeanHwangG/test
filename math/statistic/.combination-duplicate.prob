@@ -1,0 +1,88 @@
+> baekjoon
+
+* [Level 8 : 세 개의 소수 문제](https://www.acmicpc.net/problem/11502)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/combination-duplicate/BJ_11502.md/)
+
+{% tabs %}
+{% tab title='BJ_11502.md' %}
+
+> Question
+
+* Take any odd number greater than 5
+* Determine how that odd number can be expressed as a sum of three decimal places
+
+```txt
+Input:
+3
+7
+11
+25
+
+Output:
+2 2 3
+2 2 7
+5 7 13
+```
+
+{% endtab %}
+{% tab title='BJ_11502.py' %}
+
+```py
+from itertools import combinations_with_replacement
+is_prime = [False, False] + [True] * (1000)
+primes = []
+for i in range(2, len(is_prime)):
+  if is_prime[i]:
+    primes.append(i)
+    for j in range(2 * i, len(is_prime), i):
+      is_prime[j] = False
+for _ in range(int(input())):
+  n = int(input())
+  for a, b, c in combinations_with_replacement(primes, 3):
+    if a + b + c == n:
+      print(a, b, c)
+      break
+  else:
+    print(0)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 9 : 과 M (12)](https://www.acmicpc.net/problem/15666)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/combination-duplicate/BJ_15666.md/)
+
+{% tabs %}
+{% tab title='BJ_15666.md' %}
+
+> Question
+
+* Choose M from N integers
+* Print all combinations with decresing numbers where you can select same number multiple times
+
+```txt
+Input:
+4 2
+9 7 9 1
+
+Output:
+1 1
+1 7
+1 9
+7 7
+7 9
+9 9
+```
+
+{% endtab %}
+{% tab title='BJ_15666.py' %}
+
+```py
+from itertools import combinations_with_replcaement
+N = int(input().split()[1])
+for p in combinations_with_replacement(sorted(set(map(int,input().split()))), N):
+  print(*p)
+```
+
+{% endtab %}
+{% endtabs %}

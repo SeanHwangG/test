@@ -199,7 +199,7 @@ for _ in range(int(input())):
 
 > leetcode
 
-* [Level  : UNKNOWN]()
+* [Level 3 : Guess the Word](https://leetcode.com/problems/guess-the-word)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/interactive/LC_843.md/)
 
 {% tabs %}

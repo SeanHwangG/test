@@ -7,7 +7,6 @@
   * All Web services need a network to operate while APIs don’t need a network for operation
   * First estimate your usage and understand how that will impact the overall cost of the offering
   * Many protocols are now available to be used in API testing (ex JMS, REST, HTTP, UDDI and SOAP)
-* Content delivery network (CDN)
 * Cross-site request forgeries (csrf): POST, PUT, PATCH, DELETE request for secret session value that malicious app
   * a type of malicious exploit whereby unauthorized commands are performed on behalf of an authenticated user
 * HTML: Hyper Text Markup Language where W3 Consortium is main international standards organization
@@ -23,6 +22,11 @@
 * Server Side Rendered: pages rendered on the server after every request, sources data & uses templates
   * [+] SEO, easy to update
   * [-] Slow, Fresh request needs to be made for every page
+* Service worker: script that your browser runs in the background, separate from a web page
+  * Programmable network proxy, allowing you to control how network requests from your page are handled
+  * Can't access DOM directly, communicate with the pages it controls by responding to messages sent via postMessage interface
+  * opening door to features that don't need a web page or user interaction
+  * [ex] push notifications, background sync
 * Static website: Uses static HTML, js, css
   * [+] SEO
   * [-] Fresh request to server for every page, hard to maintain
@@ -1358,14 +1362,16 @@ class Member(UserMixin):
 {% endtab %}
 {% endtabs %}
 
-## Heatlh Check
+## Heartbeat
+
+* server periodically sends heartbeat message to a central monitoring server to show that it is still alive
+* Without central server randomly choose a set of servers and send them a heartbeat message
 
 {% tabs %}
 {% tab title='djagno' %}
 
-> health_check
-
-* pip install django-health-check
+* health_check
+  * pip install django-health-check
 
 ```py
 # urls.py
@@ -1412,6 +1418,15 @@ HEALTH_CHECK = {
 
 {% repo 'material' %}
 
+## MIME
+
+* two-part identifier for file formats and format contents transmitted on the Internet
+* [ex] image/png, text/html, text/plain
+
+> Reference
+
+<https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types>
+
 ## Media
 
 {% tabs %}
@@ -1450,7 +1465,7 @@ margin         # space between border and surrounding content
 * MediaStream
 
 ```js
-// 1. open the default microphone and camera
+/* 1. open the default microphone and camera */
 const constraints = {
   'video': true,
   'audio': true
@@ -1463,8 +1478,8 @@ navigator.mediaDevices.getUserMedia(constraints)
     console.error('Error accessing media devices.', error);
   });
 
-// 2. Listen for device change
-/* Updates the select element with the provided set of cameras */
+/* 2. Listen for device change */
+// Updates the select element with the provided set of cameras
 function updateCameraList(cameras) {
   const listElement = document.querySelector('select#availableCameras');
   listElement.innerHTML = '';
@@ -1475,17 +1490,17 @@ function updateCameraList(cameras) {
   }).forEach(cameraOption => listElement.add(cameraOption));
 }
 
-/* Fetch an array of devices of a certain type */
+// Fetch an array of devices of a certain type
 async function getConnectedDevices(type) {
   const devices = await navigator.mediaDevices.enumerateDevices();
   return devices.filter(device => device.kind === type)
 }
 
-/* Get the initial set of cameras connected */
+// Get the initial set of cameras connected
 const videoCameras = getConnectedDevices('videoinput');
 updateCameraList(videoCameras);
 
-/* Listen for changes to media devices and update the list accordingly */
+// Listen for changes to media devices and update the list accordingly
 navigator.mediaDevices.addEventListener('devicechange', event => {
   const newCameraList = getConnectedDevices('video');
   updateCameraList(newCameraList);
@@ -1496,8 +1511,8 @@ async function getConnectedDevices(type) {
     return devices.filter(device => device.kind === type)
 }
 
-// 3. Media Constraint
-/* Open camera with at least minWidth and minHeight capabilities */
+/* 3. Media Constraint */
+// Open camera with at least minWidth and minHeight capabilities
 async function openCamera(cameraId, minWidth, minHeight) {
   const constraints = {
     'audio': {'echoCancellation': true},
@@ -1513,11 +1528,11 @@ async function openCamera(cameraId, minWidth, minHeight) {
 
 const cameras = getConnectedDevices('videoinput');
 if (cameras && cameras.length > 0) {
-  /* Open first available video camera with a resolution of 1280x720 pixels */
+  // Open first available video camera with a resolution of 1280x720 pixels
   const stream = openCamera(cameras[0].deviceId, 1280, 720);
 }
 
-// 4. Local Playback
+/* 4. Local Playback */
 async function playVideoFromCamera() {
   try {
     const constraints = {'video': true, 'audio': true};
@@ -1546,20 +1561,42 @@ async function playVideoFromCamera() {
 
 > Term
 
-* ICE: candidate Internet Connectivity Establishment configuration which may be used to establish an RTCPeerConnection
-* Signaling Server: server that manages the connections between devices ([ex] one user to find another in network)
-* STUN: Session Traversal of UDP Through NATs server allows NAT clients ([ex] IP Phones behind a firewall)
-  * to set up phone calls to a VoIP provider hosted outside of local network
-* TURN server: Traversal Using Relay NAT, is protocol for relaying network traffic
-  * most WebRTC apps to function, server that relays traffic between peers is required
-  * since a direct socket is often not possible between clients
+* webrtc: web real-time communications
+* [NAT](../computer-science/security.md#NAT)
+* Master: peer that initiates connection and is connected to signaling channel with the ability to discover
+  * exchange media with any of the signaling channel's connected viewers
+* Session Description Protocol (SDP): standard for describing multimedia content of connection
+  * So that both peers can understand each other once the data is transferring
+  * [ex] resolution, formats, codecs, encryption
+* SDP Offer: SDP message sent by an agent which generates a session description in order to create or modify a session
+  * Describes aspects of desired media communication
+* SDP Answer: SDP message sent by an answerer in response to an offer received from an offerer
+  * Answer indicates the aspects that are accepted ([ex] if all the audio and video streams in the offer are accepted)
 
 {% tabs %}
 {% tab title='javascript' %}
 
-* webrtc
-  * RTC PeerConnection: API for sending arbitrary data over
-    * createDataChannel()
+> Term
+
+* Control pane: Responsible for creating and maintaining the Kinesis Video Streams with WebRTC signaling channels
+* RTC PeerConnection: API for sending arbitrary data over
+  * createDataChannel()
+* Server: provides functionality required for proper connection of WebRTC sessions in cloud or self-hosting
+  * Application servers: application and website hosting servers
+  * Signaling server: a server that manages connections between devices
+    * It's not concerned with media traffic itself, its focus is on signaling
+    * enabling one user to find another in network, negotiating connection itself, resetting connection, and closing
+* Topologies
+  ![WebRTC](images/20210728_125822.png)
+  * MCU: Multipoint Control Unit handles mixing of video / audio streams in a central server
+    * controls a composited layout of that video for everyone, but introduces latency
+    * [+] Client only requires basic webRTC Implementation
+    * [+] Each participant has only one uplink downloink
+    * [-] Since the MCU server makes decoding and encoding each participant’s media, it requires high processing power
+  * SFU: Selective Forwarding Unit, each only connects to SFU but receives unique streams for each participant
+    * [+] More powerful but complicated implementation, end2end encryption
+    * [+] Requires less processing power than MCU, each participant has one uplink and four downlinks
+    * [-] More complex design and implementation in server-side
 
 ```js
 const messageBox = document.querySelector('#messageBox');
@@ -1567,25 +1604,25 @@ const sendButton = document.querySelector('#sendButton');
 const peerConnection = new RTCPeerConnection(configuration);
 const dataChannel = peerConnection.createDataChannel();
 
-// 1. Open and close events
-/* Enable textarea and button when opened */
+/* 1. Open and close events */
+// Enable textarea and button when opened
 dataChannel.addEventListener('open', event => {
   messageBox.disabled = false;
   messageBox.focus();
   sendButton.disabled = false;
 });
 
-/* Disable input when closed */
+// Disable input when closed
 dataChannel.addEventListener('close', event => {
   messageBox.disabled = false;
   sendButton.disabled = false;
 });
 
-// 2. Messages
+/* 2. Messages */
 const messageBox = document.querySelector('#messageBox');
 const sendButton = document.querySelector('#sendButton');
 
-/* Send a simple text message when we click the button */
+// Send a simple text message when we click the button
 sendButton.addEventListener('click', event => {
   const message = messageBox.textContent;
   dataChannel.send(message);
@@ -1596,7 +1633,7 @@ const incomingMessages = document.querySelector('#incomingMessages');
 const peerConnection = new RTCPeerConnection(configuration);
 const dataChannel = peerConnection.createDataChannel();
 
-/* Append new messages to the box of incoming messages */
+// Append new messages to the box of incoming messages
 dataChannel.addEventListener('message', event => {
   const message = event.data;
   incomingMessages.textContent += message + '\n';
@@ -1610,3 +1647,5 @@ dataChannel.addEventListener('message', event => {
 
 <https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidate>
 <https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity>
+<https://docs.aws.amazon.com/kinesisvideostreams-webrtc-dg/latest/devguide/kvswebrtc-how-it-works.html>
+<https://antmedia.io/webrtc-servers/>

@@ -1,9 +1,9 @@
 # Requirements
 
 * Functional
-  * Given a URL, our service should generate a shorter and unique alias of it, called a short link
+  * Given a URL, service should generate a shorter and unique alias of it, called a short link
   * This link should be short enough to be easily copied and pasted into applications
-  * When users access a short link, our service should redirect them to the original link
+  * When users access a short link, service should redirect them to the original link
   * Users should optionally be able to pick a custom short link for their URL
   * Links will expire after a standard default timespan → specify the expiration time
 
@@ -34,10 +34,17 @@
 ![database](images/20210220_194128.png)
 ![Flow](images/20210220_194215.png)
 
+> Problem
+
 * Our service is read-heavy
 * We need to store billions of records → Each object is small (less than 1K)
 * There are no relationships between records other than storing which user created a URL
 * base36 ([a-z ,0-9]) or base62 ([A-Z, a-z, 0-9])
+
+> Solution
+
+* NoSQL store like DynamoDB, Cassandra or Riak is a better choice
+* Can take the hash of the ‘key’ or the short link to determine the partition in which we store the data object
 
 ## API
 
@@ -56,7 +63,7 @@
 
 * deleteURL(api_dev_key, url_key)
 
-## Question
+## Logic
 
 * Hash vs KGS
   * Hash can be used concurrently

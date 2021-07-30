@@ -5,11 +5,8 @@ fix_include:
 remove_prob:
 	rm **/.*.prob
 
-remove_empty:
-	find . -type d -delete
-
 print_empty:
 	find . -empty -print | grep -Ev '__init__|site-packages|private|node_modules'
 
 delete_empty:
-	make print_empty | xargs -I {} rm {}
+	make print_empty | xargs -I {} rmdir {}

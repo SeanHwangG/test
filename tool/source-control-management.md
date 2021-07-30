@@ -32,9 +32,8 @@
 {% endtab %}
 {% tab title='python' %}
 
-> github
-
-* pip install PyGithub
+* github
+  * pip install PyGithub
 
 ```py
 # 1. List all repository
@@ -59,30 +58,31 @@ for repo in g.get_user().get_repos():
 
 * Uses present tense for commit message
 
-> git commit CLI
+> Example
 
--t / --template: start the editor with the contents in given file ([ex] file)
+* git commit
+  * -t / --template: start the editor with the contents in given file ([ex] file)
 
 {% endtab %}
 {% endtabs %}
 
-> error: cannot lock ref 'refs/remotes/origin/working/sample': 'refs/remotes/origin/working' exists; cannot create 'refs/remotes/origin/working/sample'
+> Error
+
+* cannot lock ref 'refs/remotes/origin/working/sample': 'refs/remotes/origin/working' exists; cannot create 'refs/remotes/origin/working/sample'
   From [https://github.com/sample/repo](https://github.com/sample/repo)
   ! \[new branch\] working/hojae -&gt; origin/working/hojae \(unable to update local ref\)
 
-```sh
-sean@ip-172-31-61-87:~/EnkorBackend$ git update-ref -d refs/remotes/origin/working
-git update-ref -d refs/remotes/origin/development
-```
+  ```sh
+  sean@ip-172-31-61-87:~/EnkorBackend$ git update-ref -d refs/remotes/origin/working
+  git update-ref -d refs/remotes/origin/development
+  ```
 
-> fatal: refusing to merge unrelated histories
+* fatal: refusing to merge unrelated histories
+  * rebase instead
+  * pull origin main --allow-unrelated-histories
 
-* rebase instead
-* pull origin main --allow-unrelated-histories
-
-> modified content, untracked content
-
-* git rm -rf --cached
+* modified content, untracked content
+  * git rm -rf --cached
 
 ## Hook
 
@@ -253,22 +253,22 @@ exec git diff-index --check --cached $against --
   * pip install pre-commit
   * For dynamic checking use repo: local and language: system
 
-> pre-commit cli
+> Example
 
-* install: Install at .git/hooks/pre-commit
-* --verbose
-* repo
-  * local: hook must define id, name, language, entry, and files / types
-* language
-  * system: shouldn't have additional_dependencies
+* pre-commit
+  * install: Install at .git/hooks/pre-commit
+  * --verbose
+  * repo
+    * local: hook must define id, name, language, entry, and files / types
+  * language
+    * system: shouldn't have additional_dependencies
 
-> lerna CLI
-
-* run
-  * --concurrency 1
-  * --stream precommit
-  * --since HEAD
-  * --exclude-dependents
+* lerna
+  * run
+    * --concurrency 1
+    * --stream precommit
+    * --since HEAD
+    * --exclude-dependents
 
 {% tabs %}
 {% tab title='.pre-commit-config.yaml' %}
@@ -495,21 +495,6 @@ git reset --soft HEAD@{1} && git commit -C HEAD@{1}
 ```
 
 {% tabs %}
-{% tab title='github' %}
-
-```sh
-# Ubuntu
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
-https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-sudo apt update
-sudo apt install gh
-
-# Mac
-brew install gh
-```
-
-{% endtab %}
 {% endtabs %}
 
 ### Inspect

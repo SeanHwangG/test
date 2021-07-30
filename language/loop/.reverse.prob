@@ -349,6 +349,36 @@ while True:
 {% endtab %}
 {% endtabs %}
 
+* [Level 10 : 팰린드롬 만들기](https://www.acmicpc.net/problem/1254)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/language/loop/reverse/BJ_1254.md/)
+
+{% tabs %}
+{% tab title='BJ_1254.md' %}
+
+> Question
+
+* Print shortest palindrome length that can be made
+
+```txt
+Input: abab
+Output: 5
+```
+
+{% endtab %}
+{% tab title='BJ_1254.py' %}
+
+```py
+s = input()
+i, b =0, s
+while b != b[::-1]:
+  b = s + s[i::-1]
+  i += 1
+print(len(b))
+```
+
+{% endtab %}
+{% endtabs %}
+
 > kattis
 
 * [Level 1.2 : Filip](https://open.kattis.com/problems/filip)

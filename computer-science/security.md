@@ -69,6 +69,24 @@
 * [-] Not easily possible for external hosts to open TCP connections with hosts behind NAT
 * [-] NAT breaks the end-to-end transparency of the network
 
+> Term
+
+* TURN: Traversal using relays around nat allows host to control relay operation, exchange packets with peers using relay
+  * If host is behind NAT, then it might be impossible for that host to communicate directly with peers
+  * In these situations, it's necessary for host to use services of intermediate node that acts as communication relay
+  * Designed to be used as part of the ICE (Interactive Connectivity Establishment
+* STUN: Relay Extensions to Session Traversal Utilities for NAT
+  * allows NAT clients ([ex] IP Phones behind a firewall) to set up phone calls to VoIP provider hosted outside
+* ICE: candidate Internet Connectivity Establishment configuration which may be used to establish an RTCPeerConnection
+* Signaling Server: server that manages the connections between devices ([ex] one user to find another in network)
+* TURN server: Traversal Using Relay NAT, is protocol for relaying network traffic
+  * Most WebRTC apps to function, server that relays traffic between peers is required
+  * Since a direct socket is often not possible between clients
+
+> Reference
+
+<https://datatracker.ietf.org/doc/html/rfc5766>
+
 ## XSS
 
 * Cross-site Scripting attack: aka XSS attack, a malicious script is added to a website

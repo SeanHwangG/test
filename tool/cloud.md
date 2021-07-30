@@ -27,17 +27,21 @@
 ![cloud services](images/20210307_183109.png)
 
 * IaaS (Infrastructure as a service): Don't worry about building your own network or your own servers
-  * [ex] AWS, GCP, Azure
+  * virtual machines, servers, storage, load balancers, network
+  * [ex] AWS EC2 cloud, GCP, Azure
 
 * PaaS (Platform as a service): abstracts away the server instances you need
+  * Provided with entire computing platform
+  * Execution runtime, database, web server, development tools
   * subset of cloud computing where a platform is provided for customers to run their services
   * execution engine is provided for whatever software someone wants to run
   * web developer writing a application w/o entire server complete with file system, dedicated resources
   * [ex] AWS Elastic Beanstalk, Google app engine, Heroku
 
 * SaaS (Software as a service): licensing use of software to others, keeping software centrally hosted and managed
+  * cloud service provides hardware, software environment (operating system, application software)
   * [-] has to share it's data with service provider, limit to customization (ex. fix service down, high latency)
-  * [ex] Google workspace, dropbox, salesforce
+  * [ex] Google workspace, dropbox, salesforce, Dropbox
 
 * FaaS (Function as a Service)
   * Event driven service model, only triggered when an event occurs (HTTP, web request)
@@ -255,9 +259,9 @@ python manage.py migrate
 {% endtab %}
 {% endtabs %}
 
-## Service
+## Cloud Service
 
-![cloud services](images/20210307_183109.png)
+![Cloud services](images/20210307_183109.png)
 ![Cloud services share](images/20210607_221213.png)
 
 * IaaS (Infrastructure as a service): User shouldn't have to worry about building your own network or your own servers
@@ -279,31 +283,6 @@ python manage.py migrate
   * [-] Cold start problem: depends on service provider, environment configuration, memory footprint
   * [-] Complexity: overall project becomes complex
   * [ex] Amazon's AWS lambda, Google Cloud function
-
-## Cloud Setup
-
-{% tabs %}
-{% tab title='google' %}
-
-* gcloud components update
-
-```py
-# 1. Setup in mac
-curl https://stk.cloud.google.com | bash
-exec -l $SHELL  # Restart shell
-gcloud init
-gcloud config set compute/zone asia-northeast3  # Setup zone
-
-# 2. Simple frontend
-echo "Hello World" > index.html
-python -m SimpleHTTPServer 8080
-""" preview on port 8080 """
-```
-
-![Shell](images/20210610_140324.png)
-
-{% endtab %}
-{% endtabs %}
 
 ## Notification Service
 
@@ -797,6 +776,21 @@ container_commands:
 {% endtabs %}
 
 ## Load Balance
+
+* Reduces individual server load to prevents server from becoming a single point of failure
+* Improving overall application availability and responsiveness
+* Second load balancer can be connected to the first to form a cluster
+  * [+] Each LB monitors the health of the other, second one can take over
+
+![Load Balance](images/20210210_101803.png)
+
+> Term
+
+* Least Connection: useful when many persistent client connections that are unevenly distributed between servers
+* Least Response Time: directs traffic to server with the fewest active connections and the lowest average response time
+* Round Robin: useful when not many persistent connections and the servers are of equal specification
+  * Weighted: Better handle servers with different processing capacities
+* IP Hash: hash of the IP address of the client is calculated to redirect the request to a server
 
 {% tabs %}
 {% tab title='amazon' %}

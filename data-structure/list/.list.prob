@@ -165,59 +165,6 @@ print(total)
 {% endtab %}
 {% endtabs %}
 
-* [Level 3 : 카드놀이](https://www.acmicpc.net/problem/2511)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_2511.md/)
-
-{% tabs %}
-{% tab title='BJ_2511.md' %}
-
-> Question
-
-![BJ_2511](list/images/20210305_165058.png)
-
-* In the first row, print out the total points A and B received after the game, with the blanks between them in order
-* Print out the winner in the second row
-
-```txt
-Input:
-4 5 6 7 0 1 2 3 9 8
-1 2 3 4 5 6 7 8 9 0
-
-Output:
-16 13
-A
-```
-
-{% endtab %}
-{% tab title='BJ_2511.py' %}
-
-```py
-a_scores = list(map(int,input().split()))
-b_scores = list(map(int,input().split()))
-a_point = b_point = 0
-last = 'D'
-for a_score, b_score in zip(a_scores, b_scores):
-  if a_score > b_score:
-    last = 'A'
-    a_point += 3
-  elif a_score < b_score:
-    last = 'B'
-    b_point += 3
-  else:
-    a_point += 1
-    b_point += 1
-print(a_point, b_point)
-if a_point > b_point:
-  print("A")
-elif b_point < a_point:
-  print("B")
-else:
-  print(last)
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 3 : 쌍의 합](https://www.acmicpc.net/problem/5217)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/BJ_5217.md/)
 
@@ -739,51 +686,6 @@ for _ in range(int(input())):
   li = list(map(int, input().split()))
   count = sum(li) - 2 * li[0] + 1
   print(count)
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 1.4 : Transit Woes](https://open.kattis.com/problems/transitwoes)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/list/KT_transitwoes.md/)
-
-{% tabs %}
-{% tab title='KT_transitwoes.md' %}
-
-> Question
-
-* 첫줄에 출발시간 s, 수업시작시간 t, n이 주어진다
-* 두번째 줄에는 n+1 개의 수가 주어지며 한 정거장에서 다음정거장으로 가는데 걸리는 시간을 의미
-* 세번째 줄에는 n 개의 수가 주어지며 버스타고가면서 걸리는시간을 의미
-* 네번째 줄에도 n 개의 수가 주어진다.버스가 정거장에 도착하는데 걸리는시간
-* 제시간에 수업에 도착할 수 있으면 ‘yes’ 없으면 ‘no’를 출력하라
-
-```txt
-Input:
-0 20 2
-2 2 2
-5 5
-3 5
-
-Output: yes
-```
-
-{% endtab %}
-{% tab title='KT_transitwoes.py' %}
-
-```py
-cur, t, n = map(int, input().split())
-D = list(map(int, input().split()))
-B = list(map(int, input().split()))
-C = list(map(int, input().split()))
-for d, b, c in zip(D, B, C):
-  cur += d
-  cur += (cur % c)
-  cur += b
-if cur + D[-1] < t:
-  print("yes")
-else:
-  print("no")
 ```
 
 {% endtab %}

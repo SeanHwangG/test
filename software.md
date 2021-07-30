@@ -50,6 +50,31 @@
 
 * X Window System: xAuthority file is in ~, stores credentials in cookies used by xauth for authentication of X sessions
 
+## Build
+
+{% tabs %}
+{% tab title='cmake' %}
+
+```sh
+""" 1. Build cmake """
+mkdir build
+cd build
+cmake ..
+make install -j
+```
+
+{% endtab %}
+{% tab title='cpp' %}
+
+```sh
+""" 1. Build ROS """
+catkin_make
+catkin_make install
+```
+
+{% endtab %}
+{% endtabs %}
+
 ## Configure
 
 * ansible: software provisioning, configuration management, application-deployment tool enabling infrastructure as code
@@ -88,6 +113,13 @@ from django.conf import settings
 ### Version
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* ROS
+  * noetic-ros-base: actionlib, dynamic reconfiguration
+  * noetic-perception: pcl, image_common, image_pipeline, laser_pipeline
+
+{% endtab %}
 {% tab title='javascript' %}
 
 ```js
@@ -105,12 +137,21 @@ var min = versions.sort(semver.compare)[0]
 ## Setup
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* catkin_create_pkg: [ex] beginner_tutorials std_msgs rospy roscpp
+
+{% endtab %}
 {% tab title='python' %}
 
-* sudo apt-get install python3-opencv
-* pip install opencv-python
 * django
   * export DJANGO_SETTINGS_MODULE=mysite.settings
+* django-admin
+  * startproject: [ex] classroom
+  * startapp: [ex] student, teacher
+* opencv
+  * sudo apt-get install python3-opencv
+  * pip install opencv-python
 
 ```sh
 # 1. Setup
@@ -122,28 +163,7 @@ sudo apt install python3.9
 # 2. Setup
 pip install django
 django-admin startproject mysite
-# mysite/
-#  venv/ <-- HERE
-#  manage.py
-#  mysite/
-#    __init__.py
-#    settings.py
-#    urls.py
-#    asgi.py
-#    wsgi.py
-
 django-admin startapp polls
-# mysite/
-#   ...
-#   polls/
-#     __init__.py
-#     admin.py
-#     apps.py
-#     migrations/
-#       __init__.py
-#     models.py
-#     tests.py
-#     views.py
 
 # 3. Environment
 # postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
@@ -218,7 +238,6 @@ alias mount='mount |column -t'
 alias ports='netstat -tulanp'  # TCP / UDP
 alias sshhosts="sed -n 's/^\s*Host\s+(.*)\s*/\1/ip' ~/.ssh/config"
 alias speed='speedtest-cli --server 2406 --simple'
-alias untar='tar -zxvf '
 alias psm='ps aux | sort -nr -k 4 | head -3'
 alias psm10='ps aux | sort -nr -k 4 | head -10'
 alias psc='ps aux | sort -nr -k 3 | head -3'
@@ -240,18 +259,6 @@ export LDFLAGS="-L/usr/local/opt/libffi/lib"
 ```
 
 {% endtab %}
-{% tab title='apple' %}
-
-```sh
-alias ldd="otool -L"
-alias xclip="pbcopy"
-alias xargs="gxargs"
-
-# disable accented key for long press
-defaults write -g ApplePressAndHoldEnabled -bool false
-```
-
-{% endtab %}
 {% tab title='sql' %}
 
 * Mac Postgres
@@ -264,6 +271,18 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 {% endtabs %}
 
 {% tabs %}
+{% tab title='apple' %}
+
+```sh
+alias ldd="otool -L"
+alias xclip="pbcopy"
+alias xargs="gxargs"
+
+# disable accented key for long press
+defaults write -g ApplePressAndHoldEnabled -bool false
+```
+
+{% endtab %}
 {% tab title='git' %}
 
 * github.com/settings/tokens: create github token
@@ -274,6 +293,26 @@ ssh-keygen -t ed25519 -c "comment"
 vim ~/.ssh/id_ed25519.pub  # Copy public key
 # Go to gitlab preference (top right) -> ssh -> add public key
 ```
+
+{% endtab %}
+{% tab title='google' %}
+
+* gcloud components update
+
+```py
+# 1. Setup in mac
+curl https://stk.cloud.google.com | bash
+exec -l $SHELL  # Restart shell
+gcloud init
+gcloud config set compute/zone asia-northeast3  # Setup zone
+
+# 2. Simple frontend
+echo "Hello World" > index.html
+python -m SimpleHTTPServer 8080
+""" preview on port 8080 """
+```
+
+![Shell](images/20210610_140324.png)
 
 {% endtab %}
 {% endtabs %}
@@ -308,6 +347,36 @@ class SimpleMiddleware:
 ## Install
 
 {% tabs %}
+{% tab title='cmake' %}
+
+```sh
+""" 1. Install """
+# Ubuntu
+https://cmake.org/download
+cd $CMAKE_DOWNLOAD_PATH
+./configure
+make -j
+sudo make install
+# Mac
+brew update
+brew install cmake
+
+""" 2. Setup """
+source /opt/ros/foxy/setup.bash
+```
+
+{% endtab %}
+{% tab title='cpp' %}
+
+```sh
+""" 1. Install ROS """
+brew tap ros/deps
+brew tap osrf/simulation   # Gazebo, sdformat, and ogre
+brew tap homebrew/core # VTK5
+brew tap homebrew/science  # others
+```
+
+{% endtab %}
 {% tab title='java' %}
 
 ```sh
@@ -396,6 +465,22 @@ sudo apt-get install gnome-session-fallback  # toggle sidebar (settings -> dock 
 {% endtabs %}
 
 {% tabs %}
+{% tab title='git' %}
+
+```sh
+# 1. Install gh
+""" Ubuntu """
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo apt install gh
+
+""" Mac """
+brew install gh
+```
+
+{% endtab %}
 {% tab title='jenkins' %}
 
 ```sh
@@ -562,6 +647,11 @@ sudo apt-get install jenkins
 ### Update
 
 {% tabs %}
+{% tab title='cmake' %}
+
+* sudo apt-get install update cmake
+
+{% endtab %}
 {% tab title='bash' %}
 
 * apt update

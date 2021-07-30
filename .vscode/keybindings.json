@@ -19,7 +19,7 @@
     "key": "cmd+8",
     "command": "type",
     "args": {
-      "text": "[//]: # ()" // comment in markdown for duplicate question
+      "text": "[Duplicate]()"
     },
     "when": "editorTextFocus"
   },

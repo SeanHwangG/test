@@ -658,6 +658,10 @@ DROP OWNED BY ryan;
 {% endtab %}
 {% endtabs %}
 
+## Explain
+
+* Check whether query uses an index
+
 ## Injection
 
 * 2012, Linkedin leaked 6m user's data, yahoo, Nvidia, Adobe exposed hundred thousands of passwords

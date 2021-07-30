@@ -47,17 +47,12 @@
 * Fault Tolerance: enables a system to continue operating properly in the event of the failure of some of its components
   * Commodity cluster \(redundant data storage\)
 
-* IaaS: User must install and maintain an operating system, and other applications
-  * virtual machines, servers, storage, load balancers, network
-  * Amazon EC2 cloud
-* PaaS: Provided with entire computing platform
-  * Execution runtime, database, web server, development tools
-  * Google App engine, Microsoft Azure
-* SaaS: cloud service provides hardware, software environment \(operating system, application software\) * Dropbox
 * BDMS: Continuous data ingestion
   * Support for common “Big Data” data types
   * A full query language
   * A flexible semi-structured data model
+* Variable length column
+  * [-]: fragmentation and issues where updating a varchar with a large value can cause a performance hit
 
 > Question
 
@@ -493,7 +488,15 @@ $$ \delta $$
 | 4       | C1        | C5        | 2000       |
 | 2       | C5        |
 
-## Relation
+## Association
+
+> Term
+
+* Bidirectional: Add a field for holding the reverse association
+  * set one as dominant, with methods that create or update the association
+  * create utility method for establishing association in non-dominant class, with given parameters to complete field
+  * [+] only way to get associated object, or fast calculation
+  * [-] much harder to implement, make classes interdependent
 
 {% tabs %}
 {% tab title='javascript' %}
@@ -913,12 +916,16 @@ SELECT * FROM Wheel
 {% endtab %}
 {% endtabs %}
 
+## Replication
+
+* Saving multiple copies of data single copies of data create bottlenecks (tune)
+
 ## Sharding
 
 * architecture that partitions data by key ranges, distributes data among two or more database instances
 * [+] enables horizontal scaling
 * [-] adds additional programming and operational complexity to your application
-  * If your application is bound by read performance, you can add caches or database replicas.
+  * If your application is bound by read performance, you can add caches or database replicas
 
 > Term
 
@@ -2065,10 +2072,11 @@ urlpatterns = [
 
 ## NoSQL
 
+> Term
+
 * horizontally scalable, add servers in NoSQL database infrastructure to handle more traffic
 * Flexible Schema: NoSQL support key-value structures which can be added as needed
 * Distributed Data: Parallel read, write across multiple servers, incremental growth in cluster
-* Replication: saving multiple copies of data single copies of data create bottlenecks (tune)
 * Eventual consistency
 
 * Nested: Three recently visited chat
@@ -2106,43 +2114,10 @@ urlpatterns = [
   * support abstract data structure → str, list, map, set, sorted set, HyperLogLog, bitmap, stream, spatial index
   * replication is accomplished through master-slave mode
 
-### Elastic Search
-
-| SQL      | elasticsearch         |
-| -------- | --------------------- |
-| Database | Index                 |
-| Table    | Type                  |
-| Row      | Document              |
-| Column   | Field                 |
-| Schema   | Mapping               |
-| Index    | Everything is indexed |
-| SQL      | Query DSL             |
-
-> Terms
-
-* Cluster
-
-![Clusters](images/20210205_165935.png)
-
-* Documents: For single customer or order or an event resides in index
-* Nodes: Part of the cluster that stores the data with search and index capabilities
-  * Node names are lower-case and can have many of them
-
-* Shard, Replica: portion of the index
-* Indexes: Collection of similar documents
-
-> Types
-
-* category or partition of index
-
-```text
-<REST verb> <Index> <Type> <ID>
-```
-
-### Firebase
-
 {% tabs %}
 {% tab title='javascript' %}
+
+* firebase
 
 ```js
 const functions = require("firebase-functions");
@@ -2611,6 +2586,9 @@ def reducer(key, values):
 {% tab title='amazon' %}
 
 * fully managed non-persistent application and desktop streaming service
+
+> Term
+
 * Kinesis
   * Producer Library: Mediator between producer, stream API with retry, gather records
   * Choices: Order vs Unordered
@@ -2618,9 +2596,33 @@ def reducer(key, values):
 
 ![Kinesis](images/20210727_224901.png)
 
+> Example
+
+* aws lambda
+  * create-event-source-mapping
+    * --function-name: [ex] ProcessKinesisRecords
+    * --event-source: [ex] arn:aws:kinesis:us-west-2:123456789012:stream/lambda-stream
+    * --batch-size: [ex] 100
+    * --starting-position: [ex] LATEST
+  * list-event-source-mappings
+    * --function-name: [ex] ProcessKinesisRecords
+    * --event-source: [ex] arn:aws:kinesis:us-west-2:123456789012:stream/lambda-stream
+
+* aws kinesis
+  * create-stream
+    * --stream-name: [ex] lambda-stream
+    * --shard-count 1
+  * describe-stream
+    * --stream-name: [ex] lambda-stream
+  * put-record
+    * --stream-name lambda-stream
+    * --partition-key 1
+    * --data "Hello, this is a test."
+
 {% endtab %}
 {% endtabs %}
 
 > Reference
 
 <https://www.youtube.com/watch?v=mrLsGq0HFVk>
+<https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis-example.html>

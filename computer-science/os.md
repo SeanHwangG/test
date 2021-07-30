@@ -1259,24 +1259,27 @@ else:
 {% endtab %}
 {% endtabs %}
 
-## Caching
+## Cache
 
 ![Cache](images/20210301_180426.png)
 
+* Take advantage of the locality of reference, recently requested data is likely to be requested again
+* Caches can exist at all levels in architecture, but often found at near to front end
+
 > Terms
 
+* CDN: Content Delievery Network is a kind of cache that comes into play for sites serving large amounts of static media
+  * CDN will query the back-end servers for the file, cache it locally
 * L Cache: implemented using SRAM (static random access memory)
   * temporal/spatial locality
   * L1: * on processor chip accessed nearly as fast as the register file (10,000 bytes)
   * L2: connected to processor by special bus, 5 ~ 10 times slower than L1 (0.1m - 1m bytes)
 
-* Associative Mapping
-  * Full associativity mapping searches tag through entire cache
+* Associative Mapping: Full associativity mapping searches tag through entire cache
   * locality of reference principle: recently requested data is likely to be requested again
   * main memory: 256 blocks of 128 Kbits
   * cache memory: 16, 32-bit words and capacity of 32k words
-* Direct Mapping
-  * each block of main memory maps into one unique line of cache
+* Direct Mapping: Each block of main memory maps into one unique line of cache
   * bad when a program accesses 2 blocks that map to the same line
   * victim cache doesn't swap data to main memory but places into a specified line of cache
 
@@ -1286,7 +1289,7 @@ else:
   * Reading from cache makes a disk perform like a memory
   * Application exhibit locality for reading and writing
 
-> Question
+> Example
 
 * 22-bit address space, 512-byte cache, a cache block size of 64 bytes. Bits for index/tag?
   * 3 / 13
@@ -1413,25 +1416,36 @@ CACHES = {
 {% endtab %}
 {% endtabs %}
 
+{% include '.cache.prob' %}
+
+### HTTP CACHE
+
+> Reference
+
+<https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching>
+
 ### Invalidation
 
 * On a write some application assume that data makes it through the buffer cache and onto the disk
 * So, write are often slow even with cache
 
+> Term
+
 * Read Policy
   * Read Ahead (prefetch): FS predicts that the process will request next block
     * happen while the process is computing on previous block (overlap I/O with execution)
-    * [-] bad when file are scattered across the disk
+    * [-] bad when file are scattered across disk
 
 * Write Policy
-  * Write-through: when data hit / use the memory again soon
+  * Write-through: when data hit / use memory again soon
     * [+] complete data consistency between cache and storage
     * [+] nothing lost in crash, power failure
     * [-] higher latency
-  * Write-back: When data hit / doesn’t use the memory again
+  * Write-back: When data hit / doesn’t use memory again
+    * [+] low-latency and high-throughput for write-intensive applications
+    * [-] risk of data loss in case of a crash or other adverse event
   * Write-allocate: When data misses / use the memory again soon
-  * Write-behind: maintain a queue of uncommitted blocks
-    * periodically flush the queue to disk (30s)
+  * Write-behind: maintain a queue of uncommitted blocks, periodically flush the queue to disk (30s)
     * [-] unreliable, battery backed-up RAM is expensive and log-structure file system is complicated
   * No-write-allocate: When data misses / doesn’t use the memory again
 
@@ -1480,13 +1494,6 @@ CACHES = {
   * directory entry points to the first block in the file
 
 ![File allocation Table](images/20210210_101711.png)
-
-* Load Balance
-  * reduces individual server load to prevents server from becoming a single point of failure
-  * improving overall application availability and responsiveness
-  * second load balancer can be connected to the first to form a cluster
-
-![Load Balance](images/20210210_101803.png)
 
 * Memoy Mapped files: Open read into buffer, operate on buffer
   * Enable processes to do file I/O using loads and stores
@@ -1544,28 +1551,15 @@ CACHES = {
 * SCAN: Service requests in one direction until done, then reverse
 * C-SCAN: Like SCAN, but only go in one direction
 
-* Least Connection: useful when many persistent client connections that are unevenly distributed between servers
-
-* Least Response Time
-  * directs traffic to the server with the fewest active connections and the lowest average response time
-
 * Least Bandwidth
   * selects the server that is serving the least amount of traffic measured in megabits per second (Mbps)
 
-* Round Robin
-  * useful when not many persistent connections and the servers are of equal specification
-
 ![Round robin](images/20210316_154704.png)
 
-* Weighted Round Robin: Better handle servers with different processing capacities
+> Term
 
-* IP Hash: hash of the IP address of the client is calculated to redirect the request to a server
-
-> Metric
-
-* fairness with priority: sometimes measured by Jain’s Fairness Index
-* performance
-  * CPU Utilization (Efficiency): probability that all processes are waiting for I/O
+* Fairness with priority: sometimes measured by Jain’s Fairness Index
+* Performance: CPU Utilization (Efficiency): probability that all processes are waiting for I/O
   * turnaround time: $$ T_{turnaround} == T_{completion} − T_{arrival} $$
   * response time: $$ T_{response} == T_{firstrun} − T_{arrival} $$
 * Support heavy lodas: for movie FPS
@@ -1575,6 +1569,8 @@ CACHES = {
 
 * long-running thread will take over the CPU, until it calls yield, stop or exit to cause a context switch
 * Fewer context switch
+
+> Term
 
 * FIFO (First In First Out): evicts first block accessed first without any regard to how often/many times accessed
   * [-] Suffers from Belady's anomaly,  more page frames may increase (3: 3 hit / 4: 2 hit)
@@ -1601,7 +1597,7 @@ CACHES = {
 * RR (Random Replacement)
   * Randomly selects a candidate item and discards it to make space when necessary
 
-> Question
+> Example
 
 * How many page faults would occur for the following replacement
   1, 2, 3, 4, 2, 1, 5, 6, 2, 1, 2, 3, 7, 6, 3, 2, 1, 2, 3, 6.
@@ -1860,24 +1856,25 @@ else:
 
 > Terms
 
-* IDL (Interface definition language): specifies names, parameters and types for all client callable server procedures
-  * Stub compiler reads IDL and produces two stub procedures for each server procedure (client, server)
-  * Stubs are responsible for managing all details of remote communication between client and server
-
-* Messages: initally programmers handcoded to send requests and response
-  * [-] format, packing and unpacking, often asynchronous
-  * [-] server decode and dispatch to handlers
-  * [-] not a natural programming model
-
-> Terms
-
 * Binding: process of connecting client to server
   * server when it starts up exports its interface
   * client before issuing any calls, imports server
   * import and export operations are explicit in server and client programs
 
+* IDL (Interface definition language): specifies names, parameters and types for all client callable server procedures
+  * Stub compiler reads IDL and produces two stub procedures for each server procedure (client, server)
+  * Stubs are responsible for managing all details of remote communication between client and server
+
+* quorum: min # servers on which distributed operation needs to be performed successfully to declare success of operation
+  * [+] enforces the consistency requirement needed for distributed operations
+
 * Marshalling: packing of procedure parameters into a message packet
   * stubs call type-specific procedures to marshal / unmarshal the parameters to a call
+
+* Messages: initally programmers handcoded to send requests and response
+  * [-] format, packing and unpacking, often asynchronous
+  * [-] server decode and dispatch to handlers
+  * [-] not a natural programming model
 
 * Mounting: Before a client can access files on a sever, client must mount file systme on sever
   * Servers maintain ACLs of clients that can mount their directories

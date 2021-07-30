@@ -110,9 +110,6 @@ print(r)
 {% endtab %}
 {% endtabs %}
 
-* [Level 8 : 수들의 합 2](https://www.acmicpc.net/problem/2003)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_2003.md/)
-
 * [Level 9 : 행렬](https://www.acmicpc.net/problem/1080)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/BJ_1080.md/)
 
@@ -329,44 +326,6 @@ for _ in range(int(input())):
 {% endtabs %}
 
 > leetcode
-
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_517.md/)
-
-{% tabs %}
-{% tab title='LC_517.md' %}
-
-> Question
-
-* n super washing machines on a line. Initially, each washing machine has some dresses or is empty
-* For each move, choose any m (1 <= m <= n) washing machines, and pass a dress of each washing machine to its adjacent
-* Given an integer array machines representing # dresses in each washing machine from left to right on line
-* return minimum number of moves to make all washing machines have same number of dresses, -1 if impossible
-
-```txt
-Input: machines = [1,0,5]
-Output: 3
-
-Input: machines = [0,3,0]
-Output: 2
-```
-
-{% endtab %}
-{% tab title='LC_517.py' %}
-
-```py
-def findMinMoves(self, machines):
-  total, n = sum(machines), len(machines)
-  if total % n: return -1
-  target, res, toRight = total / n, 0, 0
-  for m in machines:
-    toRight = m + toRight - target
-    res = max(res, abs(toRight), m - target)
-  return res
-```
-
-{% endtab %}
-{% endtabs %}
 
 * [Level 1 : Maximum Ascending Subarray Sum](https://leetcode.com/problems/maximum-ascending-subarray-sum)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_1800.md/)
@@ -735,6 +694,44 @@ def strongPasswordChecker(self, s):
     change -= max(delete - one - 2 * two, 0) // 3
 
     return delete + max(missing_type, change)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Super Washing Machines](https://leetcode.com/problems/super-washing-machines)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy/LC_517.md/)
+
+{% tabs %}
+{% tab title='LC_517.md' %}
+
+> Question
+
+* n super washing machines on a line. Initially, each washing machine has some dresses or is empty
+* For each move, choose any m (1 <= m <= n) washing machines, and pass a dress of each washing machine to its adjacent
+* Given an integer array machines representing # dresses in each washing machine from left to right on line
+* return minimum number of moves to make all washing machines have same number of dresses, -1 if impossible
+
+```txt
+Input: machines = [1,0,5]
+Output: 3
+
+Input: machines = [0,3,0]
+Output: 2
+```
+
+{% endtab %}
+{% tab title='LC_517.py' %}
+
+```py
+def findMinMoves(self, machines):
+  total, n = sum(machines), len(machines)
+  if total % n: return -1
+  target, res, toRight = total / n, 0, 0
+  for m in machines:
+    toRight = m + toRight - target
+    res = max(res, abs(toRight), m - target)
+  return res
 ```
 
 {% endtab %}

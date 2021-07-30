@@ -67,6 +67,14 @@ while select bounding box with some threshold
 {% endtab %}
 {% endtabs %}
 
+{% tabs %}
+{% tab title='amazon' %}
+
+![Amazon Sagemaker](images/20210728_010545.png)
+
+{% endtab %}
+{% endtabs %}
+
 ## Autmonomous vehicle
 
 * Driving task: Perceiving the environment, Planning how to reach from point A to B
@@ -79,11 +87,11 @@ while select bounding box with some threshold
   * Measures a vehicle’s three linear acceleration and rotational rate components
 
 * Level of automation
-  * 1: Assistance either, but not both longitudinal control or lateral (e.g. cruise, lane keeping)
-  * 2: Both longitudinal control and lateral
-  * 3: Includes automated object and event detection and response. Alert in case of failure
-  * 4: Can handle emergencies autonomously
-  * 5: Unlimited ODD
+    1. Assistance either, but not both longitudinal control or lateral (e.g. cruise, lane keeping)
+    2. Both longitudinal control and lateral
+    3. Includes automated object and event detection and response. Alert in case of failure
+    4. Can handle emergencies autonomously
+    5. Unlimited ODD
 
 * Perception
   * Static objects
@@ -860,11 +868,32 @@ exec(cv::gin(in_frame), cv::gout(out_frame, ints));
   * Flexible SDK for integration with on-device hardware media pipelines with AWS Integration
   * Handle streaming Put API to stream continuously in a reliable manner
   * Add metadata to video fragments applied by the device directly
+  * Methods
+    * CreateStream / DeleteStream / DescribeStream / ListStreams:
+    * UpdateDataRetention: Increase or decreases the stream's data retention period
+    * UpdateStream: Update data medata
+    * GetDataEndpoint: Get endpoint for a specified stream for either reading / writing
+    * PutMedia: Long-running streaming API to write media data to a video stream
+    * GetMedia: Retrieve media content from a video stream
+    * GetMediaFroFragmentList: retrieve media data for a list of fragments from the video stream
+    * ListFragments: Returns list of Fragments from the specified video stream and start location
+    * GetHLSSStreamingSessionURLMedia: Retrieve an HTTP Live Streaming URL for the stream
+  * Kinesis Video Streams Parser Library: Open source java that makes easy to work with GetMedia Output
+    * Get frame-level object and its associated metadata
+    * Extract and apply video fragment-specific metadata
+    * Merge consecutive fragments, decode media to JPEG/PNG
+    * Build into your custom ML or other video-processing applications
+    * Scale to process 1000's of streams concurrently
+  * Kinesis Video Streams Inference Template (KIT): Sample, parse, decode invoke sagemaker real-time
 
 ![Kinesis Video Streaming](images/20210727_233303.png)
 
 {% endtab %}
 {% endtabs %}
+
+> Reference
+
+<https://www.youtube.com/watch?v=mrLsGq0HFVk>
 
 ## Upsampling
 

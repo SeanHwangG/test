@@ -384,17 +384,19 @@ class ProfileEnabledBaseCommand(BaseCommand):
   * -o: [ex] Vh command argument1 -V argument2 -h (--Vh command argument1 -V argument2 -h)
 
 ```sh
-# 1. keep input key
-valid=true
-while [ $valid ]; do
-  echo "press q to quit"
-  read key
-  if [[ $key = "q" ]] || [[ $key = "Q" ]]; then
-    break
-  fi
+""" 1. Getopts """
+DEBUG=0
+CLEAN=0
+while getopts cfd option; do
+case $option in
+c) CLEAN=1
+  ;;
+d) DEBUG=1
+  ;;
+esac
 done
 
-# 2. Input with shift params
+""" 2. Input with shift params """
 while [[ $# -gt 0 ]]; do
   key="$1"
   case "$key" in
@@ -414,7 +416,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# 3. regex
+""" 3. regex """
 case "$(uname -s)" in
   Linux*)   machine=Linux;;
   Darwin*)  machine=Mac;;
@@ -614,11 +616,27 @@ tuple(int(num) for num in nums)
 ### Directory Hierarchy
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* Ros
+
+```txt
+workspace_folder/        -- WORKSPACE
+  src/                   -- SOURCE SPACE
+    CMakeLists.txt       -- 'Toplevel' CMake file, provided by catkin
+    package_1/
+      CMakeLists.txt     -- CMakeLists.txt file for package_1
+      package.xml        -- Package manifest for package_1
+    ...
+    package_n/
+      CMakeLists.txt     -- CMakeLists.txt file for package_n
+      package.xml        -- Package manifest for package_n
+```
+
+{% endtab %}
 {% tab title='python' %}
 
-> Django
-
-* Directory
+* Django
 
 | File or Directory | Purpose                                                                                     |
 | ----------------- | ------------------------------------------------------------------------------------------- |
@@ -627,7 +645,19 @@ tuple(int(num) for num in nums)
 | templates         | site-wide django templates                                                                  |
 | profiles          | app for managing and displaying user profiles                                               |
 
-* App
+```txt
+# mysite/
+#   ...
+#   polls/
+#     __init__.py
+#     admin.py
+#     apps.py
+#     migrations/
+#       __init__.py
+#     models.py
+#     tests.py
+#     views.py
+```
 
 | file          | Purpose                              |
 | ------------- | ------------------------------------ |
@@ -637,6 +667,10 @@ tuple(int(num) for num in nums)
 | factories.py  | place our test data factories        |
 | utils.py      | helper function extracted from views |
 | signals.py    | providing custom signals             |
+
+> Reference
+
+<https://stackoverflow.com/questions/48206243/the-best-way-to-store-constants-in-django>
 
 {% endtab %}
 {% endtabs %}
@@ -729,10 +763,9 @@ fi
 {% tabs %}
 {% tab title='python' %}
 
-> dotenv
-
-* pip install python-dotenv
-* load_dotenv(dotenv_path=PATH.ENV)
+* dotenv
+  * pip install python-dotenv
+  * load_dotenv(dotenv_path=PATH.ENV)
 
 {% endtab %}
 {% endtabs %}
@@ -800,26 +833,6 @@ yarn eject  # eject the project with below command
   * If repository name is changes change VIRTUAL_ENV in bin/activate
   * Prefered as it is official
 
-* pip
-  * config [debug, edit, get, list, set, unset]
-  * --version: print version of the pip
-  * install
-    * -e `path/url`: Install project in editable mode ([ex] setuptools "develop mode") from local path or a VCS url
-
-* pipreqs: Auto generate requirements.txt file for any project based on imports
-  * --use-local: Use ONLY local package info instead of querying PyPI
-  * --pypi-server `url`   Use custom PyPi server
-  * --proxy `url`: Use Proxy, parameter will be passed to requests library. or environments parameter in your terminal:
-  * --debug: Print debug information
-  * --ignore `dirs`: Ignore extra directories
-  * --encoding `charset`  Use encoding parameter for file open
-  * --savepath `file`: Save the list of requirements in the given file
-  * --print: Output the list of requirements in the standard output
-  * --force: Overwrite existing requirements.txt
-  * --diff `file`: Compare modules in requirements.txt to project imports.
-  * --clean `file`: Clean up requirements.txt by removing modules that are not imported in project.
-  * --no-pin: Omit version of output packages.
-
 ```sh
 # 1. Setup
 sudo apt install python-setuptools
@@ -830,16 +843,12 @@ brew install pip  # Mac
 # 2. uninstall all files
 pip freeze | xargs pip uninstall -y
 
-# 3. Install all packages
-pip install -r requirements.txt  # in requirements.txt
-pip install install .  # pyproject.toml
-
-# 4. setup new environment
+# 3. setup new environment
 python -m venv env      # Create env/ folder in current directory
 source env/bin/activate # Activate environmetn
 pip install -r requirements.txt # download modules to env/ folder
 
-# 5. Remove environment
+# 4. Remove environment
 deactivate  # exit from environment
 rm -rf env  # delete environment
 ```
@@ -945,6 +954,25 @@ mvn clean package      # Remove issues with other maven operation
 * Isolation: [ex] python venv, c static linking
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* rospack
+  * depends1: direct dependency
+  * depends: recursive dependency
+
+* package.xml
+  * maintainer: [ex] Sean Hwang
+    * email
+  * license: [ex] BSD, MIT
+  * build_depend: [ex] rospy, roscpp
+  * buildtool_depend: [ex] catkin
+  * exec_depend: [ex] rospy, roscpp
+
+* rosrun rqt_graph rqt_graph
+  * sudo apt-get install ros-<distro>-rqt ros-<distro>-rqt-common-plugins
+  ![rosgraph](images/20210728_224820.png)
+
+{% endtab %}
 {% tab title='javascript' %}
 
 * npm audit: address issues that do not require attention
@@ -953,10 +981,38 @@ mvn clean package      # Remove issues with other maven operation
 {% endtab %}
 {% tab title='python' %}
 
+* pip
+  * config [debug, edit, get, list, set, unset]
+  * --version: print version of the pip
+  * install
+    * -e `path/url`: Install project in editable mode ([ex] setuptools "develop mode") from local path or a VCS url
+
+* pipreqs: Auto generate requirements.txt file for any project based on imports
+  * --use-local: Use ONLY local package info instead of querying PyPI
+  * --pypi-server `url`: Use custom PyPi server
+  * --proxy `url`: Use Proxy, parameter will be passed to requests library. or environments parameter in your terminal:
+  * --debug: Print debug information
+  * --ignore `dirs`: Ignore extra directories
+  * --encoding `charset`  Use encoding parameter for file open
+  * --savepath `file`: Save the list of requirements in the given file
+  * --print: Output the list of requirements in the standard output
+  * --force: Overwrite existing requirements.txt
+  * --diff `file`: Compare modules in requirements.txt to project imports.
+  * --clean `file`: Clean up requirements.txt by removing modules that are not imported in project.
+  * --no-pin: Omit version of output packages.
+
+* requirements.txt
+
+  ```txt
+  # requirements.txt
+  # for comment
+  -r base.txt  # extend from other
+  ```
+
 ```sh
-# requirements.txt
-# for comment
--r base.txt  # extend from other
+# 1. Install all packages
+pip install -r requirements.txt  # in requirements.txt
+pip install install .  # pyproject.toml
 ```
 
 {% endtab %}

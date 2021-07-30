@@ -522,43 +522,6 @@ print(answer)
 {% endtab %}
 {% endtabs %}
 
-* [Level 7 : 보물](https://www.acmicpc.net/problem/1026)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-key/BJ_1026.md/)
-
-{% tabs %}
-{% tab title='BJ_1026.md' %}
-
-> Question
-
-* rearrange list and minimize following equation
-
-$$ S = A[0]×B[0] + ... + A[N-1]×B[N-1] $$
-
-```txt
-Input:
-5
-1 1 1 6 0
-2 7 8 3 1
-
-Output: 18
-```
-
-{% endtab %}
-{% tab title='BJ_1026.py' %}
-
-```py
-n = int(input())
-li1 = sorted(map(int, input().split()))
-li2 = sorted(map(int, input().split()), reverse=True)
-ret = 0
-for n1, n2 in zip(li1, li2):
-  ret += n1 * n2
-print(ret)
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 13 : 컬러볼](https://www.acmicpc.net/problem/10800)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/sort/sort-key/BJ_10800.md/)
 

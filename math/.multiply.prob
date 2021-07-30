@@ -1,35 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_22193.md/)
-
-{% tabs %}
-{% tab title='BJ_22193.md' %}
-
-> Question
-
-* Given two numbers print multiple of them
-
-```txt
-Input:
-3 4
-123
-4567
-
-Output: 561741
-```
-
-{% endtab %}
-{% tab title='BJ_22193.py' %}
-
-```py
-_ = input()
-print(int(input()) * int(input()))
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 1 : A×B](https://www.acmicpc.net/problem/10998)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_10998.md/)
 
@@ -171,6 +141,36 @@ Output: 7696
 ```py
 a, b, c, d = map(int, input().split())
 print(56 * a + 24 * b + 14 * c + 6 * d)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Multiply](https://www.acmicpc.net/problem/22193)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/multiply/BJ_22193.md/)
+
+{% tabs %}
+{% tab title='BJ_22193.md' %}
+
+> Question
+
+* Given two numbers print multiple of them
+
+```txt
+Input:
+3 4
+123
+4567
+
+Output: 561741
+```
+
+{% endtab %}
+{% tab title='BJ_22193.py' %}
+
+```py
+_ = input()
+print(int(input()) * int(input()))
 ```
 
 {% endtab %}

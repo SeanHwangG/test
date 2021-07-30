@@ -2,9 +2,7 @@
 
 {% include '.statistic.prob' %}
 
-## Combinatorics
-
-### Counting
+## Counting
 
 * How many ways can 10 balls be selected if twice as many red balls as blue balls must be selected?
   * 3
@@ -67,7 +65,7 @@ $$
 
 {% include '.counting.prob' %}
 
-### Binomial Coefficient
+## Binomial Coefficient
 
 $$
 n C k=C_{k}^{n}=\frac{n !}{k !(n-k) !}
@@ -75,7 +73,7 @@ $$
 
 {% include '.binomial-coefficient.prob' %}
 
-### Combination
+## Combination
 
 {% tabs %}
 {% tab title='python' %}
@@ -90,11 +88,15 @@ $$
 
 {% include '.combination.prob' %}
 
-### Factorial
+### Combination Duplicate
+
+{% include '.combination-duplicate.prob' %}
+
+## Factorial
 
 {% include '.factorial.prob' %}
 
-### Permutation
+## Permutation
 
 $$
 P_{k}^{n}=\frac{n !}{(n-k) !}
@@ -122,30 +124,24 @@ $$
 
 {% include '.permutation.prob' %}
 
+## Series
+
+* arithmetic series
+  $$ a_{n}=a_{1}+(n-1) d $$
+  * Sum
+    $$ \frac{n\left(a_{1}+a_{n}\right)}{2} $$
+
+* geometric series
+  $$ \sum_{k=0}^{\infty} a r^{k} $$
+  * Sum
+    * n: number of terms
+    $$ S_{n}=\frac{a\left(r^{n}-1\right)}{r-1} $$
+
+{% include '.series.prob' %}
+
 ### Fibonacci
 
 {% include '.fibonacci.prob' %}
-
-### Series
-
-> arithmetic series
-
-$$ a_{n}=a_{1}+(n-1) d $$
-
-* Sum
-
-$$ \frac{n\left(a_{1}+a_{n}\right)}{2} $$
-
-> geometric series
-
-$$ \sum_{k=0}^{\infty} a r^{k} $$
-
-* Sum
-  * n: number of terms
-
-$$ S_{n}=\frac{a\left(r^{n}-1\right)}{r-1} $$
-
-{% include '.series.prob' %}
 
 ## Probability
 
@@ -198,27 +194,23 @@ $$ P(E)=\sum_{s \in E} p(s) $$
 
 ### Conditional probability
 
-> Conditional probability
-
 * $$ P(x | y) $$
 
-* The probability that two siblings are girls if one knows the oldest is a girl | one of them is a girl
-
-$$ \frac{1}{2} * \frac{1}{3} $$
-
-> Joint probabilitiy
-
-$$ p(x, y) $$
+* Joint probabilitiy
+  $$ p(x, y) $$
 
 * independent
-
-$$ {p}({x}, {y})={p}({x}) {p}({y}) $$
+  $$ {p}({x}, {y})={p}({x}) {p}({y}) $$
 
 * dependent
+  $$ {p}({x}, {y})={p}({x} \mid {y}) {p}({y}) $$
 
-$$ {p}({x}, {y})={p}({x} \mid {y}) {p}({y}) $$
+> Example
 
-{% problem 'conditional-probability'}
+* The probability that two siblings are girls if one knows the oldest is a girl | one of them is a girl
+  $$ \frac{1}{2} * \frac{1}{3} $$
+
+{% include '.conditional-probability.prob'}
 
 ### Variance
 
@@ -249,6 +241,8 @@ $$ cov(X, X) = var(X) $$
 
 ![Bayes](images/20210305_200838.png)
 
+> Term
+
 * Belief $$\operatorname{Bel}\left(x_{t}\right)$$
   $$ P(x_{t} ∣ u_{1}, z_{1}, \ldots, u_{t}, z_{t}) $$
 * Bayes
@@ -271,23 +265,20 @@ $$ cov(X, X) = var(X) $$
 | $$P(D, \theta)$$             |
 | $$D=(x_{1}, \ldots, x_{n})$$ | Data    |
 
-> Maximum Likelihood
+* Maximum Likelihood
+  $$\theta\_{MLE}=\arg \max _{\theta} P(D \mid \theta)$$
+  * [-] Often Overfit
 
-$$\theta\_{MLE}=\arg \max _{\theta} P(D \mid \theta)$$
-
-* [-] Often Overfit
-
-> Maximize Posteriori
-
-* [+] Easy to compute and interpretable
-* [+] Regularization effect, shrinkage →  Avoid Overfitting
-* [-] Point estimate → No representation of uncertainty in θ
-* [-] Not invariant under reparameterization
-* [-] Must assume prior on θ
+* Maximize Posteriori
+  * [+] Easy to compute and interpretable
+  * [+] Regularization effect, shrinkage →  Avoid Overfitting
+  * [-] Point estimate → No representation of uncertainty in θ
+  * [-] Not invariant under reparameterization
+  * [-] Must assume prior on θ
 
 $$\theta_{MAP}=\arg \max_{\theta} P(\theta \mid D)$$
 
-{% probability %}
+{% include '.probability.prob' %}
 
 ### Expectation
 

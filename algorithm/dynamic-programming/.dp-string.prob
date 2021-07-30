@@ -355,6 +355,40 @@ def minCut(self, s: str) -> int:
 {% endtab %}
 {% endtabs %}
 
+* [Level 3 : Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_32.md/)
+
+{% tabs %}
+{% tab title='LC_32.md' %}
+
+> Question
+
+* Given a string containing just characters '(' and ')', find length of longest valid parentheses substring
+
+```txt
+Input: s = "(()"
+Output: 2  # "()".
+
+Input: s = ")()())"
+Output: 4  # "()()".
+```
+
+{% endtab %}
+{% tab title='LC_32.py' %}
+
+```py
+def longestValidParentheses(self, s):
+  dp = [0] * (len(s) + 1)
+  for i in range(len(s) - 2, -1, -1):
+    j = i + 1 + dp[i + 1]
+    if s[i] == "(" and j < len(s) and s[j] == ")":
+      dp[i] = dp[i + 1] + dp[j + 1] + 2
+  return max(dp)
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 3 : Count Different Palindromic Subsequences](https://leetcode.com/problems/count-different-palindromic-subsequences)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-string/LC_730.md/)
 

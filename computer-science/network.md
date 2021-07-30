@@ -625,6 +625,8 @@ kill -9 $(lsof -ti :80)
 * Interface between application and network
 * Once configured the aplication, can pass data to socket for network transmission and recieve data
 
+> Term
+
 * UDP (User datagram protocol)
   * uses IP to transport IP datagrams with error correction and protocol port address
   * [+] Performance, useful for messages for not important → streaming video
@@ -661,6 +663,9 @@ kill -9 $(lsof -ti :80)
 ```sh
 # 1. kill port | kill running on port
 netstat -ano | grep :PORT_NUMBER
+
+# 2. List of all inode
+ls -l /proc/<pid>/fd
 ```
 
 {% endtab %}

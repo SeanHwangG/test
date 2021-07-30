@@ -1,6 +1,33 @@
 > leetcode
 
-* [Level  : UNKNOWN]()
+* [Level 1 : Valid Anagram](https://leetcode.com/problems/valid-anagram)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/multiset/LC_242.md/)
+
+{% tabs %}
+{% tab title='LC_242.md' %}
+
+> Question
+
+* Given two strings s and t, return true if t is an anagram of s, and false otherwise
+
+```txt
+Input: s = "anagram", t = "nagaram"
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_242.cpp' %}
+
+```cpp
+bool isAnagram(string s, string t) {
+  return unordered_multiset<char>(begin(s), end(s)) == unordered_multiset<char>(begin(t), end(t));
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Sliding Window Median](https://leetcode.com/problems/sliding-window-median)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/multiset/LC_480.md/)
 
 {% tabs %}
@@ -60,33 +87,6 @@ class Solution:
       window.remove(a)
 
     return median
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 1 : Valid Anagram](https://leetcode.com/problems/valid-anagram)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/multiset/LC_242.md/)
-
-{% tabs %}
-{% tab title='LC_242.md' %}
-
-> Question
-
-* Given two strings s and t, return true if t is an anagram of s, and false otherwise
-
-```txt
-Input: s = "anagram", t = "nagaram"
-Output: true
-```
-
-{% endtab %}
-{% tab title='LC_242.cpp' %}
-
-```cpp
-bool isAnagram(string s, string t) {
-  return unordered_multiset<char>(begin(s), end(s)) == unordered_multiset<char>(begin(t), end(t));
-}
 ```
 
 {% endtab %}

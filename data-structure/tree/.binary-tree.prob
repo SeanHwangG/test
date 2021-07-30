@@ -116,82 +116,6 @@ for _ in range(int(input())):
 
 > leetcode
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-tree/LC_1448.md/)
-
-{% tabs %}
-{% tab title='LC_1448.md' %}
-
-> Question
-
-* Count number of good nodes in a binary tree
-
-```txt
-Input: root = [3,1,4,3,null,1,5]
-Output: 4
-```
-
-{% endtab %}
-{% tab title='LC_1448.cpp' %}
-
-```cpp
-int goodNodes(TreeNode* r, int ma = -10000) {
-  return r ? goodNodes(r->left, max(ma, r->val)) + goodNodes(r->right, max(ma, r->val)) + (r->val >= ma) : 0;
-}
-```
-
-{% endtab %}
-{% tab title='LC_1448.py' %}
-
-```py
-def goodNodes(self, r, ma=-10000):
-  return self.goodNodes(r.left, max(ma, r.val)) + self.goodNodes(r.right, max(ma, r.val)) + (r.val >= ma) if r else 0
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-tree/LC_979.md/)
-
-{% tabs %}
-{% tab title='LC_979.md' %}
-
-> Question
-
-* Given root of a binary tree with n nodes where each node in tree has node.val coins
-* There are n coins in total throughout the whole tree.
-* In one move, choose two adjacent nodes and move one coin from one node to another
-* A move may be from parent to child, or from child to parent.
-* Return minimum number of moves required to make every node have exactly one coin
-
-```txt
-Input: root = [3,0,0]
-Output: 2
-
-Input: root = [1,0,0,null,3]
-Output: 4
-```
-
-{% endtab %}
-{% tab title='LC_979.py' %}
-
-```py
-res = 0
-def distributeCoins(self, root):
-  def dfs(root):
-    if not root: return 0
-    left = dfs(root.left)
-    right = dfs(root.right)
-    self.res += abs(left) + abs(right)
-    return root.val + left + right - 1
-  dfs(root)
-  return self.res
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 1 : Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-tree/LC_543.md/)
 
@@ -227,6 +151,41 @@ def diameterOfBinaryTree(self, root):
 {% endtab %}
 {% endtabs %}
 
+* [Level 2 : Count Good Nodes in Binary Tree](https://leetcode.com/problems/count-good-nodes-in-binary-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-tree/LC_1448.md/)
+
+{% tabs %}
+{% tab title='LC_1448.md' %}
+
+> Question
+
+* Count number of good nodes in a binary tree
+
+```txt
+Input: root = [3,1,4,3,null,1,5]
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_1448.cpp' %}
+
+```cpp
+int goodNodes(TreeNode* r, int ma = -10000) {
+  return r ? goodNodes(r->left, max(ma, r->val)) + goodNodes(r->right, max(ma, r->val)) + (r->val >= ma) : 0;
+}
+```
+
+{% endtab %}
+{% tab title='LC_1448.py' %}
+
+```py
+def goodNodes(self, r, ma=-10000):
+  return self.goodNodes(r.left, max(ma, r.val)) + self.goodNodes(r.right, max(ma, r.val)) + (r.val >= ma) if r else 0
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 2 : House Robber III](https://leetcode.com/problems/house-robber-iii)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-tree/LC_337.md/)
 
@@ -256,6 +215,47 @@ def rob(self, root: TreeNode):
     return (0, 0)
 
   return max(with_without_rob(root))
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Distribute Coins in Binary Tree](https://leetcode.com/problems/distribute-coins-in-binary-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-tree/LC_979.md/)
+
+{% tabs %}
+{% tab title='LC_979.md' %}
+
+> Question
+
+* Given root of a binary tree with n nodes where each node in tree has node.val coins
+* There are n coins in total throughout the whole tree.
+* In one move, choose two adjacent nodes and move one coin from one node to another
+* A move may be from parent to child, or from child to parent.
+* Return minimum number of moves required to make every node have exactly one coin
+
+```txt
+Input: root = [3,0,0]
+Output: 2
+
+Input: root = [1,0,0,null,3]
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_979.py' %}
+
+```py
+res = 0
+def distributeCoins(self, root):
+  def dfs(root):
+    if not root: return 0
+    left = dfs(root.left)
+    right = dfs(root.right)
+    self.res += abs(left) + abs(right)
+    return root.val + left + right - 1
+  dfs(root)
+  return self.res
 ```
 
 {% endtab %}

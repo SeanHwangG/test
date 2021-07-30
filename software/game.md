@@ -40,7 +40,8 @@ while run:
 
 {% repo '2048' %}
 {% repo 'snake' %}
+{% include '.keyboard-based.prob' %}
 
 ## Turn based
 
-{% include '.game.prob' %}
+{% include '.turn-based.prob' %}

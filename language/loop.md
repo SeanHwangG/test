@@ -278,6 +278,19 @@ li[-2]    # 0
 
 ![index](images/20210220_175525.png)
 
+```py
+""" 1. Insertion """
+a = [1, 2, 3]
+a[0:0] = [-3, -2, -1, 0]
+[-3, -2, -1, 0, 1, 2, 3]
+
+""" 2. Deletion """
+# a = [-3, -2, -1, 0, 1, 2, 3]
+a[2:4] = []
+# a [-3, -2, 1, 2, 3]
+
+```
+
 {% endtab %}
 {% tab title='shell' %}
 
@@ -537,6 +550,10 @@ for i in range(1, 10):
 
 {% include '.for-comprehension.prob' %}
 
+### For zip
+
+{% include '.for-zip.prob' %}
+
 ### Enumerate
 
 {% include '.enumerate.prob' %}
@@ -551,7 +568,7 @@ for i in range(1, 10):
 {% tab title='python' %}
 
 ```py
-# 1. Print until i == 6
+""" 1. Print until i == 6 """
 i = 1
 while i < 6:
   print(i)
@@ -562,7 +579,7 @@ while i < 6:
 {% tab title='shell' %}
 
 ```sh
-# 1. Sleep and run
+""" 1. Sleep and run """
 echo "pid is $$"
 
 while (( COUNT < 10 )); do
@@ -572,19 +589,17 @@ while (( COUNT < 10 )); do
 done
 exit 0
 
-# 2. Getopts
-DEBUG=0
-CLEAN=0
-while getopts cfd option; do
-case $option in
-c) CLEAN=1
-  ;;
-d) DEBUG=1
-  ;;
-esac
+""" 2. keep input key """
+valid=true
+while [ $valid ]; do
+  echo "press q to quit"
+  read key
+  if [[ $key = "q" ]] || [[ $key = "Q" ]]; then
+    break
+  fi
 done
 
-# 3. Check for postgres connection
+""" 3. Check for postgres connection """
 postgres_ready() {
 python << END
 import sys
@@ -628,7 +643,7 @@ endwhile
 {% tab title='python' %}
 
 ```py
-# 1. Stop when i == 3
+""" 1. Stop when i == 3 """
 i = 1
 while i < 6:
   print(i)
@@ -636,7 +651,7 @@ while i < 6:
     break
   i += 1
 
-# 2. a + b until a and b are both 0
+""" 2. a + b until input is 0 0 """
 while True:
   a, b = map(int, input().split())
   if a == b == 0:

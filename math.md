@@ -229,3 +229,7 @@ decimal.Decimal(0.999592935235).sqrt()
 
 {% endtab %}
 {% endtabs %}
+
+## Sigma
+
+{% include '.sigma.prob' %}

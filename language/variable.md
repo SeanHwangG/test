@@ -95,6 +95,12 @@ def renderBanner(self):
 * CMAKE_BUILD_TYPE: [ex] Debug, RelWithDebInfo
 
 {% endtab %}
+{% tab title='cpp' %}
+
+* ros
+  * ROS_PACKAGE_PATH
+
+{% endtab %}
 {% tab title='shell' %}
 
 * Special parameter

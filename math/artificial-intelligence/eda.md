@@ -185,6 +185,13 @@ plt.show()
 ## Line
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* ros
+  * rosrun rqt_plot rqt_plot
+  ![rqt plot](images/20210728_230417.png)
+
+{% endtab %}
 {% tab title='python' %}
 
 ![line](images/20210614_083233.png)

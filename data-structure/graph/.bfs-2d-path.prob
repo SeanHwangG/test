@@ -1,59 +1,5 @@
 > baekjoon
 
-* [Level  : UNKNOWN]()
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_14442.md/)
-
-{% tabs %}
-{% tab title='BJ_14442.md' %}
-
-> Question
-
-* Given map find shortest path when you can break k walls
-
-```txt
-Input:
-6 4 1
-0100
-1110
-1000
-0000
-0111
-0000
-
-Output: 15
-```
-
-{% endtab %}
-{% tab title='BJ_14442.py' %}
-
-```py
-from collections import deque
-
-n, m, k = map(int, input().split())
-D = [[*input()] for _ in range(n)]
-G = [[[0] * (k + 1) for _ in range(m)] for _ in range(n)]
-G[0][0][0] = 1
-q = deque([[0, 0, 0]])
-while q:
-  x, y, z = q.popleft()
-  for nx, ny in [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]:
-    if 0 <= nx < n and 0 <= ny < m:
-      if D[nx][ny] == '0' and G[nx][ny][z] == 0:
-        q.append([nx, ny, z])
-        G[nx][ny][z] = G[x][y][z] + 1
-      if D[nx][ny] == '1' and z < k and G[nx][ny][z + 1] == 0:
-        q.append([nx, ny, z + 1])
-        G[nx][ny][z + 1] = G[x][y][z] + 1
-ans = float('inf')
-for x in G[n - 1][m - 1]:
-  if x != 0:
-    ans = min(ans, x)
-print([ans, -1][ans == float('inf')])
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 9 : 나이트의 이동](https://www.acmicpc.net/problem/7562)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_7562.md/)
 
@@ -273,6 +219,60 @@ n, m = map(int, input().split())
 G = [input() for _ in range(n)]
 print(bfs(G, 0, 0))
 
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 13 : 벽 부수고 이동하기 2](https://www.acmicpc.net/problem/14442)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/BJ_14442.md/)
+
+{% tabs %}
+{% tab title='BJ_14442.md' %}
+
+> Question
+
+* Given map find shortest path when you can break k walls
+
+```txt
+Input:
+6 4 1
+0100
+1110
+1000
+0000
+0111
+0000
+
+Output: 15
+```
+
+{% endtab %}
+{% tab title='BJ_14442.py' %}
+
+```py
+from collections import deque
+
+n, m, k = map(int, input().split())
+D = [[*input()] for _ in range(n)]
+G = [[[0] * (k + 1) for _ in range(m)] for _ in range(n)]
+G[0][0][0] = 1
+q = deque([[0, 0, 0]])
+while q:
+  x, y, z = q.popleft()
+  for nx, ny in [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]:
+    if 0 <= nx < n and 0 <= ny < m:
+      if D[nx][ny] == '0' and G[nx][ny][z] == 0:
+        q.append([nx, ny, z])
+        G[nx][ny][z] = G[x][y][z] + 1
+      if D[nx][ny] == '1' and z < k and G[nx][ny][z + 1] == 0:
+        q.append([nx, ny, z + 1])
+        G[nx][ny][z + 1] = G[x][y][z] + 1
+ans = float('inf')
+for x in G[n - 1][m - 1]:
+  if x != 0:
+    ans = min(ans, x)
+print([ans, -1][ans == float('inf')])
 ```
 
 {% endtab %}
@@ -557,7 +557,12 @@ int main() {
 * Given the m x n maze, the ball's start position and the destination, return if the ball can stop at the destination
 
 ```txt
-Input: maze = [[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]], start = [0,4], destination = [4,4]
+Input: maze =
+  [[0,0,1,0,0],
+   [0,0,0,0,0],
+   [0,0,0,1,0],
+   [1,1,0,1,1],
+   [0,0,0,0,0]], start = [0,4], destination = [4,4]
 Output: true  # left -> down -> left -> down -> right -> down -> right.
 ```
 
@@ -693,6 +698,75 @@ def findShortestWay(self, G, ball, hole):
       heapq.heappush(pq, (dist+nei_dist, path+di, nei) )
 
   return "impossible"
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Cut Off Trees for Golf Event](https://leetcode.com/problems/cut-off-trees-for-golf-event)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/graph/bfs-2d-path/LC_675.md/)
+
+{% tabs %}
+{% tab title='LC_675.md' %}
+
+> Question
+
+* 0 means the cell cannot be walked through, 1 represents an empty cell that can be walked through
+* number greater than 1 represents a tree in a cell that can be walked through, and this number is the tree's height
+* Starting from point (0, 0), return minimum steps you need to walk to cut off all trees. If you cannot, return -1
+
+```txt
+Input: forest =
+[[1,2,3],
+ [0,0,4],
+ [7,6,5]]
+Output: 6
+```
+
+> Solution
+
+* Hadlock's algorithm
+
+{% endtab %}
+{% tab title='LC_675.py' %}
+
+```py
+def cutOffTree(self, forest: List[List[int]]) -> int:
+  # Add sentinels (a border of zeros) so we don't need index-checks later on.
+  forest.append([0] * len(forest[0]))
+  for row in forest:
+    row.append(0)
+
+  trees = [(height, i, j) for i, row in enumerate(forest) for j, height in enumerate(row) if height > 1]
+
+  # Can we reach every tree? If not, return -1 right away.
+  queue, reached = [(0, 0)], set()
+  for i, j in queue:
+    if (i, j) not in reached and forest[i][j]:
+      reached.add((i, j))
+      queue += (i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)
+  if not all((i, j) in reached for (_, i, j) in trees):
+    return -1
+
+  def distance(i, j, I, J):
+    now, soon, expanded = [(i, j)], [], set()
+    manhattan, detours = abs(i - I) + abs(j - J), 0
+    while True:
+      if not now:
+        now, soon = soon, []
+        detours += 1
+      i, j = now.pop()
+      if (i, j) == (I, J):
+        return manhattan + 2 * detours
+      if (i, j) in expanded:
+        continue
+      expanded.add((i, j))
+      for i, j, closer in (i + 1, j, i < I), (i - 1, j, i > I), (i, j + 1, j < J), (i, j - 1, j > J):
+        if forest[i][j]:
+          (now if closer else soon).append((i, j))
+
+  trees.sort()
+  return sum(distance(i, j, I, J) for (_, i, j), (_, I, J) in zip([(0, 0, 0)] + trees, trees))
 ```
 
 {% endtab %}

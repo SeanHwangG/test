@@ -13,7 +13,7 @@
 
 > Reference
 
-* [Design Pattern](https://refactoring.guru/design-patterns/python)
+* [Design Pattern](https://refactoring.guru/design-patterns)
 
 ## Principle
 
@@ -1153,8 +1153,8 @@ int main() {
 {% tab title='java' %}
 
 ```java
-// 1. Data Display
-////// Bad has circular dependecy
+/* 1. Data Display */
+// Bad has circular dependecy
 class Data {
   int data = 0;
   void setData(int d) { data = d; }
@@ -1163,7 +1163,7 @@ class Display {
   void show(int v) { print(“val: ” + v); }
 }
 
-////// Good
+// Good
 interface DataSubject { void register(DataObserver do); }
 interface DataObserver { void newData(int d); }
 class Data implements DataSubject {
@@ -1193,8 +1193,8 @@ void main() {
   data.setData(5); // print “val: 5”
 }
 
-// 2. Account
-////// Bad : Circular dependency
+/* 2. Account */
+// Bad : Circular dependency
 class Acct {
   void withdraw(int a) {
     if (a ≥ bal) bal -= a;
@@ -1206,7 +1206,7 @@ class UI {
   void withdraw(int a) { acct.withdraw(a); }
 }
 
-////// Good
+// Good
 interface AcctSubject { void register(AcctObserver do); }
 interface AcctObserver { void newbal(int b); }
 
@@ -1233,7 +1233,7 @@ void main() {
   acct.reg(ui);
 }
 
-////// Best
+// Best
 class AcctUIMediator implements AccountObserver, UIObserver {
   UI ui; Acct acct;
   void newbal(int b) { ui.show(b); }

@@ -18,3 +18,32 @@
 
 * Analytics, e.g., how many times a paste was accessed?
 * Our service should also be accessible through REST APIs by other services
+
+## API
+
+* getPaste(api_dev_key, api_paste_key) -> textual data of the paste
+* deletePaste(api_dev_key, api_paste_key) -> successful deletion returns ‘true’, otherwise returns ‘false’
+
+## Database
+
+![Pastebin Database](images/20210730_023338.png)
+
+> Solution
+
+* Metadata: Relational database like MySQL or a Distributed Key-Value store like Dynamo or Cassandra
+* Object storage: We can store our contents in an Object Storage like Amazon’s S3
+
+## Logic
+
+> Problem
+
+* We need to store billions of records
+* Each metadata object we are storing would be small (less than 1KB)
+* Each paste object we are storing can be of medium size (it can be a few MB)
+* There are no relationships between records, except if we want to store which user created what Paste
+* Our service is read-heavy
+
+> Solution
+
+* Upon receiving a read paste request, application service layer contacts datastore
+* Datastore searches for the key, and if it is found, it returns the paste’s contents. Otherwise, error code is returned

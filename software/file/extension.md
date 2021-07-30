@@ -7,9 +7,6 @@
 * ini: text-based content config file a structure and syntax comprising key-value pairs for properties
 * ORC: Optimized Row Columnar file format provides a highly efficient way to store Hive data
 
-* mime: two-part identifier for file formats and format contents transmitted on the Internet
-  * image/png, text/html, text/plain
-
 * tar: collecting several files into one archive file, including videos and images, for easier distribution
   * contain useful information about files contain, user permissions, dates, directory structures
 

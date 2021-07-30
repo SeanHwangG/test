@@ -360,6 +360,11 @@ def carPooling(self, trips, capacity):
 {% endtab %}
 {% endtabs %}
 
+* [Level 2 : Max Chunks To Make Sorted](https://leetcode.com/problems/max-chunks-to-make-sorted)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/LC_769.md/)
+
+[Duplicate](./LC_769.md)
+
 * [Level 3 : Course Schedule III](https://leetcode.com/problems/course-schedule-iii)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/LC_630.md/)
 
@@ -391,6 +396,42 @@ def scheduleCourse(self, courses: List[List[int]]) -> int:
     while start > end:
       start += heapq.heappop(pq)
   return len(pq)
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Max Chunks To Make Sorted II](https://leetcode.com/problems/max-chunks-to-make-sorted-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/LC_768.md/)
+
+{% tabs %}
+{% tab title='LC_768.md' %}
+
+> Question
+
+* Given an integer array arr, split arr into some number of chunks (i.e., partitions), and individually sort each chunk
+* After concatenating them, the result should equal the sorted array
+* Return largest # chunks we can make to sort the array
+
+```txt
+Input: arr = [5,4,3,2,1]
+Output: 1
+
+Input: arr = [2,1,3,4,4]
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_768.py' %}
+
+```py
+def maxChunksToSorted(self, A):
+  res, s1, s2 = 0, 0, 0
+  for a, b in zip(A, sorted(A)):
+    s1 += a
+    s2 += b
+    res += s1 == s2
+  return res
 ```
 
 {% endtab %}

@@ -99,6 +99,53 @@ CTRL-d | u: scroll half screen forward | backward
 
 ## Search Text
 
+* Elastic Search
+
+| SQL      | elasticsearch         |
+| -------- | --------------------- |
+| Database | Index                 |
+| Table    | Type                  |
+| Row      | Document              |
+| Column   | Field                 |
+| Schema   | Mapping               |
+| Index    | Everything is indexed |
+| SQL      | Query DSL             |
+
+> Terms
+
+* Cluster
+
+![Clusters](images/20210205_165935.png)
+
+* Documents: For single customer or order or an event resides in index
+* Nodes: Part of the cluster that stores the data with search and index capabilities
+  * Node names are lower-case and can have many of them
+
+* Shard, Replica: portion of the index
+* Indexes: Collection of similar documents
+
+* Types
+  * category or partition of index
+
+```text
+<REST verb> <Index> <Type> <ID>
+```
+
+{% tabs %}
+{% tab title='python' %}
+
+* algolia
+  * full-text search
+  * client
+    * SearchClient.create('key', 'cred'): create client
+  * index
+    * client.init_index('page'): create index
+    * clear_objects(): remove all objects
+    * save_objects()
+
+{% endtab %}
+{% tab title='vim' %}
+
 * /copy\C / \c: Case sensitive / insensitive
 * \*: Search current word forward
 * #: Search current word backward
@@ -112,6 +159,11 @@ CTRL-d | u: scroll half screen forward | backward
 
 * f/Fx: search line forward / backward for 'x'
 * t/Tx: search line forward / backward before 'x'
+
+{% endtab %}
+{% endtabs %}
+
+{% '.search-text.test' %}
 
 ### Bookmark
 

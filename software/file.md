@@ -339,7 +339,7 @@ for f in * .*[^.]*; do echo "$f"; done  # select all with hidden files
 {% tabs %}
 {% tab title='cpp' %}
 
-> filesystem
+* filesystem
 
 ```cpp
 #include <filesystem>
@@ -415,6 +415,12 @@ int main() {
 ### Directory View
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* ros
+  * rosls `pkg/stack`
+
+{% endtab %}
 {% tab title='python' %}
 
 * os
@@ -484,6 +490,12 @@ def ls():
 ### Directory Navigation
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* ros
+  * roscd: takes you to the default ROS workspace
+
+{% endtab %}
 {% tab title='shell' %}
 
 * pushd: saves the cwd in memory
@@ -856,19 +868,14 @@ du -a | cut -d/ -f2 | sort | uniq -c | sort -nr  # the number of files in each d
 {% endtab %}
 {% endtabs %}
 
-## Search
+## File Search
 
 {% tabs %}
-{% tab title='python' %}
+{% tab title='cpp' %}
 
-* algolia
-  * full-text search
-  * client
-    * SearchClient.create('key', 'cred'): create client
-  * index
-    * client.init_index('page'): create index
-    * clear_objects(): remove all objects
-    * save_objects()
+* ros
+  * rospack find `pkg`: [ex] roscpp
+  * roscd log: move to dir with log files
 
 {% endtab %}
 {% tab title='shell' %}

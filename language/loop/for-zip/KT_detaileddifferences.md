@@ -3,8 +3,7 @@
 
 > Question
 
-* 두 문자가 주어질 때 그 문자를 출력하고
-* 같은 자리는 . 다른 자리는 *를 아래에 출력하라
+* Print . if two character are same, else *
 
 ```txt
 Input:
