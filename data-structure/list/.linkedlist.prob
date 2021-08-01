@@ -53,40 +53,6 @@ if max(scores) == scores[2]:
 
 > leetcode
 
-* [Level 1 : Linked List Cycle](https://leetcode.com/problems/linked-list-cycle)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_141.md/)
-
-{% tabs %}
-{% tab title='LC_141.md' %}
-
-> Question
-
-* Check if linkedlist has cycle
-
-```txt
-Input: head = [3,2,0,-4], pos = 1
-Output: true
-```
-
-{% endtab %}
-{% tab title='LC_141.py' %}
-
-```py
-def hasCycle(self, head):
-  try:
-    slow = head
-    fast = head.next
-    while slow is not fast:
-      slow = slow.next
-      fast = fast.next.next
-    return True
-  except:
-    return False
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 1 : Reverse Linked List](https://leetcode.com/problems/reverse-linked-list)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_206.md/)
 
@@ -120,7 +86,8 @@ var reverseList = function(head) {
 
 ```py
 def reverseList(self, head: ListNode) -> ListNode:
-  if head == None:    return None
+  if head == None:
+    return None
   prev = None
   while head.next != None:
     nxt = head.next
@@ -193,77 +160,6 @@ def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
 {% endtab %}
 {% endtabs %}
 
-* [Level 1 : Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_876.md/)
-
-{% tabs %}
-{% tab title='LC_876.md' %}
-
-> Question
-
-* Print middle node in linked list
-
-```txt
-Input: [1,2,3,4,5,6]
-Output: Node 4 from this list (Serialization: [4,5,6])
-```
-
-{% endtab %}
-{% tab title='LC_876.py' %}
-
-```py
-def middleNode(self, head: ListNode) -> ListNode:
-  slow, fast = head, head
-  while fast and fast.next:
-    slow = slow.next
-    fast = fast.next.next
-  return slow
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 2 : Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_109.md/)
-
-{% tabs %}
-{% tab title='LC_109.md' %}
-
-> Question
-
-* make BST from sorted linked list
-
-```txt
-Input: head = [-10,-3,0,5,9]
-Output: [0,-3,9,-10,null,5]
-```
-
-{% endtab %}
-{% tab title='LC_109.py' %}
-
-```py
-def sortedListToBST(self, head):
-  if not head:
-    return
-  if not head.next:
-    return TreeNode(head.val)
-
-  slow, fast = head, head.next.next
-  while fast and fast.next:
-    fast = fast.next.next
-    slow = slow.next
-  tmp = slow.next
-
-  slow.next = None
-  root = TreeNode(tmp.val)
-  root.left = self.sortedListToBST(head)
-  root.right = self.sortedListToBST(tmp.next)
-  return root
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 2 : Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_138.md/)
 
@@ -299,149 +195,6 @@ class Solution:
     while node:
       node.random.next, node.random, node = node.next.random if node.next else None, node.random.next, node.next
     return head_copy
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 2 : Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_142.md/)
-
-{% tabs %}
-{% tab title='LC_142.md' %}
-
-> Question
-
-* Given a linked list, return the node where the cycle begins. If there is no cycle, return null
-
-```txt
-Input: head = [3,2,0,-4], pos = 1
-Output: tail connects to node index 1
-```
-
-{% endtab %}
-{% tab title='LC_142.py' %}
-
-```py
-def detectCycle(self, head):
-  try:
-    fast = head.next
-    slow = head
-    while fast is not slow:
-      fast = fast.next.next
-      slow = slow.next
-  except:
-    return None
-
-  slow = slow.next
-  while head is not slow:
-    head = head.next
-    slow = slow.next
-  return head
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 2 : Reorder List](https://leetcode.com/problems/reorder-list)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_143.md/)
-
-{% tabs %}
-{% tab title='LC_143.md' %}
-
-> Question
-
-* Given head of a singly linked-list. The list can be represented as:
-  * Reorder the list to be on the following form:
-  * L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
-
-```txt
-Input: head = [1,2,3,4]
-Output: [1,4,2,3]
-```
-
-{% endtab %}
-{% tab title='LC_143.py' %}
-
-```py
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-  def reorderList(self, head):
-    # find the mid point
-    slow = fast = head
-    while fast and fast.next:
-      slow = slow.next
-      fast = fast.next.next
-
-    # reverse the second half in-place
-    pre, node = None, slow
-    while node:
-      pre, node.next, node = node, pre, node.next
-
-    # Merge in-place; Note : the last node of "first" and "second" are the same
-    first, second = head, pre
-    while second.next:
-      first.next, first = second, first.next
-      second.next, second = first, second.next
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 2 : Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_19.md/)
-
-{% tabs %}
-{% tab title='LC_19.md' %}
-
-> Question
-
-* Remove nth node from end
-
-```txt
-Input: head = [1,2,3,4,5], n = 2
-Output: [1,2,3,5]
-```
-
-{% endtab %}
-{% tab title='LC_19.cpp' %}
-
-```cpp
-class Solution {
-public:
-  ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode* node = head, *offsetNode = head;
-    for (int i = 0; i < n; ++i) node = node->next;
-    if (node == NULL) return head->next;
-    while (node->next != NULL) {
-      node = node->next;
-      offsetNode = offsetNode->next;
-    }
-    offsetNode->next = offsetNode->next->next;
-    return head;
-  }
-};
-```
-
-{% endtab %}
-{% tab title='LC_19.py' %}
-
-```py
-def removeNthFromEnd(self, head, n):
-  fast = slow = head
-  for _ in range(n):
-    fast = fast.next
-  if not fast:
-    return head.next
-  while fast.next:
-    fast = fast.next
-    slow = slow.next
-  slow.next = slow.next.next
-  return head
 ```
 
 {% endtab %}
@@ -519,6 +272,141 @@ def rotateRight(self, head: ListNode, k: int) -> ListNode:
   answer = new_last.next
   new_last.next = None
   return answer
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Design Linked List](https://leetcode.com/problems/design-linked-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_707.md/)
+
+{% tabs %}
+{% tab title='LC_707.md' %}
+
+> Question
+
+* Implement the MyLinkedList class:
+* MyLinkedList() Initializes the MyLinkedList object.
+* int get(int index) Get the value of the indexth node in the linked list. If the index is invalid, return -1.
+* void addAtHead(int val) Add a node of value val before the first element of the linked list
+  * After the insertion, new node will be the first node of the linked list.
+* void addAtTail(int val) Append a node of value val as the last element of the linked list.
+* void addAtIndex(int index, int val) Add a node of value val before the indexth node in the linked list
+  * If index equals length of linked list, node will be appended to end of linked list
+  * If index is greater than the length, the node will not be inserted.
+* void deleteAtIndex(int index) Delete the indexth node in the linked list, if the index is valid.
+
+```txt
+Input:
+["MyLinkedList", "addAtHead", "addAtTail", "addAtIndex", "get", "deleteAtIndex", "get"]
+[[], [1], [3], [1, 2], [1], [1], [1]]
+
+Output:
+[null, null, null, null, 2, null, 3]
+```
+
+{% endtab %}
+{% tab title='LC_707.py' %}
+
+```py
+class ListNode:
+  def __init__(self, val):
+    self.val = val
+    self.next = None
+
+
+class MyLinkedList(object):
+  def __init__(self):
+    self.head, self.size = None, 0
+
+  def get(self, index: int) -> int:
+    if index < 0 or index >= self.size:
+      return -1
+
+    current = self.head
+
+    for _ in range( index):
+      current = current.next
+
+    return current.val
+
+  def addAtHead(self, val: int) -> None:
+    self.addAtIndex(0, val)
+
+  def addAtTail(self, val: int) -> None:
+    self.addAtIndex(self.size, val)
+
+  def addAtIndex(self, index: int, val: int) -> None:
+    if index > self.size:
+      return
+
+    current = self.head
+    new_node = ListNode(val)
+
+    if index <= 0:
+      new_node.next = current
+      self.head = new_node
+    else:
+      for _ in range(index - 1):
+        current = current.next
+      new_node.next = current.next
+      current.next = new_node
+
+    self.size += 1
+
+  def deleteAtIndex(self, index: int) -> None:
+    if index < 0 or index >= self.size:
+      return
+
+    current = self.head
+
+    if index == 0:
+      self.head = self.head.next
+    else:
+      for _ in range(index - 1):
+        current = current.next
+      current.next = current.next.next
+
+    self.size -= 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/linkedlist/LC_23.md/)
+
+{% tabs %}
+{% tab title='LC_23.md' %}
+
+> Question
+
+* You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+* Merge all the linked-lists into one sorted linked-list and return it.
+
+```txt
+Input: lists = [[1,4,5],[1,3,4],[2,6]]
+Output: [1,1,2,3,4,4,5,6]
+```
+
+{% endtab %}
+{% tab title='LC_23.py' %}
+
+```py
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+def mergeKLists(self, lists):
+  def vals(node):
+    while node:
+      yield node.val
+      node = node.next
+  dummy = last = ListNode(None)
+  for val in heapq.merge(*map(vals, lists)):
+    last.next = last = ListNode(val)
+  return dummy.next
 ```
 
 {% endtab %}

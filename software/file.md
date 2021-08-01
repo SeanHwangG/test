@@ -140,12 +140,11 @@ numFileIn.close();
 {% endtab %}
 {% tab title='python' %}
 
-> fileinput
+* fileinput
+  * FileInput
+    * inplace: whether to overwrite the file
 
-* FileInput
-  * inplace: whether to overwrite the file
-
-> shutil
+* shutil
 
 | Function    | Copies metadata | Copies permissions | Uses file object | Dest can be dir |
 | ----------- | --------------- | ------------------ | ---------------- | --------------- |
@@ -358,22 +357,20 @@ int main() {
 {% endtab %}
 {% tab title='python' %}
 
-> os
-
-* python3 -c 'import sys; print(64 if sys.maxsize > 2 ** 32 else 32)')
-
-* close(fd): Close file descriptor fd
-* ctermid(): filename corresponding to the controlling terminal of the process
-* chdir(path): change directory
-* execv(`path`, `argv`): execute an executable path with arguments, replacing current process
-* execl(`file`, `*args`): execute the executable file with argument list args, replacing the current process
-* getlogin(): name of the user logged in on the controlling terminal of the process
-* rename(`old`, `new`): rename
-* system(command): Execute the command (a string) in a subshell
-* times(): current global process times
-* rmdir(path, *, dir_fd=None): Remove directory path
-* mkdir(path, mode=0o777, exists_ok=True): Create a directory named path
-* os.path.exists('/usr/local/bin/'): check if path exists
+* os
+  * python3 -c 'import sys; print(64 if sys.maxsize > 2 ** 32 else 32)')
+  * close(fd): Close file descriptor fd
+  * ctermid(): filename corresponding to the controlling terminal of the process
+  * chdir(path): change directory
+  * execv(`path`, `argv`): execute an executable path with arguments, replacing current process
+  * execl(`file`, `*args`): execute the executable file with argument list args, replacing the current process
+  * getlogin(): name of the user logged in on the controlling terminal of the process
+  * rename(`old`, `new`): rename
+  * system(command): Execute the command (a string) in a subshell
+  * times(): current global process times
+  * rmdir(path, *, dir_fd=None): Remove directory path
+  * mkdir(path, mode=0o777, exists_ok=True): Create a directory named path
+  * os.path.exists('/usr/local/bin/'): check if path exists
 
 * os.path
   * basename: data/item.csv → item.csv
@@ -633,6 +630,39 @@ od -i binary.out
 ## Operation
 
 {% tabs %}
+{% tab title='python' %}
+
+* pathlib
+  ![Class Diagram](images/20210219_123346.png)
+  * Path
+    * Class method
+      * cwd(): current working directory
+      * home()
+    * parents
+      * MODEL_ROOT = Path(\_\_file__).resolve().parents[2] / 'models'
+    * chmod(0o444)
+    * name -> str: [ex] 'my/setup.py.zip' -> 'setup.py.zip'
+    * stem -> str: [ex] setup
+    * suffix -> str: [ex] .py
+    * suffixes -> list: [ex] ['.py', '.zip']
+    * as_posix()
+    * as_uri(): win → linux / uri
+    * rglob(pattern): eqiuvalent to glob() with “**/” added in front
+    * glob(`*.py`) -> Generator[PosixPath]: get all matched files
+    * match(`patterns`): `patterns`
+    * resolve(strict=False) -> PosixPath:: make absolute
+    * relative_to(`path`): path relative to `path`
+    * stat(): information about this path (st_size, st_mtime)
+    * is_dir(): Check if directory
+    * is_file(): check if file
+    * is_absolute() / is_relative_to(*other)
+    * rmdir(): remove directory (must be empty)
+    * mkdir(mode=0o777, parents=F, exist_ok=F)
+    * read_bytes()
+    * read_text(encoding=None): Return decoded contents
+    * write_text(data, encoding=None, errors=None)
+
+{% endtab %}
 {% tab title='shell' %}
 
 * cp: copy file
@@ -904,6 +934,9 @@ du -a | cut -d/ -f2 | sort | uniq -c | sort -nr  # the number of files in each d
   * -type: [ex] d: Directory, f: file, l: symbolic link
   * -user: [ex] `user`
 
+* grep: [ex] -- "-n"
+  * -r: Search recursively
+
 ```sh
 # 1. find
 find . -type d -empty -print/-delete  # print / remove all empty directory
@@ -948,10 +981,9 @@ find * . -not -iwholename '.git' -type f -exec sed -i '' 's/ *$//' '{}' ';' # re
   * Spelling correction and approximate completion: will fix minor mistake typing a directory name
   * Plugin and theme support: ZSH includes many different plugin frameworks
 
-* Linux
+* Linux: Tries to make the distribution more user-friendly with more convenient features
   * Developed originally by Bell Laboratorie
   * Kernel interacts with computer hardwares to allow software / hardware to exchange information
-  * Tries to make the distribution more user-friendly with more convenient features
   * Four categories based on original distribution - Arch, Debian, Red Hat, and Slackware
 
 * Red Hat: CentOS, Fedora, and Red Hat Enterprise Linux are derived

@@ -20,7 +20,7 @@
 * includes Set-cookie: value in the HTTP response
 * third-party cookies are cookies set for domains that are not being visited
 
-{% repo 'baekjoon-crawler' %}
+{% link 'baekjoon-crawler' %}
 
 ## Domain
 
@@ -261,6 +261,24 @@ def show_age(request, age):
     * cgid_: creates external daemon responsible for forking child processes to run CGI scripts
     * restart
 
+> Example
+
+* /usr/local/var/www
+  * Document Root
+* /usr/local/etc/http/httpd.conf
+
+  ```txt
+  Listen 8080         # Listening port
+  DocumentRoot        # where index.html is
+  ServerName          # localhost:8080
+  ```
+
+* /usr/local/etc/http/httpd-ssl.conf
+
+  ```txt
+  # To 8443 so that http can run without sudo
+  ```
+
 {% tabs %}
 {% tab title='shell' %}
 
@@ -288,14 +306,95 @@ def show_age(request, age):
 <https://httpd.apache.org/docs/current/ssl/ssl_howto.html>
 <https://www.educative.io/courses/securing-nodejs-apps/qV9MEpkDGjG>
 
-{% repo 'apache-files' %}
-
 ### Nginx
 
 * Can couple as a reverse proxy server, host more than one site
 * Has async way (not rely on threads) of handling web requests -> higher performance while handling multiple request
 * load balancing traffic
 * terminate SSL encryption and serve static files
+
+> Example
+
+* nginx.conf
+  * include `/path/file`: include single `file`
+    * `/dir/*`: Include entire `/dir`
+
+  ```txt
+  # 1. Basic Settings
+                    +--- host --------> node.js on localhost:8080
+                    |
+  users --> nginx --|--- host/blog ---> node.js on localhost:8181
+                    |
+                    +--- host/mail ---> node.js on localhost:8282
+
+  server {
+    listen       80;
+    location / {
+      proxy_pass http://127.0.0.1:8080;
+    }
+    ...
+  }
+
+  server {
+    listen       ...;
+    ...
+    location / {
+      proxy_pass http://127.0.0.1:8080;   # forward requests to `/` to server listening on `http://127.0.0.1:8080`.
+    }
+
+    location /blog {
+      proxy_pass http://127.0.0.1:8181;
+    }
+
+    location /mail {
+      proxy_pass http://127.0.0.1:8282;
+    }
+    ...
+  }
+
+  # 2. Serving files
+  # Static assets (traditional web server)
+  server {
+    listen 80;
+    server_name example.com;
+
+    root /path/to/website;
+    # root /www/data/ for example
+
+    location / { # If there's no 'root' inside, it will look for /www/data/index.html
+    }
+
+    location /images/ { # If there's no 'root' inside, it will look for /www/data/images/index.html
+    }
+
+    location /videos/ { # Since there's 'root' inside, it will look for /www/media/videos/index.html
+      root /www/media;
+    }
+  }
+
+  # 3. Redirect
+  ### 301 Permanent
+  server {
+    # Redirect www.example.com to example.com
+    listen 80;
+    server_name www.example.com;
+    return 301 http://example.com$request_uri;
+  }
+
+  server {
+    # Redirect http to https
+    listen 80;
+    server_name example.com;
+    return 301 https://example.com$request_uri;
+  }
+
+  # 302 Temporary
+  server {
+    listen 80;
+    server_name yourdomain.com;
+    return 302 http://otherdomain.com;
+  }
+  ```
 
 {% tabs %}
 {% tab title='shell' %}
@@ -314,8 +413,8 @@ def show_age(request, age):
 {% endtab %}
 {% endtabs %}
 
-{% repo 'nginx-conf' %}
-{% repo 'lemp' %}
+{% link 'nginx-conf' %}
+{% link 'lemp' %}
 
 ### Client
 

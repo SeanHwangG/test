@@ -1,0 +1,249 @@
+> leetcode
+
+* [Level 1 : Linked List Cycle](https://leetcode.com/problems/linked-list-cycle)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/runner/LC_141.md/)
+
+{% tabs %}
+{% tab title='LC_141.md' %}
+
+> Question
+
+* Check if linkedlist has cycle
+
+```txt
+Input: head = [3,2,0,-4], pos = 1
+Output: true
+```
+
+{% endtab %}
+{% tab title='LC_141.py' %}
+
+```py
+def hasCycle(self, head):
+  try:
+    slow = head
+    fast = head.next
+    while slow is not fast:
+      slow = slow.next
+      fast = fast.next.next
+    return True
+  except:
+    return False
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/runner/LC_876.md/)
+
+{% tabs %}
+{% tab title='LC_876.md' %}
+
+> Question
+
+* Print middle node in linked list
+
+```txt
+Input: [1,2,3,4,5,6]
+Output: Node 4 from this list (Serialization: [4,5,6])
+```
+
+{% endtab %}
+{% tab title='LC_876.py' %}
+
+```py
+def middleNode(self, head: ListNode) -> ListNode:
+  slow, fast = head, head
+  while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
+  return slow
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/runner/LC_109.md/)
+
+{% tabs %}
+{% tab title='LC_109.md' %}
+
+> Question
+
+* make BST from sorted linked list
+
+```txt
+Input: head = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+```
+
+{% endtab %}
+{% tab title='LC_109.py' %}
+
+```py
+def sortedListToBST(self, head):
+  if not head:
+    return
+  if not head.next:
+    return TreeNode(head.val)
+
+  slow, fast = head, head.next.next
+  while fast and fast.next:
+    fast = fast.next.next
+    slow = slow.next
+  tmp = slow.next
+
+  slow.next = None
+  root = TreeNode(tmp.val)
+  root.left = self.sortedListToBST(head)
+  root.right = self.sortedListToBST(tmp.next)
+  return root
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/runner/LC_142.md/)
+
+{% tabs %}
+{% tab title='LC_142.md' %}
+
+> Question
+
+* Given a linked list, return the node where the cycle begins. If there is no cycle, return null
+
+```txt
+Input: head = [3,2,0,-4], pos = 1
+Output: tail connects to node index 1
+```
+
+{% endtab %}
+{% tab title='LC_142.py' %}
+
+```py
+def detectCycle(self, head):
+  try:
+    fast = head.next
+    slow = head
+    while fast is not slow:
+      fast = fast.next.next
+      slow = slow.next
+  except:
+    return None
+
+  slow = slow.next
+  while head is not slow:
+    head = head.next
+    slow = slow.next
+  return head
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Reorder List](https://leetcode.com/problems/reorder-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/runner/LC_143.md/)
+
+{% tabs %}
+{% tab title='LC_143.md' %}
+
+> Question
+
+* Given head of a singly linked-list. The list can be represented as:
+  * Reorder the list to be on the following form:
+  * L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+
+```txt
+Input: head = [1,2,3,4]
+Output: [1,4,2,3]
+```
+
+{% endtab %}
+{% tab title='LC_143.py' %}
+
+```py
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+  def reorderList(self, head):
+    # find the mid point
+    slow = fast = head
+    while fast and fast.next:
+      slow = slow.next
+      fast = fast.next.next
+
+    # reverse the second half in-place
+    pre, node = None, slow
+    while node:
+      pre, node.next, node = node, pre, node.next
+
+    # Merge in-place; Note : the last node of "first" and "second" are the same
+    first, second = head, pre
+    while second.next:
+      first.next, first = second, first.next
+      second.next, second = first, second.next
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/list/runner/LC_19.md/)
+
+{% tabs %}
+{% tab title='LC_19.md' %}
+
+> Question
+
+* Remove nth node from end
+
+```txt
+Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+```
+
+{% endtab %}
+{% tab title='LC_19.cpp' %}
+
+```cpp
+class Solution {
+public:
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode* node = head, *offsetNode = head;
+    for (int i = 0; i < n; ++i) node = node->next;
+    if (node == NULL) return head->next;
+    while (node->next != NULL) {
+      node = node->next;
+      offsetNode = offsetNode->next;
+    }
+    offsetNode->next = offsetNode->next->next;
+    return head;
+  }
+};
+```
+
+{% endtab %}
+{% tab title='LC_19.py' %}
+
+```py
+def removeNthFromEnd(self, head, n):
+  fast = slow = head
+  for _ in range(n):
+    fast = fast.next
+  if not fast:
+    return head.next
+  while fast.next:
+    fast = fast.next
+    slow = slow.next
+  slow.next = slow.next.next
+  return head
+```
+
+{% endtab %}
+{% endtabs %}

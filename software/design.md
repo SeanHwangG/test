@@ -73,8 +73,9 @@ class PizzaDelivery:
 {% endtab %}
 {% endtabs %}
 
-{% repo 'tinyurl' %}
-{% repo 'pastebin' %}
+{% link 'tinyurl' %}
+
+{% link 'pastebin' %}
 
 > Reference
 
@@ -82,5 +83,20 @@ class PizzaDelivery:
 
 ## Management
 
-{% repo 'parking_lots' %}
-{% repo 'library' %}
+{% link 'classroom' %}
+
+{% link 'parking-lots' %}
+
+{% link 'library' %}
+
+## Purchase
+
+{% link 'atm' %}
+
+{% link 'movie-ticket' %}
+
+## Request Based
+
+{% link 'tinyurl' %}
+
+{% link 'pastebin' %}

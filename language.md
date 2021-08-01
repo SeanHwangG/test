@@ -739,20 +739,14 @@ sys.path.insert(0, "/home/myname/pythonfiles")
 {% tab title='shell' %}
 
 ```sh
-grep -r -- "-n"        # using '--' declare '-n' is not an option
-
-# 1. Optional Argument
-ARG1=${1:-foo}
-ARG2=${2:-bar}
-
-echo "$ARG1"
-echo "$ARG2"
-
-# 2. Check envrionment is set
+""" 1. Check Envrionment is set """
 if [[ -z $REPO_PATH ]]; then
   echo "REPO_PATH not set"
   exit 1
 fi
+
+""" 2. Set Environment """
+export GST_PLUGIN_PATH=`pwd`/build
 ```
 
 {% endtab %}
@@ -1023,8 +1017,7 @@ pip install install .  # pyproject.toml
 {% tabs %}
 {% tab title='python' %}
 
-> disutil
-
+* disutil
 * MANIFEST.in
   * text files that contain a series of “commands” in a Distutils-defined format
 
@@ -1050,6 +1043,39 @@ pip install install .  # pyproject.toml
     Topic :: Internet :: WWW/HTTP :: WSGI
     Topic :: Software Development :: Libraries :: Python Modules
 
+  ```py
+  import pkg_resources
+  from subprocess import call
+  from setuptools import setup
+
+  packages = [dist.project_name for dist in pkg_resources.working_set]
+  call("pip3 install --upgrade " + ' '.join(packages), shell=True)
+
+  def readme():
+    with open('README.md') as f:
+      README = f.read()
+    return README
+
+
+  setup(
+    name="robotcar",
+    version="1.0.0",
+    description="robotcar simulator package for education",
+    long_description=readme(),
+    author="UCSD Robotic Lab",
+    author_email="g5hwang@ucsd.edu",
+    license="MIT",
+    classifiers=[
+      "License :: OSI Approved :: MIT License",
+      "Programming Language :: Python :: 3",
+      "Programming Language :: Python :: 3.7",
+    ],
+    packages=["robotcar"],  # which file should be imported
+    include_package_data=True,
+    install_requires=["cv2"],
+  )
+  ```
+
 1. Generating distribution archives
     * python3 -m pip install --upgrade build
     * python3 -m build
@@ -1057,55 +1083,6 @@ pip install install .  # pyproject.toml
 2. Uploading the distribution archives
     * python3 -m pip install --upgrade twine
     * python3 -m twine upload --repository testpypi dist/*
-
-```py
-import pkg_resources
-from subprocess import call
-packages = [dist.project_name for dist in pkg_resources.working_set]
-call("pip3 install --upgrade " + ' '.join(packages), shell=True)
-```
-
-{% repo 'setup.py' %}
-
-{% endtab %}
-{% endtabs %}
-
-## Path
-
-{% tabs %}
-{% tab title='python' %}
-
-> pathlib
-
-![Class Diagram](images/20210219_123346.png)
-
-* Path
-  * Class method
-    * cwd(): current working directory
-    * home()
-  * parents
-    * MODEL_ROOT = Path(\_\_file__).resolve().parents[2] / 'models'
-  * chmod(0o444)
-  * name -> str: [ex] 'my/setup.py.zip' -> 'setup.py.zip'
-  * stem -> str: [ex] setup
-  * suffix -> str: [ex] .py
-  * suffixes -> list: [ex] ['.py', '.zip']
-  * as_posix()
-  * as_uri(): win → linux / uri
-  * rglob(pattern): eqiuvalent to glob() with “**/” added in front
-  * glob(`*.py`) -> Generator[PosixPath]: get all matched files
-  * match(`patterns`): `patterns`
-  * resolve(strict=False) -> PosixPath:: make absolute
-  * relative_to(`path`): path relative to `path`
-  * stat(): information about this path (st_size, st_mtime)
-  * is_dir(): Check if directory
-  * is_file(): check if file
-  * is_absolute() / is_relative_to(*other)
-  * rmdir(): remove directory (must be empty)
-  * mkdir(mode=0o777, parents=F, exist_ok=F)
-  * read_bytes()
-  * read_text(encoding=None): Return decoded contents
-  * write_text(data, encoding=None, errors=None)
 
 {% endtab %}
 {% endtabs %}
@@ -2566,7 +2543,6 @@ build-backend = "setuptools.build_meta"
 
 * math
   * ceil(x): smallest integer greater than or equal to x, If x is not float, use x.__ceil__(), which should return int
-  * comb(n, k): number of ways to choose k items from n items without repetition and without order
   * radians(`degree`): convert degree to radian
 
 ```py

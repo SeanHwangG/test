@@ -70,18 +70,34 @@
 
 ## Knapsack
 
-* Given the weights and profits of ‘N’ items, asked to put these items in a knapsack that has a capacity ‘C’.
-* The goal is to get the maximum profit from the items in the knapsack
-* dp[idx][cap] = max(dp[idx - 1][cap], profit[idx] + dp[idx][cap - weight[idx]])
+* Given the weights and profits of ‘N’ items, put items in a knapsack that has a capacity ‘C’
+* Goal is to get the maximum profit from the items in the knapsack
+* [ex] subset sum, target sum
 
 ![Knapsack](images/20210726_224742.png)
 
 > Term
 
-* 0/1: Repetition item is not allowed
-* Unbounded: Repetetition item is allowed
+* **01 knapsack**: Repetition item is not allowed
+
+> Example
+
+* N=number of items, C=knapsack capacity
+* DP: dp[idx][cap] = max(dp[idx - 1][cap], profit[idx] + dp[idx][cap - weight[idx]])
+  * Time: O(N*C)
+  * O(C) for optimized DP
+
+* Memoization
+  * Space: O(N*C)
 
 {% include '.knapsack.prob' %}
+
+### Unbounded
+
+* Repetetition item is allowed
+* [ex] coin change, rod cutting
+
+{% include '.knapsack-unbounded.prob' %}
 
 ## Merge
 

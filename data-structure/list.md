@@ -381,6 +381,10 @@ print(max(max(dp, key=max)))
 
 {% include '.linkedlist.prob' %}
 
+### Doubly Linkedlist
+
+{% include '.doubly-linkedlist.prob' %}
+
 ### Iterator
 
 {% tabs %}

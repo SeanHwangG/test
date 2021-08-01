@@ -163,7 +163,7 @@ CTRL-d | u: scroll half screen forward | backward
 {% endtab %}
 {% endtabs %}
 
-{% '.search-text.test' %}
+{% include '.search-text.prob' %}
 
 ### Bookmark
 

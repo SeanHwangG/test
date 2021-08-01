@@ -1,0 +1,117 @@
+> leetcode
+
+* [Level 1 : Find Winner on a Tic Tac Toe Game](https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/game/turn-based/LC_1275.md/)
+
+{% tabs %}
+{% tab title='LC_1275.md' %}
+
+> Question
+
+* Design Tic Tac Toe
+
+```txt
+Input: moves = [[0,0],[2,0],[1,1],[2,1],[2,2]]
+Output: "A"
+```
+
+{% endtab %}
+{% tab title='LC_1275.py' %}
+
+```py
+def tictactoe(self, M: List[List[int]]) -> str:
+  def check(r, c, f):
+    if all(B[r][i] == f for i in range(3)) or all(B[i][c] == f for i in range(3)):
+      return True
+    if r == c and all(B[i][i] == f for i in range(3)):
+      return True
+    if r+c == 2 and all(B[2-i][i] == f for i in range(3)):
+      return True
+    return False
+
+  B = [[0] * 3 for _ in range(3)]
+  for i, (r, c) in enumerate(M):
+    if i % 2 == 0:
+      B[r][c] = 'X'
+      if check(r, c, 'X'):
+        return 'A'
+    else:
+      B[r][c] = 'O'
+      if check(r, c, 'O'):
+        return 'B'
+  return 'Draw' if len(M) == 9 else 'Pending'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Design Tic-Tac-Toe](https://leetcode.com/problems/design-tic-tac-toe)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/game/turn-based/LC_348.md/)
+
+{% tabs %}
+{% tab title='LC_348.md' %}
+
+> Question
+
+* Implement the TicTacToe class:
+  * TicTacToe(int n) Initializes the object the size of the board n.
+  * int move(int row, int col, int player) Indicates that player with id player plays at the cell (row, col) of the board
+    * The move is guaranteed to be a valid move
+
+```txt
+Input:
+["TicTacToe", "move", "move", "move", "move", "move", "move", "move"]
+[[3], [0, 0, 1], [0, 2, 2], [2, 2, 1], [1, 1, 2], [2, 0, 1], [1, 0, 2], [2, 1, 1]]
+
+Output:
+[null, 0, 0, 0, 0, 0, 0, 1]
+```
+
+{% endtab %}
+{% tab title='LC_348.py' %}
+
+```py
+class TicTacToe(object):
+  def __init__(self, n):
+    self.n, self.count = n, collections.Counter()
+
+  def move(self, row, col, player):
+    for i, x in enumerate((row, col, row+col, row-col)):
+      self.count[i, x, player] += 1
+      if self.count[i, x, player] == self.n:
+        return player
+    return 0
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : Valid Tic-Tac-Toe State](https://leetcode.com/problems/valid-tic-tac-toe-state)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/software/game/turn-based/LC_794.md/)
+
+{% tabs %}
+{% tab title='LC_794.md' %}
+
+> Question
+
+* Given Tic-Tac-Toe board as a string array, return if and only if it's possible to reach this board position during game
+* The board is a 3 x 3 array that consists of characters ' ', 'X', and 'O'. The ' ' character represents an empty square
+
+```txt
+Input:
+Output:
+```
+
+{% endtab %}
+{% tab title='LC_794.py' %}
+
+```py
+def validTicTacToe(self, board):
+  b = '|'.join(board)
+  x, o = (any(p * 3 in b[s::d] for s in range(9) for d in (1, 3, 4, 5)) for p in 'XO') # 5 for diagonal
+  m = b.count('X') - b.count('O')
+  return m == (not o) if m else not x
+```
+
+{% endtab %}
+{% endtabs %}

@@ -46,7 +46,7 @@
 * NoSQL store like DynamoDB, Cassandra or Riak is a better choice
 * Can take the hash of the ‘key’ or the short link to determine the partition in which we store the data object
 
-## API
+## Architecture
 
 * createURL(api_dev_key, original_url, custom_alias=None, user_name=None, expire_date=None)
 
@@ -63,7 +63,7 @@
 
 * deleteURL(api_dev_key, url_key)
 
-## Logic
+> Example
 
 * Hash vs KGS
   * Hash can be used concurrently

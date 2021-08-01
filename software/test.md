@@ -53,10 +53,24 @@
     * assertEqual / True / In
     * assertTemplateUsed
 
-* pytest CLI
+> Example
+
+* pytest
   * --ds=DS: Set DJANGO_SETTINGS_MODULE.
   * --no-migrations: Disable Django migrations on test setup
   * --migrations: Enable Django migrations on test setup
+  * --help: Show help messages
+  * -v, --verbose: increase verbosity
+  * -W error::UserWarning: Show deailed warnings
+  * --log-level=LEVEL: level of messages to catch/display.
+
+* pytest.ini
+
+  ```txt
+  [pytest]
+  addopts = --ds=config.settings.test --reuse-db
+  python_files = tests.py test_*.py
+  ```
 
 ```py
 # 1. Test call command
@@ -134,8 +148,6 @@ def getExpenseLimit(self):
 
 ## Format
 
-{% repo 'yapf' %}
-
 {% tabs %}
 {% tab title='python' %}
 
@@ -159,6 +171,22 @@ def getExpenseLimit(self):
   * --vv: print out file names while processsing
   * --no-local-style: don't search for local style definition
   * --style: [ex] google
+
+> Example
+
+* .style.yapf
+
+  ```txt
+  [style]
+  column_limit=119
+  indent_width = 2
+  ```
+
+* .yapfignore
+
+  ```txt
+  venv
+  ```
 
 ```py
 # 1. inside code

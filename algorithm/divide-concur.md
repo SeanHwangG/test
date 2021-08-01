@@ -162,6 +162,26 @@ WHERE t1.drinker2 = f1.drinker AND f1.bar = f2.bar)
 
 {% include '.quick-select.prob' %}
 
+### Quick Select 2d
+
+> Example
+
+* Sorting
+  * Time: O(n^2 * log(n^2))
+  * Space: O(n^2)
+* PriorityQueue
+  * Time: O(n^2 * logk)
+  * Space: O(k)
+* Binary Search
+  * Time: O(n * log(MAX - MIN))
+  * Space: O(1)
+
+{% include '.quick-select-2d.prob' %}
+
+> Reference
+
+<https://leetcode.com/problems/k-th-smallest-prime-fraction/discuss/115819/Summary-of-solutions-for-problems-%22reducible%22-to-LeetCode-378>
+
 ## Meet in the middle
 
 {% include '.meet-in-the-middle.prob' %}

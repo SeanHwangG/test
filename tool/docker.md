@@ -143,26 +143,33 @@ Environment="HTTP_PROXY=http://proxy.example.com:80/"
 su sean
 ```
 
+## Image
+
+> Example
+
+* docker
+  * commit
+    * `container`  IMAGE:TAG: convert `container` to images return image_id
+    * -m "commit messages"
+  * images: Display all docker images
+    * a: See all container (including stopped container)
+    * l: Last container to exit
+
 ## Env
 
-{% tabs %}
-{% tab title='dockerfile' %}
+> Example
 
-* ENV: environment for all subsequent instructions in the build stage and can be replaced inline
-  * View using docker inspect, and change them using docker run --env `<key>=<value>`
-  * Environment variable persistence can cause unexpected side effects
-  * $VAR ${VAR} ${VAR:-DEFAULT}
-  * docker run --e: override this option
+* Dockerfile
+  * ENV: environment for all subsequent instructions in the build stage and can be replaced inline
+    * View using docker inspect, and change them using docker run --env `<key>=<value>`
+    * Environment variable persistence can cause unexpected side effects
+    * $VAR ${VAR} ${VAR:-DEFAULT}
+    * docker run --e: override this option
 
-{% endtab %}
-{% tab title='dockercompose' %}
-
-* services
-  * env_file: adds environment variables to the container based on file content
-  * environment: environment have precedence over env_file
-
-{% endtab %}
-{% endtabs %}
+* docker-compose
+  * services
+    * env_file: adds environment variables to the container based on file content
+    * environment: environment have precedence over env_file
 
 ## Volume
 
@@ -294,14 +301,18 @@ services:
 {% endtab %}
 {% tab title='docker' %}
 
-> docker CLI
-
-* volume
+* docker volume
   * ls: see all available volumes
   * inspect vid: inspect more about volume id
   * create name: create volume `name`
   * rm name: create volume `name`
   * prune: remove all unused volume
+
+* docker-compose volume
+  * type: [ex] volume
+  * source
+  * target
+  * volume
 
 ```sh
 # 1. Communicate
@@ -326,15 +337,6 @@ docker logs log   # bash: lose: command not found
 --publish 8080:8080 -v jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts
 ```
 
-{% endtab %}
-{% tab title='dockercompose' %}
-
-* volume
-  * type: [ex] volume
-  * source
-  * target
-  * volume
-
 ```yml
 # Volumes
 ports:
@@ -355,9 +357,6 @@ services:
 volumes:
   db-data:
 ```
-
-{% endtab %}
-{% endtabs %}
 
 ## Dockerfile
 
@@ -450,39 +449,32 @@ docker images                 # google_size is only 5.57MB
 
 ## Docker-compose
 
-> Error
-
-* docker-compose cannot use gcloud credential helper on Linux
-  * docker logout
-  * docker login
-  * gcloud auth activate-service-account --key-file=[키 파일]
-  * gcloud auth configure-docker
-
 * Compose file provides document, configure application’s dependencies (db, queues, caches, web API)
 * Simple machine coordination → kubernetes for larger
 
-* build: builds services in yml (skip if service is using prebuilt image)
-  * --no-cache: Do not use cache when building the image
-  * -f `file`: Specify an alternate compose `file` ([ex] **docker-compose.yml**)
-  * -p `name`: Specify an alternate project `name` ([ex] **directory_name**)
-  * --verbose: Show more output
-* config: show current docker-compose config
-* down: stop and remove resources
-* exec
-  * db psql postgres postgres
-* help: display
-* images: lists images built using the current docker-compose file
-* version: check if installed
-* kill: Kill containers
-* logs `container`: prints all the logs created by `container` ([ex] **all_containers**)
-  * -f: follow log output
-  * -t: show timestamp
-* ps: lists all the containers for services mentioned in the current yml
-* run `service` `cmd`: create container from `service` in yml and run `cmd` ([ex] docker-compose run app sh)
-  * --rm: Remove container after run
-  * -v volume_name:/path: start container with volume
-* stop: stops running containers of specified services in yml file
-* top: Display the running
+* docker-compose
+  * build: builds services in yml (skip if service is using prebuilt image)
+    * --no-cache: Do not use cache when building the image
+    * -f `file`: Specify an alternate compose `file` ([ex] **docker-compose.yml**)
+    * -p `name`: Specify an alternate project `name` ([ex] **directory_name**)
+    * --verbose: Show more output
+  * config: show current docker-compose config
+  * down: stop and remove resources
+  * exec
+    * db psql postgres postgres
+  * help: display
+  * images: lists images built using the current docker-compose file
+  * version: check if installed
+  * kill: Kill containers
+  * logs `container`: prints all the logs created by `container` ([ex] **all_containers**)
+    * -f: follow log output
+    * -t: show timestamp
+  * ps: lists all the containers for services mentioned in the current yml
+  * run `service` `cmd`: create container from `service` in yml and run `cmd` ([ex] docker-compose run app sh)
+    * --rm: Remove container after run
+    * -v volume_name:/path: start container with volume
+  * stop: stops running containers of specified services in yml file
+  * top: Display the running
 
 ```sh
 # 1. Redploy server
@@ -491,6 +483,14 @@ docker-compose -f up --build --force-recreate --no-deps -d
 # 2. Set -f file
 export COMPOSE_FILE=local.yml
 ```
+
+> Error
+
+* docker-compose cannot use gcloud credential helper on Linux
+  * docker logout
+  * docker login
+  * gcloud auth activate-service-account --key-file=[키 파일]
+  * gcloud auth configure-docker
 
 ## Container
 
@@ -501,43 +501,44 @@ export COMPOSE_FILE=local.yml
 * [-] filesystem isn't designed for high I/O
 * [-] ephemaral: exit when process that started it exits (have its own IP address)
 
-{% tabs %}
-{% tab title='docker' %}
+> Example
 
-* run: Run a command in a new container
-  * `image` `cmd`: Start an empty new container (latest by default)
-  * -d: Run in detached mode
-  * -e `HOME=/home`: set environment `Home` to `/home` variable
-  * -ti: Terminal interactive
-  * --rm: Delete container after exit
-  * --name `container`: set `container`
-  * --link cont: can see env of container 'aaa'
-  * --restart=no: restart policy (always, unless-stopped)
-  * -v / --volume host:cont: Mount directory within docker (files if file exists)
-    * :z: Docker that the volume content will be shared between containers
-    * :Z: Docker to label the content with a private unshared label
-  * -w `dir`: make your working directory inside docker be `dir`
-  * --privileged=true --pid=host: can kill other docker
-  * --memory / --cpu-quota / shares: limit cpu and memory
+* docker
+  * start
+    * `container`: start `container`
+    * -a: attach STDOUT / STDERR and forward signals
+    * -i: attach container’s STDIN
+  * stop
+    * `container`: stop `container`
+  * run: Run a command in a new container
+    * `image` `cmd`: Start an empty new container (latest by default)
+    * -d: Run in detached mode
+    * -e `HOME=/home`: set environment `Home` to `/home` variable
+    * -ti: Terminal interactive
+    * --rm: Delete container after exit
+    * --name `container`: set `container`
+    * --link cont: can see env of container 'aaa'
+    * --restart=no: restart policy (always, unless-stopped)
+    * -v / --volume host:cont: Mount directory within docker (files if file exists)
+      * :z: Docker that the volume content will be shared between containers
+      * :Z: Docker to label the content with a private unshared label
+    * -w `dir`: make your working directory inside docker be `dir`
+    * --privileged=true --pid=host: can kill other docker
+    * --memory / --cpu-quota / shares: limit cpu and memory
 
-{% endtab %}
-{% tab title='dockercompose' %}
-
-* up: Create and start containers (build + run)
-  * -d: Run containers in the background, print new container names
-  * --force-recreate: Recreate containers even if their configuration and image haven't changed
-  * --build: Build images before starting containers
-  * --scale `service`=`n`: Scale `service` to `n`
-  * --service-ports django: enable pdb inside docker
+* docker-compose
+  * up: Create and start containers (build + run)
+    * -d: Run containers in the background, print new container names
+    * --force-recreate: Recreate containers even if their configuration and image haven't changed
+    * --build: Build images before starting containers
+    * --scale `service`=`n`: Scale `service` to `n`
+    * --service-ports django: enable pdb inside docker
 
 > Couldn't connect to Docker daemon at http+unix://var/run/docker.sock - is it running?
   If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable.
 
 * sudo usermod -aG docker $USER
 * su $USER
-
-{% endtab %}
-{% endtabs %}
 
 ### Docker-compose.yml
 
@@ -591,7 +592,7 @@ export COMPOSE_FILE=local.yml
 * working_dir: /code
 * ps
 
-{% repo "docker-django" %}
+{% link "docker-django" %}
 
 ## Docker-machine
 
@@ -607,8 +608,6 @@ export COMPOSE_FILE=local.yml
 ## Docker CLI
 
 ![Docker CLI](images/20210216_195648.png)
-
-> Local
 
 * build
   * docker_dir: build folder with Dockerfile
@@ -639,10 +638,6 @@ export COMPOSE_FILE=local.yml
 * detach
   * ctrl + p, ctrl + q → detach and continue running
 
-* commit
-  * container_id  IMAGE:TAG: convert container to images return image_id
-  * -m "commit messages"
-
 * diff: see changes from created image
 
 * exec: starts another process in an existing container → good for debugging and DB administration / can't add ports, volumns
@@ -654,9 +649,9 @@ export COMPOSE_FILE=local.yml
 
 * load
 
-* rm `container_name`: remove container
+* rm: [ex] $(docker ps -a -q): remove all containers
+  * `container`: remove `container`
   * -f: Force remove
-  * $(docker ps -a -q): remove all containers
 
 * save
   * -o my-images.tar.gz debian:sid busybox ubuntu:14.04
@@ -671,14 +666,8 @@ export COMPOSE_FILE=local.yml
   * ps: see detailed service
   * create: create new service
 
-* start `container`: start `container`
-  * -a: attach STDOUT / STDERR and forward signals
-  * -i: attach container’s STDIN
-
-* stop `container`: stop `container`
-
 * tag
-  * image `new_id`: Change `image` to `new_id`
+  * `image` `new_id`: Change `image` to `new_id`
   * image_id docker_id/alpine:tag1: tag images (seanhwangg.io/page connect to remote)
 
 * history `image`: show history of `image`
@@ -688,10 +677,6 @@ export COMPOSE_FILE=local.yml
   * `image` / `container`: show image, container information
   * volume: Show volume information
   * --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'     # '{{.State.Pid}}'
-
-* images: Display all docker images
-  * a: See all container (including stopped container)
-  * l: Last container to exit
 
 * logs
   * `container`: show output of the `container`
@@ -754,16 +739,17 @@ docker system prune -a --volumes     # unused containers, volumes, networks and 
 
 ### Network
 
-> docker CLI
+> Example
 
-* network: use host if no isolation is needed
-  * docker network create learning
-  * ls: list of all
-  * create `nw`: create `nw`
-  * rm / prune: Remove one or more networks / all unused networks
-  * connect image nw
-* port
-  * `container`: List port mappings or a specific mapping for `container`
+* docker
+  * network: use host if no isolation is needed
+    * docker network create learning
+    * ls: list of all
+    * create `nw`: create `nw`
+    * rm / prune: Remove one or more networks / all unused networks
+    * connect image nw
+  * port
+    * `container`: List port mappings or a specific mapping for `container`
 
 ```sh
 # 1. Shared
@@ -796,4 +782,4 @@ docker port echo-server # in other terminal
 
 ```
 
-{% repo 'docker-server' %}
+{% link 'docker-server' %}

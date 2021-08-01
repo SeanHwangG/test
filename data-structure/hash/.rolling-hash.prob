@@ -1,0 +1,184 @@
+> baekjoon
+
+* [Level  : UNKNOWN]()
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/rolling-hash/BJ_10256.md/)
+
+{% tabs %}
+{% tab title='BJ_10256.md' %}
+
+> Question
+
+* Given DNA Sequence, there might be mutation in following form
+  * AGGT -> GAGT, GGAT, TGGA, AGGT, ATGG, AGTG (reverse middle)
+* Count the number of mutation in a given sequence (sequence can be overlapped)
+
+```txt
+Input:
+2
+6 4
+ATGGAT
+AGGT
+6 4
+ATGGAT
+AGCT
+
+Output: 0
+```
+
+{% endtab %}
+{% tab title='BJ_10256.py' %}
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+char str[1000010];
+
+long long rolling_hash(string s) {
+  long long ret = 0;
+  for (char ch : s) {
+    ret *= 255;
+    ret += ch;
+  }
+  return ret;
+}
+
+int main() {
+  int tc; cin >> tc;
+  while (tc--) {
+    int n, m; cin >> n >> m;
+    string p; cin >> str >> p;
+    unordered_set<long long> set;
+    for (int i = 0; i < m; i++) {
+      for (int j = i + 1; j <= m; j++) {
+        reverse(p.begin() + i, p.begin() + j);
+        set.insert(rolling_hash(p));
+        reverse(p.begin() + i, p.begin() + j);
+      }
+    }
+    long long q=1;
+    for (int i = 0; i < m - 1; i++)
+      q *= 255;
+    long long h=0;
+    for (int i = 0; i < m; i++) {
+      h *= 255;
+      h += str[i];
+    }
+    long long ans = set.count(h);
+    for (int i = m; i < n; i++) {
+      h -= str[i-m] * q;
+      h *= 255;
+      h += str[i];
+      ans += set.count(h);
+    }
+    cout << ans << endl;
+  }
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Number of Distinct Substrings in a String](https://leetcode.com/problems/number-of-distinct-substrings-in-a-string)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/rolling-hash/LC_1698.md/)
+
+{% tabs %}
+{% tab title='LC_1698.md' %}
+
+> Question
+
+* Given a string s, return the number of distinct substrings of s.
+
+```txt
+Input: s = "aabbaba"
+Output: 21  # ["a","b","aa","bb","ab","ba","aab","abb","bab","bba","aba","aabb","abba","bbab","baba","aabba","abbab","bbaba","aabbab","abbaba","aabbaba"]
+```
+
+{% endtab %}
+{% tab title='LC_1698.cpp' %}
+
+```cpp
+int countDistinct(string s) {
+  long res = 1, s_hash = 0, base = 1, mod = 1000000009;
+  for (auto i = 0; i + 1 < s.size(); ++i) {
+    s_hash = (s_hash * 26 + s[i]) % mod;
+    base = base * 26 % mod;
+    unordered_set<int> us{(int)s_hash};
+    for (long j = i + 1, hash = s_hash; j < s.size(); ++j) {
+      hash = (mod + hash * 26 + s[j] - base * s[j - i - 1] % mod) % mod;
+      us.insert((int)hash);
+    }
+    res += us.size();
+  }
+  return res;
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Distinct Echo Substrings](https://leetcode.com/problems/distinct-echo-substrings)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/hash/rolling-hash/LC_1316.md/)
+
+{% tabs %}
+{% tab title='LC_1316.md' %}
+
+> Question
+
+* Return number of distinct non-empty substrings of text that can be written as concatenation of some string with itself
+
+```txt
+Input: text = "abcabcabc"
+Output: 3  # "abcabc", "bcabca" and "cabcab".
+```
+
+{% endtab %}
+{% tab title='LC_1316.cpp' %}
+
+```cpp
+int distinctEchoSubstrings(string text) {
+  int N = text.size();
+  int MOD = 1000000007;
+  unordered_set<string> distinct;
+
+  /* rh[i][l] = rolling hash of substring starting at i with length l */
+  vector<vector<int>> rh(N, vector<int>(N+1, 0));
+
+  for (int l = 1; l <= N ; ++l) {
+    for (int i = 0 ; i + l <= N ; ++i) {
+      /* Build rh[i][l] on rh[i][l-1] and current character. */
+      rh[i][l] = (rh[i][l-1] + text[i + l - 1]) % MOD;
+
+      /* Check if previous adjacent substring of same length matches */
+      if (i >= l && rh[i - l][l] == rh[i][l]) { //rh matches
+        string sub = text.substr(i, l);
+
+        /* Check if not found and actual character by character match */
+        if (distinct.find(sub) == distinct.end() && sub == text.substr(i - l, l))
+          distinct.emplace(sub);
+      }
+    }
+  }
+  return distinct.size();
+}
+```
+
+{% endtab %}
+{% tab title='LC_1316.py' %}
+
+```py
+def distinctEchoSubstrings(self, s):
+  s += '.'
+  se = set()
+  for k in range(1, len(s) // 2 + 1):
+    same = sum(c == d for c, d in zip(s, s[k: k + k]))
+    for i in range(len(s) - 2 * k + 1):
+      if same == k:
+        se.add(s[i: i + k])
+      same += (s[i + k] == s[i + k + k]) - (s[i] == s[i + k])
+  return len(se)
+```
+
+{% endtab %}
+{% endtabs %}

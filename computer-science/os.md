@@ -1467,7 +1467,7 @@ CACHES = {
 
 ### Redis
 
-{% repo 'redis' %}
+{% link 'redis' %}
 
 ## File system
 

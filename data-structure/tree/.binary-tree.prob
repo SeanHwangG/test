@@ -186,6 +186,52 @@ def goodNodes(self, r, ma=-10000):
 {% endtab %}
 {% endtabs %}
 
+* [Level 2 : Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-tree/LC_222.md/)
+
+{% tabs %}
+{% tab title='LC_222.md' %}
+
+> Question
+
+* Given the root of a complete binary tree, return the number of the nodes in the tree.
+* Every level, except last, is completely filled in a complete binary tree, and all nodes in last level are as far left
+* It can have between 1 and 2h nodes inclusive at the last level h.
+* Design an algorithm that runs in less than O(n) time complexity.
+
+```txt
+Input: root = [1,2,3,4,5,6]
+Output: 6
+
+Input: root = [1]
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_222.py' %}
+
+```py
+def countNodes(self, root):
+  # Time: O(log^2 N): Master Theorem
+  # Space: O(log(n))
+  def getDepth(root):
+    if not root:
+      return 0
+    return 1 + getDepth(root.left)
+  if not root:
+    return 0
+  l_depth = getDepth(root.left)
+  r_depth = getDepth(root.right)
+  if l_depth == r_depth:
+    return pow(2, l_depth) + self.countNodes(root.right)
+  else:
+    return pow(2, r_depth) + self.countNodes(root.left)
+
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 2 : House Robber III](https://leetcode.com/problems/house-robber-iii)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/tree/binary-tree/LC_337.md/)
 

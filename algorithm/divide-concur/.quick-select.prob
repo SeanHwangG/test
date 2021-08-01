@@ -23,7 +23,7 @@ Output: 3
 {% tab title='LC_169.cpp' %}
 
 ```cpp
-// Time : O(N)
+// Time: O(N)
 int majorityElement(vector<int>& nums) {
   int counter = 0, majority;
   for (int num : nums) {
@@ -62,9 +62,12 @@ def thirdMax(self, nums):
   a = b = c = -float("inf")
   for n in nums:
     if n in (a, b, c): continue
-    if n > a: n, a = a, n
-    if n > b: n, b = b, n
-    if n > c: n, c = c, n
+    if n > a:
+      n, a = a, n
+    if n > b
+     n, b = b, n
+    if n > c:
+      n, c = c, n
   return a if c == -float("inf") else c
 ```
 
@@ -87,9 +90,20 @@ Output: 5
 ```
 
 {% endtab %}
+{% tab title='LC_215.cpp' %}
+
+```cpp
+int findKthLargest(vector<int>& nums, int k) {
+  nth_element(nums.begin(), nums.begin() + k - 1, nums.end(), greater<int>());
+  return nums[k - 1];
+}
+```
+
+{% endtab %}
 {% tab title='LC_215.py' %}
 
 ```py
+# Time: O(N)
 def findKthLargest(self, li, k):
   pivot = random.choice(li)
   lo  = [l for l in li if l < pivot]
@@ -122,55 +136,71 @@ Output: [1,2]
 ```
 
 {% endtab %}
+{% tab title='LC_347.cpp' %}
+
+```cpp
+int maxChunksToSorted(vector<int>& arr) {
+  long int sum1 = 0, sum2 = 0, ans = 0;
+  vector<int> t = arr;
+  sort(t.begin(), t.end());
+  for (int i = 0; i < arr.size(); i++) {
+    sum1 += t[i];
+    sum2 += arr[i];
+    if (sum1 == sum2) ans++;
+  }
+  return int(ans);
+}
+```
+
+{% endtab %}
 {% tab title='LC_347.py' %}
 
 ```py
-# 1. Using built in
 def topKFrequent(self, nums: List[int], k: int) -> List[int]:
   co = Counter(nums)
   return [a for a, b in co.most_common(k)]
-
-# 2. O(n) using count buckets
-def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-  b = [[] for _ in range(len(nums)+1)]
-  c = Counter(nums)
-  for x in c:
-    b[c[x]].append(x)
-  return list(chain(*b))[-k:]
 ```
 
 {% endtab %}
 {% endtabs %}
 
-* [Level 2 : Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/quick-select/LC_378.md/)
+* [Level 2 : K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/divide-concur/quick-select/LC_973.md/)
 
 {% tabs %}
-{% tab title='LC_378.md' %}
+{% tab title='LC_973.md' %}
 
-> Question
+* Given an array of points where points[i] = [xi, yi] represents a point on X-Y plane and an integer k
+* return k closest points to the origin (0, 0) in any order (guaranteed to be unique)
 
-* Given an n x n matrix where each of rows and columns are sorted in ascending order, return kth smallest element in matrix
-* Note that it is kth smallest element in sorted order, not kth distinct element
+{% endtab %}
+{% tab title='LC_973.cpp' %}
 
-```txt
-Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
-Output: 13
+```cpp
+vector<vector<int>> kClosest(vector<vector<int>>& A, int K) {
+  nth_element(A.begin(), A.begin() + K, A.end(), [](vector<int>& a, vector<int>& b) {
+    return a[0] * a[0] + a[1] * a[1] < b[0] * b[0] + b[1] * b[1];
+  });
+  return vector<vector<int>>(A.begin(), A.begin() + K);
+}
 ```
 
 {% endtab %}
-{% tab title='LC_378.py' %}
+{% tab title='LC_973.java' %}
+
+```java
+public int[][] kClosest(int[][] points, int K) {
+  Arrays.sort(points, Comparator.comparing(p -> p[0] * p[0] + p[1] * p[1]));
+  return Arrays.copyOfRange(points, 0, K);
+}
+```
+
+{% endtab %}
+{% tab title='LC_973.py' %}
 
 ```py
-def kthSmallest(self, matrix, k):
-  l, r = matrix[0][0], matrix[-1][-1]
-  while l < r:
-    m = (l + r) // 2
-    if sum(bisect_right(row, m) for row in matrix) < k:
-      l = m + 1
-    else:
-      r = m
-  return l
+def kClosest(self, points, K):
+  return heapq.nsmallest(K, points, lambda (x, y): x * x + y * y)
 ```
 
 {% endtab %}

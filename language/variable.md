@@ -84,6 +84,15 @@ def renderBanner(self):
   * (): create subshell
   * ;: two commands in a line
 
+```sh
+""" 1. Optional Argument """
+ARG1=${1:-foo}
+ARG2=${2:-bar}
+
+echo "$ARG1"
+echo "$ARG2"
+```
+
 {% endtab %}
 {% endtabs %}
 

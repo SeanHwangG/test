@@ -7,61 +7,59 @@
 * How many ways can 10 balls be selected if twice as many red balls as blue balls must be selected?
   * 3
 
-> Case Analysis: How many ways can 10 balls be selected if at most one red ball is selected?
+> Example
 
-* If at most one red ball is selected, then either 1 red ball is selected or 0 red balls are selected
-* Since these two possibilities are distinct, the sum rule applies with no overcounting adjustment
-* In either case, we have two categories, blue and green, and either 9 or 10 choices of those type of balls
+* Case Analysis: How many ways can 10 balls be selected if at most one red ball is selected?
+  * If at most one red ball is selected, then either 1 red ball is selected or 0 red balls are selected
+  * Since these two possibilities are distinct, the sum rule applies with no overcounting adjustment
+  * In either case, we have two categories, blue and green, and either 9 or 10 choices of those type of balls
 
-$$
-\left(\begin{array}{c}
-9+2-1 \\
-9
-\end{array}\right)+\left(\begin{array}{c}
-10+2-1 \\
-10
-\end{array}\right)=\left(\begin{array}{c}
-10 \\
-9
-\end{array}\right)+\left(\begin{array}{c}
-11 \\
-10
-\end{array}\right)=10+11=21
-$$
+  $$
+  \left(\begin{array}{c}
+  9+2-1 \\
+  9
+  \end{array}\right)+\left(\begin{array}{c}
+  10+2-1 \\
+  10
+  \end{array}\right)=\left(\begin{array}{c}
+  10 \\
+  9
+  \end{array}\right)+\left(\begin{array}{c}
+  11 \\
+  10
+  \end{array}\right)=10+11=21
+  $$
 
-> Complement
+* Complement
+  * How many different phone numbers are there that begin with (858)-353- and contain at least one zero?
+    * 104 – 94 = 10000 – 6561 = 3439
+  * How many 4-digit campus telephone numbers have one or more repeated digits?
+    * 104 - 10 \* 9 \* 8 \* 7
+  * number of arrangements of the letters of BANANA such that no two N's appear in adjacent positions?
+    * 40
+  * A subset of {1,2, …,12} is said to be selfish if it contains its size as an element
+    How many subsets have the property that both the subset and its complement is selfish?
+    * 772
 
-* How many different phone numbers are there that begin with (858)-353- and contain at least one zero?
-  * 104 – 94 = 10000 – 6561 = 3439
-* How many 4-digit campus telephone numbers have one or more repeated digits?
-  * 104 - 10 \* 9 \* 8 \* 7
-* number of arrangements of the letters of BANANA such that no two N's appear in adjacent positions?
-  * 40
-* A subset of {1,2, …,12} is said to be selfish if it contains its size as an element
-  How many subsets have the property that both the subset and its complement is selfish?
-  * 772
+* Stars and bars
+  * Suppose we are playing a game where we can place 5 indistinguishable knights into 3 different castles
+    How many combinations do we have?
+    * C(7, 2)
+  * Consider equation a + b + c + d = 10 where a, b, c, d are non-negative integers
+    How many solutions does this equation have?
+    * C(13, 3)
+  * How many different orders for six hot dogs are possible if there are three varieties of hot dogs?
+    * C(8, 2)
+  * Find the number of non-negative integer solutions of 3x + y + z = 24
+    * 117
 
-> Stars and bars
-
-* Suppose we are playing a game where we can place 5 indistinguishable knights into 3 different castles
-  How many combinations do we have?
-  * C(7, 2)
-* Consider equation a + b + c + d = 10 where a, b, c, d are non-negative integers
-  How many solutions does this equation have?
-  * C(13, 3)
-* How many different orders for six hot dogs are possible if there are three varieties of hot dogs?
-  * C(8, 2)
-* Find the number of non-negative integer solutions of 3x + y + z = 24
-  * 117
-
-> Inclusion | Exclusion
-
-* Among 30 students, 14 are girls, and 22 are right-handed. Minimum number of right-handed girls?
-  * 6
-* How many of the integers 1, 2, . . . 10000 are divisible by 2, 3, or 7?
-  * 7143
-* Six people are in a line. # arrangements s.t. no three consecutive are in increasing order of height, from front to back
-  * 349
+* Inclusion | Exclusion
+  * Among 30 students, 14 are girls, and 22 are right-handed. Minimum number of right-handed girls?
+    * 6
+  * How many of the integers 1, 2, . . . 10000 are divisible by 2, 3, or 7?
+    * 7143
+  * Six people are in a line. # arrangements s.t. no three consecutive are in increasing order of height, from front to back
+    * 349
 
 {% include '.counting.prob' %}
 
@@ -71,9 +69,19 @@ $$
 n C k=C_{k}^{n}=\frac{n !}{k !(n-k) !}
 $$
 
+{% tabs %}
+{% tab title='python' %}
+
+* comb(n, k): number of ways to choose k items from n items without repetition and without order
+
+{% endtab %}
+{% endtabs %}
+
 {% include '.binomial-coefficient.prob' %}
 
 ## Combination
+
+* Choose Without ordering
 
 {% tabs %}
 {% tab title='python' %}
@@ -102,7 +110,7 @@ $$
 P_{k}^{n}=\frac{n !}{(n-k) !}
 $$
 
-> Question
+> Example
 
 * How many different rearrangements are there of the letters in the word BUBBLE?
   * 6! | 3!
@@ -320,7 +328,7 @@ $$ =p(1)+(1-p)(1+E(X)) $$
 {% endtab %}
 {% endtabs %}
 
-### Binomial
+### Binomial Distribution
 
 * probability of k successive in n independent Bernoulli trials, given success is p
 * p: binomial probability
@@ -329,13 +337,14 @@ $$ =p(1)+(1-p)(1+E(X)) $$
 
 $$ (nCk)  p^k (1 - p)^(n-k) $$
 
-> A coin is tossed 10 times. What is the probability of getting exactly 6 heads?
+> Example
 
-* 10𝐶6 ∗ 0.56 * 0.54 = 0.205078125
+* A coin is tossed 10 times. What is the probability of getting exactly 6 heads?
+  * 10𝐶6 ∗ 0.56 * 0.54 = 0.205078125
 
 {% include '.binomial.prob' %}
 
-### Geometric
+### Geometric Distribution
 
 ![Geometric distribution](images/20210305_201043.png)
 

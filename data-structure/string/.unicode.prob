@@ -440,7 +440,7 @@ Output: false  # data represented the octet sequence: 11101011 10001100 00000100
 ```
 
 {% endtab %}
-{% tab title='LC_393.py' %}
+{% tab title='LC_393.cpp' %}
 
 ```cpp
 bool validUtf8(vector<int>& data) {

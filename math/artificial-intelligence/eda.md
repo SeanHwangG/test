@@ -628,6 +628,10 @@ def capture_video():
 {% endtab %}
 {% endtabs %}
 
+> Example
+
+{% link 'video_player' %}
+
 ### Audio
 
 {% tabs %}

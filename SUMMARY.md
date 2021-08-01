@@ -53,6 +53,7 @@
   * [File](software/file.md)
     * [Documentation](software/file/documentation.md)
     * [Extension](software/file/extension.md)
+  * [Game](software/game.md)
   * [GUI](software/gui.md)
   * [OOP](software/oop.md)
   * [Test](software/test.md)

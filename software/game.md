@@ -38,10 +38,22 @@ while run:
 {% endtab %}
 {% endtabs %}
 
-{% repo '2048' %}
-{% repo 'snake' %}
+{% link '2048' %}
+
+{% link 'snake' %}
+
 {% include '.keyboard-based.prob' %}
 
 ## Turn based
 
+{% link 'chess' %}
+
+{% link 'tic-tac-toe' %}
+
 {% include '.turn-based.prob' %}
+
+## Motion Game
+
+{% link 'timber_cutter' %}
+
+{% link 'zombie_arena' %}

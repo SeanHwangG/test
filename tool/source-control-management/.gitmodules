@@ -1,6 +1,0 @@
-# .gitmodules
-# config file that stores mapping between project’s URL and local subdir
-
-[submodule "DbConnector"]
-  path = DbConnector
-  url = https://github.com/chaconinc/DbConnector

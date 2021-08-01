@@ -3,8 +3,8 @@
 
 > Question
 
-* only double is possible
-* print the lower bound for the number of turtles not born on Zanzibar
+* Only double is possible
+* Print the lower bound for the number of turtles not born on Zanzibar
 
 ```txt
 3

@@ -371,7 +371,107 @@ git config --unset-all core.ignorecase && git config --system core.ignorecase fa
 
 ## Files
 
-{% repo 'git' %}
+> Example
+
+* .git
+
+  ```txt
+  (venv) sean@Mac .git % tree -L 2
+  .
+  ├── COMMIT_EDITMSG
+  ├── FETCH_HEAD
+  ├── HEAD
+  ├── ORIG_HEAD
+  ├── REBASE_HEAD
+  ├── config
+  ├── description
+  ├── hooks
+  │   ├── applypatch-msg.sample
+  │   ├── commit-msg.sample
+  │   ├── fsmonitor-watchman.sample
+  │   ├── post-update.sample
+  │   ├── pre-applypatch.sample
+  │   ├── pre-commit
+  │   ├── pre-commit.sample
+  │   ├── pre-merge-commit.sample
+  │   ├── pre-push.sample
+  │   ├── pre-rebase.sample
+  │   ├── pre-receive.sample
+  │   ├── prepare-commit-msg.sample
+  │   ├── push-to-checkout.sample
+  │   └── update.sample
+  ├── index
+  ├── info
+  │   └── exclude
+  ├── logs
+  │   ├── HEAD
+  │   └── refs
+  ├── objects
+  │   ├── 00
+  │   ├── 01 ...
+  │   └── pack
+  ├── packed-refs
+  └── refs
+      ├── heads
+      ├── remotes
+      ├── stash
+      └── tags
+  ```
+
+* .gitcredentials
+
+  ```txt
+  Username: sean
+  Password: ss
+  ```
+
+* .gitattributes: Defining attributes per path
+
+  ```txt
+  \* text=auto
+  ```
+
+* .gitconfig
+
+  ```txt
+  [user]
+    name = Gyuseung Hwang
+    email = sean@remote.host
+  [credential]
+    helper = cache --timeout=360000        # timeout for password
+
+  [alias]
+    s = status -s
+    co = checkout
+    ci = commit
+    br = branch
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset'\
+      --abbrev-commit
+    backup = "!git branch backup-`git b0`"
+    cleanbranch = "!git branch -d $(git branch --merged | grep -v '^\\*\\|\\<master$')"
+    chs = !git checkout && git status
+    acap = "!git add -A && git commit --amend && git push -f"
+  ```
+
+* .gitignore
+
+  ```txt
+  # .gitignore
+  # git config --global core.excludesfile $HOME/.gitignore: Create global gitignore
+  !*
+
+  # *: Ignore everything
+  # !*.py: But not these files...
+
+  # For home file
+  *
+
+  !.ssh/**
+  !*.vimrc
+  !*.vim
+  !*.bashrc
+  !.gitignore
+  ```
 
 {% tabs %}
 {% tab title='sql' %}
@@ -399,6 +499,17 @@ git config --unset-all core.ignorecase && git config --system core.ignorecase fa
 {% endtabs %}
 
 ## Commit
+
+> Term
+
+* .gitmessage: default commit message
+
+  ```txt
+  Fix Issue #{number}: {description}
+  R+: {reviewer}
+  ```
+
+> Example
 
 * add
   * `filename`: add files to staging area
@@ -820,17 +931,28 @@ git add .
 
 ![stash](images/20210220_021545.png)
 
-> git stash CLI
-
-* pop ( -- filename): reapply all conflict (only filename)
-* show (-p): To show files changed in the last stash (content of the stashed files)
-  * -p stash@{1}: Show specific stash
-* clear: clear stashed files
-* list: see lists of stashed files
-* git checkout stash -- .: overwrite current file
-* git checkout stash@{0} -- fn: stash pop certain files
+* git stash
+  * pop ( -- filename): reapply all conflict (only filename)
+  * show (-p): To show files changed in the last stash (content of the stashed files)
+    * -p stash@{1}: Show specific stash
+  * clear: clear stashed files
+  * list: see lists of stashed files
+  * git checkout stash -- .: overwrite current file
+  * git checkout stash@{0} -- fn: stash pop certain files
 
 ## Submodule
+
+> Term
+
+* .gitmodules: config file that stores mapping between project’s URL and local subdir
+
+  ```txt
+  [submodule "DbConnector"]
+    path = DbConnector
+    url = https://github.com/chaconinc/DbConnector
+  ```
+
+> Example
 
 * add
   * URL
@@ -845,34 +967,29 @@ git add .
   * --init
   * --remote: go into your submodules and fetch and update
 
-{% include '.gitmodules' %}
-
 ### Snippet
 
 {% tabs %}
 {% tab title='github' %}
 
-> gh gist CLI
+> Example
 
-* auth
-  * login: authenticate user
-
-* gist
-  * create `filename`: push `filename` to gist
-  * list
-  * ?file=afile: only one file in gist
-
-* pr
-  * checkout `num`: checkout pullrequest number
-  * list: show all pull request
-    * --state closed: only see closed pull request
-
-* repo
-  * create
-    * --enable-issues=false
-    * --public: change to public
-
-* ssh-key
+* gh gist
+  * auth
+    * login: authenticate user
+  * gist
+    * create `filename`: push `filename` to gist
+    * list
+    * ?file=afile: only one file in gist
+  * pr
+    * checkout `num`: checkout pullrequest number
+    * list: show all pull request
+      * --state closed: only see closed pull request
+  * repo
+    * create
+      * --enable-issues=false
+      * --public: change to public
+  * ssh-key
 
 ```sh
 # 1. share current directory

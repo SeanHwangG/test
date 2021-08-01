@@ -71,7 +71,7 @@ print(b - a + d - c - max(0, min(d, b) - c))
 
 > Question
 
-* upper side of bridge is D1 in diameter and lower side in diameter of upper side is D2. length of the rainwater is K
+* Upper side of bridge is D1 in diameter and lower side in diameter of upper side is D2. length of the rainwater is K
 * At this point, find the square value of the height
 
 ```txt
@@ -88,7 +88,7 @@ Output: 212.75
 ```py
 K = int(input())
 D1, D2 = map(int, input().split())
-print(K*K-((D1-D2)/2)**2)
+print(K * K - ((D1 - D2) / 2) ** 2)
 ```
 
 {% endtab %}
@@ -344,8 +344,8 @@ print(ans)
 
 > Question
 
-* only double is possible
-* print the lower bound for the number of turtles not born on Zanzibar
+* Only double is possible
+* Print the lower bound for the number of turtles not born on Zanzibar
 
 ```txt
 3
@@ -410,48 +410,6 @@ def countPoints(self, points: List[List[int]], queries: List[List[int]]) -> List
       if (qx - px) ** 2 + (qy - py) ** 2 <= qr ** 2:
         result[ii] += 1
   return result
-```
-
-{% endtab %}
-{% endtabs %}
-
-* [Level 2 : K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/geometry/geometry/LC_973.md/)
-
-{% tabs %}
-{% tab title='LC_973.md' %}
-
-* Given an array of points where points[i] = [xi, yi] represents a point on X-Y plane and an integer k
-* return k closest points to the origin (0, 0) in any order (guaranteed to be unique)
-
-{% endtab %}
-{% tab title='LC_973.cpp' %}
-
-```cpp
-vector<vector<int>> kClosest(vector<vector<int>>& A, int K) {
-  nth_element(A.begin(), A.begin() + K, A.end(), [](vector<int>& a, vector<int>& b) {
-    return a[0] * a[0] + a[1] * a[1] < b[0] * b[0] + b[1] * b[1];
-  });
-  return vector<vector<int>>(A.begin(), A.begin() + K);
-}
-```
-
-{% endtab %}
-{% tab title='LC_973.java' %}
-
-```java
-public int[][] kClosest(int[][] points, int K) {
-  Arrays.sort(points, Comparator.comparing(p -> p[0] * p[0] + p[1] * p[1]));
-  return Arrays.copyOfRange(points, 0, K);
-}
-```
-
-{% endtab %}
-{% tab title='LC_973.py' %}
-
-```py
-def kClosest(self, points, K):
-  return heapq.nsmallest(K, points, lambda (x, y): x * x + y * y)
 ```
 
 {% endtab %}
