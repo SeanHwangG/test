@@ -365,6 +365,45 @@ def carPooling(self, trips, capacity):
 
 [Duplicate](./LC_769.md)
 
+* [Level 3 : Minimum Initial Energy to Finish Tasks](https://leetcode.com/problems/minimum-initial-energy-to-finish-tasks)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/LC_1665.md/)
+
+{% tabs %}
+{% tab title='LC_1665.md' %}
+
+> Question
+
+* You are given an array tasks where tasks[i] = [actuali, minimumi]:
+* actuali is the actual amount of energy you spend to finish the ith task.
+* minimumi is the minimum amount of energy you require to begin the ith task.
+* For example, if the task is [10, 12] and your current energy is 11, you cannot start this task
+* However, if your current energy is 13, you can complete this task, and your energy will be 3 after finishing it.
+* You can finish the tasks in any order you like.
+* Return the minimum initial amount of energy you will need to finish all the tasks.
+
+```txt
+Input: tasks = [[1,2],[2,4],[4,8]]
+Output: 8
+```
+
+{% endtab %}
+{% tab title='LC_1665.py' %}
+
+```py
+def minimumEffort(self, tasks: List[List[int]]) -> int:
+  sort = sorted(tasks, key = lambda x : x[1] - x[0])[::-1]
+  res = 0; curr = 0
+  for i, n in enumerate(sort):
+    if curr < n[1]:
+      res += n[1] - curr
+      curr = n[1]
+    curr -= n[0]
+  return res
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 3 : Course Schedule III](https://leetcode.com/problems/course-schedule-iii)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/greedy/greedy-sort/LC_630.md/)
 

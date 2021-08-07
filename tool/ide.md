@@ -1,5 +1,8 @@
 # IDE
 
+{% tabs %}
+{% tab title='vim' %}
+
 * [enter without key](https://code.visualstudio.com/docs/remote/troubleshooting)
 * github1s.com: show github in vscode
 
@@ -9,8 +12,7 @@
   * override user settings
 
 * Icons
-
-![img](images/20210214_173530.png)
+  ![img](images/20210214_173530.png)
 
 ```json
 // wsname.code-workspace
@@ -36,270 +38,232 @@
 }
 ```
 
-> How to lint all files?
+> Example
 
-* VScode by default only lint openned files, so replace ; -> ; will force lint all files
+* How to lint all files?
+  * VScode by default only lint openned files, so replace ; -> ; will force lint all files
 
-> Formatting doesn't work
-
-![Show debug output](images/20210430_044249.png)
+* Formatting doesn't work
+  ![Show debug output](images/20210430_044249.png)
 
 * VSCode doesn't recognize html linting
   * Check files associations in settings
 
-> Error: Waiting for server log... (ssh)
+* Error: Waiting for server log... (ssh)
+  * rm -rf $HOME/.vscode-server
 
-* rm -rf $HOME/.vscode-server
+* Invisible _ in terminal
+  * "terminal.integrated.fontSize": 13
 
-> Invisible _ in terminal
-
-* "terminal.integrated.fontSize": 13
-
-## Settings.json
-
-![Do not include git ignored files](images/20210612_124808.png)
-
-* user level: located in ~/.vscode/settings.json
-* workspace: overwrite user level settings, located in .vscode/settings.json
+{% endtab %}
+{% endtabs %}
 
 {% tabs %}
-{% tab title='cpp' %}
+{% tab title='vim' %}
 
-> Cmake Tools
+* vscode.Settings.json
+  * user level: located in ~/.vscode/settings.json
+  * workspace: overwrite user level settings, located in .vscode/settings.json
+  ![Do not include git ignored files](images/20210612_124808.png)
 
-* Cmake: Reset CMake Tools Extension State
-* configure
+* vscode.Cmake Tools
+  * Cmake: Reset CMake Tools Extension State
+  * configure
 
-```json
-// An object containing key : value pairs, which will be passed onto CMake when configuring
-// It does the same thing as passing -DVAR_NAME=ON via cmake.configureArgs.
-{
-  "cmake.configureSettings": {"KEY" : "{env:VAR}"}
-}
-
-// c_cpp_properties.json
-{
-  "configurations": [
+  ```json
+  // An object containing key : value pairs, which will be passed onto CMake when configuring
+  // It does the same thing as passing -DVAR_NAME=ON via cmake.configureArgs.
   {
-    "name": "Linux",
-    "intelliSenseMode": "gcc-x64",
-    "includePath": [
-    "${workspaceFolder}/src",
-    "${workspaceFolder}/lib",
-    "${workspaceFolder}/test",
-    "~/SFML-2.5.1/include",
-    "/usr/local/include/**",
-    "/usr/include/**"
-    ],
-    "defines": [ "_DEBUG" ],
-    "cStandard": "c11",
-    "cppStandard": "c++17",
-    "forcedInclude": [ "${workspaceFolder}/src/PCH.hpp" ]
-  },
-  {
-    "name": "Mac",
-    "intelliSenseMode": "${default}",
-    "compilerPath": "/usr/bin/clang",
-    "macFrameworkPath": [
-    "/Library/Frameworks",
-    "/System/Library/Frameworks"
-    ],
-    "includePath": [
-    "${workspaceFolder}/src",
-    "${workspaceFolder}/lib",
-    "${workspaceFolder}/test",
-    "/usr/local/include/**"
-    ],
-    "defines": [ "_DEBUG" ],
-    "cStandard": "c11",
-    "cppStandard": "c++17",
-    "forcedInclude": [ "${workspaceFolder}/src/PCH.hpp" ]
-  },
-  {
-    "name": "Win32",
-    "intelliSenseMode": "gcc-x64",
-    "compilerPath": "C:/mingw32/bin/gcc.exe",
-    "includePath": [
-    "${workspaceFolder}/src",
-    "${workspaceFolder}/lib",
-    "${workspaceFolder}/test",
-    "C:/SFML-2.5.1/include"
-    ],
-    "defines": [
-    "_DEBUG",
-    "UNICODE",
-    "_UNICODE"
-    ],
-    "cStandard": "c11",
-    "cppStandard": "c++17",
-    "forcedInclude": [ "${workspaceFolder}/src/PCH.hpp" ]
+    "cmake.configureSettings": {"KEY" : "{env:VAR}"}
   }
-  ],
-  "version": 4
-}
-```
+
+  // c_cpp_properties.json
+  {
+    "configurations": [
+    {
+      "name": "Linux",
+      "intelliSenseMode": "gcc-x64",
+      "includePath": [
+      "${workspaceFolder}/src",
+      "${workspaceFolder}/lib",
+      "${workspaceFolder}/test",
+      "~/SFML-2.5.1/include",
+      "/usr/local/include/**",
+      "/usr/include/**"
+      ],
+      "defines": [ "_DEBUG" ],
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "forcedInclude": [ "${workspaceFolder}/src/PCH.hpp" ]
+    },
+    {
+      "name": "Mac",
+      "intelliSenseMode": "${default}",
+      "compilerPath": "/usr/bin/clang",
+      "macFrameworkPath": [
+      "/Library/Frameworks",
+      "/System/Library/Frameworks"
+      ],
+      "includePath": [
+      "${workspaceFolder}/src",
+      "${workspaceFolder}/lib",
+      "${workspaceFolder}/test",
+      "/usr/local/include/**"
+      ],
+      "defines": [ "_DEBUG" ],
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "forcedInclude": [ "${workspaceFolder}/src/PCH.hpp" ]
+    },
+    {
+      "name": "Win32",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "C:/mingw32/bin/gcc.exe",
+      "includePath": [
+      "${workspaceFolder}/src",
+      "${workspaceFolder}/lib",
+      "${workspaceFolder}/test",
+      "C:/SFML-2.5.1/include"
+      ],
+      "defines": [
+      "_DEBUG",
+      "UNICODE",
+      "_UNICODE"
+      ],
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "forcedInclude": [ "${workspaceFolder}/src/PCH.hpp" ]
+    }
+    ],
+    "version": 4
+  }
+  ```
 
 {% endtab %}
-{% endtabs %}
+{% tab title='vim' %}
 
-```json
-// Settings.json
-{
-  // General
-  "editor.fontSize": 14, // Controls the font size in pixels
-  "editor.rulers": [100], // No rulers are drawn if array is empty
-  "editor.wordWrapColumn": 120,
-  "editor.formatOnSave": true,
-  "files.autoSaveDelay": 1000, // Controls the delay in ms after which a dirty file is saved automatically
-  "files.exclude": {                   // don't show in file explorer
-    ".vscode/launch.json": true,
-    "env/windows/*.sh": true,
-    "env/osx/dmg.applescript": true,
-    "bin/": true,
-    "build/": true,
-  },
+* vscode.settings.json
 
-  // Use environment variable ${env:Name}
-  "args": ["${env:USERNAME}"]
+  ```json
+  {
+    // General
+    "editor.fontSize": 14, // Controls the font size in pixels
+    "editor.rulers": [100], // No rulers are drawn if array is empty
+    "editor.wordWrapColumn": 120,
+    "editor.formatOnSave": true,
+    "files.autoSaveDelay": 1000, // Controls the delay in ms after which a dirty file is saved automatically
+    "files.exclude": {                   // don't show in file explorer
+      ".vscode/launch.json": true,
+      "env/windows/*.sh": true,
+      "env/osx/dmg.applescript": true,
+      "bin/": true,
+      "build/": true,
+    },
 
-  // c++ related
-  "C_Cpp.clang_format_style": "file",                            // use .clang-format in current / home directory
-  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools", // use CMakeLists.txt for linting
-  "editor.wordWrapColumn": 120,
-}
-```
+    // Use environment variable ${env:Name}
+    "args": ["${env:USERNAME}"]
 
-* java extension package
+    // c++ related
+    "C_Cpp.clang_format_style": "file",                            // use .clang-format in current / home directory
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools", // use CMakeLists.txt for linting
+    "editor.wordWrapColumn": 120,
+  }
+  ```
+
+* vscode.java extension package
   * java.home: set Java IDK location
 
-```json
-"java.home" : "/software/CSE/oracle-java-se-14/jdk-14.0.2"
-```
+  ```json
+  "java.home" : "/software/CSE/oracle-java-se-14/jdk-14.0.2"
+  ```
 
-{% endtab %}
-{% tab title='python' %}
+* vscode.sort import
 
-* sort import
-
-```json
-"python.formatting.autopep8Args": [
-  "--max-line-length=200"
-],
-"python.linting.pylintArgs": ["--generate-members"],           // disable cv2 warning
-"python.pythonPath": "${workspaceFolder}/env/bin/python3",     // python3 -m venv env
-"python.linting.pylintArgs": [
-  "--load-plugins=pylint_django", // for django
-  "--rcfile=${workspaceFolder}/.pylintrc"
-]
-```
+  ```json
+  "python.formatting.autopep8Args": [
+    "--max-line-length=200"
+  ],
+  "python.linting.pylintArgs": ["--generate-members"],           // disable cv2 warning
+  "python.pythonPath": "${workspaceFolder}/env/bin/python3",     // python3 -m venv env
+  "python.linting.pylintArgs": [
+    "--load-plugins=pylint_django", // for django
+    "--rcfile=${workspaceFolder}/.pylintrc"
+  ]
+  ```
 
 {% endtab %}
 {% endtabs %}
 
-### Launch.json
+* Tasks.json: configured to run scripts, start processes within VS Code without having to enter a command line
+  * command: The actual command to execute
+  * dependsOn: run other tasks before
+  * dependsOrder= "sequence": how task dependencies are executed
+  * group: Defines to which group the task belongs
+  * label: The task's label used in the user interface
+  * options: Override the defaults for env, or shell
+    * cwd: Set current directory
+  * presentation: control how the Integrated Terminal panel behaves when running tasks
+    * reveal = always: whether panel is brought to front (never, silent)
+    * focus = false: Controls whether the terminal is taking input focus or not
+  * runOptions: Defines when and how a task is run
+  * type: either be shell (interpreted as a shell command) or process
+  * problemMatcher: (ex: "$gcc")
 
-* used to configure the debugger in Visual Studio Code
-
-* args: when debugging the program
-* externalConsole: Used only when launching the debuggee
-* port: port when attaching to a running process
-* preLaunchTask: `CppBuild` as defined in task.json name
-* program: name of the program (ex: ${fileDirname}/${fileBasenameNoExtension}")
-* setupCommands:
-  * {"text": "-enable-pretty-printing", "ignoreFailures": true },
-  * {"description": "In this mode GDB will be attached to both processes after a call to fork() or vfork().",
-    "text": "-gdb-set detach-on-fork off", "ignoreFailures": true},
-  * {"description": "The new process is debugged after a fork. The parent process runs unimpeded.",
-    "text": "-gdb-set follow-fork-mode child", "ignoreFailures": true}
-* stopAtEntry=`false`: whether to stop at the entry point
-* sudo=`false`: console must be externalTerminal
-
-* type : cppdbg
-  * MIMMode: [ex]: gdb, lldb
-
-* type : java
-  * mainClass: ${file}
-
-```json
-// launch.json
-{
-  "configurations": [ {
-    // add environment variable
-    "env": {"API_BASE":"https://"}  ,
-    "envFile": "${workspaceFolder}/.env" ,
-    "preLaunchTask": "myShellCommand", // run before
-    "justMyCode"  // When omitted / set true (default), restricts debugging to user-written code only
-  },
-
-  // 1. Run Python (module / Flask / Django app)
-  { "name": "Tests",
-    "type": "python",
-    "request": "launch",
-    "module": "page.test",
-    "cwd": "${workspaceFolder}",
-    "envFile": "${workspaceFolder}/.env" },
-  { "name": "Main Server",
-    "type": "python",
-    "request": "launch",
-    "module": "flask",
-    "env": { "FLASK_APP": "page.app:create_app()", "FLASK_ENV": "development",
-             "FLASK_RUN_PORT": "8080", "FLASK_RUN_HOST": "localhost", },
-    "args": [ "run", "--cert", "adhoc" ],
-    "jinja": true },
-  { "name":"Django",
-    "type": "python",
-    "request": "launch",
-    "program": "${workspaceFolder}/manage.py",
-    "args": [
-      "runserver",
+  ```json
+  // 1. differnet settings with env for platform
+  {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "type": "npm",
+        "script": "build",
+        "path": "javascript/embed/2a_redux_todo/",
+        "group": "build",
+        "problemMatcher": [],
+        "label": "npm: build - javascript/embed/2a_redux_todo",
+        "detail": "react-scripts build",
+        "linux": {
+          "options": {
+            "env": { "PATH": "${config:terminal.integrated.env.linux.PATH}" }
+          }
+        },
+        "osx": {
+          "options": {
+            "env": { "PATH": "${config:terminal.integrated.env.osx.PATH}" }
+          }
+        }
+      }
     ],
-    "django": true },
+    // 2. Problem matcher
+    "problemMatcher": {
+      "owner": "cpp",
+      "fileLocation": ["relative", "${workspaceFolder}"],
+      "pattern": {
+        "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+        "file": 1,
+        "line": 2,
+        "column": 3,
+        "severity": 4,
+        "message": 5
+      }
+    }
+  }
+  ```
 
-  // 2. Java
-  { "type" : "java",
-    "name" : "launch machine",
-    "request": "launch",
-    "mainClass": "nachos.machine.Machine",
-    "cwd": "PATH_TO/proj0",
-    "classPaths": ["PATH_TO/proj0"] }
+* keybinding.json
 
-  // 3. Cpp Codeforce
-  { "name": "C++ Launch",
-    "type": "cppdbg",
-    "request": "launch",
-    "program": "${workspaceFolder}/a.out",
-    "args": ["arg1", "arg2"],
-    "environment": [{ "name": "config", "value": "Debug" }],
-    "cwd": "${workspaceFolder}" }
-  ]
-}
-```
+  ```json
+  {
+    "key": "cmd+1",
+    "command": "type",
+    "args": {
+      "text": "{% tabs %}\n{% tab title='' %}\n{% endtab %}\n{% endtabs %}"
+    },
+    "when": "editorTextFocus"
+  }
+  ```
 
-### Tasks.json
-
-* configured to run scripts and start processes within VS Code without having to enter a command line or write new code
-
-> property
-
-* command: The actual command to execute
-* dependsOn: run other tasks before
-* dependsOrder= "sequence": how task dependencies are executed
-* group: Defines to which group the task belongs
-* label: The task's label used in the user interface
-* options: Override the defaults for env, or shell
-  * cwd: Set current directory
-* presentation: control how the Integrated Terminal panel behaves when running tasks
-  * reveal = always: whether panel is brought to front (never, silent)
-  * focus = false: Controls whether the terminal is taking input focus or not
-* runOptions: Defines when and how a task is run
-* type: either be shell (interpreted as a shell command) or process
-* problemMatcher: (ex: "$gcc")
-
-{% include 'task.json' %}
-
-{% include 'keybinding.json' %}
-
-> Question
+> Example
 
 * Install
   * Window

@@ -244,3 +244,113 @@ int main() {
 
 {% endtab %}
 {% endtabs %}
+
+> leetcode
+
+* [Level 3 : Smallest Sufficient Team](https://leetcode.com/problems/smallest-sufficient-team)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-bit/LC_1125.md/)
+
+{% tabs %}
+{% tab title='LC_1125.md' %}
+
+> Question
+
+* In a project, you have a list of required skills req_skills, and a list of people
+* The ith person people[i] contains a list of skills that the person has
+* Sufficient team: a set of people such that for every required skill in req_skills, there should be a person with that skill
+  * We can represent these teams by the index of each person
+* Return any sufficient team of the smallest possible size, represented by the index of each person in any order
+
+```txt
+Input: req_skills = ["java","nodejs","reactjs"], people = [["java"],["nodejs"],["nodejs","reactjs"]]
+Output: [0,2]
+
+Input:
+req_skills = ["algorithms","math","java","reactjs","csharp","aws"],
+people = [["algorithms","math","java"],["algorithms","math","reactjs"],["java","csharp","aws"],["reactjs","csharp"],
+  ["csharp","math"],["aws","java"]]
+Output: [1,2]
+```
+
+{% endtab %}
+{% tab title='LC_1125.py' %}
+
+```py
+def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:
+  n, m = len(req_skills), len(people)
+  key = {v: i for i, v in enumerate(req_skills)}
+  dp = {0: []}
+  for i, p in enumerate(people):
+    his_skill = 0
+    for skill in p:
+      if skill in key:
+        his_skill |= 1 << key[skill]
+    for skill_set, need in list(dp.items()):
+      with_him = skill_set | his_skill
+      if with_him == skill_set: continue
+      if with_him not in dp or len(dp[with_him]) > len(need) + 1:
+        dp[with_him] = need + [i]
+  return dp[(1 << n) - 1]
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Parallel Courses II](https://leetcode.com/problems/parallel-courses-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-bit/LC_1494.md/)
+
+{% tabs %}
+{% tab title='LC_1494.md' %}
+
+> Question
+
+* Given an integer n, which indicates that there are n courses labeled from 1 to n
+* Given an array relations where relations[i] = [prev, next]
+  * representing prerequisite relation between course prev and next: course prev has to be taken before course next
+* Also, you are given the integer k.
+* In one semester, take at most k courses if you have taken all prerequisites in previous semester for courses you are taking
+* Return min number of semesters needed to take all courses, it is always possible to take every course.
+
+```txt
+Input: n = 4, dependencies = [[2,1],[3,1],[1,4]], k = 2
+Output: 3
+
+Input: n = 5, dependencies = [[2,1],[3,1],[4,1],[1,5]], k = 2
+Output: 4
+```
+
+{% endtab %}
+{% tab title='LC_1494.py' %}
+
+```py
+class Solution:
+  def minNumberOfSemesters(self, n: int, dependencies: List[List[int]], k: int) -> int:
+    post, pre = defaultdict(list), [0] * n
+    for a, b in dependencies:
+      pre[b-1] += 1
+      post[a-1] += b-1,
+
+    @lru_cache(None)
+    def dfs(mask, pre):
+      if not mask: return 0
+
+      take = []
+      for i in range(n):
+        if mask & 1 << i and pre[i] == 0:
+          take += i,
+
+      res = inf
+      for c in combinations(take, min(k, len(take))):
+        m, d = mask, list(pre)
+        for a in c:
+          m ^= 1 << a
+          for b in post[a]:
+            d[b] -= 1
+        res = min(res, 1 + dfs(m, tuple(d)))
+      return res
+
+    return dfs((1 << n) - 1, tuple(pre))
+```
+
+{% endtab %}
+{% endtabs %}

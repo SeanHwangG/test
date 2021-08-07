@@ -59,7 +59,7 @@
   * Webpack development environment → run live server and a development environment
   * babel → manage your code, make it write a version compatible with older browsers
 
-> React Terms
+> Terms
 
 * JSX: React DOM escapes any values embedded in JSX before rendering them → Prevents Injection Attacks
   * Babel compiles JSX down to React.createElement() calls
@@ -72,56 +72,58 @@
 
 * Props: props are read only
 
-```js
-function NumberList(props) {
-  return (
-    <ul>{props.numbers.map((number) => <li>{number}</li>);}</ul>
+  ```js
+  function NumberList(props) {
+    return (
+      <ul>{props.numbers.map((number) => <li>{number}</li>);}</ul>
+    );
+  }
+
+  const numbers = [1, 2, 3, 4, 5];
+  ReactDOM.render(
+    <NumberList numbers={numbers} />,
+    document.getElementById('root')
   );
-}
 
-const numbers = [1, 2, 3, 4, 5];
-ReactDOM.render(
-  <NumberList numbers={numbers} />,
-  document.getElementById('root')
-);
+  const uuid = require('uuid/v1');
+  const todoItems = todos.map((todo, index) =>
+    <li key={uuid()}> {todo.text} </li>
+  );
+  ```
 
-const uuid = require('uuid/v1');
-const todoItems = todos.map((todo, index) =>
-  <li key={uuid()}> {todo.text} </li>
-);
-```
+> Error
 
-> Maximum update depth exceeded error
+* Maximum update depth exceeded error
 
-```jsx
-// pass function or use arrow function instead of calling it
-{<td><span onClick={this.toggle()}>Details</span></td>}
-{<td><span onClick={this.toggle}>Details</span></td>}
-```
+  ```jsx
+  // pass function or use arrow function instead of calling it
+  {<td><span onClick={this.toggle()}>Details</span></td>}
+  {<td><span onClick={this.toggle}>Details</span></td>}
+  ```
 
-> Refused to apply style from 'https://cdn.jsdelivr.net/npm/instantsearch.js'
+* Refused to apply style from 'https://cdn.jsdelivr.net/npm/instantsearch.js'
   because its MIME type ('application/javascript') is'nt supported stylesheet MIME type, and strict MIME checking is enabled
 
-```html
-<link rel="stylesheet" href="styles.css"\>
-```
+  ```html
+  <link rel="stylesheet" href="styles.css"\>
+  ```
 
-> Uncaught SyntaxError: Cannot use import statement outside a module`
+* Uncaught SyntaxError: Cannot use import statement outside a module`
 
-```html
-<script type="module" src="../src/main.js"></script>
-```
+  ```html
+  <script type="module" src="../src/main.js"></script>
+  ```
 
-> (node:32660) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing
+* (node:32660) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing
   inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch().
   To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict`
   ([See also](https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode)). (rejection id: 1)
   (node:32660) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated.
   In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 
-* Do not throw again in catch which is uncaught
-* Do not trust auto import, from sequelize.types -> from sequelize
-* await async function that throws an error
+  * Do not throw again in catch which is uncaught
+  * Do not trust auto import, from sequelize.types -> from sequelize
+  * await async function that throws an error
 
 {% endtab %}
 {% endtabs %}
@@ -175,35 +177,37 @@ const todoItems = todos.map((todo, index) =>
   * HTTPResponse
     * content = resp.read()
 
-```py
-# 1. Download Coco dataset
-import sys, getopt
-import fire
-import json
-import requests
+* requests
 
-def download_factory(all = False, *, coco2014 = None, coco2017 = None):
-  if all or coco2014:
-    url = "http://images.cocodataset.org/annotations/annotations_trainval2014.zip"
-    download(url)
+  ```py
+  import sys, getopt
+  import fire
+  import json
+  import requests
 
-  if all or coco2017:
-    url = "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
-    download(url)
+  def download_factory(all = False, *, coco2014 = None, coco2017 = None):
+    if all or coco2014:
+      url = "http://images.cocodataset.org/annotations/annotations_trainval2014.zip"
+      download(url)
 
-def download(url):
-  response = requests.get(url, stream=True)
-  total_bytes = int(response.headers.get('content-length', 0))
-  with open('test.dat', 'wb') as file:
-    with tqdm(total=total_bytes / (32*1024.0), unit='B', unit_scale=True, unit_divisor=1024) as pbar:
-      for data in response.iter_content(1024):
-        pbar.update(len(data))
-        file.write(data)
-```
+    if all or coco2017:
+      url = "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
+      download(url)
 
-> Error DevToolsActivePort file doesn't exist
+  def download(url):
+    response = requests.get(url, stream=True)
+    total_bytes = int(response.headers.get('content-length', 0))
+    with open('test.dat', 'wb') as file:
+      with tqdm(total=total_bytes / (32*1024.0), unit='B', unit_scale=True, unit_divisor=1024) as pbar:
+        for data in response.iter_content(1024):
+          pbar.update(len(data))
+          file.write(data)
+  ```
 
-* chrome_options.add_argument("--single-process")
+> Error
+
+* DevToolsActivePort file doesn't exist
+  * chrome_options.add_argument("--single-process")
 
 {% endtab %}
 {% endtabs %}
@@ -213,71 +217,77 @@ def download(url):
 {% tabs %}
 {% tab title='javascript' %}
 
-* children
-* classList: list of class
-* .add / remove('MyClass'): add / remove to class
+* Document
+  * children
+  * classList: list of class
+  * .add / remove('MyClass'): add / remove to class
+  * body
+
+  ```js
+  const foods = ["pizza"];
+
+  function getFoods() {
+    setTimeout(() => {
+      let output = "";
+      foods.forEach(food => {
+        output += `<li>${food}</li>`;
+      });
+      document.body.innerHTML = output;
+    }, 1000);
+  }
+
+  function addFood(food) {
+    setTimeout(() => {
+      foods.push(food);
+      resolve();
+    }, 1000);
+  }
+
+  async function init() {
+    await addFood("hotdog");
+    getFoods();
+  }
+
+  init();
+  ```
 
 * getElementById(id): get all elements with id
 * getElementByClassName(cls): get all elements with className
 
+  ```js
+  // toggle division
+  <script>
+  function toggle(id){
+    for (let element of document.getElementsByClassName("hideable")){
+    element.style.display="none";
+    }
+    document.getElementById(id).style.display = "block";
+  }
+  </script>
+  <a href="#" onclick="toggle('div1');">div1</a>
+  <a href="#" onclick="toggle('div2');">div2</a>
+  <a href="#" onclick="toggle('div3');">div3</a>
+
+  <div class="hideable" id="div1" style="display:block">Div 1</div>
+  <div class="hideable" id="div2" style="display:none">Div 2</div>
+  <div class="hideable" id="div3" style="display:none">Div 3</div>
+  ```
+
 * querySelector
-* 'tag.class#id': using query selector
-* '.class1, .class2': class1 or class2
-* '.class1.class2': class1 and class2
-* [style="display: none;"]: display is
+* querySelectorAll
+  * 'tag.class#id': using query selector
+  * '.class1, .class2': class1 or class2
+  * '.class1.class2': class1 and class2
+  * [style="display: none;"]: display is
+
+  ```js
+  // Hide all
+  .querySelectorAll('.hideable').forEach(function(el) {
+    el.style.display = 'none';
+  });
+  ```
 
 * setAttribute(name, value)
-
-```js
-// 1. toggle division
-<script>
-function toggle(id){
-  for (let element of document.getElementsByClassName("hideable")){
-   element.style.display="none";
-  }
-  document.getElementById(id).style.display = "block";
-}
-</script>
-<a href="#" onclick="toggle('div1');">div1</a>
-<a href="#" onclick="toggle('div2');">div2</a>
-<a href="#" onclick="toggle('div3');">div3</a>
-
-<div class="hideable" id="div1" style="display:block">Div 1</div>
-<div class="hideable" id="div2" style="display:none">Div 2</div>
-<div class="hideable" id="div3" style="display:none">Div 3</div>
-
-// 2. Add foods
-const foods = ["pizza"];
-
-function getFoods() {
-  setTimeout(() => {
-    let output = "";
-    foods.forEach(food => {
-      output += `<li>${food}</li>`;
-    });
-    document.body.innerHTML = output;
-  }, 1000);
-}
-
-function addFood(food) {
-  setTimeout(() => {
-    foods.push(food);
-    resolve();
-  }, 1000);
-}
-
-async function init() {
-  await addFood("hotdog");
-  getFoods();
-}
-
-init();
-
-// 3. Hide all
-.querySelectorAll('.hideable').forEach(function(el) {
-   el.style.display = 'none';
-});
-```
 
 {% endtab %}
 {% endtabs %}
@@ -287,12 +297,13 @@ init();
 {% tabs %}
 {% tab title='markdown' %}
 
-```md
-<!-- 1. .gitbook.yaml -->
-redirects:
-  help/contact: ./contact.md
-  help: ./support.md
-```
+* .gitbook.yaml
+
+  ```md
+  redirects:
+    help/contact: ./contact.md
+    help: ./support.md
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -363,12 +374,12 @@ redirects:
 * search: query portion of the URL
 * hash: anchor portion of the URL
 
-```js
-class LoggingButton extends React.Component {
-  handleClick = () => { console.log('this is:', this); }
-  render() { return (<button onClick={this.handleClick}> CLIck me </button>); }
-}
-```
+  ```js
+  class LoggingButton extends React.Component {
+    handleClick = () => { console.log('this is:', this); }
+    render() { return (<button onClick={this.handleClick}> CLIck me </button>); }
+  }
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -382,24 +393,28 @@ class LoggingButton extends React.Component {
 
 ## CSS
 
+{% tabs %}
+{% tab title='javascript' %}
+
 * describes how HTML elements should be displayed
 * id: must start with letters only have one id
 * Pseudo-Elements: style specified parts of an element. (ex, Style first letter, or line, of an element)
 
-```js
-<link rel="stylesheet" type="text/css" href="theme.css">
-```
+  ```js
+  <link rel="stylesheet" type="text/css" href="theme.css">
+  ```
 
 * Rules given in later classes (or which are more specific) override
 
-```js
-a.abc, a.xyz {     /* apply to multiple css */
-  width: 100px;
-  height: 100px;
-}
-```
+  ```js
+  a.abc, a.xyz {     /* apply to multiple css */
+    width: 100px;
+    height: 100px;
+  }
+  ```
 
 * display
+  ![display](images/20210219_220013.png)
   * none: completely removed
   * block: as a block element `<p>`. starts on a new line, takes up whole width
   * inline: as an inline element `<span>`. height, width properties have no effect
@@ -409,21 +424,18 @@ a.abc, a.xyz {     /* apply to multiple css */
   * flex / grid: element as a block-level flex / grid container
   * inline-flex / grid: Displays an element as an inline-level flex / grid container
 
-![display](images/20210219_220013.png)
-
 * Flex
-
-![flex](images/20210219_220045.png)
+  ![flex](images/20210219_220045.png)
 
 * parent
 
-```css
-display: flex;
-justify-content: center;
+  ```css
+  display: flex;
+  justify-content: center;
 
-flex-direction         #  how flex items are placed in flex container defining main axis and direction
-flex-direction: row;
-```
+  flex-direction         #  how flex items are placed in flex container defining main axis and direction
+  flex-direction: row;
+  ```
 
 * Selector
   * \*: all elements
@@ -466,27 +478,23 @@ flex-direction: row;
   * hidden: hidden (but still takes up space)
   * collapse: Only for `<tr>`, `<tbody>`, `<col>`, `<colgroup>`. removes a row or column
 
-> Position
+* Position
+  ![position](images/20210219_221142.png)
 
-![position](images/20210219_221142.png)
-
-* reltive vs fixed
-  * px for constant spacing rem for text size
-  * elative: positioned relative to its normal position
-  * bsolute: positioned absolutely to its first positioned parent
-  * ixed: positioned related to the browser window
-  * ticky: positioned based on the user's scroll position
-  * min-width: content is smaller than the minimum width, the minimum width will be applied
+  * reltive vs fixed
+    * px for constant spacing rem for text size
+    * elative: positioned relative to its normal position
+    * bsolute: positioned absolutely to its first positioned parent
+    * ixed: positioned related to the browser window
+    * ticky: positioned based on the user's scroll position
+    * min-width: content is smaller than the minimum width, the minimum width will be applied
 
 * margin
 
-```js
-default 0
-margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
-```
-
-{% tabs %}
-{% tab title='javascript' %}
+  ```js
+  default 0
+  margin: one / two / three / four  // tdlr / td, rl / t, rl, d / t, r, b, l
+  ```
 
 ```js
 // 1. Check hidden
@@ -499,47 +507,47 @@ object.style['display'] != 'none'               // only checks the element
 
 * stylish: Customize css for any website
 
-```css
-/* 1. Stylish for gitbook */
-/* Increase Center */
-.reset-3c756112--pageContainer-544d6e9c {
-  max-width: 1800px;
-}
+  ```css
+  <!-- For Gitbook -->
+  /* Increase Center */
+  .reset-3c756112--pageContainer-544d6e9c {
+    max-width: 1800px;
+  }
 
-/* Hide left navigation */
-.reset-3c756112--body-324a5898 {
-  margin: 0;
-}
+  /* Hide left navigation */
+  .reset-3c756112--body-324a5898 {
+    margin: 0;
+  }
 
-.reset-3c756112--contentNavigation-dd3370a4 {
-  min-width: 0px;
-}
+  .reset-3c756112--contentNavigation-dd3370a4 {
+    min-width: 0px;
+  }
 
-/* Hide except edit on github */
-.reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageSideMenuItem-22949732:
-not(:first-child) {
-  display: none;
-}
+  /* Hide except edit on github */
+  .reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageSideMenuItem-22949732:
+  not(:first-child) {
+    display: none;
+  }
 
-/* reduce right navigation */
-.reset-3c756112--contentNavigation-dd3370a4 {
-  padding-left: 0;
-  width: calc((100% - 1448px) / 5);
-}
+  /* reduce right navigation */
+  .reset-3c756112--contentNavigation-dd3370a4 {
+    padding-left: 0;
+    width: calc((100% - 1448px) / 5);
+  }
 
-.reset-3c756112--pageSide-ad9fed26 {
-  width: 180px;
-}
+  .reset-3c756112--pageSide-ad9fed26 {
+    width: 180px;
+  }
 
-/* Hide admin option */
-.reset-3c756112--sidebarNav-1270f224 {
-  display: none;
-}
+  /* Hide admin option */
+  .reset-3c756112--sidebarNav-1270f224 {
+    display: none;
+  }
 
-.reset-3c756112--body-324a5898 {
-  width: 100%;
-}
-```
+  .reset-3c756112--body-324a5898 {
+    width: 100%;
+  }
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -617,14 +625,13 @@ not(:first-child) {
 {% tab title='javascript' %}
 
 * overflow: specifies what should happen if content overflows an element's box
+  ![overflow](images/20210219_221044.png)
   * auto: clipped, a scroll-bar is added when content doesn’t fit
   * hidden: clipped, rest of content will be invisible
   * scroll: clipped, scroll will always show scrollbar even if content fits
   * initial / inherit: default / inherit from parent
   * overflow: visible|hidden|scroll|auto|initial|inherit;
   * visible (default): is not clipped. It renders outside the element's box
-
-![overflow](images/20210219_221044.png)
 
 {% endtab %}
 {% endtabs %}
@@ -670,9 +677,10 @@ not(:first-child) {
 * Node.js single thread -> PM2 for multithreading
 * uses Chrome's V8 engine used in Chrome browser to compile javascript functions to machine code
 
-> Node CLI
+> Example
 
-* -v: Check version
+* node
+  * -v: Check version
 
 ```js
 var stuff = require('./test.js');
@@ -688,104 +696,101 @@ module.exports = {
 module.exports.counter = counter
 ```
 
-> Cannot find module './components/Navigation' or its corresponding type declarations
+> Error
 
-```ts
-import HomeComponent from "components/HomeComponent";
-import HomeComponent from "./components/HomeComponent";
-```
+* Cannot find module './components/Navigation' or its corresponding type declarations
 
-> ReferenceError: algoliasearch is not defined
+  ```ts
+  import HomeComponent from "components/HomeComponent";
+  import HomeComponent from "./components/HomeComponent";
+  ```
 
-* add [cdn](https://cdnjs.com/libraries/algoliasearch)
+* ReferenceError: algoliasearch is not defined
+  * add [cdn](https://cdnjs.com/libraries/algoliasearch)
 
-> Error in loader, shutting down process Invalid default value for 'category'
+* Error in loader, shutting down process Invalid default value for 'category'
+  * defaultValue: "None" not specified in ENUM values
 
-* defaultValue: "None" not specified in ENUM values
+* SequelizeDatabaseError: Unknown column 'Order.userID' in 'where clause'
+  * userId not present in Order, update db if udpated
 
-> SequelizeDatabaseError: Unknown column 'Order.userID' in 'where clause'
+* SequelizeDatabaseError: Column 'shippingFee' cannot be null
+  * update Table, migrate if not development server
 
-* userId not present in Order, update db if udpated
-
-> SequelizeDatabaseError: Column 'shippingFee' cannot be null
-
-* update Table, migrate if not development server
-
-> sequelize message: Column createdAt in where clause is ambiguous
-
-* models.sequelize.col('User.createdAt'))
+* sequelize message: Column createdAt in where clause is ambiguous
+  * models.sequelize.col('User.createdAt'))
 
 * Cluster
 
-```js
-var cluster = require('cluster'),
-    app = require('./express-app');
+  ```js
+  var cluster = require('cluster'),
+      app = require('./express-app');
 
-var workers = {},
-    count = require('os').cpus().length;
+  var workers = {},
+      count = require('os').cpus().length;
 
-function spawn(){
-  var worker = cluster.fork();
-  workers[worker.pid] = worker;
-  return worker;
-}
-
-if (cluster.isMaster) {
-  for (var i = 0; i < count; i++) {
-    spawn();
+  function spawn(){
+    var worker = cluster.fork();
+    workers[worker.pid] = worker;
+    return worker;
   }
-  cluster.on('death', function(worker) {
-    console.log('worker ' + worker.pid + ' died. spawning a new process...');
-    delete workers[worker.pid];
-    spawn();
-  });
-} else {
-  app.listen(process.env.PORT || 5000);
-}
-```
+
+  if (cluster.isMaster) {
+    for (var i = 0; i < count; i++) {
+      spawn();
+    }
+    cluster.on('death', function(worker) {
+      console.log('worker ' + worker.pid + ' died. spawning a new process...');
+      delete workers[worker.pid];
+      spawn();
+    });
+  } else {
+    app.listen(process.env.PORT || 5000);
+  }
+  ```
 
 * config
+  * default.json
 
-```js
-// default.json
-const require(‘config’);
-const db = config.get("mongoURI")
-```
+  ```js
+  const require(‘config’);
+  const db = config.get("mongoURI")
+  ```
 
 * Events
 
-```js
-const EventEmitter = require('events');
-const eventEmitter = new EventEmitter();
+  ```js
+  const EventEmitter = require('events');
+  const eventEmitter = new EventEmitter();
 
-eventEmitter.on('tutorial', (num1, num2)=>{
-  console.log(num1 + num2);
-});
+  eventEmitter.on('tutorial', (num1, num2)=>{
+    console.log(num1 + num2);
+  });
 
-eventEmitter.emit('tutorial', 1,2)
+  eventEmitter.emit('tutorial', 1,2)
 
-class Person extends EventEmitter{
-  constructor(name){
-    super();
-    this._name =  name;
+  class Person extends EventEmitter{
+    constructor(name){
+      super();
+      this._name =  name;
+    }
+    get name(){
+      return this._name;
+    }
   }
-  get name(){
-    return this._name;
-  }
-}
 
-let pedro = new Person('Pedro');
-let christina = new Person('Christina');
-christina.on('name',()=>{
-  console.log('my name is' + christina.name);
-});
-pedro.on('name', ()=>{
-  console.log('my name is' + pedro.name);
-});
+  let pedro = new Person('Pedro');
+  let christina = new Person('Christina');
+  christina.on('name',()=>{
+    console.log('my name is' + christina.name);
+  });
+  pedro.on('name', ()=>{
+    console.log('my name is' + pedro.name);
+  });
 
-pedro.emit('name');
-christina.emit('name');
-```
+  pedro.emit('name');
+  christina.emit('name');
+  ```
 
 * Nodemon: constantly update UI
 * markdownlint-cli2
@@ -816,53 +821,65 @@ christina.emit('name');
 {% tabs %}
 {% tab title='javascript' %}
 
+* React: like JavaScript functions.
+  * Accept inputs (called “props”) and return React elements describing what should appear on the screen
+  * Starts with upper-case, only have one div
+
 > Term
 
 * Class Component: functions accept inputs (props) and return elements
   * must have only one div
   * starts with upper-cass
+
+  ```tsx
+  class Movie extends React.Component{
+    render () {
+      return (
+        <div>
+          <h1> {this.props.title} </h1>
+          <h2> {this.props.genre} </h2>
+        </div>
+      )
+    }
+  };
+
+  <Movie title="Avatar" genre="Action"></Movie>
+  <Movie title="Notebook" genre="Romance"></Movie>
+  ```
+
 * Functional: Hook allows you to use functional component
   * Only call Hooks at the top level. Don’t call Hooks inside loops, conditions, or nested functions
   * Only call Hooks from React function components. Don’t call Hooks from regular JavaScript functions
+  * Hook: Allows you to use functional component
+  * Only call Hooks at the top level ([ex] Don’t call Hooks inside loops, conditions, or nested functions)
+  * Only call Hooks from React function components ([ex] Don’t call Hooks from regular JavaScript functions)
 
-```ts
-// 1. class component
-class Movie extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {date: new Date()};
-  }
-  render () {
-    return (<div>
-              <h1> {this.props.title} </h1>
-              <h2> {this.props.genre} </h2>
-           </div>)
-  }
-}
+  ```tsx
+  const [count, setCount] = useState(0);
 
-// 2. Functional component
-const [count, setCount] = useState(0);
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // Update the document title using the browser API
+    document.title = `You clicked ${count} times`;
+  });
 
-/* Similar to componentDidMount and componentDidUpdate: */
-useEffect(() => {
-  /* Update the document title using the browser API */
-  document.title = `You clicked ${count} times`;
-});
-
-return (
-  <div>
-    <p>You clicked {count} times</p>
-    <button onClick={() => setCount(count + 1)}>
-      Click me
-    </button>
-  </div>
-);
-```
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+  ```
 
 {% endtab %}
 {% endtabs %}
 
 ## Context
+
+{% tabs %}
+{% tab title='javascript' %}
 
 * provides a way to pass data through the component tree without having to pass props down manually at every level
 
@@ -894,7 +911,13 @@ class ThemedButton extends React.Component {
 }
 ```
 
+{% endtab %}
+{% endtabs %}
+
 ## Dom
+
+{% tabs %}
+{% tab title='javascript' %}
 
 * Update real DOM for only those objects which are changed in Virtual DOM
 * To allow React to create a Virtual DOM, you will need React’s Components
@@ -928,6 +951,9 @@ export default class App extends Component {
   }
 }
 ```
+
+{% endtab %}
+{% endtabs %}
 
 ## Router
 
@@ -1019,161 +1045,169 @@ urlpatterns = [
 * State is reserved only for interactivity, that is, data that changes over time
 * [`state`, `setter`] useState(`initial`): create react state with setter
 
-```js
-// 1. Sample Constructor
-constructor(props) {
-  super(props);
-  this.state = {
+> Example
+
+* setState
+
+  ```js
+  /* 1. CRUD */
+  this.setState(prev => ({  v: [...prev.v, added]}))
+  this.setState(prev => ({ v: prev.v.filter(n => n !== e.target.value) }));
+  this.setState({ v: update(this.state.v, {1: {name: {$set: 'updated field name'}}})})
+
+  // Sample Constructor
+  constructor(props) {
+    super(props);
+    this.state = {
+      brand: "Ford",
+      model: "Mustang",
+      color: "red",
+      year: 1964
+    };
+  }
+
+  state = {
     brand: "Ford",
     model: "Mustang",
     color: "red",
     year: 1964
   };
-}
 
-state = {
-  brand: "Ford",
-  model: "Mustang",
-  color: "red",
-  year: 1964
-};
+  // Put into HTML
+  <div>
+    {this.state.todos.map(todo => (
+      <Todo key={todo.key} content={todo.content} />
+    ))}
+  </div>
+  ```
 
-/* Put into HTML */
-<div>
-  {this.state.todos.map(todo => (
-    <Todo key={todo.key} content={todo.content} />
-  ))}
-</div>
+* mobx
 
-// 2. CRUD
-this.setState(prev => ({  v: [...prev.v, added]}))
-this.setState(prev => ({ v: prev.v.filter(n => n !== e.target.value) }));
-this.setState({ v: update(this.state.v, {1: {name: {$set: 'updated field name'}}})})
+  ```tsx
+  /* 2. Mobx Domain state */
+  import { makeAutoObservable, autorun, runInAction } from "mobx"
+  import uuid from "node-uuid"
 
-// 3. Mobx Domain state
-import { makeAutoObservable, autorun, runInAction } from "mobx"
-import uuid from "node-uuid"
+  export class TodoStore {
+    authorStore
+    transportLayer
+    todos = []
+    isLoading = true
 
-export class TodoStore {
-  authorStore
-  transportLayer
-  todos = []
-  isLoading = true
-
-  constructor(transportLayer, authorStore) {
-    makeAutoObservable(this)
-    this.authorStore = authorStore // Store that can resolve authors.
-    this.transportLayer = transportLayer // Thing that can make server requests.
-    this.transportLayer.onReceiveTodoUpdate(updatedTodo => this.updateTodoFromServer(updatedTodo))
-    this.loadTodos()
-  }
-
-  // Fetches all Todos from the server.
-  loadTodos() {
-    this.isLoading = true
-    this.transportLayer.fetchTodos().then(fetchedTodos => {
-      runInAction(() => {
-        fetchedTodos.forEach(json => this.updateTodoFromServer(json))
-        this.isLoading = false
-      })
-    })
-  }
-
-  // Update a Todo with information from the server. Guarantees a Todo only exists once.
-  // Might either construct a new Todo, update an existing one, or remove a Todo if it has been deleted on the server.
-  updateTodoFromServer(json) {
-    let todo = this.todos.find(todo => todo.id === json.id)
-    if (!todo) {
-      todo = new Todo(this, json.id)
-      this.todos.push(todo)
+    constructor(transportLayer, authorStore) {
+      makeAutoObservable(this)
+      this.authorStore = authorStore // Store that can resolve authors.
+      this.transportLayer = transportLayer // Thing that can make server requests.
+      this.transportLayer.onReceiveTodoUpdate(updatedTodo => this.updateTodoFromServer(updatedTodo))
+      this.loadTodos()
     }
-    if (json.isDeleted) this.removeTodo(todo)
-    else todo.updateFromJson(json)
-  }
 
-  // Creates a fresh Todo on the client and the server.
-  createTodo() {
-    const todo = new Todo(this)
-    this.todos.push(todo)
-    return todo
-  }
+    // Fetches all Todos from the server.
+    loadTodos() {
+      this.isLoading = true
+      this.transportLayer.fetchTodos().then(fetchedTodos => {
+        runInAction(() => {
+          fetchedTodos.forEach(json => this.updateTodoFromServer(json))
+          this.isLoading = false
+        })
+      })
+    }
 
-  // A Todo was somehow deleted, clean it from the client memory.
-  removeTodo(todo) {
-    this.todos.splice(this.todos.indexOf(todo), 1)
-    todo.dispose()
-  }
-}
-
-// Domain object Todo.
-export class Todo {
-  id = null  // Unique id of this Todo, immutable.
-  completed = false
-  task = ""
-  author = null  // Reference to an Author object (from the authorStore).
-  store = null
-  autoSave = true  // Indicator for submitting changes in this Todo to the server.
-  saveHandler = null  // Disposer of the side effect auto-saving this Todo (dispose).
-
-  constructor(store, id = uuid.v4()) {
-    makeAutoObservable(this, { id: false, store: false, autoSave: false, saveHandler: false, dispose: false })
-    this.store = store
-    this.id = id
-
-    this.saveHandler = reaction(
-      () => this.asJson, // Observe everything that is used in the JSON.
-      json => {
-        // If autoSave is true, send JSON to the server.
-        if (this.autoSave) this.store.transportLayer.saveTodo(json)
+    // Update a Todo with information from the server. Guarantees a Todo only exists once.
+    // Might either construct a new Todo, update an existing one, or remove a Todo if it has been deleted on the server.
+    updateTodoFromServer(json) {
+      let todo = this.todos.find(todo => todo.id === json.id)
+      if (!todo) {
+        todo = new Todo(this, json.id)
+        this.todos.push(todo)
       }
-    )
+      if (json.isDeleted) this.removeTodo(todo)
+      else todo.updateFromJson(json)
+    }
+
+    // Creates a fresh Todo on the client and the server.
+    createTodo() {
+      const todo = new Todo(this)
+      this.todos.push(todo)
+      return todo
+    }
+
+    // A Todo was somehow deleted, clean it from the client memory.
+    removeTodo(todo) {
+      this.todos.splice(this.todos.indexOf(todo), 1)
+      todo.dispose()
+    }
   }
 
-  // Remove this Todo from the client and the server.
-  delete() {
-    this.store.transportLayer.deleteTodo(this.id)
-    this.store.removeTodo(this)
+  // Domain object Todo.
+  export class Todo {
+    id = null  // Unique id of this Todo, immutable.
+    completed = false
+    task = ""
+    author = null  // Reference to an Author object (from the authorStore).
+    store = null
+    autoSave = true  // Indicator for submitting changes in this Todo to the server.
+    saveHandler = null  // Disposer of the side effect auto-saving this Todo (dispose).
+
+    constructor(store, id = uuid.v4()) {
+      makeAutoObservable(this, { id: false, store: false, autoSave: false, saveHandler: false, dispose: false })
+      this.store = store
+      this.id = id
+
+      this.saveHandler = reaction(
+        () => this.asJson, // Observe everything that is used in the JSON.
+        json => {
+          // If autoSave is true, send JSON to the server.
+          if (this.autoSave) this.store.transportLayer.saveTodo(json)
+        }
+      )
+    }
+
+    // Remove this Todo from the client and the server.
+    delete() {
+      this.store.transportLayer.deleteTodo(this.id)
+      this.store.removeTodo(this)
+    }
+
+    get asJson() {
+      return { id: this.id, completed: this.completed, task: this.task, authorId: this.author ? this.author.id : null }
+    }
+
+    // Update this Todo with information from the server.
+    updateFromJson(json) {
+      this.autoSave = false // Prevent sending of our changes back to the server.
+      this.completed = json.completed
+      this.task = json.task
+      this.author = this.store.authorStore.resolveAuthor(json.authorId)
+      this.autoSave = true
+    }
+
+    dispose() {
+      this.saveHandler()  // Clean up the observer.
+    }
   }
 
-  get asJson() {
-    return { id: this.id, completed: this.completed, task: this.task, authorId: this.author ? this.author.id : null }
+  /* 3. UI State */
+  import { makeAutoObservable, observable, computed, asStructure } from "mobx"
+
+  export class UiState {
+    language = "en_US"
+    pendingRequestCount = 0
+
+    // .struct makes sure observer won't be signaled unless dimensions object changed in a deepEqual manner.
+    windowDimensions = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
+
+    constructor() {
+      makeAutoObservable(this, { windowDimensions: observable.struct })
+      window.onresize = () => { this.windowDimensions = getWindowDimensions() }
+    }
+
+    get appIsInSync() { return this.pendingRequestCount === 0 }
   }
-
-  // Update this Todo with information from the server.
-  updateFromJson(json) {
-    this.autoSave = false // Prevent sending of our changes back to the server.
-    this.completed = json.completed
-    this.task = json.task
-    this.author = this.store.authorStore.resolveAuthor(json.authorId)
-    this.autoSave = true
-  }
-
-  dispose() {
-    this.saveHandler()  // Clean up the observer.
-  }
-}
-
-// 4. UI State
-import { makeAutoObservable, observable, computed, asStructure } from "mobx"
-
-export class UiState {
-  language = "en_US"
-  pendingRequestCount = 0
-
-  // .struct makes sure observer won't be signaled unless dimensions object changed in a deepEqual manner.
-  windowDimensions = {
-    width: window.innerWidth,
-    height: window.innerHeight
-  }
-
-  constructor() {
-    makeAutoObservable(this, { windowDimensions: observable.struct })
-    window.onresize = () => { this.windowDimensions = getWindowDimensions() }
-  }
-
-  get appIsInSync() { return this.pendingRequestCount === 0 }
-}
-```
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -1204,15 +1238,15 @@ export class UiState {
   * useObserver(): Low level implementation used internally by observer HOC and Observer component
     * allows you to use an observer like behaviour
 
-```ts
-import { observer } from "mobx-react-lite"
+  ```ts
+  import { observer } from "mobx-react-lite"
 
-const myTimer = new Timer() // See the Timer definition above.
-const TimerView = observer(({ timer }) => <span>Seconds passed: {timer.secondsPassed}</span>)
+  const myTimer = new Timer() // See the Timer definition above.
+  const TimerView = observer(({ timer }) => <span>Seconds passed: {timer.secondsPassed}</span>)
 
-// Pass myTimer as a prop.
-ReactDOM.render(<TimerView timer={myTimer} />, document.body)
-```
+  // Pass myTimer as a prop.
+  ReactDOM.render(<TimerView timer={myTimer} />, document.body)
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -1224,76 +1258,81 @@ ReactDOM.render(<TimerView timer={myTimer} />, document.body)
 {% tabs %}
 {% tab title='javascript' %}
 
-```jsx
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import {
-  BrowserRouter as Router,
-  Link,
-  Switch,
-  useLocation
-} from "react-router-dom";
+* useParams: Similar to dynamic segments matching in other frameworks like Rails and Express
 
-
-// 1. Router nav bar
-export default class Nav extends Component {
-  render() {
-    const navStyle = { color: "white" };
+  ```tsx
+  // Params are placeholders in the URL that begin with a colon, like the `:id` param defined in the route in this example
+  export default function ParamsExample() {
     return (
-      <nav>
-        <h3>logo</h3>
-        <ul className="nav-links">
-          <Link style={navStyle} to="/about">
-            <li>About</li>
-          </Link>
-        </ul>
-      </nav>
+      <Router>
+        <div>
+          <h2>Accounts</h2>
+
+          <ul>
+            <li>
+              <Link to="/netflix">Netflix</Link>
+            </li>
+            <li>
+              <Link to="/zillow-group">Zillow Group</Link>
+            </li>
+            <li>
+              <Link to="/yahoo">Yahoo</Link>
+            </li>
+            <li>
+              <Link to="/modus-create">Modus Create</Link>
+            </li>
+          </ul>
+
+          <Switch>
+            <Route path="/:id" children={<Child />} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
-}
 
-// 2. useParams (similar to dynamic segments matching in other frameworks like Rails and Express)
-// Params are placeholders in the URL that begin with a colon, like the `:id` param defined in the route in this example
-export default function ParamsExample() {
-  return (
-    <Router>
+  function Child() {
+    // use the `useParams` hook here to access the dynamic pieces of the URL.
+    let { id } = useParams();
+
+    return (
       <div>
-        <h2>Accounts</h2>
-
-        <ul>
-          <li>
-            <Link to="/netflix">Netflix</Link>
-          </li>
-          <li>
-            <Link to="/zillow-group">Zillow Group</Link>
-          </li>
-          <li>
-            <Link to="/yahoo">Yahoo</Link>
-          </li>
-          <li>
-            <Link to="/modus-create">Modus Create</Link>
-          </li>
-        </ul>
-
-        <Switch>
-          <Route path="/:id" children={<Child />} />
-        </Switch>
+        <h3>ID: {id}</h3>
       </div>
-    </Router>
-  );
-}
+    );
+  }
+  ```
 
-function Child() {
-  // use the `useParams` hook here to access the dynamic pieces of the URL.
-  let { id } = useParams();
+* Link
 
-  return (
-    <div>
-      <h3>ID: {id}</h3>
-    </div>
-  );
-}
-```
+  ```jsx
+  import React, { Component } from "react";
+  import ReactDOM from "react-dom";
+  import {
+    BrowserRouter as Router,
+    Link,
+    Switch,
+    useLocation
+  } from "react-router-dom";
+
+
+  // 1. Router nav bar
+  export default class Nav extends Component {
+    render() {
+      const navStyle = { color: "white" };
+      return (
+        <nav>
+          <h3>logo</h3>
+          <ul className="nav-links">
+            <Link style={navStyle} to="/about">
+              <li>About</li>
+            </Link>
+          </ul>
+        </nav>
+      );
+    }
+  }
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -1393,28 +1432,52 @@ margin         # space between border and surrounding content
 {% tab title='javascript' %}
 
 * navigator
-  * mediaDevices
 * MediaDevices
   * getUserMedia(): trigger permissions request
+
+    ```tsx
+    /* Local video playback */
+    async function playVideoFromCamera() {
+      try {
+        const constraints = {'video': true, 'audio': true};
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        const videoElement = document.querySelector('video#localVideo');
+        videoElement.srcObject = stream;
+      } catch(error) {
+        console.error('Error opening video camera.', error);
+      }
+    }
+
+    <html>
+    <head><title>Local video playback</video></head>
+    <body>
+        <video id="localVideo" autoplay playsinline controls="false"/>
+    </body>
+    </html>
+    ```
+
   * enumerateDevices(): return promise that resolves to MediaDevicesInfo[] that describe each known media device
+
+  ```tsx
+  /* open the default microphone and camera */
+  const constraints = {
+    'video': true,
+    'audio': true
+  }
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then(stream => {
+      console.log('Got MediaStream:', stream);
+    })
+    .catch(error => {
+      console.error('Error accessing media devices.', error);
+    });
+  ```
+
 * MediaDevicesInfo
 * MediaStream
 
 ```js
-/* 1. open the default microphone and camera */
-const constraints = {
-  'video': true,
-  'audio': true
-}
-navigator.mediaDevices.getUserMedia(constraints)
-  .then(stream => {
-    console.log('Got MediaStream:', stream);
-  })
-  .catch(error => {
-    console.error('Error accessing media devices.', error);
-  });
-
-/* 2. Listen for device change */
+/* Listen for device change */
 // Updates the select element with the provided set of cameras
 function updateCameraList(cameras) {
   const listElement = document.querySelector('select#availableCameras');
@@ -1467,25 +1530,6 @@ if (cameras && cameras.length > 0) {
   // Open first available video camera with a resolution of 1280x720 pixels
   const stream = openCamera(cameras[0].deviceId, 1280, 720);
 }
-
-/* 4. Local Playback */
-async function playVideoFromCamera() {
-  try {
-    const constraints = {'video': true, 'audio': true};
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    const videoElement = document.querySelector('video#localVideo');
-    videoElement.srcObject = stream;
-  } catch(error) {
-    console.error('Error opening video camera.', error);
-  }
-}
-
-<html>
-<head><title>Local video playback</video></head>
-<body>
-    <video id="localVideo" autoplay playsinline controls="false"/>
-</body>
-</html>
 ```
 
 {% endtab %}

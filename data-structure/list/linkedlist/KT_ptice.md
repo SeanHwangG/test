@@ -23,8 +23,8 @@ Bruno
 length = int(input())
 li = list(input())
 a = ['A', 'B', 'C']
-b = ['B', 'A','B', 'C']
-g = ['C', 'C', 'A','A','B','B']
+b = ['B', 'A', 'B', 'C']
+g = ['C', 'C', 'A', 'A', 'B', 'B']
 scores = [0, 0 , 0]
 for i in range(length):
   if li[i] == a[i % 3]:

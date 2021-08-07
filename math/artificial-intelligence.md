@@ -50,54 +50,158 @@
 * Negative Sampling
   * train models that generally have several order of magnitudes more negative than positive one
 
-> Feature
+* Feature
+  * Some set value -1, NaN: linear, net model can suffer
+  * Mean, approximate: weather data
 
-* Some set value -1, NaN: linear, net model can suffer
-* Mean, approximate: weather data
+  * make range
+    * [ex] power , log transformation
 
-* make range
-  * [ex] power , log transformation
+  * Finding: length of text field
+    * percentage of characters that are punctuation in the text
+    * percentage of character that are capitalize
 
-* Finding: length of text field
-  * percentage of characters that are punctuation in the text
-  * percentage of character that are capitalize
+  * Nominal: One hot encoding → sparse matrix
 
-* Nominal: One hot encoding → sparse matrix
+  * Ordinal: Special categorical feature where sorted in some meaningful order
+    * Education (undergraduate, graduate), Grade (A, B, C)
+    * Label (sorted) | Frequency | Rank encoding
 
-* Ordinal: Special categorical feature where sorted in some meaningful order
-  * Education (undergraduate, graduate), Grade (A, B, C)
-  * Label (sorted) | Frequency | Rank encoding
+  * Coordinate: distance from Interesting places from data
+    * center of clusters, Aggregated statistics
 
-* Coordinate: distance from Interesting places from data
-  * center of clusters, Aggregated statistics
+  * Datetime
+    * periodicity | time since row-independent | dependent event | difference between dates
 
-* Datetime
-  * periodicity | time since row-independent | dependent event | difference between dates
+  * Numerical: Non tree-based models depend on scaling
+    * Feature generation: fraction part in money (human perception), interval (human vs bot)
+    * winsorization to remove outlier
 
-* Numerical: Non tree-based models depend on scaling
-  * Feature generation: fraction part in money (human perception), interval (human vs bot)
-  * winsorization to remove outlier
-
-> Learning
-
-* Offline
+* Offline Learning
   * [+] Make all possible predictions in a batch, using a mapreduce or similar
   * [+] Write to a table, then feed these to a cache|lookup table
   * [-] long tail → can only predict things we know tail
   * [-] update latency likely measured in hours or days
 
-* Online
+* Online Learning
   * Predict on demand, using a server
   * [+] can predict any new item as it comes
   * [-] monitoring needs are more intensive
 
-> Dynamic Sampling
+* Dynamic Sampling
+  * Minlong Lin, 2013
 
-* Minlong Lin, 2013
+  $$
+  P\left(X^{!}\right)=1.0-P\left(\frac{X}{\text { Sum of Candidates }}^{0.7}\right)
+  $$
 
-$$
-P\left(X^{!}\right)=1.0-P\left(\frac{X}{\text { Sum of Candidates }}^{0.7}\right)
-$$
+{% tabs %}
+{% tab title='hadoop' %}
+
+![Map Reduce](images/20210607_224939.png)
+
+* Large data processing API designed for scalability and fault-tolerance
+  * Retry on another node: OK for a map because no dependencies, for reduce because map outputs are on disk
+  * If same task fails repeatedly, fail job or ignore that input block
+* Pluggable user code runs in generic framwork
+* Dependent tasks, interactive analysis, Native support for Java only
+* High-latency, allow parallel & distributed processing using disk storage
+  * Launch second copy of task if task is slow then kill when finishes first
+* Map-Reduce consists of three main steps: Mapping, Shuffling and Reducing
+* Map: Apply same operation to each member of collection
+  * minimize network usage by saving outputs to local disk before serving them to reducers
+  * allows recovery if a reducer crashses, hvaing more reducers than nodes
+* Reduce: collecting things that have same 'key'
+* [+] Hides complexities of parallel programming  → search engine page ranking and topic mapping
+* [-] frequently changing data → slow, as it reads entire input data
+* [ex] Index construction G search, Article clustering for G News, Machine translation, FB Spam detection
+* [ex] Log processing, web search indexing, ad-hoc queries
+
+* Design pattern
+  * wc, cat \*, grep, sort, unique, cat > file, input, map, shuffle, reduce, output
+
+```py
+def mapper(line):
+  for word in line.split():
+    output(word, 1)
+
+def reducer(key, values):
+  output(key, sum(values))
+```
+
+{% endtab %}
+{% tab title='apache' %}
+
+* Driver Program creates Resilient distributed datasets (RDDs)
+* Low-latency for small micro-batch size
+* Batch and stream processing using disk or memory storage
+* SparkSQL, Spark streaming, MLlib, GraphX
+
+* Commands
+  * lazy evaluation → transformations are not executed until the action stage
+  * Narrow: processing logic depends only on data, residing in the partition → no data shuffling necessary
+  * Wide: transformation that requires data shuffling across node partitions
+
+* Function
+  * collect(): copy all elements to the driver
+  * take(n): copy first n elements
+  * reduce(func): aggregate elements with func
+  * saveAsTextFile(filename): Save to local file or HDFS
+
+* Narrow Transformation
+  * coalesce(): reduce number of partitions
+  * filter(func): keep only elements where function is true
+  * flatMap(func): map then aggregate
+  * map(func): apply function to each element of RDD
+
+* Wide Transformation
+  * groupbykey
+  * reducebykey
+
+* MLlib
+
+* GraphX
+  * Uses property graph model → both nodes and edges can have attributes and values
+  * triplet view → logically joins vortex and edge properties
+
+```py
+import pyspark
+from operator import add
+from pyspark.mllib.stat import Statistics
+
+# 1. Reduce
+sc = pyspark.SparkContext.getOrCreate()
+data = sc.parallelize (["scala", "hadoop", "spark", "akka", "spark vs hadoop", "pyspark", "pyspark and spark"])
+print(data.count())
+print("data.collect()")
+filtered = data.filter(lambda x: 'spark' in x).collect()
+print(filtered)
+print(data.reduce(add))
+file = sc.textFile('00_keywords.py')
+print(f"{file.count()}")
+print(f"{file.take(3)}")
+print(f"{file.filter(lambda s: 'print' in s.lower()).count()}")
+spark = pyspark.sql.SparkSession(sc)
+files = sc.wholeTextFiles('.')
+pprint(f"{files.count()}")
+df = files.toDF(['name', 'data'])
+print(f"{df.select('name').toPandas().head()}")
+spark.read.csv('competition_vision/mnist/data/mnist_train.csv').toPandas()
+spark.read.load('competition_vision/mnist/data/mnist_train.csv').head()
+
+# 2. MLlib
+dataMatrix = sc.parallelize([[1,2,3],[4,5,6], [7,8,9],[10, 11, 12]])
+summary = Statistics.colStats(dataMatrix)
+
+from pyspark.mllib.clustering import KMeans, KMeansModel
+import numpy as np
+data = sc.textFile("data.txt")
+parsedData = data.map(lambda line: np.array([float(x) for x in line.split(' ')]))
+clusters = Kmeans.train(parsedData, k=3)
+```
+
+{% endtab %}
+{% endtabs %}
 
 ## Feature
 

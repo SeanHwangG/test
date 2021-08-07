@@ -203,10 +203,16 @@ set(glob("*")) - set(glob("eph*"))
 * dd
   * -bs=`BYTES`: read and write up BYTES at a time [ex] **512**
   * -if=`FILE` : read from FILE instead of stdin ([ex] /dev/zero)
+
 * head
   * `n`: print first / last `n` lines of each FILE to standard output ([ex] +1: entire file)
 * tail
   * -f: wait for new strings, show dynamically
+
+  ```sh
+  tail -n +1 *.txt # show multiple files, concat with filename
+  head -n +2 "$FILE": except first line
+  ```
 
 * more: additional development on “more” had stopped
   * uses same functions as vi editor
@@ -222,15 +228,6 @@ set(glob("*")) - set(glob("eph*"))
 
 * Open (mac): Open in finder ([ex] .: current folder)
 
-```sh
-# 1. show multiple files, concat with filename
-tail -n +1 *.txt
-head -n +2 "$FILE": except first line
-
-# 2. Delete all files with size 0
-find /tmp -size  0 -print -delete
-```
-
 {% endtab %}
 {% endtabs %}
 
@@ -241,16 +238,15 @@ find /tmp -size  0 -print -delete
 {% tabs %}
 {% tab title='cpp' %}
 
-> fcntl.h
-
-* int open(const char *pathname, int flags);
-* int open(const char *pathname, int flags, mode_t mode);
-  * -1 if error occurred, else new file descriptor
-  * [errors]
-  * EACCESS: permission denied
-  * EFAULT: outside your accessible address space
-  * ENOMEM: Insufficient kernel memory was available
-  * ENOTDIR: specified path was not a directory
+* fcntl.h
+  * int open(const char *pathname, int flags);
+  * int open(const char *pathname, int flags, mode_t mode);
+    * -1 if error occurred, else new file descriptor
+    * [errors]
+    * EACCESS: permission denied
+    * EFAULT: outside your accessible address space
+    * ENOMEM: Insufficient kernel memory was available
+    * ENOTDIR: specified path was not a directory
 
 {% endtab %}
 {% endtabs %}
@@ -484,7 +480,7 @@ def ls():
 {% endtab %}
 {% endtabs %}
 
-### Directory Navigation
+## File Navigation
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -503,6 +499,14 @@ def ls():
   * -L: Follow symbolic links (default)
   * -P: Follow physical directory
   * $(dirname a/b/file.cpp): cd into file's located folder
+
+{% endtab %}
+{% tab title='vim' %}
+
+* vscode
+  * Go To File
+* CLion
+  * Go To File
 
 {% endtab %}
 {% endtabs %}
@@ -548,9 +552,9 @@ def ls():
 * watchman
   * watch `file`: [ex] ~/src
 
-```sh
-brew update && brew install watchman  # Mac
-```
+  ```sh
+  brew update && brew install watchman  # Mac
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -581,6 +585,10 @@ cat /proc/mounts
 {% tab title='shell' %}
 
 * file: determine file type ([ex] dll, object, txt)
+
+  ```sh
+  if [ -f "$filename" -a "$(file -b --mime-encoding "$filename")" = binary ]; then; 'bin' fi  # check if file is binary
+  ```
 
 * objdump: prints contents of object files and final linked images
   * -a / -h a.o: information in archive's headers / headers
@@ -613,16 +621,9 @@ cat /proc/mounts
   * -D: only display dynamic symbols
   * <> `object`: lists symbols from `object`
 
-```sh
-# 1. find location of function in binary (libutil.so.0.8.2 ! func@0x17 + 0x94c - [unknown source file])
--l -S libutil.so > a
-
-# 2. od
-od -i binary.out
-# 0000000           0           1           2           3
-# 0000020           4           5           6           7
-# 0000040           8           9          10          11
-```
+  ```sh
+  nm -l -S libutil.so  # find location of function in binary (libutil.so.0.8.2 ! func@0x17 + 0x94c - [unknown source file])
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -668,7 +669,7 @@ od -i binary.out
 * cp: copy file
   * -f: if destination file cannot be opened, remove and try
   * -T: if target already existed as a directory, then cp will fail
-  * -r [directory]: copy all of the files including files inside of subfolders
+  * -r [directory]: copy all of the files including files inside of subfolders (explicit is more recommended)
 
 * mv
   * -t `dest` `srcs...`: multiple files
@@ -685,20 +686,8 @@ od -i binary.out
 * rename
   * "s/py/md/" *.pyj: rename all py to js
 
-```sh
-# 1. diff
-diff ssh user@remote_host "cat foo" | diff - foo       # diff over remote
-diff <(ssh server1 'cat foo') <(ssh server2 'cat foo') # diff two remote file
-```
-
 {% endtab %}
 {% endtabs %}
-
-## Patch
-
-* diff: Check whether two files are equal
-  * `a` `b`: Diff over two files ([ex] <(echo a) <(echo b): Print diff of two output command)
-  * -y: Display side by side
 
 ## Redirection
 
@@ -707,50 +696,52 @@ diff <(ssh server1 'cat foo') <(ssh server2 'cat foo') # diff two remote file
 {% tabs %}
 {% tab title='shell' %}
 
-* Xargs
+* xargs
   * -E: (for mac)
   * -0: Change xargs to expect NUL
   * -t: prints command that will be executed to terminal
 
+  ```sh
+  echo ' A     B' xargs -I {} echo "{}"  # Preserve whitespaces
+  find . -name "to_move*" | xargs -I{} mv {} ./class/book/images/  # find and move
+  ls problem/*/ | grep -v ":" | xargs -I {} sh -c "ag "filter/{}.md" > /dev/null || echo {}" # Xargs multiple command
+  git log --diff-filter=D --summary | grep images | cut -b 20- | xargs -I {} git checkout HEAD^ {}  # Restore removed files
+  ```
+
 * |: pipe ([ex] `cmd1` | `cmd2`: takes standard output of cmd1 as standard input to cmd2)
 * `n`<: takes standard input from file ([ex] **0**: can be omitted)
+
 * \>: directs standard output to file
+
+  ```sh
+  n>|file    # forces output to file from file descriptor n even if noclobber is set
+  n>file     # directs file descriptor n to file
+  ```
+
 * \>|file: forces standard output to file even if noclobber is set
 * \>\> file: directs standard output to file, append to file if it already exists
 
-```sh
-# 1. Pipe examples
-n>|file    # forces output to file from file descriptor n even if noclobber is set
-<> file    # uses file as both standard input and standard output
-n<>file    # uses file as both input and output for file descriptor n
-n>file     # directs file descriptor n to file
-n<file     # takes file descriptor n from file
-n>>file    # directs file description n to file; append to file if it already exists
-n>&        # duplicates standard output to file descriptor n
-n<&        # duplicates standard input from file descriptor n
-n>&m       # file descriptor n is made to be a copy of the output file descriptor
-n<&m       # file descriptor n is made to be a copy of the input file descriptor
-&>file     # directs standard output and standard error to file
-<&-        # closes the standard input
->&-        # closes the standard output
-n>&-       # closes the ouput from file descriptor n
-n<&-       # closes the input from file descripor n
+  ```sh
+  <> file    # uses file as both standard input and standard output
+  n<>file    # uses file as both input and output for file descriptor n
+  n<file     # takes file descriptor n from file
+  n>>file    # directs file description n to file; append to file if it already exists
+  n>&        # duplicates standard output to file descriptor n
+  n<&        # duplicates standard input from file descriptor n
+  n>&m       # file descriptor n is made to be a copy of the output file descriptor
+  n<&m       # file descriptor n is made to be a copy of the input file descriptor
+  &>file     # directs standard output and standard error to file
+  <&-        # closes the standard input
+  >&-        # closes the standard output
+  n>&-       # closes the ouput from file descriptor n
+  n<&-       # closes the input from file descripor n
 
-# 2. read .env
-eval $(grep -v -e '^#' .env | xargs -I {} echo export \'{}\')
+  eval $(grep -v -e '^#' .env | xargs -I {} echo export \'{}\')  # read .env
 
-# 3. Preserve whitespaces
-echo ' A     B' xargs -I {} echo "{}"
-
-# 4. Run all video
-find . -regex ".*mp4" -print0 | xargs -0 -L 1 python3 scripts.py open_video
-seq 10 | xargs ls "video{}.mp4" | xargs -0 -L 1 python3 scripts.py open_video
-
-# 4. xargs
-find . -name "to_move*" | xargs -I{} mv {} ./class/book/images/ # find and move
-ls problem/*/ | grep -v ":" | xargs -I {} sh -c "ag "filter/{}.md" > /dev/null || echo {}" # Xargs multiple command
-git log --diff-filter=D --summary | grep images | cut -b 20- | xargs -I {} git checkout HEAD^ {}  # Restore all removed files
-```
+  # Run all video
+  find . -regex ".*mp4" -print0 | xargs -0 -L 1 python3 scripts.py open_video
+  seq 10 | xargs ls "video{}.mp4" | xargs -0 -L 1 python3 scripts.py open_video
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -783,52 +774,23 @@ git log --diff-filter=D --summary | grep images | cut -b 20- | xargs -I {} git c
   * -rL "print" .: all files without print
   * -w: specifying word boundary
 
+  ```sh
+  grep -c "^##" *.md       # Count number of heading on markdown
+  grep "patern1\|pattern2" # multiple pattern
+  grep -rnw '/path/to/somewhere/' -e 'pattern'  # Search on file (use ag)
+  grep -rL "\[\/\/\]" * | cut -d\/ -f-2 | uniq -c | sort # Count number of markdowns that doesn't contain comments
+  grep -how "images/.*.png" *.md | xargs -I{} mv "../theory/math/{}" images/ # move files
+  ```
+
 * fgrep: file pattern searcher
 
 * egrep: extended grep
   * '19|20|25' calendar: grep multiple patterns
 
-```sh
-# 1. grep example
-grep -c "^##" *.md       # Count number of heading on markdown
-grep "patern1\|pattern2" # multiple pattern
-grep -rnw '/path/to/somewhere/' -e 'pattern'  # Search on file (use ag)
-grep -rL "\[\/\/\]" * | cut -d\/ -f-2 | uniq -c | sort # Count number of markdowns that doesn't contain comments
-grep -how "images/.*.png" *.md | xargs -I{} mv "../theory/math/{}" images/ # move files
-```
-
 {% endtab %}
 {% endtabs %}
 
 {% include '.grep.prob' %}
-
-### Sed
-
-* stream editor for filtering and transforming text
-* invalid command code
-* for OS use empty argument -i ''
-
-* s/: Replace
-* /p: print
-* -n: suppress line echoed to stdout after commands
-* -i.bak: In place
-  * backup is requiremnt in BST (blank for no backup ' ')
-
-```sh
-sed 's/.$//'              # remove last character
-sed '0,/pattern/ d' file  # remove first line if pattern
-sed '/^#[^!]/d' `file`    # remove all comments except shebang
-sed "s/hello/hi/" file    # Replace hello to hi in file.txt
-sed -n  :nclude/p;q file  # (p)rints all cpp files, then (q)uits
-sed -i '1d' file          # delete first line
-sed -i ':BJ/d' file       # delete first line if match
-sed -i '1s :h1\n/' file   # append to beginning of file
-
-# 4. Replace file in-place
-sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
-```
-
-{% include '.sed.prob' %}
 
 ### Seq
 
@@ -840,7 +802,6 @@ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_
 {% tab title='shell' %}
 
 ```sh
-# 1. See union contents in file1, 2
 comm -12 < (cat file1 | sort) < (cat file2 | sort)
 ```
 
@@ -863,19 +824,41 @@ comm -12 < (cat file1 | sort) < (cat file2 | sort)
   * '{print}' input.txt: Prints every line of data from the specified file
   * '/PAT1/,/PAT2/' file: Lines between inclusive
 
-```sh
-# 1. AWK example
-awk '{print NR,$0}' input.txt             # NR prints line number, $0 prints entire string
-awk '/abc/ {print}' input.txt             # Prints every line containing abc
-awk 'NR==n {print $0}' input.txt          # Prints n th line
-awk -F 'pattern' 'NF{print NF-1}' b4      # Count number of pattern in each line
-awk '/ptn/ {c++} END {print c}' input.txt           # Count pattern in the string
-awk '{ t = $1; $1 = $2; $2 = t; print; }' file      # Swap first two column
-awk '/PAT1/{flag=1; next} /PAT2/{flag=0} flag' file # lines between exclude PAT1, PAT2
-```
+  ```sh
+  awk '{print NR,$0}' input.txt             # NR prints line number, $0 prints entire string
+  awk '/abc/ {print}' input.txt             # Prints every line containing abc
+  awk 'NR==n {print $0}' input.txt          # Prints n th line
+  awk -F 'pattern' 'NF{print NF-1}' b4      # Count number of pattern in each line
+  awk '/ptn/ {c++} END {print c}' input.txt           # Count pattern in the string
+  awk '{ t = $1; $1 = $2; $2 = t; print; }' file      # Swap first two column
+  awk '/PAT1/{flag=1; next} /PAT2/{flag=0} flag' file # lines between exclude PAT1, PAT2
+  ```
+
+* Sed: stream editor for filtering and transforming text
+  * invalid command code
+  * for OS use empty argument -i ''
+  * s/: Replace
+  * /p: print
+  * -n: suppress line echoed to stdout after commands
+  * -i.bak: In place
+    * backup is requiremnt in BST (blank for no backup ' ')
+
+  ```sh
+  sed 's/.$//'              # remove last character
+  sed '0,/pattern/ d' file  # remove first line if pattern
+  sed '/^#[^!]/d' `file`    # remove all comments except shebang
+  sed "s/hello/hi/" file    # Replace hello to hi in file.txt
+  sed -n  :nclude/p;q file  # (p)rints all cpp files, then (q)uits
+  sed -i '1d' file          # delete first line
+  sed -i ':BJ/d' file       # delete first line if match
+  sed -i '1s :h1\n/' file   # append to beginning of file
+  sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; # Replace file in-place
+  ```
 
 {% endtab %}
 {% endtabs %}
+
+{% include '.sed.prob' %}
 
 ### Inspect File
 
@@ -934,18 +917,18 @@ du -a | cut -d/ -f2 | sort | uniq -c | sort -nr  # the number of files in each d
   * -type: [ex] d: Directory, f: file, l: symbolic link
   * -user: [ex] `user`
 
+  ```sh
+  find /tmp -size  0 -print -delete     # Delete all files with size 0
+  find . -type d -empty -print/-delete  # print / remove all empty directory
+  find . -type f -execdir mv "{}" .. \; # Move to its parrent folder
+  find / -name art 2>/dev/null          # Ignore all errors when find
+  find / -name file | grep -v "Permission denied" # Ignore Permission denied
+  find . -path "*migrations*" -name "*.py" -not -path "*__init__*" # all django migration files
+  find * . -not -iwholename '.git' -type f -exec sed -i '' 's/ *$//' '{}' ';' # remove trailng spaces recursively
+  ```
+
 * grep: [ex] -- "-n"
   * -r: Search recursively
-
-```sh
-# 1. find
-find . -type d -empty -print/-delete  # print / remove all empty directory
-find . -type f -execdir mv "{}" .. \; # Move to its parrent folder
-find / -name art 2>/dev/null          # Ignore all errors when find
-find / -name file | grep -v "Permission denied" # Ignore Permission denied
-find . -path "*migrations*" -name "*.py" -not -path "*__init__*" # all django migration files
-find * . -not -iwholename '.git' -type f -exec sed -i '' 's/ *$//' '{}' ';' # remove trailng spaces recursively
-```
 
 {% endtab %}
 {% endtabs %}
@@ -1025,48 +1008,31 @@ C:\>type c.txt
 {% endtab %}
 {% endtabs %}
 
-> Broken pipe
+> Error
 
-* IP changed or server can't guarantee security
+* Broken pipe
+  * IP changed or server can't guarantee security
 
-> Connection to _ closed by remote host
-
-* Administrator Disconnect
-
-> getcwd() failed: No such file or directory
-
-* execute a command from a path that doesn't exists (deleted by other terminal)
-
-> The System is going down for reboot NOW!
-
-* Remote server shuts down
-
-> Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
-
-* -> run apt update
-* apt install tftp
-
-> Problem with update-manager: No module named 'apt_pkg' in Ubuntu 13.10, having installed Python 3.4 on /usr/local/lib
-
-* sudo apt-get install --reinstall python3-apt
-
-> device or resource busy (when rm file)
-
-* lsof +D /path and kill
-* umount /path
-
-> ~ doesn't give correct value
-
-* Tilda must be first character of word and not quoted
-
-> Pseudo-terminal will not be allocated because stdin is note a terminal
-
-* ssh -tt
-
-> You have a new mail
-
-* /var/mail/$USER or /var/spool/mail/$USER
-* django cronjob has failed
+* Connection to _ closed by remote host
+  * Administrator Disconnect
+* getcwd() failed: No such file or directory
+  * execute a command from a path that doesn't exists (deleted by other terminal)
+* The System is going down for reboot NOW!
+  * Remote server shuts down
+* Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+  * apt update && apt install tftp
+* Problem with update-manager: No module named 'apt_pkg' in Ubuntu 13.10, having installed Python 3.4 on /usr/local/lib
+  * sudo apt-get install --reinstall python3-apt
+* device or resource busy (when rm file)
+  * lsof +D /path and kill
+  * umount /path
+* ~ doesn't give correct value
+  * Tilda must be first character of word and not quoted
+* Pseudo-terminal will not be allocated because stdin is note a terminal
+  * ssh -tt
+* You have a new mail
+  * /var/mail/$USER or /var/spool/mail/$USER
+  * django cronjob has failed
 
 > Reference
 
@@ -1145,11 +1111,6 @@ C:\>type c.txt
 {% tab title='shell' %}
 
 * service: run a System V init script
-* systemctl: control systemd system and service manager
-
-```sh
-service --status-all | grep +
-```
 
 {% endtab %}
 {% endtabs %}
@@ -1169,9 +1130,10 @@ service --status-all | grep +
 # /etc/sysctl.conf
 ```
 
-> ENOSPC: System limit for number of file watchers reached
+> Error
 
-* fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
+* ENOSPC: System limit for number of file watchers reached
+  * fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
 
 {% endtab %}
 {% endtabs %}
@@ -1208,6 +1170,10 @@ service --status-all | grep +
   * -g: List of supplementary groups which the user is also a member of
   * -l new old: change username
 
+  ```sh
+  sudo usermod -aG docker ${USER}  # Docker without sudo
+  ```
+
 * restart: restart computer
 
 * last: check login history
@@ -1238,26 +1204,19 @@ service --status-all | grep +
 * useradd: native binary compiled with the system
   * -m: create the home directory
 
+  ```sh
+  vi /etc/default/useradd
+  HOME=/home/sean
+  useradd vivek
+  passwd sean
+  finger sean
+  ```
+
 * userdel
   * -r: removes files in the user's home directory along with the home directory itself
 
 ```sh
-# 1. Add group
-sudo usermod -aG docker ${USER}
-
-# 2. OS Info
-cat /etc/os-release
-
-# 3. List User and Groups
-cut -d: -f1 /etc/passwd
-cut -d: -f1 /etc/group | sort
-
-# 4. Add User
-vi /etc/default/useradd
-HOME=/home/sean
-useradd vivek
-passwd sean
-finger sean
+cat /etc/os-release  # OS Info
 ```
 
 ### Super user
@@ -1269,13 +1228,16 @@ finger sean
   * add to sudo group
   * usermod -aG sudo id
 
-```sh
-# 1. /etc/sudoers
-Defaults:chris timestamp_timeout=20  # in minute, negative for infinite timeout
-Defaults:ravi      !authenticate     # Totally disable
-root  ALL=(ALL)   ALL                # Do not prompt password
+* /etc/sudoer
 
-# 2. Dockerfile
+  ```sh
+  Defaults:chris timestamp_timeout=20  # in minute, negative for infinite timeout
+  Defaults:ravi      !authenticate     # Totally disable
+  root  ALL=(ALL)   ALL                # Do not prompt password
+  ```
+
+```sh
+# 1. Dockerfile
 local result=1
 which sudo 2>&1 1>/dev/null
 [ $? -eq 0 ] && result=0        # 0 - ok/ 1 - nok
@@ -1287,11 +1249,19 @@ ARG USER_ID=1002
 RUN useradd -ms /bin/bash ${USER_NAME} && usermod -aG wheel ${USER_NAME} \
   && echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER_NAME} \
   && echo 'Defaults env_keep = "http_proxy https_proxy"' >> /etc/sudoers.d/${USER_NAME}
+
+# Allow sudo
+sudo usermod -aG docker $USER
+sudo vi /etc/systemd/system/docker.service.d/http-proxy.conf
+## [Service]
+Environment="HTTP_PROXY=http://proxy.example.com:80/"
+su sean
 ```
 
-> Error sudo: command not found
+> Error
 
-* apt install sudo
+* Error sudo: command not found
+  * apt install sudo
 
 ## Process Command
 
@@ -1321,6 +1291,16 @@ RUN useradd -ms /bin/bash ${USER_NAME} && usermod -aG wheel ${USER_NAME} \
   * -f: ASCII art process hierarchy
   * -L pid: Prints all thread used by pid
   * -o thcount= pid: Total thread in pid
+
+  ```sh
+  ps axjf            # display the process tree on Linux
+  ps aux | grep apt  # see all downloading files
+  ps ax -L --no-headers | wc -l     # currently running thread count
+  ps -o thcount= 19783              # number of thread used by process
+  ps ax -L --no-headers | wc -l           # Total thread now
+  ps /proc/sys/kernel/threads-max         # Total possible thread
+  ps ax -o pid,nlwp,cmd  | sort -nr -k2,2 # Ordered by number of threads
+  ```
 
 * sleep: default is seconds, m, h, d
 
@@ -1353,20 +1333,6 @@ RUN useradd -ms /bin/bash ${USER_NAME} && usermod -aG wheel ${USER_NAME} \
 
 * vm_stat (mac): show Mach virtual memory statistics
 
-```sh
-# 1. Thread
-cat /proc/sys/kernel/threads-max # possible thread count
-ps ax -L --no-headers | wc -l    # currently running thread count
-ps -o thcount= 19783             # number of thread used by process
-
-# 2. ps
-ps axjf           # display the process tree on Linux
-ps aux | grep apt # see all downloading files
-ps ax -L --no-headers | wc -l           # Total thread now
-ps /proc/sys/kernel/threads-max         # Total possible thread
-ps ax -o pid,nlwp,cmd  | sort -nr -k2,2 # Ordered by number of threads
-```
-
 ### Cron
 
 * [Check cron syntax](https://crontab.guru/)
@@ -1377,64 +1343,64 @@ ps ax -o pid,nlwp,cmd  | sort -nr -k2,2 # Ordered by number of threads
 {% tabs %}
 {% tab title='javscript' %}
 
-> Nodecron
+* Nodecron
+  ![nodecron](images/20210217_201302.png)
+  * Node.js is in practice single-threaded
+  * Communication methods
+  * priority queue (Kue is a common queue library)
 
-![nodecron](images/20210217_201302.png)
+  * expression string: Cron expression
+  * function Function: Task to be executed
+  * options Object: Optional configuration for job scheduling
+  * Options
+    * scheduled: A boolean to set if the created task is schaduled. Default true;
+    * timezone: The timezone that is used for job scheduling
 
-* Node.js is in practice single-threaded
-* Communication methods
-* priority queue (Kue is a common queue library)
+  ```js
+  var cron = require('node-cron');    // Starts the scheduled task.
+  var task = cron.schedule('* * * * *', () =>  {
+    console.log('stoped task');
+  }, {
+    scheduled: false
+    timezone: "America/Sao_Paulo"
+  });
 
-* expression string: Cron expression
-* function Function: Task to be executed
-* options Object: Optional configuration for job scheduling
-* Options
-  * scheduled: A boolean to set if the created task is schaduled. Default true;
-  * timezone: The timezone that is used for job scheduling
+  task.start();         // The task won't be executed unless re-started.
+  var cron = require('node-cron');
+  var task = cron.schedule('* * * * *', () =>  {
+    console.log('will execute every minute until stopped');
+  });
 
-```js
-// 1. Node schdule
-const j = schedule.scheduleJob('00 30 11 * * 1-5', () => {
-  console.log('Cron-style Scheduling')
-})
+  task.stop();          // The task will be stopped and completely destroyed.
+  var cron = require('node-cron');
+  var task = cron.schedule('* * * * *', () =>  {
+    console.log('will not execute anymore, nor be able to restart');
+  });
 
-/* Recurrence Rule Scheduling
-   Sun ~ Sat 0 ~ 6
-   월 ~ 일 17시 45분 실행 */
-const rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 17;
-rule.minute = 45;
-const k = schedule.scheduleJob(rule, () => {
-  console.log('Recurrence Rule Scheduling');
-})
+  task.destroy();       // Validate that the given string is a valid cron expression.
+  var cron = require('node-cron');
+  var valid = cron.validate('59 * * * *');
+  var invalid = cron.validate('60 * * * *');
+  ```
 
-// 2. Node cron
-var cron = require('node-cron');    // Starts the scheduled task.
-var task = cron.schedule('* * * * *', () =>  {
-  console.log('stoped task');
-}, {
-  scheduled: false
-  timezone: "America/Sao_Paulo"
-});
+* node.schedule
 
-task.start();         // The task won't be executed unless re-started.
-var cron = require('node-cron');
-var task = cron.schedule('* * * * *', () =>  {
-  console.log('will execute every minute until stopped');
-});
+  ```js
+  const j = schedule.scheduleJob('00 30 11 * * 1-5', () => {
+    console.log('Cron-style Scheduling')
+  })
 
-task.stop();          // The task will be stopped and completely destroyed.
-var cron = require('node-cron');
-var task = cron.schedule('* * * * *', () =>  {
-  console.log('will not execute anymore, nor be able to restart');
-});
-
-task.destroy();       // Validate that the given string is a valid cron expression.
-var cron = require('node-cron');
-var valid = cron.validate('59 * * * *');
-var invalid = cron.validate('60 * * * *');
-```
+  /* Recurrence Rule Scheduling
+    Sun ~ Sat 0 ~ 6
+    월 ~ 일 17시 45분 실행 */
+  const rule = new schedule.RecurrenceRule();
+  rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+  rule.hour = 17;
+  rule.minute = 45;
+  const k = schedule.scheduleJob(rule, () => {
+    console.log('Recurrence Rule Scheduling');
+  })
+  ```
 
 > Reference
 
@@ -1443,19 +1409,16 @@ var invalid = cron.validate('60 * * * *');
 {% endtab %}
 {% tab title='python' %}
 
-> django-crontab
+* django-crontab
+  * pip install django-crontab
+  * Doesn't work on window
+  * Put 'django_crontab' in settings.py
 
-* pip install django-crontab
-* Doesn't work on window
-
-* Put 'django_crontab' in settings.py
-
-> django-admin crontab cli
-
-* add
-* remove
-* show
-* run `job_hash`: test crontab (put hash returned by add)
+* django-admin crontab cli
+  * add
+  * remove
+  * show
+  * run `job_hash`: test crontab (put hash returned by add)
 
 {% endtab %}
 {% tab title='shell' %}
@@ -1506,9 +1469,8 @@ pipeline {
 {% endtab %}
 {% tab title='github' %}
 
-* on
-  * schedule
-    * cron: [ex] "0 17 \* \* \*"
+* on.chedule
+  * cron: [ex] "0 17 \* \* \*"
 
 {% endtab %}
 {% endtabs %}
@@ -1579,6 +1541,11 @@ pipeline {
   * ~/.`shell_name`rc: to make it run when start an interactive shell
   * ~/.`shell_name`profile: to make when log in
 
+  ```sh
+  export GST_PLUGIN_PATH=`pwd`/build  # Set Environment
+  if [ -f .env ]; then; export $(cat .env | sed 's/#.*//g' | xargs) fi  # Load env
+  ```
+
 * locale: print enabled language
   * -e: any trap on ERR is inherited by shell functions (bash -e)
   * -o `pipefail`: return value of a pipeline is value of last (rightmost) command to exit
@@ -1615,26 +1582,24 @@ pipeline {
   * -n: nodename (name that system is known by to communication network)
   * -p: machine processor architecture name
   * -r / s / v: operating system release / name / version
+
+  ```sh
+  case "$(uname -s)" in
+    Darwin)
+      export ARCHDIR=$PWD/mips-mac/bin
+      ;;
+    Linux)
+      export ARCHDIR=$PWD/mips-x86.linux-xgcc/
+      ;;
+  esac
+  ```
+
 * screen (consider tmux)
 
 ```sh
 # 1. os name check
 if command -v lsb_release >/dev/null 2>&1; then
   OS_NAME=$(lsb_release -i -s)
-fi
-
-case "$(uname -s)" in
-  Darwin)
-    export ARCHDIR=$PWD/mips-mac/bin
-    ;;
-  Linux)
-    export ARCHDIR=$PWD/mips-x86.linux-xgcc/
-    ;;
-esac
-
-# 2. Load env
-if [ -f .env ]; then
-  export $(cat .env | sed 's/#.*//g' | xargs)
 fi
 
 can_escalate_privileges()  # by default (e.g. on Linux) user can do so
@@ -1685,12 +1650,12 @@ system_cpu=`uname -m`
 * basename
 * dirname
 
-| orig         | dir      | bas  |
-| ------------ | -------- | ---- |
-| /usr/lib/log | /usr/lib | /log |
-| /usr/        | /        | usr  |
-| usr          | .        | usr  |
-| /            | /        | /    |
+  | orig         | dir      | bas  |
+  | ------------ | -------- | ---- |
+  | /usr/lib/log | /usr/lib | /log |
+  | /usr/        | /        | usr  |
+  | usr          | .        | usr  |
+  | /            | /        | /    |
 
 * lsattr: lists the file attributes on a second extended file system
 * stat: displays the size and other stats of a file/directory or a filesystem
@@ -1706,23 +1671,11 @@ system_cpu=`uname -m`
 * readlink
   * -f: show full path
 
-```sh
-# 1. check if file is binary
-if [ -f "$filename" -a "$(file -b --mime-encoding "$filename")" = binary ]; then
-  echo It\'s a binary file
-fi
-```
-
-{% tabs %}
-{% tab title='apple' %}
-
-```sh
-brew install coreutils
-alias readlink=greadlink
-```
-
-{% endtab %}
-{% endtabs %}
+  ```sh
+  # Mac equivlanet
+  brew install coreutils
+  alias readlink=greadlink
+  ```
 
 ### Disk
 
@@ -1730,13 +1683,18 @@ alias readlink=greadlink
   * -a: file system's complete disk usage even if the Available field is 0
   * -h: human readable format
 
-* du, disk usage
+* du: disk usage
   * [-H | -L | -P] [-a | -s | -d depth] [-c] [-h | -k | -m | -g] [-x] [-I mask] [file ...]
   * -a: all files and folders
   * -s: display only a total for each argument
   * -d: max-depth
   * -h: human readable
   * -h -d1
+
+  ```sh
+  du  * -hs * | sort -h  # order by size
+  du -a | cut -d/ -f2 | sort | uniq -c | sort -nr  # count # of files each dir
+  ```
 
 * fdisk: show disk size along with disk partitioning info
   * -l: List partition tables for specified devices and exit
@@ -1748,8 +1706,12 @@ alias readlink=greadlink
   * -c unlimited: dump core to current directory
 
 * sysctl: Read and set values in /etc/sysctl.conf (kernel parameters)
-  * sysctl kernel.core_pattern: get segfault location
-  * sysctl -a | grep machdep.cpu / swap: show cpu / swap info in mac
+  * [ex] kernel.core_pattern: get segfault location
+
+  ```sh
+  sysctl -a | grep machdep.cpu / swap: show cpu / swap info in mac
+  echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p  # Change max number of watcher
+  ```
 
 * lsblk: lists information about all or the specified block devices
 
@@ -1758,6 +1720,7 @@ alias readlink=greadlink
 * systemd: system daemon
 
 * systemctl: Control the systemd system and service manager
+  * daemon-reload: Reload systemd manager config, rerun all generators, reload all unit files, recreate dependency tree
   * disable Unit
   * removes all symlinks to the unit files backing the specified units from the unit configuration directory
   * undoes any changes made by enable or link
@@ -1772,17 +1735,19 @@ alias readlink=greadlink
   * disable deviceservie:
   * status / / ssh: check status of root mount / ssh
 
+  ```sh
+  service --status-all | grep +
+  status nginx   # nginx current status
+  stop nginx     # Stop nginx
+  reload nginx   # Reload nginx
+  restart nginx  # Restart nginx
+
+  show --property Environment docker
+  restart docker        # restart docker
+  ```
+
 * quota: display disk usage and limits
   * -g: Print group quotas for the group of which the user is a member
-
-```sh
-# 1. du
-du  * -hs * | sort -h # order by size
-du -a | cut -d/ -f2 | sort | uniq -c | sort -nr # count # of files each dir : -a | cut -d/ -f2 | sort | uniq -c | sort -nr
-
-# 2. Change max number of watcher
-echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-```
 
 ### Linux
 
@@ -1801,125 +1766,121 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
   * install
     * -y `package`: accept all while downloading
 
+* yum: usually used with the RHEL family OS's and handles RPM software packages
+  * /etc/yum.conf: configuration file and related utilities
+  * /etc/yum.repos.d/: options
+  * install `package`: [ex] git
+  * remove `package`
+  * autoremove `package`: remove unneeded dependencies
+  * list: list all packages
+
+  ```sh
+  PKGS=(
+    libusbx-devel
+    gtk2
+    gstreamer1
+  )
+  yum install -y ${PKGS[@]}
+  ```
+
 * apt-show: explain repository ([ex] software-properties-common)
 
-> Waiting for cache lock: Could not get lock /var/lib/dpkg/lock-frontend” while installing applications in Ubuntu
+> Error
 
-```sh
-sudo lsof /var/lib/dpkg/lock
-### COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
-### xxxxxx 5383 root 7aC REG 6,3 0 210001 /var/lib/dpkg/lock-frontend
+* Waiting for cache lock: Could not get lock /var/lib/dpkg/lock-frontend” while installing applications in Ubuntu
 
-sudo kill -9 5383  # Kill the process
-sudo rm /var/lib/dpkg/lock  # Remove/Delete the lock file
-sudo rm /var/cache/apt/archives/lock  # Remove the lock from the cache folder
-sudo dpkg --configure -a  # Check and correct the interrupted dpkg process if any (So we do no end up with broken packages)
-```
+  ```sh
+  sudo lsof /var/lib/dpkg/lock
+  ### COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
+  ### xxxxxx 5383 root 7aC REG 6,3 0 210001 /var/lib/dpkg/lock-frontend
 
-> Package 'python3.7' has no installation candidate
+  sudo kill -9 5383  # Kill the process
+  sudo rm /var/lib/dpkg/lock  # Remove/Delete the lock file
+  sudo rm /var/cache/apt/archives/lock  # Remove the lock from the cache folder
+  sudo dpkg --configure -a  # Check and correct the interrupted dpkg process if any (So we do no end up with broken packages)
+  ```
 
-```sh
-apt update
-apt install python3 python3-pip software-properties-common
-add-apt-repository ppa:deadsnakes/ppa
-apt install python3.7
-```
+* Package 'python3.7' has no installation candidate
+
+  ```sh
+  apt update
+  apt install python3 python3-pip software-properties-common
+  add-apt-repository ppa:deadsnakes/ppa
+  apt install python3.7
+  ```
 
 {% tabs %}
 {% tab title='window' %}
 
-* choco install `package` ([ex] python)
-* [Install](https://chocolatey.org/docs/installation)
-* Debian: open source community, stability and security
-* freeze and scrutinize all packages → packages can be a little old
-* Linux Mint, Ubuntu, Elementary OS, and Kali Linux
+* choco: Window install
+  * install `package` ([ex] python)
+  * [Install](https://chocolatey.org/docs/installation)
+  * Debian: open source community, stability and security
+  * freeze and scrutinize all packages → packages can be a little old
+  * Linux Mint, Ubuntu, Elementary OS, and Kali Linux
 
 {% endtab %}
 {% tab title='apple' %}
 
-* packages compiled to version-specific subdirectories → multiple versions can be in machine
-* Homebrew is a 3rd party addition – on both macOS and Ubuntu
-* cask is extension to brew that allows management of graphical applications through Cask project
-
-* casks
-* cleanup: run occasionally to avoid running out of disk
-* install adoptopenjdk8: 9, 10, 11
-  * --cask
-* link: creates symlinks to installations you performed
-  * --overwrite: overwrite existing symlink
-* list: list all available formula
-* services
-  * start postgres
-  * stop postgres
-* tap adoptopenjdk/openjdk: install old java
-* uninstall `formula`: Uninstall formula
+* brew: packages compiled to version-specific subdirectories → multiple versions can be in machine
+  * Homebrew is a 3rd party addition – on both macOS and Ubuntu
+  * cask is extension to brew that allows management of graphical applications through Cask project
+  * casks
+  * cleanup: run occasionally to avoid running out of disk
+  * install adoptopenjdk8: 9, 10, 11
+    * --cask
+  * link: creates symlinks to installations you performed
+    * --overwrite: overwrite existing symlink
+  * list: list all available formula
+  * services
+    * start postgres
+    * stop postgres
+  * tap adoptopenjdk/openjdk: install old java
+  * uninstall `formula`: Uninstall formula
 
 {% endtab %}
 {% endtabs %}
-
-### Yum
-
-* usually used with the RHEL family OS's and handles RPM software packages
-
-* /etc/yum.conf: configuration file and related utilities
-* /etc/yum.repos.d/: options
-* install `package`: [ex] git
-* remove `package`
-* autoremove `package`: remove unneeded dependencies
-* list: list all packages
 
 {% tabs %}
 {% tab title='shell' %}
 
 * !, %, .,:, @, {, }
 
-```sh
-# ls
-echo `ls` wolrd     # print inside
-
-# shift.sh a b c d
-echo "Total arguments passed are: $#"
-echo "The arguments are: $*"      # $* is used to show the command line arguments
-echo "The First Argument is: $1"  # a
-
-echo "The First Argument After Shift 2 is: $1"  # c
-shift
-echo "The First Argument After Shift is: $1"    # d
-```
-
 {% endtab %}
 {% endtabs %}
 
 ## Expansion
 
-> Arithmetics
+* Arithmetics
+  * $(( )): $(( 1 + 2 )) ..
 
-* $(( )): $(( 1 + 2 )) ..
+* brace
+  * echo a{d,c,b}e: ade ace abe
+  * mkdir /usr/local/{old,new}: create multiple
+  * *(patternlist): matches zero or more occurrences of the given patterns
+  * +(patternlist): matches one or more occurrences of the given patterns
+  * ?(patternlist): matches zero or one occurrence of the given patterns
+  * @(patternlist): matches exactly one of the given patterns
+  * !(patternlist): matches anything except one of the given patterns
 
-> brace
+* Tilde
+  * ~ is expanded ONLY if it is the first character of a word AND it is unquoted
+  * ~-: old pwd
+  * ~-/+ n: same as dirs -/+ n
+  * -fred: home directory of the user fred
 
-* echo a{d,c,b}e: ade ace abe
-* mkdir /usr/local/{old,new}: create multiple
-* *(patternlist): matches zero or more occurrences of the given patterns
-* +(patternlist): matches one or more occurrences of the given patterns
-* ?(patternlist): matches zero or one occurrence of the given patterns
-* @(patternlist): matches exactly one of the given patterns
-* !(patternlist): matches anything except one of the given patterns
-
-> Tilde
-
-* ~ is expanded ONLY if it is the first character of a word AND it is unquoted
-* ~-: old pwd
-* ~-/+ n: same as dirs -/+ n
-* -fred: home directory of the user fred
-
-> Parameter
+* Parameter
 
 {% tabs %}
 {% tab title='shell' %}
 
 * ${`var`:-word}: if `var` exists and isn't null, return its value; otherwise return word
 * ${`var`:word}: if `var` exists and isn't null, return its value; otherwise return word
+
+  ```sh
+  echo "${PATH//:/$'\n'}" # Parameter expansion
+  ```
+
 * ${`var`:=word}: if `var` exists and isn't null, return its value; otherwise set it word and then return its value
 * ${`var`:?message}: if `var` exists and isn't null, return its value
   * otherwise print `var`, followed by message and abort current command or script
@@ -1931,11 +1892,6 @@ echo "The First Argument After Shift is: $1"    # d
 * ${`var`%`pat`}: if `pat` matches end of `var`, delete shortest / longest(%%) part that matches and return rest
 * ${`var`/`pat`/string}: longest match to `pat` in `var` is replaced by string. Only first match is replaced
 * ${`var`//`pat`/string}: longest match to `pat` in `var` is replaced by string. All matches are replaced
-
-```sh
-# 1. Parameter expansion
-echo "${PATH//:/$'\n'}"
-```
 
 {% endtab %}
 {% endtabs %}

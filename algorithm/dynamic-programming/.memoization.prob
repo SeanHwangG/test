@@ -76,6 +76,59 @@ def wordBreak(self, s: str, words: List[str]) -> List[str]:
 {% endtab %}
 {% endtabs %}
 
+* [Level 3 : Number of Ways of Cutting a Pizza](https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_1444.md/)
+
+{% tabs %}
+{% tab title='LC_1444.md' %}
+
+> Question
+
+* Given rectangular pizza represented as rows x cols matrix containing following characters:
+* 'A' (apple), '.' (empty cell) and given integer k You have to cut the pizza into k pieces using k-1 cuts
+* For each cut choose direction: vertical or horizontal, then choose cut position at cell boundary and cut into two pieces
+* If you cut pizza vertically, give left part of pizza to a person. If horizontally, give upper part of pizza to a person
+* Give the last piece of pizza to the last person.
+* Return the number of ways of cutting the pizza such that each piece contains at least one apple modulo 10^9 + 7.
+
+```txt
+Input: pizza = ["A..","AAA","..."], k = 3
+Output: 3
+
+Input: pizza = ["A..","AA.","..."], k = 3
+Output: 1
+```
+
+{% endtab %}
+{% tab title='LC_1444.py' %}
+
+```py
+def ways(self, pizza: List[str], K: int) -> int:
+  m, n, MOD = len(pizza), len(pizza[0]), 10 ** 9 + 7
+  pre_sum = [[0] * (n + 1) for _ in range(m + 1)]
+  for r in range(m - 1, -1, -1):
+    for c in range(n - 1, -1, -1):
+      pre_sum[r][c] = pre_sum[r][c + 1] + pre_sum[r + 1][c] - pre_sum[r + 1][c + 1] + (pizza[r][c] == 'A')
+
+  @lru_cache(None)
+  def dp(k, r, c):
+    if pre_sum[r][c] == 0: return 0
+    if k == 0: return 1
+    ans = 0
+    for nr in range(r + 1, m): # cut horizontally
+      if pre_sum[r][c] - pre_sum[nr][c] > 0:
+        ans = (ans + dp(k - 1, nr, c)) % MOD
+    for nc in range(c + 1, n): # cut vertically
+      if pre_sum[r][c] - pre_sum[r][nc] > 0:
+        ans = (ans + dp(k - 1, r, nc)) % MOD
+    return ans
+
+  return dp(K - 1, 0, 0)
+```
+
+{% endtab %}
+{% endtabs %}
+
 * [Level 3 : Minimum Number of Days to Eat N Oranges](https://leetcode.com/problems/minimum-number-of-days-to-eat-n-oranges)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/memoization/LC_1553.md/)
 

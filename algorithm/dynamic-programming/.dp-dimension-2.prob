@@ -504,47 +504,6 @@ print(min([dp[i][len(b1)] for i in range(len(b0) + 1)]))
 
 > leetcode
 
-* [Level 2 : House Robber II](https://leetcode.com/problems/house-robber-ii)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/LC_213.md/)
-
-{% tabs %}
-{% tab title='LC_213.md' %}
-
-> Question
-
-* Each house, in circle, has a certain amount of money stashed
-* Adjacent houses have security systems connected and it will automatically contact police
-  * if two adjacent houses were broken into on same night
-* Maximize amount of money you can rob
-
-```txt
-Input: nums = [1,2,3,1]
-Output: 4  # Rob house 1 (money = 1) and then rob house 3 (money = 3).
-```
-
-{% endtab %}
-{% tab title='LC_213.cpp' %}
-
-```cpp
-int rob(vector<int>& nums) {
-  int n = nums.size();
-  if (n < 2) return n ? nums[0] : 0;
-  return max(robber(nums, 0, n - 2), robber(nums, 1, n - 1));
-}
-int robber(vector<int>& nums, int l, int r) {
-  int pre = 0, cur = 0;
-  for (int i = l; i <= r; i++) {
-    int temp = max(pre + nums[i], cur);
-    pre = cur;
-    cur = temp;
-  }
-  return cur;
-}
-```
-
-{% endtab %}
-{% endtabs %}
-
 * [Level 3 : Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/LC_123.md/)
 
@@ -578,6 +537,46 @@ int maxProfit(vector<int>& v, int N = 2) {
   }
   return dp[N][M - 1];
 }
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Pizza With 3n Slices](https://leetcode.com/problems/pizza-with-3n-slices)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-2/LC_1388.md/)
+
+{% tabs %}
+{% tab title='LC_1388.md' %}
+
+> Question
+
+* There is a pizza with 3n slices of varying size, you and your friends will take slices of pizza as follows:
+  * You will pick any pizza slice
+  * Your friend Alice will pick next slice in anti clockwise direction of your pick
+  * Your friend Bob will pick next slice in clockwise direction of your pick
+  * Repeat until there are no more slices of pizzas
+* Sizes of Pizza slices is represented by circular array slices in clockwise direction
+* Return the maximum possible sum of slice sizes which you can have
+
+```txt
+Input: slices = [3,1,2]
+Output: 3
+
+Input: slices = [1,2,3,4,5,6]
+Output: 10
+```
+
+{% endtab %}
+{% tab title='LC_1388.py' %}
+
+```py
+def maxSizeSlices(self, A):
+  @lru_cache(None)
+  def dp(i, j, k, cycle=0):
+    if k == 1: return max(A[i: j + 1])
+    if j - i + 1 < k * 2 - 1: return -float('inf')
+    return max(dp(i + cycle, j - 2, k - 1) + A[j], dp(i, j - 1, k))
+  return dp(0, len(A) - 1, len(A) // 3, 1)
 ```
 
 {% endtab %}

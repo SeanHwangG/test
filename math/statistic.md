@@ -1,5 +1,17 @@
 # Statistic
 
+> Term
+
+* Entropy: Uniform probability yields maximum uncertainty and therefore maximum entropy
+  * $$ H(X)=E[I(X)]=E[-\log (P(X))] $$
+  * Shannon entropy
+    $$ H=-\sum_{i=1}^{n} p\left(x_{i}\right) \log _{2} p\left(x_{i}\right) $$
+  * Conditional Entropy
+    $$ H(X \mid Y)=-\sum_{i, j} p(x_{i}, y_{i}) \log \frac{p(x_{i}, y_{i})}{p(y_{i})} $$
+* Information Gain: Root node in decision tree maximize information gain
+  * Decrease in entropy after a dataset is split on an attribute
+  $$ I G=H(\text { parent })-\sum_{i} p\left(\text { child }_{i}\right) \cdot H\left(\text { child }_{i}\right) $$
+
 {% include '.statistic.prob' %}
 
 ## Counting

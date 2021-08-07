@@ -1,20 +1,20 @@
 # Math
 
 {% tabs %}
-{% tab title='vscode' %}
+{% tab title='vim' %}
 
-* Install Mactex www.tug.org/mactex/mactex-download.html
-* sudo tlmgr update --self
-* sudo tlmgr install latexmk
+* vscode: Install Mactex www.tug.org/mactex/mactex-download.html
+  * sudo tlmgr update --self
+  * sudo tlmgr install latexmk
 
-* Markdown-preview-enhanced
+* vscode.Markdown-preview-enhanced
 
-```json
-// settings.json
-{
-  "markdown-preview-enhanced.mathInlineDelimiters": [[ "$$", "$$" ]]
-}
-```
+  ```json
+  // settings.json
+  {
+    "markdown-preview-enhanced.mathInlineDelimiters": [[ "$$", "$$" ]]
+  }
+  ```
 
 {% endtab %}
 {% endtabs %}

@@ -79,7 +79,12 @@ lower_bound(v.begin(), v.end(), 10); // 0
   * insort_left(`a`, `x`, lo=**0**, hi=**len(a)**): insert `x` in `a` in sorted order
     * a.insert(bisect_left(a, x, lo, hi), x): a must be sorted
     * O(log n) search is dominated by the slow O(n) insertion step
-  * insort(a, x, lo=0, hi=len(a)): inserting x in a after any existing entries of x
+  * insort(`a`, `x`, lo=0, hi=len(a)): inserting `x` in `a` after any existing entries of x, O(N) due to insert
+
+* requests
+  * json(): convert back to
+
+* cgi: dynamically generating web pages that respond to user input
 
 ```py
 # 1. Search on sorted list
@@ -175,6 +180,20 @@ WHERE t1.drinker2 = f1.drinker AND f1.bar = f2.bar)
 * Binary Search
   * Time: O(n * log(MAX - MIN))
   * Space: O(1)
+
+{% tabs %}
+{% tab title='cpp' %}
+
+* void cv::minMaxIdx(): find the minimum and maximum element values and their positions
+  * InputArray src
+  * double* minVal
+  * double* maxVal = 0
+  * int* minIdx = 0
+  * int* maxIdx = 0
+  * InputArray mask = noArray()
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.quick-select-2d.prob' %}
 

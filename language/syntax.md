@@ -2,6 +2,10 @@
 
 * syntax is set of rules defined by computer language
 
+> Term
+
+* Keyword: Cannot be used as identifier
+
 {% tabs %}
 {% tab title='c' %}
 
@@ -131,20 +135,15 @@ class GameObject(Enemy):
 {% endtab %}
 {% endtabs %}
 
-## Keyword
-
-* Cannot be used as identifier
-* Lists of keywords in python
+## Pass
 
 {% tabs %}
 {% tab title='python' %}
 
-* break: terminates the loop containing it
-* continue: skip the rest of the code inside a loop for the current iteration only
 * pass: null operation → placeholder when a statement is required syntactically
 
 ```py
-1. Pass example
+""" 1. Pass example """
 sequence = {'p', 'a', 's', 's'}
 for val in sequence:
   pass
@@ -154,15 +153,12 @@ def function(args):
 
 class Example:
   pass
-
-# 2. break else loop
-for item in container:
-  if search_something(item):
-    process(item)
-    break
-else:    # else executes after the loop completes normally
-  not_found_in_container()
 ```
+
+{% endtab %}
+{% tab title='shell' %}
+
+* :(colon): Used as pass
 
 {% endtab %}
 {% endtabs %}
@@ -1333,6 +1329,20 @@ sys.stdout = sys.__stdout__
   * -n: Do not print the trailing newline character
   * -e: Escape character (default in zsh)
 
+  ```sh
+  # ls
+  echo `ls` wolrd     # print inside
+
+  # shift.sh a b c d
+  echo "Total arguments passed are: $#"
+  echo "The arguments are: $*"      # $* is used to show the command line arguments
+  echo "The First Argument is: $1"  # a
+
+  echo "The First Argument After Shift 2 is: $1"  # c
+  shift
+  echo "The First Argument After Shift is: $1"    # d
+  ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -1465,42 +1475,43 @@ message("${BoldWhite}This is BoldWhite\n\n${ColourReset}")
 {% endtab %}
 {% tab title='cpp' %}
 
-> iomanip
+* iomanip
+  * setw
+  * setfill
 
-* setw
-* setfill
+    ```cpp
+    // 1. One time
+    using namespace std;
+    const char separator    = ' ';
+    const int nameWidth     = 6;
+    const int numWidth      = 8;
 
-```cpp
+    cout << left << setw(nameWidth) << setfill(separator) << "Bob";
+    cout << left << setw(nameWidth) << setfill(separator) << "Doe";
+    cout << left << setw(numWidth) << setfill(separator) << 10.96;
+    cout << left << setw(numWidth) << setfill(separator) << 7.61;
+    cout << endl;
+    cin.get();
 
-using namespace std;
+    // 2. Template function
+    template<typename T> void printElement(T t, const int& width) {
+      cout << left << setw(width) << setfill(separator) << t;
+    }
 
-// 1. temporarily
-const char separator    = ' ';
-const int nameWidth     = 6;
-const int numWidth      = 8;
+    printElement("Bob", nameWidth);
+    printElement("Doe", nameWidth);
+    printElement(10.96, numWidth);
+    printElement(17.61, numWidth);
+    cout << endl;
+    ```
 
-cout << left << setw(nameWidth) << setfill(separator) << "Bob";
-cout << left << setw(nameWidth) << setfill(separator) << "Doe";
-cout << left << setw(numWidth) << setfill(separator) << 10.96;
-cout << left << setw(numWidth) << setfill(separator) << 7.61;
-cout << endl;
-cin.get();
+  * setprecision
 
-// 2. Template function
-template<typename T> void printElement(T t, const int& width) {
-  cout << left << setw(width) << setfill(separator) << t;
-}
-
-printElement("Bob", nameWidth);
-printElement("Doe", nameWidth);
-printElement(10.96, numWidth);
-printElement(17.61, numWidth);
-cout << endl;
-
-// 3. Change decimal precision
-double x = 7.40200133400;
-cout << setprecision(51) << x << "\n";
-```
+    ```cpp
+    // Change decimal precision
+    double x = 7.40200133400;
+    cout << setprecision(51) << x << "\n";
+    ```
 
 {% endtab %}
 {% tab title='javascript' %}
@@ -1520,14 +1531,13 @@ name = “sean”
 
 * column: columnate lists
 
-```sh
-# 1. Print table
-{
-  echo -e "PATH_A \t ${PATH_A}"
-  echo -e "PATH_B \t ${PATH_B}"
-  echo -e "PATH_C \t ${PATH_C}"
-} | column -s $'\t' -t
-```
+  ```sh
+  { # Print table
+    echo -e "PATH_A \t ${PATH_A}"
+    echo -e "PATH_B \t ${PATH_B}"
+    echo -e "PATH_C \t ${PATH_C}"
+  } | column -s $'\t' -t
+  ```
 
 {% endtab %}
 {% endtabs %}

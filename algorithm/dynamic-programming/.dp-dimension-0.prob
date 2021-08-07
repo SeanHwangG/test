@@ -164,7 +164,7 @@ Output: 96
 R = G = B = 0
 for i in range(int(input())):
   r, g, b = map(int, input().split())
-  R, G, B = min(G,B) + r, min(R,B) + g, min(R,G) + b
+  R, G, B = min(G, B) + r, min(R, B) + g, min(R, G) + b
 print min(R,G,B)
 ```
 
@@ -342,6 +342,47 @@ public int rob(int[] nums) {
     Y_best = temp + nums[i];
   }
   return Math.max(N_best, Y_best);
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 2 : House Robber II](https://leetcode.com/problems/house-robber-ii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/dp-dimension-0/LC_213.md/)
+
+{% tabs %}
+{% tab title='LC_213.md' %}
+
+> Question
+
+* Each house, in circle, has a certain amount of money stashed
+* Adjacent houses have security systems connected and it will automatically contact police
+  * if two adjacent houses were broken into on same night
+* Maximize amount of money you can rob
+
+```txt
+Input: nums = [1,2,3,1]
+Output: 4  # Rob house 1 (money = 1) and then rob house 3 (money = 3).
+```
+
+{% endtab %}
+{% tab title='LC_213.cpp' %}
+
+```cpp
+int rob(vector<int>& nums) {
+  int n = nums.size();
+  if (n < 2) return n ? nums[0] : 0;
+  return max(robber(nums, 0, n - 2), robber(nums, 1, n - 1));
+}
+int robber(vector<int>& nums, int l, int r) {
+  int pre = 0, cur = 0;
+  for (int i = l; i <= r; i++) {
+    int temp = max(pre + nums[i], cur);
+    pre = cur;
+    cur = temp;
+  }
+  return cur;
 }
 ```
 

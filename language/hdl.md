@@ -42,31 +42,29 @@
 
 ![Radix](images/20210428_175501.png)
 
-> Run
+> Example
 
-1. RTL Simulation
-  ![RTL Simulation](images/20210423_180509.png)
-1. Compile
-  ![Compile](images/20210423_180531.png)
-1. Select files
-  ![Select files](images/20210423_180553.png)
-1. Click main test file
-  ![Click main test file](images/20210423_180612.png)
-1. Add Wave
-  ![Add Wave](images/20210423_180628.png)
-1. Run all
-  ![Run all](images/20210423_180703.png)
+* Run
+  1. RTL Simulation
+    ![RTL Simulation](images/20210423_180509.png)
+  1. Compile
+    ![Compile](images/20210423_180531.png)
+  1. Select files
+    ![Select files](images/20210423_180553.png)
+  1. Click main test file
+    ![Click main test file](images/20210423_180612.png)
+  1. Add Wave
+    ![Add Wave](images/20210423_180628.png)
+  1. Run all
+    ![Run all](images/20210423_180703.png)
 
 ### Project
 
 * mpf file
 
-> Error
+> Example
 
-* unable to compile. ... file not found
-  * project -> remove from project
-
-> Create project
+* Create project
 
 1. Select file
   ![Select file](images/20210430_220334.png)
@@ -74,9 +72,14 @@
 1. Simulate Start Sim
   ![Simulate](images/20210430_220023.png)
 
+> Error
+
+* unable to compile. ... file not found
+  * project -> remove from project
+
 ## Quartus
 
-> Howto : Create Project
+* Howto : Create Project
 
 ![Set device](images/20210412_184542.png)
 

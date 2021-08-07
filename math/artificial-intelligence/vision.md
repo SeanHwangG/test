@@ -5,11 +5,6 @@
 * forward (graphics) well-posed, inverse (vision)
 * Should computer vision follow from our understanding of human vision?
 
-* How to solve
-  * craft a solution using established methods and tailor them
-  * build a math/physical model of the problem and implement algorithms with provably correct properties
-  * gather image data, label it, and use machine learning to provide the solution
-
 > Terms
 
 * Calibration: With P1, ..., Pn with known 3D position and pixel coordinates q1, ..., qn, find K and $$ { }_{w}^{c} T $$
@@ -18,7 +13,7 @@
 * Non maximal suppression
   ![Non Maximal Suppresion](images/20210213_232105.png)
 
-* background substitution: subtract from previous frame
+* Background substitution: subtract from previous frame
 
 * Noise: Impulsive noise randomly pick a pixel and randomly set to a value
   * saturated version is called salt and pepper noise
@@ -29,24 +24,23 @@
 * Eight point algorithm
   * Set $$ E_33 $$ to 0 and use 8 points to calculate $$ E_11 $$, $$ E_32 $$
 
-$$
-[u, v, 1]\left[\begin{array}{ccc}
-E_{11} & E_{12} & E_{13} \\
-E_{21} & E_{22} & E_{23} \\
-E_{31} & E_{32} & E_{33}
-\end{array}\right]\left[\begin{array}{c}
-u^{\prime} \\
-v^{\prime} \\
-1
-\end{array}\right]=0
-$$
+  $$
+  [u, v, 1]\left[\begin{array}{ccc}
+  E_{11} & E_{12} & E_{13} \\
+  E_{21} & E_{22} & E_{23} \\
+  E_{31} & E_{32} & E_{33}
+  \end{array}\right]\left[\begin{array}{c}
+  u^{\prime} \\
+  v^{\prime} \\
+  1
+  \end{array}\right]=0
+  $$
 
 * Perspective: distant objects appear smaller than nearer objects
   * lines parallel in nature meet at the point at infinity
   * Most realistic because it’s the same way as photographic lenses and the human eye works
   * 1/2/3-point, based on the orientation of the projection plane towards the axes of the depicted object
-
-![strong, weak perspective](images/20210322_214730.png)
+  ![strong, weak perspective](images/20210322_214730.png)
 
 * Projective geometry: provides an elegant means for handling these different situations in a unified way
 
@@ -55,8 +49,82 @@ $$
 * Projective plane
   * = Euclidean plane ∪ Line at Infinity
 
+* OpenCV: height, width, channel, BGR color
+  * time: frame decoding + time to render the bounding boxes, labels, and to display the results
+  * Version
+    * 2009 Opencv 2.0: convert to c++, mat class
+    * 2011 Opencv 2.3: import cv2
+    * 2015 Opencv 3.0: GPU(T-API)
+    * 2017 Opencv 3.3: DNN
+  * opencv: core, widely used (highgui, imgproc ...)
+  * opencv_contirb: brand new, non-free, HW dependency (datasets, cnn_3dobj …)
+
+> Example
+
+* How to solve
+  * craft a solution using established methods and tailor them
+  * build a math/physical model of the problem and implement algorithms with provably correct properties
+  * gather image data, label it, and use machine learning to provide the solution
+
 {% tabs %}
+{% tab title="cpp" %}
+
+* OpenCV
+  * compile command: g++ 00_video.cpp `pkg-config --cflags --libs opencv4`
+  * moveWindow(wn, x, y): only works if WINDOW_NORMAL, ignore header
+  * imshow(filename, img) → None: if int32 // 255, if float * 255, create namedWindow()
+  * setWindowProperty("slides")
+  * namedWindow(wn, WINDOW_AUTOSIZE): WINDOW_NORMAL (video → window)
+  * destroyWindow(wn) / destroyAllWindows(): Destroy window
+  * waitKey(delay=None) → -1 | ord(key'): 27 (ESC), 13(ENTER), 9(TAB), ← (123), delay=-1 ∞
+  * WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN: Full size
+
+```cpp
+#include <iostream>
+#include <map>
+
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+
+using namespace std;
+using namespace cv;
+
+int main() {
+  Mat img(Size(2, 3), CV_64FC1);  // Greyscale image
+  img.setTo(cv::Scalar(100.0));   // fill all with 255
+  img.at<double>(1, 1) = 255.5;
+  Mat row = img.row(1);  // [100, 255]
+
+  double min, max;
+  Point min_loc, max_loc;
+  minMaxLoc(img, &min, &max, &min_loc, &max_loc);
+  cout << max_loc;  // [1, 1]
+
+  cout << img.reshape(img.rows * img.cols, 1);  // [6, 1]
+
+  struct ComparePoints {
+      bool operator () (const cv::Point& a, const cv::Point& b) const {
+          return (a.x < b.x) || (a.x == b.x && a.y < b.y);
+      }
+  };
+  map<cv::Point, int, ComparePoints> point2count;
+  point2count[min_loc]++;
+}
+```
+
+{% endtab %}
 {% tab title='python' %}
+
+* OpenCV
+  * isOpened() → bool
+  * open()
+  * get()
+  * CAP_FRAME_WIDTH  / HEIGHT
+  * CAP_PROP_FPS / FRAME_COUNT: Frame per count
+  * CAP_PROP_POS_MSEC / EXPOSURE: current milisecond
+  * set() / read()
+  * grab() / retrieve()/ release()
+  * VideoCapture(fname, apiPreference) → retval
 
 ```py
 # 1. Non maximal supression
@@ -265,7 +333,7 @@ for i in range(1, nrows):
 * Epipolar plane: Any plain that contains the baseline
 * Epipolar lines: Pair of lines from intersection of an epipolar plane with two image plane
 
-## Colors
+## Color Encoding
 
 ![Color](images/20210210_184754.png)
 
@@ -274,14 +342,185 @@ for i in range(1, nrows):
 
 * HSL, HSV
 
-* YUV 4:2:0: requires 4×8+8+8=48 bits per 4 pixels, so its depth is 12 bits per pixel
-  * I420 is by far the most common format in VLC
+* YUV: Y'=luma component, U=blue projection, V=red projection
+  * YCbCr: Cb=Chrominance blue, Cr=Chrominance red
+  * YPbPr: difference between blue and luma (B − Y), difference between red and luma (R − Y)
+  ![YUV](images/20210803_221205.png)
+  * y: brightness
+
+* Chromatic subsampling: in `J`:`a`:`b` format
+  ![YUV](images/20210803_220719.png)
+  * `J`: how many pixel wide is the reference block for our sampling
+  * `a`: How many top row get chroma sample
+  * `b`: Bottom row get chroma sample
+    * 4:2:0: requires 4×8+8+8=48 bits per 4 pixels, so its depth is 12 bits per pixel
 
 * NV12: commonly found as the native format from various machine vision, and other, video cameras
   * another variant where colour information is stored at a lower resolution than the intensity data
   * intensity (Y) data is stored as 8 bit samples, and colour (Cr, Cb) information as 2x2 subsampled image, known as 4:2:0
 
-* I420: identical to YV12 except that the U and V plane order is reversed
+* I420: Identical to YV12 except that the U and V plane order is reversed
+  * most common format in VLC
+
+## Image
+
+{% tabs %}
+{% tab title="python" %}
+
+* Images
+  * copy() → np.ndarray
+  * cvtColor(img, type)
+    * type: COLOR_BGR2RGB, COLOR_BGR2GRAY)
+  * imread(filename, parames)     np.ndarray: (IMREAD_COLOR/GRAYSCALE/UNCHANGED (PNG)
+  * imwrite(fn, img, params = N) → if Success: [IMWRITE_JPEG_QUALITY, 90] compression rate of 90
+  * CV_8U / S: np.uint8 /  np.int8
+  * CV_16U / S / F: np.uint16 / np.int16 /  np.float16
+  * CV_8UC1 / CV_8UC3: np.uint8, shape (h, w) (Grey scale video) / (h, w, 3) (Color scale video)
+  * rectangle(img,(38,0),(51,12),(0,255,0),3)
+    * image, top_left, bottom_right, color, thickness
+  * sobel(src, ddepth, dx, dy, ksize): first, second, third, or mixed image derivatives
+  * cv.blur(src, ksize, dst, anchor, borderType): blurs image using box filter
+
+* mathplot
+  * 0 is black 1 is white
+  * Matplotlib only supports PNG images
+  * float32 and uint8 (only float32 greyscale)
+  * axis('off'): Remove axis
+  * imshow(img, cmap) → None        # Display Image ('gray')
+  * fig.colorbar(im, ax=ax)
+
+![colorbar](images/20210309_003050.png)
+![color types](images/20210309_010526.png)
+
+```py
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import cv2
+import fire
+import math
+import glob
+import itertools
+
+""" 1. Multiple images """
+fig, axs = plt.subplots(2, 3)
+axs[0, 0].set_title('1 : scatter')
+axs[0, 0].plot([1, 2, 3, 4], [1, 4, 9, 16], 'ro')
+
+axs[0, 1].set_title('2 : line')
+axs[0, 1].plot([1, 2, 3, 4], [1, 4, 9, 16])
+
+axs[0, 2].set_title('3 : heatmap')
+axs[0, 2].imshow(np.random.random((16, 16)), cmap='hot', interpolation='nearest')
+
+axs[1, 0].set_title('4 : bar')
+axs[1, 0].bar(['A', 'B', 'C'], [1, 5, 3])
+
+axs[1, 1].set_title('5 : curve')
+axs[1, 1].plot(np.linspace(0, 2 * np.pi, 400), np.sin(np.linspace(0, 2 * np.pi, 400) ** 2))
+
+X, Y = np.meshgrid(np.arange(-5,6,1), np.arange(-5,6,1))
+u, v = X|5, -Y|5
+axs[1, 2].quiver(X,Y,u,v)
+
+plt.show()
+
+for ax in axs.flat:
+  ax.set(xlabel='x-label', ylabel='y-label')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+for ax in axs.flat:
+  ax.label_outer()
+
+# Color types
+from cv2 import cv2
+import matplotlib.pyplot as plt
+
+fig, axs = plt.subplots(1, 5)
+
+dog_np = cv2.cvtColor(cv2.imread('data/dog.jpg'), cv2.COLOR_BGR2RGB)
+axs[0].imshow(dog_np)
+axs[0].axis('off')
+
+axs[1].imshow(cv2.imread('data/dog.jpg', cv2.IMREAD_GRAYSCALE))
+axs[1].axis('off')
+
+axs[2].imshow(cv2.resize(dog_np,(300, 600)))
+axs[2].axis('off')
+
+axs[3].imshow(cv2.resize(dog_np, (0,0), dog_np, 1, 0.5))
+axs[3].axis('off')
+
+axs[4].imshow(cv2.flip(dog_np, -1))
+axs[4].axis('off')
+
+cv2.imwrite("data/dog_np.jpg", dog_np)
+
+""" 2. Slide Show """
+def slide_show():
+  img = np.zeros((255, 255, 3))
+  cv2.line(img, (0, 0), (255, 255), (0, 0, 255), 10)
+  cv2.rectangle(img, (10, 10), (50, 50), 5)
+  cv2.circle(img, (100, 100), 10, (1, 255, 1), -1)
+  cv2.putText(img, 'OpenCv', (10, 200), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 255), 10, cv2.LINE_AA)
+
+  imgs = [img] + [cv2.imread(f) for f in glob.glob('data/*.jpg')]
+
+  # cv2.setWindowProperty("slides", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+  i, mx = 0, len(imgs)
+  while True:
+    cv2.imshow("slides", imgs[i])
+    try:
+      for (p, c) in zip(cv2.split(imgs[i]), ['b', 'g', 'r']):
+        hist = cv2.calcHist([p], [0], None, [256], [0, 256])
+        plt.plot(hist, color=c)
+    except:
+      pass
+    key = cv2.waitKey(-1)
+    if key == 123:
+      i = (i + mx - 1) % mx
+    elif key == 124:
+      i = (i + 1) % mx
+    elif key == ord('b'):
+      imgs[i] = cv2.add(imgs[i], (50, 50, 50, 0))
+    elif key == ord('d'):
+      imgs[i] = cv2.add(imgs[i], (-50, -50, -50, 0))
+    elif key == ord('q'):
+      break
+
+def combine():
+  messi = cv2.imread('data/combine/messi.jpg')
+  b, g, r = cv2.split(messi)
+  messi = cv2.merge((r, g, b))
+  ball = messi[290:340, 340:390]
+  messi[0:50, 0:50] = ball
+
+  logo = cv2.imread('data/combine/logo.png')
+  logo = cv2.resize(logo, (messi.shape[1], messi.shape[0]))
+  combined = cv2.addWeighted(messi, .9, logo, .1, 2)
+
+  plane_bg = cv2.imread('data/combine/airplane.bmp')
+  mask = cv2.imread('data/combine/mask_plane.bmp')
+  field = cv2.imread('data/combine/field.bmp')
+  plane = cv2.copyTo(plane_bg, mask)
+  field[mask > 0] = plane_bg[mask > 0]
+
+  imgs = [messi, logo, combined, plane, field]
+
+  i, mx = 0, len(imgs)
+  while True:
+    cv2.imshow("slides", imgs[i])
+    key = cv2.waitKey(-1)
+    if key == 123:
+      i = (i + mx - 1) % mx
+    elif key == 124:
+      i = (i + 1) % mx
+    elif key == ord('q'):
+      break
+```
+
+{% endtab %}
+{% endtabs %}
 
 ## Object Classification
 
@@ -317,34 +556,6 @@ for i in range(1, nrows):
 | many                   | few             |
 | one                    | three(color)    |
 | low resolution         | high resolution |
-
-## Motion
-
-| Term                       | Meaning                 |
-| -------------------------- | ----------------------- |
-| p                          | $$ (x, y, z)^{T} $$     |
-| T                          | Velocity vector         |
-| w                          | Angular velocity vector |
-| $$ \hat{p}=T+w \times p $$ | General Motion          |
-| $$ ({u}, {v}) $$           | image point coordinate  |
-| $$ (\hat{u}, \hat{v}) $$   | image point velocity    |
-| f                          | focal length            |
-| d                          | depth                   |
-
-$$ \dot{u}=\frac{T_{z} u-T_{x} f}{z}-\omega_{y} f+\omega_{z} v+\frac{\omega_{x} u v}{f}-\frac{\omega_{y} u^{2}}{f} $$
-$$ \dot{v}=\frac{T_{z} v-T_{y} f}{z}+\omega_{x} f-\omega_{z} u-\frac{\omega_{y} u v}{f}-\frac{\omega_{x} v^{2}}{f} $$
-
-> Term
-
-* Bundle adjustment: sum of errors between the measured pixel coordinates uij and the re-projected pixel coordinates
-  * optimized with non-linear least squares algorithm
-  * w_{ij}: 1 if point i is visible in image j, and 0 otherwise
-  $$
-  g( P , R , T )=\sum_{i=1}^{M} \sum_{j=1}^{N} w_{i j}\|P(P_{i}, R_{j}, t_{j})-[\begin{array}{l}
-  u_{i, j} \\
-  v_{i, j}
-  \end{array}]\|^{2}
-  $$
 
 ## Object Recognition
 
@@ -444,165 +655,26 @@ void MatchingMethod(int, void *) {
 {% endtab %}
 {% endtabs %}
 
-### Tracking
+## Pixel
 
-| Term                                                          | Meaning                                |
-| ------------------------------------------------------------- | -------------------------------------- |
-| $$ \varphi(t) $$                                              | Finite number of parameters            |
-| $$ \hat\varphi(t) $$                                          | Dynamic                                |
-| $$ \varphi_p(t + 1) $$                                        | Estimate using parameters and dynamics |
-| $$ \varphi_{c}(t+1)=f\left(\varphi_{p}(t+1), M(t+1)\right) $$ | Correction update the state            |
+* Single point in an image that can contain more than one color component
+* Have max 4 components (ARGB, LMNO: LMN is RGB)
+* Naming convention: [ex] YCbCr709_422_8 = 8 bit per component YCbCr 4:2:2 using ITU-R BT.709
+  * Components & Location: [ex] RGB, YCbCr
+  * \# bits: of each component
+  * signed: [ex] u / s
+  * Packing: [ex] empty (unpacked), p (packed), g (grouped), c, a
+  * Interface-specific
 
-* [MOT](https://motchallenge.net/results/MOT17)
+> Term
 
-> SFM
+* Color Filter Array (CFA)
+* Bayer: Specific type of color filter array using 2x2 tile with 1 red, 2 green, 1 blue components
+* Cluster: group of monochrome pixels combined together and treated as a multi-component pixel
 
-* Given two or more images or video without any information on camera position/motions as input
-* estimate camera motion and 3D structure of a scene
-* Discrete motion (wide baseline)
-* Continuous (Infinitesimal) motion usually from video
+> Reference
 
-* 2 \* M \* N measurements
-* 3 * N unknowns for points
-* (M - 1) * 6 unknowns for cameras
-  * Affix world coordinate system to location of first camera frame
-  * 3 rotation, 3 translation
-* Can only recover structure and motion up to scale factor (one fewer unknown)
-* (M - 1) \* 6 + e \* N - 1 ≤ 2 \* M \* N (M = 2, N = 5 or M = 3, N = 4)
-
-{% tabs %}
-{% tab title='cpp' %}
-
-```cpp
-#include <opencv2/core/ocl.hpp>
-#include <opencv2/opencv.hpp>
-#include <opencv2/tracking.hpp>
-
-using namespace cv;
-using namespace std;
-
-#define SSTR(x) (ostringstream() << std::dec << x).str()
-
-int main(int argc, char **argv) {
-  string trackerTypes[8] = {"BOOSTING",   "MIL",    "KCF",   "TLD",
-                            "MEDIANFLOW", "GOTURN", "MOSSE", "CSRT"};  // tracker types in 3.4.1
-  string trackerType = trackerTypes[2];
-  Ptr<Tracker> tracker;
-
-  if (trackerType == "BOOSTING") tracker = TrackerBoosting::create();
-  if (trackerType == "MIL") tracker = TrackerMIL::create();
-  if (trackerType == "KCF") tracker = TrackerKCF::create();
-  if (trackerType == "TLD") tracker = TrackerTLD::create();
-  if (trackerType == "MEDIANFLOW") tracker = TrackerMedianFlow::create();
-  if (trackerType == "GOTURN") tracker = TrackerGOTURN::create();
-  if (trackerType == "MOSSE") tracker = TrackerMOSSE::create();
-  if (trackerType == "CSRT") tracker = TrackerCSRT::create();
-  VideoCapture video(0);
-
-  if (!video.isOpened()) {
-    cout << "Could not read video file" << endl;
-    return 1;
-  }
-
-  Mat frame;
-  bool ok = video.read(frame);
-
-  Rect2d bbox(500, 100, 300, 320);
-
-  // Uncomment the line below to select a different bounding box
-  // bbox = selectROI(frame, false);
-  rectangle(frame, bbox, Scalar(255, 0, 0), 2, 1);
-
-  imshow("Tracking", frame);
-  tracker->init(frame, bbox);
-
-  while (video.read(frame)) {
-    double timer = (double)getTickCount();
-    bool ok = tracker->update(frame, bbox);
-    float fps = getTickFrequency() / ((double)getTickCount() - timer);
-    if (ok)
-      rectangle(frame, bbox, Scalar(255, 0, 0), 2, 1);
-    else
-      putText(frame, "Tracking failure detected", Point(100, 80), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(0, 0, 255), 2);
-
-    putText(frame, trackerType + " Tracker", Point(100, 20), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50, 170, 50), 2);
-    putText(frame, "FPS : " + SSTR(fps), Point(100, 50), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50, 170, 50), 2);
-    imshow("Tracking", frame);
-
-    int k = waitKey(1);
-    if (k == 27) break;
-  }
-}
-```
-
-{% endtab %}
-{% tab title='python' %}
-
-```py
-import cv2
-import sys
-
-(major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
-
-tracker_types = ['BOOSTING', 'MIL', 'KCF', 'TLD', 'MEDIANFLOW', 'GOTURN', 'MOSSE', 'CSRT']
-tracker_type = tracker_types[2]
-
-if tracker_type == 'BOOSTING':
-  tracker = cv2.TrackerBoosting_create()
-if tracker_type == 'MIL':
-  tracker = cv2.TrackerMIL_create()
-if tracker_type == 'KCF':
-  tracker = cv2.TrackerKCF_create()
-if tracker_type == 'TLD':
-  tracker = cv2.TrackerTLD_create()
-if tracker_type == 'MEDIANFLOW':
-  tracker = cv2.TrackerMedianFlow_create()
-if tracker_type == 'GOTURN':
-  tracker = cv2.TrackerGOTURN_create()
-if tracker_type == 'MOSSE':
-  tracker = cv2.TrackerMOSSE_create()
-if tracker_type == "CSRT":
-  tracker = cv2.TrackerCSRT_create()
-
-video = cv2.VideoCapture(0)
-if not video.isOpened():
-  print("Could not open video")
-  sys.exit()
-
-ok, frame = video.read()
-if not ok:
-  print('Cannot read video file')
-  sys.exit()
-
-# Define an initial bounding box
-bbox = cv2.selectROI(frame, False)
-ok = tracker.init(frame, bbox)  # Initialize tracker with first frame and bounding box
-
-while True:
-  ok, frame = video.read()
-  if not ok:
-    break
-
-  timer = cv2.getTickCount()
-  ok, bbox = tracker.update(frame)
-  fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
-  if ok:
-    p1 = (int(bbox[0]), int(bbox[1]))
-    p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
-    cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 1)
-  else:  # Tracking failure
-    cv2.putText(frame, "Tracking failure detected", (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2)
-
-  cv2.putText(frame, tracker_type + " Tracker", (100, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (50, 170, 50), 2)
-  cv2.putText(frame, "FPS : " + str(int(fps)), (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (50, 170, 50), 2)
-  cv2.imshow("Tracking", frame)
-  k = cv2.waitKey(1) & 0xff
-  if k == 27:
-    break
-```
-
-{% endtab %}
-{% endtabs %}
+<emva.org/wp-content/uploads/GenlCam_PFNC_1_1_01.pdf>
 
 ## Processing
 
@@ -737,6 +809,52 @@ cv2.destroyAllWindows()
 {% endtab %}
 {% endtabs %}
 
+### Rectification
+
+* Called perspective projection or homography
+* the mapping from a plane to a plane is given by a linear transformation of homogeneous coordinates
+* A homography maps a square to an arbitrary quadrilateral
+* You cannot rectify if epipoles are inside of the picture
+* If one camera can see other camera, it is not possible
+
+$$
+\left[\begin{array}{c}
+x^{\prime} \\
+y^{\prime} \\
+1
+\end{array}\right] \sim\left[\begin{array}{lll}
+h_{11} & h_{12} & h_{13} \\
+h_{21} & h_{22} & h_{23} \\
+h_{31} & h_{32} & h_{33}
+\end{array}\right]\left[\begin{array}{l}
+x \\
+y \\
+1
+\end{array}\right]
+$$
+
+$$
+\begin{aligned}
+x^{\prime} &=\frac{h_{11} x+h_{12} y+h_{13}}{h_{31} x+h_{32} y+h_{33}} \\
+y^{\prime} &=\frac{h_{21} x+h_{22} y+h_{23}}{h_{31} x+h_{32} y+h_{33}}
+\end{aligned}
+$$
+
+> Example
+
+* Enforcing 8 DOF
+  1. Make $$ h_{33} $$ to 1
+  1. $$ h_{11}^{2}+h_{12}^{2}+h_{13}^{2}+h_{21}^{2}+h_{22}^{2}+h_{23}^{2}+h_{31}^{2}+h_{32}^{2}+h_{33}^{2}=1 $$
+
+* What is the biggest benefit of image rectification for stereo matching?
+  * All epipolar lines are perfectly horizontal.
+
+* Where are the epipoles in the rectified image?
+  * At point of infinity
+
+* Every stereo pair of images can be rectified
+  * If the epipole resides within the image, you cannot rectify
+
 ## Segmentation
 
 ![semantic vs instance segmentation](images/20210210_190100.png)
@@ -844,56 +962,6 @@ exec(cv::gin(in_frame), cv::gout(out_frame, ints));
   * depth is constant within the region of local support). This assumption is violated by sloping and creased surfaces
 * Feature Similarity: Corresponding features must be similar (edges must have roughly the same length and orientation)
 * Structural Grouping: Corresponding feature groupings and their connectivity must be consistent
-
-## Video Streaming
-
-* Lossy count algorithm: Identify elements in a data stream whose frequency count exceed a threshold (ranking)
-  * Step 1: Divide incoming data stream into buckets of width  w = 1 / e, where e is mentioned by user as error bound
-    * along with minimum support threshold = σ
-  * Step 2: Increment the frequency count of each item according to the new bucket values
-    * After each bucket, decrement all counters by 1
-  * Step 3: Repeat – Update counters and after each bucket, decrement all counters by 1
-
-* Challenges
-  * Cumbersome to rewrite code for various devices and development environments
-  * Elastically scale to millions of devices
-  * Reliable support for cadence, latency, jitter on stream
-  * Secure streaming and storage
-  * Easy to use APIs to retriev, replace, and process video
-
-{% tabs %}
-{% tab title='amazon' %}
-
-* Kinesis Video Streaming
-  * Flexible SDK for integration with on-device hardware media pipelines with AWS Integration
-  * Handle streaming Put API to stream continuously in a reliable manner
-  * Add metadata to video fragments applied by the device directly
-  * Methods
-    * CreateStream / DeleteStream / DescribeStream / ListStreams:
-    * UpdateDataRetention: Increase or decreases the stream's data retention period
-    * UpdateStream: Update data medata
-    * GetDataEndpoint: Get endpoint for a specified stream for either reading / writing
-    * PutMedia: Long-running streaming API to write media data to a video stream
-    * GetMedia: Retrieve media content from a video stream
-    * GetMediaFroFragmentList: retrieve media data for a list of fragments from the video stream
-    * ListFragments: Returns list of Fragments from the specified video stream and start location
-    * GetHLSSStreamingSessionURLMedia: Retrieve an HTTP Live Streaming URL for the stream
-  * Kinesis Video Streams Parser Library: Open source java that makes easy to work with GetMedia Output
-    * Get frame-level object and its associated metadata
-    * Extract and apply video fragment-specific metadata
-    * Merge consecutive fragments, decode media to JPEG/PNG
-    * Build into your custom ML or other video-processing applications
-    * Scale to process 1000's of streams concurrently
-  * Kinesis Video Streams Inference Template (KIT): Sample, parse, decode invoke sagemaker real-time
-
-![Kinesis Video Streaming](images/20210727_233303.png)
-
-{% endtab %}
-{% endtabs %}
-
-> Reference
-
-<https://www.youtube.com/watch?v=mrLsGq0HFVk>
 
 ## Upsampling
 

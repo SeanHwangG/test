@@ -1,0 +1,132 @@
+> leetcode
+
+* [Level 1 : Sales Analysis III](https://leetcode.com/problems/sales-analysis-iii)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/date-sql/LC_1084.md/)
+
+{% tabs %}
+{% tab title='LC_1084.md' %}
+
+> Question
+
+* Product
+
+| product_id | product_name | unit_price |
++------------+--------------+------------+
+| 1          | S8           | 1000       |
+| 2          | G4           | 800        |
+| 3          | iPhone       | 1400       |
+
+* Sales
+
+| seller_id | product_id | buyer_id | sale_date  | quantity | price |
++-----------+------------+----------+------------+----------+-------+
+| 1         | 1          | 1        | 2019-01-21 | 2        | 2000  |
+| 1         | 2          | 2        | 2019-02-17 | 1        | 800   |
+| 2         | 2          | 3        | 2019-06-02 | 1        | 800   |
+| 3         | 3          | 4        | 2019-05-13 | 2        | 2800  |
+
+* reports the products that were only sold in spring 2019. That is, between 2019-01-01 and 2019-03-31 inclusive
+
+| product_id  | product_name |
++-------------+--------------+
+| 1           | S8           |
+
+{% endtab %}
+{% tab title='LC_1084.sql' %}
+
+```sql
+SELECT product_id, product_name FROM Sales
+  JOIN Product Using(product_id)
+  GROUP BY product_id HAVING MIN(sale_date) >= '2019-01-01' AND MAX(sale_date) <= '2019-03-31'
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 1 : Rising Temperature](https://leetcode.com/problems/rising-temperature)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/date-sql/LC_197.md/)
+
+{% tabs %}
+{% tab title='LC_197.md' %}
+
+> Question
+
+| id  | recordDate | Temperature |
+| --- | ---------- | ----------- |
+| 1   | 2015-01-01 | 10          |
+| 2   | 2015-01-02 | 25          |
+| 3   | 2015-01-03 | 20          |
+| 4   | 2015-01-04 | 30          |
+
+* Find all id where temperature increased from previous date
+
+| id  |
+| --- |
+| 2   |
+| 4   |
+
+{% endtab %}
+{% tab title='LC_197.py' %}
+
+```sql
+SELECT weather.id AS 'Id' FROM weather
+  JOIN weather w ON DATEDIFF(weather.recordDate, w.recordDate) = 1
+    AND weather.Temperature > w.Temperature;
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Report Contiguous Dates](https://leetcode.com/problems/report-contiguous-dates)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/data-structure/date-sql/LC_1225.md/)
+
+{% tabs %}
+{% tab title='LC_1225.md' %}
+
+> Question
+
+| fail_date  |
+| ---------- |
+| 2018-12-28 |
+| 2018-12-29 |
+| 2019-01-04 |
+| 2019-01-05 |
+
+| success_date |
+| ------------ |
+| 2018-12-30   |
+| 2018-12-31   |
+| 2019-01-01   |
+| 2019-01-02   |
+| 2019-01-03   |
+| 2019-01-06   |
+
+* generate a report of period_state for each continuous interval of days in period from 2019-01-01 to 2019-12-31
+
+| period_state | start_date | end_date   |
+| ------------ | ---------- | ---------- |
+| succeeded    | 2019-01-01 | 2019-01-03 |
+| failed       | 2019-01-04 | 2019-01-05 |
+| succeeded    | 2019-01-06 | 2019-01-06 |
+
+{% endtab %}
+{% tab title='LC_1225.sql' %}
+
+```sql
+SELECT stats AS period_state, MIN(day) AS start_date, MAX(day) AS end_date
+FROM (
+  SELECT day, RANK() OVER (ORDER BY day) AS overall_ranking, stats, rk,
+    (RANK() OVER (ORDER BY day) - rk) AS inv
+  FROM (
+    SELECT fail_date AS day, 'failed' AS stats, RANK() OVER (ORDER BY fail_date) AS rk
+    FROM Failed WHERE fail_date BETWEEN '2019-01-01' AND '2019-12-31'
+    UNION
+    SELECT success_date AS day, 'succeeded' AS stats, RANK() OVER (ORDER BY success_date) AS rk
+    FROM Succeeded WHERE success_date BETWEEN '2019-01-01' AND '2019-12-31') t
+  ) c
+GROUP BY inv, stats
+ORDER BY start_date
+```
+
+{% endtab %}
+{% endtabs %}

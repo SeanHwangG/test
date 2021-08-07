@@ -62,46 +62,62 @@ SELECT DISTINCT f.follower, f3.num FROM follow f
   ON f.follower = f3.followee ORDER BY f.follower
 ```
 
-* [Level 3 : Human Traffic of Stadium](https://leetcode.com/problems/human-traffic-of-stadium)
-  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/join/LC_601.md/)
+* [Level 3 : Trips and Users](https://leetcode.com/problems/trips-and-users)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/database/dql/join/LC_262.md/)
 
 {% tabs %}
-{% tab title='LC_601.md' %}
+{% tab title='LC_262.md' %}
 
 > Question
 
-* stadium
+* Trip
 
-| id  | visit_date | people |
-| --- | ---------- | ------ |
-| 1   | 2017-01-01 | 10     |
-| 2   | 2017-01-02 | 109    |
-| 3   | 2017-01-03 | 150    |
-| 4   | 2017-01-04 | 99     |
-| 5   | 2017-01-05 | 145    |
-| 6   | 2017-01-06 | 1455   |
-| 7   | 2017-01-07 | 199    |
-| 8   | 2017-01-08 | 188    |
+  | Id  | Client_Id | Driver_Id | City_Id | Status              | Request_at |
+  | --- | --------- | --------- | ------- | ------------------- | ---------- |
+  | 1   | 1         | 10        | 1       | completed           | 2013-10-01 |
+  | 2   | 2         | 11        | 1       | cancelled_by_driver | 2013-10-01 |
+  | 3   | 3         | 12        | 6       | completed           | 2013-10-01 |
+  | 4   | 4         | 13        | 6       | cancelled_by_client | 2013-10-01 |
+  | 5   | 1         | 10        | 1       | completed           | 2013-10-02 |
+  | 6   | 2         | 11        | 6       | completed           | 2013-10-02 |
+  | 7   | 3         | 12        | 6       | completed           | 2013-10-02 |
+  | 8   | 2         | 12        | 12      | completed           | 2013-10-03 |
+  | 9   | 3         | 10        | 12      | completed           | 2013-10-03 |
+  | 10  | 4         | 13        | 12      | cancelled_by_driver | 2013-10-03 |
 
-* display the records which have 3 or more consecutive rows and the amount of people more than 100
+* User
 
-| id  | visit_date | people |
-| --- | ---------- | ------ |
-| 5   | 2017-01-05 | 145    |
-| 6   | 2017-01-06 | 1455   |
-| 7   | 2017-01-07 | 199    |
-| 8   | 2017-01-08 | 188    |
+  | Users_Id | Banned | Role   |
+  | -------- | ------ | ------ |
+  | 1        | No     | client |
+  | 2        | Yes    | client |
+  | 3        | No     | client |
+  | 4        | No     | client |
+  | 10       | No     | driver |
+  | 11       | No     | driver |
+  | 12       | No     | driver |
+  | 13       | No     | driver |
+
+* Write a SQL query to find cancellation rate of requests with unbanned users (both client and driver)
+* Dividing # of canceled (client or driver) requests with unbanned users by total # requests with unbanned users on a day
+* Return the result table between "2013-10-01" and "2013-10-03". in any order. Round up to two decimal points
+
+| Day        | Cancellation Rate |
+| ---------- | ----------------- |
+| 2013-10-01 | 0.33              |
+| 2013-10-02 | 0.00              |
+| 2013-10-03 | 0.50              |
 
 {% endtab %}
-{% tab title='LC_601.sql' %}
+{% tab title='LC_262.sql' %}
 
 ```sql
-SELECT DISTINCT S1.* FROM stadium S1
-  JOIN stadium S2 JOIN stadium S3
-  ON ((S1.id = S2.id - 1 AND S1.id = S3.id -2) OR
-      (S3.id = S1.id - 1 AND S3.id = S2.id -2) OR
-      (S3.id = S2.id - 1 AND S3.id = S1.id -2))
-  WHERE S1.people >= 100 AND S2.people >= 100 AND S3.people >= 100 ORDER BY S1.id;
+SELECT Request_at as Day, ROUND(SUM(t.Status != "completed") / COUNT(*), 2) as "Cancellation Rate"
+  FROM Trips t
+  JOIN Users c ON t.Client_ID = c.Users_ID AND c.Banned = "No"
+  JOIN Users d ON t.Driver_ID = d.Users_ID AND d.Banned = "No"
+  WHERE Request_at BETWEEN "2013-10-01" AND "2013-10-03"
+  GROUP BY Request_at;
 ```
 
 {% endtab %}

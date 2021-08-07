@@ -890,72 +890,74 @@ new Thread(new Thread2()).start()
 {% endtab %}
 {% tab title='python' %}
 
-> threading
+* threading: Create threads with function or inherit from subclass Thread (\_\_init__, run)
+  * New threads will inherit daemon status from their parent
+  * Python thread cannot be turned into a daemon thread after it has been started
 
-* Create threads with function or inherit from subclass Thread (\_\_init__, run)
-* New threads will inherit daemon status from their parent
-* Python thread cannot be turned into a daemon thread after it has been started
+  * enumerate(): list of all Thread objects currently alive
 
-* enumerate(): list of all Thread objects currently alive
-* current_thread() / main_thread(): current / main Thread (Python interpreter was started)
+    ```py
+    def cpu_waster():
+      while True:
+        pass
 
-* Thread(target=f, kwargs={'x': 1}): kwargs
-  * is_alive() / isDaemon()
-  * get_native_id(): Native integral TID of the current thread assigned by kernel
-  * join(timeout=None): Wait until thread terminates
-  * start(): must be called at most once per thread object
-  * daemon: whether this thread is a daemon
-  * name: A string used for identification purposes only
-  * native_id: The native integral thread ID of this thread
+    print('\n  Process ID: ', os.getpid())
+    print('Thread Count: ', threading.active_count())
+    for thread in threading.enumerate():
+      print(thread)
 
-```py
-import os
-import time
-import threading
-from contextlib import nullcontext
+    for i in range(12):
+      threading.Thread(target=cpu_waster).start()
 
-# 1. Thread
-class MyThread(threading.Thread):
-  def __init__(self, name, counter):
-    threading.Thread.__init__(self)
-    self.name = name
-    self.counter = counter
+    print('\n  Process ID: ', os.getpid())
+    print('Thread Count: ', threading.active_count())
+    for thread in threading.enumerate():
+      print(thread)
+    ```
 
-  def run(self):
-    print("Starting " + self.name)
-    while self.counter:
-      time.sleep(1)
-      print(f"{self.name} {time.ctime(time.time())}")
-      self.counter -= 1
-    print("Exiting " + self.name)
+  * current_thread() / main_thread(): current / main Thread (Python interpreter was started)
 
+  * Thread(target=f, kwargs={'x': 1}): kwargs
+    * is_alive() / isDaemon()
+    * get_native_id(): Native integral TID of the current thread assigned by kernel
+    * join(timeout=None): Wait until thread terminates
+    * start(): must be called at most once per thread object
+    * daemon: whether this thread is a daemon
+    * name: A string used for identification purposes only
+    * native_id: The native integral thread ID of this thread
 
-if __name__ == "__main__":
-  thread1 = MyThread("Thread-1", 2)
-  thread2 = MyThread("Thread-2", 3)
-  thread1.start()
-  thread2.start()
-  print("Exiting Main Thread")
+    ```py
+    import os
+    import time
+    import threading
+    from contextlib import nullcontext
 
-# 2. threading
-### CPU Water
-def cpu_waster():
-  while True:
-    pass
+    class MyThread(threading.Thread):
+      def __init__(self, name, counter):
+        threading.Thread.__init__(self)
+        self.name = name
+        self.counter = counter
 
-print('\n  Process ID: ', os.getpid())
-print('Thread Count: ', threading.active_count())
-for thread in threading.enumerate():
-  print(thread)
+      def run(self):
+        print("Starting " + self.name)
+        while self.counter:
+          time.sleep(1)
+          print(f"{self.name} {time.ctime(time.time())}")
+          self.counter -= 1
+        print("Exiting " + self.name)
 
-for i in range(12):
-  threading.Thread(target=cpu_waster).start()
+    if __name__ == "__main__":
+      thread1 = MyThread("Thread-1", 2)
+      thread2 = MyThread("Thread-2", 3)
+      thread1.start()
+      thread2.start()
+      print("Exiting Main Thread")
+    ```
 
-print('\n  Process ID: ', os.getpid())
-print('Thread Count: ', threading.active_count())
-for thread in threading.enumerate():
-  print(thread)
-```
+{% endtab %}
+{% tab title='shell' %}
+
+* /proc/sys/kernel/threads-max: possible thread count
 
 {% endtab %}
 {% endtabs %}
@@ -984,7 +986,7 @@ for thread in threading.enumerate():
 
 * Virtual address space: Protection is provided as program cannot reference memory outside of tis VAS
 
-![virtaul memory](images/20210301_191324.png)
+![Virtaul memory](images/20210301_191324.png)
 
 {% tabs %}
 {% tab title='cpp' %}
@@ -1076,17 +1078,17 @@ while (1) {
 
 * For three page frames, how many page faults would be generated
 
-```cpp
-int A[][] = new int[100][100];
-// 5000
-for (int j = 0; j < 100; j++)
-  for (int i = 0; i < 100; i++)
-    A[i][j] = 0;
-// 50
-for (int i = 0; i < 100; i++)
+  ```cpp
+  int A[][] = new int[100][100];
+  // 5000
   for (int j = 0; j < 100; j++)
-    A[i][j] = 0;
-```
+    for (int i = 0; i < 100; i++)
+      A[i][j] = 0;
+  // 50
+  for (int i = 0; i < 100; i++)
+    for (int j = 0; j < 100; j++)
+      A[i][j] = 0;
+  ```
 
 {% tabs %}
 {% tab title='python' %}
@@ -1392,26 +1394,25 @@ export default App;
 
 * django
 
-```py
-# 2. Cache in Django
-""" settings.py """
-CACHES = {
-  'default': {
-    'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    'LOCATION': 'unique-snowflake',
-    'TIMEOUT': 300,  # 기본값 300초 = 5분
-    'OPTIONS': {
-      'MAX_ENTRIES': 300  # 기본값 = 300
+  ```py
+  """ settings.py """
+  CACHES = {
+    'default': {
+      'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+      'LOCATION': 'unique-snowflake',
+      'TIMEOUT': 300,  # 기본값 300초 = 5분
+      'OPTIONS': {
+        'MAX_ENTRIES': 300  # 기본값 = 300
+      }
     }
   }
-}
 
-""" view.html """
-{% load cache %}
-{% cache 600 sidebar %}
-  .. sidebar ..
-{% endcache %}
-```
+  """ view.html """
+  {% load cache %}
+  {% cache 600 sidebar %}
+    .. sidebar ..
+  {% endcache %}
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -1484,16 +1485,15 @@ CACHES = {
   * File system use it because deleting file is more frequent than deleting user
 * Capability list: For each subject, maintain a list of objects and their permitted actions (ex: key to a door)
   * compact enough but not very expressive
+  ![Capability List](images/20210523_111610.png)
 
 * Copy on Write: Defer large copies as long as possible
   * OS spend a lot of time copying data
-
-![Copy on Write](images/20210522_234200.png)
+  ![Copy on Write](images/20210522_234200.png)
 
 * File allocation table
   * directory entry points to the first block in the file
-
-![File allocation Table](images/20210210_101711.png)
+  ![File allocation Table](images/20210210_101711.png)
 
 * Memoy Mapped files: Open read into buffer, operate on buffer
   * Enable processes to do file I/O using loads and stores
@@ -1508,18 +1508,15 @@ CACHES = {
   * Symmetric multiprocessing (SMP)
   * Cache coherence → have same cache memory
   * most modern multi-core CPUs, cache coherency is usually handled by the processor hardware
-
-![UMA](images/20210322_193539.png)
+  ![UMA](images/20210322_193539.png)
 
 * NUMA: Adding more processor to a shared memory system increase traffic on the shared memory bus
-
-![NUMA](images/20210322_193610.png)
+  ![NUMA](images/20210322_193610.png)
 
 * Distributed Memory
   * Programmer should define how/when data is communicated between the nodes in distributed system
   * Scalable → off-the-shelf computers, networking equipment to build distributed memory systems
-
-![Distributd Memory](images/20210322_193626.png)
+  ![Distributd Memory](images/20210322_193626.png)
 
 | Type       | preemptive                           | non-preemptive                             |
 | ---------- | ------------------------------------ | ------------------------------------------ |
@@ -1530,11 +1527,12 @@ CACHES = {
 | Starvation | Possible                             | Impossible                                 |
 | Example    | Round Robin, Shortest Remaining Time | First come First serve, Shortest Job First |
 
-> Which file system works best for videos
+> Error
 
-* contiguous allocation
-  * reading videos require high throughput
-  * Since space of the video file will never change, flexibility provided by extent based or random are not needed
+* Which file system works best for videos?
+  * contiguous allocation
+    * reading videos require high throughput
+    * Since space of the video file will never change, flexibility provided by extent based or random are not needed
 
 ### Scheduling
 
@@ -1553,8 +1551,6 @@ CACHES = {
 
 * Least Bandwidth
   * selects the server that is serving the least amount of traffic measured in megabits per second (Mbps)
-
-![Round robin](images/20210316_154704.png)
 
 > Term
 
@@ -1629,6 +1625,7 @@ CACHES = {
   * [-] Time slice too large: Response time (heuristic: 7~80 % jobs within slice / 50 ms)
   * [-] Time slice too small: Context switch, bad turnaround time
   ![Round Robin](images/20210406_044023.png)
+  ![Round robin](images/20210316_154704.png)
 
 * MLFQ (Multi-level Feedback Queue): Have multiple ready queues which use different algorithm for each
   * Move processes among queus based upon execution history
@@ -1790,22 +1787,18 @@ else:
 * Logical disk (disk block #)
 * Logical file (file block, record, or byte #)
 
-![Capability List](images/20210523_111610.png)
-
 * Contiguous Allocation
   * [+] state required per file is start block and size
   * [+] entire file can be read with one seek
   * [-] fragmentation, external is bigger problem
   * [-] Hard for a file to dynamically grow, user doesn't know size of file
-
-![Contiguous Allocation](images/20210524_020611.png)
+  ![Contiguous Allocation](images/20210524_020611.png)
 
 * Linked List Allocation: Each file is stored as linked list
   * [+] No space lost to external fragmentation
   * [+] Disk only stores first block of each file
   * [-] Random access is costly
-
-![Linked List allocation](images/20210524_020655.png)
+  ![Linked List allocation](images/20210524_020655.png)
 
 * FAT (File Allocation Table): Take pointer away from blocks, store in this table
   * [+] Entire block is available for data, faster random saccess than linked list
@@ -1815,18 +1808,15 @@ else:
   * Each inode stores attributes and disk block locations of object's data, 15 blocks (12, single, double, triple indirect)
   * If data block are 4K (48K reachable from the inode, 4MB available for single indirect, 4GB / 4TB for double, triple)
   * Implemented using linkedlist and bitmap
-
-![Inode structure](images/20210210_101740.png)
+  ![Inode structure](images/20210210_101740.png)
 
 * Link
   * Hard link: share same inode, cannot delete a file permanently becuase some hardlink points to that direction
   * Soft (symbolic) link: shortcut, more secure but little slower
-
-![Hard vs Soft link](images/20210528_012352.png)
+  ![Hard vs Soft link](images/20210528_012352.png)
 
 * UFS (Unix File System): Inodes are numbered sequentially, starting at 0
-
-![Unix File System](images/20210524_021314.png)
+  ![Unix File System](images/20210524_021314.png)
 
 > How many disk access for /user/a.ppt
 

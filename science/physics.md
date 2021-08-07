@@ -39,35 +39,30 @@
 | voltage             | $$ V=I \cdot R=J / C $$                                                                 |
 | Watt                | $$ 1 \mathrm{~W}=1 \frac{\mathrm{V}^{2}}{\Omega}=1 \mathrm{~A}^{2} \cdot \Omega $$      |
 
-> Conservation of charge Law
+* Conservation of charge Law
+  $$ q \triangleq \int_{t 0}^{t} i d \tau $$
 
-$$ q \triangleq \int_{t 0}^{t} i d \tau $$
+* Kirchoff's Current Law
+  $$\sum_{i n} I=\sum_{o u t}^{\alpha} I$$
 
-> Kirchoff's Current Law
+* Kirchoff's Voltage Law
+  $$\sum_{u p} \Delta V=\sum_{\text {down }} \Delta V$$
 
-$$\sum_{i n} I=\sum_{o u t}^{\alpha} I$$
-
-> Kirchoff's Voltage Law
-
-$$\sum_{u p} \Delta V=\sum_{\text {down }} \Delta V$$
-
-> Ohm's law
-
-$$V=I \cdot R$$
+* Ohm's law
+  $$V=I \cdot R$$
 
 ## Optics
 
 > Terms
 
 * Aperture
+  ![Aperture](images/20210329_204056.png)
+  * Large: lets in more light ([ex] f/1.4)
+  * Small: requires a longer exposure time larger number ([ex] f/32)
 
-![Aperture](images/20210329_204056.png)
-
-> Snells Law
-
-![Snells Law](images/20210329_201838.png)
-
-$$ n_{1} \sin \theta_{1}=n_{2} \sin \theta_{2} $$
+* Snells Law
+  ![Snells Law](images/20210329_201838.png)
+  $$ n_{1} \sin \theta_{1}=n_{2} \sin \theta_{2} $$
 
 ### Lens
 
@@ -80,41 +75,41 @@ $$ n_{1} \sin \theta_{1}=n_{2} \sin \theta_{2} $$
 * Wide angle lense: large field of view
 * Zoom lens: variable f using compound lens
 
+* Focal Length
+  ![Focal Length](images/20210803_182250.png)
+
+* Gaussian lens formula
+  $$ \frac{1}{s_{o}}+\frac{1}{s_{i}}=\frac{1}{f} $$
+
+* Combining two lenses
+  $$ \frac{1}{f_{n t}}=\frac{1}{f_{1}}+\frac{1}{f_{2}} $$
+
+> Example
+
+* With a thin lens, we can make the whole image in focus by using a large aperture
+  * Small aperture
+
 ### Aberration
 
-> Astigmatism
+* Astigmatism
+  * different focal length for inclined rays
+  ![Astigmatism](images/20210527_165411.png)
 
-* different focal length for inclined rays
+* Chromatic: cannot be completely corrected by wearing sunglasses with colored lenses
+  ![Chromatc Abberation](images/20210527_164849.png)
 
-![Astigmatism](images/20210527_165411.png)
+* Coma: point off the axis depicted as comet shaped blob
+* Distortion
+  * pincushion: tele-photo
+  * barrel: wide-angle
+  ![Distortion](images/20210527_165102.png)
 
-> Chromatic
+* Spherical: rays parallel to the axis do not converge to a single point
+  * outer portions of the lens has a smaller effective focal length
+  ![Spherical](images/20210527_165243.png)
 
-* cannot be completely corrected by wearing sunglasses with colored lenses
-
-![Chromatc Abberation](images/20210527_164849.png)
-
-> Coma
-
-* point off the axis depicted as comet shaped blob
-
-> Distortion
-
-* pincushion: tele-photo
-* barrel: wide-angle
-
-![Distortion](images/20210527_165102.png)
-
-> Spherical
-
-* rays parallel to the axis do not converge to a single point
-* outer portions of the lens has a smaller effective focal length
-
-![Spherical](images/20210527_165243.png)
-
-> Vignetting
-
-![Vignetting](images/20210527_164817.png)
+* Vignetting
+  ![Vignetting](images/20210527_164817.png)
 
 ## Astronomy
 

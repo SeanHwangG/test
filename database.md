@@ -160,6 +160,113 @@ Container.get(TypeService);
       * dataset
 
 {% endtab %}
+{% tab title='hadoop' %}
+
+![Hadoop](images/20210205_170217.png)
+
+* Open-source data storage framework that store and process large data sets in parallel and distributed fashion
+* Scalability commodity hardware for data storage, availability commodity hardware for distributed processing
+* JVMs do not share state, processes differ between Hadoop 1.0 and 2.0
+* Hadoop cluster
+* Default chunk size, the size of each piece of a file is 64 megabytes
+* hadoop fs -copyFromLocal words.txt
+* copy into hadoop
+* One replica on local node, Second / third replica on a remoate rack, Additional replicas are randomly placed
+  * Clients read from nearest replica, would like to make this policy pluggable
+* vs HBase: HBase is NoSQL, hadoop uses an alternative file system (HDFS)
+* [+] Long term availability of data, future anticipated data growth
+* [+] Many platforms over single data store (facilitate shared environment)
+* [+] High volume, variety, behavioral data → batch process, health care
+* [+] Pre-built hadoop images → quick prototyping, deploying, and validating of projects
+* [-] Small data processing, Task level parallelism, Random data access
+* [-] Advanced algorithms (highly coupled data processing algorithm)
+* [-] Replacement to your infrastructure (may not be suitable solution for business case)
+* [-] Machine learning → HDFS Bottleneck | Mapreduce Computation | No interactive shell | Java
+* [-] Line of Business → usually transactional and not a good fit (X - use relational database)
+* [ex] commercial distribution: Cloudera, Hortonworks, MapR
+* [ex] Open source: apache, public cloud: Iaas(VM, docker), PaaS(AWS, HDinsight), some commercial available
+
+> Terms
+
+* Checkpointing: process of combining edit logs with FsImage, happens periodically (default: 1 hour)
+
+* Cluster: designed specifically for storing and analyzing huge unstructured data in distributed computing environment
+  * Such clusters run Hadoop's open source distributed processing software on low-cost commodity computers
+  * 40 nodes/rack, 1-4000 nodes in cluster
+  * 1 Gbps bandwidth within rack, 8 Gbps out of rack
+  ![Clusters](images/20210607_222626.png)
+  ![Hadoop cluster](images/20210607_230709.png)
+
+* DataNode: Serves read / write requests of data / meta-data to clients
+  * Slave daemons, Stores actual data
+  * Facilitates pipelining of data (forwards data to other specified DataNodes)
+  * Block server: stores data in local file system (ext3), meta-data of a block (CRC)
+  * Block report: periodically sends a report of an existing blocks to NameNode
+
+* editLog: only contain the most recent changes
+  * reside in the RAM of the machine
+
+* fsImage: contain all the details of all the changes
+
+* NameNode: Maintains and manages DataNodes, one per cluster
+  * records metadata (data blocks info, location of blocks stored, the size of files, permissions, hierarchy) in memory
+  * No demand paging of meta-data
+  ![HDFS](images/20210607_223905.png)
+
+* Rebalancer: \% disk full on DataNodes should be similar
+  * Usually run when new DataNodes are added
+  * Cluster is online when Rebalancer is active
+  * throttled to avoid network congestion
+  ![Rebalancer](images/20210607_230133.png)
+
+* Secondary NameNode: Allows faster Failover as it prevents edit logs from getting too huge
+  * Takes over the responsibility of checkpointing, therefore, making NameNode more available
+
+* fs
+  * hadoop fs -`command_name`
+  * copyFromLocal `fname`
+  * copyToLocal `fname`
+
+* jar
+  * wordcount `ins` `out`
+  * hadoop jar |usr|jars|hadoop-examples.jar wordcount
+
+* Yarn: Flexible scheduling and resource management
+  * Allows various applications to run on the same Hadoop cluster
+
+* HDFS (Hadoop distributed file system)
+  * Maintains three copies of every block
+  * Single namespace for entire cluster, metadata (file names, block, locations)
+  * Files are append-only split into 128mb blocks
+  * Block replicated across several datanodes
+  * Optimized for large files (10k nodes, 100m files, 10PB), batch processings, sequential reads
+    * Data locations exposed so that computations can move to where data resides
+    * provides very high aggregate bandwidth
+  * Assumes commodity hardware: files are replicated to handle hardware failure
+    * Detect failures and recovers from them
+  * User space, runs on heterogeneous OS
+  ![HDFS](images/20210607_224621.png)
+
+* Hive: Hadoop subproject in SQL manner when files are insufficient, need tables, schemas, partitions, indices
+  * Need a multi petabyte warehous for an open data format (RDBMS)
+
+> Question
+
+* Challenges
+  1. Chaep nodes fails, especially if you have many
+      * Build fault tolerance into system
+  1. Commodity network = low bandwidth
+      * Push computation to the data
+  1. Programming distributed systems is hard
+      * Data parallel programming models (users write map & reduce functions, system distributes work and handles faults)
+      * Use CRC32 checksum to validate data
+
+* Three layers of ecosystem?
+  * Data Management and Storage
+  * Data Integration and Processing
+  * Coordination and Workflow Management
+
+{% endtab %}
 {% endtabs %}
 
 ## DB Dimension
@@ -1883,36 +1990,28 @@ class GeeksSerializer(serializers.ModelSerializer):
 
 * pip install -U drf-yasg
 
-```py
-# settings.py
-INSTALLED_APPS = [
-   ...
-   'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
-   'drf_yasg',
-   ...
-]
-```
-
-## Parsers
-
-* JSONParser
-  * parse(`io_stream`): convery back to json
-
-## DRF utils
-
-* swagger_auto_schema
-  * request_body
-  * responses
-  * deprecated
+  ```py
+  # settings.py
+  INSTALLED_APPS = [
+    ...
+    'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
+    'drf_yasg',
+    ...
+  ]
+  ```
 
 ## Views
+
+> Term
+
+* Materialized view: Database object that contains the results of a query
+
+{% tabs %}
+{% tab title='python' %}
 
 * [Reference](https://www.youtube.com/watch?v=B38aDwUpcFc)
 * ModelViewSet: built-in implement basic actions as list, retrieve, create, update or destroy
 * GenericViewSet: doesn't provide any implementations of basic actions
-
-{% tabs %}
-{% tab title='views.py' %}
 
 ```py
 from .models import Article
@@ -1921,8 +2020,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django.contrib import admin
+from django.urls import path, include
 
-# 1. Function based view
+""" 1. views.py """
+# Function based view
 @csrf_exempt
 def article_list(request):
   if request.method == 'GET':
@@ -1961,7 +2063,7 @@ def article_detail(request, pk):
     article.delete()
     return HttpResponse(status=204)
 
-# 2. View using @api_view
+# View using @api_view
 @api_view(['GET', 'POST'])
 def article_list(request):
   if request.method == 'GET':
@@ -1995,32 +2097,8 @@ def article_detail(request, pk):
   elif request.method == 'DELETE':
     article.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
-```
 
-{% endtab %}
-{% tab title='urls.py' %}
-
-```py
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-  path('admin/', admin.site.urls),
-  path('', include('api_basic.urls'))
-]
-```
-
-{% endtab %}
-{% endtabs %}
-
-### View Class
-
-{% tabs %}
-{% tab title='python' %}
-
-```py
-# 1. Class based view
-### Views.py
+# Class based view
 class ArticleAPIView(APIView):
   def get(self, request):
     articles = Article.objects.all()
@@ -2059,10 +2137,14 @@ class ArticleDetails(APIView):
     article.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
-### Urls.py
+""" 2. Urls.py """
 from django.urls import path
 from .views import ArticleAPIView, ArticleDetails
 
+urlpatterns = [
+  path('admin/', admin.site.urls),
+  path('', include('api_basic.urls'))
+]
 urlpatterns = [
   path('article/', ArticleAPIView.as_view()),
   path('detail/<int:id>/', ArticleDetails.as_view()),
@@ -2339,238 +2421,7 @@ systemctl status mongod  # show mongodb status
   * db.`collection`.help(): help on collection methods. collection can be non-existing
   * show collections: Print a list of all collections for current database
 
-### Spark
-
-* Driver Program creates Resilient distributed datasets (RDDs)
-* Low-latency for small micro-batch size
-* Batch and stream processing using disk or memory storage
-* SparkSQL, Spark streaming, MLlib, GraphX
-
-* Commands
-  * lazy evaluation → transformations are not executed until the action stage
-  * Narrow: processing logic depends only on data, residing in the partition → no data shuffling necessary
-  * Wide: transformation that requires data shuffling across node partitions
-
-* Function
-  * collect(): copy all elements to the driver
-  * take(n): copy first n elements
-  * reduce(func): aggregate elements with func
-  * saveAsTextFile(filename): Save to local file or HDFS
-
-* Narrow Transformation
-  * coalesce(): reduce number of partitions
-  * filter(func): keep only elements where function is true
-  * flatMap(func): map then aggregate
-  * map(func): apply function to each element of RDD
-
-* Wide Transformation
-  * groupbykey
-  * reducebykey
-
-* MLlib
-
-* GraphX
-  * Uses property graph model → both nodes and edges can have attributes and values
-  * triplet view → logically joins vortex and edge properties
-
-{% tabs %}
-{% tab title='python' %}
-
-```py
-import pyspark
-from operator import add
-from pyspark.mllib.stat import Statistics
-
-# 1. Reduce
-sc = pyspark.SparkContext.getOrCreate()
-data = sc.parallelize (["scala", "hadoop", "spark", "akka", "spark vs hadoop", "pyspark", "pyspark and spark"])
-print(data.count())
-print("data.collect()")
-filtered = data.filter(lambda x: 'spark' in x).collect()
-print(filtered)
-print(data.reduce(add))
-file = sc.textFile('00_keywords.py')
-print(f"{file.count()}")
-print(f"{file.take(3)}")
-print(f"{file.filter(lambda s: 'print' in s.lower()).count()}")
-spark = pyspark.sql.SparkSession(sc)
-files = sc.wholeTextFiles('.')
-pprint(f"{files.count()}")
-df = files.toDF(['name', 'data'])
-print(f"{df.select('name').toPandas().head()}")
-spark.read.csv('competition_vision/mnist/data/mnist_train.csv').toPandas()
-spark.read.load('competition_vision/mnist/data/mnist_train.csv').head()
-
-# 2. MLlib
-dataMatrix = sc.parallelize([[1,2,3],[4,5,6], [7,8,9],[10, 11, 12]])
-summary = Statistics.colStats(dataMatrix)
-
-from pyspark.mllib.clustering import KMeans, KMeansModel
-import numpy as np
-data = sc.textFile("data.txt")
-parsedData = data.map(lambda line: np.array([float(x) for x in line.split(' ')]))
-clusters = Kmeans.train(parsedData, k=3)
-```
-
-{% endtab %}
-{% endtabs %}
-
-### Splunk
-
-* Real-time log forwarding | syslog analysis | server monitoring | alerts, notification
-
-![Splunk](images/20210225_180230.png)
-
-* command
-
-```sh
-# return the average population of the counties in Georgia
-source="census.csv" CTYNAME != "Georgia" STNAME="Georgia" | stats mean(CENSUS2010POP)
-
-# state with the most counties
-source="census.csv" | stats count by STNAME | sort count desc
-```
-
-## Hadoop
-
-![Hadoop](images/20210205_170217.png)
-
-* Open-source data storage framework that store and process large data sets in parallel and distributed fashion
-* Scalability commodity hardware for data storage, availability commodity hardware for distributed processing
-* JVMs do not share state, processes differ between Hadoop 1.0 and 2.0
-* Hadoop cluster
-* Default chunk size, the size of each piece of a file is 64 megabytes
-* hadoop fs -copyFromLocal words.txt
-* copy into hadoop
-* One replica on local node, Second / third replica on a remoate rack, Additional replicas are randomly placed
-  * Clients read from nearest replica, would like to make this policy pluggable
-* vs HBase: HBase is NoSQL, hadoop uses an alternative file system (HDFS)
-* [+] Long term availability of data, future anticipated data growth
-* [+] Many platforms over single data store (facilitate shared environment)
-* [+] High volume, variety, behavioral data → batch process, health care
-* [+] Pre-built hadoop images → quick prototyping, deploying, and validating of projects
-* [-] Small data processing, Task level parallelism, Random data access
-* [-] Advanced algorithms (highly coupled data processing algorithm)
-* [-] Replacement to your infrastructure (may not be suitable solution for business case)
-* [-] Machine learning → HDFS Bottleneck | Mapreduce Computation | No interactive shell | Java
-* [-] Line of Business → usually transactional and not a good fit (X - use relational database)
-* [ex] commercial distribution: Cloudera, Hortonworks, MapR
-* [ex] Open source: apache, public cloud: Iaas(VM, docker), PaaS(AWS, HDinsight), some commercial available
-
-> Terms
-
-* Checkpointing: process of combining edit logs with FsImage, happens periodically (default: 1 hour)
-
-* Cluster: designed specifically for storing and analyzing huge unstructured data in distributed computing environment
-  * Such clusters run Hadoop's open source distributed processing software on low-cost commodity computers
-  * 40 nodes/rack, 1-4000 nodes in cluster
-  * 1 Gbps bandwidth within rack, 8 Gbps out of rack
-  ![Clusters](images/20210607_222626.png)
-  ![Hadoop cluster](images/20210607_230709.png)
-
-* DataNode: Serves read / write requests of data / meta-data to clients
-  * Slave daemons, Stores actual data
-  * Facilitates pipelining of data (forwards data to other specified DataNodes)
-  * Block server: stores data in local file system (ext3), meta-data of a block (CRC)
-  * Block report: periodically sends a report of an existing blocks to NameNode
-
-* editLog: only contain the most recent changes
-  * reside in the RAM of the machine
-
-* fsImage: contain all the details of all the changes
-
-* NameNode: Maintains and manages DataNodes, one per cluster
-  * records metadata (data blocks info, location of blocks stored, the size of files, permissions, hierarchy) in memory
-  * No demand paging of meta-data
-  ![HDFS](images/20210607_223905.png)
-
-* Rebalancer: \% disk full on DataNodes should be similar
-  * Usually run when new DataNodes are added
-  * Cluster is online when Rebalancer is active
-  * throttled to avoid network congestion
-  ![Rebalancer](images/20210607_230133.png)
-
-* Secondary NameNode: Allows faster Failover as it prevents edit logs from getting too huge
-  * Takes over the responsibility of checkpointing, therefore, making NameNode more available
-
-* fs
-  * hadoop fs -`command_name`
-  * copyFromLocal `fname`
-  * copyToLocal `fname`
-
-* jar
-  * wordcount `ins` `out`
-  * hadoop jar |usr|jars|hadoop-examples.jar wordcount
-
-* Yarn: Flexible scheduling and resource management
-  * Allows various applications to run on the same Hadoop cluster
-
-* HDFS (Hadoop distributed file system)
-  * Maintains three copies of every block
-  * Single namespace for entire cluster, metadata (file names, block, locations)
-  * Files are append-only split into 128mb blocks
-  * Block replicated across several datanodes
-  * Optimized for large files (10k nodes, 100m files, 10PB), batch processings, sequential reads
-    * Data locations exposed so that computations can move to where data resides
-    * provides very high aggregate bandwidth
-  * Assumes commodity hardware: files are replicated to handle hardware failure
-    * Detect failures and recovers from them
-  * User space, runs on heterogeneous OS
-  ![HDFS](images/20210607_224621.png)
-
-* Hive: Hadoop subproject in SQL manner when files are insufficient, need tables, schemas, partitions, indices
-  * Need a multi petabyte warehous for an open data format (RDBMS)
-
-> Question
-
-* Challenges
-  1. Chaep nodes fails, especially if you have many
-      * Build fault tolerance into system
-  1. Commodity network = low bandwidth
-      * Push computation to the data
-  1. Programming distributed systems is hard
-      * Data parallel programming models (users write map & reduce functions, system distributes work and handles faults)
-      * Use CRC32 checksum to validate data
-
-* Three layers of ecosystem?
-  * Data Management and Storage
-  * Data Integration and Processing
-  * Coordination and Workflow Management
-
-### Mapreduce
-
-![Map Reduce](images/20210607_224939.png)
-
-* Large data processing API designed for scalability and fault-tolerance
-  * Retry on another node: OK for a map because no dependencies, for reduce because map outputs are on disk
-  * If same task fails repeatedly, fail job or ignore that input block
-* Pluggable user code runs in generic framwork
-* Dependent tasks, interactive analysis, Native support for Java only
-* High-latency, allow parallel & distributed processing using disk storage
-  * Launch second copy of task if task is slow then kill when finishes first
-* Map-Reduce consists of three main steps: Mapping, Shuffling and Reducing
-* Map: Apply same operation to each member of collection
-  * minimize network usage by saving outputs to local disk before serving them to reducers
-  * allows recovery if a reducer crashses, hvaing more reducers than nodes
-* Reduce: collecting things that have same 'key'
-* [+] Hides complexities of parallel programming  → search engine page ranking and topic mapping
-* [-] frequently changing data → slow, as it reads entire input data
-* [ex] Index construction G search, Article clustering for G News, Machine translation, FB Spam detection
-* [ex] Log processing, web search indexing, ad-hoc queries
-
-* Design pattern
-  * wc, cat \*, grep, sort, unique, cat > file, input, map, shuffle, reduce, output
-
-```py
-def mapper(line):
-  for word in line.split():
-    output(word, 1)
-
-def reducer(key, values):
-  output(key, sum(values))
-```
-
-### Migration
+## Migration
 
 {% tabs %}
 {% tab title='python' %}
@@ -2578,6 +2429,35 @@ def reducer(key, values):
 * django.migrations
   * CreateModel
   * AddField
+
+* django.django-admin: aka python3 manage.py
+  * makemigrations: Generate migration files for later use
+    * When update models.py
+  * migrate: Sync DB with models (create, remove | field change)
+    * `app` zero: flush just one app
+    * --database=`users`: Set specific database
+    * --run-syncdb: create tables for apps without migrations (migrations framework is sometimes slow on with large models)
+    * --fake: to mark migrations as having been applied or unapplied, but w/o running SQL to change your database schema
+  * showmigrations: Show if migrated
+  * squashmigrations `appname` `squashfrom` `squashto`: merge multiple migration files
+
+  ```sh
+  # Unapply migration
+  python manage.py migrate app zero --fake  # to the first migration
+  python manage.py migrate app prev_version
+
+  # Clean up migration files
+  python manage.py makemigrations
+  python manage.py showmigrations
+  python manage.py migrate --fake app zero
+  find . -path "*/migrations/*.py" -not -name "__init__.py" -delete  # remove all migrations
+  python manage.py makemigrations
+  python manage.py migrate --fake-initial
+
+  # Migrate to postgres
+  django-admin dumpdata --natural-primary --exclude allauth > a.json
+  django-admin loaddata a.json
+  ```
 
 {% endtab %}
 {% endtabs %}

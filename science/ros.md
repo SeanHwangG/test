@@ -102,34 +102,34 @@ setup(
     * argc, argv, "my_node_name"
     * init_options
 
-```cpp
-#include <ros/ros.h>
-#include <signal.h>
+  ```cpp
+  #include <ros/ros.h>
+  #include <signal.h>
 
-/* 1. shut down */
-// Test for shutdown
-while (ros::ok()) {
-  ...
-}
+  /* 1. shut down */
+  // Test for shutdown
+  while (ros::ok()) {
+    ...
+  }
 
-// signal handler
-void mySigintHandler(int sig) {
-  // Do some custom action. [ex] publish a stop message to some other nodes
-  // All the default sigint handler does is call shutdown()
-  ros::shutdown();
-}
+  // signal handler
+  void mySigintHandler(int sig) {
+    // Do some custom action. [ex] publish a stop message to some other nodes
+    // All the default sigint handler does is call shutdown()
+    ros::shutdown();
+  }
 
-int main(int argc, char** argv) {
-  ros::init(argc, argv, "my_node_name", ros::init_options::NoSigintHandler);
-  ros::NodeHandle nh;
+  int main(int argc, char** argv) {
+    ros::init(argc, argv, "my_node_name", ros::init_options::NoSigintHandler);
+    ros::NodeHandle nh;
 
-  // Override the default ros sigint handler, must be set after first NodeHandle is created
-  signal(SIGINT, mySigintHandler);
+    // Override the default ros sigint handler, must be set after first NodeHandle is created
+    signal(SIGINT, mySigintHandler);
 
-  ros::spin();
-  return 0;
-}
-```
+    ros::spin();
+    return 0;
+  }
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -140,7 +140,8 @@ int main(int argc, char** argv) {
 * publisher-subscriber model allow nodes to subscribe to data streams and get continual updates
 * Can be one-to-one, one-to-many, and many-to-many
 
-> Example
+{% tabs %}
+{% tab title='ros' %}
 
 * rostopic
   * bw: display bandwidth used by topic
@@ -151,6 +152,9 @@ int main(int argc, char** argv) {
     * -1: only publish one message then exit
     * -r: steady stream of topic
   * type: topic type ([ex] /turtle1/command_velocity | rosmsg show: See detail)
+
+{% endtab %}
+{% endtabs %}
 
 ## ROS Service
 
@@ -174,8 +178,13 @@ int main(int argc, char** argv) {
 * consist of three parts: a goal, feedback, and a result
 * functionality is similar to services, except actions are preemptable, can cancel them while executing
 
-> ros2 action CLI
+{% tabs %}
+{% tab title='shell' %}
 
-* list: all actions in ROS graph
-  * -t: show types
-* send_goal `action_name` `action_type` `values`
+* ros2
+  * list: all actions in ROS graph
+    * -t: show types
+  * send_goal `action_name` `action_type` `values`
+
+{% endtab %}
+{% endtabs %}

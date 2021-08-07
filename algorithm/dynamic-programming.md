@@ -46,17 +46,23 @@
 * Sum all possible ways to reach the current state
   * routes[i] = routes[i-1] + routes[i-2], ... , + routes[i-k]
 
+> Example
+
 {% include '.dp-count.prob' %}
 
-## Digit
+## Digit DP
 
 * How many numbers x are there in the range a to b, where the digit d occurs exactly k times in x?
 
-{% include '.digit.prob' %}
+> Example
+
+{% include '.digit-dp.prob' %}
 
 ## Divide concur DP
 
 * Applyes when $$ DP[i] = min_{i\leq j \leq N}F(i, j) $$
+
+> Example
 
 {% include '.divide-concur-dp.prob' %}
 
@@ -92,16 +98,16 @@
 
 {% include '.knapsack.prob' %}
 
-### Unbounded
+### Unbounded Knapsack
 
 * Repetetition item is allowed
 * [ex] coin change, rod cutting
 
-{% include '.knapsack-unbounded.prob' %}
+{% include '.unbounded-knapsack.prob' %}
 
-## Merge
+## DP Merge
 
-{% include '.merge.prob' %}
+{% include '.dp-merge.prob' %}
 
 ## DP Tree
 
@@ -116,6 +122,14 @@
 * Usually done in N ** 2
 
 {% include '.dp-string.prob' %}
+
+### Manacher
+
+![Manacher](images/20210808_025822.png)
+
+* O(N) Time Longest Palindromic Substring
+
+{% include '.manacher.prob' %}
 
 ### Z Function
 
@@ -133,12 +147,21 @@
 * Observe that when a mismatch occurs, the word itself embodies information to determine where the next match begin
 * O(n) in worst case
 * [+] Easier to implement
+* [ex] DNA pattern matching problem
+
+> Term
+
+* Failure function: aka partial match table
+  ![Failure function](images/20210806_232230.png)
+  * pi[i]: length of longest possible proper initial segment of W which is also segment of substring ending at W[i - 1]
 
 > Example
 
-* DNA pattern matching problem
-
 {% include '.kmp.prob' %}
+
+> Reference
+
+<https://www.youtube.com/watch?v=V5-7GzOfADQ>
 
 ### Suffix Array
 
@@ -149,9 +172,8 @@
   * O(mlogn):
 * Space O(m+n): Suffix Array
 * [+] Find substring repetitions
+* [ex] Pattern Searching, longest repeated substring, longest common substring, longest palindrome in a string
 
 > Example
-
-* Pattern Searching, longest repeated substring, longest common substring, longest palindrome in a string
 
 {% include '.suffix-array.prob' %}

@@ -260,12 +260,21 @@
 
 ## Flow
 
+> Example
+
+* Ford-Fulkerson: greedy algorithm that computes the maximum flow in a flow network
+  ![Worst case](images/20210802_215740.png)
+
 {% include '.flow.prob' %}
 
 ### Bipartite Matching
 
-![Flow](images/20210530_131717.png)
+* Reducible to flow question
+  ![Flow](images/20210530_131717.png)
 
-* Reducible to max flow
+> Example
+
+* Minimum-cost edge cover for bipartite graph: Reducible to max flow
+  * Hungarian: O(n^3)
 
 {% include '.bipartite-matching.prob' %}

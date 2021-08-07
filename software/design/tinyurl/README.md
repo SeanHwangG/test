@@ -34,14 +34,12 @@
 ![database](images/20210220_194128.png)
 ![Flow](images/20210220_194215.png)
 
-> Problem
-
 * Our service is read-heavy
 * We need to store billions of records → Each object is small (less than 1K)
 * There are no relationships between records other than storing which user created a URL
 * base36 ([a-z ,0-9]) or base62 ([A-Z, a-z, 0-9])
 
-> Solution
+> Example
 
 * NoSQL store like DynamoDB, Cassandra or Riak is a better choice
 * Can take the hash of the ‘key’ or the short link to determine the partition in which we store the data object

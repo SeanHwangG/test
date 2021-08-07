@@ -23,19 +23,20 @@
   * [+] Considering the user preference evolution, which fits the real-world cases better
   * [-] Ignoring user’s general and long-term preference
 
-> Metrics
+## Rec sys Metrics
 
-* AB Test
-  * Ultimate metric
+> Example
 
-* Churn
-  * How quickly does new user behavior influence your recommendations?
+* AB Test: Ultimate metric
+* Average reciprocal: accounts for where in list your hits appear → more credit for item in the top slot
+  $$ \frac{\sum_{i=1}^{n} \frac{1}{\operatorname{rank}_{i}}}{\text { users } s} $$
+
+* Churn: How quickly does new user behavior influence your recommendations?
 
 * DCG (Discounted Cumulative Gain)
   * NDCG means Normalized Discounted Cumulative Gain
   * penalize lower rank
-
-$$ DCG_{k}=\sum_{r=1}^{k} \frac{rel_{r}}{\log (r+1)}A $$
+  $$ DCG_{k}=\sum_{r=1}^{k} \frac{rel_{r}}{\log (r+1)}A $$
 
 * Responsiveness: How often do recommendations change?
 
@@ -46,14 +47,13 @@ $$ DCG_{k}=\sum_{r=1}^{k} \frac{rel_{r}}{\log (r+1)}A $$
 * Diversity
   * avg similarity between recommendation pairs
 
-* Hit rate
-  * hits show users something they found interesting enough to watch on their own already
-
-$$ \frac{hits}{users} $$
+* Hit rate: hits show users something they found interesting enough to watch on their own already
+  $$ \frac{hits}{users} $$
+  * Cumulative: throw away hits if our predicted ratings is low
+  * Rating: break down by predicted rating score to recommend movies that they actually like
 
 * Mean Average Precision
-
-$$ \frac{1}{k} \sum_{i=1}^{k} P_{i}=\frac{1}{k} \sum_{r=1}^{k} r e l_{r} \log \frac{k}{r} $$
+  $$ \frac{1}{k} \sum_{i=1}^{k} P_{i}=\frac{1}{k} \sum_{r=1}^{k} r e l_{r} \log \frac{k}{r} $$
 
 * Novelt: mean popularity rank of recommended items
   * how popular the items that you are recommending
@@ -95,6 +95,19 @@ $$ \frac{1}{k} \sum_{i=1}^{k} P_{i}=\frac{1}{k} \sum_{r=1}^{k} r e l_{r} \log \f
 * Multiple solutions by permuting $γ_u, γ_i$
 * [+] as we add data, latent-factor model automatically discover any useful dimensions
 * [-] Cannot use with small datasets → Fix i, u alternatively
+
+> Example
+
+* Binary Attribute
+  $$ f(u, i)=\alpha+\beta_{u}+\beta_{i}+\left(\gamma_{u}+\sum_{a \in A(u)} p_{a}\right) \cdot \gamma_{i} $$
+* Change over time
+  $$ f(u, i, t)=\alpha+\beta_{u}(t)+\beta_{i}(t)+\gamma_{u}(t) \cdot \gamma_{i} $$
+* Implicit Feedback
+  $$ f(u, i)=\alpha+β_{u}+β_{i}+\left(\gamma_{u}+\frac{1}{\|N(u)\|} \sum_{a \in N(u)} p_{a}\right) \cdot \gamma_{i} $$
+* Item, User Representation Vector
+  $$ f(u, i)=\alpha+\beta_{u}+\beta_{i}+\gamma_{u} \cdot \gamma_{i} $$
+  * Objective Function
+  $$ \arg \min _{α, β} ∑_{i, u}(α+β_{i}+β_{u}-R_{u, i})^{2}+\lambda[∑_{i} β_{i}^{2}+∑_{u} β_{u}^{2}] $$
 
 ## Collaborative Filtering
 

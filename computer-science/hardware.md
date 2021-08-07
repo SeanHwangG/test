@@ -21,9 +21,9 @@
 * Bus: carry bytes of information back and forth between the components
 * Data processing unit: new class of programmable processor and will join CPUs and GPUs as one of the three pillars of computing
 * DMA (Direct memory access): Access data from I/O and memory without CPU
+  ![DMA](images/20210210_101227.png)
   * designed to transfer fixed-size chunks of bytes known as words
   * bytes in a word (the word size) is a fundamental system parameter that varies across systems (32 bits / 64 bits)
-  ![DMA](images/20210210_101227.png)
 
 * device driver (hardware driver): group of files that enable 1+ hardware devices to communicate with the computer's OS
   * piece of software running inside OS
@@ -38,9 +38,9 @@
 * MIPS (Microprocessor without Interlocked Pipelined Stages)
 * Amdahl's Law: speed up one part of a system, effect on overall system performance also depends on how significant
 
-$$
-S= T_{\text {old }} / T_{\text {new }} = \frac{1}{(1-\alpha)+\alpha / k}
-$$
+  $$
+  S= T_{\text {old }} / T_{\text {new }} = \frac{1}{(1-\alpha)+\alpha / k}
+  $$
 
 * Moore's Law: integrated circuit resources double every 18–24 months
   * 1965 prediction of such growth in IC capacity made by Gordon Moore
@@ -61,6 +61,7 @@ $$
   * Adater: Card that plugs into a slot on the motherboard
 
 * Mender: open-source project for updating embedded Linux devices (IoT)
+  ![Mender](images/20210303_143849.png)
   * based on client-server architecture, where server uses the microservices design pattern
     * multiple small and isolated services that make up the server
     * Docker Compose environment brings and connects them to store / control deployment of software updates OTA to device
@@ -70,8 +71,6 @@ $$
   * [+] Compatibility check (verifies if the artifact was created for that device type)
   * [+] The authenticity of update images (update signature verification)
   * [+] Persistent data storage
-
-![Mender](images/20210303_143849.png)
 
 * PMD: Personal mobile device
 
@@ -144,15 +143,35 @@ $$
 
 > Term
 
-* CPU (Central processing unit): Brain of the computer, interprets / executes instructions stored in main memory
-  * its core is a word-size storage device (or register) called the program counter (PC)
-  * calculate 1 billion operations per second / 0.3 nano per operation → cooler
-  * Load: Copy a byte or a word from main memory into a register, overwriting the previous contents of the register
-  * Store: Copy a byte or a word from a register to a location in main memory, overwriting previous contents of that location
-  * Operate: Copy contents of two registers to ALU, do operation on overwrite result in a register
-  * Jump: Extract a word from instruction and copy that word into program counter (PC), overwriting previous value of PC
 * GPU (Graphic processing unit): specialized for graphics
 * VPU (Vision processing unit): specialized for visions
+
+### CPU
+
+* Centeral Processing Unit is brain of the computer, interprets / executes instructions stored in main memory
+* its core is a word-size storage device (or register) called the program counter (PC)
+* calculate 1 billion operations per second / 0.3 nano per operation → cooler
+
+> Term
+
+* Load: Copy a byte or a word from main memory into a register, overwriting the previous contents of the register
+* Store: Copy a byte or a word from a register to a location in main memory, overwriting previous contents of that location
+* Operate: Copy contents of two registers to ALU, do operation on overwrite result in a register
+* Jump: Extract a word from instruction and copy that word into program counter (PC), overwriting previous value of PC
+
+> Example
+
+* i3: two cores, hyperthreading, smaller cache, uses less power
+* i5: 2-4 cores, turbo boost, on board graphics
+* i7: 2-8cores, 2-8 mem stick, 10-130W
+
+{% tabs %}
+{% tab title='shell' %}
+
+* i7z
+
+{% endtab %}
+{% endtabs %}
 
 ## Memory
 
@@ -302,18 +321,16 @@ $$
 
 * Complement
 * Endian
-
-![Endian](images/20210207_125805.png)
+  ![Endian](images/20210207_125805.png)
 
 * Floating point: represented by sign, exponent, mantissa
   * float: 1 / 8 / 23
   * double: 1 / 11 / 52
+  ![Floating Point](images/20210207_125837.png)
 
-$$
-10010.101_{(2)}=2^{4}+2^{1}+2^{-1}+2^{-3}=18.6875
-$$
-
-![Floating Point](images/20210207_125837.png)
+  $$
+  10010.101_{(2)}=2^{4}+2^{1}+2^{-1}+2^{-3}=18.6875
+  $$
 
 * LSB: least significant bits
 * MSB: most significant bits
@@ -322,16 +339,12 @@ $$
   * byte: 8 bits
   * nibble: 4 bits
 
-* Twos complement
-  * inverting all of the bits in the number, then adding 1 to the least significant bit position
+* Twos complement: inverting all of the bits in the number, then adding 1 to the least significant bit position
   * No seperate signed zero
+  ![Twos complement](images/20210402_184458.png)
 
-![Twos complement](images/20210402_184458.png)
-
-* Multiplication
-  * Only subtract (twos complement) for last signed bit
-
-![Multiplication](images/20210404_180521.png)
+* Multiplication: Only subtract (twos complement) for last signed bit
+  ![Multiplication](images/20210404_180521.png)
 
 | Term | Meaning      |
 | ---- | ------------ |
@@ -378,8 +391,7 @@ printf("b  : %u \n", b);  // 4294967295
 * Literal: variable or its complement
 * Multilevel logic: many layers of two level logic with some inverters
 * Noise margin: amount of noise that could be added to a worst-case
-
-![Noise margin](images/20210402_185513.png)
+  ![Noise margin](images/20210402_185513.png)
 
 * Switching algebra: subset of boolean algebra conatians only 0, 1
 * Two level logic: sum of products, or products of sums
@@ -398,7 +410,7 @@ printf("b  : %u \n", b);  // 4294967295
   * deliver large amounts of current to a motor
   * quickly send its output to many gates
 
-![Buffer](images/20210402_185124.png)
+  ![Buffer](images/20210402_185124.png)
 
 | Laws           | And (Multiplication)                               | Or (Addition)                                  |
 | -------------- | -------------------------------------------------- | ---------------------------------------------- |
@@ -425,18 +437,18 @@ printf("b  : %u \n", b);  // 4294967295
 
 * Proof of Consensus Theorem
 
-$$
-\mathrm{AB}+\mathrm{AC}+\mathrm{B}^{\prime} \mathrm{C} \\
-=\mathrm{AB}+\mathrm{AC} 1+\mathrm{B}^{\prime} \mathrm{C} \\
-=\mathrm{AB}+\mathrm{AC}\left(\mathrm{B}+\mathrm{B}^{\prime}\right)+\mathrm{B}^{\prime} \mathrm{C} \\
-=\mathrm{AB}+\mathrm{ABC}+\mathrm{AB}^{\prime} \mathrm{C}+\mathrm{B}^{\prime} \mathrm{C} \\
-=\mathrm{AB}(1+\mathrm{C})+(\mathrm{A}+1) \mathrm{B}^{\prime} \mathrm{C} \\
-=\mathrm{AB}+\mathrm{B}^{\prime} \mathrm{C}
-$$
+  $$
+  \mathrm{AB}+\mathrm{AC}+\mathrm{B}^{\prime} \mathrm{C} \\
+  =\mathrm{AB}+\mathrm{AC} 1+\mathrm{B}^{\prime} \mathrm{C} \\
+  =\mathrm{AB}+\mathrm{AC}\left(\mathrm{B}+\mathrm{B}^{\prime}\right)+\mathrm{B}^{\prime} \mathrm{C} \\
+  =\mathrm{AB}+\mathrm{ABC}+\mathrm{AB}^{\prime} \mathrm{C}+\mathrm{B}^{\prime} \mathrm{C} \\
+  =\mathrm{AB}(1+\mathrm{C})+(\mathrm{A}+1) \mathrm{B}^{\prime} \mathrm{C} \\
+  =\mathrm{AB}+\mathrm{B}^{\prime} \mathrm{C}
+  $$
 
 * Logic Gate $$ ad+b'd + a'bc' + a'b'c+ abc $$
 
-![Logic Gate](images/20210411_035602.png)
+  ![Logic Gate](images/20210411_035602.png)
 
 | name      | count |
 | --------- | ----- |
@@ -474,8 +486,7 @@ $$
 * Implicant: A product term that has non-empty intersection with on-set F, doesn't intersect with off-set R
   * Prime: that isn't covered by any other implicant
   * Essential prime: Prime implicant that an element in on-set F
-
-![Essential primes](images/20210418_175715.png)
+    ![Essential primes](images/20210418_175715.png)
 
 > Question
 

@@ -181,6 +181,10 @@ class Member(UserMixin):
       return all(future.result() for future in as_completed(futures))
 ```
 
+> Reference
+
+<https://realpython.com/flask-google-login/>
+
 {% endtab %}
 {% endtabs %}
 
@@ -212,8 +216,6 @@ class Member(UserMixin):
 ![Pub sub](images/20210629_204827.png)
 
 * Message queues have exchanges that further push messages to the queues based on exchange type and set rules
-
-### Point to Point
 
 ## Open API
 
@@ -303,6 +305,10 @@ class AccountTests(APITestCase):
     self.assertEqual(Account.objects.count(), 1)
     self.assertEqual(Account.objects.get().name, 'DabApps')
 ```
+
+> Reference
+
+<https://www.cdrf.co/>
 
 {% endtab %}
 {% endtabs %}
@@ -410,9 +416,9 @@ Content-Length: 208
 
 ## Server-sent Event
 
-* client establishes a persistent and long-term connection with the server
-* [+] when real-time traffic from server to client
-* [+] when server is generating data in a loop and will be sending multiple events to the client
+* Client establishes a persistent and long-term connection with the server
+* [+] When real-time traffic from server to client
+* [+] When server is generating data in a loop and will be sending multiple events to the client
 
 ## SOAP
 

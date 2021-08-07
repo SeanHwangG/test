@@ -14,7 +14,7 @@
   * Mutex, Barrier
 
 * Starvation: a process/thread is perpetually denied necessary resources to process its work
-  * [ex] SJF, Priority based
+  * SJF, Priority based
 * synchronization primitives: mechanisms provided by a platform (OS) for supporting thread / process synchronization
 * Critical section: Only one thread at a time can execute (locks, semaphores, monitors, messages)
   * no other process must execute within the critical section while a process is in it
@@ -1523,6 +1523,15 @@ if __name__ == '__main__':
 {% endtabs %}
 
 {% include '.thread-queue.prob' %}
+
+### Producer consumer
+
+* Should be executed as Python processes when tasks are CPU Bound (GIL)
+* Enforce mutual exclusion of producers and consumer
+* Prevents producer from trying to add data to a full queue
+* Prevent consumers from trying to remove data from a empty queue
+
+![Producer consumer](images/20210213_183559.png)
 
 ## Concurrent Data structure
 

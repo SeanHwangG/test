@@ -125,6 +125,7 @@ list(pandas.closure(hyper)
 * Improved Method for Deriving Word Meaning from Lexical Co-Occurrence (Rohde, 04)
   * [+] Add threshold, manual tuning for distant word
 
+* t-Stochastic Nearest Neighbor (t-SNE): Usefule for vector visualization
 * word2vec(Continuous Bag of Words (CBOW)) predict center word from context words
   * Efficient Estimation of Word Representations in Vector Space (Mikolov, 2013)
   * can be trained with a specific corpus to find pseudo-algebraic operations between words
@@ -135,11 +136,11 @@ list(pandas.closure(hyper)
   * [-] Miss nuance (proficient, good), new meanings of words (ninja)
   * [-] Same vector for synonyms
 
-| Equation                                                                                         | Meaning           |
-| ------------------------------------------------------------------------------------------------ | ----------------- |
-| $$P(o \mid c)=\frac{\exp (u_{o}^{T} \cdot v_{c})}{\sum_{w=1}^{v} \exp (u_{w}^{T} \cdot v_{c})}$$ |                   |
-| $$\frac{\delta}{\delta v_{c}} J(\theta)=u_{0}-\sum_{x=1}^{v} p(x \mid c) \cdot u_{x}$$           | Used Chain Rule   |
-| $$J_{n e g}(o, v_{c}, U)=-\log (σ(u_{o}^{T} v_{c}))-\sum_{k=1}^{K} \log (σ(-u_{k}^{T} v_{c}))$$  | Negative Sampling |
+  | Equation                                                                                      | Meaning           |
+  | --------------------------------------------------------------------------------------------- | ----------------- |
+  | $$P(o \mid c)=\frac{\exp (u_{o}^{T} \cdot v_{c})}{∑_{w=1}^{v} \exp (u_{w}^{T} \cdot v_{c})}$$ |                   |
+  | $$\frac{θ}{\delta v_{c}} J(θ)=u_{0}-∑_{x=1}^{v} p(x \mid c) \cdot u_{x}$$                     | Used Chain Rule   |
+  | $$J_{neg}(o, v_c, U)=-\log (σ(u_{o}^{T} v_{c}))-∑_{k=1}^{K} \log (σ(-u_{k}^{T} v_{c}))$$      | Negative Sampling |
 
 * Prediction function
   $$ P(o \mid c)=\frac{\exp (u_{o}^{T} v_{c})}{\sum_{w \in V} \exp (u_{w}^{T} v_{c})} $$
@@ -176,9 +177,12 @@ list(pandas.closure(hyper)
 {% tab title='python' %}
 
 ```py
-# 1. Sentence similarity
+from sklearn.manifold import TSNE
+import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
+# 1. Sentence similarity
 train = ['call you tonight', 'Call me a cab', 'Please call me... PLEASE!']
 
 count_vect = CountVectorizer()
@@ -221,6 +225,14 @@ print(pd.DataFrame(tfidf_dtm.toarray(), columns=tfidf_vect.get_feature_names()))
 | 0.720 | 0.425 | 0.547832 | 0.000  | 0.000   | 0.000 |
 | 0.000 | 0.266 | 0.342620 | 0.901  | 0.000   | 0.000 |
 """
+
+word_10d = np.random.random((10, 10))
+
+tsne_model = TSNE()
+word_2d = tsne_model.fit_transform(word_10d)
+for i, (x, y) in enumerate(word_2d):
+  plt.scatter(x, y)
+  plt.annotate(i, xy=(x, y), ha='right', va='bottom')
 ```
 
 {% endtab %}

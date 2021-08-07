@@ -1,32 +1,14 @@
-N, M = map(int, input().split())
-s = list(input())
-cur = 0
-li = [0] * N
-for i in range(N):
-  if i > 1 and s[i] == s[i - 2]:
-    pos = set({'a', 'b', 'c'}) - set(s[i - 2:i + 3])
-    try:
-      s[i] = pos.pop()
-    except:
-      try:
-        s[i - 2] = (set({'a', 'b', 'c'}) - set(s[i - 2:i + 2])).pop()
-      except:
-        s[i] = (set({'a', 'b', 'c'}) - set(s[i - 2:i + 2])).pop()
-        # s[i - 2] = (set({'a', 'b', 'c'}) - set(s[i - 2:i + 1])).pop()
-    cur += 1
-  if i > 0 and s[i] == s[i - 1]:
-    pos = set({'a', 'b', 'c'}) - set(s[i - 2:i + 3])
-    try:
-      s[i] = pos.pop()
-    except:
-      try:
-        s[i - 1] = (set({'a', 'b', 'c'}) - set(s[i - 2:i + 2])).pop()
-      except:
-        s[i] = (set({'a', 'b', 'c'}) - set(s[i - 2:i + 2])).pop()
-        # s[i - 1] = (set({'a', 'b', 'c'}) - set(s[i - 2:i + 1])).pop()
-    cur += 1
-  li[i] = cur
-  print(li)
-for i in range(M):
-  l, r = map(int, input().split())
-  print(li[r - 1] - li[l - 1])
+for _ in range(int(input())):
+  n = int(input())
+  A, B = list(map(int, input())) + [0], list(map(int, input()))
+  #    00    01    10     11
+  d = {0: 0, 1: -1, 2: -1, 3: -1}
+  for i in range(n):
+    a, b = A[i], B[i]
+    if b == 0:
+      d[0], d[1], d[2], d[3] = max(d[0], d[2]), -1, max(d[2], d[3]), -1
+    else:
+      d[0], d[1], d[2], d[3] = max(d[0], d[2]) + A[i - 1], max(d[0], d[2]) if A[i + 1] else -1, max(d[3], d[1] + A[i - 1], max(d[0], d[2]) + (a ^ 1)), max(d[1], d[3]) + A[i + 1] if A[i + 1] else -1
+    print(a, b, d)
+
+  print(max(d[0], d[2]))

@@ -21,24 +21,24 @@
 
 ![Terms](images/20210220_193309.png)
 
-| Terms                                                    | Meaning                                                    |
-| -------------------------------------------------------- | ---------------------------------------------------------- |
-| $$b^{[l]}$$                                              | # Bias vector in $$I^{th}$$ Layer                          |
-| $$g^{[l]}$$                                              | $$I^{th}$$ layer activation function                       |
-| $$h(x)$$                                                 | hypothesis                                                 |
-| $$m$$                                                    | Number of examples in datasets                             |
-| $$n_{x} / n_{y}$$                                        | input / output size                                        |
-| $$n_{h}^{[l]}$$                                          | number of hidden units of $$I^{th}$$ layer                 |
-| $$W^{[l]}$$                                              | Weight matrix in $$I^{th}$$ layer                          |
-| $$x \mid X$$                                             | input / input matrix ($$n_x$$, m)                          |
+| Terms                                                    | Meaning                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- |
+| $$b^{[l]}$$                                              | # Bias vector in $$I^{th}$$ Layer                        |
+| $$g^{[l]}$$                                              | $$I^{th}$$ layer activation function                     |
+| $$h(x)$$                                                 | hypothesis                                               |
+| $$m$$                                                    | Number of examples in datasets                           |
+| $$n_{x} / n_{y}$$                                        | input / output size                                      |
+| $$n_{h}^{[l]}$$                                          | number of hidden units of $$I^{th}$$ layer               |
+| $$W^{[l]}$$                                              | Weight matrix in $$I^{th}$$ layer                        |
+| $$x \mid X$$                                             | input / input matrix ($$n_x$$, m)                        |
 | $$x^{(i)}$$                                              | $$i^{th}$$ example represented as column of ($$n_x$$, 1) |
-| $$\hat{y}$$                                              | predicted output vector                                    |
-| $$Y$$                                                    | label matrix ($$n_y$$, m)                                  |
-| $$z$$                                                    | weighted sum input                                         |
-| $$a=\sum_{j=0}^{d} w_{j} x_{j}=w^{T} x$$                 | Weighted Sum Output                                        |
-| $$\delta_{j}^{p}=\frac{\delta J^{P}}{\delta a_{j}^{p}}$$ | Delta                                                      |
-| $$L=\prod_{n=1}^{N} P\left(X^{n}\right)$$                | Likelihood                                                 |
-| $$-\ln L=-\ln \prod_{n=1}^{N} P\left(X^{n}\right)$$      | Error                                                      |
+| $$\hat{y}$$                                              | predicted output vector                                  |
+| $$Y$$                                                    | label matrix ($$n_y$$, m)                                |
+| $$z$$                                                    | weighted sum input                                       |
+| $$a=\sum_{j=0}^{d} w_{j} x_{j}=w^{T} x$$                 | Weighted Sum Output                                      |
+| $$\delta_{j}^{p}=\frac{\delta J^{P}}{\delta a_{j}^{p}}$$ | Delta                                                    |
+| $$L=\prod_{n=1}^{N} P\left(X^{n}\right)$$                | Likelihood                                               |
+| $$-\ln L=-\ln \prod_{n=1}^{N} P\left(X^{n}\right)$$      | Error                                                    |
 
 > Terms
 
@@ -66,6 +66,17 @@
   ![GNN](images/20210210_183847.png)
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* opencv.dnn
+  * size: output image size (default 0, 0)
+  * mean: subtract from input image (default 0, 0, 0)
+  * retval): numpy.ndarray. shape=(N,C,H,W). dtype=numpy.float32
+  * readNet(model, config, framework: trained weight, network, cv2.dnn_Net
+  * blobFromImage(image, scalefactor=1.0: multiply to image (default 1)
+  * NMSBoxes(boxes, confidences, confThreshold, nmsThreshold)
+
+{% endtab %}
 {% tab title='python' %}
 
 ![pytorch](images/20210301_195612.png)
@@ -259,7 +270,64 @@ $$
 
 ## RNN
 
-### Space
+* Prediction : predict the next word, Predict the next pixel.
+
+* [ex]
+  Sequence generation
+  Sequence recognition : recognize a sentence, recognize an action.
+  Sequence transformation : speech->text, English -> French.
+  Learning a program : sequential adder net, Neural Turing Machine.
+  Oscillations : walk, talk, chew, fly
+
+* Often, turn an input sequence into an output sequence in different domain
+  * Turn a sequence of sound pressures into a sequence of word identities.
+
+* Like autoencoding, predicting next term in a sequence blurs distinction between supervised and unsupervised learning
+
+* Sensitivity to temporal context
+* Ability to learn which words should be similar based on their predictive properties
+* Learned semantics by "listening to the radio"
+* But this model is computationally naive, in that it uses a truncated gradient
+* This made sense at the time, when computer power was much less
+* They can oscillate → Good for motor control
+* They can settle to point attractors → Good for retrieving memories
+* They can behave systematically → Good for learning transformations
+* They can behave chaotically → Bad for information processing
+* Potentially learn to implement lots of small programs that each capture a nugget of knowledge and run in parallel
+  * interacting to produce very complicated effects.
+* But computational power of RNNs makes them very hard to train
+  * For many years we could not exploit computational power of RNNs despite some heroic efforts
+
+> Example
+
+* Backprop through time
+  * Think recurrent net as a layered, feed-forward net with shared weights and then train feed-forward net with weight constraints
+  * Think this training algorithm in the time domain:
+  * The forward pass builds up a stack of the activities of all the units at each time step
+  * The backward pass peels activities off the stack to compute the error derivatives at each time step
+  * After the backward pass we add together the derivatives at all the different times for each weight
+  * Now change all the copies of the weight by that cumulative amount
+
+* Weight Constraint: It is easy to modify the backprop algorithm to incorporate linear constraints between the weights
+  * Start with weights equal
+  * Compute the gradients as usual
+  * Calculate the total gradient as a sum or average and then modify the gradients so that they satisfy the constraints
+
+* Backward pass
+  * forward pass use squashing function (like the logistic) to prevent the activity vectors from exploding
+  * backward pass is linear → double the error derivatives at the final layer, all error derivatives will double
+
+* Elman's approach : prediction, is very useful when there is no separate target sequence.
+  * Target output sequence is the input sequence with an advance of 1 step.
+  * For temporal sequences there is a natural order for the prediction.
+
+* Finding Structure in Time : sentence
+  * Collect the 150 hidden unit representations of every word in every sentence
+  * Average them together
+  * Perform hierarchical cluster analysis
+  * This will show how the network has learned to group items together
+
+### RNN Space
 
 * Auto regressive model
   * Linear model
@@ -272,7 +340,15 @@ $$
   * The networks then interact via attention mechanisms
   ![Feed-Forward neural network](images/20210214_014302.png)
 
-### State
+### RNN State
+
+* Use some memories so that new things are processed based upon what has come before
+* Elman network BPTT(1)
+* These networks can be used for many things, but typically, SRNs are used for prediction
+* This is theoretically simple, because the teacher is the input (one step later)
+* A temporal autoencoder
+
+> Example
 
 * Jordan network
   ![Jordan Network](images/20210214_014033.png)

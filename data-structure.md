@@ -119,48 +119,50 @@ complex()       # Took 0.111s
 {% tabs %}
 {% tab title='javascript' %}
 
-* new Date()
-* new Date(year, month, day, hours, minutes, seconds, milliseconds)   // month from 0
-* new Date(milliseconds)
-* new Date(date string)
+* Date()
+  * (year, month, day, hours, minutes, seconds, milliseconds): month from 0
+  * (milliseconds)
+  * (date string)
 
-* toDateString()
-* toUTCString()
-* toString()
+  * toDateString()
+  * toUTCString()
+  * toString()
 
-```js
-// 1. Check Same date
-var isSameDay = (dateToCheck.getDate() === actualDate.getDate()
-     && dateToCheck.getMonth() === actualDate.getMonth()
-     && dateToCheck.getFullYear() === actualDate.getFullYear())
+  ```js
+  // Check Same date
+  var isSameDay = (dateToCheck.getDate() === actualDate.getDate()
+      && dateToCheck.getMonth() === actualDate.getMonth()
+      && dateToCheck.getFullYear() === actualDate.getFullYear())
 
+  // Add Days
+  Date.prototype.addDays = function(d) {
+    return new Date(this.valueOf() + 864E5 * d);
+  }
 
-// 2. Add Days
-Date.prototype.addDays = function(d) {
-  return new Date(this.valueOf() + 864E5 * d);
-}
+  // Iterate date
+  var now = new Date();
+  var daysOfYear = [];
+  for (var d = new Date(2012, 0, 1); d <= now; d.setDate(d.getDate() + 1)) {
+      daysOfYear.push(new Date(d));
+  }
+  ```
 
-// 3. Iterate date
-var now = new Date();
-var daysOfYear = [];
-for (var d = new Date(2012, 0, 1); d <= now; d.setDate(d.getDate() + 1)) {
-    daysOfYear.push(new Date(d));
-}
+* moment
 
-// 4. moment
-<script src="https://momentjs.com/downloads/moment.min.js"></script>
+  ```js
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
 
-moment().format('YYYY-MM-DD HH:MM:SS') // convert javascript date to string
-moment(A).isSameOrAfter(B)
+  moment().format('YYYY-MM-DD HH:MM:SS') // convert javascript date to string
+  moment(A).isSameOrAfter(B)
 
-type: DataTypes.VIRTUAL,               // automatically set +3
-get() {
-  return moment(this.arrivalDate).add(3, "days");
-},
+  type: DataTypes.VIRTUAL,               // automatically set +3
+  get() {
+    return moment(this.arrivalDate).add(3, "days");
+  },
 
-now = moment()
-now.startOf('day') / endOf('day')        // Start / End of today
-```
+  now = moment()
+  now.startOf('day') / endOf('day')        // Start / End of today
+  ```
 
 {% endtab %}
 {% tab title='python' %}
@@ -203,6 +205,52 @@ backup_filename="${BACKUP_FILE_PREFIX}_$(date +'%Y_%m_%dT%H_%M_%S').sql.gz"
 ```
 
 {% endtab %}
+{% tab title='sql' %}
+
+![overlap](images/20210218_145536.png)
+
+```sql
+-- 1. sales data from 2013-01-03 to 2013-01-09
+SELECT * FROM Product_sales
+  WHERE NOT (From_date > @RangeTill OR To_date < @RangeFrom)
+
+-- 2. check range overlap
+SELECT * FROM tbl WHERE existing_start BETWEEN $newSTart AND $newEnd OR
+                        $newStart BETWEEN existing_start AND existing_end
+```
+
+* datetime
+
+  ```sql
+  -- 3. Different formats
+  ---- SQL Server string to date / datetime conversion - datetime string format sql server
+  ---- MSSQL string to datetime conversion - convert char to date - convert varchar to date
+  ---- Subtract 100 from style number (format) for yy instead yyyy (or ccyy with century)
+  SELECT convert(datetime, 'Oct 23 2012 11:01AM', 100) -- mon dd yyyy hh:mmAM (or PM)
+  SELECT convert(datetime, 'Oct 23 2012 11:01AM') -- 2012-10-23 11:01:00.000
+
+  ---- Without century (yy) string date conversion - convert string to datetime function
+  SELECT convert(datetime, 'Oct 23 12 11:01AM', 0) -- mon dd yy hh:mmAM (or PM)
+  SELECT convert(datetime, 'Oct 23 12 11:01AM') -- 2012-10-23 11:01:00.000
+
+  ---- Convert string to datetime sql - convert string to date sql - sql dates format
+  ---- T-SQL convert string to datetime - SQL Server convert string to date
+  SELECT convert(datetime, '10/23/2016', 101) -- mm/dd/yyyy
+  SELECT convert(datetime, '2016.10.23', 102) -- yyyy.mm.dd ANSI date with century
+  SELECT convert(datetime, '23/10/2016', 103) -- dd/mm/yyyy
+  SELECT convert(datetime, '23.10.2016', 104) -- dd.mm.yyyy
+  SELECT convert(datetime, '23-10-2016', 105) -- dd-mm-yyyy
+
+  ---- mon types are nondeterministic conversions, dependent on language setting
+  SELECT convert(datetime, '23 OCT 2016', 106) -- dd mon yyyy
+  SELECT convert(datetime, 'Oct 23, 2016', 107) -- mon dd, yyyy
+
+  ---- 2016-10-23 00:00:00.000
+  SELECT convert(datetime, '20:10:44', 108) -- hh:mm:ss
+  ```
+
+{% endtab %}
 {% endtabs %}
 
 {% include '.date.prob' %}
+{% include '.date-sql.prob' %}

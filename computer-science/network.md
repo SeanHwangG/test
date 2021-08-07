@@ -140,6 +140,67 @@ nc localhost 23457
 {% endtab %}
 {% endtabs %}
 
+{% tabs %}
+{% tab title='docker' %}
+
+* Docker use bridge as default network type, great for most uses cases
+
+![Docker Network](images/20210802_204510.png)
+
+> Example
+
+* docker
+  * network: use host if no isolation is needed
+    * docker network create learning
+    * inspect `type`: [ex] bridge, host
+    * ls: list of all
+    * create `nw`: create user defined bridge `nw`
+      * --driver: [ex] bridge, overlay
+    * rm: Remove one or more networks
+    * prune: All unused networks
+    * connect `image` `nw`: connect `image` with `nw`
+
+* docker-compose.yml
+  * networks (/services/sid/networks)
+    * aliases: aliases declares alternative hostnames for this service on network
+    * priority: 1000: set numeric priority of network
+    * ipv4/6_address: static IP address for containers for this service when joining network
+
+```sh
+""" 1. Shared """
+# terminal 1
+docker run -ti --name dog -v /shared ubuntu bash
+echo hi > /shared/bosom
+
+# terminal 2
+docker run -ti --volumes-from dog ubuntu bash  # go away if all containers exits
+ls /shared    # bosom
+
+""" 2. Link """
+# terminal 1
+docker run --rm -ti -e SECRET=internet --name catserver ubuntu:14.04 bash
+nc -lp 1234
+nc dogserver 1234   # getaddrinfo: Name or service not known
+
+# terminal 2
+docker run --rm -ti --link catserver --name dogserver ubuntu:14.04 bash
+nc catserver 1234   # works
+nc -lp 4321
+
+env  # CATSERVER_NAME=/dogserver/catserver, CATSERVER_ENV_SECRET=internet
+
+""" 3. Echo Server """
+docker run -it -p 2345 -p 2346 --name echo-server ubuntu:14.04 bash
+docker port echo-server # in other terminal
+# 2345/tcp -> 0.0.0.0:49158
+# 2346/tcp -> 0.0.0.0:49157
+```
+
+{% endtab %}
+{% endtabs %}
+
+{% link 'docker-server' %}
+
 ## Connection Type
 
 * Client-server network: All devices access resources through a central server and devices needing access are clients
@@ -324,31 +385,27 @@ nc localhost 23457
   * Authentication and encryption
   * Combine role of switches and routers
 
-* Bridge: break up a network into smaller segments
-  * Older technology
-
-![Bridge](images/20210306_182504.png)
-
 * Mac: Addressing of destination stations (one or groups) / source-station addressing information
   * 48-bit number 6 groups of 2 hex # globally unique identifier attached to an individual network interface
   * Controls the hardware responsible for interaction with the wired, optical or wireless transmission medium
-
-![Mac](images/20210306_182413.png)
+  ![Mac](images/20210306_182413.png)
 
 * NIC (network interface card or controller): allows computer or other device to access the network
   * can come in form of an expansion card, USB or built into the motherboard
   * needs to match technology being used → 802.11n Wifi or UTP
   * speed being used → gigabit ethernet speed network
   * network architecture → token ring network / ethernet network
-
-![NIC](images/20210306_182531.png)
+  ![NIC](images/20210306_182531.png)
 
 * Switches: connect multiple computers → inspect contents of ethernet protocol data sent in network
   * determine which system data intended and only send that data to one system → reduce collision domain
   * multilayer switch can work on more than 1 layer
   * Multiport bridge → separate larger networks into smaller segments called collision domains
+  ![Switches](images/20210306_182609.png)
 
-![Switches](images/20210306_182609.png)
+* Bridge: break up a network into smaller segments
+  ![Bridge](images/20210306_182504.png)
+  * Older technology
 
 ### CSMA
 
@@ -382,8 +439,7 @@ nc localhost 23457
 * Calculated by performing what's known as a cyclical redundancy check against the frame
 * CRC for data integrity, polynomial division to create a number that represent a larger set of data
 
-* Preamble
-  * seven bytes alternating 0, 1 → buffer between frames, synch internal clocks
+* Preamble: Seven bytes alternating 0, 1 → buffer between frames, synch internal clocks
   * SFD signals to a receiving device that the preamble is over
 
 * Dest Address
@@ -391,8 +447,7 @@ nc localhost 23457
   * Multicast: least sig bit is 1, dealing for multiple address
   * Broadcast: All 1
 
-* EtherType
-  * describes protocol of the contents of the frame
+* EtherType: Describes protocol of the contents of the frame
   * Sometimes VLAN presents, and indicates that frame itself is VLAN frame
   * Technique that lets you have multiple logical LANs operating on the same physical equipment
 
@@ -430,8 +485,7 @@ nc localhost 23457
   * Destination
   * Options: Optional used to set special characteristics primarily for testing
   * Padding: Series of zeros
-
-![Datagram](images/20210301_205409.png)
+  ![Datagram](images/20210301_205409.png)
 
 * Frame fragmentation: Determines frame size of routers located downstream → maximum transmission unit size
   * frame into smaller sizes and reassembles the full frame at destination
@@ -530,19 +584,17 @@ sudo docker inspect -f "{{ .NetworkSettings.IPAddress }}" container_name
   * Can be programmed for multiple protocol
   ![Router](images/20210301_205210.png)
 
-> Algorithm
+> Example
 
 ![Routing Algorithm](images/20210419_214044.png)
 
 * Distance state protocol: Router B tells A that shortest distance is now B
   * Takes long time in change from far away from it
-
-![Distance state protocol](images/20210316_160603.png)
+  ![Distance state protocol](images/20210316_160603.png)
 
 * Link state protocol: Require more memory and processing power
   * Information about each router is propagated to every other router on the autonomous system
-
-![Link State protocol](images/20210316_160635.png)
+  ![Link State protocol](images/20210316_160635.png)
 
 ## 4: Transport
 
@@ -618,6 +670,32 @@ kill -9 $(lsof -ti :80)
 ```
 
 {% endtab %}
+{% tab title='docker' %}
+
+![Publish port](images/20210802_211558.png)
+
+* Containers have only outbound netwrok access to bridge network by default
+
+> Example
+
+* docker
+  * container run
+    * -P: Open random port
+    * -p `public:private`: [ex] 8080:80 (access localhost:8080)
+  * port
+    * `container`: List port mappings or a specific mapping for `container`
+
+* Dockerfile
+  * EXPOSE 80/udp
+    * informs Docker that the container listens on the specified network ports at runtime
+    * TCP or UDP, and the default is TCP
+    * docker run -P flag to publish all exposed ports and map them to high-order ports
+    * Sample backend
+
+* docker-compose.services
+  * expose: must expose from container, must be accessible to linked services
+
+{% endtab %}
 {% endtabs %}
 
 ### Socket
@@ -642,33 +720,6 @@ kill -9 $(lsof -ti :80)
   ![TCP](images/20210314_003450.png)
 
 {% tabs %}
-{% tab title='shell' %}
-
-* netstat: review each of your network connections and open sockets
-  * -l: only listening sockets
-  * -n: Show numerical addresses instead
-  * -p: PID / name of program to which each socket belongs
-  * -t: tcp
-  * -u: udp
-  * ESTABLISHED: connection is currently made there
-  * LISTEN: socket is waiting for a connection
-  * -tupan | grep LISTEN: see open ports
-
-* ss
-  * -l: Show listening sockets (22 is opened by SSHD)
-  * -p: List process name that opened sockets
-  * -n: Don’t resolve service names i.e. don’t use DNS
-  * -t / u: Show only TCP / UDP sockets on Linux
-
-```sh
-# 1. kill port | kill running on port
-netstat -ano | grep :PORT_NUMBER
-
-# 2. List of all inode
-ls -l /proc/<pid>/fd
-```
-
-{% endtab %}
 {% tab title='cpp' %}
 
 * sys/socket.h
@@ -683,13 +734,13 @@ ls -l /proc/<pid>/fd
     * int domain [PF_INET]: communication domain
     * int type = [SOCKET_STREAM, SOCKET_DGRAM]: communication type
     * int protocol: see files /etc/protocols usually 0
-  * int bind()
-    * int socket: socket id
-    * const struct sockaddr *address: ip address and port of the machine
-    * socketlen_t address_len: size of the addrport structure
+  * int bind(): Bind a name to a socket
+    * int socket `socket_id`
+    * const struct sockaddr `*address`: ip address and port of the machine
+    * socketlen_t `address_len`: size of the addrport structure
   * int connect(int socket, const struct sockaddr \*address, socklen_t address_len)
   * int listen(int socket, int backlog)
-  * ssize_t send(int socket, const void \*message, size_t length, int flags);
+  * ssize_t send(int `socket`, const void `\*message`, size_t `length`, int `flags`)
   * ssize_t recv(int socket, void \*buffer, size_t length, int flags);
 
 ```cpp
@@ -807,6 +858,33 @@ def udp_server():
 ```
 
 {% endtab %}
+{% tab title='shell' %}
+
+* netstat: review each of your network connections and open sockets
+  * -l: only listening sockets
+  * -n: Show numerical addresses instead
+  * -p: PID / name of program to which each socket belongs
+  * -t: tcp
+  * -u: udp
+  * ESTABLISHED: connection is currently made there
+  * LISTEN: socket is waiting for a connection
+  * -tupan | grep LISTEN: see open ports
+
+* ss
+  * -l: Show listening sockets (22 is opened by SSHD)
+  * -p: List process name that opened sockets
+  * -n: Don’t resolve service names i.e. don’t use DNS
+  * -t / u: Show only TCP / UDP sockets on Linux
+
+```sh
+# 1. kill port | kill running on port
+netstat -ano | grep :PORT_NUMBER
+
+# 2. List of all inode
+ls -l /proc/<pid>/fd
+```
+
+{% endtab %}
 {% endtabs %}
 
 ## 5: Session
@@ -820,4 +898,6 @@ def udp_server():
 * Encryption or compression of data
 * SSL
 
-## 7: [Application](application-layer.md)
+## 7: Application
+
+[Application](application-layer.md)

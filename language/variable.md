@@ -94,6 +94,35 @@ echo "$ARG2"
 ```
 
 {% endtab %}
+{% tab title='verilog' %}
+
+![Data Types](images/20210505_001316.png)
+
+* Net: represents a physical connection between structural entities, such as between gates or between modules
+  * continuously driven
+* unsigned by default
+
+| Logic | Description                                      |
+| ----- | ------------------------------------------------ |
+| 0     | logic ‘0’ or false condition                     |
+| 1     | logic ‘1’ or true condition                      |
+| z     | high impedance state (used for tri-state buffer) |
+| x     | don’t care or unknown value                      |
+
+> Terms
+
+* Register: Can be assigned values, hold values until next assigneent
+  * drive wires
+
+* Flip-Flop: building blocks of sequential designs made of gates
+  * synchronous or asynchronous, may be triggered by lavel (latch) or edge (register)
+  * Several types: SR, D, JK, T
+
+* Nets
+  * wire: 1-bit input and output ports and signals
+  * cannot uses always_comb
+
+{% endtab %}
 {% endtabs %}
 
 ## Variable Builtin
@@ -158,48 +187,46 @@ echo "$ARG2"
 {% tabs %}
 {% tab title='github' %}
 
-* $VARIABLE_NAME
-* $Env:VARIABLE_NAME
-  * variable is read from the shell
-* ${{ env.VARIABLE_NAME }}
-  * variable is read from the workflow (can be used for other flow configuration)
-  * cannot use environment defined in same step
-
-* GITHUB_ACTION: The unique identifier of the action
-* GITHUB_ACTOR: [ex] seanhwangg
-* GITHUB_EVENT_PATH: Path to a file that contains event payload
-* GITHUB_REPOSITORY: repository owner and repo name ([ex] seanhwangg/hello_world)
-* GITHUB_RUN_ID: unique number for each run within a repository, which doesn't change when re-run workflow
-* GITHUB_SHA: commit SHA that triggered the workflow ([ex] ffac537e6cbbf934b08745a378932722df287a5d3)
-  * SHA12: ${GITHUB_SHA::12}
-* GITHUB_WORKSPACE
-* GITHUB_TOKEN: automatically creates a secret to use in your workflow
-  * You can use the GITHUB_TOKEN to authenticate in a workflow run
-* RUNNER_OS: [ex] Linux, Windows, macOS
-
 * github
+  * $VARIABLE_NAME
+  * $Env:VARIABLE_NAME
+    * variable is read from the shell
+  * ${{ env.VARIABLE_NAME }}
+    * variable is read from the workflow (can be used for other flow configuration)
+    * cannot use environment defined in same step
+
+  * GITHUB_ACTION: The unique identifier of the action
+  * GITHUB_ACTOR: [ex] seanhwangg
+  * GITHUB_EVENT_PATH: Path to a file that contains event payload
+  * GITHUB_REPOSITORY: repository owner and repo name ([ex] seanhwangg/hello_world)
+  * GITHUB_RUN_ID: unique number for each run within a repository, which doesn't change when re-run workflow
+  * GITHUB_SHA: commit SHA that triggered the workflow ([ex] ffac537e6cbbf934b08745a378932722df287a5d3)
+    * SHA12: ${GITHUB_SHA::12}
+  * GITHUB_WORKSPACE
+  * GITHUB_TOKEN: automatically creates a secret to use in your workflow
+    * You can use the GITHUB_TOKEN to authenticate in a workflow run
+  * RUNNER_OS: [ex] Linux, Windows, macOS
+
   * repository: owner and repository name ([ex] seanhwangg/hello_world)
   * repository_owner: repository owner's name ([ex] seanhwangg)
 
-```yml
-jobs:
-  example-jobs:
-    steps:
-      - name: PSQL
-        run: node client.js
-        env:
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
-```
+  ```yml
+  jobs:
+    example-jobs:
+      steps:
+        - name: PSQL
+          run: node client.js
+          env:
+            POSTGRES_HOST: postgres
+            POSTGRES_PORT: 5432
+  ```
+
+* gitlab
+  * CI_PROJECT_NAME: name of repository
+  * CI_COMMIT_REF_NAME: name of branch
 
 {% endtab %}
-{% tab title='gitlab' %}
-
-* CI_PROJECT_NAME: name of repository
-* CI_COMMIT_REF_NAME: name of branch
-
-{% endtab %}
-{% tab title='vscode' %}
+{% tab title='vim' %}
 
 * ${env:`PATH`}: get `PATH` from environment
 * ${workspaceFolder}: workspace forder path
@@ -940,6 +967,32 @@ int main() {
 * [-] increase in memory usage due to more memory allocation critical in embedded software
 * [-] maintenance is complex due to additional class in order to use pimpl, additional pointer indirection
 * [-] Hidden implementation cannot be inherited, although a class PImpl can
+
+> Term
+
+* Incomplete Type: When implementation of struct, unm, union, class are unknown
+* Complete Type: Everything else
+
+{% tabs %}
+{% tab title='cpp' %}
+
+> Error
+
+* Variable has incomplete type 'Person'
+
+```cpp
+// Wrong: Forward declaration without pointer
+#include <stdio.h>
+
+struct Person; // Fix 1. User Forward Implementation: struct Person{};
+
+int main() {
+  Person p;    // Fix 2. Pointer: Person* p;
+}
+```
+
+{% endtab %}
+{% endtabs %}
 
 ## Reference
 

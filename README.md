@@ -5,7 +5,7 @@ This repository is for transferring knowledge and save snippets with unified syn
 Any comments, contributions are welcome.
 
 ```sh
-# Fix wrong images
+# Reloatce images to appropriate folder
 make fix_include
 ```
 
@@ -19,11 +19,11 @@ make fix_include
 
 * Available tabs that goes into the same \{% tabs %}
 * Language tabs: C, cmake, C++, html (jinja), java, javascript, python, shell, sql, sv, vim
-* Tool tabs: git, vscode, linux, window, jenkins, docker, apple, google, amazon
+* Tool tabs: git, linux, window, jenkins, docker, apple, google, amazon
 
 ## Convention
 
-1. Break if current tags are more than 1~20 ([ex] list (*) -> Angle bracket (>) -> h3 -> h2 -> file -> repo -> file)
+1. Break if contents become larger than 15+ ([ex] list (*) -> h3 -> h2 -> h1=file)
 1. Use hyphen (-) for embed and file name (gitbook generates hypen when url encodes)
 1. Always follow linting rules with pre-commit
 1. Problem language is ordered alphabetically ([ex] c -> cpp -> java -> python -> shell)
@@ -46,6 +46,6 @@ make fix_include
 ## Programming Sites
 
 * [Problem information, difficulty is handled using following django project](https://github.com/SeanHwangG/classroom)
-* Site: baekjoon (BJ_*), codechef (CC_*), codeforce (CF_*), hackerrank (HR_*), kattis (KT_*), leetcode (LC_*)
+* Site: baekjoon (BJ\_\*), codechef (CC\_\*), codeforce (CF\_*), hackerrank (HR\_\*), kattis (KT\_\*), leetcode (LC_\*)
 
 * Planning to make these API publicly in graphQL

@@ -30,18 +30,18 @@
 
 * Check if a number is prime
 
-| -                  | Run Time     |
-| ------------------ | ------------ |
-| Basic loop         | O(N ^ 0.5)   |
-| Miller rabin       | O(k log^3 n) |
-| Miller rabin + FFT | O(k log^2 n) |
+  | -                  | Run Time     |
+  | ------------------ | ------------ |
+  | Basic loop         | O(N ^ 0.5)   |
+  | Miller rabin       | O(k log^3 n) |
+  | Miller rabin + FFT | O(k log^2 n) |
 
 * Find all primes under N
 
- | -                        | Run Time       | Space |
- | ------------------------ | -------------- | ----- |
- | Eratosthenes             | O(N log log N) | O(N)  |
- | Manipulated Eratosthenes | O(N)           | O(N)  |
+  | -                        | Run Time       | Space |
+  | ------------------------ | -------------- | ----- |
+  | Eratosthenes             | O(N log log N) | O(N)  |
+  | Manipulated Eratosthenes | O(N)           | O(N)  |
 
 > Example
 
@@ -61,7 +61,7 @@
 {% tab title='python' %}
 
 ```py
-# 1. Updated https://www.geeksforgeeks.org/sieve-eratosthenes-0n-time-complexity/
+# 1. Updated
 for every number i where i varies in range(2, N):
   Check if the number is prime. If the number is prime, store it in prime array.
 
@@ -74,6 +74,10 @@ for every prime numbers j less than or equal to the smallest prime factor p of i
 {% endtabs %}
 
 {% include '.eratosthenes.prob' %}
+
+> Reference
+
+<https://www.geeksforgeeks.org/sieve-eratosthenes-0n-time-complexity/>
 
 ### Miller Rabin
 
@@ -88,21 +92,19 @@ for every prime numbers j less than or equal to the smallest prime factor p of i
 | 2, 7, 61               | 4,759,123,141       |
 | 2, 3, 5, 7, 11, 13, 17 | 341,550,071,728,321 |
 
-> Proof Miller Rabin
+> Example
 
-* If x is odd, x - 1 is even which can be
-
-$$ x - 1 = 2^s \cdot d, (d is odd) $$
-
-* Using Fermat's little theorem
-
-$$ a^{x-1} \equiv 1 \bmod x \Longleftrightarrow a^{2^{s} d}-1 \equiv 0 \bmod x $$
-$$
-↔\left(a^{2^{s-1}} d+1\right)\left(a^{2^{s-1} d}-1\right) \equiv 0 \bmod x \\
-↔\left(a^{2^{s-1} d}+1\right)\left(a^{2^{s-2} d}+1\right)\left(a^{2^{s-2} d}-1\right) \equiv 0 \bmod x \\
-\vdots \\
-↔\left(a^{2^{s-1} d}+1\right)\left(a^{2^{s-2} d}+1\right) \cdots\left(a^{d}+1\right)\left(a^{d}-1\right) \equiv 0 \bmod x
-$$
+* Proof Miller Rabin
+  * If x is odd, x - 1 is even which can be
+  $$ x - 1 = 2^s \cdot d, (d is odd) $$
+  * Using Fermat's little theorem
+  $$ a^{x-1} \equiv 1 \bmod x \Longleftrightarrow a^{2^{s} d}-1 \equiv 0 \bmod x $$
+  $$
+  ↔(a^{2^{s-1}} d+1)(a^{2^{s-1} d}-1) \equiv 0 \bmod x \\
+  ↔(a^{2^{s-1} d}+1)(a^{2^{s-2} d}+1)(a^{2^{s-2} d}-1) \equiv 0 \bmod x \\
+  \vdots \\
+  ↔(a^{2^{s-1} d}+1)(a^{2^{s-2} d}+1) \cdots(a^{d}+1)(a^{d}-1) \equiv 0 \bmod x
+  $$
 
 {% include '.miller-rabin.prob' %}
 
@@ -174,23 +176,23 @@ k \end{array}\right) = \prod_{i=0}^{k}\left(\begin{array}{l}
 n_{i} \\ k_{i} \end{array}\right)(\bmod p)
 $$
 
-> $$ \left(\begin{array}{c}
-1432 \\ 342
-\end{array}\right) $$ mod 7
+> Example
 
-$$
-\left(\begin{array}{c}
-1432 \\ 342
-\end{array}\right) \equiv\left(\begin{array}{l}
-4 \\ 0
-\end{array}\right) \cdot\left(\begin{array}{l}
-1 \\ 6
-\end{array}\right) \cdot\left(\begin{array}{l}
-1 \\ 6
-\end{array}\right) \cdot\left(\begin{array}{l}
-4 \\ 6
-\end{array}\right)(\bmod 7)
-$$
+* $$ \left(\begin{array}{c} 1432 \\ 342 \end{array}\right) $$ mod 7
+
+  $$
+  \left(\begin{array}{c}
+  1432 \\ 342
+  \end{array}\right) \equiv\left(\begin{array}{l}
+  4 \\ 0
+  \end{array}\right) \cdot\left(\begin{array}{l}
+  1 \\ 6
+  \end{array}\right) \cdot\left(\begin{array}{l}
+  1 \\ 6
+  \end{array}\right) \cdot\left(\begin{array}{l}
+  4 \\ 6
+  \end{array}\right)(\bmod 7)
+  $$
 
 {% include '.lucas.prob' %}
 
@@ -275,6 +277,32 @@ for i in range(50):
 * od: octal, decimal, hex, ASCII dump
   * -i: same as -t dI, select decimal ints
 
+  ```sh
+  od -i binary.out
+  # 0000000           0           1           2           3
+  # 0000020           4           5           6           7
+  # 0000040           8           9          10          11
+  ```
+
+{% endtab %}
+{% tab title='sv' %}
+
+| symbol | description |
+| ------ | ----------- |
+| &      | and         |
+| ^      | xor         |
+| ~&     | or          |
+| &~     | nand        |
+
+```v
+// Gate Level half adder
+and(Cout, a, b);
+xor(S, a, b);
+
+// RTL half adder
+assign {Cout, S} = a + b;
+```
+
 {% endtab %}
 {% endtabs %}
 
@@ -285,6 +313,19 @@ for i in range(50):
 {% include '.nary.prob' %}
 
 ### Bit shift
+
+{% tabs %}
+{% tab title='sv' %}
+
+| symbol | description                           |
+| ------ | ------------------------------------- |
+| >>     | right shift                           |
+| <<     | left shift                            |
+| >>>    | right shift with MSB shifted to right |
+| <<<    | same as <<                            |
+
+{% endtab %}
+{% endtabs %}
 
 {% include '.bit-shift.prob' %}
 

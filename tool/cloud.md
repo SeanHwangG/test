@@ -21,36 +21,6 @@
   * [+] customization: unique solutions catering to their needs
   * [+] vendor lock-in: cost of switching to a differnt vendor is high (i-tunes)
 
-* Serverless: No servers involved when running the service to remove infrastructure administration
-  * Faas is a way to implmenet serverless
-
-![cloud services](images/20210307_183109.png)
-
-* IaaS (Infrastructure as a service): Don't worry about building your own network or your own servers
-  * virtual machines, servers, storage, load balancers, network
-  * [ex] AWS EC2 cloud, GCP, Azure
-
-* PaaS (Platform as a service): abstracts away the server instances you need
-  * Provided with entire computing platform
-  * Execution runtime, database, web server, development tools
-  * subset of cloud computing where a platform is provided for customers to run their services
-  * execution engine is provided for whatever software someone wants to run
-  * web developer writing a application w/o entire server complete with file system, dedicated resources
-  * [ex] AWS Elastic Beanstalk, Google app engine, Heroku
-
-* SaaS (Software as a service): licensing use of software to others, keeping software centrally hosted and managed
-  * cloud service provides hardware, software environment (operating system, application software)
-  * [-] has to share it's data with service provider, limit to customization (ex. fix service down, high latency)
-  * [ex] Google workspace, dropbox, salesforce, Dropbox
-
-* FaaS (Function as a Service)
-  * Event driven service model, only triggered when an event occurs (HTTP, web request)
-  * [+] Batch job, cron job
-  * [+] Easy to scale: stateless processes (image compression, video analysis)
-  * [-] Cold start problem: depends on service provider, environment configuration, memory footprint
-  * [-] Complexity: overall project becomes complex
-  * [ex] Amazon's AWS lambda, Google Cloud function
-
 * Hybrid Cloud: Sensitive in public, secure in private
 * Multi cloud
   * [-] Increase in complexity
@@ -78,19 +48,21 @@
   * list
 * help
 
-```txt
-<!-- ~/.aws/config -->
-[default]
-region=us-west-2
-output=json
-```
+* ~/.aws/config
 
-```txt
-<!-- ~/.aws/credentials -->
-[default]
-aws_access_key_id=AKIAUBU4SQ7HQRFTLW6S
-aws_secret_access_key=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
-```
+  ```txt
+  [default]
+  region=us-west-2
+  output=json
+  ```
+
+* ~/.aws/credentials
+
+  ```txt
+  [default]
+  aws_access_key_id=AKIAUBU4SQ7HQRFTLW6S
+  aws_secret_access_key=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
+  ```
 
 {% endtab %}
 {% tab title='google' %}
@@ -127,10 +99,9 @@ aws_secret_access_key=EkuLZB1/EpqGDnnpn08gqBwDesmCOECrcZ1xSJug
   * a single failure domain within a region -> deploy across multiple zones in a region
   * [ex] asia-northeast3-b
 
-> How to
-
-* [Enable Billing](https://cloud.google.com/appengine/docs/python/console/#billing)
-* [Moitoring](https://console.cloud.google.com/monitoring?project=seannote&timeDomain=1h)
+* How to
+  * [Enable Billing](https://cloud.google.com/appengine/docs/python/console/#billing)
+  * [Moitoring](https://console.cloud.google.com/monitoring?project=seannote&timeDomain=1h)
 
 ![Gcloud](images/20210214_175053.png)
 
@@ -141,11 +112,15 @@ aws_secret_access_key=EkuLZB1/EpqGDnnpn08gqBwDesmCOECrcZ1xSJug
 * [Resource manager](https://console.cloud.google.com/cloud-resource-manager)
 * [Images](https://console.cloud.google.com/gcr/images/seansdevnote?project=seansdevnote)
 
-> Error ERROR: (gcloud.run.deploy) Cloud Run error: Container failed to start.
-  Failed to start and then listen on the port defined by the PORT environment variable.
-  Logs for this revision might contain more information
+* Cloud Service
+  ![Cloud services](images/20210307_183109.png)
+  ![Cloud services share](images/20210607_221213.png)
+  * IaaS (Infrastructure as a service): User shouldn't have to worry about building your own network or your own servers
+    * [ex] AWS, GCP, Azure
 
-* doesn't run exec gunicorn
+  * SaaS (Software as a service): way of licensing use of software to others while keeping that software centrally managed
+    * [-] share it's data with service provider, limit to the customization flexibility (fix service down, high latency)
+    * [ex] Google workspace, dropbox, salesforce
 
 * --version: show version
 * alpha / beta: combine with below commands to use new feature
@@ -259,30 +234,31 @@ python manage.py migrate
 {% endtab %}
 {% endtabs %}
 
-## Cloud Service
+> Error
 
-![Cloud services](images/20210307_183109.png)
-![Cloud services share](images/20210607_221213.png)
+* Error ERROR: (gcloud.run.deploy) Cloud Run error: Container failed to start.
+  Failed to start and then listen on the port defined by the PORT environment variable.
+  Logs for this revision might contain more information
+  * doesn't run exec gunicorn
 
-* IaaS (Infrastructure as a service): User shouldn't have to worry about building your own network or your own servers
-  * [ex] AWS, GCP, Azure
+## PaaS
 
-* PaaS (Platform as a service): abstracts away the server instances you need
-  * subset of cloud computing where a platform is provided for customers to run their services
-  * execution engine is provided for whatever software someone wants to run
-  * web developer writing a application w/o entire server complete with file system, dedicated resources
-  * [ex] AWS Elastic Beanstalk, Google app engine, Heroku
+* Platform as a service abstracts away the server instances you need
+* subset of cloud computing where a platform is provided for customers to run their services
+* execution engine is provided for whatever software someone wants to run
+* web developer writing a application w/o entire server complete with file system, dedicated resources
+* [ex] AWS Elastic Beanstalk, Google app engine, Heroku
 
-* SaaS (Software as a service): way of licensing use of software to others while keeping that software centrally managed
-  * [-] share it's data with service provider, limit to the customization flexibility (fix service down, high latency)
-  * [ex] Google workspace, dropbox, salesforce
+{% tabs %}
+{% tab title='aws' %}
 
-* FaaS (Function as a Service): Event driven service model, only triggered when an event occurs (HTTP, web request)
-  * [+] Batch job, cron job
-  * [+] Easy to scale: stateless processes (image compression, video analysis)
-  * [-] Cold start problem: depends on service provider, environment configuration, memory footprint
-  * [-] Complexity: overall project becomes complex
-  * [ex] Amazon's AWS lambda, Google Cloud function
+* eb
+  * pip install awsebcli
+  * create `https://github.com/SeanHwangG/note`
+  * init: Create new application
+
+{% endtab %}
+{% endtabs %}
 
 ## Notification Service
 
@@ -343,15 +319,23 @@ python manage.py migrate
 * associated with private/public RSA key-pairs that are used for authentication to Google
 * can let other users or service accounts impersonate a service account
 
-## Serverless
+## FasS
+
+* Function as a Service, Event driven service model, only triggered when an event occurs (HTTP, web request)
+* No servers involved when running the service to remove infrastructure administration
+* Faas is a way to implmenet serverless
+* [+] Batch job, cron job
+* [+] Easy to scale: stateless processes (image compression, video analysis)
+* [-] Cold start problem: depends on service provider, environment configuration, memory footprint
+* [-] Complexity: overall project becomes complex
+* [ex] Amazon's AWS lambda, Google Cloud function
 
 {% tabs %}
 {% tab title='amazon' %}
 
-> Lambda
-
-* output connections should be both UDP, TCP
-* Configure all application VPCs to be peered
+* Lambda
+  * output connections should be both UDP, TCP
+  * Configure all application VPCs to be peered
 
 > Terms
 
@@ -497,58 +481,60 @@ docker run -d \
 
 * OS Login: Compute Engine IAM roles to grant or revoke SSH access to your Linux instances
 
-> gcloud compute CLI
+> Example
 
-* --project: [ex] seanhwangg
-* addresses
-  * list: list all address
-* instances
-  * add-metadata `instance`: must be a project member who is a compute instance admin
-    * --metadata: [ex] block-project-ssh-keys=FALSE, enable-oslogin=TRUE
-  * add-iam-policy-binding: grant OS login
-  * list: see all instances
-  * create `instance`
-    * --zone: [ex] asia-northeast3-a
-    * --machine-type: [ex] e2-micro
-    * --subnet: [ex] default
-    * --network-tier: [ex] PREMIUM
-    * --maintenance-policy: [ex] MIGRATE
-    * --service-account: [ex] 1933620077-compute@developer.gserviceaccount.com
-    * --scopes: [ex] <https://www.googleapis.com/auth/devstorage.read_only>,...
-    * --tags: [ex] http-server,https-server
-    * --image: [ex] ubuntu-1804-bionic-v20210623
-    * --image-project: [ex] ubuntu-os-cloud
-    * --boot-disk-size: [ex] 10GB
-    * --boot-disk-type: [ex] pd-balanced
-    * --boot-disk-device-name: [ex] classroom
-    * --no-shielded-secure-boot
-    * --shielded-vtpm
-    * --shielded-integrity-monitoring
-    * --reservation-affinity=any
-  * describe
-  * reset `instance`: reset instance before the metadata takes effect by using
-* networks
-  * create: [ex] debug-network
-* os-login
-  * describe-profile: show all available login users
-  * ssh-keys
-    * add
-      * --key-file=KEY_FILE_PATH
-      * --ttl=EXPIRE_TIME
-* project-info: read and manipulate project-level data like quotas and metadata
-  * add-metadata
-    * --metadata: [ex] enable-oslogin=TRUE
-  * describe: describe the Compute Engine project resource
-* zone
-  * list: See all zones and regions
+* gcloud compute
+  * --project: [ex] seanhwangg
+  * addresses
+    * list: list all address
+  * instances
+    * add-metadata `instance`: must be a project member who is a compute instance admin
+      * --metadata: [ex] block-project-ssh-keys=FALSE, enable-oslogin=TRUE
+    * add-iam-policy-binding: grant OS login
+    * list: see all instances
+    * create `instance`
+      * --zone: [ex] asia-northeast3-a
+      * --machine-type: [ex] e2-micro
+      * --subnet: [ex] default
+      * --network-tier: [ex] PREMIUM
+      * --maintenance-policy: [ex] MIGRATE
+      * --service-account: [ex] 1933620077-compute@developer.gserviceaccount.com
+      * --scopes: [ex] <https://www.googleapis.com/auth/devstorage.read_only>,...
+      * --tags: [ex] http-server,https-server
+      * --image: [ex] ubuntu-1804-bionic-v20210623
+      * --image-project: [ex] ubuntu-os-cloud
+      * --boot-disk-size: [ex] 10GB
+      * --boot-disk-type: [ex] pd-balanced
+      * --boot-disk-device-name: [ex] classroom
+      * --no-shielded-secure-boot
+      * --shielded-vtpm
+      * --shielded-integrity-monitoring
+      * --reservation-affinity=any
+    * describe
+    * reset `instance`: reset instance before the metadata takes effect by using
+  * networks
+    * create: [ex] debug-network
+  * os-login
+    * describe-profile: show all available login users
+    * ssh-keys
+      * add
+        * --key-file=KEY_FILE_PATH
+        * --ttl=EXPIRE_TIME
+  * project-info: read and manipulate project-level data like quotas and metadata
+    * add-metadata
+      * --metadata: [ex] enable-oslogin=TRUE
+    * describe: describe the Compute Engine project resource
+  * zone
+    * list: See all zones and regions
 
 ```sh
 gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_engine.pub --ttl=0
 ```
 
-> USERNAME@VM_EXTERNAL_IP: Permission denied (publickey).
+> Error
 
-* If OS Login is enabled on your project, VM doesn't accept SSH keys that are stored in metadata
+* USERNAME@VM_EXTERNAL_IP: Permission denied (publickey).
+  * If OS Login is enabled on your project, VM doesn't accept SSH keys that are stored in metadata
   * gcloud compute project-info add-metadata --metadata enable-oslogin=FALSE
 
 {% endtab %}
@@ -564,8 +550,7 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 {% tab title='amazon' %}
 
 * App stream
-
-![app stream](images/20210412_214059.png)
+  ![app stream](images/20210412_214059.png)
 
 1. Deliver desktop applications to any computer
     * Users can access the desktop applications they need at any time
@@ -623,6 +608,25 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 * Property
 
 {% endtab %}
+{% tab title='splunk' %}
+
+* Real-time log forwarding | syslog analysis | server monitoring | alerts, notification
+
+![Splunk](images/20210225_180230.png)
+
+> Example
+
+* command
+
+  ```sh
+  # return the average population of the counties in Georgia
+  source="census.csv" CTYNAME != "Georgia" STNAME="Georgia" | stats mean(CENSUS2010POP)
+
+  # state with the most counties
+  source="census.csv" | stats count by STNAME | sort count desc
+  ```
+
+{% endtab %}
 {% endtabs %}
 
 ## Orchestration
@@ -630,32 +634,11 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
 {% tabs %}
 {% tab title='amazon' %}
 
-* elastic beanstalk
-
-![EBS](images/20210403_014445.png)
-![EBS workflow](images/20210403_024508.png)
-![EBS environment](images/20210403_024613.png)
-
-* AWS fully managed service
-* Get a notification when done
-* Rollback by deploying previous version
-* [Django deploy](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html)
-
-> Terms
-
-* Application
-  * [Manage](https://ap-northeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-2#/applications)
-* Environment
-
-> Error
-
-* Environment named *** is in an invalid state for this operation. Must be Ready
-  * Rebuild environment
-
-![Environment named](images/20210427_050449.png)
-
-* Failed to deploy application: During an aborted deployment, some instances may have deployed the new application version
-  * Zip file name must be different
+* elastic beanstalk: AWS fully managed service
+  ![EBS](images/20210403_014445.png)
+  ![EBS workflow](images/20210403_024508.png)
+  ![EBS environment](images/20210403_024613.png)
+  * Get a notification when done, Rollback by deploying previous version
 
 * [install](https://github.com/aws/aws-elastic-beanstalk-cli-setup)
 * brew install awsebcli (github is preferred)
@@ -668,38 +651,60 @@ gcloud compute os-login ssh-keys add --key-file=/Users/sean/.ssh/google_compute_
   * RDS_USERNMAE
   * RDS_PASSWORD
 
-* abort: Cancels an environment update or deployment
-* clone: Clones an environment
-* console: Opens the environment in the AWS Elastic Beanstalk Management Console
-* config: open config file
-* create `env`: Creates a new environment (init + prompt a series of questions)
-* deploy
-* health: Show
-* init: create .elasticbeanstalk/config.yml file
-  * -p `platform`: set platform (ex: python-3.9)
-  * -i: interactive
-  * --source SOURCE: code-commit
-* list: Lists all environments
-* logs: download logs
-* open: Opens the application URL in a browser
-* ssh: enter into eb instance
-  * --setup
-* status: Gets environment information and status
-  * --verbose: show running instances
-* terminate `env`: terminate environment
-* use `env`: select environtment to `env`
+> Example
 
-```cfg
-<!-- .ebextensions/django.config -->
-container_commands:
-  01_migrate:
-    command: "source /opt/python/run/venv/bin/activate && python iotd/manage.py migrate --noinput"
-    leader_only: true
-```
+* aws
+  * abort: Cancels an environment update or deployment
+  * clone: Clones an environment
+  * console: Opens the environment in the AWS Elastic Beanstalk Management Console
+  * config: open config file
+  * create `env`: Creates a new environment (init + prompt a series of questions)
+  * deploy
+  * health: Show
+  * init: create .elasticbeanstalk/config.yml file
+    * -p `platform`: set platform (ex: python-3.9)
+    * -i: interactive
+    * --source SOURCE: code-commit
+  * list: Lists all environments
+  * logs: download logs
+  * open: Opens the application URL in a browser
+  * ssh: enter into eb instance
+    * --setup
+  * status: Gets environment information and status
+    * --verbose: show running instances
+  * terminate `env`: terminate environment
+  * use `env`: select environtment to `env`
 
-> .ebextensions/db-migrate.config
+* .ebextensions/django.config
 
-* leader_only: executed once when deployed to multiple instance
+  ```cfg
+  container_commands:
+    01_migrate:
+      command: "source /opt/python/run/venv/bin/activate && python iotd/manage.py migrate --noinput"
+      leader_only: true
+  ```
+
+* .ebextensions/db-migrate.config
+  * leader_only: executed once when deployed to multiple instance
+
+> Terms
+
+* Application
+  * [Manage](https://ap-northeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-2#/applications)
+* Environment
+
+> Error
+
+* Environment named *** is in an invalid state for this operation. Must be Ready
+  * Rebuild environment
+  ![Environment named](images/20210427_050449.png)
+
+* Failed to deploy application: During an aborted deployment, some instances may have deployed the new application version
+  * Zip file name must be different
+
+> Reference
+
+[Django deploy](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html)
 
 {% endtab %}
 {% endtabs %}
@@ -716,61 +721,18 @@ container_commands:
 
 * Goolge Cloud storage
 
-* defacl
-  * Get, set, or change default ACL on buckets
-* du
-* ls
-* cp
-  * `a.py` `gs://seansdevnote/`: copy `a.py` to `gs://seansdevnote/`
-* mb (Make buckets)
-  * -b off: uniform bucket-level access setting
-* status
-  * gsutil version: 4.55
-* -m rsync -r ./static gs://[YOUR_GCS_BUCKET]/static
-
-{% endtab %}
-{% endtabs %}
-
-## Container service
-
-{% tabs %}
-{% tab title='amazon' %}
-
-* Elastic Container Service simplifies building, releasing, and operating production-ready containerized applications
-* on ECS from a local development environment
-
-> Terms
-
-* Cluster: the logical grouping of ECS resources
-* Service: resource that allows to run, maintain a specified # of instances of a task definition simultaneously, in ECS cluster
-* Task-Definition: a text file, in JSON format, that contains all the definitions and configurations of your containers
-
-* [Install CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html)
-* --version
-* configure
-  * --cluster test
-  * --default-launch-type FARGATE
-  * --config-name test
-  * --region eu-west-1
-* up
-  * --cluster-config test
-  * --vpc YOUR_VPC_ID
-  * --subnets YOUR_SUBNET_ID_1, YOUR_SUBNET_ID_2
-
-{% endtab %}
-{% tab title='google' %}
-
-* container
-  * get-credentials api
-    * --zone us-central1-a
-    * --project seannote
-  * clusters create api
-    * list
-    * --scopes
-    * --num-nodes
-    * --zone `us-west1-a`
-  * images list: list all images
-  * images list-tags gcr.io/seansdevnote/page: list all tags
+* gcp
+  * defacl
+    * Get, set, or change default ACL on buckets
+  * du
+  * ls
+  * cp
+    * `a.py` `gs://seansdevnote/`: copy `a.py` to `gs://seansdevnote/`
+  * mb (Make buckets)
+    * -b off: uniform bucket-level access setting
+  * status
+    * gsutil version: 4.55
+  * -m rsync -r ./static gs://[YOUR_GCS_BUCKET]/static
 
 {% endtab %}
 {% endtabs %}

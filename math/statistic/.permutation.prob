@@ -270,7 +270,7 @@ print(mx, mn, sep = '\n')
 
 > codeforces
 
-* [Level  : UNKNOWN]()
+* [Level 1600 : Say No to Palindromes](https://codeforces.com/contest/1555/problem/D)
   * [Update solution](https://github.com/seanhwangg/blog/tree/main/math/statistic/permutation/CF_1555D.md/)
 
 {% tabs %}

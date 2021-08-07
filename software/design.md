@@ -100,3 +100,7 @@ class PizzaDelivery:
 {% link 'tinyurl' %}
 
 {% link 'pastebin' %}
+
+## Video
+
+{% link 'youtube' %}

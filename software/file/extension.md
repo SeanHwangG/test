@@ -259,7 +259,7 @@ with open(f"{options['gitbook_conf_dir']}/.gitbook.yaml", 'r') as stream:
 
 * obj: a geometry definition file format
 
-* svg (Scalable Vector Graphics): responsive
+* Scalable Vector Graphics (svg): responsive
 
 * tiff: Tagged Image Format File
   * Can be viewed and edited in nearly every photo editing software

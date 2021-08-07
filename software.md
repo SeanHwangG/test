@@ -88,16 +88,18 @@ catkin_make install
     * url(r"regex", where_to_send_requests)
   * settings: use variable defined in settings.py
 
-```py
-from django.conf import settings
-```
+  ```py
+  from django.conf import settings
+  ```
 
 {% endtab %}
 {% endtabs %}
 
 ## KPI
 
-* (Key Performance Indicator)
+* Key Performance Indicator
+
+> Term
 
 * Operational: problem understanding: clarify any uncertainties arount the problem SLA (Service-Level Agreement)
 * Tactical: SME (subject matter expert)
@@ -105,10 +107,8 @@ from django.conf import settings
   * concise documentation / automatic alerting & monitoring for unseen changes
 * Strategical: Prioritize and identify important problem that are not actively being worked on product, process, policy
   * evaluate the success of an organization or of a particular activity in which it engages
-
-* CPS (Cost Per Sales): the amount of money paid for every sale generated
-
-* CTR (Click Through Rate): number of clicks that your ad receives divided by the number of times your ad is shown
+* Cost Per Sales (CPS): the amount of money paid for every sale generated
+* Click Through Rate (CTR): number of clicks that your ad receives divided by the number of times your ad is shown
 
 ### Version
 
@@ -139,7 +139,21 @@ var min = versions.sort(semver.compare)[0]
 {% tabs %}
 {% tab title='cpp' %}
 
-* catkin_create_pkg: [ex] beginner_tutorials std_msgs rospy roscpp
+* gstreamer
+  * sudo apt-get install gtk+-3.0
+  * sudo apt-get install libgstreamer-plugins-base1.0
+  * sudo brew install gtk+-3.0 (mac)
+  * gcc file_name.c -o file_name `pkg-config --cflags --libs gstreamer-video-1.0 gtk+-3.0 gstreamer-1.0`
+
+* opengl xcode
+  * Header: usr/local/include
+  * Lib: usr/local/lib
+  * Link: openGL, /usr/local/Cellar/glfw
+    * Check cwd → scheme → edited a scheme
+  * Build setting: macros GL_SILENCE_DEPRECATION
+
+* ros
+  * catkin_create_pkg: [ex] beginner_tutorials std_msgs rospy roscpp
 
 {% endtab %}
 {% tab title='python' %}
@@ -249,8 +263,6 @@ alias d="docker "
 alias dc="docker compose"
 alias ag="ag --hidden -U"
 
-### C
-source ~/github/opencv/build/setup_vars.sh
 # CXXFLAGS += -c -Wall $(shell pkg-config --cflags opencv4) LDFLAGS += $(shell pkg-config --libs --static opencv4)
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
 export CMAKE_PREFIX_PATH=~/github/opencv/build    # PATH searched by CMake FIND_XXX()
@@ -271,6 +283,11 @@ export LDFLAGS="-L/usr/local/opt/libffi/lib"
 {% endtabs %}
 
 {% tabs %}
+{% tab title='docker' %}
+
+* sudo systemctl restart docker: Restart docker
+
+{% endtab %}
 {% tab title='apple' %}
 
 ```sh
@@ -349,32 +366,37 @@ class SimpleMiddleware:
 {% tabs %}
 {% tab title='cmake' %}
 
-```sh
-""" 1. Install """
-# Ubuntu
-https://cmake.org/download
-cd $CMAKE_DOWNLOAD_PATH
-./configure
-make -j
-sudo make install
-# Mac
-brew update
-brew install cmake
+* ros
 
-""" 2. Setup """
-source /opt/ros/foxy/setup.bash
-```
+  ```sh
+  source /opt/ros/foxy/setup.bash
+  ```
+
+* cmake
+
+  ```sh
+  # Ubuntu
+  https://cmake.org/download
+  cd $CMAKE_DOWNLOAD_PATH
+  ./configure
+  make -j
+  sudo make install
+  # Mac
+  brew update
+  brew install cmake
+  ```
 
 {% endtab %}
 {% tab title='cpp' %}
 
-```sh
-""" 1. Install ROS """
-brew tap ros/deps
-brew tap osrf/simulation   # Gazebo, sdformat, and ogre
-brew tap homebrew/core # VTK5
-brew tap homebrew/science  # others
-```
+* ros
+
+  ```sh
+  brew tap ros/deps
+  brew tap osrf/simulation   # Gazebo, sdformat, and ogre
+  brew tap homebrew/core     # VTK5
+  brew tap homebrew/science  # others
+  ```
 
 {% endtab %}
 {% tab title='java' %}
@@ -386,11 +408,21 @@ sudo apt-get install openjdk-8-jdk
 {% endtab %}
 {% tab title='shell' %}
 
-* Install ubuntu
+* Ubuntu
   1. Install Linux ubunutu ISO file
-  1. [Set up USB using rufus](https://rufus.ie/)
-  1. Try Ubuntu without Installing
-  1. ![Install ubunu](images/20210615_171024.png)
+  2. [Set up USB using rufus](https://rufus.ie/)
+  3. Try Ubuntu without Installing
+  4. ![Install ubunu](images/20210615_171024.png)
+
+  ```sh
+  sudo apt-get update && sudo apt-get install -y vim git docker python3.7 wget # Password / install
+  passwd
+  kill -HIP $PPID
+  dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"  # switch caps-lock esc
+  dconf reset -f /                             # set up to default
+  sudo apt-get install bluez*                  # bluetooth
+  sudo apt-get install gnome-session-fallback  # toggle sidebar (settings -> dock -> auto-hide the dock)
+  ```
 
 * curl: providing a library and command-line tool for transferring data using various network protocols
   * -L: (HTTP) If requested page has moved to a different location use that
@@ -401,6 +433,16 @@ sudo apt-get install openjdk-8-jdk
   * -X `type`: request `type` ([ex] POST)
   * -H `header`: header ([ex] 'Content-Type: app/json')
   * -d `data`: [ex] '{"id": "tom", "age": "7"}'
+
+  ```sh
+  curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
+  error() {
+    print_error $@
+    exit 1
+  }
+
+  curl -m 2 www.google.com &> /dev/null || error "Failed to access external"
+  ```
 
 * rqm (Redhat Package Manager): manipulates specifically packages it is asked to manipulate
   * needs to know the exact location of .rqm package
@@ -417,44 +459,18 @@ sudo apt-get install openjdk-8-jdk
   * --ask-password: secure safe
   * --http-user / http-passwd: Specify username user and password on an HTTP (not safe)
 
-* update-alternatives
-  * maintain symbolic links determining default commands
+* update-alternatives: maintain symbolic links determining default commands
   * --config: name
   * --install /usr/bin/python3 python3 /usr/bin/python3.8 2: set python3.8 with priority 2
 
-```sh
-# 1. curl
-curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
-error() {
-  print_error $@
-  exit 1
-}
+* Mac
 
-curl -m 2 www.google.com &> /dev/null || error "Failed to access external"
-
-# 2. Install multiple files
-PKGS=(
-  libusbx-devel
-  gtk2
-  gstreamer1
-)
-yum install -y ${PKGS[@]}
-
-# 3. Mac install packages
-# brew install binutils   # readelf equivalent 'export PATH="/usr/local/opt/binutils/bin:$PATH"' >> ~/.zshrc
-defaults write -g ApplePressAndHoldEnabled -bool false  # disable accentuate
-defaults write com.google.chrome IncognitoModeAvailability -integer 1z  # disable incognito mode
-defaults write com.apple.finder AppleShowAllFiles TRUE : Show hidden folder on Mac
-
-# 4. Ubuntu
-sudo apt-get update && sudo apt-get install -y vim git docker python3.7 wget # Password / install
-passwd
-kill -HIP $PPID
-dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"  # switch caps-lock esc
-dconf reset -f /                             # set up to default
-sudo apt-get install bluez*                  # bluetooth
-sudo apt-get install gnome-session-fallback  # toggle sidebar (settings -> dock -> auto-hide the dock)
-```
+  ```sh
+  # brew install binutils   # readelf equivalent 'export PATH="/usr/local/opt/binutils/bin:$PATH"' >> ~/.zshrc
+  defaults write -g ApplePressAndHoldEnabled -bool false  # disable accentuate
+  defaults write com.google.chrome IncognitoModeAvailability -integer 1z  # disable incognito mode
+  defaults write com.apple.finder AppleShowAllFiles TRUE : Show hidden folder on Mac
+  ```
 
 > Reference
 
@@ -465,20 +481,41 @@ sudo apt-get install gnome-session-fallback  # toggle sidebar (settings -> dock 
 {% endtabs %}
 
 {% tabs %}
-{% tab title='git' %}
+{% tab title='amazon' %}
+
+* aws
+
+  [Mac Install CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html)
+
+{% endtab %}
+{% tab title='docker' %}
 
 ```sh
-# 1. Install gh
-""" Ubuntu """
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
-https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-sudo apt update
-sudo apt install gh
+# Automatic
+curl -s https:\//get.docker.com/ | sudo sh
 
-""" Mac """
-brew install gh
+# Manual
+curl -fsSL https://get.docker.com -o get-docker.sh
+chmod +x get-docker.sh
+./get-docker.sh
 ```
+
+{% endtab %}
+{% tab title='git' %}
+
+* gh
+
+  ```sh
+  # Ubuntu
+  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+  https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  sudo apt update
+  sudo apt install gh
+
+  # Mac
+  brew install gh
+  ```
 
 {% endtab %}
 {% tab title='jenkins' %}
@@ -539,15 +576,64 @@ sudo apt-get install jenkins
   * !#:n / $: nth / last word in current command
   * !!:gs/string1/string2: change old from previous command to new (multiple)
 
-* Ubuntu
-  * Settings -> Device -> Keyboard
-  * Alt+Prt Scrn: take a screenshot of a window.
-  * Shift+Prt Scrn: take a screenshot of an area you select
-  * Alt + `: switch between same app
-  * fn + window + arrow: next screen
-
 * Mac
   * Control + Command + Q: Lock screen
+
+{% endtab %}
+{% tab title='vim' %}
+
+* VSCode
+  * Go to symbol in Editor/workspace
+  * Edit
+    * ⌘ d: edit multiple variables
+    * option up / down: move current code up / down
+    * ⌃ Space: trigger IntelliSense Suggestions
+    * ⇧ ⌥ a: toggle comment
+  * File
+    * Open...
+  * Navigation
+    * ⌘ shift f / h: find / replace words in all files
+    * ⌘ shift o: find symbol / move to method (with corresponding language extension)
+    * ⌘ shift .: See all methods
+    * ⌘ option click: Open Side
+    * ⌘ click: Replace / Click again to go back
+    * ⌃ (⇧) -: Navigate back (forward)
+  * Git
+    * Reveal Commit in Side Bar
+    * Open Changes with Previous / Next Revision
+  * References
+    * Find All References
+  * Select
+    * Multi-line cursor
+    * Multi-line cursor
+    * expand / shrink select
+  * Screen
+    * ⌘ E: Find given word
+    * Move Editor into Next / previous Group
+    * ⌘ B: Toggle Sidebar
+    * ⌘ k: zenmode
+    * ctrl 1: Focus on editor
+    * ⌘ K ⌘ /: Fold all block comments
+    * ⌘ shift B: Build and debug
+    * shift ⌘ M: jump to errors and warnings in the project
+    * option ⌘ [: Code folding
+    * ⌘ k ⌘ 0 / j: Fold / unfold all codes
+  * Search
+    * Find in Files
+    * Replace in Files: Regex Capture group can be referenced using $1…
+
+  * Terminal
+    * Create New Integrated Terminal
+    * Focus on terminal View
+    * Focus Previous/Next Pane
+    * New terminal
+    * Split Terminal
+    * Toggle Terminal
+
+  * View
+    * Focus Next Editor Group
+    * Move Editor into Next/Previous Group
+    * Toggle Side Bar Visibility
 
 {% endtab %}
 {% endtabs %}
@@ -565,9 +651,7 @@ sudo apt-get install jenkins
 {% endtab %}
 {% tab title='apple' %}
 
-* ⌘ ⇧ 3 / 4: captures a screenshot of your entire screen / drag to select a portion of your screen
 * ⌘ ⇧ 6: captures number pad
-* (⌃) ⌘ shift 4 / 5: Screen shot (saved to clipboard)
 
 * ⌘ ⇧ /: Help
 * ⌘ space: Search files
@@ -579,69 +663,6 @@ sudo apt-get install jenkins
 * System Preferences -> Sharing -> Computer Name:
 
 {% endtab %}
-{% tab title='vscode' %}
-
-* Go to symbol in Editor/workspace
-
-* Edit
-  * ⌘ d: edit multiple variables
-  * option up / down: move current code up / down
-  * ⌃ Space: trigger IntelliSense Suggestions
-  * ⇧ ⌥ a: toggle comment
-
-* File
-  * Open...
-
-* Navigation
-  * ⌘ shift f / h: find / replace words in all files
-  * ⌘ shift o: find symbol / move to method (with corresponding language extension)
-  * ⌘ shift .: See all methods
-  * ⌘ option click: Open Side
-  * ⌘ click: Replace / Click again to go back
-  * ⌃ (⇧) -: Navigate back (forward)
-
-* Git
-  * Reveal Commit in Side Bar
-  * Open Changes with Previous / Next Revision
-
-* References
-  * Find All References
-
-* Select
-  * Multi-line cursor
-  * Multi-line cursor
-  * expand / shrink select
-
-* Screen
-  * ⌘ E: Find given word
-  * Move Editor into Next / previous Group
-  * ⌘ B: Toggle Sidebar
-  * ⌘ k: zenmode
-  * ctrl 1: Focus on editor
-  * ⌘ K ⌘ /: Fold all block comments
-  * ⌘ shift B: Build and debug
-  * shift ⌘ M: jump to errors and warnings in the project
-  * option ⌘ [: Code folding
-  * ⌘ k ⌘ 0 / j: Fold / unfold all codes
-
-* Search
-  * Find in Files
-  * Replace in Files: Regex Capture group can be referenced using $1…
-
-* Terminal
-  * Create New Integrated Terminal
-  * Focus on terminal View
-  * Focus Previous/Next Pane
-  * New terminal
-  * Split Terminal
-  * Toggle Terminal
-
-* View
-  * Focus Next Editor Group
-  * Move Editor into Next/Previous Group
-  * Toggle Side Bar Visibility
-
-{% endtab %}
 {% endtabs %}
 
 ### Update
@@ -649,12 +670,33 @@ sudo apt-get install jenkins
 {% tabs %}
 {% tab title='cmake' %}
 
-* sudo apt-get install update cmake
+* apt
+  * install update cmake
+  * remove --purge --auto-remove cmake: Uninstall the default version provided by Ubuntu's package manager
+
+```sh
+""" 1. Remove old cmake """
+sudo apt purge --auto-remove cmake
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - |
+  sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main'   # bionic for 18, focal for 20
+```
 
 {% endtab %}
-{% tab title='bash' %}
+{% tab title='cpp' %}
 
-* apt update
+```sh
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update
+sudo apt install g++-7 -y
+```
+
+{% endtab %}
+{% tab title='shell' %}
+
+* sudo apt update
+* brew update
 
 {% endtab %}
 {% endtabs %}
@@ -695,20 +737,19 @@ main:
 {% endtab %}
 {% tab title='cmake' %}
 
-```sh
-# 1. Optional Toolchain / Build Type         # Debug Version doesn't do compiler optimization
-├── CMakeLists.txt
-project("Hello")
-cmake_minimum_required(VERSION 3.5)
-set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
-set(CMAKE_BUILD_TYPE Debug)                     # cmake -DCMAKE_BUILD_TYPE=Debug
-add_executable(Hello ${SOURCE_FILES})
-├── main.cpp
-└── toolchain
-  └── Linux-Clang.cmake
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE string "clang++ compiler" FORCE)    # cmake -Bbuild -Ctoolchain/Linux-Clang.cmake
+* add_definitions
 
-```
+  ```sh
+  # Compile option
+  ├── CMakeLists.txt
+  cmake_minimum_required(VERSION 3.0)
+  project(same_folder)                            # Root CMAKE must have, set PROJECT_VERSION, PROJECT_NAME
+  add_definitions("-Wall -std=c++14")             # g++ -D option
+  add_executable(main main.cpp test.cpp)
+  ├── main.cpp
+  ├── test.cpp
+  └── test.h
+  ```
 
 {% endtab %}
 {% tab title='cpp' %}
@@ -736,43 +777,54 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE string "clang++ compiler" FORCE)
   * -Wl,aaa,bbb: list of tokens as a space-separated list of arguments to the linker (ld aaa bbb)
   * -x: Specify the language of the following input files
 
-> Undefined behavior: the result of F() is a dangling reference
+> Error
 
-```cpp
-// 1. undefined_behavior
-function<const int&()> F([]{ return 42; });
-int x = F();
-```
+* Undefined behavior: the result of F() is a dangling reference
 
-> errors.cpp:1:10: fatal error: 'a' file not found
+  ```cpp
+  function<const int&()> F([]{ return 42; });
+  int x = F();
+  ```
 
-```cpp
-#include <a>
-#include <iostream>
-```
+* errors.cpp:1:10: fatal error: 'a' file not found
 
-> error: expected namespace name
+  ```cpp
+  #include <a>
+  #include <iostream>
+  ```
 
-```cpp
-using namespace sd;
-```
+* error: expected namespace name
+
+  ```cpp
+  using namespace sd;
+  ```
+
+* unknown type name 'in'
+
+  ```cpp
+  in a;
+  ```
+
+* error: expression is not assignable
+
+  ```cpp
+  int a = 2 = 3;
+  ```
+
+* error: expected ';' after expression
+
+  ```cpp
+  a++  // a++;
+  ```
 
 ```cpp
 int main() {
-  // unknown type name 'in'
-  // in a;
-
-  // error: expression is not assignable
-  // int a = 2 = 3;
   int a = 3;
-  // error: expected ';' after expression
-  // a++
-  // a++;
 
   // error: use of undeclared identifier 'b'
   // b = 3;
 
-  // warning: ivision by zero is undefined [-Wdivision-by-zero]
+  // warning: Division by zero is undefined [-Wdivision-by-zero]
   // cout << 1 / 0;
 
   // error : cannot initialize a variable of type 'int' with an lvalue of type 'const char [3]
@@ -811,13 +863,12 @@ int main() {
 {% endtab %}
 {% tab title='java' %}
 
-> javac
-
-* -classpath
-* -d: Specify where to place generated class files ([ex] `dir`)
-* -sourcepath: [ex] ../.
-* -g: [ex] ../threads/ThreadedKernel.java
-* --version
+* javac
+  * -classpath
+  * -d: Specify where to place generated class files ([ex] `dir`)
+  * -sourcepath: [ex] ../.
+  * -g: [ex] ../threads/ThreadedKernel.java
+  * --version
 
 {% endtab %}
 {% endtabs %}
@@ -921,9 +972,9 @@ int get_random_number();
 
 * ld: symbol(s) not found for architecture x86_64
 
-```cpp
-int man () {
-```
+  ```cpp
+  int man () {
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -940,11 +991,29 @@ int man () {
 
 ### Dynamic linking
 
-* Linking postponed until execution time → useful for libraries
+* aka shared, Linking postponed until execution time → useful for libraries
 * stub replaces itself with address of routine, and executes routine
 * Window → .dll, Apple → dylib (Framework), Unix → so
 
 {% tabs %}
+{% tab title='cmake' %}
+
+* add_library
+  * `type`: [ex] **STATIC**, SHARED
+
+  ```sh
+  ├── CMakeLists.txt
+  cmake_minimum_required(VERSION 3.0)
+  project(libarary)
+  add_library(test SHARED test.hpp test.cpp)   # ldd main prints @rpath/libtest.dylib if SHARED
+  add_executable(main main.cpp)
+  target_link_libraries(main test)
+  ├── main.cpp
+  ├── test.cpp
+  └── test.hpp
+  ```
+
+{% endtab %}
 {% tab title='cpp' %}
 
 ```cpp
@@ -984,8 +1053,7 @@ cout << "moo" << endl;
   * size of the ELF header, the object file type
   * machine type (x86-64)
   * file offset of the section header table / size and number of entires
-
-![ELF Object files](images/20210303_015455.png)
+  ![ELF Object files](images/20210303_015455.png)
 
 * .text: machine code of the compiled program
 * .rodata: Read-only data such as the format strings in printf statements, and jump tables for switch statements

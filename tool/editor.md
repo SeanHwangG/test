@@ -26,16 +26,19 @@
 {% tabs %}
 {% tab title='vim' %}
 
-* yy: yank line
-* dd: delete and copy current line
-* ggyG: yank entire file
-* :d: delete current line
-* :m0: move current line to line 0
-* :wqa: write close all
-* :%w !pbcopy: copy to clipboard
-* :r !pbpaste: paste from the clipboard
-* :w !sudo tee %: without permission
-* :3,5y: copy from line 3 to 5
+* vim.normal
+  * yy: yank line
+  * dd: delete and copy current line
+  * ggyG: yank entire file
+
+* vim.lastline
+  * :d: delete current line
+  * :m0: move current line to line 0
+  * :wqa: write close all
+  * :%w !pbcopy: copy to clipboard
+  * :r !pbpaste: paste from the clipboard
+  * :w !sudo tee %: without permission
+  * :3,5y: copy from line 3 to 5
 
 {% endtab %}
 {% endtabs %}
@@ -46,11 +49,13 @@
 {% tab title='vim' %}
 
 * ctrl + v: multiple line
-* U: Capitalize
 
-```sh
-ctrl + v | shift + i \# enter : python multiline comment
-```
+  ```sh
+  ctrl + v | shift + i \# <CR> : python multiline comment
+  ```
+
+* vim.scroll
+  * U: Highlight
 
 {% endtab %}
 {% endtabs %}
@@ -77,22 +82,22 @@ ctrl + v | shift + i \# enter : python multiline comment
 {% tabs %}
 {% tab title='vim' %}
 
-0 | $: begin | end of the line
-^: first non-blank character
-( | ): begin | end of the current paragraph
-zt | z. | zb: cursor top | middle | bottom
-H | M | L: move to top | middle | low of the page
-w / W: jump by start of words (punctuation considered words / spaces separate words)
-e / E: jump to end of words (punctuation considered words / no punctuation)
+* 0 | $: begin | end of the line
+* ^: first non-blank character
+* ( | ): begin | end of the current paragraph
+* zt | z. | zb: cursor top | middle | bottom
+* H | M | L: move to top | middle | low of the page
+* w / W: jump by start of words (punctuation considered words / spaces separate words)
+* e / E: jump to end of words (punctuation considered words / no punctuation)
 
-]] / [[: move the cursor a section forwards or to the next { / previous {
+* ]] / [[: move the cursor a section forwards or to the next { / previous {
 
-gg / G: go to first / last line
-ge: jump backward to end of words
-nG: go To line n
+* gg / G: go to first / last line
+* ge: jump backward to end of words
+* nG: go To line n
 
-CTRL-f | b: scroll full screen forward | backward
-CTRL-d | u: scroll half screen forward | backward
+* CTRL-f | b: scroll full screen forward | backward
+* CTRL-d | u: scroll half screen forward | backward
 
 {% endtab %}
 {% endtabs %}
@@ -202,7 +207,10 @@ CTRL-d | u: scroll half screen forward | backward
   * dd: delete (cut) a line
   * dt\': delete until the next ' character on the line (replace ' by any character)
   * D: delete from cursor to end of line
-  * :[range]d: delete [range] lines
+
+  ```sh
+  :[range]d  # delete [range] lines
+  ```
 
 * Spelling
   * ]/[s: next / previous misspelled word
@@ -215,7 +223,6 @@ CTRL-d | u: scroll half screen forward | backward
 * :retab: Repace tab to spaces
 
 ```vim
-<!-- lastline -->
 command Gb :normal i {% tabs %} <CR> {% tab title=""} <CR> {% endtab %} <CR> {% endtabs %} <ESC>
 ```
 
@@ -229,6 +236,17 @@ command Gb :normal i {% tabs %} <CR> {% tab title=""} <CR> {% endtab %} <CR> {% 
 
 * .vimrc: Located in home\(~\) directory, get run every time when open vim
 
+  ```sh
+  set num                 # show line number
+  syntax on               # coloring
+  set tabstop=4           # Change Tab into 4 spaces
+  set shiftwidth=4        # Change >> length to 4
+  set et                  # Convert tab to space
+  set hlsearch            # highlight all matches in a file when perform a search,
+  set incsearch           # highlight next match while you're still typing search pattern
+  verbose                 # where setting is from
+  ```
+
 * expand
   * ("%"): path/file.txt
   * ("%:t"): file.txt
@@ -236,18 +254,23 @@ command Gb :normal i {% tabs %} <CR> {% tab title=""} <CR> {% endtab %} <CR> {% 
   * ("%:e"): txt
   * ("%:p:h"): /home/you/path/file.txt
 
-```vim
-<!-- 1. vimrc -->
-:so ~/.vimrc            # apply vimrc
+* inoremap
 
-set num                 # show line number
-syntax on               # coloring
-set tabstop=4           # Change Tab into 4 spaces
-set shiftwidth=4        # Change >> length to 4
-set et                  # Convert tab to space
-set hlsearch            # highlight all matches in a file when perform a search,
-set incsearch           # highlight next match while you're still typing search pattern
-verbose                 # where setting is from
+  ```vim
+  inoremap ( ()<left>
+  inoremap [ []<left>
+  inoremap { {}<left>
+  inoremap ) <ESC>:call AutoClose(')') <CR>a
+  inoremap ] <ESC>:call AutoClose(']') <CR>a
+  inoremap } <ESC>:call AutoClose('}') <CR>a
+  inoremap " <ESC>:call AutoClose('"') <CR>a
+  inoremap ' <ESC>:call AutoClose("'") <CR>a
+  inoremap {<CR> {<CR>}<ESC>O
+  inoremap {;<CR> {<CR>};<ESC>O
+  ```
+
+```vim
+:so ~/.vimrc            # apply vimrc
 
 set encoding=utf-8      # Korean support
 set fileencodings=utf-8,cp949
@@ -266,17 +289,6 @@ func! AutoClose(...)
   execute "normal!l"
   endif
 endfunc
-
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap ) <ESC>:call AutoClose(')') <CR>a
-inoremap ] <ESC>:call AutoClose(']') <CR>a
-inoremap } <ESC>:call AutoClose('}') <CR>a
-inoremap " <ESC>:call AutoClose('"') <CR>a
-inoremap ' <ESC>:call AutoClose("'") <CR>a
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
 
 " COMMAND RUN related
 func! RunScript(...)
@@ -328,25 +340,25 @@ q:             # history
 {% tabs %}
 {% tab title='vim' %}
 
-* -p: Open with each tab ([ex] *.cpp)
+* vim
+  * -p: Open with each tab ([ex] *.cpp)
+  * -o: Open with horizontal split ([ex] *)
+  * -o: Open with vertical split ([ex] *)
 
-{% endtab %}
-{% endtabs %}
+* vim.lastline
+  * split
+    * :tabe file: in a new tab
+    * Ctrl+w+r: vsplit swap window
+    * Ctrl+w+=: vsplit resize equal dimension
+    * :vs file: in a split mode
+    * :Sex / Vex: split and open file explore
+    * :tabnew file: open as a new tap
 
-## Split Tab
-
-{% tabs %}
-{% tab title='vim' %}
-
-* -o: Open with horizontal split ([ex] *)
-* -o: Open with vertical split ([ex] *)
-* split
-  * :tabe file: in a new tab
-  * Ctrl+w+r: vsplit swap window
-  * Ctrl+w+=: vsplit resize equal dimension
-  * :vs file: in a split mode
-  * :Sex / Vex: split and open file explore
-  * :tabnew file: open as a new tap
+* vim.normal
+  * g
+    * `n`gt: go to `n` tab
+    * t: Go to next Tab
+    * T: Go to previous Tab
 
 {% endtab %}
 {% endtabs %}

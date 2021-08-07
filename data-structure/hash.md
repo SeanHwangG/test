@@ -156,6 +156,13 @@ alias untar='tar -zxvf '
 * delete(`value`): Delete `value` in set
 * has(`value`): Check existance of `value` in set
 
+* jinja
+  * \{\{ list1 | unique }}: To get a unique set from a list:
+  * \{\{ list1 | union(list2) }}: To get a union of two lists
+  * \{\{ list1 | intersect(list2) }}: unique list of all items in both
+  * \{\{ list1 | difference(list2) }}: items in 1 that don’t exist in 2
+  * \{\{ list1 | symmetric_difference(list2) }}: list1 - list2
+
 ```js
 // 1. Basic example
 var set = new Set();
@@ -173,50 +180,47 @@ console.log([...new Set(numbers)])
 
 {% include 'set.test' %}
 
-> Method
+* set()
+  * issubset(`other`)
+  * set <= other
+    * every element in the set is in other
 
-* issubset(`other`)
-* set <= other
-  * every element in the set is in other
+  * `set` | `other` | …: union `set` and `other`
+  * union(*`others`)
+    * a new set with elements from the set and all `others`
 
-* `set` | `other` | …: union `set` and `other`
-* union(*`others`)
-  * a new set with elements from the set and all `others`
+  * set & other
+  * intersection(*other)
+    * element that are in both set and other
 
-* set & other
-* intersection(*other)
-  * element that are in both set and other
+  * set ^ other
+  * symmetric_difference(other): set with elements in either the set or other but not both
+  * set < other: set <= other and set != other
+  * set >= other: if every element in another is in the set
+  * set > other: set >= other and set != other
+  * set - other: set with elements in the set that are not in the others
+  * add(elem): Add elem to the set
+  * copy(): a shallow copy of the set
+  * discard(elem): Remove element elem from the set if it is present
+  * isdisjoint(`other`): True if the set has no elements in common with `other`
+  * pop(): Remove and return an arbitrary element. Raises KeyError if empty. O(1)
+    * Raise KeyError if set is empty
+  * remove(elem): Remove elem from the set. Raises KeyError if elem is not in the set
 
-* set ^ other
-* symmetric_difference(other)
-  * set with elements in either the set or other but not both
+  ```py
+  # 1. Create, add, remove
+  a = set() : Create
+  a = set([2, 3])
 
-* set < other: set <= other and set != other
-* set >= other: if every element in another is in the set
-* set > other: set >= other and set != other
-* set - other: set with elements in the set that are not in the others
-* add(elem): Add elem to the set
-* copy(): a shallow copy of the set
-* discard(elem): Remove element elem from the set if it is present
-* isdisjoint(`other`): True if the set has no elements in common with `other`
-* pop(): Remove and return an arbitrary element. Raises KeyError if empty. O(1)
-  * Raise KeyError if set is empty
-* remove(elem): Remove elem from the set. Raises KeyError if elem is not in the set
+  a.add(1)
+  a.add(3)
 
-```py
-# 1. Create, add, remove
-a = set() : Create
-a = set([2, 3])
+  a.remove(3)
+  if 3 in a:
+    print("3 exists")
 
-a.add(1)
-a.add(3)
-
-a.remove(3)
-if 3 in a:
-  print("3 exists")
-
-print(a)    # {1, 2, 3}
-```
+  print(a)    # {1, 2, 3}
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -522,6 +526,19 @@ print(list(c.values())) # [1, 4, 2]
 
 {% include '.counter.prob' %}
 
+### Defaultdict
+
+{% tabs %}
+{% tab title='python' %}
+
+* subclass of dict
+* vs setdefault: When look up a missing key, do you want an empty list, or a KeyError
+
+{% endtab %}
+{% endtabs %}
+
+{% include '.defaultdict.prob' %}
+
 ### Ordered map
 
 {% tabs %}
@@ -599,3 +616,5 @@ align_with_list({'potato': 'A', 'tomato': 'B', 'sandwich': 'C'}, ['sandwich', 'p
 
 {% endtab %}
 {% endtabs %}
+
+{% include '.ordered-map.prob' %}

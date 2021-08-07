@@ -309,48 +309,6 @@ class Response(models.Model):
 
 {% include '.aggregate.prob' %}
 
-## SQL Date
-
-![overlap](images/20210218_145536.png)
-
-```sql
--- 1. sales data from 2013-01-03 to 2013-01-09
-SELECT * FROM Product_sales
-  WHERE NOT (From_date > @RangeTill OR To_date < @RangeFrom)
-
--- 2. check range overlap
-SELECT * FROM tbl WHERE existing_start BETWEEN $newSTart AND $newEnd OR
-                        $newStart BETWEEN existing_start AND existing_end
-
--- 3. Different formats
----- SQL Server string to date / datetime conversion - datetime string format sql server
----- MSSQL string to datetime conversion - convert char to date - convert varchar to date
----- Subtract 100 from style number (format) for yy instead yyyy (or ccyy with century)
-SELECT convert(datetime, 'Oct 23 2012 11:01AM', 100) -- mon dd yyyy hh:mmAM (or PM)
-SELECT convert(datetime, 'Oct 23 2012 11:01AM') -- 2012-10-23 11:01:00.000
-
----- Without century (yy) string date conversion - convert string to datetime function
-SELECT convert(datetime, 'Oct 23 12 11:01AM', 0) -- mon dd yy hh:mmAM (or PM)
-SELECT convert(datetime, 'Oct 23 12 11:01AM') -- 2012-10-23 11:01:00.000
-
----- Convert string to datetime sql - convert string to date sql - sql dates format
----- T-SQL convert string to datetime - SQL Server convert string to date
-SELECT convert(datetime, '10/23/2016', 101) -- mm/dd/yyyy
-SELECT convert(datetime, '2016.10.23', 102) -- yyyy.mm.dd ANSI date with century
-SELECT convert(datetime, '23/10/2016', 103) -- dd/mm/yyyy
-SELECT convert(datetime, '23.10.2016', 104) -- dd.mm.yyyy
-SELECT convert(datetime, '23-10-2016', 105) -- dd-mm-yyyy
-
----- mon types are nondeterministic conversions, dependent on language setting
-SELECT convert(datetime, '23 OCT 2016', 106) -- dd mon yyyy
-SELECT convert(datetime, 'Oct 23, 2016', 107) -- mon dd, yyyy
-
----- 2016-10-23 00:00:00.000
-SELECT convert(datetime, '20:10:44', 108) -- hh:mm:ss
-```
-
-{% include '.dql-date.prob' %}
-
 ## Over
 
 {% include '.over.prob' %}
@@ -894,3 +852,7 @@ try {
 
 {% endtab %}
 {% endtabs %}
+
+## Window Function
+
+{% include '.window-function.prob' %}

@@ -33,6 +33,8 @@
 {% tabs %}
 {% tab title='python' %}
 
+* continue: skip the rest of the code inside a loop for the current iteration only
+
 ```py
 # 1. Skip for i
 for val in "string":
@@ -162,19 +164,21 @@ sizeof(arr) / sizeof(arr[0]);
   * -c n-: remove first n - 1 chatacter
   * -d -f1 /etc/passwd: Get all user I can use
 
+  ```sh
+  cut -d: -f1 /etc/passwd        # List users
+  cut -d: -f1 /etc/group | sort  # List groups
+  rev | cut -c -5 | rev          # Grep last 5 charcter
+  cut -f -1 -d "/"               # remove filename
+  ```
+
 * tr
   * -d: search and delete any character or string from a text
   * -s: compress same adjacent character output to single token
   * `a-z` `A-Z`: prints in capital letters
 
-```sh
-# 1. Cut example
-rev | cut -c -5 | rev # Grep last 5 charcter
-cut -f -1 -d "/"  # remove filename
-
-# 2. tr
-tr ':' '\n' <<< $PATH  # Print path in one line
-```
+  ```sh
+  tr ':' '\n' <<< $PATH  # Print path in one line
+  ```
 
 {% endtab %}
 {% endtabs %}
@@ -189,26 +193,24 @@ tr ':' '\n' <<< $PATH  # Print path in one line
 {% tabs %}
 {% tab title='cpp' %}
 
-> numeric
+* numeric
+  * accumulate(): Accumulate values in range
 
-* accumulate(): Accumulate values in range
+    ```cpp
+    #include <numeric>
+    using namespace std;
 
-```cpp
-#include <numeric>
-using namespace std;
+    vector<vector<int>> m = {{0, 1}, {2, 3}};
+    auto sum = accumulate(m.cbegin(), m.cend(), 0, [](auto lhs, const auto& rhs) {
+      return accumulate(rhs.cbegin(), rhs.cend(), lhs);
+    });
 
-// 1. sum vector
-vector<vector<int>> m = {{0, 1}, {2, 3}};
-auto sum = accumulate(m.cbegin(), m.cend(), 0, [](auto lhs, const auto& rhs) {
-  return accumulate(rhs.cbegin(), rhs.cend(), lhs);
-});
-
-vector<int> nums(5);
-iota(nums.begin(), nums.end(), 1);
-int sum = accumulate(nums.begin(), nums.end(), 0, [](int total, int current) {
-  return total + current;
-});
-```
+    vector<int> nums(5);
+    iota(nums.begin(), nums.end(), 1);
+    int sum = accumulate(nums.begin(), nums.end(), 0, [](int total, int current) {
+      return total + current;
+    });
+    ```
 
 {% endtab %}
 {% endtabs %}
@@ -280,15 +282,8 @@ li[-2]    # 0
 
 ```py
 """ 1. Insertion """
-a = [1, 2, 3]
-a[0:0] = [-3, -2, -1, 0]
-[-3, -2, -1, 0, 1, 2, 3]
-
-""" 2. Deletion """
-# a = [-3, -2, -1, 0, 1, 2, 3]
-a[2:4] = []
-# a [-3, -2, 1, 2, 3]
-
+[1, 2, 3][0:0] = [-3, -2, -1, 0] # Insertion[-3, -2, -1, 0, 1, 2, 3]
+[-3, -2, -1, 0, 1, 2, 3][2:4]    # Deletion [-3, -2, 1, 2, 3]
 ```
 
 {% endtab %}
@@ -342,9 +337,7 @@ foo: ; @for i in a b c d; do $(info $$i); done  # WRONG
 {% endtab %}
 {% tab title='python' %}
 
-> Comprehension
-
-* constructs that allow sequences to be built from other sequence
+* Comprehension: constructs that allow sequences to be built from other sequence
 
 ```py
 # 1. Loop numbers, lists, string
@@ -513,10 +506,6 @@ done
 
 {% include '.for-each.prob' %}
 
-### For break
-
-{% include '.for-break.prob' %}
-
 ### For nested
 
 {% tabs %}
@@ -637,29 +626,51 @@ endwhile
 
 {% include '.while.prob' %}
 
-### While break
+## While break
 
 {% tabs %}
 {% tab title='python' %}
 
-```py
-""" 1. Stop when i == 3 """
-i = 1
-while i < 6:
-  print(i)
-  if i == 3:
-    break
-  i += 1
+* break: terminates the loop containing it
 
-""" 2. a + b until input is 0 0 """
-while True:
-  a, b = map(int, input().split())
-  if a == b == 0:
-    break
-  print(a + b)
-```
+  ```py
+  """ 1. Stop when i == 3 """
+  i = 1
+  while i < 6:
+    print(i)
+    if i == 3:
+      break
+    i += 1
+
+  """ 2. a + b until input is 0 0 """
+  while True:
+    a, b = map(int, input().split())
+    if a == b == 0:
+      break
+    print(a + b)
+  ```
 
 {% endtab %}
 {% endtabs %}
 
 {% include '.while-break.prob' %}
+
+### For break
+
+{% tabs %}
+{% tab title='python' %}
+
+```py
+""" 1. break else loop """
+for item in container:
+  if search_something(item):
+    process(item)
+    break
+else:    # else executes after the loop completes normally
+  not_found_in_container()
+```
+
+{% endtab %}
+{% endtabs %}
+
+{% include '.for-break.prob' %}

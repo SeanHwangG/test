@@ -86,6 +86,21 @@
   * Blue-Green deploy: two complete deployments with active (rolled out) + idle (test)
   * Maintenance Release: release of a product that does not add new features or content
 
+## Email
+
+{% tabs %}
+{% tab title='google' %}
+
+1. Settings on top right
+  ![Settings](images/20210806_215637.png)
+1. See all Settings
+1. Forwarding and POP/IMAP
+1. Add a forwarding address
+  ![Forwarding address](images/20210806_215729.png)
+
+{% endtab %}
+{% endtabs %}
+
 ## Extreme Programming
 
 * development methodology to improve software quality, responsiveness to changing customer requirements
@@ -118,9 +133,23 @@
 * Do not focus too much on tech: recruitment, budgets, performance reviews, persuading, coaching
 * Keep developers productive, team around them work to remove any obstacles or distractions
 
+> Terms
+
+* One-One Meeting: Recurring, private, Open-ended leading questions, listen, and take notes
+  * Their opinion of the team and their performance
+  * Details about individuals: Are they superstars or struggling?
+  * Framing of the current project or workstream: How long have they been doing it? Has it changed much?
+  * Thoughts on how best to work with them, You don’t necessarily have to follow this, but another opinion always helps
+  * General advice about how to do your role within the organization
+
+> Example
+
+* Email: Your primary source of incoming messages, Do not delete, Keep it clean
+
 > Reference
 
 <https://www.thoughtworks.com/insights/blog/techie-tech-lead-my-5-biggest-mistakes>
+<https://www.educative.io/courses/become-an-effective-engineering-manager>
 
 ## License
 

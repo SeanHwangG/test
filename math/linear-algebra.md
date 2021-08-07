@@ -2,98 +2,76 @@
 
 > Terms
 
-* E: Essential matrix
-* F: Fundametal matrix
-* q: pixel coordinate
+* Essential matrix (E)
+  ![Es](images/20210802_223516.png)
+  * 3 x 3 matrix (maps point to line)
+  * 5 DOF (3 dof for rotation, 3 dof for translation. Up to a scale, so 1 dof is removed)
+
+* Fundametal matrix (F)
 
 * Determinant
-
-$$
-|A|=\left|\begin{array}{lll}
-a & b & c \\
-d & e & f \\
-g & h & i
-\end{array}\right|=a\left|\begin{array}{cc}
-e & f \\
-h & i
-\end{array}\right|-b\left|\begin{array}{ll}
-d & f \\
-g & i
-\end{array}\right|+c\left|\begin{array}{ll}
-d & e \\
-g & h
-\end{array}\right|
-$$
+  $$
+  |A|=\left|\begin{array}{lll}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+  \end{array}\right|=a\left|\begin{array}{cc}
+  e & f \\
+  h & i
+  \end{array}\right|-b\left|\begin{array}{ll}
+  d & f \\
+  g & i
+  \end{array}\right|+c\left|\begin{array}{ll}
+  d & e \\
+  g & h
+  \end{array}\right|
+  $$
 
 * EigenValue
   * x: eigenvector
-
-$$ Ax = λx $$
-$$ (A - λI) * x = 0 $$
+  $$ Ax = λx $$
+  $$ (A - λI) * x = 0 $$
 
 * Nullspace
+  $$ N=\left\{x \in R^{n} \mid A x=0\right\} $$
 
-$$ N=\left\{x \in R^{n} \mid A x=0\right\} $$
-
-* Nullity
-  * dimension of its nullspace
-
-$$
-\left[\begin{array}{ccccc}
-1 & 1 & 0 & 7 & -2 \\
-0 & 0 & 1 & -2 & 2
-\end{array}\right]\left[\begin{array}{c}
-x_{1} \\
-x_{2} \\
-x_{3} \\
-x_{4} \\
-x_{5}
-\end{array}\right]=\left[\begin{array}{c}
--1 \\
-1 \\
-0 \\
-0 \\
-0
-\end{array}\right]+x_{4}\left[\begin{array}{c}
--7 \\
-0 \\
-2 \\
-1 \\
-0
-\end{array}\right]+x_{5}\left[\begin{array}{c}
-2 \\
-0 \\
--2 \\
-0 \\
-1
-\end{array}\right]
-$$
-
-* Orthonormal
-  * A square matrix is orthonormal (also called unitary) if its columns are orthonormal vectors
-  * A rotation matrix is an orthonormal matrix with determinant = 1
-  * also possible for an orthonormal matrix to have determinant = -1
-This is a rotation plus a flip (reflection)
-
+* Nullity: dimension of its nullspace
+* Orthonormal: Square matrix is orthonormal (also called unitary) if its columns are orthonormal vectors
+  * rotation matrix is an orthonormal matrix with determinant = 1
+  * Also possible for an orthonormal matrix to have determinant = -1
+  * This is rotation plus a flip (reflection)
   * A matrix A is orthonormal iff
+  $$
+  \mathrm{A}^{-1}=\mathrm{A}^{\top} \\
+  \mathrm{AA}^{\top}=\mathrm{A}^{\top} \mathrm{A}=\mathrm{I}
+  $$
 
-$$
-\mathrm{A}^{-1}=\mathrm{A}^{\top} \\
-\mathrm{AA}^{\top}=\mathrm{A}^{\top} \mathrm{A}=\mathrm{I}
-$$
+* Principal point: Where principal axis and image plane meets
 
-* Principal point
-  * Where principal axis and image plane meets
+* Rank: Dimension of column space
 
-* Rank
-  * Dimension of column space
-
-* Skew Symmetric
-  * matrix S is skew symmetric iff S = -S^T
+* Skew Symmetric: matrix S is skew symmetric iff S = -S^T
   * The determinant of a skew symmetric matrix is 0
 
-* Trace
-  * Sum of diagonal elements. If it is non-square, undefined
+* Trace: Sum of diagonal elements. If it is non-square, undefined
+
+> Example
+
+* Find Nullity
+  $$
+  \left[\begin{array}{ccccc}
+  1 & 1 & 0 & 7 & -2 \\
+  0 & 0 & 1 & -2 & 2
+  \end{array}\right]\left[\begin{array}{c}
+  x_{1} \\ x_{2} \\ x_{3} \\ x_{4} \\ x_{5}
+  \end{array}\right]=\left[\begin{array}{c}
+  -1 \\ 1 \\ 0 \\ 0 \\ 0
+  \end{array}\right]+x_{4}\left[\begin{array}{c}
+  -7 \\ 0 \\ 2 \\ 1 \\ 0
+  \end{array}\right]+x_{5}\left[\begin{array}{c}
+  2 \\ 0 \\ -2 \\ 0 \\ 1
+  \end{array}\right]
+  $$
 
 ## Vector
 
@@ -142,6 +120,18 @@ $$
   * matrix is not invertible
   * matrix is not full rank (i.e., rank < n)
 
+* OpenCV
+
+  |        | C1  | C2  | C3  | C4  | C(5) | C(6) | C(7) | C(8) |
+  | ------ | --- | --- | --- | --- | ---- | ---- | ---- | ---- |
+  | CV_8U  | 0   | 8   | 16  | 24  | 32   | 40   | 48   | 56   |
+  | CV_8S  | 1   | 9   | 17  | 25  | 33   | 41   | 49   | 57   |
+  | CV_16U | 2   | 10  | 18  | 26  | 34   | 42   | 50   | 58   |
+  | CV_16S | 3   | 11  | 19  | 27  | 35   | 43   | 51   | 59   |
+  | CV_32S | 4   | 12  | 20  | 28  | 36   | 44   | 52   | 60   |
+  | CV_32F | 5   | 13  | 21  | 29  | 37   | 45   | 53   | 61   |
+  | CV_64F | 6   | 14  | 22  | 30  | 38   | 46   | 54   | 62   |
+
 > Question
 
 * Derivation of fundamental matrix
@@ -156,6 +146,26 @@ X_{L}^{T} E X_{R}=0 \\
 $$
 
 {% tabs %}
+{% tab title='cpp' %}
+
+* Mat
+
+* cv
+  * Mat(Size size, int type): Size can be int rows, int cols
+  * Mat(Size size, int type, const Scalar& s): initialize each matrix element with
+  * Mat::eye(4, 4, CV_64F);
+  * Mat::ones(2, 2, CV_32F);
+  * Mat::zeros(3,3, CV_8UC1);
+
+* cv.Mat
+  * CV_64FC1 is simple grayscale image
+  * C: number of channels in the matrix
+  * format(R, Formatter::FMT): print in format in cout << (FMT_PYTHON / FMT_CSV)
+  * rows: cols               // show n rows, cols
+  * type(): show type
+  * typeToString()
+
+{% endtab %}
 {% tab title='python' %}
 
 * numpy
@@ -301,6 +311,8 @@ def gaussian2d(filter_size=7, sig=1.0):
 
 ### Transformation
 
+> Term
+
 * Affine: $[A]_{2 \times 3}$
   * any transformation that preserves collinearity
   * 6DOF
@@ -329,6 +341,7 @@ def gaussian2d(filter_size=7, sig=1.0):
 * Translation: [ex] $$ { }^{ a } t _{ b } $$: translation of the a origin wrt camera b
   ![Translation](images/20210314_004655.png)
 
+* Orbit: Translate -> Rotation
 * Rotation
   * Counterclockwise
   * RTR = I
@@ -337,18 +350,20 @@ def gaussian2d(filter_size=7, sig=1.0):
   ![Rotation in 2D](images/20210314_004635.png)
   ![Rotation in 3D](images/20210314_004543.png)
 
-> Question
+* Spin: Translate to origin -> Rotate -> Translate Back
+  $$ p^{\prime}=T^{-1} R T p $$
+
+> Example
 
 * Translate 4x4 matrices by (3, -1, 4)
-
-$$
-\left(\begin{array}{lllc}
-1 & 0 & 0 & 3 \\
-0 & 1 & 0 & -1 \\
-0 & 0 & 1 & 4 \\
-0 & 0 & 0 & 0
-\end{array}\right)
-$$
+  $$
+  \left(\begin{array}{lllc}
+  1 & 0 & 0 & 3 \\
+  0 & 1 & 0 & -1 \\
+  0 & 0 & 1 & 4 \\
+  0 & 0 & 0 & 0
+  \end{array}\right)
+  $$
 
 ## Coordinate System
 

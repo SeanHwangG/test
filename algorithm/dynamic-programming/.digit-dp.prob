@@ -1,0 +1,239 @@
+> baekjoon
+
+* [Level 14 : 자리합](https://www.acmicpc.net/problem/5425)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/digit-dp/BJ_5425.md/)
+
+{% tabs %}
+{% tab title='BJ_5425.md' %}
+
+> Question
+
+* Print sum of digits between [a, b]
+
+```txt
+Input:
+1
+28 31
+
+Output: 28    # 2+8 + 2+9 + 3+0 + 3+1 = 28
+```
+
+{% endtab %}
+{% tab title='BJ_5425.py' %}
+
+```py
+def sum1ToN(n):
+  if n < 10:
+    return n * (n + 1) // 2
+  a, b = int(str(n)[0]), int(str(n)[1:])
+  N = len(str(n)) - 1
+  return (45 * a * N + a * (a - 1) // 2 * 10) * (10 ** (N - 1)) + a * (b + 1) + sum1ToN(b)
+n = int(input())
+
+for _ in range(n):
+  a, b = map(int, input().split())
+  print(sum1ToN(b) - sum1ToN(a - 1))
+```
+
+{% endtab %}
+{% endtabs %}
+
+> leetcode
+
+* [Level 2 : Count Numbers with Unique Digits](https://leetcode.com/problems/count-numbers-with-unique-digits)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/digit-dp/LC_357.md/)
+
+{% tabs %}
+{% tab title='LC_357.md' %}
+
+> Question
+
+* Given an integer n, return the count of all numbers with unique digits, x, where 0 <= x < 10^n
+
+```txt
+Input: n = 2
+Output: 91  # excluding 11, 22
+```
+
+{% endtab %}
+{% tab title='LC_357.py' %}
+
+```py
+def countNumbersWithUniqueDigits(self, n: int) -> int:
+  res, prev = 10, 9
+  for i in range(1, n):
+    prev *= 10 - i
+    res += prev
+  return n and res or 1
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Numbers With Repeated Digits](https://leetcode.com/problems/numbers-with-repeated-digits)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/digit-dp/LC_1012.md/)
+
+{% tabs %}
+{% tab title='LC_1012.md' %}
+
+> Question
+
+* Given a positive integer N, return # positive integers less than or equal to N that have at least 1 repeated digit
+
+```txt
+Input: 20
+Output: 1
+```
+
+> Solution
+
+* Count res the Number Without Repeated Digit
+* Transform N + 1 to List
+* Count the number with digits < n
+* Count the number with same prefix
+
+```txt
+XXX
+XX
+X
+1XXX ~ 7XXX
+80XX ~ 86XX
+870X ~ 875X
+8760 ~ 8765
+```
+
+{% endtab %}
+{% tab title='LC_1012.py' %}
+
+```py
+# O(logN)
+def numDupDigitsAtMostN(self, N):
+  L = list(map(int, str(N + 1)))
+  res = 0
+
+  for i in range(1, len(L)): res += 9 * math.perm(9, i - 1) # count postive number with digits less than K
+  s = set()
+  for i, x in enumerate(L):
+    for y in range(0 if i else 1, x):
+      if y not in s:
+        res += math.perm(9 - i, len(L) - i - 1)
+    if x in s: break
+    s.add(x)
+  return N - res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Number of Digit One](https://leetcode.com/problems/number-of-digit-one)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/digit-dp/LC_233.md/)
+
+{% tabs %}
+{% tab title='LC_233.md' %}
+
+> Question
+
+* Given an integer n, count the total number of digit 1 appearing in all non-negative integers less than or equal to n
+
+```txt
+Input: n = 13
+Output: 6         # 1, 10, 11, 12, 13
+```
+
+> Solution
+
+* sum out how often a "1" appears at each position
+* Given 3141592, when m=1000. Then a=3141 and b=592
+
+{% endtab %}
+{% tab title='LC_233.cpp' %}
+
+```cpp
+int countDigitOne(int n) {
+  int ones = 0;
+  for (long long m = 1; m <= n; m *= 10)
+    ones += (n / m + 8) / 10 * m + (n / m % 10 == 1) * (n % m + 1); // current digit/position being 0, 1
+  return ones;
+}
+```
+
+{% endtab %}
+{% tab title='LC_233.py' %}
+
+```py
+def countDigitOne(self, n):
+  ones, m = 0, 1
+  while m <= n:
+    # split 31013
+    # 2102 0
+    # 2100 4
+    # 2100 0
+    # 2000 14
+    # 10000 0
+    ones += (n // m + 8) // 10 * m + (n // m % 10 == 1) * (n % m + 1)
+    m *= 10
+  return ones
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Non-negative Integers without Consecutive Ones](https://leetcode.com/problems/non-negative-integers-without-consecutive-ones)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/digit-dp/LC_600.md/)
+
+{% tabs %}
+{% tab title='LC_600.md' %}
+
+> Question
+
+* Given a positive integer n, return # integers in range [0, n] whose binary representations do not contain consecutive ones
+
+```txt
+Input: n = 5
+Output: 5
+```
+
+> Solution
+
+1. Use fibonacci because 0-10000 is sum of 00000-01111 and 10000-10111
+2. If number starts with "11", all int will be smaller than our number, so return a Fibonacci number for n bits
+3. If number starts with "10", all int with n - 1 bits will be smaller than our number
+    * so, return Fibonacci number for n - 1 bits
+
+{% endtab %}
+{% tab title='LC_600.py' %}
+
+```py
+def findIntegers(self, n: int) -> int:
+  res, x, y, n = 0, 1, 2, n + 1   # 00000-01111 and 10000-10111 so fibonacci
+  while n:
+    if n & 3 == 3:
+      res = 0
+    res += x * (n & 1)
+    n >>= 1
+    x, y = y, x + y
+  return res
+```
+
+{% endtab %}
+{% endtabs %}
+
+* [Level 3 : Numbers At Most N Given Digit Set](https://leetcode.com/problems/numbers-at-most-n-given-digit-set)
+  * [Update solution](https://github.com/seanhwangg/blog/tree/main/algorithm/dynamic-programming/digit-dp/LC_902.md/)
+
+{% tabs %}
+{% tab title='LC_902.md' %}
+
+```txt
+Input: digits = ["1","3","5","7"], n = 100
+Output: 20
+```
+
+{% endtab %}
+{% tab title='LC_902.py' %}
+
+```py
+```
+
+{% endtab %}
+{% endtabs %}

@@ -219,6 +219,8 @@ endmodule
 
 {% include '.if.prob' %}
 
+{% include '.if-sql.prob' %}
+
 ### Ternary
 
 {% tabs %}
@@ -236,6 +238,36 @@ read x y w h
 a=$((x<w-x?x:w-x))
 b=$((y<h-y?y:h-y))
 echo $((a<b?a:b))
+```
+
+{% endtab %}
+{% tab title='sv' %}
+
+```v
+/* 1. ALU Module */
+module ALU(input [3:0] a, input [3:0] b, input [1:0] op, output reg [7:0] result);
+  always @ (*)
+    case (op)
+      0: result = a + b;
+      1: result = a * b;
+      2: result = a % b;
+      3: result = a & b;
+    endcase
+endmodule
+
+// Test
+module ALU_TB();
+  reg [3:0] a;
+  reg [3:0] b;
+  reg [1:0] op;
+  wire [7:0] res;
+  ALU DUT_ALU(a, b, op, res);
+
+  initial begin
+    $monitor("\n %d %c %d = %d \n", a, (op[1]? (op[0]? "&": "%"): (op[0]? "*": "+")) b, res);
+    a = 2; b = 3; op = 0; #10;
+    a = 3; b = 4; #10;
+  end
 ```
 
 {% endtab %}

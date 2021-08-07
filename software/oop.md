@@ -220,6 +220,50 @@ require('module-alias/register');
 * scriptlet: shared script with extension .sh which should be sourced
 * package + :: + function() ([ex] dir/function.sh : function dir::function())
 
+* nginx
+
+  ```conf
+  include vhosts/*.conf;
+  ```
+
+{% endtab %}
+{% tab title='sv' %}
+
+* declare an instance and its port connections
+* `module(a, b)`: port connection by parameters
+* `module(.a(a), .b(b))`: arguments (orders can be changed)
+
+![Full Adder](images/20210413_135912.png)
+
+```v
+// 2:1 mux
+module mux_assign { input wire din_0, ind_1, sel, output wire mux_out }
+assign mux_out = (sel)? din_1: din_0;
+endmodule
+
+// 4:1 mux
+module mux4(input logic [3:0] d0, d1, d2, d3,
+            input logic [1:0] s,
+            output logic [3:0] y);
+assign y=s[1] ? (s[0] ? d3 : d2) : (s[0] ? d1 : d0);
+endmodule
+
+// half_adder
+module half_adder(input A, input B, input S, output Cout);
+  and(Cout, A, B);
+  xor(S, A, B);
+endmodule
+
+// full_adder
+module full_adder(input A, input B, input Cin, output S, output Cout);
+  wire P, G, H;
+  half_adder ha1(A, B, P, G);   // by parameters
+  half_adder ha2(.A(P), .B(Cin), .S(S), .Cout(H)); // by arguments
+
+  or (Cout, G, H);
+endmodule
+```
+
 {% endtab %}
 {% endtabs %}
 
@@ -594,12 +638,11 @@ class Report {
 * private
 * protected
 
-> non-access modifiers
-
-* final: Cannot reassign value, throws compiler error if not initialized (initializer or assign), or reassigned
-  * variable: constant variable
-  * methods: prevent method overriding
-  * classes: prevent inheritance
+* non-access modifiers
+  * final: Cannot reassign value, throws compiler error if not initialized (initializer or assign), or reassigned
+    * variable: constant variable
+    * methods: prevent method overriding
+    * classes: prevent inheritance
 
 ```java
 // 1. Use getter and setter for complex getter, setter ([ex] lazy), or redefine in subclass
@@ -636,6 +679,18 @@ class Range {
   }
 }
 ```
+
+{% endtab %}
+{% tab title='python' %}
+
+* flask
+
+  ```py
+  global jinja accessible by {{ stage }}
+  @app.context_processor
+  def inject_stage_and_region():
+    return dict(stage="alpha", region="NA")
+  ```
 
 {% endtab %}
 {% endtabs %}
