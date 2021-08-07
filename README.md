@@ -1,51 +1,9 @@
-# README
+# Table of Contents
 
-This repository is for transferring knowledge and save snippets with unified syntax
+## bug.md
 
-Any comments, contributions are welcome.
-
-```sh
-# Reloatce images to appropriate folder
-make fix_include
-```
-
-## Tags
-
-* Sometimes, multiple language or tool support same feature
-* I combined them using [Gitbook Syntax](https://docs.gitbook.com/) ([ex] \{\% tabs %} \{\% tab title='' \%\})
-  * This prevents to create too much header ([ex] cpp.md#list, java.md#list, python.md#list)
-
-> Example
-
-* Available tabs that goes into the same \{% tabs %}
-* Language tabs: C, cmake, C++, html (jinja), java, javascript, python, shell, sql, sv, vim
-* Tool tabs: git, linux, window, jenkins, docker, apple, google, amazon
-
-## Convention
-
-1. Break if contents become larger than 15+ ([ex] list (*) -> h3 -> h2 -> h1=file)
-1. Use hyphen (-) for embed and file name (gitbook generates hypen when url encodes)
-1. Always follow linting rules with pre-commit
-1. Problem language is ordered alphabetically ([ex] c -> cpp -> java -> python -> shell)
-1. Using [include_file](https://github.com/SeanHwangG/include_file) syntax
-1. Put Reference in corresponding header so that others can also see additional contents
-
-## Block Quote
-
-* Content in each header is further devided into section with following block quote (>)
-
-> Example
-
-* Available Block quotes in order
-* Terms
-* Question / Solution: Only for Programming questions
-* Example
-* Error
-* Reference: Enclosed with angular bracket
-
-## Programming Sites
-
-* [Problem information, difficulty is handled using following django project](https://github.com/SeanHwangG/classroom)
-* Site: baekjoon (BJ\_\*), codechef (CC\_\*), codeforce (CF\_*), hackerrank (HR\_\*), kattis (KT\_\*), leetcode (LC_\*)
-
-* Planning to make these API publicly in graphQL
+* [Video](https://seanhwangg.gitbook.io/test/bug#video)
+  * [Codec Video](https://seanhwangg.gitbook.io/test/bug#codec-video)
+  * [Motion](https://seanhwangg.gitbook.io/test/bug#motion)
+  * [Streaming Video](https://seanhwangg.gitbook.io/test/bug#streaming-video)
+  * [Tracking](https://seanhwangg.gitbook.io/test/bug#tracking)

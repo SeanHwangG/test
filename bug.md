@@ -185,7 +185,7 @@ def capture_video():
 
 > Example
 
-{% link 'video_player' %}
+[video_player](https://github.com/seanhwangg/test/blob/deploy/bug/video_player)
 
 > Reference
 
